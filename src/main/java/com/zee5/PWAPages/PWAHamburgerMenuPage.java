@@ -1018,5 +1018,7 @@ public class PWAHamburgerMenuPage {
 	
 	public static By objBlankSpace = By.xpath("//*[@class='mainlink']");
 	
-	public static By objGrievanceRedressal = By.xpath(".//*[contains(@class,'noSelect menuItem') and contains(text(),'Grievance Redressal')]");
+	public static By objGrievanceRedressal = By.xpath("//a[contains(text(),'Grievance Redressal')]");
+	
+	public static By objGrievanceRedressalPage = By.xpath("//*[@id='navBarContainer']//span[contains(text(),'GRIEVANCE REDRESSAL')]");
 }

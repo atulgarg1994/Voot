@@ -96,7 +96,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	static ArrayList<String> marketwatchlist = new ArrayList<String>();
 	static ArrayList<String> Downloadedcontent = new ArrayList<String>();
 	static ArrayList<String> UpgradeDownloadedcontent = new ArrayList<String>();
-	
+	static ArrayList<String> MarketRecentSearch = new ArrayList<String>();
+	static ArrayList<String> UpgradeRecentSearch = new ArrayList<String>();
+	static ArrayList<String> UpgradeCWtray = new ArrayList<String>();
+	static ArrayList<String> MarketCWtray = new ArrayList<String>();
+
 	
 	private SoftAssert softAssertion = new SoftAssert();
 
@@ -28498,98 +28502,130 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		type(AMDAppUpgrade.objplaystoreSearch, "Zee5 \n", "Edit field");
 		hideKeyboard();
 		verifyElementPresentAndClick(AMDAppUpgrade.objInstallButton, "Install button");
-		waitForElementDisplayed(AMDAppUpgrade.objOpenButton, 50);
-		waitTime(40000);
+		waitForElementAndClickIfPresent(AMDAppUpgrade.objOpenButton, 100, "Open CTA");
 	}
 
 	public void LoginForUpgradeModule(String LoginMethod) throws Exception{
-	           System.out.println("\nLogin to the App");
+        System.out.println("\nLogin to the App");
+		
+		switch (LoginMethod) {
+		case "Guest":
+			extent.HeaderChildNode("Logged in as <b>Guest</b> User");
 			
-			switch (LoginMethod) {
-			case "Guest":
-				extent.HeaderChildNode("Logged in as <b>Guest</b> User");
-				
-				extent.extentLogger("Accessing the application as Guest user", "Accessing the application as <b>Guest</b> user");
-				break;
+			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as <b>Guest</b> user");
+			break;
 
-			case "NonSubscribedUser":
-				extent.HeaderChildNode("Login as NonSubscribed User");
+		case "NonSubscribedUser":
+			extent.HeaderChildNode("Login as NonSubscribed User");
 
-				String Username = getParameterFromXML("UpgradeNonsubscribedUserName");
-				String Password = getParameterFromXML("UpgradeNonsubscribedPassword");
+			String Username = getParameterFromXML("UpgradeNonsubscribedUserName");
+			String Password = getParameterFromXML("UpgradeNonsubscribedPassword");
 
-				verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
-				verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
-				verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
-				
-				click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
-				verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
-				type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
-				verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
-				verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
-				type(AMDLoginScreen.objPasswordField, Password, "Password field");
-				hideKeyboard();
-				verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
-				waitTime(3000);
-				break;
-
-			case "SubscribedUser":
-				extent.HeaderChildNode("Login as Subscribed User");
-
-				String SubscribedUsername = getParameterFromXML("SubscribedUserName");
-				String SubscribedPassword = getParameterFromXML("SubscribedPassword");
+			verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
 			
-				verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
-				verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
-				verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
-				
-				click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
-				verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
-				type(AMDLoginScreen.objEmailIdField, SubscribedUsername, "Email Field");
-				verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
-				verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
-				type(AMDLoginScreen.objPasswordField, SubscribedPassword, "Password field");
-				hideKeyboard();
-				verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
-				waitTime(3000);
-				break;
-			}
+			click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
+			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+			type(AMDLoginScreen.objPasswordField, Password, "Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+			waitTime(3000);
+			break;
+
+		case "SubscribedUser":
+			extent.HeaderChildNode("Login as Subscribed User");
+
+			String SubscribedUsername = getParameterFromXML("UpgradeSubscribedUserName");
+			String SubscribedPassword = getParameterFromXML("UpgradeSubscribedPassword");
+		
+			verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
+			
+			click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+			type(AMDLoginScreen.objEmailIdField, SubscribedUsername, "Email Field");
+			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+			type(AMDLoginScreen.objPasswordField, SubscribedPassword, "Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+			waitTime(3000);
+			break;
 		}
+	}
 		
 
 	@SuppressWarnings("unused")
 	public void GetSettingsDetails(String puserType) throws Exception{
-		extent.HeaderChildNode("Getting the user settings details");
-			
-		String	Username = null;
-		String	Password = null;	
-			if(pUserType.equalsIgnoreCase("SubscribedUser")) {
-			Username = getParameterFromXML("SubscribedUserName");
-			Password = getParameterFromXML("SubscribedPassword");
-			}else if(pUserType.equalsIgnoreCase("NonSubscribedUser")) {
-					Username = getParameterFromXML("UpgradeNonsubscribedUserName");
-					Password = getParameterFromXML("UpgradeNonsubscribedPassword");
-			}		
-		Properties pro = new Properties();
-	    String Streamvalue = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("streaming_quality");   
-	    String autoPlay = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("auto_play");  
-	    String downloadQuality = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("download_quality");
-	    if(downloadQuality.equalsIgnoreCase("High")) {
-	    	downloadQuality = "Better";
-	    }
-	    if(downloadQuality.equalsIgnoreCase("Medium")) {
-	    	downloadQuality = "Good";
-	    }
-	    if(downloadQuality.equalsIgnoreCase("Low")) {
-	    	downloadQuality = "Datasaver";
-	    }
-	    String Streamoverwifi = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("stream_over_wifi");
-	    String downloadoverwifi = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("download_over_wifi");
-	    String displaylang = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("display_language"); 
-	    if(displaylang.equalsIgnoreCase("en")) {
-	    	displaylang = "English";
-	    } 
-	    
+		extent.HeaderChildNode("Getting the user settings details for Market build");
+		String Streamvalue = null;
+		String Streamoverwifi = null;
+		String autoPlay = null;
+		String downloadQuality = null;
+		String downloadoverwifi = null;
+		String displaylang = null;
+		
+			if(puserType.equalsIgnoreCase("Guest")) {
+				click(AMDHomePage.MoreMenuIcon, "More menu icon");
+				verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
+				verifyElementExist(AMDSettingsScreen.objVideoQualityDefaultvalue,"Video Quality");
+				 Streamvalue = findElement(AMDSettingsScreen.objVideoQualityDefaultvalue).getText();
+				
+				verifyElementExist(AMDSettingsScreen.objStreamOverWifiValue,"Stream over wifi");
+				String StreamOverwifi = findElement(AMDSettingsScreen.objStreamOverWifiValue).getText();
+				 Streamoverwifi = getAttributValue("checked", AMDSettingsScreen.objStreamOverWifiValue);
+				
+				verifyElementExist(AMDSettingsScreen.objAutoPlayToggleSwitch,"Auto Play");
+				String AutoPlay = findElement(AMDSettingsScreen.objAutoPlayToggleSwitch).getText();
+				 autoPlay = getAttributValue("checked", AMDSettingsScreen.objAutoPlayToggleSwitch);
+				
+				verifyElementExist(AMDSettingsScreen.objDownloadQualityValue,"Download Quality");
+				 downloadQuality = findElement(AMDSettingsScreen.objDownloadQualityValue).getText();
+				
+				verifyElementExist(AMDSettingsScreen.objDownloadOverWifiToggle,"Download over wifi");
+				String DownloadOverWifi = findElement(AMDSettingsScreen.objDownloadOverWifiToggle).getText();
+				 downloadoverwifi = getAttributValue("checked", AMDSettingsScreen.objDownloadOverWifiToggle);
+				Swipe("UP", 1);
+				verifyElementExist(AMDSettingsScreen.objDisplayLangValue,"Display Launguage");
+				 displaylang = findElement(AMDSettingsScreen.objDisplayLangValue).getText();
+			}
+			else {
+				String	Username = null;
+				String	Password = null;	
+					if(pUserType.equalsIgnoreCase("SubscribedUser")) {
+					Username = getParameterFromXML("UpgradeSubscribedUserName");
+					Password = getParameterFromXML("UpgradeSubscribedPassword");
+					}else if(pUserType.equalsIgnoreCase("NonSubscribedUser")) {
+							Username = getParameterFromXML("UpgradeNonsubscribedUserName");
+							Password = getParameterFromXML("UpgradeNonsubscribedPassword");
+					}		
+				Properties pro = new Properties();
+			     Streamvalue = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("streaming_quality");   
+			     autoPlay = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("auto_play");  
+			     downloadQuality = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("download_quality");
+			    if(downloadQuality.equalsIgnoreCase("High")) {
+			    	downloadQuality = "Better";
+			    }
+			    if(downloadQuality.equalsIgnoreCase("Medium")) {
+			    	downloadQuality = "Good";
+			    }
+			    if(downloadQuality.equalsIgnoreCase("Low")) {
+			    	downloadQuality = "Datasaver";
+			    }
+			     Streamoverwifi = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("stream_over_wifi");
+			     downloadoverwifi = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("download_over_wifi");
+			     displaylang = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("display_language"); 
+			    if(displaylang.equalsIgnoreCase("en")) {
+			    	displaylang = "English";
+			    } 
+			    
+			}
+		
 	    extentLogger("", "Stream quality: " + Streamvalue );
 	    extentLogger("", "Auto play: " + autoPlay );
 	    extentLogger("", "Download quality: " + downloadQuality );
@@ -28606,7 +28642,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	 // marketsettings.add(contentlang);
 	    System.out.println("Market build user settings details : " + marketsettings);
 	    logger.info("Market build user settings details : " + marketsettings);
-		
+	    Back(2);
 	}
 
 	public void UninstallZee5() throws Exception{
@@ -28627,17 +28663,18 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void clearPlayStoreAppData() throws Exception {
-		
 		logger.info("Clearing play store app data");
 		extent.HeaderChildNode("Clearing play store app data");
 		Runtime.getRuntime().exec("adb shell pm clear -n com.android.vending");
 		logger.info("cleared playstore app data");
+		extent.extentLogger("", "cleared playstore app data");
 		waitTime(4000);
 		}
 
 	public void InstallZee5() throws Exception{
 		logger.info("Installing Zee5 Upgrade build");
 		extent.HeaderChildNode("Installing Zee5 Upgrade build");
+		
 	    LaunchPlayStoreApp();
 	    verifyElementPresentAndClick(AMDAppUpgrade.objgmailProfileicon, "Gmail profile icon");
 	    click(AMDAppUpgrade.objdownArrow,"Down arrow");
@@ -28725,109 +28762,125 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 
 
-public void GetContinueWatchingTrayDetails(String userType) throws Exception{
-	extent.HeaderChildNode("Get Continue watching tray details");
-//	Properties pro = new Properties();
-//	Response respCW = ResponseInstance.getRespofCWTray(userType);
-	Response respCW = ResponseInstance.getRespofCWTray(userType);
-    System.out.println(respCW);
-//	List<String> ApinoOfContentsInCW = respCW.jsonPath().getList("array");
-//	logger.info("no.of contents in CW tray in Api " + ApinoOfContentsInCW.size());
-
-//	ArrayList<String> listOfContentsInCW = new ArrayList<String>();
-//	System.out.println(listOfContentsInCW);
-
-//	for (int k = 0; k < ApinoOfContentsInCW.size(); k++) {
-//
-//		String title = respCW.jsonPath().getString("[" + k + "].title");
-//		listOfContentsInCW.add(title);
-//	}
-
-	//logger.info(listOfContentsInCW);
-
-
-}
-
-public void DownloadsDetails(String userType) throws Exception{
-	extent.HeaderChildNode("Get Downloads details");
-	verifyElementPresent(AMDHomePage.objDownloadBtn, "Downloads tab at the bottom navigation bar");
-	DownloadContent(content1, "Good", true);
-	click(AMDHomePage.objDownloadBtn, "Downloads tab");
-	waitTime(3000);
-	click(AMDDownloadPage.objshowstab, "Shows tab in Downloads landing screen");
-	if(verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
-		logger.info("There are no contents in Shows tab");	
-		extent.extentLogger("", "There are no contents in Shows tab");
+	public void GetContinueWatchingTrayDetails(String userType) throws Exception{
+		extent.HeaderChildNode("Get Continue watching tray details for Market build");
+		if(!userType.equalsIgnoreCase("Guest")) {
+		waitForElementDisplayed(AMDHomePage.objContinueWatchingTray, 30);
+		boolean ContinueWatchingTray = verifyIsElementDisplayed(AMDHomePage.objContinueWatchingTray);
+		if (ContinueWatchingTray) {
+			List<WebElement> tabs = getDriver().findElements(AMDHomePage.objCWtraycontents);
+			System.out.println(tabs.size());
+			PartialSwipe("UP", 1);
+			for (int i = 1; i <= tabs.size(); i++) {
+				System.out.println("i : " + i);
+				WebElement ele = findElement(AMDHomePage.objCWContent(i));
+			    String CWTrayFirstContentTitle = ele.getText();
+				logger.info("Continue watching content title " + i + ":" + CWTrayFirstContentTitle);
+				extentLogger("","Continue watching content title " + i + ":" + CWTrayFirstContentTitle);
+				MarketCWtray.add(CWTrayFirstContentTitle);
+			}		
+		   logger.info("Market build Continue watching tray contents: " + MarketCWtray );
+		}else {
+			logger.error("Continue watching tray not displayed");
+			extent.extentLoggerWarning("Continue watching Tray","Continue watching tray not displayed in");
+		}
+		}else {
+			logger.info("This is not applicable for " + userType);
+			extent.extentLogger("", "This is not applicable for " + userType);
+		}
 	}
-	else {
-		verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
-		String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent).getText();
-		System.out.println(DownloadedContentText);
-		logger.info("Downloaded content: " + DownloadedContentText + " is displayed");
-		extent.extentLogger("", "Downloaded content: " + DownloadedContentText + " is displayed");
-		Downloadedcontent.add(DownloadedContentText);
+
+	public void DownloadsDetails(String userType) throws Exception{
+		extent.HeaderChildNode("Get Downloads details for Market build");
+		if(!userType.equalsIgnoreCase("Guest")) {
+		verifyElementPresent(AMDHomePage.objDownloadBtn, "Downloads tab at the bottom navigation bar");
+		DownloadContent(content1, "Good", true);
+//		click(AMDHomePage.objDownloadBtn, "Downloads tab");
+		waitTime(3000);
+		click(AMDDownloadPage.objshowstab, "Shows tab in Downloads landing screen");
+		if(verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
+			logger.info("There are no contents in Shows tab");	
+			extent.extentLogger("", "There are no contents in Shows tab");
+		}
+		else {
+			verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
+			String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent).getText();
+			System.out.println(DownloadedContentText);
+			logger.info("Downloaded content: " + DownloadedContentText + " is displayed");
+			extent.extentLogger("", "Downloaded content: " + DownloadedContentText + " is displayed");
+			Downloadedcontent.add(DownloadedContentText);
+		}
+		click(AMDDownloadPage.objmoviestab, "Movies tab in Downlaods landing screen");
+		if(verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
+			logger.info("There are no contents in Movies tab");	
+			extent.extentLogger("", "There are no contents in Movies tab");
+		}
+		else {
+			verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
+			String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent).getText();
+			System.out.println(DownloadedContentText);
+			logger.info("Downloaded content: " + DownloadedContentText + " is displayed" );
+			extent.extentLogger("", "Downloaded content: " + DownloadedContentText + " is displayed" );
+			Downloadedcontent.add(DownloadedContentText);
+		}
+		click(AMDDownloadPage.objvideostab, "Videos tab in Downloads landing screen");
+		if(verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
+			logger.info("There are no contents in Videos tab");
+			extent.extentLogger("", "There are no contents in Vidoes tab");
+		}
+		else {
+			verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
+			String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent).getText();
+			System.out.println(DownloadedContentText);
+			logger.info("Downloaded content: " + DownloadedContentText + " is displayed" );
+			extent.extentLogger("","Downloaded content: " + DownloadedContentText + " is displayed");
+			Downloadedcontent.add(DownloadedContentText);
+		}
+		logger.info("Downloaded contents: " + Downloadedcontent );
 	}
-	click(AMDDownloadPage.objmoviestab, "Movies tab in Downlaods landing screen");
-	if(verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
-		logger.info("There are no contents in Movies tab");	
-		extent.extentLogger("", "There are no contents in Movies tab");
+		else {
+			logger.info("This is not applicable for " + userType);
+			extent.extentLogger("", "This is not applicable for " + userType);
+		}
+		
 	}
-	else {
-		verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
-		String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent).getText();
-		System.out.println(DownloadedContentText);
-		logger.info("Downloaded content: " + DownloadedContentText + " is displayed" );
-		extent.extentLogger("", "Downloaded content: " + DownloadedContentText + " is displayed" );
-		Downloadedcontent.add(DownloadedContentText);
-	}
-	click(AMDDownloadPage.objvideostab, "Videos tab in Downloads landing screen");
-	if(verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
-		logger.info("There are no contents in Videos tab");
-		extent.extentLogger("", "There are no contents in Vidoes tab");
-	}
-	else {
-		verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
-		String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent).getText();
-		System.out.println(DownloadedContentText);
-		logger.info("Downloaded content: " + DownloadedContentText + " is displayed" );
-		extent.extentLogger("","Downloaded content: " + DownloadedContentText + " is displayed");
-		Downloadedcontent.add(DownloadedContentText);
-	}
-	logger.info("Downloaded contents: " + Downloadedcontent );
-	BackToLandingScreen();
-}
 
 
-public void WatchListDetails(String userType) throws Exception{
-	extent.HeaderChildNode("Get Watchlist details");
-	String	Username = null;
-	String	Password = null;
-	if(pUserType.equalsIgnoreCase("SubscribedUser")) {
-		Username = getParameterFromXML("SubscribedUserName");
-		Password = getParameterFromXML("SubscribedPassword");
-		}else if(pUserType.equalsIgnoreCase("NonSubscribedUser")) {
-				Username = getParameterFromXML("UpgradeNonsubscribedUserName");
-				Password = getParameterFromXML("UpgradeNonsubscribedPassword");
+	public void WatchListDetails(String userType) throws Exception{
+		extent.HeaderChildNode("Get Watchlist details for Market build");
+		if(!userType.equalsIgnoreCase("Guest")) {
+		String	Username = null;
+		String	Password = null;
+		if(pUserType.equalsIgnoreCase("SubscribedUser")) {
+			Username = getParameterFromXML("UpgradeSubscribedUserName");
+			Password = getParameterFromXML("UpgradeSubscribedPassword");
+			}else if(pUserType.equalsIgnoreCase("NonSubscribedUser")) {
+					Username = getParameterFromXML("UpgradeNonsubscribedUserName");
+					Password = getParameterFromXML("UpgradeNonsubscribedPassword");
+			}		
+		Response respWatchlist = ResponseInstance.getWatchList1(Username,Password);
+		int totalcontent =	respWatchlist.jsonPath().getList("array").size();
+		extent.extentLogger("", "Number of contents in Watch list " + totalcontent);
+		System.out.println("Number of contents in Watch list " + totalcontent);		
+		String contentid=null;
+		for(int i=0;i<totalcontent;i++) {
+		 contentid = respWatchlist.jsonPath().getString("["+i+"].id");
+		 Response contentresp = ResponseInstance.getContentDetails1(contentid);
+		 String assetSubtype = contentresp.jsonPath().getString("asset_subtype");
+		 String contenttitle=null;
+		 if(assetSubtype.equalsIgnoreCase("episode")) {
+			  contenttitle = contentresp.jsonPath().getString("tvshow_details.title");
+		 }else {
+			  contenttitle = contentresp.jsonPath().getString("original_title");
+		 } 
+		marketwatchlist.add(contenttitle);		 
 		}		
-	Response respWatchlist = ResponseInstance.getWatchList1(Username,Password);
-	int totalcontent =	respWatchlist.jsonPath().getList("array").size();
-	extent.extentLogger("", "Number of contents in Watch list " + totalcontent);
-	System.out.println("Number of contents in Watch list " + totalcontent);		
-	String contentid=null;
-	for(int i=0;i<totalcontent;i++) {
-	 contentid = respWatchlist.jsonPath().getString("["+i+"].id");
-	 Response contentresp = ResponseInstance.getContentDetails1(contentid);
-	 String assetSubtype = contentresp.jsonPath().getString("asset_subtype");
-	 String contenttitle=null;
-	 if(assetSubtype.equalsIgnoreCase("episode")) {
-		  contenttitle = contentresp.jsonPath().getString("tvshow_details.title");
-	 }else {
-		  contenttitle = contentresp.jsonPath().getString("original_title");
-	 } 
-	marketwatchlist.add(contenttitle);		 
-	}		
-	 System.out.println(marketwatchlist);
-	 extent.extentLogger("", "Watch list contents: " + marketwatchlist);
+		 System.out.println(marketwatchlist);
+		 extent.extentLogger("", "Watch list contents: " + marketwatchlist);
+	}else {
+		logger.info("This is not applicable for " + userType);
+		extent.extentLogger("", "This is not applicable for " + userType);
+	}
 }
 
 public void navigateToIntroScreen_DisplaylangScreen1() throws Exception {
@@ -28858,16 +28911,16 @@ public void CaptureSettingsDetailsForupgradeBuild() throws Exception {
 	verifyElementExist(AMDSettingsScreen.objDownloadOverWifiToggle,"Download over wifi");
 	String DownloadOverWifi = findElement(AMDSettingsScreen.objDownloadOverWifiToggle).getText();
 	String downloadoverwifi = getAttributValue("checked", AMDSettingsScreen.objDownloadOverWifiToggle);
-	
+	Swipe("UP",1);
 	verifyElementExist(AMDSettingsScreen.objDisplayLangValue,"Display Launguage");
 	String DisplayLanguage = findElement(AMDSettingsScreen.objDisplayLangValue).getText();
 	
 	extentLogger("", "Stream quality: " + videoqaulity );
-  extentLogger("", "Auto play: " + autoplay );
-  extentLogger("", "Download quality: " + Downloadquality );
-  extentLogger("", "Stream over wifi: " + StreamOverWifi );
-  extentLogger("", "Download over wifi: " + DownloadOverWifi );
-  extentLogger("", "Display language: " + DisplayLanguage );	
+   extentLogger("", "Auto play: " + autoplay );
+   extentLogger("", "Download quality: " + Downloadquality );
+   extentLogger("", "Stream over wifi: " + StreamOverWifi );
+   extentLogger("", "Download over wifi: " + DownloadOverWifi );
+   extentLogger("", "Display language: " + DisplayLanguage );	
 
 	Upgradesettings.add(videoqaulity);
 	Upgradesettings.add(autoplay);
@@ -28892,8 +28945,9 @@ public void CaptureSettingsDetailsForupgradeBuild() throws Exception {
 	BackToLandingScreen();
 }
 
-public void captureWatchlistDetailsForUpgradeBuild() throws Exception{
+public void captureWatchlistDetailsForUpgradeBuild(String userType) throws Exception{
 	extent.HeaderChildNode("Capture Watchlist Details for Upgrade build");
+	if(!userType.equalsIgnoreCase("Guest")) {
 	verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
 	click(AMDMoreMenu.objWatchlist, "My Watchlist");
 	waitTime(3000);
@@ -28917,13 +28971,17 @@ public void captureWatchlistDetailsForUpgradeBuild() throws Exception{
 	
 	for(int i=0;i<Upgradewatchlist.size();i++) {
 		
-		if(Upgradewatchlist.get(i).equalsIgnoreCase(Upgradewatchlist.get(i))){
+		if(marketwatchlist.get(i).equalsIgnoreCase(Upgradewatchlist.get(i))){
 			logger.info("Market build Watchlist details: " + marketwatchlist.get(i) + " is same as Upgrade build :" + Upgradewatchlist.get(i));
 			extent.extentLoggerPass("", "Market build Watchlist details: " + marketwatchlist.get(i) + " is same as Upgrade build :" + Upgradewatchlist.get(i));
 		}else {
 			logger.error("Market build Watchlist details: " + marketwatchlist.get(i) + " is NOT same as Upgrade build :" + Upgradewatchlist.get(i));
 			extent.extentLoggerFail("", "Market build Watchlist details: " + marketwatchlist.get(i) + " is NOT same as Upgrade build :" + Upgradewatchlist.get(i));
 		}
+	}
+	}else {
+		logger.info("This is not applicable for " + userType);
+		extent.extentLogger("", "This is not applicable for " + userType);
 	}
 	}
 
@@ -29019,25 +29077,212 @@ public void CaptureDownloadsForrUpgradeBuild() throws Exception{
 }
 
 
-public void CaptureContinueWatchingTrayForUpgradeBuild() throws Exception{
+public void CaptureContinueWatchingTrayForUpgradeBuild(String userType) throws Exception{
 	extent.HeaderChildNode("Capture Continue watching tray details for Upgrade build");
+	if(!userType.equalsIgnoreCase("Guest")) {
 	waitForElementDisplayed(AMDHomePage.objContinueWatchingTray, 30);
 	boolean ContinueWatchingTray = verifyIsElementDisplayed(AMDHomePage.objContinueWatchingTray);
 	if (ContinueWatchingTray) {
 		List<WebElement> tabs = getDriver().findElements(AMDHomePage.objCWtraycontents);
-		System.out.println(tabs.size());		
+		System.out.println(tabs.size());
+		PartialSwipe("UP", 1);
 		for (int i = 1; i <= tabs.size(); i++) {
 			System.out.println("i : " + i);
 			WebElement ele = findElement(AMDHomePage.objCWContent(i));
 		    String CWTrayFirstContentTitle = ele.getText();
-		logger.info(i + " Continue watching content title : " + CWTrayFirstContentTitle);
-		extentLogger("", i + " Continue watching content title :  " + CWTrayFirstContentTitle);
+			logger.info("Continue watching content title " + i + ":" + CWTrayFirstContentTitle);
+			extentLogger("","Continue watching content title " + i + ":" + CWTrayFirstContentTitle);
+			UpgradeCWtray.add(CWTrayFirstContentTitle);
+		}		
+	   logger.info("Upgrade build Continue watching tray contents: " + UpgradeCWtray );
+	   
+	   for(int i=0;i<UpgradeCWtray.size();i++) {		
+		if(MarketCWtray.get(i).equalsIgnoreCase(UpgradeCWtray.get(i))){
+			logger.info("Market build Continue watching tray content: " + MarketCWtray.get(i) + " is same as Upgrade build :" + UpgradeCWtray.get(i));
+			extent.extentLoggerPass("", "Market build Continue watching tray content: " + MarketCWtray.get(i) + " is same as Upgrade build :" + UpgradeCWtray.get(i));
+		}else {
+			logger.error("Market build Continue watching tray content " + MarketCWtray.get(i) + " is NOT same as Upgrade build :" + UpgradeCWtray.get(i));
+			extent.extentLoggerFail("", "Market build Continue watching tray content: " + MarketCWtray.get(i) + " is NOT same as Upgrade build :" + UpgradeCWtray.get(i));
 		}
-	}else {
+	}
+	}
+	else {
 		logger.info("Continue watching tray not displayed");
 		extent.extentLoggerWarning("Continue watching Tray","Continue watching tray not displayed in");
 	}
 	
+	}else {
+		logger.info("This is not applicable for " + userType);
+		extent.extentLogger("", "This is not applicable for " + userType);
+	}
+}
+
+public void CaptureDownloadsForUpgradeBuild(String userType) throws Exception{
+	extent.HeaderChildNode("Capture Downloads Details for Upgrade build");
+	if(!userType.equalsIgnoreCase("Guest")) {
+	verifyElementPresent(AMDHomePage.objDownloadBtn, "Downloads tab at the bottom navigation bar");
+	
+	click(AMDHomePage.objDownloadBtn, "Downloads tab");
+	waitTime(3000);
+	click(AMDDownloadPage.objshowstab, "Shows tab in Downloads landing screen");
+	if(verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
+		logger.info("There are no contents in Shows tab");	
+		extent.extentLogger("", "There are no contents in Shows tab");
+	}
+	else {
+		verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
+		String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent).getText();
+		//System.out.println(DownloadedContentText);
+		logger.info(DownloadedContentText + " downloaded content is displayed");
+		extent.extentLogger("", DownloadedContentText + " downloaded content is displayed");
+		UpgradeDownloadedcontent.add(DownloadedContentText);
+	}
+	click(AMDDownloadPage.objmoviestab, "Movies tab in Downlaods landing screen");
+	if(verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
+		logger.info("There are no contents in Movies tab");	
+		extent.extentLogger("", "There are no contents in Movies tab");
+	}
+	else {
+		verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
+		String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent).getText();
+		//System.out.println(DownloadedContentText);
+		logger.info(DownloadedContentText + " downloaded content is displayed");
+		extent.extentLogger("", DownloadedContentText + " downloaded content is displayed");
+		UpgradeDownloadedcontent.add(DownloadedContentText);
+	}
+	click(AMDDownloadPage.objvideostab, "Videos tab in Downloads landing screen");
+	if(verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
+		logger.info("There are no contents in Videos tab");
+		extent.extentLogger("", "There are no contents in Vidoes tab");
+	}
+	else {
+		verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
+		String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent).getText();
+		//System.out.println(DownloadedContentText);
+		logger.info(DownloadedContentText + " downloaded content is displayed");
+		extent.extentLogger("", DownloadedContentText + " downloaded content is displayed");
+		UpgradeDownloadedcontent.add(DownloadedContentText);
+	}
+	
+	logger.info("Downloaded contents in Upgrade build: " + UpgradeDownloadedcontent);
+	
+	logger.info("Downloaded contents in Market build: " + Downloadedcontent);
+	
+     for(int i=0;i<UpgradeDownloadedcontent.size();i++) {
+		
+		if(Downloadedcontent.get(i).equalsIgnoreCase(UpgradeDownloadedcontent.get(i))){
+			logger.info("Market build Downloaded contents: " + Downloadedcontent.get(i) + " is same as Upgrade build :" + UpgradeDownloadedcontent.get(i));
+			extent.extentLoggerPass("", "Market build Downloaded contents: " + Downloadedcontent.get(i) + " is same as Upgrade build :" + UpgradeDownloadedcontent.get(i));
+		}else {
+			logger.error("Market build Downloaded contents: " + Downloadedcontent.get(i) + " is NOT same as Upgrade build :" + UpgradeDownloadedcontent.get(i));
+			extent.extentLoggerFail("", "Market build Downloaded contents: " + Downloadedcontent.get(i) + " is NOT same as Upgrade build :" + UpgradeDownloadedcontent.get(i));
+		}
+	}
+	
+	BackToLandingScreen();
+	}
+	else {
+		logger.info("This is not applicable for " + userType);
+		extent.extentLogger("", "This is not applicable for " + userType);
+	}
+}
+
+
+public void RecentSearchedForMarketBuild(String userType) throws Exception{
+	extent.HeaderChildNode("Capture Recent search history for Market build");
+	if(userType.equalsIgnoreCase("Guest")) {
+	verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
+	click(AMDSearchScreen.objSearchEditBox, "Search Box");
+	type(AMDSearchScreen.objSearchBoxBar, "Hero" + "\n", "Search bar");
+	hideKeyboard();
+	waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+	click(AMDSearchScreen.objClearSearch, "ClearText");
+	waitTime(2000);
+	
+	click(AMDSearchScreen.objSearchEditBox, "Search Box");
+	type(AMDSearchScreen.objSearchBoxBar, "Mummy" + "\n", "Search bar");
+	hideKeyboard();
+	waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+	click(AMDSearchScreen.objClearSearch, "ClearText");
+    waitTime(2000);
+	
+	click(AMDSearchScreen.objSearchEditBox, "Search Box");
+	type(AMDSearchScreen.objSearchBoxBar, "Friends" + "\n", "Search bar");
+	hideKeyboard();
+	waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+	click(AMDSearchScreen.objClearSearch, "ClearText");
+    waitTime(2000);
+    
+    if (verifyIsElementDisplayed(AMDSearchScreen.objRecentSearch)) {
+		extent.extentLoggerPass("Recent Search Overlay",
+				"Recent Search Overlay is available in search results screen");
+		logger.info("Recent Search Overlay is available in search results screen");
+		
+		List<WebElement> contents = getDriver().findElements(AMDSearchScreen.objRecentSearchHistory);
+		System.out.println(contents.size());
+		for (int i = 1; i <= contents.size(); i++) {
+			System.out.println("i : " + i);
+			WebElement ele = findElement(AMDSearchScreen.objRecentSearches(i));
+		    String recentsearchlist = ele.getText();
+			logger.info("Recent search history content " + i + ":"+ recentsearchlist);
+			extentLogger("", "Recent search history content " + i + ":"+ recentsearchlist);
+			MarketRecentSearch.add(recentsearchlist);
+		}		
+		   logger.info("Market build Recent search history list: " + MarketRecentSearch );
+	} else {
+		extent.extentLogger("Recent Search Overlay",
+				"Recent Search Overlay is not available in search results screen");
+		logger.info("Recent Search Overlay is not available in search results screen");
+	}
+	}else {
+		logger.info("This is not applicable for " + userType);
+		extent.extentLogger("", "This is not applicable for " + userType);
+	}
+}
+
+
+public void RecentSearchedForUpgradeBuild(String userType) throws Exception{
+	extent.HeaderChildNode("Capture Recent search history for Upgrade build");
+	if(userType.equalsIgnoreCase("Guest")) {
+	verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");		
+    if (verifyIsElementDisplayed(AMDSearchScreen.objRecentSearch)) {
+		extent.extentLoggerPass("Recent Search Overlay",
+				"Recent Search Overlay is available in search results screen");
+		logger.info("Recent Search Overlay is available in search results screen");
+		
+			List<WebElement> contents = getDriver().findElements(AMDSearchScreen.objRecentSearchHistory);
+			System.out.println(contents.size());
+			for (int i = 1; i <= contents.size()-1; i++) {
+				System.out.println("i : " + i);
+				WebElement ele = findElement(AMDSearchScreen.objRecentSearches(i));
+			    String recentsearchlist = ele.getText();
+				logger.info("Recent search history content " + i + ":" + recentsearchlist);
+				extentLogger("","Recent search history content " + i + ":" + recentsearchlist);
+				UpgradeRecentSearch.add(recentsearchlist);
+			}		
+		   logger.info("Upgrade build Recent search history list: " + UpgradeRecentSearch );
+		   
+		   for(int i=0;i<UpgradeRecentSearch.size();i++) {
+				
+				if(MarketRecentSearch.get(i).equalsIgnoreCase(UpgradeRecentSearch.get(i))){
+					logger.info("Market build Recent search history detail: " + MarketRecentSearch.get(i) + " is same as Upgrade build :" + UpgradeRecentSearch.get(i));
+					extent.extentLoggerPass("", "Market build Recent search history detail: " + MarketRecentSearch.get(i) + " is same as Upgrade build :" + UpgradeRecentSearch.get(i));
+				}else {
+					logger.error("Market build Recent search history detail: " + MarketRecentSearch.get(i) + " is NOT same as Upgrade build :" + UpgradeRecentSearch.get(i));
+					extent.extentLoggerFail("", "Market build Recent search history detail: " + MarketRecentSearch.get(i) + " is NOT same as Upgrade build :" + UpgradeRecentSearch.get(i));
+				}
+			}
+		   
+	} else {
+		extent.extentLogger("Recent Search Overlay",
+				"Recent Search Overlay is not available in search results screen");
+		logger.info("Recent Search Overlay is not available in search results screen");
+	}
+    BackToLandingScreen();
+	}else {
+		logger.info("This is not applicable for " + userType);
+		extent.extentLogger("", "This is not applicable for " + userType);
+	}
 }
   
 }

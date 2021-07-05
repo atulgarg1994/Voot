@@ -511,6 +511,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		// dismiss3xPopUp();
 		// dismissDisplayContentLanguagePopUp();
 		// dismissSystemPopUp();
+		click(PWALoginPage.objNotificationPopUp, "Notification PopUp");
 		dismissAllPopUps();
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.extentLogger("Guest", "Accessing the application as Guest user");
@@ -1496,7 +1497,13 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		click(PWAHamburgerMenuPage.objDownArrow("My Account"), "Expander button");
 		PartialSwipe("UP", 1);
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objExploreItemBtn("Logout"), "Logout option");
-		waitTime(3000);
+		waitTime(10000);
+	//	verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+		if (verifyIsElementDisplayed(PWALoginPage.objNotificationPopUp, "Notification PopUp")) {
+			click(PWALoginPage.objNotificationPopUp, "Notification PopUp");
+			logger.info("Push notification is clicked on successfully");
+			extent.extentLogger("Push Notification", "Push notification is clicked on successfully");
+		}
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 		if (verifyIsElementDisplayed(PWALoginPage.objLoginBtn, "Login button")) {
 			logger.info("User is logged out successfully");
@@ -1505,7 +1512,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		click(PWAHamburgerMenuPage.objCloseHamburgerMenu, "Close button");
 	}
 
-	/** ==================Yashashwini - =================================== */
+	
 
 	public void Zee5NewsScreen(String UserType) throws Exception {
 
@@ -12030,6 +12037,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			getDriver().findElement(PWALiveTVPage.objChromeOpenWith).click();
 		} catch (Exception e) {
 		}
+		/*	
 		getDriver().context("CHROMIUM");
 		gettingStartedVerifications();
 		zee5SubscriptionVerification();
@@ -12038,49 +12046,165 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		myZEE5AppVerifications();
 		quickLinksVerifications();
 		contactUsScreenVerification();
+	*/	
+		populartopicsVerifications();
+		subscriptionsAndRentalsVerifications();
+		myAccountVerifications();
+		watchingZEE5Verifications();
+		myZEE5AppVerifications();
+		offersAndPartnershipsVerifications();
+		contactUsScreenVerification();
+	}
+	
+	public void offersAndPartnershipsVerifications() throws Exception {
+		getDriver().context("NATIVE_APP");
+		waitTime(2000);
+		partialSwipeLoop(6);
+		verifyElementPresent(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Offers & Partnerships"), "'Offers & Partnerships");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("ZEE5 Offers"), "'ZEE5 Offers'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("ZEE5 Offers"), "Article title 'ZEE5 Offers'");
+		Back(1);
+		waitTime(2000);
+		partialSwipeLoop(6);
+		waitTime(3000);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("ZEE5 Partnerships"),
+				"'ZEE5 Partnerships'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("ZEE5 Partnerships"),
+				"Article title 'ZEE5 Partnerships'");
+		Back(1);	
+		waitTime(2000);
+		partialSwipeLoop(6);
+		waitTime(3000);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Applying a code in ZEE5"),
+				"'Applying a code in ZEE5'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("Applying a Code or Gift Card in ZEE5"),
+				"Article title 'Applying a Code or Gift Card in ZEE5'");
+		Back(1);
+	
+		waitTime(2000);
 	}
 
-	public void myAccountVerifications() throws Exception {
-		Back(1);
+	
+	public void subscriptionsAndRentalsVerifications() throws Exception {		
 		waitTime(3000);
-		partialSwipeLoop(3);
+		partialSwipeLoop(2);
 		waitTime(3000);
-
-		// verifyElementPresent(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("My
-		// Account"), "'My Account' tab");
-		verifyElementPresent(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("My Account "), "'My Account ' tab");
-		verifyElementPresentAndClick(
-				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Upgrading to the Radhe Combo offer"),
-				"Upgrading to the Radhe Combo offer");
-		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("Upgrading to the Radhe Combo offer"),
-				"Article title 'Upgrading to the Radhe Combo offer'");
+		verifyElementPresent(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Subscriptions & Rentals"), "'Subscriptions & Rentals' tab");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Premium Subscription Plans"),
+				"'Premium Subscription Plans'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("Premium Subscription Plans"),
+				"Article title 'Premium Subscription Plans'");
 		Back(1);
 		waitTime(2000);
+		partialSwipeLoop(2);
+		waitTime(3000);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I purchase a Premium subscription?"),
+				"'I purchase a Premium subscription?'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("How do I purchase a Premium subscription?"),
+				"Article title 'How do I purchase a Premium subscription?'");
+		Back(1);
+		waitTime(2000);
+		partialSwipeLoop(2);
+		waitTime(3000);
+		verifyElementPresentAndClick(
+				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Renting movies on ZEEPLEX"),
+				"'Renting movies on ZEEPLEX'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("Renting movies on ZEEPLEX"),
+				"Article title 'Renting movies on ZEEPLEX'");
+		Back(1);
+		waitTime(2000);
+		partialSwipeLoop(2);
+		waitTime(3000);
+		verifyElementPresentAndClick(
+				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Upgrading your Subscription"),
+				"Upgrading your Subscription");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("Upgrading your Subscription"),
+				"Article title 'Upgrading your Subscription'");
+		Back(1);
+		waitTime(2000);
+		partialSwipeLoop(2);
+		waitTime(3000);
+		verifyElementPresentAndClick(
+				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I am unable to watch Premium videos"),
+				"I am unable to watch Premium videos");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("I am unable to watch Premium videos"),
+				"Article title 'I am unable to watch Premium videos'");
+/*
+		Back(1);
+		waitTime(2000);
+		partialSwipeLoop(2);
+		waitTime(3000);
+		verifyElementPresentAndClick(
+				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I am unable to watch Radhe"),
+				"I am unable to watch Radhe");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("unable to watch Radhe on ZEEPLEX"),
+				"Article title 'unable to watch Radhe on ZEEPLEX'");
+*/
+                Back(1);
+	}
+	
+	
+	public void populartopicsVerifications() throws Exception {
+		System.out.println(getDriver().getContextHandles());
+		getDriver().context("NATIVE_APP");
+		verifyElementPresent(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Popular Topics"),
+				"'Popular Topics' tab");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("F.R.I.E.N.D.S: The Reunion on ZEE5 Premium!"),
+				"'F.R.I.E.N.D.S: The Reunion on ZEE5 Premium!'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("F.R.I.E.N.D.S: The Reunion on ZEE5 Premium!"), 
+		"Article title 'F.R.I.E.N.D.S: The Reunion on ZEE5 Premium!'");
+		Back(1);
+		waitTime(1000);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Where can I view my subscription information?"),
+				"'Where can I view my subscription information?'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("Where can I view my subscription information?"),
+				"Article title 'Where can I view my subscription information?'");
+		Back(1);
+		waitTime(3000);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Registering with ZEE5"),
+				"'Registering with ZEE5'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("Registering with ZEE5"),
+				"Article title 'Registering with ZEE5'");
+		Back(1);
+		waitTime(2000);
+		PartialSwipe("UP", 1);
+		waitTime(3000);
+		verifyElementPresentAndClick(
+				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("How do I watch ZEE5 on my television?"),
+				"'How do I watch ZEE5 on my television'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("How do I watch ZEE5 on my television"),
+				"Article title 'How do I watch ZEE5 on my television?'");
+		Back(1);
+		waitTime(3000);
+		PartialSwipe("UP", 1);
+		waitTime(3000);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Video not playing due to DRM/protected content"),
+				"'Video not playing due to DRM/protected content'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("Video not playing error due to DRM/Protected Content"),
+				"Article title 'Video not playing error due to DRM/Protected Content'");
+		Back(1);
+	}
+	
+	
+	
+
+	public void myAccountVerifications() throws Exception {
+		waitTime(3000);
 		partialSwipeLoop(3);
 		waitTime(3000);
-
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Managing your Subscription"),
-				"Managing your Subscription");
+		verifyElementPresent(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("My Account "), "'My Account ' tab");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Managing your subscription"),
+				"'Managing your subscription'");
 		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("Managing your Subscription"),
 				"Article title 'Managing your Subscription'");
-
-		Back(1);
-		waitTime(2000);
-		partialSwipeLoop(3);
-		waitTime(3000);
-		verifyElementPresentAndClick(
-				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("My auto-renewal subscription has expired"),
-				"'My auto-renewal subscription has expired'");
-		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("My auto-renewal subscription has expired"),
-				"Article title 'My auto-renewal subscription has expired'");
 		Back(1);
 		waitTime(2000);
 		partialSwipeLoop(3);
 		waitTime(3000);
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I can"),
 				"I can't sign in to ZEE5");
-		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("t sign in to ZEE5"),
-				"Article title 'I can't sign in to ZEE5'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("I can"),
+				"I can't sign in to ZEE5'");
 
 		Back(1);
 		waitTime(2000);
@@ -12088,9 +12212,34 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		waitTime(3000);
 		verifyElementPresentAndClick(
 				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("How many devices can I watch on?"),
-				"How many devices can I watch on?");
+				"'How many devices can I watch on?'");
 		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("How many devices can I watch on?"),
 				"Article title 'How many devices can I watch on?'");
+		Back(1);
+		waitTime(2000);
+		partialSwipeLoop(3);
+		waitTime(3000);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("How can I delete / log out a registered device?"),
+				"'How can I delete / log out a registered device?'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("How can I delete / log out a registered device?"),
+				"Article title 'How can I delete / log out a registered device?'");
+		Back(1);
+		waitTime(2000);
+		partialSwipeLoop(3);
+		waitTime(3000);
+		verifyElementPresentAndClick(
+				PWAHamburgerMenuPage.objHelpSectioOptionsHeading("I purchased a subscription, but it’s not working"),
+				"'I purchased a subscription, but it’s not working'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("I purchased a subscription/ZEEPLEX rental, but it’s not working"),
+				"Article title 'I purchased a subscription/ZEEPLEX rental, but it’s not working'");
+		Back(1);
+		waitTime(2000);
+		partialSwipeLoop(3);
+		waitTime(3000);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Parental Control"),
+				"'Parental Control'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("Parental Control"),
+				"Article title 'Parental Control'");
 		Back(1);
 	}
 
@@ -12617,14 +12766,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("All about subtitles"),
 				"Article title 'All about subtitles'");
 		Back(1);
-		waitTime(2000);
-		partialSwipeLoop(4);
-		waitTime(3000);
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("Parental Control"),
-				"'Parental Control'");
-		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("Parental Control"),
-				"Article title 'Parental Control'");
-		Back(1);
+
 	}
 
 	public void myZEE5AppVerifications() throws Exception {
@@ -12659,19 +12801,22 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		waitTime(2000);
 		partialSwipeLoop(5);
 		waitTime(3000);
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("My ZEE5 App Version"),
-				"'My ZEE5 App Version'");
-		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("How do I see my current ZEE5 app version"),
-				"Article title 'How do I see my current ZEE5 app version?'");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("What’s the latest ZEE5 App version?"),
+				"'What’s the latest ZEE5 App version?'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("What’s the latest ZEE5 App Version?"),
+				"Article title 'What’s the latest ZEE5 App Version?'");
 		Back(1);
-		/*
-		 * waitTime(2000); partialSwipeLoop(6); waitTime(3000);
-		 * verifyElementPresentAndClick(PWAHamburgerMenuPage.
-		 * objHelpSectioOptionsHeading("Parental Control"), "'Parental Control'");
-		 * verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("Parental Control"
-		 * ), "Article title 'Parental Control'"); Back(1);
-		 */
+		
+		waitTime(2000);
+		partialSwipeLoop(6);
+		waitTime(3000);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpSectioOptionsHeading("How Can I?"),
+				"'How Can I?'");
+		verifyElementPresent(PWAHamburgerMenuPage.objArticleTitle("How Can I?"),
+				"Article title 'How Can I?'");
+		Back(1);
 	}
+
 
 	/**
 	 * Function to verify the FAQ's in Help Center Screen under Quick Links category
@@ -13223,33 +13368,9 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				getDriver().context("CHROMIUM");
 				directClickReturnBoolean(PWAHomePage.objAppInstallPopUpClose, "Close in App Install Pop Up");
 				directClickReturnBoolean(PWAHomePage.objStayTunedPopUpClose, "Close in Stay Tuned Pop Up");
-				if (directClickReturnBoolean(PWAHomePage.objApplyContentLangPopup,
-						"Apply on Content Language Pop Up")) {
-					break;
-				}
-				WebElement displayContentLang = (new WebDriverWait(getDriver(), 60))
-						.until(ExpectedConditions.elementToBeClickable(PWAHomePage.objContinueDisplayContentLangPopup));
-				if (displayContentLang.isDisplayed() == true) {
-					if (directClickReturnBoolean(PWAHomePage.objContinueDisplayContentLangPopup,
-							"Continue on Display Language Pop Up")) {
-						dismissSystemPopUp();
-						waitTime(3000);
-						directClickReturnBoolean(PWAHomePage.objContinueDisplayContentLangPopup,
-								"Continue on Content Language Pop Up");
-						break;
-					}
-				}
 			} catch (Exception e) {
 			}
 		}
-		// dismissSystemPopUp();
-		// waitTime(3000);
-		// dismissSystemPopUp();
-		// dismissAppInstallPopUp();
-		// dismissStayTundedPopUp();
-		// dismiss3xPopUp();
-		// dismissDisplayContentLanguagePopUp();
-		// dismissSystemPopUp();
 	}
 
 	public void FilterLanguage(String lang) throws Exception {
@@ -22617,6 +22738,56 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 
 	public void VerifyAuthenticatedevice() {
 		HeaderChildNode("");
+	}
+	
+	public void GrievanceRedressalOption() throws Exception {
+		extent.HeaderChildNode("PWA2-9172 : Add Grievance Redressal option in the hamburger menu");
+		click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+		waitTime(3000);
+		
+		String zeeTab = getWebDriver().getWindowHandle();
+		Set<String> handlesBeforeClick = getWebDriver().getWindowHandles();
+	
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objGrievanceRedressal, "Grievance Redressal option");
+		waitTime(5000);
+		Set<String> handlesAfterClick = getWebDriver().getWindowHandles();
+		if (handlesAfterClick.size() > handlesBeforeClick.size()) {
+			String externalTab = "";
+			boolean extOpened = false;
+			for (String winHandle : getWebDriver().getWindowHandles()) {
+				System.out.println(winHandle);
+				if (!winHandle.equals(zeeTab)) {
+					externalTab = winHandle;
+					getWebDriver().switchTo().window(externalTab);
+					logger.info("Switched to External Tab");
+					extent.extentLogger("", "Switched to External Tab");
+					String extUrl = getWebDriver().getCurrentUrl();
+					logger.info("Navigated to the External Tab : " + extUrl);
+					extent.extentLogger("External tab", "Navigated to the External Tab : " + extUrl);
+					
+					if(verifyElementExist(PWAHamburgerMenuPage.objGrievanceRedressalPage, "Grievance Redressal option")) {
+						logger.info("Redirected to Grievance Redressal Page");
+						extent.extentLoggerPass("Grievance Redressal","Redirected to Grievance Redressal Page");
+					} else {
+						logger.error("Not Redirected to Grievance Redressal Page");
+						extent.extentLoggerFail("Grievance Redressal","Not Redirected to Grievance Redressal Page");
+					}
+					screencapture();
+					getWebDriver().close();
+					logger.info("Closed External Tab");
+					extent.extentLogger("playerScreen", "Closed External Tab");
+					getWebDriver().switchTo().window(zeeTab);
+					logger.info("Switched to Zee Tab");
+					extent.extentLogger("", "Switched to Zee Tab");
+					extOpened = true;
+					break;
+				}
+			}
+			if (extOpened == false) {
+				logger.error("Failed to open External Tab");
+				extent.extentLoggerFail("External tab", "Failed to open External Tab");
+			}
+		} 
 	}
 
 }

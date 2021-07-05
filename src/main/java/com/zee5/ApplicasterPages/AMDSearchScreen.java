@@ -230,4 +230,10 @@ public class AMDSearchScreen {
     public static By objClearAll = By.xpath("//*[@id='search_cancel_text'] | //*[@id='recentSearchClearAllText']");
     
     public static By objMoviesTab = By.xpath("//*[@text='Movies' or @id='title']"); 
+    
+    public static By objRecentSearchHistory = By.xpath("(//*[@id='recentSearchRecyclerView']//*[@class='android.widget.LinearLayout']//*[@id='cell_top_container']//child::*[1])");
+    
+	public static By objRecentSearches(int index) {
+	    	return By.xpath("(//*[@id='recentSearchRecyclerView']//*[@id='cell_top_container']//child::*[1])["+index+"]");
+	 }
 }

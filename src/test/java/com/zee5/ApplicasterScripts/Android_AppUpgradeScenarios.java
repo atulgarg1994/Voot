@@ -1,5 +1,6 @@
 package com.zee5.ApplicasterScripts;
 
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -7,7 +8,6 @@ import com.business.zee.Zee5ApplicasterBusinessLogic;
 import com.utility.Utilities;
 
 public class Android_AppUpgradeScenarios {
-	
 	private Zee5ApplicasterBusinessLogic ZEE5ApplicasterBusinessLogic;
 	
 	@BeforeTest
@@ -27,8 +27,8 @@ public class Android_AppUpgradeScenarios {
 	@Parameters({ "userType" })
 	public void ApplicasterLogin(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.relaunch(true);
-		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp1("Allow", userType);
-		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen1();
+//		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp1("Allow", userType);
+//		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen1();
 		ZEE5ApplicasterBusinessLogic.LoginForUpgradeModule(userType);
 	} 
 	
@@ -38,58 +38,78 @@ public class Android_AppUpgradeScenarios {
 		ZEE5ApplicasterBusinessLogic.GetSettingsDetails(userType);		
 	} 
 	
-	//@Test(priority = 3)
+	@Test(priority = 4)
 	@Parameters({ "userType" })
-	public void GetContinueWatchingTrayDetails(String userType) throws Exception {		
+	public void RecentSearchedForMarketBuild(String userType) throws Exception {		
+		ZEE5ApplicasterBusinessLogic.RecentSearchedForMarketBuild(userType);
+			} 
+	
+	
+	@Test(priority = 5)
+	@Parameters({ "userType" })
+	public void GetContinueWatchingTrayDetailsForMarketBuild(String userType) throws Exception {		
 		ZEE5ApplicasterBusinessLogic.GetContinueWatchingTrayDetails(userType);
 			} 
 	
-	@Test(priority = 4)
+	@Test(priority = 6)
 	@Parameters({ "userType" })
 	public void GetDownloadsDetailsForMarketBuild(String userType) throws Exception {		
 		ZEE5ApplicasterBusinessLogic.DownloadsDetails(userType);
 	} 
 	
-	@Test(priority = 5)
+	@Test(priority = 7)
 	@Parameters({ "userType" })
 	public void GetWatchListDetailsForMarketBuild(String userType) throws Exception {		
 		ZEE5ApplicasterBusinessLogic.WatchListDetails(userType);
 	} 
 	
-	@Test(priority = 6)
+	@Test(priority = 8)
 	@Parameters({ "userType" })
 	public void LaunchPlaystoreApp(String userType) throws Exception {
-		ZEE5ApplicasterBusinessLogic.LaunchPlayStoreApp();
 		ZEE5ApplicasterBusinessLogic.clearPlayStoreAppData();
 			}
 	
-	@Test(priority = 7)
+	@Test(priority = 9)
 	@Parameters({ "userType" })
 	public void InstallUpgradeBuild(String userType) throws Exception {
 				ZEE5ApplicasterBusinessLogic.InstallZee5();			
 	}
 	
-	@Test(priority = 8)
+	@Test(priority = 10)
 	@Parameters({ "userType" })
 	public void CaptureUserSettingsDetailsForUpgradeBuild(String userType) throws Exception {
 				ZEE5ApplicasterBusinessLogic.CaptureSettingsDetailsForupgradeBuild();			
 	}
 	
-	//@Test(priority = 9)
-	@Parameters({ "userType" })
-	public void CaptureContinueWatchingTrayForUpgradeBuild(String userType) throws Exception {
-				ZEE5ApplicasterBusinessLogic.CaptureContinueWatchingTrayForUpgradeBuild();			
-	}
-	
-	@Test(priority = 10)
-	@Parameters({ "userType" })
-	public void CaptureDownloadsForrUpgradeBuild(String userType) throws Exception {
-				ZEE5ApplicasterBusinessLogic.CaptureDownloadsForrUpgradeBuild();			
-	}
-	
 	@Test(priority = 11)
 	@Parameters({ "userType" })
-	public void captureWatchlistDetailsForUpgradeBuild(String userType) throws Exception {
-				ZEE5ApplicasterBusinessLogic.captureWatchlistDetailsForUpgradeBuild();			
+	public void RecentSearchedForUpgradeBuild(String userType) throws Exception {
+				ZEE5ApplicasterBusinessLogic.RecentSearchedForUpgradeBuild(userType);			
 	}
+	
+	@Test(priority = 12)
+	@Parameters({ "userType" })
+	public void CaptureContinueWatchingTrayForUpgradeBuild(String userType) throws Exception {
+				ZEE5ApplicasterBusinessLogic.CaptureContinueWatchingTrayForUpgradeBuild(userType);			
+	}
+	
+	@Test(priority = 13)
+	@Parameters({ "userType" })
+	public void CaptureDownloadsForUpgradeBuild(String userType) throws Exception {
+				ZEE5ApplicasterBusinessLogic.CaptureDownloadsForUpgradeBuild(userType);			
+	}
+	
+	@Test(priority = 14)
+	@Parameters({ "userType" })
+	public void captureWatchlistDetailsForUpgradeBuild(String userType) throws Exception {
+				ZEE5ApplicasterBusinessLogic.captureWatchlistDetailsForUpgradeBuild(userType);			
+	}
+	
+	@AfterTest
+	public void tearDownApp() {
+		System.out.println("Quit the App");
+		ZEE5ApplicasterBusinessLogic.tearDown();
+	}
+	
+	
 }

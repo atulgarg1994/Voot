@@ -170,6 +170,9 @@
 	<parameter name="UpgradeNonsubscribedUserName" value="testupgrade123@gmail.com" />
 	<parameter name="UpgradeNonsubscribedPassword" value="123456" />
 	
+	<parameter name="UpgradeSubscribedUserName" value="testbetabuild123@gmail.com" />
+	<parameter name="UpgradeSubscribedPassword" value="igs@123" />
+	
 	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />

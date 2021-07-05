@@ -331,6 +331,13 @@ public class AndroidPWASanityScript {
 		Zee5PWASanityBusinessLogic.passwordResetLinkSentToYourEmailIDToastMessageShouldBeDisplayed(userType);
 //		Zee5PWASanityBusinessLogic.somethingWentWrongMessageWithRetryOptionShouldBeDisplayed(userType);
 	}
+	
+	@Test(priority = 30)
+	public void TestSprint71Automation() throws Exception {
+		Zee5PWASanityBusinessLogic.navigateToHome();
+//		Zee5PWASanityBusinessLogic.removeMinutelyContent();
+		Zee5PWASanityBusinessLogic.GrievanceRedressalOption();
+	}
 
 	@AfterClass
 	public void tearDown() {
