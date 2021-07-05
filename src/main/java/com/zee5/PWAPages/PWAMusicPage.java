@@ -141,4 +141,9 @@ public class PWAMusicPage {
 	public static By objConsumptionPageTitle = By.xpath(".//div[@class='metaInfo lineHeightClass']/h2");
 	
 	public static By objMovieConsumptionPageTitle = By.xpath(".//div[@class='consumptionMetaDiv']/h1");
+	
+	public static By objJoystickCornerTag=By.xpath("//*[contains(@class,'tray-container')]//*[contains(@class,'cardJoystickContent')]");
+	
+	public static By objDescription=By.xpath("//div[@class='description']");
+
 }

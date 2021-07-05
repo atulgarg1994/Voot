@@ -22742,54 +22742,5 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		HeaderChildNode("");
 	}
 	
-	public void GrievanceRedressalOption() throws Exception {
-		extent.HeaderChildNode("PWA2-9172 : Add Grievance Redressal option in the hamburger menu");
-		click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
-		waitTime(3000);
-		
-		String zeeTab = getWebDriver().getWindowHandle();
-		Set<String> handlesBeforeClick = getWebDriver().getWindowHandles();
-	
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objGrievanceRedressal, "Grievance Redressal option");
-		waitTime(5000);
-		Set<String> handlesAfterClick = getWebDriver().getWindowHandles();
-		if (handlesAfterClick.size() > handlesBeforeClick.size()) {
-			String externalTab = "";
-			boolean extOpened = false;
-			for (String winHandle : getWebDriver().getWindowHandles()) {
-				System.out.println(winHandle);
-				if (!winHandle.equals(zeeTab)) {
-					externalTab = winHandle;
-					getWebDriver().switchTo().window(externalTab);
-					logger.info("Switched to External Tab");
-					extent.extentLogger("", "Switched to External Tab");
-					String extUrl = getWebDriver().getCurrentUrl();
-					logger.info("Navigated to the External Tab : " + extUrl);
-					extent.extentLogger("External tab", "Navigated to the External Tab : " + extUrl);
-					
-					if(verifyElementExist(PWAHamburgerMenuPage.objGrievanceRedressalPage, "Grievance Redressal option")) {
-						logger.info("Redirected to Grievance Redressal Page");
-						extent.extentLoggerPass("Grievance Redressal","Redirected to Grievance Redressal Page");
-					} else {
-						logger.error("Not Redirected to Grievance Redressal Page");
-						extent.extentLoggerFail("Grievance Redressal","Not Redirected to Grievance Redressal Page");
-					}
-					screencapture();
-					getWebDriver().close();
-					logger.info("Closed External Tab");
-					extent.extentLogger("playerScreen", "Closed External Tab");
-					getWebDriver().switchTo().window(zeeTab);
-					logger.info("Switched to Zee Tab");
-					extent.extentLogger("", "Switched to Zee Tab");
-					extOpened = true;
-					break;
-				}
-			}
-			if (extOpened == false) {
-				logger.error("Failed to open External Tab");
-				extent.extentLoggerFail("External tab", "Failed to open External Tab");
-			}
-		} 
-	}
 
 }

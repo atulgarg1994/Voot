@@ -1021,4 +1021,6 @@ public class PWAHamburgerMenuPage {
 	public static By objGrievanceRedressal = By.xpath("//a[contains(text(),'Grievance Redressal')]");
 	
 	public static By objGrievanceRedressalPage = By.xpath("//*[@id='navBarContainer']//span[contains(text(),'GRIEVANCE REDRESSAL')]");
+	
+	public static By objHamburgerMenuOpened =By.xpath("//div[@class='bm-item primaryMenu' and @tabindex='0']");
 }
