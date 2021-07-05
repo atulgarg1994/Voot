@@ -2615,6 +2615,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		hideKeyboard();
 		directClickReturnBoolean(PWALoginPage.objLoginBtn, "Login Button");
 		waitTime(8000);
+		click(PWALoginPage.objNotificationPopUp, "Notification PopUp");
+		waitTime(2000);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
 		checkElementExist(PWAHomePage.objSearchField, "Search field");
 		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
