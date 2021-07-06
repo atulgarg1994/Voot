@@ -18,5 +18,6 @@ public class PWAKidsPage {
 	
 	public static By objPrivacyPolicy = By.xpath(".//*[@href='https://www.zee5.com/privacypolicy']");
 	
+	public static By objWatchButton= By.xpath("//*[contains(@class,'slick-active')]//span[text()='Watch']");
 
 }

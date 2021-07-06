@@ -2783,12 +2783,12 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		// Click on search icon
 		click(PWAHomePage.objSearchBtn, "Search Button");
 		// Enter text
-//		type(PWASearchPage.objSearchEditBox, "right ya wrong", "Search Edit box");
+		
 		type(PWASearchPage.objSearchEditBox, "welcome back", "Search Edit box");
-		// type(PWASearchPage.objSearchEditBox, " ", "Search Edit box");
+		
 		Thread.sleep(8000);
 		// Click on first content
-		click(PWASearchPage.objFirstContentCardNameAfterSearch1(1), "Content Card");
+		JSClick(PWASearchPage.objFirstSearchResult, "Content Card");
 		// close login up
 
 		if (userType.equalsIgnoreCase("Guest")) {
@@ -2801,16 +2801,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				click(PWAPlayerPage.objContentTitle, "Content Title");
 			}
 
-			// LoadingInProgress(PWAPlayerPage.objPlayerLoader);
-//			waitForPlayerLoaderToComplete();
-//			verifyElementNotPresent(PWAPlayerPage.objAd, 60);
-//			waitForPlayerAdToComplete1("Video Player");
-			// Click on the video playback
-//			if (checkElementDisplayed(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup")) {
-//				click(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup");
-//			}
+		
 			Thread.sleep(2000);
-//			verifyElementNotPresent(PWAPlayerPage.objAd, 60);
+			
 			waitForPlayerAdToComplete1("Video Player");
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
 			Thread.sleep(5000);
@@ -2827,37 +2820,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 			waitForElementDisplayed(PWAPlayerPage.objWatchCredit, 25);
 			verifyElementPresentAndClick(PWAPlayerPage.objWatchCredit, "Watch Credit");
-//			click(PWAPlayerPage.playBtn, "Play icon");
-//			getWebDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-//			// adValidation();
-//			waitForPlayerLoaderToComplete();
-//			verifyElementNotPresent(PWAPlayerPage.objAd, 60);
-//			verifyElementNotPresent(PWAPlayerPage.objAd, 60);
-//
-//			waitForElementDisplayed(PWAPlayerPage.objWatchCredit, 50);
-//
-//			if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP")) {
-//				verifyElementPresentAndClick(PWASubscriptionPages.objGetPremiumPopupCloseButton, "POP-UP CLOSE BUTTON");
-//			}
-
-			// click on play button
-			// Verify Watch credit is displayed
-//			checkElementDisplayed(PWAPlayerPage.objWatchCredit, "Watch Credit");
-
-			// Verify Content cards are displayed
-//			checkElementDisplayed(PWAPlayerPage.objContentCardsOnPlayer, "Upnext Rail on video playback");
-			// Click on Watch credit button
-			// click(PWAPlayerPage.objWatchCredit, "Watch Credit");
-
-//			Thread.sleep(10000);
-//
-//			if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP")) {
-//				verifyElementPresentAndClick(PWASubscriptionPages.objGetPremiumPopupCloseButton, "POP-UP CLOSE BUTTON");
-//			}
-//
-//			if (checkElementDisplayed(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup")) {
-//				click(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup");
-//			}
+			
 
 		} else {
 			Thread.sleep(2000);
@@ -2866,33 +2829,22 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				click(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Register Pop up close button");
 			}
 
-//			if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP")) {
-//				verifyElementPresentAndClick(PWASubscriptionPages.objGetPremiumPopupCloseButton, "POP-UP CLOSE BUTTON");
-//			}
-//			Thread.sleep(2000);
-//			if(checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true)
-//			{
-//				verifyElementPresentAndClick(PWASubscriptionPages.objGetPremiumPopupCloseButton, "POP-UP CLOSE BUTTON");
-//			}
+			
 
 			if (getParameterFromXML("browserType").equalsIgnoreCase("Firefox")) {
 				click(PWAPlayerPage.objContentTitle, "Content Title");
 			}
-			// waitForPlayerLoaderToComplete();
-			// verifyElementNotPresent(PWAPlayerPage.objAd, 60);
-//			waitForPlayerAdToComplete1("Video Player");
-//			waitForPlayerAdToComplete1("Video Player");
+			
 
 			waitForElementDisplayed(PWAPlayerPage.objWatchCredit, 25);
 
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Playback Overlay");
+			waitTime(2000);
 			click(PWAPlayerPage.playBtn, "Play icon");
 
 			click(PWAPlayerPage.objWatchCredit, "Watch Credit");
 			click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
-//			if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true) {
-//				verifyElementPresentAndClick(PWASubscriptionPages.objGetPremiumPopupCloseButton, "POP-UP CLOSE BUTTON");
-//			}
+		
 			WebElement slider = getWebDriver().findElement(PWAPlayerPage.progressBar);
 			System.out.println(slider);
 			Actions move = new Actions(getWebDriver());
@@ -2901,10 +2853,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			action1.perform();
 
 			waitForPlayerAdToComplete1("Video Player");
-//			Thread.sleep(5000);
-//			if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true) {
-//				verifyElementPresentAndClick(PWASubscriptionPages.objGetPremiumPopupCloseButton, "POP-UP CLOSE BUTTON");
-//			}
+		
 
 		}
 
@@ -2949,8 +2898,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 		waitTime(2000);
 		click(PWASearchPage.objSearchNavigationTab("TV Shows"), "TV Shows tab");
-		click(PWASearchPage.objSearchedResult(keyword), "Search Result");
+		
+		JSClick(PWASearchPage.objSearchedResult(keyword), "Search Result");
+		waitTime(2500);
 		click(PWAShowsPage.objShowDetailEpisodeDropdown, "Episode Dropdown");
+		waitTime(2500);
 		click(PWAShowsPage.objShowDetailNonSelectedEpisodeDropdownValues(1), "Second Episode set");
 		waitTime(5000);
 		click(PWAShowsPage.objEpisodeCard, "First Episode Card");
@@ -14263,8 +14215,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWAHomePage.objSearchField, audioTrackContent + "\n", "Search");
 		waitTime(5000);
-//		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(audioTrackContent), "Search Result");
-		verifyElementPresentAndClick(PWASearchPage.objspecificSearch, "Searched content");
+
+		verifyElementPresentAndClick(PWASearchPage.objFirstSearchResult, "Searched content");
+		waitTime(3500);
+		
 		waitForPlayerAdToComplete("Video Player");
 		pausePlayer();
 		verifyElementPresentAndClick(PWAPlayerPage.settingsBtn, "Settings icon");
@@ -16412,7 +16366,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 	public boolean waitforLiveTabToLoad() throws Exception {
 		for (int i = 0; i < 15; i++) {
-			if (checkElementExist(PWAPlayerPage.objFirstCardFreeChnnelName)) {
+			if (checkElementExist(PWAPlayerPage.objFirstCardFreeChnnelFromFirstTray)) {
 				return true;
 			} else {
 				waitTime(10000);
@@ -17060,8 +17014,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			logger.info("Hiding keyboard was Successfull");
 			extent.extentLogger("hideKeyboard", "Hiding keyboard was Successfull");
 		}
-		click(PWAHamburgerMenuPage.objFirstsearchcard, "Searched Show");
-		String contentPlayed = getText(PWAShowsPage.objShowsTitle);
+		waitTime(2500);
+		click(PWASearchPage.objFirstSearchResult, "Searched show");
+		waitTime(2500);
+		String contentPlayed = getText(PWAShowsPage.objShowsBannerTitle);
 		logger.info("Show Details page displayed: " + contentPlayed);
 		extent.extentLogger("showDetails", "Show Details page displayed: " + contentPlayed);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
@@ -17170,7 +17126,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				if (checkElementDisplayed(PWAHamburgerMenuPage.objPopupClose, "Pop Up") == true) {
 					click(PWAHamburgerMenuPage.objPopupClose, "Pop Up Close button");
 				}
-				click(PWAHomePage.objSearchBtn, "Search icon");
+				JSClick(PWAHomePage.objSearchBtn, "Search icon");
 				waitForElementDisplayed(PWASearchPage.objSearchEditBox, 20);
 			}
 		}
@@ -17182,7 +17138,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(user);
 		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keywordB), "Search Result " + keywordB);
 		waitTime(2000);
-		click(PWAHomePage.objSearchBtn, "Search icon");
+		JSClick(PWAHomePage.objSearchBtn, "Search icon");
+		waitTime(3000);
 		verifyElementPresent(PWASearchPage.recentSearchsLabel, "Recent Searches tray");
 		verifyElementPresent(PWASearchPage.objClearAllTextofRecentSearches, "Clear All text");
 		if (checkElementDisplayed(PWASearchPage.recentSearchItem1, "First Recent Search Item")) {
@@ -17391,8 +17348,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			logger.error("Back to Top arrow is not displayed");
 			extent.extentLoggerFail("", "Back to Top arrow is not displayed");
 		}
-		extent.HeaderChildNode(" HLS_112 : Verify whether \"Play text\" CTA is displaying on Kids feature carousel");
-		checkElementDisplayed(PWAKidsPage.objPlayButton, "Play text on Carousel card");
+		extent.HeaderChildNode(" HLS_112 : Verify whether \"WATCH  text\" CTA is displaying on Kids feature carousel");
+		checkElementDisplayed(PWAKidsPage.objWatchButton, "WATCH text on Carousel card");
 		extent.HeaderChildNode(" HLS_110 : Verify Feature carousel banners should rotate at fixed interval of time");
 		waitTime(5000);
 		boolean autoplayingItemsPresent = false;

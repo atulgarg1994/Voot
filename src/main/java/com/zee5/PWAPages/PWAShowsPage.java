@@ -165,4 +165,6 @@ public class PWAShowsPage {
 	
 	public static By objFirstAssetEpisodeFirstRail = By.xpath("(//div[@data-index='0']//div[@class='showDuration']//span)[1]");
 	
+	public static By objShowsBannerTitle = By.xpath("//*[contains(@class,'bannerTitle hidden')]//h1");
+	
 	}

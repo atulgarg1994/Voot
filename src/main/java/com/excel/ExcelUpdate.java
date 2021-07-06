@@ -2,10 +2,12 @@ package com.excel;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -272,7 +274,152 @@ public class ExcelUpdate {
 //		System.out.println((getRowCount()+1));
 //		row = (getRowCount()+1);
 //		writeData("ABC","Fail","Error");
-		creatExcel();
+//		creatExcel();
+//		AddFormulaToCell();
+//		getCellValue("C:\\Users\\IGS0026\\Documents\\Performance_1.xlsx","Sheet1",73,2);
+//		creatExcelPerformance();
+		
+		System.out.println("Done");
+	}
+	
+	public static void AddFormulaToCell() throws IOException {
+		String excelFilePath = "C:\\Users\\IGS0026\\Documents\\Performance_1.xlsx";
+		FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
+		XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
+		XSSFSheet sheet = workbook.getSheetAt(0);
+		XSSFRow xrow = sheet.getRow(73);
+		if (xrow == null) {
+			xrow = sheet.createRow(73);
+		}
+		Cell cell = null;
+		if (cell == null) {
+			cell = xrow.createCell(2);
+			cell.setCellFormula("SUM(C2,C7,C12,C17,C22,C27,C32,C37,C42,C47)/10");
+			cell = xrow.createCell(3);
+			cell.setCellFormula("SUM(D2,D7,D12,D17,D22,D27,D32,D37,D42,D47)/10");
+			cell = xrow.createCell(4);
+			cell.setCellFormula("SUM(E2,E7,E12,E17,E22,E27,E32,E37,E42,E47)/10");
+			cell = xrow.createCell(5);
+			cell.setCellFormula("SUM(F2,F7,F12,F17,F22,F27,F32,F37,,F42,F47)/10*100");
+			cell = xrow.createCell(6);
+			cell.setCellFormula("SUM(G2,G7,G12,G17,G22,G27,G32,G37,,G42,G47)/10");
+			cell = xrow.createCell(7);
+			cell.setCellFormula("SUM(H2,H7,H12,H17,H22,H27,H32,H37,,H42,H47)/10");
+			cell = xrow.createCell(8);
+			cell.setCellFormula("SUM(I6,I11,I16,I21,I26,I31,I36,I41,,I46,I51)/10");
+		}
+		FormulaEvaluator evaluator = workbook.getCreationHelper().createFormulaEvaluator();
+		evaluator.evaluateAll();
+		inputStream.close();
+		FileOutputStream outputStream = new FileOutputStream(excelFilePath);
+		workbook.write(outputStream);
+		workbook.close();
+		outputStream.close();
 	}
 
+	// Generic method to return the column values in the sheet.
+	public static String getCellValue(String xlPath, String sheet, int row, int col) {
+		String data = "";
+		try {
+			XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlPath));
+			XSSFSheet myExcelSheet = myExcelBook.getSheet(sheet);
+			data = myExcelSheet.getRow(row).getCell(col).getRawValue().toString();
+			System.out.println(data);
+		} catch (Exception e) {
+		}
+		return data;
+	}
+
+	public static void creatExcelPerformance() {
+		String xlpath = System.getProperty("user.dir") + "\\Performance\\performance.xlsx";
+		try {
+			File dir = new File(System.getProperty("user.dir") + "\\Performance");
+			if (!dir.isDirectory()) {
+				dir.mkdir();
+			}
+			File file = new File(xlpath);
+			if (!file.exists()) {
+				XSSFWorkbook workbook = new XSSFWorkbook();
+				workbook.createSheet("Performance");
+				FileOutputStream fos = new FileOutputStream(new File(xlpath));
+				workbook.write(fos);
+				workbook.close();
+				XSSFWorkbook workbook1 = new XSSFWorkbook(new FileInputStream(xlpath));
+				XSSFSheet sheet = workbook1.getSheetAt(0);
+				XSSFRow xrow = sheet.getRow(0);
+				if (xrow == null) {
+					xrow = sheet.createRow(0);
+				}
+				Cell cell = null;
+				if (cell == null) {
+					cell = xrow.createCell(0);
+					cell.setCellValue("0");
+					cell = xrow.createCell(1);
+					cell.setCellValue("Scenario");
+					cell = xrow.createCell(2);
+					cell.setCellValue("Time Taken (Sec)");
+					cell = xrow.createCell(3);
+					cell.setCellValue("App Native Heap Memory");
+					cell = xrow.createCell(4);
+					cell.setCellValue("App Total Memory");
+					cell = xrow.createCell(5);
+					cell.setCellValue("CPU Usage");
+					cell = xrow.createCell(6);
+					cell.setCellValue("GPU Memory");
+					cell = xrow.createCell(7);
+					cell.setCellValue("GPU FPS");
+					cell = xrow.createCell(8);
+					cell.setCellValue("App Traffic usage");
+				}
+				FileOutputStream outputStream = new FileOutputStream(xlpath);
+				workbook1.write(outputStream);
+				workbook1.close();
+				outputStream.close();
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+	
+	public static void insertPerformanceDetails(int row,String scenario,String Timetaken,String HeapMemo,String TotalMemo,String CPUUsage
+			,String GPUUsage, String GPUFPS, String TrafficUsage) {
+		
+		String xlpath = System.getProperty("user.dir") + "\\Performance\\performance.xlsx";
+		try {
+			File file = new File(xlpath);
+			if (!file.exists()) {
+				XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(xlpath));
+				XSSFSheet sheet = workbook.getSheetAt(0);
+				XSSFRow xrow = sheet.getRow(row);
+				if (xrow == null) {
+					xrow = sheet.createRow(row);
+				}
+				Cell cell = null;
+				if (cell == null) {
+					cell = xrow.createCell(1);
+					cell.setCellValue(scenario);
+					cell = xrow.createCell(2);
+					cell.setCellValue(Timetaken);
+					cell = xrow.createCell(3);
+					cell.setCellValue(HeapMemo);
+					cell = xrow.createCell(4);
+					cell.setCellValue(TotalMemo);
+					cell = xrow.createCell(5);
+					cell.setCellValue(CPUUsage);
+					cell = xrow.createCell(6);
+					cell.setCellValue(GPUUsage);
+					cell = xrow.createCell(7);
+					cell.setCellValue(GPUFPS);
+					cell = xrow.createCell(8);
+					cell.setCellValue(TrafficUsage);
+				}
+				FileOutputStream outputStream = new FileOutputStream(xlpath);
+				workbook.write(outputStream);
+				workbook.close();
+				outputStream.close();
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
 }

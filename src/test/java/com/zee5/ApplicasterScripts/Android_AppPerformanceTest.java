@@ -50,6 +50,13 @@ public class Android_AppPerformanceTest {
 		ZEE5ApplicasterBusinessLogic.deepLink_Validation("Consumption");
 	}
 	
+	@Test(priority = 5)
+	public void InitiateContentPlaybackSVODEpisode() throws Exception {
+		ZEE5ApplicasterBusinessLogic.clearBackgroundApps();
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.InitiateContentPlaybackTVEPISODE();
+	}
+	
 	@AfterTest
 	public void tearDownApp() {
 		System.out.println(ZEE5ApplicasterBusinessLogic.performaceDetails);

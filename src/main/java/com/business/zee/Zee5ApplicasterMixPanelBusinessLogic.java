@@ -198,12 +198,10 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	 * Functon to navigate to Intro screen
 	 */
 	public void navigateToIntroScreen_DisplaylangScreen() throws Exception {
-		extent.HeaderChildNode("Navigation to Intro Screen");
+		extent.HeaderChildNode("Navigation to Home Screen");
 		if (verifyIsElementDisplayed(AMDOnboardingScreen.objContinueBtnInCountryPopUp)) {
 			click(AMDOnboardingScreen.objContinueBtnInCountryPopUp, "Continuebutton(Country_Screen)");
 		}
-//		click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button (Content-LanguageScreen)");
-//		verifyElementPresent(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 	}
 
 	String Username;
@@ -10312,4 +10310,45 @@ public void ZeeApplicasterLogin(String LoginMethod) throws Exception {
 		}
 	}
 	
+	public void navigateToHomeScreen() throws Exception {
+		extent.HeaderChildNode("Navigation to Home Screen");
+		if (verifyIsElementDisplayed(AMDOnboardingScreen.objContinueBtnInCountryPopUp)) {
+			click(AMDOnboardingScreen.objContinueBtnInCountryPopUp, "Continuebutton(Country_Screen)");
+		}
+	}
+	
+	public void SearchEventFunctinality(String userType,String pContentName)
+			throws Exception {
+		HeaderChildNode("Search event verification");
+		System.out.println("\nSearch event verification");
+
+		String pSource = "More";
+		String pPage = "Homepage";
+		String pManufacturer = DeviceDetails.OEM;
+		
+		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search edit box");
+		type(AMDSearchScreen.objSearchEditBox, pContentName, "Search edit box");
+		click(AMDSearchScreen.objFirstSearchResult(pContentName), "Searched content");
+		
+		
+		if (!userType.equalsIgnoreCase("SubscribedUser")) {
+			waitForAdToFinishInAmd();
+		}
+
+		waitTime(3000);
+		verifyElementPresent(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		waitTime(2000);
+		Back(1);
+		setFEProperty(userType);
+		setUserType_SubscriptionProperties(userType);
+
+		mixpanel.FEProp.setProperty("Source", pSource);
+		mixpanel.FEProp.setProperty("Page Name", pPage);
+		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+		mixpanel.FEProp.setProperty("brand", pManufacturer);
+		
+		mixpanel.ValidateParameter("", "Search Button Click");
+	}
 }

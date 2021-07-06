@@ -508,4 +508,6 @@ public class PWAPlayerPage {
 	public static By objShowCategoryMeta = By.xpath("//*[contains(@class,'showMetaAnchor')]");
 	public static By objShowSeasonMeta = By.xpath("(//*[contains(@class,'metaInfo lineHeightClass')]//a)[1]");
 	public static By objShowChannelMeta = By.xpath("(//*[contains(@class,'showMetaClass')]//a)[1]");
+	
+	public static By objFirstCardFreeChnnelFromFirstTray = By.xpath("(((//div[@class='trayContentWrap']//div[@class='trayHeader']//h2[.='FREE Channels'])//parent::*//parent::*)//child::*//div[@class='slick-track']//child::*//div[@class='clickWrapper']//figure//a[@class='noSelect content ']//img)[1]");
 }
