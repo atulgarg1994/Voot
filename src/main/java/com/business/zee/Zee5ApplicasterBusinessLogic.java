@@ -29459,5 +29459,332 @@ public void InitiateContentPlaybackTVEPISODE() throws Exception {
 	performaceDetails.add("Initiate content playback (Episode)"+","+timeElapsed.getSeconds()+","+nativeMemory+" MB,"+totalMemory+" MB,"+nCpuUSage+"%,"+nGPUMemory+" MB,"+nGPURendered+","+nNetTraffic+" MB");
 }
 
+public void ConsumptionScreenforShows() throws Exception {
+	extent.HeaderChildNode("Consumption screen for Shows");
+	System.out.println("\n>>> Consumption screen for Shows");
+
+//String appPackageName = getParameterFromXML("appPackageName");
+	String appPackageName = "com.graymatrix.did";
+
+	// Threshold Values declaration
+	int threshold_TimeTaken = 15;
+	int threshold_NativeMemory = 45;
+	int threshold_TotalMemory = 300;
+	int threshold_CPU = 150;
+	int threshold_GPUMem = 30;
+	int threshold_GPURendered = 1500;
+	int threshold_Network = 90;
+	boolean timeFlag=true, memFlag=true, totalmemFlag=true, cpuFlag=true, gpuMemFlag=true, gpuRenFlag=true, trafficFlag=true;
+	
+	LoginWithEmailID("zeetest34new@test.com", "123456");
+	SelectTopNavigationTab("TV Shows");
+	verifyElementPresentAndClick(AMDHomePage.objPlayBtn, "Play");
+	Instant startTime = Instant.now();
+	logger.info("Instant Start time : " + startTime);
+
+	verifyElementPresent(AMDPlayerScreen.objPauseIcon, "Player Start");
+	verifyElementPresent(AMDConsumptionScreen.objAudioLanguage,"Audio lang");
+	verifyElementPresent(AMDConsumptionScreen.objContentDesc,"Content Desc");
+	verifyElementPresent(AMDConsumptionScreen.objExpandDesc,"Expand view");
+	
+	// #### App Performance MEMORY Usage Info
+	ArrayList<String> getMmoryInfo = Memory_UsagePerformanceV2();
+	int nativeMemory = Integer.parseInt(getMmoryInfo.get(0).trim());
+	int totalMemory = Integer.parseInt(getMmoryInfo.get(1).trim());
+
+	// #### App Performance CPU Usage Info
+	String getCPUInfo = CPU_UsagePerformanceV2();
+	int nCpuUSage = Integer.parseInt(getCPUInfo);
+
+	// #### App Performance GPU Usage Info
+	ArrayList<String> getGPUInfo = GPU_UsagePerformanceV2();
+	float nGPUMemory = Float.parseFloat(getGPUInfo.get(0).replace(" MB", "").trim());
+	int nGPURendered = Integer.parseInt(getGPUInfo.get(1).replace("Total frames rendered: ", "").trim());
+
+	// #### App Performance Network Traffic Usage Info
+	int nNetTraffic = getApp_NetworkTrafficUsageV2(appPackageName);
+
+	// #### App Performance Battery Info
+	String batteryInfo = BatteryStats_PerformanceV2();
+
+	Instant endTime = Instant.now();
+	logger.info("Instant End time : " + endTime);
+
+	Duration timeElapsed = Duration.between(startTime, endTime);
+	extent.extentLogger("Timer",
+			"<b>Time taken to start playback for Episode(Sec):</b> " + timeElapsed.getSeconds());
+	Back(1);
+
+	if (timeElapsed.getSeconds() < threshold_TimeTaken) {
+		extent.extentLoggerPass("Timer",
+				"<b>Time taken to start playback for Episode(Sec)</b>: " + timeElapsed.getSeconds());
+	} else {
+		timeFlag=false;
+		logger.info("Time taken to start playback for Episode(Sec): " + timeElapsed.getSeconds());
+		extent.extentLoggerFail("Timer",
+				"<b>Time taken to start playback for Episode(Sec)</b>: " + timeElapsed.getSeconds());
+	}
+	softAssertion.assertEquals(timeFlag, true);
+
+	if (nativeMemory < threshold_NativeMemory) {
+		logger.info("App Native Heap Memory: " + nativeMemory + " MB");
+		extent.extentLoggerPass("Memory Info", "<b>App Native Heap Memory: :</b> " + nativeMemory + " MB");
+	} else {
+		memFlag=false;
+		logger.error("App Native Heap Memory: " + nativeMemory + " MB");
+		extent.extentLoggerFail("Memory Info", "<b>App Native Heap Memory: </b> " + nativeMemory + " MB");
+	}
+	softAssertion.assertEquals(memFlag, true);
+
+	if (totalMemory < threshold_TotalMemory) {
+		logger.info("App Peak Memory Usage: " + totalMemory + " MB");
+		extent.extentLoggerPass("Memory Info", "<b>App Peak Memory Usage:</b> " + totalMemory + " MB");
+	} else {
+		totalmemFlag=false;
+		logger.error("App Peak Memory Usage: " + totalMemory + " MB");
+		extent.extentLoggerFail("Memory Info", "<b>App Peak Memory Usage:</b> " + totalMemory + " MB");
+	}
+	softAssertion.assertEquals(totalmemFlag, true);
+
+	if (nCpuUSage < threshold_CPU) {
+		logger.info("CPU Usage : " + nCpuUSage + "%");
+		extent.extentLoggerPass("CPU Info", "<b>CPU Usage: </b>" + nCpuUSage + "%");
+	} else {
+		cpuFlag=false;
+		logger.error("CPU Usage: " + nCpuUSage + "%");
+		extent.extentLoggerFail("CPU Info", "<b>CPU Usage: </b>" + nCpuUSage + "%");
+	}
+	softAssertion.assertEquals(cpuFlag, true);
+
+	if (nGPUMemory < threshold_GPUMem) {
+		logger.info("\nGPU Memory Usage: " + nGPUMemory + " MB");
+		extent.extentLoggerPass("GPU Info",
+				"<b>GPU Memory Usage: </b>" + nGPUMemory + " MB");
+	} else {
+		gpuMemFlag=false;
+		logger.error("\nGPU Memory Usage exceeded: " + nGPUMemory + " MB");
+		extent.extentLoggerFail("GPU Info",
+				"<b>GPU Memory Usage exceeded: </b>" + nGPUMemory + " MB");
+	}
+	softAssertion.assertEquals(gpuMemFlag, true);
+
+	if (nGPURendered < threshold_GPURendered) {
+		logger.info("\nGPU FPS: " + nGPURendered);
+		extent.extentLoggerPass("GPU Info", "<b>GPU FPS: </b>" + nGPURendered);
+	} else {
+		gpuRenFlag=false;
+		logger.error("\nGPU FPS: " + nGPURendered);
+		extent.extentLoggerFail("GPU Info", "<b>GPU FPS: </b>" + nGPURendered);
+	}
+	softAssertion.assertEquals(gpuRenFlag, true);
+
+	if (nNetTraffic < threshold_Network) {
+		logger.info("\nApp traffic usage: " + (int) nNetTraffic + " MB");
+		extent.extentLoggerPass("Traffic Usage",
+				"<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
+	} else {
+		trafficFlag=false;
+		logger.error("\nApp traffic usage: " + (int) nNetTraffic + " MB");
+		extent.extentLoggerFail("Traffic Usage",
+				"<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
+	}
+	
+	String timeTaken = Long.toString(timeElapsed.getSeconds());
+	String strNativeMemory = Integer.toString(nativeMemory);
+	String strTotalMemory = Integer.toString(totalMemory);
+	String strCPU = Integer.toString(nCpuUSage);
+	String strGPU = Float.toString(nGPUMemory);
+	String strGPURendered = Integer.toString(nGPURendered);
+	String strTraffic = Integer.toString(nNetTraffic);
+	
+	performaceMatrics.put("Time Taken",timeTaken+" Sec");
+	performaceMatrics.put("Native Heap Memory",strNativeMemory+" MB");
+	performaceMatrics.put("Peak Memory",strTotalMemory+" MB");
+	performaceMatrics.put("CPU Usage",strCPU+"%");
+	performaceMatrics.put("GPU Usage",strGPU+" MB");
+	performaceMatrics.put("GPU FPS",strGPURendered);
+	performaceMatrics.put("Traffic Usage",strTraffic+" MB");
+	
+	System.out.println("\n---------------------------------------------- Consumption screen for Shows ----------------------------------------------");
+	System.out.println(performaceMatrics);
+	System.out.println("------------------------------------------------------------------------------------------------------------------------");
+	ClearAllPerformanceMatrics();
+	
+	softAssertion.assertEquals(trafficFlag, true);
+	softAssertion.assertAll();
+	
+	if (batteryInfo.contains("drain")) {
+		logger.info("\nApp Battery Info - " + batteryInfo);
+		extent.extentLoggerPass("Timer", "<b>App Battery Info - </b>" + batteryInfo);
+	} else {
+		logger.error("\nApp Battery Info - " + batteryInfo);
+		extent.extentLoggerFail("Timer", "<b>App Battery Info - </b>" + batteryInfo);
+	}
+	performaceDetails.add("ConsumpitonScreen for Shows"+","+timeElapsed.getSeconds()+","+nativeMemory+" MB,"+totalMemory+" MB,"+nCpuUSage+"%,"+nGPUMemory+" MB,"+nGPURendered+","+nNetTraffic+" MB");
+}
+
+public void ConsumptionScreenforMovies() throws Exception {
+	extent.HeaderChildNode("Consumption screen for Movies");
+	System.out.println("\n>>> Consumption screen for Movies");
+
+//String appPackageName = getParameterFromXML("appPackageName");
+	String appPackageName = "com.graymatrix.did";
+
+	// Threshold Values declaration
+	int threshold_TimeTaken = 18;
+	int threshold_NativeMemory = 45;
+	int threshold_TotalMemory = 300;
+	int threshold_CPU = 150;
+	int threshold_GPUMem = 30;
+	int threshold_GPURendered = 1500;
+	int threshold_Network = 90;
+	boolean timeFlag=true, memFlag=true, totalmemFlag=true, cpuFlag=true, gpuMemFlag=true, gpuRenFlag=true, trafficFlag=true;
+	
+	LoginWithEmailID("zeetest34new@test.com", "123456");
+	SelectTopNavigationTab("Movies");
+	verifyElementPresentAndClick(AMDHomePage.objPlayBtn, "Play");
+	Instant startTime = Instant.now();
+	logger.info("Instant Start time : " + startTime);
+
+	verifyElementPresent(AMDPlayerScreen.objPauseIcon, "Player Start");
+	verifyElementPresent(AMDConsumptionScreen.objAudioLanguage,"Audio lang");
+	verifyElementPresent(AMDConsumptionScreen.objContentDesc,"Content Desc");
+	verifyElementPresent(AMDConsumptionScreen.objExpandDesc,"Expand view");
+	
+	// #### App Performance MEMORY Usage Info
+	ArrayList<String> getMmoryInfo = Memory_UsagePerformanceV2();
+	int nativeMemory = Integer.parseInt(getMmoryInfo.get(0).trim());
+	int totalMemory = Integer.parseInt(getMmoryInfo.get(1).trim());
+
+	// #### App Performance CPU Usage Info
+	String getCPUInfo = CPU_UsagePerformanceV2();
+	int nCpuUSage = Integer.parseInt(getCPUInfo);
+
+	// #### App Performance GPU Usage Info
+	ArrayList<String> getGPUInfo = GPU_UsagePerformanceV2();
+	float nGPUMemory = Float.parseFloat(getGPUInfo.get(0).replace(" MB", "").trim());
+	int nGPURendered = Integer.parseInt(getGPUInfo.get(1).replace("Total frames rendered: ", "").trim());
+
+	// #### App Performance Network Traffic Usage Info
+	int nNetTraffic = getApp_NetworkTrafficUsageV2(appPackageName);
+
+	// #### App Performance Battery Info
+	String batteryInfo = BatteryStats_PerformanceV2();
+
+	Instant endTime = Instant.now();
+	logger.info("Instant End time : " + endTime);
+
+	Duration timeElapsed = Duration.between(startTime, endTime);
+	extent.extentLogger("Timer",
+			"<b>Time taken to start playback for Episode(Sec):</b> " + timeElapsed.getSeconds());
+	Back(1);
+
+	if (timeElapsed.getSeconds() < threshold_TimeTaken) {
+		extent.extentLoggerPass("Timer",
+				"<b>Time taken to start playback for Episode(Sec)</b>: " + timeElapsed.getSeconds());
+	} else {
+		timeFlag=false;
+		logger.info("Time taken to start playback for Episode(Sec): " + timeElapsed.getSeconds());
+		extent.extentLoggerFail("Timer",
+				"<b>Time taken to start playback for Episode(Sec)</b>: " + timeElapsed.getSeconds());
+	}
+	softAssertion.assertEquals(timeFlag, true);
+
+	if (nativeMemory < threshold_NativeMemory) {
+		logger.info("App Native Heap Memory: " + nativeMemory + " MB");
+		extent.extentLoggerPass("Memory Info", "<b>App Native Heap Memory: :</b> " + nativeMemory + " MB");
+	} else {
+		memFlag=false;
+		logger.error("App Native Heap Memory: " + nativeMemory + " MB");
+		extent.extentLoggerFail("Memory Info", "<b>App Native Heap Memory: </b> " + nativeMemory + " MB");
+	}
+	softAssertion.assertEquals(memFlag, true);
+
+	if (totalMemory < threshold_TotalMemory) {
+		logger.info("App Peak Memory Usage: " + totalMemory + " MB");
+		extent.extentLoggerPass("Memory Info", "<b>App Peak Memory Usage:</b> " + totalMemory + " MB");
+	} else {
+		totalmemFlag=false;
+		logger.error("App Peak Memory Usage: " + totalMemory + " MB");
+		extent.extentLoggerFail("Memory Info", "<b>App Peak Memory Usage:</b> " + totalMemory + " MB");
+	}
+	softAssertion.assertEquals(totalmemFlag, true);
+
+	if (nCpuUSage < threshold_CPU) {
+		logger.info("CPU Usage : " + nCpuUSage + "%");
+		extent.extentLoggerPass("CPU Info", "<b>CPU Usage: </b>" + nCpuUSage + "%");
+	} else {
+		cpuFlag=false;
+		logger.error("CPU Usage: " + nCpuUSage + "%");
+		extent.extentLoggerFail("CPU Info", "<b>CPU Usage: </b>" + nCpuUSage + "%");
+	}
+	softAssertion.assertEquals(cpuFlag, true);
+
+	if (nGPUMemory < threshold_GPUMem) {
+		logger.info("\nGPU Memory Usage: " + nGPUMemory + " MB");
+		extent.extentLoggerPass("GPU Info",
+				"<b>GPU Memory Usage: </b>" + nGPUMemory + " MB");
+	} else {
+		gpuMemFlag=false;
+		logger.error("\nGPU Memory Usage exceeded: " + nGPUMemory + " MB");
+		extent.extentLoggerFail("GPU Info",
+				"<b>GPU Memory Usage exceeded: </b>" + nGPUMemory + " MB");
+	}
+	softAssertion.assertEquals(gpuMemFlag, true);
+
+	if (nGPURendered < threshold_GPURendered) {
+		logger.info("\nGPU FPS: " + nGPURendered);
+		extent.extentLoggerPass("GPU Info", "<b>GPU FPS: </b>" + nGPURendered);
+	} else {
+		gpuRenFlag=false;
+		logger.error("\nGPU FPS: " + nGPURendered);
+		extent.extentLoggerFail("GPU Info", "<b>GPU FPS: </b>" + nGPURendered);
+	}
+	softAssertion.assertEquals(gpuRenFlag, true);
+
+	if (nNetTraffic < threshold_Network) {
+		logger.info("\nApp traffic usage: " + (int) nNetTraffic + " MB");
+		extent.extentLoggerPass("Traffic Usage",
+				"<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
+	} else {
+		trafficFlag=false;
+		logger.error("\nApp traffic usage: " + (int) nNetTraffic + " MB");
+		extent.extentLoggerFail("Traffic Usage",
+				"<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
+	}
+	
+	String timeTaken = Long.toString(timeElapsed.getSeconds());
+	String strNativeMemory = Integer.toString(nativeMemory);
+	String strTotalMemory = Integer.toString(totalMemory);
+	String strCPU = Integer.toString(nCpuUSage);
+	String strGPU = Float.toString(nGPUMemory);
+	String strGPURendered = Integer.toString(nGPURendered);
+	String strTraffic = Integer.toString(nNetTraffic);
+	
+	performaceMatrics.put("Time Taken",timeTaken+" Sec");
+	performaceMatrics.put("Native Heap Memory",strNativeMemory+" MB");
+	performaceMatrics.put("Peak Memory",strTotalMemory+" MB");
+	performaceMatrics.put("CPU Usage",strCPU+"%");
+	performaceMatrics.put("GPU Usage",strGPU+" MB");
+	performaceMatrics.put("GPU FPS",strGPURendered);
+	performaceMatrics.put("Traffic Usage",strTraffic+" MB");
+	
+	System.out.println("\n---------------------------------------------- Consumption screen for Movies ----------------------------------------------");
+	System.out.println(performaceMatrics);
+	System.out.println("------------------------------------------------------------------------------------------------------------------------");
+	ClearAllPerformanceMatrics();
+	
+	softAssertion.assertEquals(trafficFlag, true);
+	softAssertion.assertAll();
+	
+	if (batteryInfo.contains("drain")) {
+		logger.info("\nApp Battery Info - " + batteryInfo);
+		extent.extentLoggerPass("Timer", "<b>App Battery Info - </b>" + batteryInfo);
+	} else {
+		logger.error("\nApp Battery Info - " + batteryInfo);
+		extent.extentLoggerFail("Timer", "<b>App Battery Info - </b>" + batteryInfo);
+	}
+	performaceDetails.add("ConsumpitonScreen for Movies"+","+timeElapsed.getSeconds()+","+nativeMemory+" MB,"+totalMemory+" MB,"+nCpuUSage+"%,"+nGPUMemory+" MB,"+nGPURendered+","+nNetTraffic+" MB");
+}
 
 }

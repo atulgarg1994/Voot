@@ -57,6 +57,20 @@ public class Android_AppPerformanceTest {
 		ZEE5ApplicasterBusinessLogic.InitiateContentPlaybackTVEPISODE();
 	}
 	
+	@Test(priority = 6)
+	public void ConsumptionScreenSVODEpisode() throws Exception {
+		ZEE5ApplicasterBusinessLogic.clearBackgroundApps();
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.ConsumptionScreenforShows();
+	}
+		
+	@Test(priority = 7)
+	public void ConsumptionScreenSVODMovies() throws Exception {
+		ZEE5ApplicasterBusinessLogic.clearBackgroundApps();
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.ConsumptionScreenforMovies();
+	}
+	
 	@AfterTest
 	public void tearDownApp() {
 		System.out.println(ZEE5ApplicasterBusinessLogic.performaceDetails);

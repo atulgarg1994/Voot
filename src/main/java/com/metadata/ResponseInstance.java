@@ -3807,9 +3807,7 @@ private static void getDOB_NativeAndroid() {
 	LocalDate curDate = LocalDate.now();
 	int ageYears=Period.between(dob, curDate).getYears();
 	int ageMonths=Period.between(dob, curDate).getMonths();
-	if(ageMonths>=6) {
-		++ageYears;
-	}
+	System.out.println(String.valueOf(ageYears));
 	MixpanelAndroid.FEProp.setProperty("Age", String.valueOf(ageYears));
 }
 
@@ -3823,7 +3821,7 @@ public static void setSubscriptionDetails_NativeAndroid() {
 	
 	String bearerToken = getBearerToken(pUsername, pPassword);
 	resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken).when().get(url);
-	
+	//resp.prettyPrint();
 	System.out.println("\nSubscrition related");
 	MixpanelAndroid.FEProp.setProperty("Pack Duration",resp.jsonPath().getString("[0].subscription_plan.billing_frequency")); 
 	String uri = "[0].subscription_plan.";
@@ -3841,7 +3839,7 @@ public static void setSubscriptionDetails_NativeAndroid() {
 	
 	String getUserCountry = resp.jsonPath().getString(uri+"country");
 	MixpanelAndroid.FEProp.setProperty("Country ID",getUserCountry);
-	MixpanelAndroid.FEProp.setProperty("Registring Country",getUserCountry);
+	MixpanelAndroid.FEProp.setProperty("Registering Country",getUserCountry);
 	
 	String pCountry = "NA";
 	if(getUserCountry.equalsIgnoreCase("IN")) {
@@ -3893,24 +3891,52 @@ public static String getCarouselContentFromAPI2(String usertype, String tabName)
 			var=asset_subtype;
 		}
 		
+		
+		contentID1 = pageResp.jsonPath().get("buckets[0].items["+i+"].id");
+		ContentResp1 = getResponseDetails(contentID1);
+		
 		switch (var) {
 		case "movie":
 			contentID1 = pageResp.jsonPath().get("buckets[0].items["+i+"].id");
 			ContentResp1 = getResponseDetails(contentID1);
-			setFEPropertyOfContentFromAPI2(contentID1,ContentResp1, tabName);
+			int relatedNodelength = ContentResp1.jsonPath().getList("related").size();		
+			if (relatedNodelength >= 1 && (!(usertype.equalsIgnoreCase("SubscribedUser")))) {
+				 ContentId2 = ContentResp1.jsonPath().get("related[0].id");
+			      ContentResp2 = getResponseDetails(ContentId2);
+			      setFEPropertyOfContentFromAPI2(ContentId2,ContentResp2, tabName);
+			}else {
+				setFEPropertyOfContentFromAPI2(contentID1,ContentResp1, tabName);
+			}
 			flag = true;
 			break;
 		case "original":
 		    contentID1 = pageResp.jsonPath().get("buckets[0].items["+i+"].id");
-			ContentResp1 = getContentDetails(contentID1, "original");
-			setFEPropertyOfContentFromAPI2(contentID1,ContentResp1, tabName);
+		    ContentResp1 = getContentDetails(contentID1, "original");
+			ContentId2 = ContentResp1.jsonPath().getString("seasons[0].episodes[0].id");
+			ContentResp2 = getContentDetails(ContentId2, "original");
+			setFEPropertyOfContentFromAPI2(ContentId2,ContentResp2, tabName);
 			flag = true;
 			break;
-		
+			
 		case "external_link":
-			contentID1 = pageResp.jsonPath().get("buckets[0].items["+i+"].id");
-			ContentResp1 = ResponseInstance.getContentDetails(contentID1, "original");
-			setFEPropertyOfContentFromAPI2(contentID1,ContentResp1, tabName);
+			contentID1 = pageResp.jsonPath().get("buckets[0].items["+i+"].slug");
+			String value = fetchContentIDFromUrl(contentID1);
+			System.out.println(value);
+			ContentResp1 = ResponseInstance.getContentDetails(value, "original");
+			if(!(tabName.equalsIgnoreCase("News") || tabName.equalsIgnoreCase("Eduauraa"))) {
+				List<String> noOfEpisodes = ContentResp1.jsonPath().getList("seasons[0].episodes");
+				for(int n=0; n<noOfEpisodes.size();n++) {
+					String contenttype = ContentResp1.jsonPath().getString("seasons[0].episodes["+n+"].business_type");
+					if(contenttype.equalsIgnoreCase("advertisement_downloadable")) {
+						ContentId2 = ContentResp1.jsonPath().getString("seasons[0].episodes["+n+"].id");
+						break;
+					}
+				}
+				ContentResp2 = getContentDetails(ContentId2, "original");
+				setFEPropertyOfContentFromAPI2(ContentId2,ContentResp2, tabName);
+			}else {
+				setFEPropertyOfContentFromAPI2(value,ContentResp1, tabName);
+			}
 			flag = true;
 			break;
 			
@@ -3935,33 +3961,38 @@ public static void setFEPropertyOfContentFromAPI2(String contentID, Response Con
 	
 	String pCharacters = null;
 	String contentDuration =null;
-	if(tabName.equalsIgnoreCase("TV Shows") | tabName.equalsIgnoreCase("Web Series") | tabName.equalsIgnoreCase("News")){
-		contentDuration="N/A";
-	}else {
-		contentDuration = ContentResp.jsonPath().getString("duration");
-		if(contentDuration.equalsIgnoreCase("0")) {
-			contentDuration="N/A";
-		}
-	}
+	contentDuration = ContentResp.jsonPath().getString("duration");
+	
 	
 	String pBusinessType = ContentResp.jsonPath().getString("business_type");
-	String pAssetSubType = null;
-	pAssetSubType = ContentResp.jsonPath().getString("asset_subtype");
-		
+	String pAssetSubType = "";
+		boolean ex = ContentResp.jsonPath().getString("asset_subtype") != null;
+		if(ex) {
+			pAssetSubType = ContentResp.jsonPath().getString("asset_subtype");
+		}else {
+		    pAssetSubType = "N/A";
+		}
+	
 	int episode = ContentResp.jsonPath().get("episode_number");
 	String pEpisodeNum = Integer.toString(episode);
 	if(pEpisodeNum.equalsIgnoreCase("0")) {
 		pEpisodeNum = "N/A";
+	}else {
+		pEpisodeNum = "Episode "+pEpisodeNum;
 	}
 	
 	String pTitle = ContentResp.jsonPath().getString("title");
 	String pPublishedDate=null;
-	if(tabName.equalsIgnoreCase("TV Shows") | tabName.equalsIgnoreCase("News")){
-		pPublishedDate = "N/A";
-	}else {
-			String release_date = ContentResp.jsonPath().get("release_date").toString();
-            pPublishedDate = release_date.replace(release_date.substring(10), "");	
+	try {
+		String release_date = ContentResp.jsonPath().get("release_date").toString();
+	    pPublishedDate = release_date.replace(release_date.substring(10), "");	
 	}
+	catch(Exception e) {
+		pPublishedDate= "null";
+		
+	}
+			
+	
 	
 	String pContentBillingType = null;
 	try {
@@ -3998,7 +4029,13 @@ public static void setFEPropertyOfContentFromAPI2(String contentID, Response Con
 	int audioLangCount = ContentResp.jsonPath().getList("audio_languages").size();
 	String pAudioLangguage = null;
 	if (audioLangCount > 1) {
-		System.out.println("AUDIO LANGUAGES");
+		System.out.println("Audio LANGUAGES");
+		ArrayList<String> getAudioLanguages = new ArrayList<String>();
+		for (int j = 0; j < audioLangCount; j++) {
+			getAudioLanguages.add(ContentResp.jsonPath().get("audio_languages[" + j + "]").toString());
+		}
+		pAudioLangguage = getAudioLanguages.toString().replace("[", "").replace("]", "");
+		pLanguages= pAudioLangguage;
 	} else if (audioLangCount == 1) {
 		pAudioLangguage = ContentResp.jsonPath().get("audio_languages[0]");
 	} else {
@@ -4010,6 +4047,11 @@ public static void setFEPropertyOfContentFromAPI2(String contentID, Response Con
 	String pSubTitleLangguage = null;
 	if (subTitleLangCount > 1) {
 		System.out.println("SUBTITLE LANGUAGES");
+		ArrayList<String> getSubtitles = new ArrayList<String>();
+		for (int j = 0; j < subTitleLangCount; j++) {
+			getSubtitles.add(ContentResp.jsonPath().get("subtitle_languages[" + j + "]").toString());
+		}
+		pSubTitleLangguage = getSubtitles.toString().replace("[", "").replace("]", "");
 	} else if (subTitleLangCount == 1) {
 		pSubTitleLangguage = ContentResp.jsonPath().get("subtitle_languages[0]");
 	} else {
@@ -4025,7 +4067,7 @@ public static void setFEPropertyOfContentFromAPI2(String contentID, Response Con
 		}
 		pCharacters = getCharacters.toString();
 		pCharacters = pCharacters.replace("[", "").replace("]", "");
-	} else if (tabName.equalsIgnoreCase("Live TV") | tabName.equalsIgnoreCase("Livetv")) {
+	} else if (tabName.equalsIgnoreCase("Live TV") | tabName.equalsIgnoreCase("Livetv") | tabName.equalsIgnoreCase("News")) {
 		getCharacters.add("N/A");
 		pCharacters = getCharacters.toString().replace("[", "").replace("]", "");
 	} else {

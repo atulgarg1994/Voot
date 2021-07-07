@@ -548,8 +548,8 @@ public class MixpanelAndroid extends ExtentReporter {
 
 		String username = getParameterFromXML("SubscribedUserName");
 		String password = getParameterFromXML("SubscribedPassword");
-//		username = "zeetest10@test.com";
-//		password = "123456";
+//	String	username = "clubRK@g.com";
+//	String	password = "123456";
 		
 		Response subscriptionResp=ResponseInstance.getSubscriptionDetails(username, password);
 		subscriptionResp.print();
@@ -564,13 +564,13 @@ public class MixpanelAndroid extends ExtentReporter {
 		String Latest_Subscription_Pack=id+"_"+title+"_"+subscription_plan_type;
 
 		String packExpiry=subscriptionResp.jsonPath().get("["+index+"].subscription_end").toString().replace("Z", "");
-
-//		SimpleDateFormat requiredFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");		
-//		java.text.DateFormat actualFormat = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-//		actualFormat.setTimeZone(java.util.TimeZone.getTimeZone("GMT"));
-//		java.util.Date packExpiryDate = actualFormat.parse(packExpiry);
 		
-		String Latest_Subscription_Pack_Expiry = packExpiry;
+		SimpleDateFormat requiredFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		java.text.DateFormat actualFormat = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		actualFormat.setTimeZone(java.util.TimeZone.getTimeZone("GMT"));
+		java.util.Date packExpiryDate = actualFormat.parse(packExpiry);
+		String Latest_Subscription_Pack_Expiry=requiredFormat.format(packExpiryDate).toString();
+	
 		String Next_Expiring_Pack = Latest_Subscription_Pack;
 		String Next_Pack_Expiry_Date = Latest_Subscription_Pack_Expiry;
 		

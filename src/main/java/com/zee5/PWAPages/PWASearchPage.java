@@ -219,8 +219,6 @@ public class PWASearchPage {
 		return By.xpath("//h3[@class='cardTitle overflowEllipsis ']//span[contains(text(),'" + str + "')]");
 	}
 
-	public static By objspecificSearch = By.xpath("(//div[@class='metaData'])[1]");
-
 	public static By objSearchTextBox = By.xpath("//input[@name='search']");
 
 	public static By objfirstdata = By.xpath("(//div[@class='listingGrid']//h3)[1]");
@@ -366,5 +364,7 @@ public class PWASearchPage {
 			"//div[@class='trayHeader']//h2[text()='Trending Searches']//parent::*//following-sibling::div[@class='latestEpisodeTrayWrapper']//div[@data-index='1']//h3[@class='cardTitle']");
 
 	public static By objMandatoryBuyPlanPopUp = By.xpath("//div[@class='subscribe-button subscribemsg_en']");
+	
+	public static By objspecificSearch = By.xpath("(//div[@class='clickWrapper']//a)[1]");
 	    
 }

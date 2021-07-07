@@ -9,9 +9,6 @@ public class PWAMusicPage {
 		return By.xpath("//div[contains(@class,'noSelect') and contains(text(),'" + tabName + "')]");
 	}
 
-//		Check for the premium tag
-	public static By objPremiumTag = By.xpath("//*[@class='cardPremiumContent']");
-
 //		Music Highlited
 	public static By objMusicHighlited = By.xpath("//div[@class='noSelect active' and //DIV[text()='Music']]");
 
@@ -145,5 +142,7 @@ public class PWAMusicPage {
 	public static By objJoystickCornerTag=By.xpath("//*[contains(@class,'tray-container')]//*[contains(@class,'cardJoystickContent')]");
 	
 	public static By objDescription=By.xpath("//div[@class='description']");
+	
+	public static By objPremiumTag = By.xpath("//*[@class='cardPremiumContent sameEpisodeCardContent']");
 
 }

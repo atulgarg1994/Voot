@@ -612,8 +612,6 @@ public class PWAHomePage {
 		return By.xpath("(//a[contains(@class,'noSelect text_news_active') and text()='" + tabName + "'])[3]");
 	}
 	
-	
-	public static By objPremiumTag = By.xpath("//*[@class='cardPremiumContent']");
 	// Home Page
 	public static By objHomePage = By.xpath("(//*[text()='Home'])[1]");
 	// Click on Rent
@@ -685,5 +683,7 @@ public class PWAHomePage {
 	
 	public static By objContTitleOnCarousel = By
 			.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'legendTitle')]");
+	
+	public static By objPremiumTag = By.xpath("//*[@class='cardPremiumContent sameEpisodeCardContent']");
 
  }

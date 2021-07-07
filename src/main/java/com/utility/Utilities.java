@@ -568,20 +568,20 @@ public class Utilities extends ExtentReporter {
 	 * @param byLocator the by locator
 	 * @param text      the text
 	 */
-	public void type(By byLocator, String text, String FieldName) {
+	public void type(By byLocator, String input, String FieldName) {
 		try {
 			waitTime(1000);
 			if (!getPlatform().equals("Web")) {
 				Actions a = new Actions(getDriver());
-				a.sendKeys(text);
+				a.sendKeys(input);
 				a.perform();
 			} else {
 				WebElement element = findElement(byLocator);
-				element.sendKeys(text);
+				element.sendKeys(input);
 			}
-			text = text.split("\n")[0];
-			logger.info("Typed the value " + text + " into " + FieldName);
-			extent.extentLogger("", "Typed the value " + text + " into " + FieldName);
+			input = input.split("\n")[0];
+			logger.info("Typed the value " + input + " into " + FieldName);
+			extent.extentLogger("", "Typed the value " + input + " into " + FieldName);
 		} catch (Exception e) {
 			logger.error(e);
 		}

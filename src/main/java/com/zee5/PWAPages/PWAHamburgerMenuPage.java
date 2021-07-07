@@ -254,8 +254,6 @@ public class PWAHamburgerMenuPage {
 	public static By objSelectedContentLanguages = By
 			.xpath("(//div[@class='checkboxWrap checkedHighlight'])//child::*[@class='commonName']");
 
-	public static By objSubscriptionTeaserBanner = By.xpath("//div[@class='subscriptionBanner ']");
-
 	public static By objBrowseAllPacks = By.xpath("//div[contains(text(),'Browse All Packs')]");
 
 	public static By objPackTitle = By.xpath("(//p[@class='packTitle'])");
@@ -1023,4 +1021,10 @@ public class PWAHamburgerMenuPage {
 	public static By objGrievanceRedressalPage = By.xpath("//*[@id='navBarContainer']//span[contains(text(),'GRIEVANCE REDRESSAL')]");
 	
 	public static By objHamburgerMenuOpened =By.xpath("//div[@class='bm-item primaryMenu' and @tabindex='0']");
+	
+	public static By objTextBelowThePlayer = By.xpath("//*[contains(text(), 'Get Flat 50% Off on 1 Year Premium at ₹499')]");
+	
+	public static By objSubscriptionTeaserBanner = By.xpath("//div[@class='subscriptionBanner ']");
+
+	
 }

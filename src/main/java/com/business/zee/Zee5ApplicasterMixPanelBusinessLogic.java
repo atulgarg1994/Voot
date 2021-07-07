@@ -198,10 +198,13 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	 * Functon to navigate to Intro screen
 	 */
 	public void navigateToIntroScreen_DisplaylangScreen() throws Exception {
-		extent.HeaderChildNode("Navigation to Home Screen");
+		extent.HeaderChildNode("Navigation to Intro Screen");
+		waitTime(6000);
 		if (verifyIsElementDisplayed(AMDOnboardingScreen.objContinueBtnInCountryPopUp)) {
 			click(AMDOnboardingScreen.objContinueBtnInCountryPopUp, "Continuebutton(Country_Screen)");
 		}
+//		click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button (Content-LanguageScreen)");
+//		verifyElementPresent(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 	}
 
 	String Username;
@@ -9377,7 +9380,7 @@ public void ZeeApplicasterLogin(String LoginMethod) throws Exception {
 			}
 			mixpanel.FEProp.setProperty("Email", pUsername);
 		} else {
-			mixpanel.FEProp.setProperty("User Type", "Free");
+			mixpanel.FEProp.setProperty("User Type", "Guest");
 		}
 	}
 
@@ -9546,10 +9549,10 @@ public void ZeeApplicasterLogin(String LoginMethod) throws Exception {
 		boolean flagBox = verifyIsElementDisplayed(AMDHomePage.objSboxIcon);
 		String pSugarBox = String.valueOf(flagBox);
 
-		String contentName = ResponseInstance.getCarouselContentFromAPI(usertype, tabName);
+		String contentName = ResponseInstance.getCarouselContentFromAPI2(usertype, tabName);
 		System.out.println(contentName);
 
-		waitForElementAndClickIfPresent(AMDHomePage.objContentTitle(contentName), 60, "carousal content");
+		waitForElementAndClickIfPresent(AMDHomePage.objContentTitle(contentName), 7, "carousal content");
 
 		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
 			waitForAdToFinishInAmd();
@@ -9588,23 +9591,22 @@ public void ZeeApplicasterLogin(String LoginMethod) throws Exception {
 				String pPage = "ConsumptionPage";
 				String pSource = getSource(tabName);
 				String pManufacturer = DeviceDetails.OEM;
-				// String pAdId = getAdId();
 
 				setFEProperty(usertype);
 				setUserType_SubscriptionProperties(usertype);
 
-				// mixpanel.FEProp.setProperty("Ad ID", getParameterFromXML("AdID"));
-				mixpanel.FEProp.setProperty("Advertisement ID", getParameterFromXML("AdID"));
 				mixpanel.FEProp.setProperty("Source", pSource);
 				mixpanel.FEProp.setProperty("Page Name", pPage);
 				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				mixpanel.FEProp.setProperty("Manufacturer", pManufacturer);
-				mixpanel.FEProp.setProperty("Brand", pManufacturer);
+				mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+				mixpanel.FEProp.setProperty("brand", pManufacturer);
 				mixpanel.FEProp.setProperty("New View Position", ScreenOrientation2);
 				mixpanel.FEProp.setProperty("Old View Position", ScreenOrientation1);
 				mixpanel.FEProp.setProperty("Carousal Name", "N/A");
-				// mixpanel.FEProp.setProperty("Sugar Box Value",pSugarBox );
-
+				if(tabName.equalsIgnoreCase("TV Shows") || tabName.equalsIgnoreCase("Web Series")) {
+					mixpanel.FEProp.setProperty("Series", contentName);
+				}
+				
 				mixpanel.ValidateParameter("", "Player View Changed");
 			} else {
 				logger.info("Failed to change the player view");
@@ -10351,4 +10353,113 @@ public void ZeeApplicasterLogin(String LoginMethod) throws Exception {
 		
 		mixpanel.ValidateParameter("", "Search Button Click");
 	}
+	
+	public void verifyDisplayLanguageChangeEvent(String usertype, String displayLanguage) throws Exception {
+		extent.HeaderChildNode("Verify display language change Event");
+		
+		if (!(pUserType.equalsIgnoreCase("Guest"))) {
+			if(pUserType.equalsIgnoreCase("SubscribedUser")) {
+				Username = getParameterFromXML("SubscribedUserName");
+				Password = getParameterFromXML("SubscribedPassword");
+			}else if(pUserType.equalsIgnoreCase("NonSubscribedUser")) {
+				Username = getParameterFromXML("NonSubscribedUserName");
+				Password = getParameterFromXML("NonSubscribedUserPassword");
+			}
+	      	mixpanel.FEProp.setProperty("Old App Language", ResponseInstance.getUserSettingsDetails(Username,Password).getProperty("display_language"));
+		}else {
+			mixpanel.FEProp.setProperty("Old App Language", "en");
+		}
+		
+		click(AMDHomePage.MoreMenuIcon, "More menu icon");
+		Swipe("UP", 1);
+		click(AMDMoreMenu.objSettings, "Settings option");
+		waitTime(1000);
+		SwipeUntilFindElement(AMDMoreMenu.objDisplayLang, "Up");
+		click(AMDMoreMenu.objDisplayLang, "Display language");
+		
+		boolean flag = false;
+		flag = verifyElementPresentAndClick(AMDOnboardingScreen.objSelectDisplayLang(displayLanguage), "language");
+		click(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue button");
+		
+		if(flag){
+			
+			setFEProperty(usertype);
+			setUserType_SubscriptionProperties(usertype);
+			
+			mixpanel.FEProp.setProperty("Source", "user_setting");
+			mixpanel.FEProp.setProperty("Page Name", "DisplayLanguage");
+			mixpanel.FEProp.setProperty("manufacturer", DeviceDetails.OEM);
+			mixpanel.FEProp.setProperty("brand", DeviceDetails.OEM);
+			if (pUserType.equalsIgnoreCase("Guest")) {
+				mixpanel.FEProp.setProperty("User Type", "Free");
+			}
+			
+			if (!(pUserType.equalsIgnoreCase("Guest"))) {
+				if(pUserType.equalsIgnoreCase("SubscribedUser")) {
+					Username = getParameterFromXML("SubscribedUserName");
+					Password = getParameterFromXML("SubscribedPassword");
+				}else if(pUserType.equalsIgnoreCase("NonSubscribedUser")) {
+					Username = getParameterFromXML("NonSubscribedUserName");
+					Password = getParameterFromXML("NonSubscribedUserPassword");
+				}
+		      	mixpanel.FEProp.setProperty("New App Language", ResponseInstance.getUserSettingsDetails(Username,Password).getProperty("display_language"));
+			}else {
+				mixpanel.FEProp.setProperty("New App Language", "mr");
+			}
+			
+			mixpanel.ValidateParameter("", "Display Language Changed");
+			
+			SwipeUntilFindElement(AMDMoreMenu.objDisplayLang, "Up");
+			click(AMDMoreMenu.objDisplayLang, "Display language");
+			verifyElementPresentAndClick(AMDOnboardingScreen.objSelectDisplayLang("English"), "language");
+			click(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue button");
+			
+		} else {
+			logger.info("Failed to change display language");
+			extentLoggerWarning("Event", "Failed to change display language");
+		}
+
+	}
+
+public void verifyContentLanguageChangeEvent(String userType) throws Exception {
+		if(userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Verify Content language change Event");
+			
+			click(AMDHomePage.MoreMenuIcon, "More menu icon");
+			verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
+			waitTime(1000);
+			SwipeUntilFindElement(AMDMoreMenu.objContentLang, "Up");
+			click(AMDMoreMenu.objContentLang, "Content language");
+			SwipeUntilFindElement(AMDOnboardingScreen.objSelectContentLang("Hindi"), "Up");
+			boolean flag = verifyElementPresentAndClick(AMDOnboardingScreen.objSelectContentLang("Hindi"), "Hindi Content language");
+			click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button in Content language screen");
+
+			if(flag){
+				
+				setFEProperty(userType);
+				setUserType_SubscriptionProperties(userType);
+				
+				mixpanel.FEProp.setProperty("Source", "user_setting");
+				mixpanel.FEProp.setProperty("Page Name", "ContentLanguage");
+				mixpanel.FEProp.setProperty("manufacturer", DeviceDetails.OEM);
+				mixpanel.FEProp.setProperty("brand", DeviceDetails.OEM);
+				mixpanel.FEProp.setProperty("User Type", "Free");
+				mixpanel.FEProp.setProperty("Old Content Language", "en,kn");
+				mixpanel.FEProp.setProperty("New Content Language", "en,kn,hi");	
+				
+				mixpanel.ValidateParameter("", "Content Language Changed");
+				
+				SwipeUntilFindElement(AMDMoreMenu.objContentLang, "Up");
+				click(AMDMoreMenu.objContentLang, "Content language");
+				SwipeUntilFindElement(AMDOnboardingScreen.objSelectContentLang("Hindi"), "Up");
+				click(AMDOnboardingScreen.objSelectContentLang("Hindi"), "Hindi Content language");
+				click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button in Content language screen");
+				
+			} else {
+				logger.info("Failed to change content language");
+				extentLoggerWarning("Event", "Failed to change content language");
+			}
+		}
+	}
+
 }
