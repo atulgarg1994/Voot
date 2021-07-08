@@ -47,7 +47,7 @@ public class Drivertools {
 	public static String methodName = "";
 	Date date = new Date();
 	long StartTime;
-	Instant startTime ;
+	public static Instant startTime ;
 	public static Duration timeElapsed ;
 	private static String DeviceList;
 

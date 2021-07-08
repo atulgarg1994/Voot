@@ -5,7 +5,9 @@ import org.openqa.selenium.By;
 public class Zee5TvWelcomePage {
 
 	public static By objWelcomeSkipLink = By.xpath("//*[@id='welcome_skip' or @id='registration_skip']");
-
+	
+	
+	public static By objzeelogoLaunch = By.xpath("//*[@id='gif_animation_view']");
 	public static By objalreadyRegister = By.xpath("//*[@id='already_register' or @id='register_ZEE']");
 
 	public static By objLogiButtonAmazon = By.xpath("//*[@id='login_zee5_button']");

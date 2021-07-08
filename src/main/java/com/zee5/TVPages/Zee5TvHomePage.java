@@ -15,6 +15,8 @@ public class Zee5TvHomePage {
 	}
 	
 	
+	public static By objSeekbar = By.xpath("//*[@id='seekbar_layout']");
+	
 	public static By objSeasonPage = By.xpath("//*[@id='select_seasons_textview']");
 	public static By objpinkloaderinPlayer= By.xpath("//*[@id='tv_gif_progress_loader']");
 	public static By objplayerTitle = By.xpath("//*[@id='player_title_text']");
