@@ -537,7 +537,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Validation of UI of Live Tv and Channel Guide");
 		waitTime(15000);
 		System.out.println(getText(PWAHomePage.objActiveTab));
-		// validateDisplayLanguagePopup();
+	
 		partialScroll();
 		waitTime(2000);
 		if (checkElementDisplayed(PWAHomePage.objHomeBarText("Live TV"), "Live TV Tab")) {
@@ -560,7 +560,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		System.out.println(channelTitle);
 		extent.HeaderChildNode(
 				"Validating that user is navigated to respective Live Channel consumption screen post tapping on Live Channel Card");
-		verifyElementPresentAndClick(PWALiveTVPage.objLiveChannelCardProgressBar, "Live Channel Card");
+		verifyElementPresent(PWALiveTVPage.objLiveChannelCardProgressBar, "Live Channel Card");
+		JSClick(PWALiveTVPage.objLiveChannelCardProgressBar, "Live Channel Card");
 		waitTime(5000);
 		if (checkElementDisplayed(PWALiveTVPage.objGoHomeLink, "GO HOME ") == true) {
 			BackButton(1);
@@ -569,7 +570,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			System.out.println(channelTitle);
 			verifyElementPresentAndClick(PWALiveTVPage.objLiveChannelCard1, "Live Channel Card");
 		}
-		String playerPageChannelTitle = getWebDriver().findElement(PWALiveTVPage.objLiveChannelConsumptionPageTitle)
+		String playerPageChannelTitle = getWebDriver().findElement(PWALiveTVPage.objLiveChannelConsumptionChannelTitle)
 				.getText();
 		System.out.println(playerPageChannelTitle);
 		if (channelTitle.equalsIgnoreCase(playerPageChannelTitle)) {
@@ -617,31 +618,14 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWALiveTVPage.objApplyBtn, "Apply Button");
 		waitTime(10000);
 		extent.HeaderChildNode("Validating share functionality for Upcoming Live Program");
-//		verifyElementPresentAndClick(PWALiveTVPage.objUpcomingLiveProgram, "Upcoming Live Program");
+
 		verifyElementPresent(PWALiveTVPage.objUpcomingLiveProgram, "Upcoming Live Program");
 		waitTime(3000);
 		JSClick(PWALiveTVPage.objUpcomingLiveProgram, "Upcoming Live Program");
 		waitTime(10000);
 		verifyElementPresent(PWALiveTVPage.objUpcomingLiveProgramShareBtn, "Share button");
 		waitTime(3000);
-//		verifyElementPresentAndClick(PWALiveTVPage.objFacebookShareBtn, "Share to Facebook");
-//		waitTime(3000);
-//		verifyAlert();
-//		switchToWindow(2);
-//		if (!checkElementDisplayed(PWALiveTVPage.objPostToFacebookBtn, "Post to Facebook")) {
-//			verifyElementPresentAndClick(PWALiveTVPage.objFacebookEmailField, "Facebook Email field");
-//			getwebdriver().findelement(pwalivetvpage.objfacebookemailfield).sendkeys("helloigs6@gmail.com");
-//			verifyElementPresentAndClick(PWALiveTVPage.objFacebookPasswordField, "Facebook Password field");
-//			getWebDriver().findElement(PWALiveTVPage.objFacebookPasswordField).sendKeys("hello@12345");
-//			verifyElementPresentAndClick(PWALiveTVPage.objFacebookLoginBtn, "Facebook Login button");
-//			waitTime(4000);
-//		}
-//		verifyElementPresentAndClick(PWALiveTVPage.objPostToFacebookBtn, "Post to Facebook");
-//		waitTime(7000);
-//		acceptAlert();
-//		waitTime(3000);
-//		switchToParentWindow();
-//		waitTime(3000);
+	
 		if (checkElementDisplayed(PWALiveTVPage.objUpcomingLiveProgramCloseBtn, "Popup Close Button")) {
 			verifyElementPresentAndClick(PWALiveTVPage.objUpcomingLiveProgramCloseBtn, "Popup Close Button");
 		}
@@ -649,9 +633,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWALandingPages.obj_Pwa_Zee5Logo, "ZeeLogo");
 	}
 
-	// ---------------------------------------------------------------
-
-	// Sushma
 
 	public void searchResultScreen(String title) throws Exception {
 
@@ -860,8 +841,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			System.out.println(searchScreenTitle);
 			click(PWASearchPage.objSecondAssetThumbnailTrendingSearch,
 					"Second asset thumbnail of Trending searches tray");
-			waitTime(6000);
-			waitTime(6000);
+			waitTime(8000);
+			
 
 			if (checkElementDisplayed(PWAPlayerPage.objCloseRegisterDialog, "Register popup")) {
 				waitTime(2000);
@@ -874,13 +855,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 			}
 
-//			if (checkElementDisplayed(PWAPlayerPage.subscribePopUp, "Subscription popup")) {
-//				waitTime(3000);
-//				click(PWAPlayerPage.ObjSubscriptionpopupCloseIcon, "Subscription popup close icon");
-//			}
+		   waitTime(6000);
 
-			if (checkElementDisplayed(PWASearchPage.objShowTitleInConsumptionPage, "Show title In Consumption")) {
-				String ConsumptionScreenShowTitle = getText(PWASearchPage.objShowTitleInConsumptionPage);
+			if (checkElementDisplayed(PWASearchPage.objShowTitleInConsumptionSreen, "Show title In Consumption")) {
+				String ConsumptionScreenShowTitle = getText(PWASearchPage.objShowTitleInConsumptionSreen);
 				waitTime(3000);
 				System.out.println(searchScreenTitle + " " + ConsumptionScreenShowTitle);
 				if (searchScreenTitle.contains(ConsumptionScreenShowTitle)) {
@@ -6758,11 +6736,12 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.extentLogger("Channel guide",
 					"Channel guide toggle is highlighted, User is navigated to Channel guide screen");
 		}
-		if (userType.equalsIgnoreCase("SubscribedUser")) {
-			extent.HeaderChildNode("Validating that user is able to add to reminder the Upcoming Live Program");
-			remainderOptionOnUpcomingShow();
-			verifyElementPresentAndClick(PWALiveTVPage.objTodayDate, "Today's date");
-		}
+		/*
+		 * if (userType.equalsIgnoreCase("SubscribedUser")) { extent.
+		 * HeaderChildNode("Validating that user is able to add to reminder the Upcoming Live Program"
+		 * ); remainderOptionOnUpcomingShow();
+		 * verifyElementPresentAndClick(PWALiveTVPage.objTodayDate, "Today's date"); }
+		 */
 		extent.HeaderChildNode("Validating that user is able to scroll trough the channel list");
 		waitForElementDisplayed(PWALiveTVPage.objFirstOngoingLiveTvShowCard, 20);
 		scrollDownWEB();
@@ -6788,10 +6767,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		verifyElementPresent(PWALiveTVPage.objOngoingLiveTvShowTitle, "Ongoing Live TV Show card");
 		JSClick(PWALiveTVPage.objOngoingLiveTvShowTitle, "Ongoing Live TV Show card");
 		waitForElementDisplayed(PWASearchPage.objShowTitleInconsumptionPage(onGoingLiveTvShowCardTitle), 5);
-//		while (!(checkElementDisplayed(PWASearchPage.objShowTitleInconsumptionPage(onGoingLiveTvShowCardTitle),
-//				"Title in Consumption Screen"))) {
-//			scrollDownWEB();
-//		}
+
 		String ConsumptionScreenShowTitle = getText(
 				PWASearchPage.objShowTitleInconsumptionPage(onGoingLiveTvShowCardTitle));
 		System.out.println(ConsumptionScreenShowTitle);
@@ -6823,7 +6799,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 	}
 
-	public void remainderOptionOnUpcomingShow() throws Exception {
+	/*public void remainderOptionOnUpcomingShow() throws Exception {
 		// Click on date
 		waitForElement(PWALiveTVPage.objActiveEPGContent, 20, "Active EPG Content");
 		waitTime(10000);
@@ -6851,7 +6827,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 		// Click on close button
 		verifyElementPresentAndClick(PWALiveTVPage.objPopupCloseButton, "Close button");
-	}
+	} */
 
 	public void FilterLanguage() throws Exception {
 		click(PWALiveTVPage.objFilterLanguageChannelGuide, "Filter language");
@@ -13668,7 +13644,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		// handle mandatory pop up
 		mandatoryRegistrationPopUp(userType);
 		extent.extentLogger("contentplay", "Playing content to initiate Reco API: " + contentType);
-		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
+		waitTime(2000);
+		verifyElementPresent(PWAHomePage.objSearchBtn, "Search icon");
+		JSClick(PWAHomePage.objSearchBtn, "Search icon");
+		waitTime(1500);
 		type(PWASearchPage.objSearchEditBox, searchKey + "\n", "Search Edit box: " + searchKey);
 		waitTime(4000);
 		waitForElement(PWASearchPage.objSearchedResult(searchKey), 10, "Search Result");

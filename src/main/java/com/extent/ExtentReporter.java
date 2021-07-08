@@ -57,6 +57,7 @@ public class ExtentReporter implements ITestListener {
 	private static int logfail = 0;
 	public static String version;
 	public static String jiraID = "TC";
+	static String buildVersion;
 	public static ArrayList<String> performaceDetails = new ArrayList<String>();
 	public static Dictionary<String, String> performaceMatrics = new Hashtable<String, String>();
 
@@ -263,8 +264,9 @@ public class ExtentReporter implements ITestListener {
 	@Override
 	public void onFinish(ITestContext context) {
 		if (!getPlatformFromtools().equals("Web")) {
-			extent.get().setSystemInfo("Device Info ", DeviceDetails.DeviceInfo(context.getName()));
-			extent.get().setSystemInfo("App version : ", getAppVersion().replace("Build", ""));
+			extent.get().setSystemInfo("Device Info ", DeviceDetails.DeviceInfo());
+			buildVersion = getAppVersion().replace("Build", "");
+			extent.get().setSystemInfo("App version : ", buildVersion);
 		} else if (getPlatformFromtools().equals("Web")) {
 			extent.get().setSystemInfo("Browser Name ", BrowserType);
 		}
@@ -382,5 +384,25 @@ public class ExtentReporter implements ITestListener {
 		}else {
 			return null;
 		}
+	}
+	
+	public static void insertToExcel() {
+		if (performaceDetails.size() > 0) {
+			for (int i = 0; i < performaceDetails.size(); i++) {
+				String result[] = performaceDetails.get(i).toString().split(",");
+//					ExcelUpdate.insertPerformanceDetails(i, result[0], result[1], result[2], result[3], result[4],
+//							result[5], result[6], result[7]);
+			}
+		}else {
+		}
+	}
+	
+	public static StringBuilder DeviceDetails() {
+		String deviceDetails = DeviceDetails.DeviceInfo();
+		StringBuilder builder = new StringBuilder();
+				builder.append("        <tr>\r\n" + "          <td> " + deviceDetails.split("Version")[0]+ " </td>\r\n" + "          <td> "
+						+  deviceDetails.split("Version - ")[1] + " </td>\r\n" + "          <td> " + buildVersion + " </td>\r\n"
+						+ "        </tr>\r\n");
+			return builder;
 	}
 }

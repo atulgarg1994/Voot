@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import com.business.zee.Zee5ApplicasterMixPanelBusinessLogic;
 import com.utility.Utilities;
 
-public class ZNAMixpanel_DisplayLanguageChanged {
+public class AndroidMixpanel_SubscriptionPageViewed {
 	
 	private Zee5ApplicasterMixPanelBusinessLogic Zee5ApplicasterMixPanelBusinessLogic;
 
@@ -26,11 +26,11 @@ public class ZNAMixpanel_DisplayLanguageChanged {
 	}
 	
 	@Test(priority = 1)
-	@Parameters({"userType", "displayLanguage"})
-	public void verifyDisplayLanguageChangeEvent(String userType, String displayLanguage) throws Exception {
-		System.out.println("Display language Change");
+	@Parameters({"userType"})
+	public void verifySubscriptionPageViewedEvent(String userType) throws Exception {
+		System.out.println("Subscription page viewed event");
 		//Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.verifyDisplayLanguageChangeEvent(userType, displayLanguage);
+		Zee5ApplicasterMixPanelBusinessLogic.verifySubscriptionPageViewedEvent(userType);
 	}
 	
 	@AfterTest
@@ -38,6 +38,5 @@ public class ZNAMixpanel_DisplayLanguageChanged {
 		System.out.println("\nExecution Complete");
 		Zee5ApplicasterMixPanelBusinessLogic.tearDown();
 	}
-
 
 }

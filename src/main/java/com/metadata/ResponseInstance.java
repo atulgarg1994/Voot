@@ -3831,22 +3831,8 @@ public static void setSubscriptionDetails_NativeAndroid() {
 	
 	MixpanelAndroid.FEProp.setProperty("Pack Selected",id+"_"+original_title+"_"+subscription_plan_Type); 
 	MixpanelAndroid.FEProp.setProperty("Cost",resp.jsonPath().getString("[0].subscription_plan.price"));
-	MixpanelAndroid.FEProp.setProperty("region",resp.jsonPath().getString("[0].region"));
-	MixpanelAndroid.FEProp.setProperty("user_id",resp.jsonPath().getString("[0].user_id"));
-	MixpanelAndroid.FEProp.setProperty("Unique ID",resp.jsonPath().getString("[0].user_id"));
 	MixpanelAndroid.FEProp.setProperty("Active Plan Name",resp.jsonPath().getString(uri+"original_title"));
 	MixpanelAndroid.FEProp.setProperty("Subscription Status",resp.jsonPath().getString("[0].state"));
-	
-	String getUserCountry = resp.jsonPath().getString(uri+"country");
-	MixpanelAndroid.FEProp.setProperty("Country ID",getUserCountry);
-	MixpanelAndroid.FEProp.setProperty("Registering Country",getUserCountry);
-	
-	String pCountry = "NA";
-	if(getUserCountry.equalsIgnoreCase("IN")) {
-		pCountry = "INDIA";
-	}
-	MixpanelAndroid.FEProp.setProperty("Country",pCountry);
-	MixpanelAndroid.FEProp.setProperty("State",resp.jsonPath().getString("[0].region").toUpperCase());
 }
 
 public static String getCarouselContentFromAPI2(String usertype, String tabName) {
@@ -4954,6 +4940,34 @@ public static Response getContentDetails1(String ID) {
 	return resp;
 }
 
+public static void getRegionDetails() {
+	Properties pro = new Properties();
+	String url = "https://xtra.zee5.com/country";
+	Response regionResp = RestAssured.given().when().get(url);
+	regionResp.print();
+
+	String city = regionResp.jsonPath().getString("city");
+	String state = regionResp.jsonPath().getString("state");
+	String country = regionResp.jsonPath().getString("country");
+	String countryCode = regionResp.jsonPath().getString("country_code");
+
+	MixpanelAndroid.FEProp.setProperty("City", city);
+	MixpanelAndroid.FEProp.setProperty("State", state);
+	MixpanelAndroid.FEProp.setProperty("Country", country);
+	MixpanelAndroid.FEProp.setProperty("Registering Country", countryCode);
+
+}
+
+public static void getUniqueAndUserID(String pUsername, String pPassword) {
+	String url = "https://subscriptionapi.zee5.com/v1/subscription?include_all=true";
+	String bearerToken = getBearerToken(pUsername, pPassword);
+	resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey())
+			.header("authorization", bearerToken).when().get(url);
+	resp.print();
+
+	MixpanelAndroid.FEProp.setProperty("user_id", resp.jsonPath().getString("[0].user_id"));
+	MixpanelAndroid.FEProp.setProperty("Unique ID", resp.jsonPath().getString("[0].user_id"));
+}
 
 }
 

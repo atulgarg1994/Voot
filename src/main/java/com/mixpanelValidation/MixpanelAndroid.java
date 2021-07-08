@@ -47,8 +47,8 @@ import com.metadata.ResponseInstance;
 import io.restassured.RestAssured;
 import io.restassured.config.EncoderConfig;
 import io.restassured.response.Response;
-import com.metadata.ResponseInstance;
 import com.propertyfilereader.PropertyFileReader;
+import com.deviceDetails.*;
 
 public class MixpanelAndroid extends ExtentReporter {
 
@@ -486,6 +486,9 @@ public class MixpanelAndroid extends ExtentReporter {
 		} else if (platform.equals("Android")) {
 			FEProp.setProperty("Platform Name", platform);
 			FEProp.setProperty("os", "Android");
+			PropertyFileReader handler = new PropertyFileReader("properties/AppPackageActivity.properties");
+			String appVersion = DeviceDetails.getAppVersion(handler.getproperty("zeePackage")).trim().replace("versionName=", "");
+			FEProp.setProperty("App Version", appVersion);
 		} else if (platform.equals("Web")) {
 			FEProp.setProperty("Platform Name", platform);
 			FEProp.setProperty("os", System.getProperty("os.name").split(" ")[0]);
@@ -511,7 +514,7 @@ public class MixpanelAndroid extends ExtentReporter {
 				MixpanelAndroid.FEProp.setProperty("Parent Control Setting", "N/A");
 		     // MixpanelAndroid.FEProp.setProperty("User Type", "Free");
 				MixpanelAndroid.FEProp.setProperty("Partner Name", "N/A");
-				MixpanelAndroid.FEProp.setProperty("HasRental", "false");
+				MixpanelAndroid.FEProp.setProperty("hasRental", "false");
 				MixpanelAndroid.FEProp.setProperty("hasEduauraa", "false");
 			if(Language != false) {
 			//	MixpanelAndroid.FEProp.setProperty("New App Language", "en");

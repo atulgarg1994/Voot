@@ -129,13 +129,13 @@ public class DeviceDetails {
 		return devices;
 	}
 
-	public static String deviceNames(String extent) {
+	public static String deviceNames() {
 		ArrayList<String> a = new ArrayList<String>();
 		a.addAll(hs);
 		return a.get(0);
 	}
 
-	public static String deviceOS(String extent) {
+	public static String deviceOS() {
 		ArrayList<String> a = new ArrayList<String>();
 		a.addAll(hsOS);
 			return a.get(0);
@@ -161,11 +161,11 @@ public class DeviceDetails {
 
 	}
 
-	public static String DeviceInfo(String testName) {
+	public static String DeviceInfo() {
 
 		String DeviceInfo;
-		String getDeviceName = deviceNames(testName);
-		String getOSName = deviceOS(testName);
+		String getDeviceName = deviceNames();
+		String getOSName = deviceOS();
 		DeviceInfo = "Device Name - " + getDeviceName + " Version - " + getOSName;
 		return DeviceInfo;
 	}

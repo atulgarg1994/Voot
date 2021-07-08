@@ -366,5 +366,7 @@ public class PWASearchPage {
 	public static By objMandatoryBuyPlanPopUp = By.xpath("//div[@class='subscribe-button subscribemsg_en']");
 	
 	public static By objspecificSearch = By.xpath("(//div[@class='clickWrapper']//a)[1]");
+	
+	public static By objShowTitleInConsumptionSreen=By.xpath("//div[@class='consumptionMetaDiv']//h1");
 	    
 }

@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 import com.business.zee.Zee5ApplicasterMixPanelBusinessLogic;
 import com.utility.Utilities;
 
-public class ZNAMixpanel_PlayerViewChanged {
+public class AndroidMixpanel_PlayerViewChanged {
 	
 	private Zee5ApplicasterMixPanelBusinessLogic Zee5ApplicasterMixPanelBusinessLogic;
 

@@ -8,7 +8,7 @@ import com.business.zee.Zee5ApplicasterMixPanelBusinessLogic;
 import com.utility.Utilities;
 
 
-public class ZNAMixpanel_ContentLanguageChanged {
+public class AndroidMixpanel_ContentLanguageChanged {
 	
 		private Zee5ApplicasterMixPanelBusinessLogic Zee5ApplicasterMixPanelBusinessLogic;
 

@@ -45,6 +45,7 @@
 	<parameter name="premiumContentID" value="0-0-197297" />
 	<parameter name="videoQualityOption" value="Best" />
 	<parameter name="downloadQualityOption" value="Best" />
+	<parameter name="AdID" value="606cb5c3-ba90-4981-a22e-0e40a2e0f591" />
 	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
@@ -52,9 +53,9 @@
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
 	
-	<test name="ZNAMixpanel_VideoView">
+	<test name="AndroidMixpanel_Search">
 		<classes>
-			<class name="com.zee5.AMDMixpanelScripts.ZNAMixpanel_VideoView" />
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_Search" />
 		</classes>
 	</test>
 	
