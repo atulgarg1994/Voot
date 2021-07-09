@@ -539,8 +539,8 @@ public class MixpanelAndroid extends ExtentReporter {
 		MixpanelAndroid.FEProp.setProperty("Latest Subscription Pack Expiry", Prop.getproperty("NonSub_Latest_Subscription_Pack_Expiry"));
 		MixpanelAndroid.FEProp.setProperty("Next Expiring Pack", Prop.getproperty("NonSub_Next_Expiring_Pack"));
 		MixpanelAndroid.FEProp.setProperty("Next Pack Expiry Date", Prop.getproperty("NonSub_Next_Pack_Expiry_Date"));
-	//	MixpanelAndroid.FEProp.setProperty("Pack Duration", Prop.getproperty("NonSub_Pack_Duration"));
-		MixpanelAndroid.FEProp.setProperty("HasRental", Prop.getproperty("NonSub_HasRental"));
+		MixpanelAndroid.FEProp.setProperty("Pack Duration", Prop.getproperty("NonSub_Pack_Duration"));
+		MixpanelAndroid.FEProp.setProperty("hasRental", Prop.getproperty("NonSub_HasRental"));
 		MixpanelAndroid.FEProp.setProperty("hasEduauraa", "false");
 		SubcribedDetails = true;
 	}
@@ -595,7 +595,6 @@ public class MixpanelAndroid extends ExtentReporter {
 				break;
 			}
 		}
-			
 		MixpanelAndroid.FEProp.setProperty("Free Trial Expiry Date", "N/A");
 		MixpanelAndroid.FEProp.setProperty("Free Trial Package", "N/A");		
 		MixpanelAndroid.FEProp.setProperty("Latest Subscription Pack", Latest_Subscription_Pack);
@@ -603,7 +602,7 @@ public class MixpanelAndroid extends ExtentReporter {
 		MixpanelAndroid.FEProp.setProperty("Next Expiring Pack", Next_Expiring_Pack);
 		MixpanelAndroid.FEProp.setProperty("Next Pack Expiry Date", Next_Pack_Expiry_Date);
 		MixpanelAndroid.FEProp.setProperty("Pack Duration", billing_frequency);
-		MixpanelAndroid.FEProp.setProperty("HasRental", HasRental);
+		MixpanelAndroid.FEProp.setProperty("hasRental", HasRental);
 		MixpanelAndroid.FEProp.setProperty("hasEduauraa", hasEduauraa);
 	}
 

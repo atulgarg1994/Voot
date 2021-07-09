@@ -2,14 +2,14 @@ package com.CleverTap;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Base64;
-
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -20,8 +20,10 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class QOEMatrix {
 	
-	static String xlpath = System.getProperty("user.dir") + "\\Performance\\performance.xlsx";
+//	static String xlpath = System.getProperty("user.dir") + "\\Performance\\performance.xlsx";
+	static String xlpath = "C:\\Users\\IGS0026\\Documents\\Performance\\performance.xlsx";
 	static int LastRow = 0;
+	public static ArrayList<String> performanceResult = new ArrayList<>();
 	
 	
 	public static void creatExcelPerformance() {
@@ -197,8 +199,14 @@ public class QOEMatrix {
 //		insertToExcel();
 //		System.out.println(VerifyIteration());
 //		System.out.println("Done");
-		String Token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE2MjU1NDc1MTksImV4cCI6MTYzNTkxNTUxOSwiaXNzIjoiaHR0cHM6Ly91c2VyYXBpLnplZTUuY29tIiwiYXVkIjpbImh0dHBzOi8vdXNlcmFwaS56ZWU1LmNvbS9yZXNvdXJjZXMiLCJzdWJzY3JpcHRpb25hcGkiLCJ1c2VyYXBpIl0sImNsaWVudF9pZCI6InJlZnJlc2hfdG9rZW5fY2xpZW50Iiwic3ViIjoiNDcxZTEwYmUtNTYyOS00YzkwLThkMDAtZjA0ZjFjMWUwNzExIiwiYXV0aF90aW1lIjoxNjI1NTQ3NTE5LCJpZHAiOiJsb2NhbCIsInVzZXJfaWQiOiI0NzFlMTBiZS01NjI5LTRjOTAtOGQwMC1mMDRmMWMxZTA3MTEiLCJzeXN0ZW0iOiJaNSIsImFjdGl2YXRpb25fZGF0ZSI6IjIwMjAtMDMtMTlUMDY6MDk6NDYiLCJjcmVhdGVkX2RhdGUiOiIyMDIwLTAzLTE5VDA2OjA5OjQ2IiwicmVnaXN0cmF0aW9uX2NvdW50cnkiOiJJTiIsInVzZXJfZW1haWwiOiJ6ZWU1bGF0ZXN0QGdtYWlsLmNvbSIsInVzZXJfbW9iaWxlIjoiOTE4NjY5MDA1NTg0Iiwic3Vic2NyaXB0aW9ucyI6IltdIiwic2NvcGUiOlsic3Vic2NyaXB0aW9uYXBpIiwidXNlcmFwaSIsIm9mZmxpbmVfYWNjZXNzIl0sImFtciI6WyJkZWxlZ2F0aW9uIl19.YNhsIcVG2G_T4k_mYL-Muacxwz1oYDQoix3i0zMIoyHUcyLkrgq-bUnpJvh0ao3jq7e4JE8RfOcAqBjqR1t2t4N-3HH714rPAzVMIQ-dSUNBSjvIShiKEKxzdYn0wO5eZs38HFP9R9kYZ5BAwx3Hfg6XJAWFTq6X3RG0MsZgMdeOxZTn0P0buhdaUxj3SmWKELkTsVocm4qz44IhaHEIbv_m9eKzfuCBc_o1IazJin-lVp-lsI433cjk3hAjVw57ff8tww0FRwiTvTx17sz_m5Bmg1i3ps2CxdowSRUofDSomxwwYDrQiPOAsFm9mEI_YewKKuC6thU8N8TIQm58Rw";
-		decodeTokenParts(Token);
+//		String Token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE2MjU1NDc1MTksImV4cCI6MTYzNTkxNTUxOSwiaXNzIjoiaHR0cHM6Ly91c2VyYXBpLnplZTUuY29tIiwiYXVkIjpbImh0dHBzOi8vdXNlcmFwaS56ZWU1LmNvbS9yZXNvdXJjZXMiLCJzdWJzY3JpcHRpb25hcGkiLCJ1c2VyYXBpIl0sImNsaWVudF9pZCI6InJlZnJlc2hfdG9rZW5fY2xpZW50Iiwic3ViIjoiNDcxZTEwYmUtNTYyOS00YzkwLThkMDAtZjA0ZjFjMWUwNzExIiwiYXV0aF90aW1lIjoxNjI1NTQ3NTE5LCJpZHAiOiJsb2NhbCIsInVzZXJfaWQiOiI0NzFlMTBiZS01NjI5LTRjOTAtOGQwMC1mMDRmMWMxZTA3MTEiLCJzeXN0ZW0iOiJaNSIsImFjdGl2YXRpb25fZGF0ZSI6IjIwMjAtMDMtMTlUMDY6MDk6NDYiLCJjcmVhdGVkX2RhdGUiOiIyMDIwLTAzLTE5VDA2OjA5OjQ2IiwicmVnaXN0cmF0aW9uX2NvdW50cnkiOiJJTiIsInVzZXJfZW1haWwiOiJ6ZWU1bGF0ZXN0QGdtYWlsLmNvbSIsInVzZXJfbW9iaWxlIjoiOTE4NjY5MDA1NTg0Iiwic3Vic2NyaXB0aW9ucyI6IltdIiwic2NvcGUiOlsic3Vic2NyaXB0aW9uYXBpIiwidXNlcmFwaSIsIm9mZmxpbmVfYWNjZXNzIl0sImFtciI6WyJkZWxlZ2F0aW9uIl19.YNhsIcVG2G_T4k_mYL-Muacxwz1oYDQoix3i0zMIoyHUcyLkrgq-bUnpJvh0ao3jq7e4JE8RfOcAqBjqR1t2t4N-3HH714rPAzVMIQ-dSUNBSjvIShiKEKxzdYn0wO5eZs38HFP9R9kYZ5BAwx3Hfg6XJAWFTq6X3RG0MsZgMdeOxZTn0P0buhdaUxj3SmWKELkTsVocm4qz44IhaHEIbv_m9eKzfuCBc_o1IazJin-lVp-lsI433cjk3hAjVw57ff8tww0FRwiTvTx17sz_m5Bmg1i3ps2CxdowSRUofDSomxwwYDrQiPOAsFm9mEI_YewKKuC6thU8N8TIQm58Rw";
+//		decodeTokenParts(Token);
+		calculateReadings(1,"App Launch");
+		calculateReadings(2,"Login");
+		calculateReadings(3,"Navigation to Premium");
+		calculateReadings(4,"Initiate Content playback");
+		calculateReadings(5,"DeepLink to Consumption screen");
+		System.out.println(performanceResult);
 	}
 	
 	public static void decodeTokenParts(String token)
@@ -235,9 +243,70 @@ public class QOEMatrix {
 		}
 	}
 	
-//	performaceDetails.add("Login1"+",12,30,349,5,38,67.12,1243");
-//	performaceDetails.add("Login2"+",12,30,349,5,38,67.23,1243");
-//	performaceDetails.add("Login3"+",12,30,349,5,38,67.54,1243");
-//	performaceDetails.add("Login4"+",12,30,349,5,38,67.89,1243");
+	public static void calculateReadings(int resultRow,String compareScenario) throws FileNotFoundException, IOException {
+		int row = getRowCount();
+		int counter = 0 ;
+		NumberFormat nf= NumberFormat.getInstance();
+        nf.setMaximumFractionDigits(2);
+		XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlpath));
+		XSSFSheet myExcelSheet = myExcelBook.getSheetAt(0);
+		double TimeTakenSec = 0, AppNativeHeapMemory = 0,AppTotalMemory = 0,CPUUsage= 0 ,GPUMemory = 0,GPUFPS = 0,AppTrafficusage = 0;
+		for (int i = 1; i < row; i++) {
+			String scenario = myExcelSheet.getRow(i).getCell(1).toString();
+			if(scenario.contains(compareScenario)) {
+				TimeTakenSec  = TimeTakenSec + (int)myExcelSheet.getRow(i).getCell(2).getNumericCellValue();
+			 AppNativeHeapMemory = AppNativeHeapMemory + (int)myExcelSheet.getRow(i).getCell(3).getNumericCellValue();	
+			 AppTotalMemory	= AppTotalMemory  +(int)myExcelSheet.getRow(i).getCell(4).getNumericCellValue();
+			 CPUUsage	= CPUUsage + (int)myExcelSheet.getRow(i).getCell(5).getNumericCellValue();
+			 GPUMemory	= GPUMemory + (int)myExcelSheet.getRow(i).getCell(6).getNumericCellValue();
+			 GPUFPS	= GPUFPS + (int)myExcelSheet.getRow(i).getCell(7).getNumericCellValue();
+			 AppTrafficusage = AppTrafficusage+(int)myExcelSheet.getRow(i).getCell(8).getNumericCellValue();
+			 counter++;
+			}
+		}
+		FinalResult(resultRow,compareScenario,TimeTakenSec/counter,AppNativeHeapMemory/counter,AppTotalMemory/counter,CPUUsage/counter,GPUMemory/counter,GPUFPS/counter,AppTrafficusage/counter);
+		performanceResult.add(compareScenario+","+nf.format(TimeTakenSec/counter)+","+nf.format(AppNativeHeapMemory/counter)+","+nf.format(AppTotalMemory/counter)
+				+","+nf.format(CPUUsage/counter)+","+nf.format(GPUMemory/counter)+","+nf.format(GPUFPS/counter)+","+nf.format(AppTrafficusage/counter));
+	}
 	
+	
+	public static void FinalResult(int row,String scenario,double Timetaken,double HeapMemo,double TotalMemo,double CPUUsage
+			,double GPUUsage, double GPUFPS, double TrafficUsage){
+			try {
+				File file = new File(xlpath);
+				if (file.exists()) {
+					XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(xlpath));
+					XSSFSheet sheet = workbook.getSheetAt(0);
+					XSSFRow xrow = sheet.getRow(row);
+					if (xrow == null) {
+						xrow = sheet.createRow(row);
+					}
+					Cell cell = null;
+					if (cell == null) {
+						cell = xrow.createCell(11);
+						cell.setCellValue(scenario);
+						cell = xrow.createCell(12);
+						cell.setCellValue(Timetaken);
+						cell = xrow.createCell(13);
+						cell.setCellValue(HeapMemo);
+						cell = xrow.createCell(14);
+						cell.setCellValue(TotalMemo);
+						cell = xrow.createCell(15);
+						cell.setCellValue(CPUUsage);
+						cell = xrow.createCell(16);
+						cell.setCellValue(GPUUsage);
+						cell = xrow.createCell(17);
+						cell.setCellValue(GPUFPS);
+						cell = xrow.createCell(18);
+						cell.setCellValue(TrafficUsage);
+					}
+					FileOutputStream outputStream = new FileOutputStream(xlpath);
+					workbook.write(outputStream);
+					workbook.close();
+					outputStream.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 }

@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import com.business.zee.Zee5ApplicasterMixPanelBusinessLogic;
 import com.utility.Utilities;
 
-public class AndroidMixpanel_LoginScreenDisplay {
+public class AndroidMixpanel_FirstLaunch {
 	
 	private Zee5ApplicasterMixPanelBusinessLogic Zee5ApplicasterMixPanelBusinessLogic;
 
@@ -20,10 +20,10 @@ public class AndroidMixpanel_LoginScreenDisplay {
 
 	@Test(priority = 1)
 	@Parameters({"userType"})
-	public void AndroidMixPanel_LoginScreenDisplayEventValidation(String userType) throws Exception {
+	public void AndroidMixPanel_FirstLaunchEventEventValidation(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
-		Zee5ApplicasterMixPanelBusinessLogic.verifyLoginScreenDisplayEvent(userType,"emailLogin");
+		Zee5ApplicasterMixPanelBusinessLogic.verifyFirstLaunchEvent(userType);
 	}
 	
 	

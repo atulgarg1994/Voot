@@ -7,10 +7,9 @@ import org.testng.annotations.Test;
 import com.business.zee.Zee5ApplicasterMixPanelBusinessLogic;
 import com.utility.Utilities;
 
-public class AndroidMixpanel_LoginScreenDisplay {
+public class AndroidMixpanel_AdInitialized {
 	
 	private Zee5ApplicasterMixPanelBusinessLogic Zee5ApplicasterMixPanelBusinessLogic;
-
 	
 	@BeforeTest
 	public void init() throws Exception {
@@ -19,17 +18,26 @@ public class AndroidMixpanel_LoginScreenDisplay {
 	}
 
 	@Test(priority = 1)
-	@Parameters({"userType"})
-	public void AndroidMixPanel_LoginScreenDisplayEventValidation(String userType) throws Exception {
-		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
+	@Parameters({ "userType" })
+	public void AndroidAppMixPanelLogin(String userType) throws Exception {
+		System.out.println("\nLogin");
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
-		Zee5ApplicasterMixPanelBusinessLogic.verifyLoginScreenDisplayEvent(userType,"emailLogin");
 	}
 	
+	@Test(priority = 5)
+	@Parameters({ "userType", "clipContent" })
+	public void AdInitializedEvent_Search(String usertype, String clipContent) throws Exception {
+		System.out.println("\nAd initialized event of content");
+		//Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.AdInitializedEventOfcontentFromSearchPage(usertype, clipContent);
+	}
+
+	//###############-------END OF TEST-------###############
 	
 	@AfterTest
 	public void tearDownApp() {
-		System.out.println("Quit the App");
+		System.out.println("\nQuit the App");
 		Zee5ApplicasterMixPanelBusinessLogic.tearDown();
 	}
 

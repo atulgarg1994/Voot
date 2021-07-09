@@ -905,7 +905,6 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 	}
 
 	public void navigationToConsumptionScreenThroughTrendingSearches() throws Exception {
-
 		extent.HeaderChildNode("Navigation to Consumption Screen through Trending Searches");
 		waitTime(3000);
 		// mandatoryRegistrationPopUp(userType);
@@ -5605,33 +5604,32 @@ public void accountinfopage() throws Exception {
 		// validateDisplayLanguagePopup();
 		// Verify Add to Reminder is not displayed for guest user
 		// Click on live tv tab
-		if (getPlatform().equalsIgnoreCase("Android")) {
-			navigateToAnyScreen("Live TV");
-		} else if (getPlatform().equalsIgnoreCase("Web")) {
-			navigateToAnyScreenOnWeb("Live TV");
-		}
-		waitTime(5000);
-		// click on channel guide
-		JSClick(PWALiveTVPage.objChannelGuideToggle, "Channel guide");
-		// Verify Reminder option is not available
-		// Click on date
-		JSClick(PWALiveTVPage.objTomorrowDate, "Tomorrow date");
-		FilterLanguage();
-
-		// Verify Reminder option is available
-		JSClick(PWALiveTVPage.objShowName, "Show detail");
-		verifyElementPresentAndClick(PWALiveTVPage.objUpcomingLiveProgramShareBtn, "Share button");
-		if (verifyElementExist(PWALiveTVPage.objRemainderButton, "Reminder option for upcoming show ") == false) {
-			extent.extentLogger("Verify Reminder button for guest user ",
-					"Reminder button is not displayed for the Guest user");
-			logger.info("Reminder button is not displayed for the Guest user");
-		} else {
-			extent.extentLoggerFail("Verify Reminder button for guest user ",
-					"Reminder button is displayed for the Guest user");
-			logger.info("Reminder button is displayed for the Guest user");
-
-		}
-
+//		if (getPlatform().equalsIgnoreCase("Android")) {
+//			navigateToAnyScreen("Live TV");
+//		} else if (getPlatform().equalsIgnoreCase("Web")) {
+//			navigateToAnyScreenOnWeb("Live TV");
+//		}
+//		waitTime(5000);
+//		// click on channel guide
+//		JSClick(PWALiveTVPage.objChannelGuideToggle, "Channel guide");
+//		// Verify Reminder option is not available
+//		// Click on date
+//		JSClick(PWALiveTVPage.objTomorrowDate, "Tomorrow date");
+//		FilterLanguage();
+//
+//		// Verify Reminder option is available
+//		JSClick(PWALiveTVPage.objShowName, "Show detail");
+//		verifyElementPresentAndClick(PWALiveTVPage.objUpcomingLiveProgramShareBtn, "Share button");
+//		if (verifyElementExist(PWALiveTVPage.objRemainderButton, "Reminder option for upcoming show ") == false) {
+//			extent.extentLogger("Verify Reminder button for guest user ",
+//					"Reminder button is not displayed for the Guest user");
+//			logger.info("Reminder button is not displayed for the Guest user");
+//		} else {
+//			extent.extentLoggerFail("Verify Reminder button for guest user ",
+//					"Reminder button is displayed for the Guest user");
+//			logger.info("Reminder button is displayed for the Guest user");
+//
+//		}
 	}
 
 	public void FilterLanguage() throws Exception {
@@ -5771,6 +5769,7 @@ public void accountinfopage() throws Exception {
 		}
 	}
 
+
 	public void verifyRecoTrayAndPlayContentInDetailsPage(String userType, String page) throws Exception {
 		extent.HeaderChildNode("Verification of talamoos trays in : Consumptions page");
 		String content = "";
@@ -5783,11 +5782,12 @@ public void accountinfopage() throws Exception {
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWASearchPage.objSearchEditBox, content + "\n", "Search Edit box: " + content);
 		waitTime(4000);
-		waitForElement(PWASearchPage.objSearchedResult(content), 10, "Search Result");
+		//waitForElement(PWASearchPage.objSearchedResult(content), 10, "Search Result");
+		click(PWASearchPage.objspecificSearch, "Searched content");
 		String contentPlayed = "";
 		// handle mandatory pop up
 		mandatoryRegistrationPopUp(userType);
-		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(content), "Search Result");
+	//	verifyElementPresentAndClick(PWASearchPage.objSearchedResult(content), "Search Result");
 		if (page.equals("consumptionsPage")) {
 			click(PWASearchPage.objCloseRegisterDialog, "Close in Pop Up");
 			if (waitForElementPresence(PWAPlayerPage.objContentTitleInConsumptionPage, 30, "Player screen")) {
@@ -5825,7 +5825,8 @@ public void accountinfopage() throws Exception {
 		waitTime(4000);
 		waitForElement(PWASearchPage.objSearchedResult(searchKey), 10, "Search Result");
 		String contentPlayed = "";
-		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(searchKey), "Search Result");
+		//verifyElementPresentAndClick(PWASearchPage.objSearchedResult(searchKey), "Search Result");
+		click(PWASearchPage.objspecificSearch, "Searched content");
 		if (!userType.equals("SubscribedUser"))
 			try {
 				getWebDriver().findElement(PWASearchPage.objClosePremiumDialog).click();

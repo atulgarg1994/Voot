@@ -8953,10 +8953,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	public void trayTitleAndContentValidationWithApiDataMovie(String tab, String api) throws Exception {
 		extent.HeaderChildNode(tab + " page tray asset validation");
 		waitTime(5000);
-		getWebDriver().findElement(By.xpath("(//a[contains(@class,'noSelect')][contains(text(),'" + tab + "')])[1]"))
-				.click();
+//		getWebDriver().findElement(By.xpath("(//a[contains(@class,'noSelect')][contains(text(),'" + tab + "')])[1]"))
+//				.click();
 		// waitTime(7000);
-		// navigateToAnyScreenOnWeb(tab);
+		navigateToAnyScreenOnWeb(tab);
 		waitForElementDisplayed(PWAMusicPage.objPremiumTag, 30);
 		String languageSmallText = allSelectedLanguages();
 		System.out.println(languageSmallText);
@@ -8992,8 +8992,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			verifyElementPresent(PWAPremiumPage.objContentCardPlayBtn, "Play Button");
 			waitTime(2000);
 			verifyElementPresent(PWAPremiumPage.objContentCardShareBtn, "Share Button");
-//			waitTime(1000);
-//			verifyElementEnabled(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist Button");
+			waitTime(1000);
+			verifyElementEnabled(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist Button");
 		}
 	}
 
@@ -15167,7 +15167,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 
 		partialScroll();
-		extent.HeaderChildNode("HLS_033 :Verify that Play and share CTA");
+		extent.HeaderChildNode("HLS_033 :Verify that Play, Share and Watchlist CTA");
 		trayTitleAndContentValidationWithApiDataMovie(tabName, "movies");
 		extent.HeaderChildNode(" HLS_024 : Verify the rails name and content are loaded for first 2 scroll");
 		pagesTrayValidation(tabName);
@@ -15186,15 +15186,15 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		JSClick(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button");
 
 		extent.HeaderChildNode(" HLS_025 : Verify On click View All");
-		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "View All Button")) {
-			click(PWAPremiumPage.objViewAllBtn, "View All Button");
+		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "More Button")) {
+			click(PWAPremiumPage.objViewAllBtn, "More Button");
 			waitTime(10000);
-			if (checkElementDisplayed(PWAPremiumPage.objViewAllPage, "View All Page")) {
-				logger.info("Navigated to View All Page");
-				extent.extentLogger("View All", "Navigated to View All Page");
+			if (checkElementDisplayed(PWAPremiumPage.objViewAllPage, "More Page")) {
+				logger.info("Navigated to More Page");
+				extent.extentLogger("More", "Navigated to More Page");
 			} else {
-				logger.info("Not navigated to View All Page");
-				extent.extentLogger("View All", "Not navigated to View All Page");
+				logger.info("Not navigated to More Page");
+				extent.extentLogger("More", "Not navigated to More Page");
 			}
 		}
 		Back(1);
@@ -15302,7 +15302,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		scrollToBottomOfPageWEB();
 		if (checkElementDisplayed(PWAMusicPage.objArrowToNavigateTop, "Arrow icon")) {
 			waitTime(2000);
-			click(PWAMusicPage.objArrowToNavigateTop, "Arrow icon");
+			verifyElementPresentAndClick(PWAMusicPage.objArrowToNavigateTop, "Arrow icon");
 		}
 	}
 
@@ -16927,8 +16927,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		// handle mandatory pop up
 		String user = getParameterFromXML("userType");
 		mandatoryRegistrationPopUp(user);
+		
 		extent.HeaderChildNode("HLS_184: Validating that user lands on search landing screen");
-
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
 		waitForElementDisplayed(PWASearchPage.objSearchEditBox, 20);
 		if (checkElementDisplayed(PWASearchPage.objSearchEditBox, "Search EditBox")) {
@@ -16940,18 +16940,19 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.HeaderChildNode(
 				"HLS_185: Validate the Trending Searches tray is available on the Search landing screen");
 		verifyElementExist(PWASearchPage.objTrendingSearchesTray, "Trending Searches tray");
-
+		
 		extent.HeaderChildNode("HLS_186: Validate the Top Searches tray is available on the Search landing screen");
 		verifyElementExist(PWASearchPage.objTopsearches, "Top Searches tray");
+		
 		extent.HeaderChildNode(
 				"HLS_187: Validate user is navigated to respective consumption screen through Search result content");
 		type(PWASearchPage.objSearchEditBox, title, "Search bar");
 		waitForElementDisplayed(PWASearchPage.objSearchNavigationTab("All"), 5);
-		if (getPlatform().equals("Android")) {
-			getDriver().hideKeyboard();
-			logger.info("Hiding keyboard was Successfull");
-			extent.extentLogger("hideKeyboard", "Hiding keyboard was Successfull");
-		}
+//		if (getPlatform().equals("Android")) {
+//			getDriver().hideKeyboard();
+//			logger.info("Hiding keyboard was Successfull");
+//			extent.extentLogger("hideKeyboard", "Hiding keyboard was Successfull");
+//		}
 		waitTime(2500);
 		click(PWASearchPage.objFirstSearchResult, "Searched show");
 		waitTime(2500);
@@ -16961,8 +16962,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
 		waitForElementDisplayed(PWASearchPage.objSearchEditBox, 20);
 		type(PWASearchPage.objSearchEditBox, title, "Search bar");
+		
 		extent.HeaderChildNode("Validating that related search results are available under each tabs");
-
 		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("All"), "All Tab");
 		checkElementDisplayed(PWASearchPage.objAssetTitleSearchNavigationTab, "related search result");
 		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("TV Shows"), "TV Shows Tab");
@@ -16979,14 +16980,14 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		checkElementDisplayed(PWASearchPage.objAssetTitleSearchNavigationTab, "related search result");
 		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("All"), "All Tab");
 		clearField(PWASearchPage.objSearchEditBox, "Search Bar");
-		if (getPlatform().equals("Android")) {
-			getDriver().hideKeyboard();
-			logger.info("Hiding keyboard was Successfull");
-			extent.extentLogger("hideKeyboard", "Hiding keyboard was Successfull");
-		}
+//		if (getPlatform().equals("Android")) {
+//			getDriver().hideKeyboard();
+//			logger.info("Hiding keyboard was Successfull");
+//			extent.extentLogger("hideKeyboard", "Hiding keyboard was Successfull");
+//		}
 		Back(1);
+		
 		extent.HeaderChildNode("HLS_188: Navigation to Consumption Screen through Trending Searches");
-
 		waitTime(3000);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
 		waitForElementDisplayed(PWASearchPage.objSearchEditBox, 20);
@@ -17068,13 +17069,14 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				waitForElementDisplayed(PWASearchPage.objSearchEditBox, 20);
 			}
 		}
+		
 		extent.HeaderChildNode("HLS_190 : Verify the Searched contents/Term is shown to the user as Recent searches");
 		String keywordB = "Gattimela";
 		type(PWASearchPage.objSearchEditBox, keywordB, "Search edit box");
 		waitTime(4000);
 		verifyElementPresentAndClick(PWASearchPage.objSearchShowsTab, "Shows tab");
 		mandatoryRegistrationPopUp(user);
-		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keywordB), "Search Result " + keywordB);
+		JSClick(PWASearchPage.objSearchedResult(keywordB), "Search Result " + keywordB);
 		waitTime(2000);
 		JSClick(PWAHomePage.objSearchBtn, "Search icon");
 		waitTime(3000);
@@ -22062,21 +22064,22 @@ public void webSeriesValidation(String userType, String tabName) throws Exceptio
 	}
 
 	waitTime(2000);
-	extent.HeaderChildNode("HLS_163 : Verify the Premium icons are displayed ");
-	for (int i = 0; i < 5; i++) {
-		if (findElements(PWAMusicPage.objPremiumTag).size() > 0) {
-			logger.info("Premium tag is displayed");
-			extent.extentLogger("Premium Tag", "Premium Tag is displayed");
-			break;
+	if(userType.equalsIgnoreCase("Guest") || userType.equalsIgnoreCase("NonSubscribedUser")) {
+		
+		extent.HeaderChildNode("HLS_163 : Verify the Premium icons are displayed ");
+		for (int i = 0; i < 5; i++) {
+			if (findElements(PWAMusicPage.objPremiumTag).size() > 0) {
+				logger.info("Premium tag is displayed");
+				extent.extentLogger("Premium Tag", "Premium Tag is displayed");
+				break;
 
-		} else {
-			logger.info("Premium tag is not displayed");
-			extent.extentLogger("Premium Tag", "Premium Tag is not displayed");
-			partialScrollDown();
+			} else {
+				logger.info("Premium tag is not displayed");
+				extent.extentLogger("Premium Tag", "Premium Tag is not displayed");
+				partialScrollDown();
+			
 		}
-
-	}
-	
+	}	
 
 	extent.HeaderChildNode("HLS_164 : Verify the Premium user is able to watch all the zee originals shows");
 	if (userType.equalsIgnoreCase("Subscribeduser")) {
@@ -22120,7 +22123,6 @@ public void webSeriesValidation(String userType, String tabName) throws Exceptio
 	extent.HeaderChildNode(
 			"HLS_167 : Verify user can Navigate to the Original shows Details Screen post click on any Show Thumbnail Card");
 	navigateToAnyScreenOnWeb(tabName);
-	
 	JSClick(PWAHamburgerMenuPage.objFirstcontentCard, "First Card");
 	waitTime(3000);
 
@@ -22134,17 +22136,19 @@ public void webSeriesValidation(String userType, String tabName) throws Exceptio
 		logger.info("user is not navigated to the zee originals shows");
 		extent.extentLoggerFail("zee originals shows", "user is not navigated to the zee 5riginals shows");// update
 	}
+	
 	if (userType.equalsIgnoreCase("Guest")) {
 
 		extent.HeaderChildNode(
-				"HLS_169 : Verify the GET Premium CTA is displayed on the  zee5 originals detail screen");
+				"HLS_169 : Verify the Buy Plan CTA is displayed on the  zee5 originals detail screen");
 		String keyword = "Rangbaaz";
 		click(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWAHomePage.objSearchField, keyword + "\n", "Search");
-		click(PWASearchPage.objSearchedResult(keyword), "Search Result");
+		JSClick(PWASearchPage.objSearchedResult(keyword), "Search Result");
 		verifyElementPresent(PWAShowsPage.objGetPremiumCTAInShowDetails, "Buy Plan CTA in originals details");
-		checkElementDisplayed(PWAShowsPage.objShowdeatilPlayIcon, "Play icon in originals details");
+		verifyElementPresent(PWAShowsPage.objShowdeatilPlayIcon, "Play icon in originals details");
 		Back(1);
+		}
 	}
 }
 

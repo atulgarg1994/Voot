@@ -7,11 +7,10 @@ import org.testng.annotations.Test;
 import com.business.zee.Zee5ApplicasterMixPanelBusinessLogic;
 import com.utility.Utilities;
 
-public class AndroidMixpanel_LoginScreenDisplay {
+public class AndroidMixpanel_af_svod_first_episode_free_Event {
 	
 	private Zee5ApplicasterMixPanelBusinessLogic Zee5ApplicasterMixPanelBusinessLogic;
 
-	
 	@BeforeTest
 	public void init() throws Exception {
 		Utilities.relaunch = true;
@@ -19,17 +18,17 @@ public class AndroidMixpanel_LoginScreenDisplay {
 	}
 
 	@Test(priority = 1)
-	@Parameters({"userType"})
-	public void AndroidMixPanel_LoginScreenDisplayEventValidation(String userType) throws Exception {
+	@Parameters({"userType","firstEpisode"})
+	public void MixPanel_af_svod_first_episode_free_EventValidation(String userType,String firstEpisode) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
-		Zee5ApplicasterMixPanelBusinessLogic.verifyLoginScreenDisplayEvent(userType,"emailLogin");
+		Zee5ApplicasterMixPanelBusinessLogic.verify_af_svod_first_episode_free_Event(userType, firstEpisode);
 	}
 	
 	
 	@AfterTest
 	public void tearDownApp() {
-		System.out.println("Quit the App");
+		System.out.println("\nExecution Complete");
 		Zee5ApplicasterMixPanelBusinessLogic.tearDown();
 	}
 
