@@ -896,6 +896,10 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 		Back(1);
 		clearField(PWASearchPage.objSearchEditBox, "Search Bar");
 		waitTime(5000);
+		if(checkElementDisplayed(PWAHomePage.objSearchBtn, "Search icon"))
+		{
+			click(PWAHomePage.objSearchBtn, "Search icon");
+		}
 		extent.HeaderChildNode("Validating that the Recent Searches overlay is available on Search landing screen");
 		verifyElementPresent(PWASearchPage.objRecentSearchesOverlay, "Recent Searches overlay");
 	}

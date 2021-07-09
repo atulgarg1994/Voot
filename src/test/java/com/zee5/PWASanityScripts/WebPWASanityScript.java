@@ -92,13 +92,13 @@ public class WebPWASanityScript {
 		Zee5WEBPWASanityBusinessLogic.continueWatchingtrayData(userType);
 	}
 
-	//@Test(priority = 9)
+	@Test(priority = 9)
 		@Parameters({ "userType" })
 		public void landingPageValidation(String userType) throws Exception {
 			Zee5WEBPWASanityBusinessLogic.navigateToHome();
 			//SMOKE LANDINGPAGE : TEJAS
 			Zee5WEBPWASanityBusinessLogic.mandatoryRegistrationPopUp(userType);
-//			Zee5WEBPWASanityBusinessLogic.landingpagePropertiesValidation(userType);
+			Zee5WEBPWASanityBusinessLogic.landingpagePropertiesValidation(userType,"Home");
 			// SANITY
 			Zee5WEBPWASanityBusinessLogic.mandatoryRegistrationPopUp(userType);
 			if (userType.equals("Guest")) {
@@ -114,17 +114,17 @@ public class WebPWASanityScript {
 		}
 
 
-	// -------------------------SUSHMA MoviePage--------------------------
-	@Test(priority = 10)
-	@Parameters({ "userType" })
-	public void PlayLandingPage(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.navigateHome();
-		 Zee5WEBPWASanityBusinessLogic.collectionDescriptionShowArrowbutton("Play");
-		Zee5WEBPWASanityBusinessLogic.landingpagePropertiesValidation(userType, "Play");
+		// -------------------------SUSHMA MoviePage--------------------------
+		@Test(priority = 10)
+		@Parameters({ "userType" })
+		public void Movies(String userType) throws Exception {
+			Zee5WEBPWASanityBusinessLogic.navigateToHome();
+			Zee5WEBPWASanityBusinessLogic.Moviepage(userType, "Movies");
 		}
 
+
 	// -------------------------MANASA PremiumPage--------------------------
-		//@Test(priority = 11)
+		@Test(priority = 11)
 		@Parameters({ "userType" })
 		public void premiumPageValidation(String userType) throws Exception {
 			Zee5WEBPWASanityBusinessLogic.navigateToHome();
@@ -411,7 +411,15 @@ public class WebPWASanityScript {
 		Zee5WEBPWASanityBusinessLogic.removeMinutelyContent();
 		Zee5WEBPWASanityBusinessLogic.GrievanceRedressalOption();
 	}
-	
+
+	@Test(priority = 31)
+	@Parameters({ "userType" })
+	public void PlayLandingPage(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.navigateHome();
+		Zee5WEBPWASanityBusinessLogic.collectionDescriptionShowArrowbutton("Play");
+		Zee5WEBPWASanityBusinessLogic.landingpagePropertiesValidation(userType, "Play");
+	}
+
 	@AfterClass
 	public void tearDown() {
 		Zee5WEBPWASanityBusinessLogic.tearDown();
