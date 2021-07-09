@@ -92,34 +92,26 @@ public class WebPWASanityScript {
 		Zee5WEBPWASanityBusinessLogic.continueWatchingtrayData(userType);
 	}
 
-	@Test(priority = 9)
-	@Parameters({ "userType" })
-	public void landingPageValidation(String userType) throws Exception {
+	//@Test(priority = 9)
+		@Parameters({ "userType" })
+		public void landingPageValidation(String userType) throws Exception {
+			Zee5WEBPWASanityBusinessLogic.navigateToHome();
+			//SMOKE LANDINGPAGE : TEJAS
+			Zee5WEBPWASanityBusinessLogic.mandatoryRegistrationPopUp(userType);
+//			Zee5WEBPWASanityBusinessLogic.landingpagePropertiesValidation(userType);
+			// SANITY
+			Zee5WEBPWASanityBusinessLogic.mandatoryRegistrationPopUp(userType);
+			if (userType.equals("Guest")) {
+				Zee5WEBPWASanityBusinessLogic.trayTitleAndContentValidationWithApiDataMovie("Home", "homepage");
+				Zee5WEBPWASanityBusinessLogic.LandingPagegap("The Power Game", "Chemistry of Kariyappa", "Guest");
+			} else if (userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
+				Zee5WEBPWASanityBusinessLogic.trayTitleAndContentValidationWithApiDataMovie("Home", "homepage");
+			}
 
-		Zee5WEBPWASanityBusinessLogic.navigateToHome();
-
-		 Zee5WEBPWASanityBusinessLogic.HamburgerMenuOverlay(userType);
-
-		 Zee5WEBPWASanityBusinessLogic.mandatoryRegistrationPopUp(userType);
-		 Zee5WEBPWASanityBusinessLogic.collectionDescriptionShowArrowbutton("Home");
-		Zee5WEBPWASanityBusinessLogic.landingpagePropertiesValidation(userType, "Home");
-
-		 Zee5WEBPWASanityBusinessLogic.mandatoryRegistrationPopUp(userType);
-
-		 if (userType.equals("Guest")) {
-		 Zee5WEBPWASanityBusinessLogic.guesttrayTitleAndContentValidationWithApiData("Home", "homepage");
-		 Zee5WEBPWASanityBusinessLogic.LandingPagegap("The Power Game", "Chemistry of Kariyappa", "Guest");
-		 } else if (userType.equals("NonSubscribedUser") ||
-		 userType.equals("SubscribedUser")) {
-		 Zee5WEBPWASanityBusinessLogic.trayTitleAndContentValidationWithApiData("Home",
-		 "homepage");
-		 }
-
-		 Zee5WEBPWASanityBusinessLogic.ContinuewatchingTray(userType);
-		 Zee5WEBPWASanityBusinessLogic.mandatoryRegistrationPopUp(userType);
-		 Zee5WEBPWASanityBusinessLogic.FreeContentAndPremiumContent(userType);
-
-	}
+			Zee5WEBPWASanityBusinessLogic.ContinuewatchingTray(userType);
+			Zee5WEBPWASanityBusinessLogic.mandatoryRegistrationPopUp(userType);
+			Zee5WEBPWASanityBusinessLogic.FreeContentAndPremiumContent(userType);		
+		}
 
 
 	// -------------------------SUSHMA MoviePage--------------------------
@@ -132,18 +124,18 @@ public class WebPWASanityScript {
 		}
 
 	// -------------------------MANASA PremiumPage--------------------------
-	@Test(priority = 11)
-	@Parameters({ "userType" })
-	public void premiumPageValidation(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.navigateToHome();
-		// SMOKE DEFAULT HOME PAGE : MANASA
-		Zee5WEBPWASanityBusinessLogic.verifyUIofHomePage();
+		//@Test(priority = 11)
+		@Parameters({ "userType" })
+		public void premiumPageValidation(String userType) throws Exception {
+			Zee5WEBPWASanityBusinessLogic.navigateToHome();
+			// SMOKE DEFAULT HOME PAGE : MANASA
+			Zee5WEBPWASanityBusinessLogic.verifyUIofHomePage();
 
-		// SANITY
-		Zee5WEBPWASanityBusinessLogic.landingPagesValidation("Premium");
-		Zee5WEBPWASanityBusinessLogic.landingPagesTrailerAndPopUpValidation(userType, "Premium");
-		Zee5WEBPWASanityBusinessLogic.premiumPageTrayTitleAndContentValidationWithApiData("Premium", "premiumcontents");
-	}
+			// SANITY
+			Zee5WEBPWASanityBusinessLogic.landingPagesValidation("Premium");
+			Zee5WEBPWASanityBusinessLogic.landingPagesTrailerAndPopUpValidation(userType, "Premium");
+			Zee5WEBPWASanityBusinessLogic.trayTitleAndContentValidationWithApiDataMovie("Premium", "premiumcontents");
+		}
 
 	// -------------------------HITESH MusicPage--------------------------
 	@Test(priority = 12)

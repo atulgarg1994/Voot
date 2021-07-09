@@ -591,7 +591,8 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 		waitTime(2000);
 		type(PWASearchPage.objSearchEditBox, "Bhinna", "Search Field");
 		waitTime(3000);
-		click(PWASearchPage.objSearchResultPremiumContent, "Premium content");
+		//click(PWASearchPage.objSearchResultPremiumContent, "Premium content");
+		click(PWASearchPage.objspecificSearch, "Searched content");
 		waitTime(10000);
 		if (checkElementDisplayed(PWASearchPage.objCloseRegisterDialog, "Close in Register Pop Up")) {
 			click(PWASearchPage.objCloseRegisterDialog, "Close in Register Pop Up");
@@ -624,16 +625,15 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 		
 		click(PWALandingPages.obj_Pwa_Zee5Logo, "ZeeLogo");
 		waitTime(5000);
-		if (checkElementDisplayed(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup") == true) {
-			click(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup");
-		}
+		
 
 		extent.HeaderChildNode("Validating Player In-line Subscribe link");
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
 		waitTime(2000);
 		type(PWASearchPage.objSearchEditBox, "Londonalli Lambodara", "Search Field");
 		waitTime(3000);
-		click(PWASearchPage.objSearchResultPremiumContent, "Premium content");
+		//click(PWASearchPage.objSearchResultPremiumContent, "Premium content");
+		click(PWASearchPage.objspecificSearch, "Searched content");
 		waitTime(10000);
 
 		if (checkElementDisplayed(PWASubscriptionPages.objGetPremiumButton, "Player In-line Subscribe link")) {
@@ -1438,21 +1438,17 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 		if (userType.equals("SubscribedUser")) {
 			System.out.println();
 			WEBPWAValidatingSubscriptionAndTransaction(userType);
-			WEBPWAValidatingSubscribeLinks();
 		} else {
-
+			WEBPWAValidatingSubscribeLinks();
 			zeePWASubscriptionScenariosValidation(userType, getPlatform());
 			zeePWASubscriptionFlowFromHomePageHeaderSubscribeButton(userType, getPlatform());
-
 		}
-
 //		zeePWASubscriptionFlowFromHomePageGetPremiumCTAOnCarousel(userType, platform);
 //		zeePWASubscriptionFlowFromGetPremiumPopupOnPlayingPremiumContent(userType, platform);
 //		zeePWASubscriptionFlowFromPlayerInlineSubscribelink(userType, platform);
 //		zeePWASubscriptionFlowFromSubscriptionGetPremiumCTABelowPlayer(userType, platform);
 //		zeePWASubscriptionFlowFromBuySubscriptionOptionUnderMyPlansInHamburgerMenu(userType, platform);
 //		zeePWASubscriptionFlowFromHaveAPrepaidCodeOptionUnderMyPlansInHamburgerMenu(userType, platform);
-
 	}
 
 	/**
@@ -2157,28 +2153,24 @@ public void accountinfopage() throws Exception {
 		extent.HeaderChildNode("Add to Watch List");
 		// Click on Watchlist
 		click(PWAPlayerPage.watchListBtn, "WatchList icon");
-		if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true) {
-			verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
-		}
-		if (checkElementDisplayed(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup") == true) {
-			click(PWAPlayerPage.objWouldYouLikeClosePopup, "WouldYouLikeClosePopup");
-		}
+		
 		// Verify the Toast message is displayed
 		// verifyElementPresent(PWAAddToWatchListPage.objtoastMessage, "Added to
 		// WatchList");
 		// Click on My account
-		click(PWAHamburgerMenuPage.objProfileIconWEB, "Profile");
+		JSClick(PWAHamburgerMenuPage.objProfileIconWEB, "Profile");
 		// Click on Watchlist
-		click(PWAAddToWatchListPage.objMyWatchList, "Watch list");
+		JSClick(PWAAddToWatchListPage.objMyWatchList, "Watch list");
 		// Click on Movies tab
-		click(PWAAddToWatchListPage.objMoviesTab, "Movies tab");
+		JSClick(PWAAddToWatchListPage.objMoviesTab, "Movies tab");
 		// Verify added Item is present in Watchlist
 		checkElementDisplayed(PWAAddToWatchListPage.objContentsInWatchList, "Content in Watchlist");
-		click(PWAAddToWatchListPage.objRemoveContentsInWatchList, "Remove watchlist");
+		JSClick(PWAAddToWatchListPage.objRemoveContentsInWatchList, "Remove watchlist");
 		waitTime(3000);
 		BackButton(1);
 		waitTime(5000);
 	}
+
 
 	/*
 	 * Function to validate the Player icons
