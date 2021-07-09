@@ -288,10 +288,10 @@ public class PubAds {
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 			LocalDateTime now = LocalDateTime.now();
 			System.out.println("Before : " + dtf.format(now));
-			pub.creatExcel();
+//			pub.creatExcel();
 			pub.readDocumnet();
 			extent.HeaderChildNode("DFP not null validation");
-			pub.validateForNotNull();
+//			pub.validateForNotNull();
 			LocalDateTime now1 = LocalDateTime.now();
 			System.out.println("After : " + dtf.format(now1));
 		} catch (Exception e) {

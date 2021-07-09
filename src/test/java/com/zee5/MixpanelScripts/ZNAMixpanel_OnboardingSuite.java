@@ -461,7 +461,7 @@ public class ZNAMixpanel_OnboardingSuite {
 	public void verifySubscriptionSelectedEventByClubPack(String userType) throws Exception {
 		System.out.println("Verify Subscription Selected Event");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.verifySubscriptionSelectedEventByClubPack(userType);
+//		Zee5ApplicasterMixPanelBusinessLogic.verifySubscriptionSelectedEventByClubPack(userType);
 	}
 
 	/*

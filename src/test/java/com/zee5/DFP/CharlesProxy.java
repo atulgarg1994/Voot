@@ -16,7 +16,6 @@ public class CharlesProxy {
 
     @SuppressWarnings("unused")
 	public void startCharles() {
-
         try {
             //Process pr = rt.exec("Charles -config /Users/ramakh02/Desktop/AppiumBBCNewsAndroid/charles/CharlesConfig.xml");
             Process pr = rt.exec("C:\\Program Files\\Charles\\Charles -headless -config C:\\Users\\IGS0026\\Documents\\CharlesSettingsConfig.xml");

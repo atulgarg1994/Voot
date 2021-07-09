@@ -60,6 +60,7 @@ public class CharlesConfigure {
 			String filePathxml = "./" + charlesName;
 			String filePathlogs = "./" + charleslogsName;
 			String ipAddress = localhost.getHostAddress().trim();
+			System.out.println(ipAddress);
 			Runtime.getRuntime().exec(
 					"curl -v -x http://" + ipAddress + ":" + PortNumber + " http://control.charles/recording/stop");
 			Thread.sleep(2000);

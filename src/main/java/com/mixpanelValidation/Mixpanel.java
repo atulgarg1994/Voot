@@ -6,7 +6,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -16,7 +15,6 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.regex.Matcher;
@@ -54,8 +52,8 @@ public class Mixpanel extends ExtentReporter {
 	/**
 	 * Global variables
 	 */
-	static String sheet = "Skip";
-	static String fileName = "Skip";// ReportName;
+	static String sheet = "Sheet1";
+	static String fileName = "Excel";// ReportName;
 	static String xlpath;
 	static String booleanParameters = "";
 	static String integerParameters = "";
@@ -95,77 +93,6 @@ public class Mixpanel extends ExtentReporter {
 	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
 
 		System.out.println(System.getProperty("os.name"));
-//		String distinct_id = "distinct_id";
-//		System.out.println("properties[\"$" + distinct_id + "\"]==\"" + args + "\"");
-
-//		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
-//		creatExcel();
-//		parseResponse(tv);
-//		fetchEvent("b10377cf504d657233894308d075a873", "Skip Login");
-//		validation();
-//		Instant instant = Instant.ofEpochSecond("1601475542");
-//		java.util.Date time = new java.util.Date((long)1601475542*1000); 
-//		System.out.println("Time : "+time);
-
-//		PropertyFileReader Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
-//		booleanParameters = Prop.getproperty("Boolean");
-//		integerParameters = Prop.getproperty("Integer");
-//		System.out.println(Stream.of(booleanParameters).anyMatch("Ad isEmpty"::equals));
-//		System.out.println(isContain(booleanParameters,"Ad isEmpty"));
-//		System.out.println(Prop.getproperty("Integer"));
-//		System.out.println(Prop.getproperty("String"));
-//		Date date = new Date();
-//		System.out.println(dateToUTC(date));
-//		System.out.println(returnDuration("1601487000"));
-//		long ut1 = Instant.now().getEpochSecond();
-//		System.out.println(ut1);
-//
-//	        long ut2 = System.currentTimeMillis() / 1000L;
-//	        System.out.println(ut2);
-//
-//	        Date now = new Date();
-//	        long ut3 = now.getTime() / 1000L;
-//	        System.out.println(ut3);
-
-//		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//		LocalDateTime now = LocalDateTime.now();
-//		String currentDate = dtf.format(now);
-//		String distinct_id = "SM-M315F"; 
-
-//		String distinct_id = "71046f70-7486-4238-9d9f-0dd6a67ede97";
-//		Response request = RestAssured.given().auth().preemptive().basic("58baafb02e6e8ce03d9e8adb9d3534a6", "")
-//				.config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig()))
-//				.contentType("application/x-www-form-urlencoded; charset=UTF-8").formParam("from_date", currentDate)
-//				.formParam("to_date", currentDate).formParam("event", "[ \"Ad View\"]")
-//				.formParam("where", "properties[\"$distinct_id\"]==\"f81174907b5a4bcbe4205e4c3666f97e\"")
-//				.post("https://data.mixpanel.com/api/2.0/export/");
-//				.post("https://mixpanel.com/api/2.0/segmentation/");
-//		request.print();
-//		platform = "Android";
-//		fetchEvent("SM-M205F","Video Exit");
-//		modelName();
-//		platform = "WEb";
-//		fetchEvent("99d6fada0cd13df4a40843d16156070e","Display Language Change"); 
-//		System.out.println("1989-11-20T18:30:00Z".split("T")[0]);
-//		getDOB("1989-11-20T18:30:00Z".split("T")[0]);
-//		System.out.println(validateEventTriggerTime("1604426176"));
-//		getAdID();
-//		PropertyFileReader Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
-//		booleanParameters = Prop.getproperty("Boolean");
-//		integerParameters = Prop.getproperty("Integer");
-//		fileName = "CTAs";
-//		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
-//		platform = "Web";
-//		fetchEvent("4b33865960727c7d933aa8e4ac03b7b8","Login Screen Display");
-//		System.out.println(1612873997 <= 1612873637);
-//		String empty[] = null;
-//		System.out.println(empty == null);
-//		try {
-//			SubcribedDetails();
-//		} catch (ParseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 	}
 
 	@SuppressWarnings("unused")

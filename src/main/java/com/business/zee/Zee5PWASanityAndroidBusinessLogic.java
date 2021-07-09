@@ -16582,14 +16582,12 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			 * getParameter("musicDFP");
 			 * verifyAdForContentUsingAPIForDuration(musicContent,"music"); reloadHome();
 			 */
-
 			extent.HeaderChildNode("DFP Validation - Episode");
 			logger.info("DFP Validation - Episode");
 			String episodeContent = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 					.getParameter("episodeDFP");
 			verifyAdForContentUsingAPIForDuration(episodeContent, "episode");
 			reloadHome();
-
 		}
 	}
 

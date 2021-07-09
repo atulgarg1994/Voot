@@ -150,7 +150,7 @@ public class ZNAMixpanelScript {
 	public void verifySubscriptionSelectedEventByClubPack(String userType) throws Exception {
 		System.out.println("Verify Subscription Selected Event By selecting Club Pack");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.verifySubscriptionSelectedEventByClubPack(userType);
+//		Zee5ApplicasterMixPanelBusinessLogic.verifySubscriptionSelectedEventByClubPack(userType);
 	}
 	
 	@Test(priority = 17)

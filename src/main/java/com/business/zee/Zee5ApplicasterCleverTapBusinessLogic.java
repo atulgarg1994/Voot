@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
+import com.CleverTap.CleverTapDashboardData;
 import com.driverInstance.CommandBase;
 import com.extent.ExtentReporter;
 import com.propertyfilereader.PropertyFileReader;
@@ -69,7 +71,7 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 		verifyElementPresentAndClick(CleverTapPage.objSegments, "Segment");
 		type(CleverTapPage.objSearchField, "zee5latest@gmail.com", "Search field");
 		verifyElementPresentAndClick(CleverTapPage.objFindBtn, "Find button");
-		waitTime(10000);
+		waitTime(20000);
 		verifyElementPresentAndClick(CleverTapPage.objActivityBtn, "Activity button");
 		
 	}
@@ -83,22 +85,22 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 	
 	public void getEventName() {
 		HeaderChildNode("Event Name");
+		CleverTapDashboardData.creatExcelCleverTap();
 		waitTime(10000);
 		List<WebElement> event = findElements(CleverTapPage.objEventName);
 		System.out.println(event.size());
 		for (int i = 0; i < event.size(); i++) {
-			System.out.println(event.get(i).getText());
-			if (event.get(i).getText().contains("Exit Before Ad Start")) {
+			if (event.get(i).getText().contains("Ad Watch Duration")) {
 				List<WebElement> eventParameter = findElements(
 						By.xpath("(((.//*[@class='new_day'])[1])//td/span[1])["+(i+1)+"]//following-sibling::*[contains(@class,'label-gray')]//span"));
 				for (int j = 0; j < eventParameter.size(); j++) {
 					String Key = eventParameter.get(j).getAttribute("title");
 					String Value = eventParameter.get(j).getText();
-					System.out.println(Key+" ======= "+Value);
+					CleverTapDashboardData.InsertEventProperties((j+1), Key, Value);
 				}
 				break;
 			}
 		}
 	}
-	
+
 }

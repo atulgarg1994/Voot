@@ -19,6 +19,8 @@ import org.testng.ITestListener;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.SkipException;
+
+import com.CleverTap.QOEMatrix;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
@@ -143,6 +145,7 @@ public class ExtentReporter implements ITestListener {
 			DeviceDetails.getTheDeviceManufacturer();
 			DeviceDetails.getTheDeviceOSVersion();
 		}
+//		QOEMatrix.creatExcelPerformance();
 	}
 
 	@Override
@@ -387,13 +390,18 @@ public class ExtentReporter implements ITestListener {
 	}
 	
 	public static void insertToExcel() {
+		System.out.println("Size : "+performaceDetails.size());
 		if (performaceDetails.size() > 0) {
 			for (int i = 0; i < performaceDetails.size(); i++) {
+				int row = QOEMatrix.getRowCount();
+				System.out.println(performaceDetails.get(i)+" == "+row);
 				String result[] = performaceDetails.get(i).toString().split(",");
-//					ExcelUpdate.insertPerformanceDetails(i, result[0], result[1], result[2], result[3], result[4],
-//							result[5], result[6], result[7]);
+				QOEMatrix.InsertEventProperties((row+1), result[0], Integer.valueOf(result[1]), Integer.valueOf(result[2]), 
+						Double.parseDouble(result[3]), Double.parseDouble(result[4]),Double.parseDouble(result[5]),Double.parseDouble(result[6]),
+								Integer.valueOf(result[7]));
 			}
-		}else {
+			performaceDetails.clear();
+		} else {
 		}
 	}
 	
