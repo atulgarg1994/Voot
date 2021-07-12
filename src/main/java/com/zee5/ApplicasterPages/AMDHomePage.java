@@ -302,5 +302,7 @@ public class AMDHomePage {
 	public static By objCWContent(int i) {
 			return By.xpath("(//*[@text='Continue Watching']/parent::*/parent::*/child::*/child::*/child::*)["+ i +"]/child::*//following-sibling::*/child::*");
 		}
+	
+	public static By objBuyPlanCTA = By.id("home_toolbar_buy_plan");
 
 }

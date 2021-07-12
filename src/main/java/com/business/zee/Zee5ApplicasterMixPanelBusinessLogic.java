@@ -10240,9 +10240,6 @@ public void ZeeApplicasterLogin(String LoginMethod) throws Exception {
 	}
 	
 	public void setFEProperty(String pUserId, String pPassword) {
-
-		String pSource = "Login";
-		String pPage = "Registration";
 		
 		Properties pro = new Properties();
 		pro = ResponseInstance.getUserSettingsDetails(pUserId, pPassword);
@@ -10263,12 +10260,7 @@ public void ZeeApplicasterLogin(String LoginMethod) throws Exception {
 				value2 = "N/A";
 			}
 		}
-
-		MixpanelAndroid.FEProp.setProperty("Source", pSource);
-		MixpanelAndroid.FEProp.setProperty("Page Name", pPage);
-		MixpanelAndroid.FEProp.setProperty("User Type", "Registered");
-		MixpanelAndroid.FEProp.setProperty("Element", "Registration");
-		
+	
 		MixpanelAndroid.FEProp.setProperty("New Video Streaming Quality Setting", pro.getProperty("streaming_quality"));
 		MixpanelAndroid.FEProp.setProperty("New Autoplay Setting", pro.getProperty("auto_play"));
 		MixpanelAndroid.FEProp.setProperty("New Stream Over Wifi Setting", pro.getProperty("stream_over_wifi"));
@@ -10603,7 +10595,7 @@ public void verifyContentLanguageChangeEvent(String userType) throws Exception {
 		HeaderChildNode("Popup Launch Event");
 		System.out.println("\nPopup Launch Event");
 
-		String pSource = "More";
+		String pSource = "Home";
 		String pPage = "More";
 		String pManufacturer = DeviceDetails.OEM;
 		String str = "N/A";
@@ -10651,10 +10643,9 @@ public void verifyContentLanguageChangeEvent(String userType) throws Exception {
 
 		mixpanel.FEProp.setProperty("Source", pSource);
 		mixpanel.FEProp.setProperty("Page Name", pPage);
-		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		mixpanel.FEProp.setProperty("Player Name", str);
 		mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
 		mixpanel.FEProp.setProperty("brand", pManufacturer);
-				
 		mixpanel.ValidateParameter("", "Popup launch");
 	}
 	
@@ -10663,7 +10654,7 @@ public void verifyContentLanguageChangeEvent(String userType) throws Exception {
 		HeaderChildNode("Popup CTA Event");
 		System.out.println("\nPopup CTA Event");
 
-		String pSource = "More";
+		String pSource = "Home";
 		String pPage = "More";
 		String pManufacturer = DeviceDetails.OEM;
 		String str = "N/A";
@@ -10685,12 +10676,16 @@ public void verifyContentLanguageChangeEvent(String userType) throws Exception {
 			click(AMDHomePage.MoreMenuIcon, "More menu icon");
 			SwipeUntilFindElement(AMDMoreMenu.objSettings, "UP");
 			click(AMDMoreMenu.objHaveaPrepaidCode, "Have Prepaid Code");
-			click(AMDGenericObjects.objPopUpDivider, "Close Popup");
+			click(AMDMoreMenu.objPrepaidCodeTxt, "Have Prepaid Field");
+			type(AMDMoreMenu.objPrepaidCodeTxt, "junkdata", "Prepaid code");
+			hideKeyboard();
+			click(AMDMoreMenu.objApplyBtn, "Apply CTA");
 			
 			mixpanel.FEProp.setProperty("Parent Control Setting", str);
 			mixpanel.FEProp.setProperty("Pop Up Name", "PrepaidCodeScreen");
 			mixpanel.FEProp.setProperty("Pop Up Type", "native");
 			mixpanel.FEProp.setProperty("Pop Up Group", str);
+			mixpanel.FEProp.setProperty("Element", "Apply");
 			
 		}else {
 			click(AMDHomePage.MoreMenuIcon, "More menu icon");
@@ -10701,6 +10696,7 @@ public void verifyContentLanguageChangeEvent(String userType) throws Exception {
 			mixpanel.FEProp.setProperty("Pop Up Name", "Logout");
 			mixpanel.FEProp.setProperty("Pop Up Type", "native");
 			mixpanel.FEProp.setProperty("Pop Up Group", str);
+			mixpanel.FEProp.setProperty("Element", "Cancel");
 		}
 	
 		//### Fetching API Values of the usersettings
@@ -10710,13 +10706,11 @@ public void verifyContentLanguageChangeEvent(String userType) throws Exception {
 
 		mixpanel.FEProp.setProperty("Source", pSource);
 		mixpanel.FEProp.setProperty("Page Name", pPage);
-		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-		mixpanel.FEProp.setProperty("Element", "Cancel");
+		mixpanel.FEProp.setProperty("Player Name", str);	
 		mixpanel.FEProp.setProperty("Button Type", "Button");
 		mixpanel.FEProp.setProperty("Tab Name", "N/A");
 		mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
 		mixpanel.FEProp.setProperty("brand", pManufacturer);
-						
 		mixpanel.ValidateParameter("", "Pop Up CTAs");
 	}
 	
@@ -10821,16 +10815,27 @@ public void verifyContentLanguageChangeEvent(String userType) throws Exception {
 			mixpanel.ValidateParameterInstantly("", "Registration Password Entered");
 			
 			setFEPropertyNewUser();
+			mixpanel.FEProp.setProperty("Page Name", "LoginRegister");
 			mixpanel.ValidateParameterInstantly("", "Register Screen Display");
 			
 			setFEProperty(newEmail, "123456");
 			ResponseInstance.getUserData(newEmail, "123456");
 			ResponseInstance.getUserSettingsValues(newEmail, "123456");
+			
+			mixpanel.FEProp.setProperty("Source", pSource);
+			mixpanel.FEProp.setProperty("Page Name", pPage);
+			mixpanel.FEProp.setProperty("User Type", "Registered");
+			mixpanel.FEProp.setProperty("Element", "Registration");
 			mixpanel.ValidateParameterInstantlyVersion2("", "Registration Result");
 			
 			setFEProperty(newEmail, "123456");
 			ResponseInstance.getUserData(newEmail, "123456");
 			ResponseInstance.getUserSettingsValues(newEmail, "123456");
+			
+			mixpanel.FEProp.setProperty("Source",pSource);
+			mixpanel.FEProp.setProperty("Page Name", pPage);
+			mixpanel.FEProp.setProperty("User Type", "Registered");
+			mixpanel.FEProp.setProperty("Element", "Registration");
 			mixpanel.ValidateParameterInstantlyVersion2("", "Registration Success");
 	
 		}else {
@@ -11108,6 +11113,165 @@ public void verifyContentLanguageChangeEvent(String userType) throws Exception {
 			mixpanel.FEProp.setProperty("Series", contentName);
 		}
 		mixpanel.ValidateParameter("", "Carousal Banner Click");
+	}
+	
+	public void SubscriptionJourneyEventValidation(String userType)
+			throws Exception {
+		HeaderChildNode("Subscription Events Journey");
+		System.out.println("\nSubscription Events Journey");
+
+		String pSource = "Subscription";
+		String pPage = "SubscriptionJourneyPage";
+		String pManufacturer = DeviceDetails.OEM;
+		String str = "N/A";
+		String nCC = "5318 3123 4521 9856";
+		String expiryDate= "0325";
+		String nCVV = "321";
+		String getEmail = getParameterFromXML("NonSubscribedUserName");
+		String getPwd = getParameterFromXML("NonSubscribedUserPassword");
+		
+		if (!(pUserType.equalsIgnoreCase("Guest"))) {
+			if(pUserType.equalsIgnoreCase("SubscribedUser")) {
+				Username = getParameterFromXML("SubscribedUserName");
+				Password = getParameterFromXML("SubscribedPassword");
+			}else if(pUserType.equalsIgnoreCase("NonSubscribedUser")) {
+				Username = getParameterFromXML("NonSubscribedUserName");
+				Password = getParameterFromXML("NonSubscribedUserPassword");
+			}
+	      	mixpanel.FEProp.setProperty("Old App Language", ResponseInstance.getUserSettingsDetails(Username,Password).getProperty("display_language"));
+		}else {
+			mixpanel.FEProp.setProperty("Old App Language", "en");
+		}
+		
+		waitTime(3000);
+		switch (pUserType.toUpperCase()) {
+		case "GUEST":
+			
+			click(AMDHomePage.objBuyPlanCTA, "Buy Plan CTA");
+			click(AMDSubscibeScreen.objContinueBtn, "Select plan");
+			waitTime(2000);
+			click(AMDSubscibeScreen.objEmailID, "EmailId Field");
+			type(AMDSubscibeScreen.objEmailID, getEmail, "EmailId");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objContinueBtn, "Continue");
+			click(AMDSubscibeScreen.objEnterPassword, "Pwd field");
+			type(AMDSubscibeScreen.objEmailID, getPwd, "Password");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objContinueBtn, "Continue");
+			waitTime(3000);
+			click(AMDGenericObjects.objText("Enter Card Number"), "CC/DC");
+			type(AMDMySubscriptionPage.objEnterCCTxt, nCC, "CC number");
+			type(AMDMySubscriptionPage.objExpiryCCTxt, expiryDate, "Expiry date");
+			type(AMDMySubscriptionPage.objCVVTxt, nCVV, "CVV");
+			hideKeyboard();
+			click(AMDGenericObjects.objText("Pay Now"), "Pay Now CTA");
+			waitTime(5000);
+			verifyIsElementDisplayed(AMDGenericObjects.objText("OTP verification"));
+			
+			Back(1);
+			waitTime(3000);
+			click(AMDGenericObjects.objText("YES"), "Cancel");
+			verifyElementPresent(AMDMySubscriptionPage.objRetryPaymentCTA, "Retry Payment CTA");
+			
+			mixpanel.FEProp.setProperty("Parent Control Setting", str);
+			setFEProperty(getEmail, getPwd);
+			ResponseInstance.getUserData(getEmail, getPwd);
+//			ResponseInstance.getUserSettingsValues(getPwd, getPwd);
+			
+			break;
+			
+		case "NONSUBSCRIBEDUSER":
+			
+			click(AMDHomePage.objBuyPlanCTA, "Buy Plan CTA");
+			click(AMDSubscibeScreen.objContinueBtn, "Select plan");
+			waitTime(2000);
+			
+			waitTime(3000);
+			click(AMDGenericObjects.objText("Enter Card Number"), "CC/DC");
+			type(AMDMySubscriptionPage.objEnterCCTxt, nCC, "CC number");
+			type(AMDMySubscriptionPage.objExpiryCCTxt, expiryDate, "Expiry date");
+			type(AMDMySubscriptionPage.objCVVTxt, nCVV, "CVV");
+			hideKeyboard();
+			click(AMDGenericObjects.objText("Pay Now"), "Pay Now CTA");
+			waitTime(5000);
+			verifyIsElementDisplayed(AMDGenericObjects.objText("OTP verification"));
+			
+			Back(1);
+			waitTime(3000);
+			click(AMDGenericObjects.objText("YES"), "Cancel");
+			verifyElementPresent(AMDMySubscriptionPage.objRetryPaymentCTA, "Retry Payment CTA");
+			
+			setFEProperty(userType);
+			setUserType_SubscriptionProperties(userType);
+			break;
+
+		case "SUBSCRIBEDUSER":
+			
+			extent.extentLogger("NA", " Subscription event is not applicable for Subscribed User");
+			break;
+		}
+		
+		if(!pUserType.equalsIgnoreCase("SubscribedUser")) {
+			
+			mixpanel.FEProp.setProperty("Transaction Currency", "INR");
+			mixpanel.FEProp.setProperty("Current Subscription", "false");
+			mixpanel.FEProp.setProperty("Billing Country", str);
+			mixpanel.FEProp.setProperty("Billing State", str);
+			
+			SetAppsflyerProperty();
+			mixpanel.FEProp.setProperty("Source", pSource);
+			mixpanel.FEProp.setProperty("Page Name", pPage);
+			mixpanel.FEProp.setProperty("Player Name", str);
+			mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+			mixpanel.FEProp.setProperty("brand", pManufacturer);			
+			mixpanel.ValidateParameter("", "Subscription Call Initiated");
+			
+			SetAppsflyerProperty();
+			setFEProperty(userType);
+			setUserType_SubscriptionProperties(userType);
+			mixpanel.FEProp.setProperty("Source", "Homepage");
+			mixpanel.FEProp.setProperty("Page Name", "Subscription");
+			mixpanel.FEProp.setProperty("Player Name", str);
+			mixpanel.FEProp.setProperty("Transaction Currency", str);
+			mixpanel.FEProp.setProperty("Current Subscription", "false");
+			mixpanel.FEProp.setProperty("Billing Country", str);
+			mixpanel.FEProp.setProperty("Billing State", str);
+			mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+			mixpanel.FEProp.setProperty("brand", pManufacturer);
+			mixpanel.ValidateParameterInstantly("", "Subscription Page Viewed");
+			
+			SetAppsflyerProperty();
+			setFEProperty(getEmail, getPwd);
+			ResponseInstance.getUserData(getEmail, getPwd);
+			ResponseInstance.getUserSettingsValues(getEmail, getPwd);
+			mixpanel.FEProp.setProperty("Source", str);
+			mixpanel.FEProp.setProperty("Page Name", "JuspayPaymentScreen");
+			mixpanel.FEProp.setProperty("Player Name", str);
+			mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+			mixpanel.FEProp.setProperty("brand", pManufacturer);
+			mixpanel.FEProp.setProperty("User Type", "Registered");
+			mixpanel.ValidateParameterInstantly("", "Payment Screen Impression");
+			
+			SetAppsflyerProperty();
+			setFEProperty(getEmail, getPwd);
+			ResponseInstance.getUserData(getEmail, getPwd);
+			ResponseInstance.getUserSettingsValues(getEmail, getPwd);
+			mixpanel.FEProp.setProperty("Element", "Pay Now");
+			mixpanel.FEProp.setProperty("Button Type", "Button");
+			mixpanel.FEProp.setProperty("Source", "Subscription");
+			mixpanel.FEProp.setProperty("Page Name", "Subscription");
+			mixpanel.ValidateParameterInstantly("", "CTAs");
+			
+			SetAppsflyerProperty();
+			mixpanel.FEProp.setProperty("Source", pSource);
+			mixpanel.FEProp.setProperty("Page Name", pPage);
+			mixpanel.FEProp.setProperty("Player Name", str);
+			mixpanel.FEProp.setProperty("Transaction Currency", "INR");
+			mixpanel.FEProp.setProperty("Current Subscription", "false");
+			mixpanel.FEProp.setProperty("Billing Country", str);
+			mixpanel.FEProp.setProperty("Billing State", str);
+			mixpanel.ValidateParameterInstantly("", "Subscription Call Returned");
+		}
 	}
 	
 	

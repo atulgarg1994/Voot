@@ -19,4 +19,9 @@ public class AMDMySubscriptionPage {
 	
 	public static By objOfferPlanPrice = By.xpath("((//*[@text='Make Payment']//following::*[4])//child::*[3])[1]");
 	
+	public static By objEnterCCTxt = By.xpath("(//*[@class='android.widget.EditText'])[1]");
+	public static By objExpiryCCTxt = By.xpath("(//*[@class='android.widget.EditText'])[2]");
+	public static By objCVVTxt = By.xpath("(//*[@class='android.widget.EditText'])[3]");
+	public static By objRetryPaymentCTA = By.id("retryButton");
+	
 }
