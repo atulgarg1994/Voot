@@ -168,5 +168,6 @@ public class AMDSubscibeScreen {
 	public static By obj299PlanPrice = By.xpath("(//*[@id='planPrice'])[2]");
 	public static By objminusOnVerifyOTP = By.xpath("//*[@id='pillView']");
 	
+	public static By objSubsciptionScreen = By.id("plansContainer");
 	
 }

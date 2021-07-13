@@ -29,7 +29,7 @@
 	<parameter name="RegisteredMobilePassword" value="User@123" />
 	
 	<parameter name="UnRegisteredMobile" value="8073661163" />
-	<parameter name="PromoCode" value="NRTDC1" />
+	<parameter name="PromoCode" value="ZEE5SCB" />
 	
 	<parameter name="SubscriptionPackwithMultipleAccessPaclsUsername" value="zeetest08@gmail.com" />
 	<parameter name="SubscriptionPackwithMultipleAccessPaclsPassword" value="123456"/>

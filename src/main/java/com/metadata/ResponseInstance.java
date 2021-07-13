@@ -812,7 +812,10 @@ public class ResponseInstance {
 		
 //		fetchSubscriptionDetailsFromToken();
 		
-		getRespofCWTray("SubscribedUser");
+//		getRespofCWTray("SubscribedUser");
+		
+//		getUserData("autoclevertap@g.com","clevertap");
+		getUserSettingsDetails("autoclevertap@g.com","clevertap");
 		
 	}
 	
@@ -841,8 +844,11 @@ public class ResponseInstance {
 		Properties pro = new Properties();
 		if (!pUsername.equals("")) {
 			String bearerToken = getBearerToken(pUsername, pPassword);
+			System.out.println(bearerToken);
 			resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey()).header("authorization", bearerToken)
 					.when().get("https://userapi.zee5.com/v1/settings");
+			
+			resp.print();
 
 			String[] comm = resp.asString().replace("{", "").replace("}", "").replace("[", "").replace("]", "")
 					.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
@@ -874,6 +880,7 @@ public class ResponseInstance {
 		String bearerToken = getBearerToken(pUsername, pPassword);
 		String url = "https://userapi.zee5.com/v1/user";
 		resp = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(url);
+		resp.print();
 		String commaSplit[] = resp.asString().replace("{", "").replace("}", "").replaceAll("[.,](?=[^\\[]*\\])", "-")
 				.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 		for (int i = 0; i < commaSplit.length; i++) {
@@ -887,7 +894,6 @@ public class ResponseInstance {
 		pro.forEach((key, value) -> System.out.println(key + " : " + value));
 		getDOB();
 		Mixpanel.fetchUserdata = true;
-		
 		return pro;
 	}
 	

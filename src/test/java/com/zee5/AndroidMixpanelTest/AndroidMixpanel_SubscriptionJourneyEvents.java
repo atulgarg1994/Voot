@@ -26,6 +26,21 @@ public class AndroidMixpanel_SubscriptionJourneyEvents {
 		Zee5ApplicasterMixPanelBusinessLogic.SubscriptionJourneyEventValidation(pUserType);
 	}
 	
+	@Test(priority = 2)
+	@Parameters({"userType"})
+	public void verifySubscriptionPageViewedEvent(String userType) throws Exception {
+		System.out.println("Subscription page viewed event");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.verifySubscriptionPageViewedEvent(userType);
+	}
+	
+	@Test(priority = 3)
+	@Parameters({"userType"})
+	public void AndroidMixPanel_SubscriptionSelectedEventValidation(String userType) throws Exception {
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.verifySubscriptionSelectedEvent(userType);
+	}
+	
 	@AfterTest
 	public void tearDownApp() {
 		System.out.println("\nExecution Complete");

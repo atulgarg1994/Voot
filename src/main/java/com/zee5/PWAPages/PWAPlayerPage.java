@@ -490,8 +490,6 @@ public class PWAPlayerPage {
 	public static By objGetPremiumCTABelowPlayerScreen = By
 			.xpath("//button[contains(@class,'subscribe-teaser-button') and contains(text(),'Buy Plan')]");
 	
-	public static By objContentName = By.xpath("//div[@class='consumptionMetaDiv']/h1");
-	
 //	 Buy CTA Below the Player Screen
 	public static By objBuyPlanCTABelowPlayerScreen = By.xpath("//button[contains(@class,'subscribe-teaser-button') and contains(text(),'Buy Plan')]");
 	
@@ -510,4 +508,9 @@ public class PWAPlayerPage {
 	public static By objShowChannelMeta = By.xpath("(//*[contains(@class,'showMetaClass')]//a)[1]");
 	
 	public static By objFirstCardFreeChnnelFromFirstTray = By.xpath("(((//div[@class='trayContentWrap']//div[@class='trayHeader']//h2[.='FREE Channels'])//parent::*//parent::*)//child::*//div[@class='slick-track']//child::*//div[@class='clickWrapper']//figure//a[@class='noSelect content ']//img)[1]");
-}
+	
+	public static By objContentName = By.xpath("//div[@class='consumptionMetaDiv']//h1");
+	
+	public static By objUpNextContentName=By.xpath("(//div[@class='metadataContainer' ]//div[@class='upNextTitle'])[1]");
+	
+	}

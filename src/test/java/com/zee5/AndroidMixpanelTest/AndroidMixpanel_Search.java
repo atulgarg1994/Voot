@@ -70,6 +70,37 @@ public class AndroidMixpanel_Search {
 		Zee5ApplicasterMixPanelBusinessLogic.verifyDefaultSettingRestoredEvent();
 	}
 	
+	@Test(priority = 7)
+	@Parameters({"userType"})
+	public void verifySearchExecutedEvent(String userType) throws Exception {
+		System.out.println("Verify Search Executed Event");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
+		Zee5ApplicasterMixPanelBusinessLogic.verifySearchExecutedEvent();
+	}
+	
+	
+	@Test(priority = 8)
+	@Parameters({"userType"})
+	public void verifySearchCancelledEvent(String userType) throws Exception {
+		System.out.println("Verify Search Cancelled Event");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
+		Zee5ApplicasterMixPanelBusinessLogic.verifySearchCancelledEvent();
+	}
+	
+	@Test(priority = 9)
+	@Parameters({"userType"})
+	public void verifySearchClearedEvent(String userType) throws Exception {
+		System.out.println("Verify Search Cancelled Event");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
+		Zee5ApplicasterMixPanelBusinessLogic.verifySearchClearedEvent();
+	}
+	
 	@AfterTest
 	public void tearDownApp() {
 		System.out.println("\nExecution Complete");

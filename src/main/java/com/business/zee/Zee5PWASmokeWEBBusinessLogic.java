@@ -876,7 +876,7 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 				"Validating that Live TV card is displayed when user searches by any On Going Live TV content name");
 		waitTime(3000);
 
-		type(PWASearchPage.objSearchEditBox, title, "Search bar");
+		type(PWASearchPage.objSearchBtn, title, "Search bar");
 		if (getPlatform().equals("Android")) {
 			getDriver().hideKeyboard();
 			logger.info("Hiding keyboard was Successfull");
@@ -2745,9 +2745,7 @@ public void accountinfopage() throws Exception {
 	public void upnext(String userType) throws Exception {
 
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search button");
-		// String keyword =
-		// Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-		// .getParameter("freeEpisode3");
+		
 		type(PWASearchPage.objSearchEditBox, "Jhende admits defeat - Jothe Jotheyali ", "Search edit");
 		click(PWASearchPage.objspecificSearch, "Searched content");
 		if (checkElementDisplayed(PWAPlayerPage.objWhyRegisterPopUp, "Register pop up") == true) {
@@ -2758,27 +2756,27 @@ public void accountinfopage() throws Exception {
 		}
 		Thread.sleep(5000);
 		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
-		Thread.sleep(5000);
-		WebElement scrubber = getWebDriver().findElement(By.xpath("//a[@class='playkit-scrubber']"));
-//	Actions move = new Actions(getWebDriver());
-//	Action action = (Action) move.dragAndDropBy(scrubber, 620, 0).build();
-//	action.perform();
-		Actions action = new Actions(getWebDriver());
-		action.clickAndHold(scrubber);
-		action.moveByOffset(40, 0).build().perform();
-
-		// click(PWAPlayerPage.objPlaybackVideoOverlay,"Player");
+		Thread.sleep(2000);
+		
+		
+		WebElement slider = getWebDriver().findElement(PWAPlayerPage.progressBar);
+		System.out.println(slider);
+		Actions move = new Actions(getWebDriver());
+		System.out.println(move);
+		Action action = (Action) move.dragAndDropBy(slider, 815, 0).build();
+		action.perform();
+		
+		
 		verifyElementPresent(PWAPlayerPage.objUpnextCard, "Up Next Rail on player");
-		action.clickAndHold(scrubber).release();
-//	action.moveToElement(getWebDriver().findElement(PWAHomePage.objMoreMenuIcon)).release();
-
-		// Verify the Upnext content is auto playing
+		
+		
 		getResponseUpNextRail.getResponse1();
-		String episodeName = getText(PWAPlayerPage.objContentName);
-		System.out.println(episodeName);
+		String episodeName = getText(PWAPlayerPage.objUpNextContentName);
+		String ContentTilte=getText(PWAPlayerPage.objContentName);
+		System.out.println(episodeName + "- "+ ContentTilte);
 		String APIData = getResponseUpNextRail.getMediaContentName();
 		System.out.println(APIData);
-		if (APIData.equals(episodeName)) {
+		if (APIData.contains(episodeName)) {
 			softAssert.assertEquals(APIData, episodeName);
 			extent.extentLogger("Upnext Rail", "The first content Auto played in Upnext rail");
 			logger.info("Upnext rail content is auto played");
@@ -3324,11 +3322,14 @@ public void accountinfopage() throws Exception {
 		String firstCarouselTitle = "", secondCarouselTitle = "", thirdCarouselTitle = "", fourthCarouselTitle = "";
 		WebDriverWait w = new WebDriverWait(getWebDriver(), 40);
 		navigateToAnyScreenOnWeb(screen);
+		waitTime(2000);
 		w.until(ExpectedConditions.visibilityOfElementLocated(PWAHomePage.objWEBCarouselTitle));
 		firstCarouselTitle = getWebDriver().findElement(PWAHomePage.objWEBCarouselTitle).getText();
 		logger.info("Carousel Title fetched: " + firstCarouselTitle);
 		extent.extentLogger("", "Carousel Title fetched: " + firstCarouselTitle);
+		waitTime(2000);
 		click(PWANewsPage.objRight, "Right Button");
+		waitTime(2000);
 		secondCarouselTitle = getWebDriver().findElement(PWAHomePage.objWEBCarouselTitle).getText();
 		logger.info("Carousel Title fetched: " + secondCarouselTitle);
 		extent.extentLogger("", "Carousel Title fetched: " + secondCarouselTitle);
@@ -3344,7 +3345,9 @@ public void accountinfopage() throws Exception {
 		thirdCarouselTitle = getWebDriver().findElement(PWAHomePage.objWEBCarouselTitle).getText();
 		logger.info("Carousel Title fetched: " + thirdCarouselTitle);
 		extent.extentLogger("", "Carousel Title fetched: " + thirdCarouselTitle);
+		waitTime(2000);
 		click(PWANewsPage.objRight, "Left Button");
+		waitTime(2000);
 		fourthCarouselTitle = getWebDriver().findElement(PWAHomePage.objWEBCarouselTitle).getText();
 		fourthCarouselTitle = getWebDriver().findElement(PWAHomePage.objWEBCarouselTitle).getText();
 		logger.info("Carousel Title fetched: " + fourthCarouselTitle);
@@ -4855,7 +4858,7 @@ public void accountinfopage() throws Exception {
 
 	public void verificationsOfInfoOptions() throws Exception {
 		extent.HeaderChildNode("Verifications of Info dropdown options");
-//	waitTime(15000);
+
 		HeaderChildNode("About us screen");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 		partialScroll();
@@ -4881,7 +4884,9 @@ public void accountinfopage() throws Exception {
 		partialScroll();
 		waitTime(2000);
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHelpCenterOption, "Help Center option");
+		waitTime(2000);
 		switchToWindow(2);
+		waitTime(3000);
 		if (checkElementDisplayed(PWAHamburgerMenuPage.objHelpUsHeader, "Help Center screen")) {
 			logger.info("User is navigated to Help Center screen");
 			extent.extentLogger("Help Center", "User is navigated to Help Center screen");
@@ -4894,6 +4899,7 @@ public void accountinfopage() throws Exception {
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 		partialScroll();
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objTermsOfUseOption, "Terms of Use option");
+		waitTime(4000);
 		if (checkElementDisplayed(PWAHamburgerMenuPage.objTermsOfUseScreen, "Terms of Use screen")) {
 			logger.info("User is navigated to Terms of Use screen");
 			extent.extentLogger("Terms of Use", "User is navigated to Terms of Use screen");
@@ -4911,6 +4917,7 @@ public void accountinfopage() throws Exception {
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 		partialScroll();
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objPrivacyPolicy, "Privacy Policy option");
+		waitTime(4000);
 		if (checkElementDisplayed(PWAHamburgerMenuPage.objPrivacyPolicyScreen, "Privacy Policy screen")) {
 			logger.info("User is navigated to Privacy Policy screen");
 			extent.extentLogger("Privacy Policy", "User is navigated to Privacy Policy screen");

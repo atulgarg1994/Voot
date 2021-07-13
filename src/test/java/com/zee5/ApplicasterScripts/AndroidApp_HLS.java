@@ -117,6 +117,16 @@ public class AndroidApp_HLS {
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
 		ZEE5ApplicasterBusinessLogic.PremiumContentsValidationInPlayerScreen(userType);
 	}
+	
+	@Test(priority = 11) 
+	@Parameters({"userType"})
+	public void ValidationOfDownloadedContent(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
+		ZEE5ApplicasterBusinessLogic.DownloadsContentPlayBackValidation(userType,"Better",true);
+	}
 
 	@AfterTest
 	public void tearDownApp() {

@@ -19729,6 +19729,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				command = "adb shell am start -W -a android.intent.action.VIEW -d  \"https://www.zee5.com/movies/details/rog/0-0-46027\"";
 			} else if (pDeeplink.equalsIgnoreCase("LiveTV")) {
 				command = "adb shell am start -W -a android.intent.action.VIEW -d  \"https://www.zee5.com/channels/details/republic-tv/0-9-channel_1422341819\"";
+			}else if (pDeeplink.equalsIgnoreCase("SubscriptionScreen")) {
+				command = "adb shell am start -W -a android.intent.action.VIEW -d  \"https://www.zee5.com/myaccount/subscription\"";
+				
 			}
 
 			Process process = Runtime.getRuntime().exec(command);
@@ -19858,6 +19861,70 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				} else {
 					logger.info("Live TV is not played for the deeplink");
 					extent.extentLoggerFail("Live TV", "Live TV is not played for the deeplink");
+				}
+			} else if(pDeeplink.equalsIgnoreCase("SubscriptionScreen")){
+			
+				threshold_TimeTaken = 8;
+				threshold_NativeMemory = 35;
+				threshold_TotalMemory = 300;
+				threshold_CPU = 125;
+				threshold_GPUMem = 10;
+				threshold_GPURendered = 2500;
+				threshold_Network = 325;
+				waitForElementDisplayed(AMDSubscibeScreen.objSubsciptionScreen, 30);
+				if (verifyElementExist(AMDSubscibeScreen.objSubsciptionScreen, "Player Screen")) {
+
+					verifyElementPresent(AMDSubscibeScreen.objNewSubscribePopup, "Subs popup");
+
+					Instant endTime = Instant.now();
+					logger.info("End time: " + endTime);
+
+					logger.info("Subscription screen via deeplink");
+					extent.extentLoggerPass("Subscription screen", "Subscription screen via deeplink");
+					Back(1);
+
+					// #### App Performance Usage Info
+					// AppPerformanceTestInfo(appPackageName);
+
+					// #### App Performance MEMORY Usage Info
+					ArrayList<String> getMmoryInfo = Memory_UsagePerformanceV2();
+					nativeMemory = Integer.parseInt(getMmoryInfo.get(0).trim());
+					totalMemory = Integer.parseInt(getMmoryInfo.get(1).trim());
+
+					// #### App Performance CPU Usage Info
+					String getCPUInfo = CPU_UsagePerformanceV2();
+					nCpuUSage = Integer.parseInt(getCPUInfo);
+
+					// #### App Performance GPU Usage Info
+					ArrayList<String> getGPUInfo = GPU_UsagePerformanceV2();
+					nGPUMemory = Float.parseFloat(getGPUInfo.get(0).replace(" MB", "").trim());
+					nGPURendered = Integer.parseInt(getGPUInfo.get(1).replace("Total frames rendered: ", "").trim());
+
+					// #### App Performance Network Traffic Usage Info
+					nNetTraffic = getApp_NetworkTrafficUsageV2(appPackageName);
+
+					timeElapsed = Duration.between(startTime, endTime);
+					logger.info("Time taken to subscription screen via deeplink (sec): " + timeElapsed.getSeconds());
+
+					if (timeElapsed.getSeconds() < threshold_TimeTaken) {
+						logger.info(
+								"Time taken to subscription screen via deeplink (Sec): " + timeElapsed.getSeconds());
+						extent.extentLoggerPass("Timer",
+								"<b>Time taken to subscription screen via  deeplink (Sec)</b>: "
+										+ timeElapsed.getSeconds());
+					} else {
+						timeFlag=false;
+						logger.info(
+								"Time taken to subscription screen via  deeplink (Sec): " + timeElapsed.getSeconds());
+						extent.extentLoggerFail("Timer",
+								"<b>Time taken to subscription screen via  deeplink (Sec)</b>: "
+										+ timeElapsed.getSeconds());
+					}
+					softAssertion.assertEquals(timeFlag, true);
+					flag = true;
+				} else {
+					logger.info("Subscription screen is not displayed via deeplink");
+					extent.extentLoggerFail("Subscription screen", "Subscription screen is not displayed via deeplink");
 				}
 			}
 			waitTime(3000);
@@ -29789,6 +29856,34 @@ public void ConsumptionScreenforMovies() throws Exception {
 		extent.extentLoggerFail("Timer", "<b>App Battery Info - </b>" + batteryInfo);
 	}
 	performaceDetails.add("ConsumpitonScreen for Movies"+","+timeElapsed.getSeconds()+","+nativeMemory+" MB,"+totalMemory+" MB,"+nCpuUSage+"%,"+nGPUMemory+" MB,"+nGPURendered+","+nNetTraffic+" MB");
+}
+
+public void installZee5AppFromPlayStore() throws Exception{
+	extent.HeaderChildNode("Install ZEE5 App from Playstore");
+	System.out.println("\nInstall ZEE5 App from Playstore");
+	
+	Runtime.getRuntime().exec("adb uninstall com.graymatrix.did");
+	logger.info("Uninstalling zee5");
+	extent.extentLogger("", "Uninstalling zee5");
+	waitTime(3000);
+	
+	Runtime.getRuntime().exec("adb shell pm clear -n com.android.vending");
+	logger.info("Clearing play store app data");
+	extent.extentLogger("", "Clearing play store app data");
+	
+	waitTime(3000);	
+	Runtime.getRuntime().exec("adb shell am start -n com.android.vending/com.android.vending.AssetBrowserActivity");
+	logger.info("Launching Play store");
+	extent.extentLogger("", "Launching Play store");
+	
+	System.out.println("\nInstalling Fresh Zee5 App");
+    waitTime(4000);
+	click(AMDAppUpgrade.objplaystoreSearch, "Edit field");
+	type(AMDAppUpgrade.objplaystoreSearch, "Zee5 \n", "Edit field");
+	hideKeyboard();
+	verifyElementPresentAndClick(AMDAppUpgrade.objInstallButton, "Install button");
+	waitTime(5000);
+	waitForElementAndClickIfPresent(AMDAppUpgrade.objOpenButton, 250, "Open CTA");	
 }
 
 }

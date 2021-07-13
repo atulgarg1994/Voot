@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Hashtable;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -19,6 +21,7 @@ public class CleverTapDashboardData {
 	static String filePath = "";
 	static String xlpath = "";
 	static int LastRow = 0;
+	public static Hashtable<String, String> ht1 = new Hashtable<>();
 
 	/**
 	 * Function to create Excel file
@@ -26,7 +29,7 @@ public class CleverTapDashboardData {
 	public static void creatExcelCleverTap() {
 		try {			
 			 filePath = System.getProperty("user.dir") + "\\CleverTap\\"+TodayDate();
-			 xlpath = filePath+"\\CleverTap"+TodayDateTime()+".xlsx";
+			 xlpath = filePath+"\\SubscriptionPageViewed"+TodayDateTime()+".xlsx";
 			File dir = new File(filePath);
 			if (!dir.isDirectory()) {
 				dir.mkdirs();
@@ -34,7 +37,7 @@ public class CleverTapDashboardData {
 			File file = new File(xlpath);
 			if (!file.exists()) {
 				XSSFWorkbook workbook = new XSSFWorkbook();
-				workbook.createSheet("CleverTap");
+				workbook.createSheet("SubscriptionPageViewed");
 				FileOutputStream fos = new FileOutputStream(new File(xlpath));
 				workbook.write(fos);
 				workbook.close();
@@ -127,11 +130,38 @@ public class CleverTapDashboardData {
 		}
 		return data;
 	}
+	
+	
+	public static void dashboardData() {
+		int row = getRowCount();
+		System.out.println(row);
+		for (int i = 1; i < row; i++) {
+			XSSFWorkbook myExcelBook;
+			try {
+				myExcelBook = new XSSFWorkbook(new FileInputStream(xlpath));
+				XSSFSheet myExcelSheet = myExcelBook.getSheetAt(0);
+				String key = myExcelSheet.getRow(i).getCell(0).toString();
+				String value = myExcelSheet.getRow(i).getCell(1).toString();
+				System.out.println(key+"  :::::::  "+value);
+				myExcelBook.close();
+			} catch (IOException e) {
+			}
+		}
+	}
 
 	public static void main(String[] args) throws IOException {
-		creatExcelCleverTap();
-		System.out.println(xlpath);
-		System.out.println("Done");
+//		creatExcelCleverTap();
+//		System.out.println(xlpath);
+//		ht1.put("Key1", "Value1");
+//		ht1.put("Key2", "Value2");
+//		ht1.put("Key3", "Value3");
+//		ht1.put("Key4", "Value4");
+//		System.out.println(ht1.get("Key2"));
+//		ht1.remove("Key4");
+//		System.out.println(ht1);
+		 xlpath = "E:\\Zee5_Project\\Zee5\\zee5_updated\\CleverTap\\08_07_2021\\CleverTap08_07_2021_13_31_03.xlsx";
+		dashboardData();
+		System.out.println("Done"); 
 	}
 
 }

@@ -24,4 +24,12 @@ public class AMDMySubscriptionPage {
 	public static By objCVVTxt = By.xpath("(//*[@class='android.widget.EditText'])[3]");
 	public static By objRetryPaymentCTA = By.id("retryButton");
 	
+	public static By objContinueBtnInBuyPremiumNow = By.xpath("//*[@id='continueButton']");
+	
+	public static By objSelectPlanCheckBx = By.xpath("//*[@resource-id='com.graymatrix.did:id/planSelectionCheckbox' and @text='7']");
+	
+	public static By objEnterCardNumberBtn = By.xpath("//*[@text='Enter Card Number']");
+	
+	public static By objPayNow = By.xpath("//*[@text='Pay Now']");
+	
 }

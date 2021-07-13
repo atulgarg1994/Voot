@@ -2198,6 +2198,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 	public boolean scrollToElement(By element) throws Exception {
 		for (int i = 1; i <= 50; i++) {
+			waitTime(2000);
 			partialScroll2();
 			if (verifyElementDisplayed(element)) {
 				return true;
@@ -2205,6 +2206,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 		return false;
 	}
+
 
 	public static void partialScroll2() {
 		JavascriptExecutor jse = (JavascriptExecutor) getWebDriver();
@@ -6077,6 +6079,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 	}
 
+	//Before executing this method for subscribed/Non subscribed user parental controls should be selected to no restrictions
 	public void parentControlFunctionality(String UserType) throws Exception {
 		extent.HeaderChildNode("Parent Control Functionality");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
@@ -6096,6 +6099,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		checkElementDisplayed(PWAHamburgerMenuPage.objParentControlPageTitle, "Parent control page");
 		checkElementDisplayed(PWAHamburgerMenuPage.objNoRestrictionSelected, "No restricted option selected");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objRestrictAll, "Restrict all option");
+		waitTime(5500);
+		click(PWAHamburgerMenuPage.objRentForINRbutton, "Set Lock Field");
+		waitTime(3500);
 		verifyElementPresent(PWAHamburgerMenuPage.objParentalLockPin1, "Set Lock Field");
 		type(PWAHamburgerMenuPage.objParentalLockPin1, "1", "ParentalLockPin");
 		type(PWAHamburgerMenuPage.objParentalLockPin2, "2", "ParentalLockPin");
@@ -6112,8 +6118,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				.getParameter("freeMovie2");
 		type(PWAHomePage.objSearchField, keyword, "Search");
 		waitTime(15000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchedResult(keyword), "Search content");
-		waitTime(5000);
+		verifyElementPresent(PWASearchPage.objSearchedResult(keyword), "Search content");
+		waitTime(4000);
+		JSClick(PWASearchPage.objFirstSearch, "Search content");
+		waitTime(4000);
 		if (checkElementDisplayed(PWAHamburgerMenuPage.objParentalLockPopUpInPlayer, "Parent control Popup")) {
 			type(PWAHamburgerMenuPage.objParentalLockPin1player, "1", "ParentalLockPin");
 			type(PWAHamburgerMenuPage.objParentalLockPin2player, "2", "ParentalLockPin");
@@ -13306,25 +13314,25 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		String userType = getParameterFromXML("userType");
 		mandatoryRegistrationPopUp(userType);
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
-		type(PWASearchPage.objSearchEditBox, "Baarish" + "\n", "Search Edit box Baarish");
+		type(PWASearchPage.objSearchEditBox, "Gattimela" + "\n", "Search Edit box Baarish");
 		waitTime(4000);
 		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("TV Shows"), "TV Shows Tab");
 		waitTime(4000);
-		//verifyElementPresentAndClick(PWASearchPage.objSearchedResult("Baarish"), "Search Result");
-		click(PWASearchPage.objspecificSearch, "Searched content");
+		JSClick(PWASearchPage.objspecificSearch, "Searched content");
 		waitTime(8000);
 		partialScroll();
-		click(PWAShowsPage.objEpisodeCardTwo, "Second Episode Card");
+//		JSClick(PWAShowsPage.objEpisodeCardTwo, "Second Episode Card");
+		JSClick(PWAShowsPage.objEpisodeCard, "First Episode Card");
 		waitForPlayerAdToComplete("Video Player");
-		//mouseHover();
-		click(PWAPlayerPage.pauseBtn, "Pause button");
-		click(PWAPlayerPage.maximizeBtn, "Maximize button");
+		mouseHover();
+		JSClick(PWAPlayerPage.pauseBtn, "Pause button");
+		JSClick(PWAPlayerPage.maximizeBtn, "Maximize button");
 		waitTime(2000);
 		mouseHover();
-		click(PWAPlayerPage.minimizeBtn, "Minimize button");
-		click(PWAPlayerPage.playBtn, "Play button");
-		if (checkElementDisplayed(PWASubscriptionPages.objGetPremiumPopupTitle, "Subscribe Pop Up Title")) {
-			click(PWASubscriptionPages.objPopupCloseButton, "Subscribe Pop Up Close Button");
+		JSClick(PWAPlayerPage.minimizeBtn, "Minimize button");
+		JSClick(PWAPlayerPage.playBtn, "Play button");
+		if (checkElementDisplayed(PWASubscriptionPages.objGetPremiumButton, "Inline Subscription link")) {
+			JSClick(PWASubscriptionPages.objGetPremiumButton, "Inline Subscription link");
 		} else {
 			logger.info("Trailer is playing");
 			extent.extentLogger("", "Trailer is playing");
@@ -17074,7 +17082,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		String keywordB = "Gattimela";
 		type(PWASearchPage.objSearchEditBox, keywordB, "Search edit box");
 		waitTime(4000);
-		verifyElementPresentAndClick(PWASearchPage.objSearchShowsTab, "Shows tab");
+		verifyElementPresentAndClick(PWASearchPage.objSearchShowsTab, "TV Shows tab");
 		mandatoryRegistrationPopUp(user);
 		JSClick(PWASearchPage.objSearchedResult(keywordB), "Search Result " + keywordB);
 		waitTime(2000);
@@ -17334,16 +17342,16 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		JSClick(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button");
 		JSClick(PWAMusicPage.objArrowToNavigateTop, "Back to Top Arrow icon");
 		waitTime(2000);
-		extent.HeaderChildNode(" HLS_113 : Verify View All functionality");
-		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "View All Button")) {
-			JSClick(PWAPremiumPage.objViewAllBtn, "View All Button");
+		extent.HeaderChildNode(" HLS_113 : Verify More functionality");
+		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "More Button")) {
+			JSClick(PWAPremiumPage.objViewAllBtn, "More Button");
 			waitTime(5000);
-			if (checkElementDisplayed(PWAPremiumPage.objViewAllPage, "View All Page")) {
-				logger.info("Navigated to View All Page");
-				extent.extentLogger("View All", "Navigated to View All Page");
+			if (checkElementDisplayed(PWAPremiumPage.objViewAllPage, "More Page")) {
+				logger.info("Navigated to More Page");
+				extent.extentLogger("More", "Navigated to More Page");
 			} else {
-				logger.error("Not navigated to View All Page");
-				extent.extentLoggerFail("View All", "Not navigated to View All Page");
+				logger.error("Not navigated to More Page");
+				extent.extentLoggerFail("More", "Not navigated to More Page");
 			}
 		}
 		Back(1);
@@ -17386,6 +17394,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		logger.info("Navigated to the Consumption page: " + consumptionPageTitle);
 		pausePlayer();
 		waitTime(3000);
+		
 		if (userType.equals("NonSubscribedUser") || userType.equals("Guest")) {
 			checkElementDisplayed(PWAPlayerPage.objclaimofferBelowPlayerScreen, "Claim offer");
 			extent.HeaderChildNode(
@@ -17399,9 +17408,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				extent.extentLoggerFail("Subscription Page", "Not navigated to select pack Page");
 			}
 		}
-		extent.HeaderChildNode(
-				"HLS_120: Verify on Tapping Go TO Eduauraa and Continue user should navigate to Eduauraa Sign Up page.");
+		
 		if (userType.equals("SubscribedUser")) {
+			extent.HeaderChildNode(
+					"HLS_120: Verify on Tapping Go TO Eduauraa and Continue user should navigate to Eduauraa Sign Up page.");
 			checkElementDisplayed(PWAPlayerPage.objGoToEduauraa, "Go To Eduauraa offer");
 			click(PWAPlayerPage.objGoToEduauraa, "Go To Eduauraa offer");
 			checkElementDisplayed(PWAPlayerPage.objContinue, "Continue offer");
@@ -17421,10 +17431,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 		navigateToHome();
 		waitTime(3000);
+		
 		extent.HeaderChildNode(
-				"HLS_121: Verify that Play, share, watchlist CTA and metadata like Movies names are displayed on each content card");
+				"HLS_121: Verify that Play and Share CTA and metadata like Movies names are displayed on each content card");
 		trayTitleAndContentValidationWithApiDataZeeoriginals(tabName, "kids");
-
 	}
 
 	public void pagesTrayValidation(String tabName) throws Exception {
@@ -21915,8 +21925,8 @@ public void tvShowsValidation(String tabName, String userType) throws Exception 
 	if (firstAssetClicked) {
 		try {
 			nextPageTitle = getText(PWAShowsPage.objShowsTitle);
-			logger.info("Shows Details page is displayed: " + nextPageTitle);
-			extent.extentLogger("showDetails", "Shows Details page is displayed: " + nextPageTitle);
+			logger.info("TV Shows Details page is displayed: " + nextPageTitle);
+			extent.extentLogger("showDetails", "TV Shows Details page is displayed: " + nextPageTitle);
 		} catch (Exception e) {
 			try {
 				nextPageTitle = getText(PWAPlayerPage.objContentTitleInConsumptionPage);
@@ -21961,13 +21971,15 @@ public void tvShowsValidation(String tabName, String userType) throws Exception 
 	verifyElementPresentAndClick(PWAShowsPage.objShowDetailEpisodeDropdown, "Episode Dropdown");
 	verifyElementPresentAndClick(PWAShowsPage.objShowDetailNonSelectedEpisodeDropdownValues(1), "Second Episode set");
 	waitTime(2000);
-	verifyElementPresentAndClick(PWAShowsPage.objEpisodeCard, "First Episode Card");
+	verifyElementPresentAndClick(PWAShowsPage.objEpisodeCardTwo, "Second Episode Card");
+//	verifyElementPresentAndClick(PWAShowsPage.objEpisodeCard, "First Episode Card");
 	waitForPlayerAdToComplete("Video Player");
 	pausePlayer();
 	verifyElementPresentAndClick(PWAHomePage.objZeeLogo, "Zee Logo");
 
 	extent.HeaderChildNode(" HLS_050 : Verify play Premium content from the show page");
 	verifyLandscapeforPremiumContentWeb();
+	verifyElementPresentAndClick(PWAHomePage.objZeeLogo, "Zee Logo");
 	navigateToAnyScreenOnWeb(tabName);
 
 	extent.HeaderChildNode(" HLS_051 : Verify the Play, share and Watchlist CTA buttons ");
@@ -22027,7 +22039,7 @@ public void webSeriesValidation(String userType, String tabName) throws Exceptio
 	extent.HeaderChildNode(" HLS_158 : Verify the rails name and content are loaded for first 2 scroll");
 	pagesTrayValidation(tabName);// update
 
-	extent.HeaderChildNode(" HLS_159 : Verify On click View All/> ");
+	extent.HeaderChildNode(" HLS_159 : Verify On click More/> ");
 	scrollDownWEB();
 	verifyElementPresentAndClick(PWAPremiumPage.objNextArrowBtn, "Next Arrow Button");
 	if (checkElementDisplayed(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button")) {
@@ -22038,20 +22050,20 @@ public void webSeriesValidation(String userType, String tabName) throws Exceptio
 		extent.extentLoggerFail("Tray is not rotated", "Tray is not rotated");// update
 	}
 	click(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button");
-	if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "View All Button")) {
-		click(PWAPremiumPage.objViewAllBtn, "View All Button");
+	if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "More Button")) {
+		click(PWAPremiumPage.objViewAllBtn, "More Button");
 		waitTime(5000);
-		if (checkElementDisplayed(PWAPremiumPage.objViewAllPage, "View All Page")) {
-			logger.info("Navigated to View All Page");
-			extent.extentLogger("View All", "Navigated to View All Page");
+		if (checkElementDisplayed(PWAPremiumPage.objViewAllPage, "More Page")) {
+			logger.info("Navigated to More Page");
+			extent.extentLogger("More", "Navigated to More Page");
 		} else {
-			logger.info("Not navigated to View All Page");
-			extent.extentLoggerFail("View All", "Not navigated to View All Page");// update
+			logger.info("Not navigated to More Page");
+			extent.extentLoggerFail("More", "Not navigated to More Page");// update
 		}
 	}
 	Back(1);
 
-	extent.HeaderChildNode("HLS_161 :Verify that Play, share, watchlist CTA");
+	extent.HeaderChildNode("HLS_161 :Verify that Play and Share CTA");
 	trayTitleAndContentValidationWithApiDataZeeoriginals(tabName, "webseries");
 
 	extent.HeaderChildNode("HLS_162 :Verify the right side bottom arrow ");
@@ -22074,12 +22086,11 @@ public void webSeriesValidation(String userType, String tabName) throws Exceptio
 				break;
 
 			} else {
-				logger.info("Premium tag is not displayed");
-				extent.extentLogger("Premium Tag", "Premium Tag is not displayed");
+				logger.error("Premium tag is not displayed");
+				extent.extentLoggerFail("Premium Tag", "Premium Tag is not displayed");
 				partialScrollDown();
-			
 		}
-	}	
+	}
 
 	extent.HeaderChildNode("HLS_164 : Verify the Premium user is able to watch all the zee originals shows");
 	if (userType.equalsIgnoreCase("Subscribeduser")) {
