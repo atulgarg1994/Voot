@@ -1999,7 +1999,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementPresent(AMDLoginScreen.objPageTitle, "Display language page title");
 		verifyElementPresent(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue button");
 		verifyElementPresent(AMDOnboardingScreen.objBackBtn, "Back button");
-		verifyElementPresent(AMDLoginScreen.objSelectedDisplayLanguage, "Selected display language");
+		
+		//To validate the selected display language, there is no unique indetifier
+		//(checked in New design change DNA-Build 32.82703110.0)
+		
+	/*	verifyElementPresent(AMDLoginScreen.objSelectedDisplayLanguage, "Selected display language");
 		verifyElementPresent(AMDLoginScreen.objSelectedDisplayLanguage,
 				"Tick mark is appeared for selected display language");
 		String selectedlanguage = getText(AMDLoginScreen.objSelectedDisplayLanguage);
@@ -2007,8 +2011,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.info(selectedlanguage + " language is selected by Default");
 			extentLoggerPass("Selected language", selectedlanguage + " language is selected by Default");
 		}
-
-//		click(AMDOnboardingScreen.objSelectDisplayLang(displayLanguageSelection2), "language");
+		//		click(AMDOnboardingScreen.objSelectDisplayLang(displayLanguageSelection2), "language");
 		SelectDisplayLanguage(displayLanguageSelection2);
 
 		verifyElementPresent(AMDLoginScreen.objSelectedDisplayLanguage, "Selected display language");
@@ -2019,8 +2022,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extentLoggerPass("Select one language",
 					"User is able to select only one language from the display language list");
 		}
-
-//		click(AMDOnboardingScreen.objSelectDisplayLang(displayLanguageSelection1), "English language");
+         //		click(AMDOnboardingScreen.objSelectDisplayLang(displayLanguageSelection1), "English language");
+ 
+ */
 		SelectDisplayLanguage(displayLanguageSelection1);
 
 		String pos1 = getAttributValue("bounds", AMDOnboardingScreen.objSelectDisplayLang(displayLanguageSelection1));
@@ -2832,7 +2836,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		click(AMDRegistrationScreen.objMale, pGender);
 		click(AMDRegistrationScreen.objGederTxtField, "Gender Field");
 		waitTime(1000);
-		boolean checkTickMark = verifyElementExist(AMDRegistrationScreen.objSelecteGender,
+		
+		//Tick mark has been removed and to validate the selected gender there is no unique identifier
+		
+/*	boolean checkTickMark = verifyElementExist(AMDRegistrationScreen.objSelecteGender,
 				"Tick mark on the selected option");
 		if (checkTickMark) {
 			String selectedGender = getText(AMDRegistrationScreen.objSelectedGenderName);
@@ -2842,7 +2849,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.info("Gender is not selected");
 			extent.extentLoggerFail("Gender", "Gender is not selected");
 		}
-
+*/
 		WebElement CloseIconElement = findElement(AMDRegistrationScreen.objXMark);
 		int CloseIconupperY = CloseIconElement.getLocation().getY();
 		int CloseIconlowerY = CloseIconupperY + CloseIconElement.getSize().getHeight();
@@ -7726,12 +7733,17 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		// Display language screen functionality validation
 		click(AMDMoreMenu.objDisplayLang, "Display language");
 		waitTime(2000);
-		verifyElementPresent(AMDLoginScreen.objSelectedDisplayLanguage, "Selected display language");
-		String selectedlanguage1 = getText(AMDLoginScreen.objSelectedDisplayLanguage);
-
+		//There is no unique identifier to validate selected display language
+		//Tick mark has been removed
+		
+/*		verifyElementPresent(AMDLoginScreen.objSelectedDisplayLanguage, "Selected display language");
+	String selectedlanguage1 = getText(AMDLoginScreen.objSelectedDisplayLanguage);
+*/
 //		click(AMDOnboardingScreen.objSelectDisplayLang(displayLanguageSelection2), "language");
 		SelectDisplayLanguage(displayLanguageSelection2);
-
+		//There is no unique identifier to validate selected display language
+				//Tick mark has been removed,hence commented the below code
+/*
 		WebElement selectedDisplayLanguage = findElement(AMDLoginScreen.objSelectedDisplayLanguage);
 		int selectedDisplayLanguageX = selectedDisplayLanguage.getLocation().getX();
 		int selectedDisplayLanguageY = selectedDisplayLanguage.getLocation().getY();
@@ -7761,7 +7773,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.info("Display Language screen is not functional");
 			extentLoggerFail("Display language screen", "Display Language screen is not functional");
 		}
-
+*/
 		int totalSelectedLanguages = getDriver().findElements(AMDLoginScreen.objSelectedDisplayLanguage).size();
 		logger.info(totalSelectedLanguages);
 
@@ -7776,19 +7788,19 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		SelectDisplayLanguage(displayLanguageSelection1);
 
 //		String pos1 = getAttributValue("bounds", AMDOnboardingScreen.objSelectDisplayLang(displayLanguageSelection1));
-		String pos1 = getAttributValue("bounds", AMDLoginScreen.objSelectedDisplayLanguage);
-		String pos2 = null;
-		PartialSwipe("UP", 1);
-		Swipe("DOWN", 1);
-//		pos2 = getAttributValue("bounds", AMDOnboardingScreen.objSelectDisplayLang(displayLanguageSelection1));
-		pos2 = getAttributValue("bounds", AMDLoginScreen.objSelectedDisplayLanguage);
-		if (pos1 != pos2) {
-			logger.info("Display Language screen is scrollable");
-			extentLoggerPass("Swipe", "Display Language screen is scrollable");
-		} else {
-			logger.info("Display Language screen is not scrollable");
-			extentLoggerFail("Swipe", "Display Language screen is not scrollable");
-		}
+//		String pos1 = getAttributValue("bounds", AMDLoginScreen.objSelectedDisplayLanguage);
+//		String pos2 = null;
+//		PartialSwipe("UP", 1);
+//		Swipe("DOWN", 1);
+////		pos2 = getAttributValue("bounds", AMDOnboardingScreen.objSelectDisplayLang(displayLanguageSelection1));
+//		pos2 = getAttributValue("bounds", AMDLoginScreen.objSelectedDisplayLanguage);
+//		if (pos1 != pos2) {
+//			logger.info("Display Language screen is scrollable");
+//			extentLoggerPass("Swipe", "Display Language screen is scrollable");
+//		} else {
+//			logger.info("Display Language screen is not scrollable");
+//			extentLoggerFail("Swipe", "Display Language screen is not scrollable");
+//		}
 
 		verifyElementPresent(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue CTA");
 		Back(1);

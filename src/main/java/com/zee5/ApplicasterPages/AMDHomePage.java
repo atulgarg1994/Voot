@@ -236,9 +236,6 @@ public class AMDHomePage {
 	public static By objselectedTopNavTab = By.xpath("//*[@class='android.widget.HorizontalScrollView']/child::*/child::*/child::*[ @selected='true']");
 	
 	public static By objBackIcon = By.xpath("//*[@id='action_icon'] | //*[@id='collectionToolBarBackButton'] | //*[@id='railDialogBackButton']");
-	public static By objViewAllBtn(String trayName) {
-			return By.xpath("//*[contains(text(),'" + trayName+ "')]//following::*[@id='header_arrow'][1] | //*[contains(text(),'"+trayName+"')]/following-sibling::*[@text='a']");
-		}
 	
 	public static By objHipiMenuBtn = By.xpath("(//*[@id='bb_bottom_bar_title'])[3] | (//*[@id='navigationTitleTextView'])[3]");
 	
@@ -304,5 +301,9 @@ public class AMDHomePage {
 		}
 	
 	public static By objBuyPlanCTA = By.id("home_toolbar_buy_plan");
+	
+	public static By objViewAllBtn(String trayName) {
+		return By.xpath("//*[@id='cell_top_container']//*[contains(text(),'"+trayName+"')]//following-sibling::*/child::*[2] | //*[contains(text(),'"+trayName+"')]/following-sibling::*[@text='a']");
+	}
 
 }

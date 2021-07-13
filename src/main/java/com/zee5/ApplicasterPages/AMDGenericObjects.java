@@ -62,8 +62,6 @@ public class AMDGenericObjects {
 		return By.xpath("//*[@id='cell_top_container']//*[@text='" + title + "']");
 	}
 	
-	public static By objFirstTrayTitle = By.xpath("(//*[@id='header_primary_text'])[1] | (//*[@id='cell_top_container']/following::*[@text='a']//preceding-sibling::*)");
-	
 	public static By objTrayTitle(String text) {
 		return By.xpath("//*[contains(text(),'" + text + "')]");
 	}
@@ -76,8 +74,6 @@ public class AMDGenericObjects {
 	public static By objPageLoadingIcon = By.xpath("//*[@id='compoiste_progress_bar'] | //*[@id='homeTabPageProgressBar']");
 	
 	public static By objPremiumTags = By.xpath("//*[@id='special_image_1'] | //*[@id='cell_center_container']//following::*[@text='P']");
-	
-	public static By objConsumptionScreenFirstRail = By.xpath("(//*[@id='cell_top_container']//following::*[@text='a'])[1]//preceding-sibling::*");
 	
 	public static By objConsumptionScreenFirstRailViewAllBtn = By.xpath("(//*[@id='cell_top_container']//following::*[@text='a'])[1]//preceding-sibling::*//following-sibling::*");
 
@@ -118,4 +114,8 @@ public class AMDGenericObjects {
 	public static By objContainText(String text) {
 		return By.xpath("//*[contains(text(),'" + text + "')]");
 	}
+	
+	public static By objFirstTrayTitle = By.xpath("((//*[@id='cell_top_container'][1])[2]//*[@class='android.widget.TextView'])[1] | (//*[@id='header_primary_text'])[1] | (//*[@id='cell_top_container']/following::*[@text='a']//preceding-sibling::*)");
+
+	public static By objConsumptionScreenFirstRail = By.xpath("((//*[@id='belowPlayerContentRecyclerView']//*[@id='cell_top_container'])[1]//child::*//preceding-sibling::*)[1] | (//*[@id='cell_top_container']//following::*[@text='a'])[1]//preceding-sibling::*");
 }
