@@ -963,8 +963,8 @@ public void ZeeApplicasterLogin(String LoginMethod) throws Exception {
 
 		setFEProperty(pUserType);
 		setUserType_SubscriptionProperties(pUserType);
-		
-		if(pUserType.equalsIgnoreCase("Guest")) {
+
+		if (pUserType.equalsIgnoreCase("Guest")) {
 			mixpanel.FEProp.setProperty("User Type", "guest");
 		}
 		mixpanel.FEProp.setProperty("Element", "Restore settings to default");
@@ -973,7 +973,6 @@ public void ZeeApplicasterLogin(String LoginMethod) throws Exception {
 		mixpanel.FEProp.setProperty("Manufacturer", DeviceDetails.OEM);
 		mixpanel.FEProp.setProperty("Brand", DeviceDetails.OEM);
 		mixpanel.ValidateParameter("", "Default Settings Restored");
-
 	}
 
 	public void ZeeApplicasterMixPanelLoginForParentalControl(String LoginMethod) throws Exception {
@@ -2012,50 +2011,52 @@ public void ZeeApplicasterLogin(String LoginMethod) throws Exception {
 		extent.HeaderChildNode("Verify Download quality change Event");
 		click(AMDHomePage.MoreMenuIcon, "More menu icon");
 		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
-		
+
 		if (!(pUserType.equalsIgnoreCase("Guest"))) {
-			if(pUserType.equalsIgnoreCase("SubscribedUser")) {
+			if (pUserType.equalsIgnoreCase("SubscribedUser")) {
 				Username = getParameterFromXML("SubscribedUserName");
 				Password = getParameterFromXML("SubscribedPassword");
-			}else if(pUserType.equalsIgnoreCase("NonSubscribedUser")) {
+			} else if (pUserType.equalsIgnoreCase("NonSubscribedUser")) {
 				Username = getParameterFromXML("NonSubscribedUserName");
 				Password = getParameterFromXML("NonSubscribedUserPassword");
 			}
-	      	mixpanel.FEProp.setProperty("Old Download Quality Setting", ResponseInstance.getUserSettingsDetails(Username,Password).getProperty("download_quality"));
-		}else {
+			mixpanel.FEProp.setProperty("Old Download Quality Setting",
+					ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("download_quality"));
+		} else {
 			mixpanel.FEProp.setProperty("Old Download Quality Setting", "Ask each time");
 		}
-		
+
 		String downloadQuality = getText(AMDMoreMenu.objDownloads_Quality);
 		getDriver().findElement(By.xpath("//*[@id='downloadLabel']")).click();
-		if(downloadQuality.equalsIgnoreCase("Ask each time")) {
-			verifyElementPresentAndClick(AMDSettingsScreen.objDownloadVideoQualityOptions(option), "download quality option");
-		}else {
+		if (downloadQuality.equalsIgnoreCase("Ask each time")) {
+			verifyElementPresentAndClick(AMDSettingsScreen.objDownloadVideoQualityOptions(option),
+					"download quality option");
+		} else {
 			verifyElementPresentAndClick(AMDSettingsScreen.objVideoQualityAskEachTime, "Ask each time option");
 		}
-		
+
 		setFEProperty(pUserType);
 		setUserType_SubscriptionProperties(pUserType);
-		
-		
-		mixpanel.FEProp.setProperty("Source", "More");
-		mixpanel.FEProp.setProperty("Page Name", "selector");
-		mixpanel.FEProp.setProperty("Manufacturer", DeviceDetails.OEM);
-		mixpanel.FEProp.setProperty("Brand", DeviceDetails.OEM);
-	
-		if(pUserType.equalsIgnoreCase("Guest")) {
-			mixpanel.FEProp.setProperty("User Type", "guest");
-			mixpanel.FEProp.setProperty("New Download Quality Setting", option);
+
+		MixpanelAndroid.FEProp.setProperty("Source", "More");
+		MixpanelAndroid.FEProp.setProperty("Page Name", "selector");
+		MixpanelAndroid.FEProp.setProperty("Manufacturer", DeviceDetails.OEM);
+		MixpanelAndroid.FEProp.setProperty("Brand", DeviceDetails.OEM);
+
+		if (pUserType.equalsIgnoreCase("Guest")) {
+			MixpanelAndroid.FEProp.setProperty("User Type", "guest");
+			MixpanelAndroid.FEProp.setProperty("New Download Quality Setting", option);
 		}
-		
-		mixpanel.ValidateParameter("", "Download Quality Changed");
+
+		MixpanelAndroid.ValidateParameter("", "Download Quality Changed");
 
 		click(AMDMoreMenu.objDownloads_Quality, "Download quality option");
-		if(downloadQuality.equalsIgnoreCase("Ask each time")) {
-			verifyElementPresentAndClick(AMDSettingsScreen.objDownloadVideoQualityOptions(option), "download quality option");
-		}else {
+		if (downloadQuality.equalsIgnoreCase("Ask each time")) {
+			verifyElementPresentAndClick(AMDSettingsScreen.objDownloadVideoQualityOptions(option),
+					"download quality option");
+		} else {
 			verifyElementPresentAndClick(AMDSettingsScreen.objVideoQualityAskEachTime, "Ask each time option");
-		}	
+		}
 
 	}
 
@@ -9783,17 +9784,18 @@ public void ZeeApplicasterLogin(String LoginMethod) throws Exception {
 		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
 		getDriver().findElement(By.xpath("//*[@id='qualityPixels']")).click();
 		boolean var = verifyIsElementDisplayed(AMDMoreMenu.objSelectedVideoQualityOption("Auto"));
-		
+
 		if (!(pUserType.equalsIgnoreCase("Guest"))) {
-			if(pUserType.equalsIgnoreCase("SubscribedUser")) {
+			if (pUserType.equalsIgnoreCase("SubscribedUser")) {
 				Username = getParameterFromXML("SubscribedUserName");
 				Password = getParameterFromXML("SubscribedPassword");
-			}else if(pUserType.equalsIgnoreCase("NonSubscribedUser")) {
+			} else if (pUserType.equalsIgnoreCase("NonSubscribedUser")) {
 				Username = getParameterFromXML("NonSubscribedUserName");
 				Password = getParameterFromXML("NonSubscribedUserPassword");
 			}
-	      	mixpanel.FEProp.setProperty("Old Video Streaming Quality Setting", ResponseInstance.getUserSettingsDetails(Username,Password).getProperty("streaming_quality"));
-		}else {
+			mixpanel.FEProp.setProperty("Old Video Streaming Quality Setting",
+					ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("streaming_quality"));
+		} else {
 			mixpanel.FEProp.setProperty("Old Video Streaming Quality Setting", "Auto");
 		}
 		if (var == true) {
@@ -9801,32 +9803,33 @@ public void ZeeApplicasterLogin(String LoginMethod) throws Exception {
 		} else {
 			click(AMDMoreMenu.objAutoOption, "option Auto");
 		}
+
+		setFEProperty(userType);
+		setUserType_SubscriptionProperties(userType);
 		
-		setFEProperty(pUserType);
-		setUserType_SubscriptionProperties(pUserType);
-		
-		
-		mixpanel.FEProp.setProperty("Source", "More");
-		mixpanel.FEProp.setProperty("Page Name", "selector");
-		mixpanel.FEProp.setProperty("Manufacturer", DeviceDetails.OEM);
-		mixpanel.FEProp.setProperty("Brand", DeviceDetails.OEM);
-	
-		if(pUserType.equalsIgnoreCase("Guest")) {
+		waitTime(10000);
+		MixpanelAndroid.FEProp.setProperty("Source", "More");
+		MixpanelAndroid.FEProp.setProperty("Page Name", "selector");
+		MixpanelAndroid.FEProp.setProperty("Manufacturer", DeviceDetails.OEM);
+		MixpanelAndroid.FEProp.setProperty("Brand", DeviceDetails.OEM);
+
+		if (pUserType.equalsIgnoreCase("Guest")) {
 			mixpanel.FEProp.setProperty("User Type", "guest");
 		}
-		if(var==true) {
+		if (var == true) {
 			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", qualityOption);
-		}else {
+		} else {
 			mixpanel.FEProp.setProperty("New Video Streaming Quality Setting", "Auto");
 		}
-		
-		mixpanel.ValidateParameter("", "Video Streaming Quality Changed");
-		
-		if(var==true) {
+
+		MixpanelAndroid.ValidateParameter("", "Video Streaming Quality Changed");
+
+		if (var == true) {
 			click(AMDMoreMenu.objVideo_Quality(qualityOption), "Video quality option");
 			click(AMDMoreMenu.objAutoOption, "option Auto");
 		}
 	}
+
 	
 	public void navigateToRegisterScreen() throws Exception {
 		HeaderChildNode("Navigate to Login/Registration screen");
@@ -10172,21 +10175,23 @@ public void ZeeApplicasterLogin(String LoginMethod) throws Exception {
 	public void verifyDownloadOverWifiChangedEvent() throws Exception {
 		extent.HeaderChildNode("Verify Download Over wifi change Event");
 		click(AMDHomePage.MoreMenuIcon, "More menu icon");
+		waitTime(3000);
 		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
-		
+		waitTime(3000);
 		if (!(pUserType.equalsIgnoreCase("Guest"))) {
-			if(pUserType.equalsIgnoreCase("SubscribedUser")) {
+			if (pUserType.equalsIgnoreCase("SubscribedUser")) {
 				Username = getParameterFromXML("SubscribedUserName");
 				Password = getParameterFromXML("SubscribedPassword");
-			}else if(pUserType.equalsIgnoreCase("NonSubscribedUser")) {
+			} else if (pUserType.equalsIgnoreCase("NonSubscribedUser")) {
 				Username = getParameterFromXML("NonSubscribedUserName");
 				Password = getParameterFromXML("NonSubscribedUserPassword");
 			}
-	      	mixpanel.FEProp.setProperty("Old Download Over Wifi Setting", ResponseInstance.getUserSettingsDetails(Username,Password).getProperty("download_over_wifi"));
-		}else {
+			mixpanel.FEProp.setProperty("Old Download Over Wifi Setting",
+					ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("download_over_wifi"));
+		} else {
 			mixpanel.FEProp.setProperty("Old Download Over Wifi Setting", "false");
 		}
-		
+
 		boolean var = verifyElementPresentAndClick(AMDMoreMenu.objDownloads_WifiOnly, "Download over wifi only switch");
 		waitTime(3000);
 		setFEProperty(pUserType);
@@ -10195,14 +10200,14 @@ public void ZeeApplicasterLogin(String LoginMethod) throws Exception {
 		mixpanel.FEProp.setProperty("Page Name", "user_setting");
 		mixpanel.FEProp.setProperty("Manufacturer", DeviceDetails.OEM);
 		mixpanel.FEProp.setProperty("Brand", DeviceDetails.OEM);
-	
-		if(pUserType.equalsIgnoreCase("Guest")) {
+
+		if (pUserType.equalsIgnoreCase("Guest")) {
 			mixpanel.FEProp.setProperty("User Type", "guest");
 			mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "true");
 		}
 		mixpanel.ValidateParameter("", "Download Over Wifi Changed");
-	    verifyElementPresentAndClick(AMDMoreMenu.objDownloads_WifiOnly, "Download over wifi only switch");
-	
+		verifyElementPresentAndClick(AMDMoreMenu.objDownloads_WifiOnly, "Download over wifi only switch");
+
 	}
 	
 	public void verifyCarouselBannerClickEvent(String usertype, String tabName) throws Exception {
@@ -10601,7 +10606,7 @@ public void verifyContentLanguageChangeEvent(String userType) throws Exception {
 		HeaderChildNode("Popup Launch Event");
 		System.out.println("\nPopup Launch Event");
 
-		String pSource = "Home";
+		String pSource = "More";
 		String pPage = "More";
 		String pManufacturer = DeviceDetails.OEM;
 		String str = "N/A";
@@ -10660,7 +10665,7 @@ public void verifyContentLanguageChangeEvent(String userType) throws Exception {
 		HeaderChildNode("Popup CTA Event");
 		System.out.println("\nPopup CTA Event");
 
-		String pSource = "Home";
+		String pSource = "More";
 		String pPage = "More";
 		String pManufacturer = DeviceDetails.OEM;
 		String str = "N/A";
@@ -11460,5 +11465,41 @@ public void LIVETVsection_visited(String usertype) throws Exception {
 	}	
 }
 
+	@SuppressWarnings("static-access")
+	public void verifyVideoStreamOverWifiChangeEvent() throws Exception {
+		extent.HeaderChildNode("Verify video wifi change Event for Enable");
+		click(AMDHomePage.MoreMenuIcon, "More menu icon");
+		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
+		verifyElementPresentAndClick(AMDMoreMenu.objVideo_WifiOnly, "Wifi only Switch");
+		waitTime(5000);
+
+		setFEProperty(userType);
+		setUserType_SubscriptionProperties(userType);
+
+		MixpanelAndroid.FEProp.setProperty("Source", "More");
+		MixpanelAndroid.FEProp.setProperty("Page Name", "user_setting");
+		MixpanelAndroid.ValidateParameter("", "Video Stream Over Wifi Changed");
+
+	}
+	
+	@SuppressWarnings("static-access")
+	public void verifyVideoStreamingAutoPlayChangeEvent() throws Exception {
+		extent.HeaderChildNode("Verify Video Streaming AutoPlay change Event");
+		click(AMDHomePage.MoreMenuIcon, "More menu icon");
+		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
+		waitTime(5000);
+
+		click(AMDMoreMenu.objVideo_Autoply, "Video Auto play toggle");
+		waitTime(4000);
+		
+		setFEProperty(userType);
+		setUserType_SubscriptionProperties(userType);
+		
+		MixpanelAndroid.FEProp.setProperty("Source", "More");	
+		MixpanelAndroid.FEProp.setProperty("Page Name", "user_setting");
+
+		MixpanelAndroid.ValidateParameter("", "Video Streaming Autoplay Changed");
+
+	}
 	
 }

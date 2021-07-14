@@ -305,5 +305,7 @@ public class AMDHomePage {
 	public static By objViewAllBtn(String trayName) {
 		return By.xpath("//*[@id='cell_top_container']//*[contains(text(),'"+trayName+"')]//following-sibling::*/child::*[2] | //*[contains(text(),'"+trayName+"')]/following-sibling::*[@text='a']");
 	}
+	
+	public static By objSeeAllFirstRail = By.xpath("(//*[@text='See All'])[1]");
 
 }

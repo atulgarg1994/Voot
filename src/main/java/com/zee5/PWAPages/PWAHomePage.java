@@ -686,4 +686,7 @@ public class PWAHomePage {
 	
 	public static By objPremiumTag = By.xpath("//*[@class='cardPremiumContent sameEpisodeCardContent']");
 
+	public static By objKalturaGetPremium = By.xpath("//div[@class='cardPremiumContent']");
+	public static By objKalturaPremiumContentImg=By.xpath("//div[contains(@class,'clickWrapper') and (.//div[@class='cardPremiumContent'])]//h3[@class='cardTitle']//parent::*//img");
+	public static By objKalturaGetPremiumCardTitle=By.xpath("//div[contains(@class,'clickWrapper') and (.//div[@class='cardPremiumContent'])]//h3[@class='cardTitle']");
  }

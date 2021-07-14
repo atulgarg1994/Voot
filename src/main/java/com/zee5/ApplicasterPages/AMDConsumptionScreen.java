@@ -167,5 +167,24 @@ public class AMDConsumptionScreen {
     
     public static By objEduauraaWelcomePageOrHomePageInWeb = By.xpath("//*[@placeholder='First Name*'] | //*[@class='usr-img']");
     
+    public static By objclaimOffercta = By.xpath("//*[@id='subscribeButton'][@text='Claim Offer']");
+    public static By objCongratulationTextOnplayer = By.xpath("//*[@id='eduaraaClaimedTitle']");
+    public static By objGotoEduauraaOnPlayer = By.xpath("//*[@id='eduaraaClaimedGoToEduauraButton']");
+    public static By objconfirmbutton = By.xpath("//*[@id='btn_continue']");
+    public static By objNamefield = By.xpath("//*[@id='fname-icon']");
+    public static By objWelcomeToEduauraaPage = By.xpath("//*[@class='android.widget.Image'][@text='Logo']");
+    public static By objMobileNo = By.xpath("//*[@id='mobile-icon']");
+    public static By objEmailfield = By.xpath("//*[@id='email-icon']");
+    public static By objContinueButton = By.xpath("//*[@class='android.widget.Button'][@text='Continue']");
+    public static By objContinueEnabled= By.xpath("//*[@nodeName='BUTTON' and @disabled='false']");
+    
+    public static By objAlreadyHaveAnAccount = By.xpath("//*[@class='android.widget.TextView'][@text='Already have an account ?']");
+    
+    public static By objChooseCourseType = By.xpath("//*[@text='Choose Your Course Type']");
+    public static By objSelectboard = By.xpath("//*[@class='android.view.View']//*[@text='select board']");
+    public static By objgrade = By.xpath("//*[@class='android.view.View']//*[@text='select grade']");
+    public static By objLang = By.xpath("//*[@class='android.view.View']//*[@text='select language']");
+    public static By objtemrsAndprivacypolicy = By.xpath("//*[@text=' Terms of use and Privacy Policy ']");
+    
     
 }

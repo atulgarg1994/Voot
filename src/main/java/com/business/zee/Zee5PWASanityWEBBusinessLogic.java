@@ -3131,12 +3131,14 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				logger.info("Carousel content title fetched first time: " + firstCarouselTitle);
 				extent.extentLogger("Autorotating", "Carousel content title fetched first time: " + firstCarouselTitle);
 				Thread.sleep(6000);
+				waitTime(3000);
 				secondCarouselTitle = getElementPropertyToString("innerText", PWAHomePage.objContTitleOnCarousel,
 						"Carousel Content Title").toString();
 				logger.info("Carousel content title fetched second time: " + secondCarouselTitle);
 				extent.extentLogger("Autorotating",
 						"Carousel content title fetched second time: " + secondCarouselTitle);
 				Thread.sleep(6000);
+				waitTime(2000);
 				thirdCarouselTitle = getElementPropertyToString("innerText", PWAHomePage.objContTitleOnCarousel,
 						"Carousel Content Title").toString();
 				logger.info("Carousel content title fetched third time: " + thirdCarouselTitle);
@@ -8261,7 +8263,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		if (type.equalsIgnoreCase("news")) {
 			click(PWASearchPage.objSearchNewsTab, "SearchNewsTab");
 			Thread.sleep(1000);
-			click(PWASearchPage.objfirstdata, "data");
+			click(PWASearchPage.objFirstAssetImgSearchNavigationTab, "First data after search");
 		} else {
 
 			click(PWASearchPage.objspecificSearch, "Searched content");
@@ -8346,18 +8348,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			logger.info("Video playback failed");
 		}
 
-//		if (checkElementDisplayed(PWAPlayerPage.objWhyRegisterPopUp, "Register popup ")) {
-//			click(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Register Pop up close button");
-//		}
-//		if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true) {
-//			verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
-//		}
 		if (!checkElementDisplayed(PWAPlayerPage.objprogressBar, "Progress bar")) {
 			logger.info("Progress bar for LiveTv is not present");
 			extent.extentLogger("Progress bar", "Progress bar for LiveTv is not present");
 		}
 		getWebDriver().get(URL);
-
 	}
 
 	public String checkPremiumORFreeFromLIVETVPageTrayAndSelect(String str, String premiumORfree) throws Exception {

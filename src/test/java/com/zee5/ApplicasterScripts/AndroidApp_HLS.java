@@ -18,7 +18,7 @@ public class AndroidApp_HLS {
 		ZEE5ApplicasterBusinessLogic = new Zee5ApplicasterBusinessLogic("zee");
 	}
 
-	@Test(priority = 0)
+//	@Test(priority = 0)
 	@Parameters({ "userType" })
 	public void ApplicasterLogin(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);

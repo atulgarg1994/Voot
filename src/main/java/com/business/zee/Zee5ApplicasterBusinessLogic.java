@@ -29898,4 +29898,431 @@ public void installZee5AppFromPlayStore() throws Exception{
 	waitForElementAndClickIfPresent(AMDAppUpgrade.objOpenButton, 250, "Open CTA");	
 }
 
+
+public void ListingScreenfromHome() throws Exception {
+	extent.HeaderChildNode("Listing screen from Home");
+	System.out.println("\n>>> Listing screen from Home");
+
+//String appPackageName = getParameterFromXML("appPackageName");
+	String appPackageName = "com.graymatrix.did";
+
+	// Threshold Values declaration
+	int threshold_TimeTaken = 4;
+	int threshold_NativeMemory = 35;
+	int threshold_TotalMemory = 300;
+	int threshold_CPU = 120;
+	int threshold_GPUMem = 7;
+	int threshold_GPURendered = 2000;
+	int threshold_Network = 100;
+	boolean timeFlag=true, memFlag=true, totalmemFlag=true, cpuFlag=true, gpuMemFlag=true, gpuRenFlag=true, trafficFlag=true;
+	
+	LoginWithEmailID("zeetest34new@test.com", "123456");
+//	SelectTopNavigationTab("Movies");
+	verifyElementPresentAndClick(AMDHomePage.objSeeAllFirstRail, "See All");
+	Instant startTime = Instant.now();
+	logger.info("Instant Start time : " + startTime);
+
+	verifyElementPresent(AMDHomePage.objTitle, "Listing page title");
+	verifyElementPresent(AMDHomePage.objBackIcon,"Back Button");
+	
+	// #### App Performance MEMORY Usage Info
+	ArrayList<String> getMmoryInfo = Memory_UsagePerformanceV2();
+	int nativeMemory = Integer.parseInt(getMmoryInfo.get(0).trim());
+	int totalMemory = Integer.parseInt(getMmoryInfo.get(1).trim());
+
+	// #### App Performance CPU Usage Info
+	String getCPUInfo = CPU_UsagePerformanceV2();
+	int nCpuUSage = Integer.parseInt(getCPUInfo);
+
+	// #### App Performance GPU Usage Info
+	ArrayList<String> getGPUInfo = GPU_UsagePerformanceV2();
+	float nGPUMemory = Float.parseFloat(getGPUInfo.get(0).replace(" MB", "").trim());
+	int nGPURendered = Integer.parseInt(getGPUInfo.get(1).replace("Total frames rendered: ", "").trim());
+
+	// #### App Performance Network Traffic Usage Info
+	int nNetTraffic = getApp_NetworkTrafficUsageV2(appPackageName);
+
+	// #### App Performance Battery Info
+	String batteryInfo = BatteryStats_PerformanceV2();
+
+	Instant endTime = Instant.now();
+	logger.info("Instant End time : " + endTime);
+
+	Duration timeElapsed = Duration.between(startTime, endTime);
+	extent.extentLogger("Timer",
+			"<b>Time taken to load listing screen(Sec):</b> " + timeElapsed.getSeconds());
+	Back(1);
+
+	if (timeElapsed.getSeconds() < threshold_TimeTaken) {
+		extent.extentLoggerPass("Timer",
+				"<b>Time taken to load listing screen(Sec)</b>: " + timeElapsed.getSeconds());
+	} else {
+		timeFlag=false;
+		logger.info("Time taken to load listing screen(Sec): " + timeElapsed.getSeconds());
+		extent.extentLoggerFail("Timer",
+				"<b>Time taken to load listing screen(Sec)</b>: " + timeElapsed.getSeconds());
+	}
+	softAssertion.assertEquals(timeFlag, true);
+
+	if (nativeMemory < threshold_NativeMemory) {
+		logger.info("App Native Heap Memory: " + nativeMemory + " MB");
+		extent.extentLoggerPass("Memory Info", "<b>App Native Heap Memory: :</b> " + nativeMemory + " MB");
+	} else {
+		memFlag=false;
+		logger.error("App Native Heap Memory: " + nativeMemory + " MB");
+		extent.extentLoggerFail("Memory Info", "<b>App Native Heap Memory: </b> " + nativeMemory + " MB");
+	}
+	softAssertion.assertEquals(memFlag, true);
+
+	if (totalMemory < threshold_TotalMemory) {
+		logger.info("App Peak Memory Usage: " + totalMemory + " MB");
+		extent.extentLoggerPass("Memory Info", "<b>App Peak Memory Usage:</b> " + totalMemory + " MB");
+	} else {
+		totalmemFlag=false;
+		logger.error("App Peak Memory Usage: " + totalMemory + " MB");
+		extent.extentLoggerFail("Memory Info", "<b>App Peak Memory Usage:</b> " + totalMemory + " MB");
+	}
+	softAssertion.assertEquals(totalmemFlag, true);
+
+	if (nCpuUSage < threshold_CPU) {
+		logger.info("CPU Usage : " + nCpuUSage + "%");
+		extent.extentLoggerPass("CPU Info", "<b>CPU Usage: </b>" + nCpuUSage + "%");
+	} else {
+		cpuFlag=false;
+		logger.error("CPU Usage: " + nCpuUSage + "%");
+		extent.extentLoggerFail("CPU Info", "<b>CPU Usage: </b>" + nCpuUSage + "%");
+	}
+	softAssertion.assertEquals(cpuFlag, true);
+
+	if (nGPUMemory < threshold_GPUMem) {
+		logger.info("\nGPU Memory Usage: " + nGPUMemory + " MB");
+		extent.extentLoggerPass("GPU Info",
+				"<b>GPU Memory Usage: </b>" + nGPUMemory + " MB");
+	} else {
+		gpuMemFlag=false;
+		logger.error("\nGPU Memory Usage exceeded: " + nGPUMemory + " MB");
+		extent.extentLoggerFail("GPU Info",
+				"<b>GPU Memory Usage exceeded: </b>" + nGPUMemory + " MB");
+	}
+	softAssertion.assertEquals(gpuMemFlag, true);
+
+	if (nGPURendered < threshold_GPURendered) {
+		logger.info("\nGPU FPS: " + nGPURendered);
+		extent.extentLoggerPass("GPU Info", "<b>GPU FPS: </b>" + nGPURendered);
+	} else {
+		gpuRenFlag=false;
+		logger.error("\nGPU FPS: " + nGPURendered);
+		extent.extentLoggerFail("GPU Info", "<b>GPU FPS: </b>" + nGPURendered);
+	}
+	softAssertion.assertEquals(gpuRenFlag, true);
+
+	if (nNetTraffic < threshold_Network) {
+		logger.info("\nApp traffic usage: " + (int) nNetTraffic + " MB");
+		extent.extentLoggerPass("Traffic Usage",
+				"<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
+	} else {
+		trafficFlag=false;
+		logger.error("\nApp traffic usage: " + (int) nNetTraffic + " MB");
+		extent.extentLoggerFail("Traffic Usage",
+				"<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
+	}
+	
+	String timeTaken = Long.toString(timeElapsed.getSeconds());
+	String strNativeMemory = Integer.toString(nativeMemory);
+	String strTotalMemory = Integer.toString(totalMemory);
+	String strCPU = Integer.toString(nCpuUSage);
+	String strGPU = Float.toString(nGPUMemory);
+	String strGPURendered = Integer.toString(nGPURendered);
+	String strTraffic = Integer.toString(nNetTraffic);
+	
+	performaceMatrics.put("Time Taken",timeTaken+" Sec");
+	performaceMatrics.put("Native Heap Memory",strNativeMemory+" MB");
+	performaceMatrics.put("Peak Memory",strTotalMemory+" MB");
+	performaceMatrics.put("CPU Usage",strCPU+"%");
+	performaceMatrics.put("GPU Usage",strGPU+" MB");
+	performaceMatrics.put("GPU FPS",strGPURendered);
+	performaceMatrics.put("Traffic Usage",strTraffic+" MB");
+	
+	System.out.println("\n---------------------------------------------- Listing screen from Home ----------------------------------------------");
+	System.out.println(performaceMatrics);
+	System.out.println("------------------------------------------------------------------------------------------------------------------------");
+	ClearAllPerformanceMatrics();
+	
+	softAssertion.assertEquals(trafficFlag, true);
+	softAssertion.assertAll();
+	
+	if (batteryInfo.contains("drain")) {
+		logger.info("\nApp Battery Info - " + batteryInfo);
+		extent.extentLoggerPass("Timer", "<b>App Battery Info - </b>" + batteryInfo);
+	} else {
+		logger.error("\nApp Battery Info - " + batteryInfo);
+		extent.extentLoggerFail("Timer", "<b>App Battery Info - </b>" + batteryInfo);
+	}
+	performaceDetails.add("Load Listing screen"+","+timeElapsed.getSeconds()+","+nativeMemory+" MB,"+totalMemory+" MB,"+nCpuUSage+"%,"+nGPUMemory+" MB,"+nGPURendered+","+nNetTraffic+" MB");
+}
+
+public void LoadPaymentModeSelectionScreen() throws Exception {
+	extent.HeaderChildNode("Load payment mode selection screen");
+	System.out.println("\n>>> Load payment mode selection screen");
+
+//String appPackageName = getParameterFromXML("appPackageName");
+	String appPackageName = "com.graymatrix.did";
+
+	// Threshold Values declaration
+	int threshold_TimeTaken = 13;
+	int threshold_NativeMemory = 42;
+	int threshold_TotalMemory = 300;
+	int threshold_CPU = 200;
+	int threshold_GPUMem = 9;
+	int threshold_GPURendered = 2500;
+	int threshold_Network = 400;
+	boolean timeFlag=true, memFlag=true, totalmemFlag=true, cpuFlag=true, gpuMemFlag=true, gpuRenFlag=true, trafficFlag=true;
+	
+	LoginWithEmailID("zee5latest@gmail.com", "User@123");
+	verifyElementPresentAndClick(AMDHomePage.objBuyPlanCTA, "Buy Plan");
+	verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn,"Continue Button");
+	
+	Instant startTime = Instant.now();
+	logger.info("Instant Start time : " + startTime);
+	
+	// #### App Performance MEMORY Usage Info
+	ArrayList<String> getMmoryInfo = Memory_UsagePerformanceV2();
+	int nativeMemory = Integer.parseInt(getMmoryInfo.get(0).trim());
+	int totalMemory = Integer.parseInt(getMmoryInfo.get(1).trim());
+
+	// #### App Performance CPU Usage Info
+	String getCPUInfo = CPU_UsagePerformanceV2();
+	int nCpuUSage = Integer.parseInt(getCPUInfo);
+
+	// #### App Performance GPU Usage Info
+	ArrayList<String> getGPUInfo = GPU_UsagePerformanceV2();
+	float nGPUMemory = Float.parseFloat(getGPUInfo.get(0).replace(" MB", "").trim());
+	int nGPURendered = Integer.parseInt(getGPUInfo.get(1).replace("Total frames rendered: ", "").trim());
+
+	// #### App Performance Network Traffic Usage Info
+	int nNetTraffic = getApp_NetworkTrafficUsageV2(appPackageName);
+
+	// #### App Performance Battery Info
+	String batteryInfo = BatteryStats_PerformanceV2();
+
+	verifyElementPresent(AMDSubscibeScreen.objMakePaymentScreen,"Payment Screen");
+	Instant endTime = Instant.now();
+	logger.info("Instant End time : " + endTime);
+
+	Duration timeElapsed = Duration.between(startTime, endTime);
+	extent.extentLogger("Timer",
+			"<b>Time taken to load payment mode selection screen (Sec):</b> " + timeElapsed.getSeconds());
+
+	if (timeElapsed.getSeconds() < threshold_TimeTaken) {
+		extent.extentLoggerPass("Timer",
+				"<b>Time taken to load payment mode selection screen(Sec)</b>: " + timeElapsed.getSeconds());
+	} else {
+		timeFlag=false;
+		logger.info("Time taken to load payment mode selection screen(Sec): " + timeElapsed.getSeconds());
+		extent.extentLoggerFail("Timer",
+				"<b>Time taken to load payment mode selection screen(Sec)</b>: " + timeElapsed.getSeconds());
+	}
+	softAssertion.assertEquals(timeFlag, true);
+
+	if (nativeMemory < threshold_NativeMemory) {
+		logger.info("App Native Heap Memory: " + nativeMemory + " MB");
+		extent.extentLoggerPass("Memory Info", "<b>App Native Heap Memory: :</b> " + nativeMemory + " MB");
+	} else {
+		memFlag=false;
+		logger.error("App Native Heap Memory: " + nativeMemory + " MB");
+		extent.extentLoggerFail("Memory Info", "<b>App Native Heap Memory: </b> " + nativeMemory + " MB");
+	}
+	softAssertion.assertEquals(memFlag, true);
+
+	if (totalMemory < threshold_TotalMemory) {
+		logger.info("App Peak Memory Usage: " + totalMemory + " MB");
+		extent.extentLoggerPass("Memory Info", "<b>App Peak Memory Usage:</b> " + totalMemory + " MB");
+	} else {
+		totalmemFlag=false;
+		logger.error("App Peak Memory Usage: " + totalMemory + " MB");
+		extent.extentLoggerFail("Memory Info", "<b>App Peak Memory Usage:</b> " + totalMemory + " MB");
+	}
+	softAssertion.assertEquals(totalmemFlag, true);
+
+	if (nCpuUSage < threshold_CPU) {
+		logger.info("CPU Usage : " + nCpuUSage + "%");
+		extent.extentLoggerPass("CPU Info", "<b>CPU Usage: </b>" + nCpuUSage + "%");
+	} else {
+		cpuFlag=false;
+		logger.error("CPU Usage: " + nCpuUSage + "%");
+		extent.extentLoggerFail("CPU Info", "<b>CPU Usage: </b>" + nCpuUSage + "%");
+	}
+	softAssertion.assertEquals(cpuFlag, true);
+
+	if (nGPUMemory < threshold_GPUMem) {
+		logger.info("\nGPU Memory Usage: " + nGPUMemory + " MB");
+		extent.extentLoggerPass("GPU Info",
+				"<b>GPU Memory Usage: </b>" + nGPUMemory + " MB");
+	} else {
+		gpuMemFlag=false;
+		logger.error("\nGPU Memory Usage exceeded: " + nGPUMemory + " MB");
+		extent.extentLoggerFail("GPU Info",
+				"<b>GPU Memory Usage exceeded: </b>" + nGPUMemory + " MB");
+	}
+	softAssertion.assertEquals(gpuMemFlag, true);
+
+	if (nGPURendered < threshold_GPURendered) {
+		logger.info("\nGPU FPS: " + nGPURendered);
+		extent.extentLoggerPass("GPU Info", "<b>GPU FPS: </b>" + nGPURendered);
+	} else {
+		gpuRenFlag=false;
+		logger.error("\nGPU FPS: " + nGPURendered);
+		extent.extentLoggerFail("GPU Info", "<b>GPU FPS: </b>" + nGPURendered);
+	}
+	softAssertion.assertEquals(gpuRenFlag, true);
+
+	if (nNetTraffic < threshold_Network) {
+		logger.info("\nApp traffic usage: " + (int) nNetTraffic + " MB");
+		extent.extentLoggerPass("Traffic Usage",
+				"<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
+	} else {
+		trafficFlag=false;
+		logger.error("\nApp traffic usage: " + (int) nNetTraffic + " MB");
+		extent.extentLoggerFail("Traffic Usage",
+				"<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
+	}
+	
+	String timeTaken = Long.toString(timeElapsed.getSeconds());
+	String strNativeMemory = Integer.toString(nativeMemory);
+	String strTotalMemory = Integer.toString(totalMemory);
+	String strCPU = Integer.toString(nCpuUSage);
+	String strGPU = Float.toString(nGPUMemory);
+	String strGPURendered = Integer.toString(nGPURendered);
+	String strTraffic = Integer.toString(nNetTraffic);
+	
+	performaceMatrics.put("Time Taken",timeTaken+" Sec");
+	performaceMatrics.put("Native Heap Memory",strNativeMemory+" MB");
+	performaceMatrics.put("Peak Memory",strTotalMemory+" MB");
+	performaceMatrics.put("CPU Usage",strCPU+"%");
+	performaceMatrics.put("GPU Usage",strGPU+" MB");
+	performaceMatrics.put("GPU FPS",strGPURendered);
+	performaceMatrics.put("Traffic Usage",strTraffic+" MB");
+	
+	System.out.println("\n---------------------------------------------- Load Payment mode selection screen ----------------------------------------------");
+	System.out.println(performaceMatrics);
+	System.out.println("------------------------------------------------------------------------------------------------------------------------");
+	ClearAllPerformanceMatrics();
+	
+	softAssertion.assertEquals(trafficFlag, true);
+	softAssertion.assertAll();
+	
+	if (batteryInfo.contains("drain")) {
+		logger.info("\nApp Battery Info - " + batteryInfo);
+		extent.extentLoggerPass("Timer", "<b>App Battery Info - </b>" + batteryInfo);
+	} else {
+		logger.error("\nApp Battery Info - " + batteryInfo);
+		extent.extentLoggerFail("Timer", "<b>App Battery Info - </b>" + batteryInfo);
+	}
+	performaceDetails.add("Load Payment screen"+","+timeElapsed.getSeconds()+","+nativeMemory+" MB,"+totalMemory+" MB,"+nCpuUSage+"%,"+nGPUMemory+" MB,"+nGPURendered+","+nNetTraffic+" MB");
+}
+
+public void EduauraaPortalValidation(String usertype) throws Exception{
+	extent.HeaderChildNode("Validation of Eduauraa portal");
+	if(userType.equalsIgnoreCase("SubscribedUser")) {
+	SelectTopNavigationTab("Eduauraa");
+	waitForElementAndClickIfPresent(AMDHomePage.objPlayBtn, 10, "Eduauraa content");
+	if(verifyElementDisplayed(AMDConsumptionScreen.objclaimOffercta)) {		
+	click(AMDConsumptionScreen.objclaimOffercta, "Claim offer CTA");
+	verifyElementExist(AMDConsumptionScreen.objCongratulationTextOnplayer, "Congartulation text message on player");
+	verifyElementPresentAndClick(AMDConsumptionScreen.objGotoEduauraaOnPlayer, "Go to Eduauraa");
+	} else {
+		click(AMDConsumptionScreen.objGoToEduauraaCTA, "Go to Eduauraa");
+	}
+	click(AMDConsumptionScreen.objconfirmbutton,"confirm");
+	waitTime(5000);
+	verifyElementExist(AMDConsumptionScreen.objWelcomeToEduauraaPage, "Welcome to Eduauraa page");
+	verifyElementExist(AMDConsumptionScreen.objNamefield, "Name field in Eduauraa page");
+	verifyElementExist(AMDConsumptionScreen.objMobileNo, "Mobile number field in Eduauraa page");
+	verifyElementExist(AMDConsumptionScreen.objEmailfield, "Email field in Eduauraa page");
+	boolean value = findElement(AMDConsumptionScreen.objContinueButton).isEnabled();
+	if(value == false) {
+		logger.info("By default Continue button is disabled");
+		extentLoggerPass("Myprofile", "By default Continue button is disabled");
+	}else {
+		logger.error("By default Continue button is Not disabled");
+		extentLoggerFail("Myprofile", "By default Continue button is Not disabled");
+	}
+	click(AMDConsumptionScreen.objMobileNo,"Mobile number");
+	type(AMDConsumptionScreen.objMobileNo,"9880653452","Mobile number");
+	hideKeyboard();
+	waitTime(5000);
+    if(verifyElementDisplayed(AMDConsumptionScreen.objContinueEnabled)) {
+		logger.info("Continue button is enabled after filling the all fields");
+		extentLoggerPass("Myprofile", "Continue button is enabled after filling the all fields");
+	}else {
+		logger.error("Continue button is Not enabled after filling the all fields");
+		extentLoggerFail("Myprofile", "Continue button is Not enabled after filling the all fields");
+	}
+	waitTime(3000);
+	click(AMDConsumptionScreen.objContinueButton,"Continue button");
+	verifyElementExist(AMDConsumptionScreen.objChooseCourseType, "Choose your course type page");
+	verifyElementExist(AMDConsumptionScreen.objSelectboard, "Select Board");
+	verifyElementExist(AMDConsumptionScreen.objgrade, "Select Grade");
+	verifyElementExist(AMDConsumptionScreen.objLang, "Select Language");
+	verifyElementExist(AMDConsumptionScreen.objtemrsAndprivacypolicy, "Terms and Privacy policy links");
+	verifyElementExist(AMDConsumptionScreen.objContinueButton, "Continue button on Choose your course type");		
+}		
+}
+
+
+public void ZeeApplicasterLoginForEduauraaPortal(String LoginMethod) throws Exception {
+	System.out.println("\nLogin to the App");
+
+	switch (LoginMethod) {
+	case "Guest":
+		extent.HeaderChildNode("Logged in as <b>Guest</b> User");
+
+		extent.extentLogger("Accessing the application as Guest user",
+				"Accessing the application as <b>Guest</b> user");
+		break;
+
+	case "NonSubscribedUser":
+		extent.HeaderChildNode("Login as NonSubscribed User");
+
+		String Username = getParameterFromXML("NonsubscribedUserName");
+		String Password = getParameterFromXML("NonsubscribedPassword");
+
+		verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+		verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
+
+		click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+		type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
+		verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+		type(AMDLoginScreen.objPasswordField, Password, "Password field");
+		hideKeyboard();
+		verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+		waitTime(3000);
+		break;
+
+	case "SubscribedUser":
+		extent.HeaderChildNode("Login as Subscribed User");
+
+		String SubscribedUsername = getParameterFromXML("SubscribedUserNameForEduauraa");
+		String SubscribedPassword = getParameterFromXML("SubscribedPasswordForEduauraa");
+
+		verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+		verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
+
+		click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+		type(AMDLoginScreen.objEmailIdField, SubscribedUsername, "Email Field");
+		verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+		type(AMDLoginScreen.objPasswordField, SubscribedPassword, "Password field");
+		hideKeyboard();
+		verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+		waitTime(3000);
+		break;
+	}
+}
+
 }

@@ -4,10 +4,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Hashtable;
-
+import java.util.ArrayList;
+import java.util.Properties;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -15,19 +16,28 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.testng.Reporter;
+
+import com.appsflyerValidation.AppsFlyer;
+import com.extent.ExtentReporter;
+import com.metadata.ResponseInstance;
+
+import io.restassured.RestAssured;
 
 public class CleverTapDashboardData {
 
 	static String filePath = "";
 	static String xlpath = "";
 	static int LastRow = 0;
-	public static Hashtable<String, String> ht1 = new Hashtable<>();
+	public static Properties CTDashboardData = new Properties();
+	public static ExtentReporter report = new ExtentReporter();
+	public static ArrayList<String> ExpectedData = new ArrayList<>();
 
 	/**
 	 * Function to create Excel file
 	 */
 	public static void creatExcelCleverTap() {
-		try {			
+		try {
 			 filePath = System.getProperty("user.dir") + "\\CleverTap\\"+TodayDate();
 			 xlpath = filePath+"\\SubscriptionPageViewed"+TodayDateTime()+".xlsx";
 			File dir = new File(filePath);
@@ -132,7 +142,8 @@ public class CleverTapDashboardData {
 	}
 	
 	
-	public static void dashboardData() {
+	public static void dashboardData(String EventName) {
+		ListProperties(EventName);
 		int row = getRowCount();
 		System.out.println(row);
 		for (int i = 1; i < row; i++) {
@@ -143,13 +154,36 @@ public class CleverTapDashboardData {
 				String key = myExcelSheet.getRow(i).getCell(0).toString();
 				String value = myExcelSheet.getRow(i).getCell(1).toString();
 				System.out.println(key+"  :::::::  "+value);
+				CTDashboardData.put(key,value);
+				if(value == null) {
+					report.extentLoggerFail("Null", "Property is empty :- <b>Key : " + key + " \n value : " + value + "</b>");
+				}
+				if(ExpectedData.contains(key)) {
+					ExpectedData.remove(key);
+				}
+				myExcelBook.close();
+			} catch (IOException e) {
+			}
+		}
+		report.extentLogger("Missed Properties", "Missed Properties : "+ExpectedData);
+	}
+	
+	public static void ListProperties(String EventName) {
+		int row = getRowCount();
+		for (int i = 1; i < row; i++) {
+			XSSFWorkbook myExcelBook;
+			try {
+				myExcelBook = new XSSFWorkbook(new FileInputStream(xlpath));
+				XSSFSheet myExcelSheet = myExcelBook.getSheet(EventName);
+				String key = myExcelSheet.getRow(i).getCell(0).toString();
+				ExpectedData.add(key);
 				myExcelBook.close();
 			} catch (IOException e) {
 			}
 		}
 	}
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, ParseException {
 //		creatExcelCleverTap();
 //		System.out.println(xlpath);
 //		ht1.put("Key1", "Value1");
@@ -160,8 +194,24 @@ public class CleverTapDashboardData {
 //		ht1.remove("Key4");
 //		System.out.println(ht1);
 		 xlpath = "E:\\Zee5_Project\\Zee5\\zee5_updated\\CleverTap\\08_07_2021\\CleverTap08_07_2021_13_31_03.xlsx";
-		dashboardData();
-		System.out.println("Done"); 
+//		dashboardData();
+//		System.out.println(CTDashboardData);
+		 String userType = "SubscribedUser";
+//		 ResponseInstance.getLanguageforAppsFlyer(userType);
+
+			
+
+			// LOCATION
+//		 ResponseInstance.getUserLocationforAppsFlyer();
+		 ResponseInstance.SubcribedDetailsforCleverTap(userType);
+
+			// DEVICE DETAILS
+//		 ResponseInstance.getDeviceDetails();
+		System.out.println("Done");
+		// SETTINGS
+//		 ResponseInstance.getUserSettingsDetailsforCleverTap(userType);
+		// USERDATA
+//		 ResponseInstance.getUserDataforClevertap(userType);
 	}
 
 }
