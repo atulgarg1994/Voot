@@ -18,20 +18,13 @@ public class AndroidMixpanel_VideoWatchDuration {
 		Zee5ApplicasterMixPanelBusinessLogic = new Zee5ApplicasterMixPanelBusinessLogic("zee");
 	}
 	
-//	@Test(priority = 0)
-//	@Parameters({ "userType" })
-//	public void AndroidAppMixPanelLogin(String userType) throws Exception {
-//		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
-//		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
-//	}
-
 	@Test(priority = 1)
 	@Parameters({"userType","pTabName"})
 	public void AndroidMixPanel_VideoWatchDurationEventValidation(String userType,String pTabName) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
 		Zee5ApplicasterMixPanelBusinessLogic.JourneyForVideoWatchDurationEvent(userType, pTabName);
-		Zee5ApplicasterMixPanelBusinessLogic.EventValidation(userType, "Video Watch Duration","Homepage","More");
+		Zee5ApplicasterMixPanelBusinessLogic.EventValidation(userType, "Video Watch Duration","ConsumptionPage","Homepage");
 	}
 	
 	@AfterTest

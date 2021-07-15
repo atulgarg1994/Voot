@@ -9,7 +9,7 @@
 	<parameter name="NonSubscribedUserName" value="amdnonmixpanel@yopmail.com" />
 	<parameter name="NonSubscribedUserPassword" value="123456" />
 	
-	<parameter name="SubscribedUserName" value="clubRK@g.com" />
+	<parameter name="SubscribedUserName" value="testz6@g.com" />
 	<parameter name="SubscribedPassword" value="123456" />
 	
 	<parameter name="ParentalNonsubscribedUserName" value="juspayuser@mailnesia.com" />
@@ -48,18 +48,66 @@
 	<parameter name="AdID" value="606cb5c3-ba90-4981-a22e-0e40a2e0f591" />
 	<parameter name="clipContentID" value="0-1-249189" />
 	<parameter name="clipContent" value="Paaru gets tipsy" />
-
+	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
 		<!--  <listener class-name="com.epam.reportportal.testng.ReportPortalTestNGListener"/> -->
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
 	
-	<test name="AndroidMixpanel_Search">
+	<test name="AndroidMixpanel_FirstLaunch">
 		<classes>
-			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_Search" />
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_FirstLaunch" />
 		</classes>
 	</test>
 	
+	<test name="AndroidMixpanel_RegistrationEvents">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_RegistrationEvents" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_CTAs">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_CTAs" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_PopUpEvents">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_PopUpEvents" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_RegistrationEvents">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_RegistrationEvents" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_Homepage_visited">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_Homepage_visited" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_SubscriptionJourneyEvents">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_SubscriptionJourneyEvents" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_VideoWatchDuration">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_VideoWatchDuration" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_VideoView">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_VideoView" />
+		</classes>
+	</test>
+
 
 </suite>
