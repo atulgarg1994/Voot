@@ -32,6 +32,7 @@ public class CleverTapDashboardData {
 	public static Properties CTDashboardData = new Properties();
 	public static ExtentReporter report = new ExtentReporter();
 	public static ArrayList<String> ExpectedData = new ArrayList<>();
+	public static Properties ActualCleverTapData = new Properties();
 
 	/**
 	 * Function to create Excel file
@@ -185,33 +186,23 @@ public class CleverTapDashboardData {
 
 	public static void main(String[] args) throws IOException, ParseException {
 //		creatExcelCleverTap();
-//		System.out.println(xlpath);
-//		ht1.put("Key1", "Value1");
-//		ht1.put("Key2", "Value2");
-//		ht1.put("Key3", "Value3");
-//		ht1.put("Key4", "Value4");
-//		System.out.println(ht1.get("Key2"));
-//		ht1.remove("Key4");
-//		System.out.println(ht1);
 		 xlpath = "E:\\Zee5_Project\\Zee5\\zee5_updated\\CleverTap\\08_07_2021\\CleverTap08_07_2021_13_31_03.xlsx";
 //		dashboardData();
 //		System.out.println(CTDashboardData);
 		 String userType = "SubscribedUser";
 //		 ResponseInstance.getLanguageforAppsFlyer(userType);
 
-			
-
 			// LOCATION
 //		 ResponseInstance.getUserLocationforAppsFlyer();
 		 ResponseInstance.SubcribedDetailsforCleverTap(userType);
 
 			// DEVICE DETAILS
-//		 ResponseInstance.getDeviceDetails();
+		 ResponseInstance.getDeviceDetails();
 		System.out.println("Done");
 		// SETTINGS
-//		 ResponseInstance.getUserSettingsDetailsforCleverTap(userType);
+		 ResponseInstance.getUserSettingsDetailsforCleverTap(userType);
 		// USERDATA
-//		 ResponseInstance.getUserDataforClevertap(userType);
+		 ResponseInstance.getUserDataforClevertap(userType);
 	}
 
 }

@@ -17,6 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.Reporter;
 
+import com.CleverTap.CleverTapDashboardData;
 import com.appsflyerValidation.AppsFlyer;
 import com.driverInstance.DriverInstance;
 import com.google.gson.JsonObject;
@@ -5097,21 +5098,20 @@ public class ResponseInstance {
 		MixpanelAndroid.FEProp.setProperty("Unique ID", resp.jsonPath().getString("[0].user_id"));
 	}
 
+	
+//	-------------------CLEVERTAP---------------
 	public static Properties getUserSettingsDetailsforCleverTap(String userType) {
-//		String[] userData = { "streaming_quality", "auto_play", "download_quality", "stream_over_wifi", "download_over_wifi", "display_language", "parental_control", "content_language", "eduauraaClaimed", "paytmconsent" };
-			System.out.println("- - - - getUserSettingsDetailsforAppsFlyer - - - -");
+			System.out.println("- - - - getUserSettingsDetailsforCleverTap - - - -");
 			Properties pro = new Properties();
 
 			if (!userType.equals("Guest")) {
-
-				String pUsername = "Autoclevertap@g.com";
-				String pPassword = "clevertap";
-
+				String pUsername = null;
+				String pPassword = null;
 				if (userType.contains("NonSubscribedUser")) {
-//					pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-//							.getParameter("NonsubscribedUserName");
-//					pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-//							.getParameter("NonsubscribedPassword");
+					pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+							.getParameter("NonsubscribedUserName");
+					pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+							.getParameter("NonsubscribedPassword");
 				} else {
 					pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 							.getParameter("SubscribedUserName");
@@ -5123,8 +5123,6 @@ public class ResponseInstance {
 				resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey())
 						.header("authorization", bearerToken).when().get("https://userapi.zee5.com/v1/settings");
 				resp.print();
-//				System.out.println("Size : "+resp.jsonPath().getList("[]").size());
-//				int keys = resp.jsonPath().getList("[]").size();
 				for (int i = 0; i < 19; i++) {
 					pro.setProperty(resp.jsonPath().getString("["+i+"].key"), resp.jsonPath().getString("["+i+"].value"));
 				}
@@ -5137,7 +5135,6 @@ public class ResponseInstance {
 				AppsFlyer.expectedData.setProperty("New Autoplay Setting", pro.getProperty("auto_play"));
 				String prentControl = "N/A";
 				try {
-
 					System.out.println("Parent : "+pro.getProperty("parental_control"));
 					if (!pro.getProperty("parental_control").equals("{}")) {
 						prentControl = resp.jsonPath().getString("[17].value").split(",")[0].replace("pin", "")
@@ -5149,161 +5146,129 @@ public class ResponseInstance {
 				} catch (Exception e) {
 					AppsFlyer.expectedData.setProperty("Parent Control Setting", prentControl);
 				}
-
 				AppsFlyer.expectedData.forEach((key, value) -> System.out.println(key + " : " + value));
 			}
 			return pro;
 		}
 	
-	public static Properties getUserDataforClevertap(String userType) {
-		System.out.println("- - - - getUserDataforAppsFlyer - - - -");
-		Properties pro = new Properties();
-		if (!userType.equals("Guest")) {
-			String[] userData = { "id", "email", "mobile", "birthday", "gender", "ip_address", "registration_country",
-					"recurring_enabled" };
+		public static Properties getUserDataforClevertap(String userType) {
+			System.out.println("- - - - getUserDataforCleverTap - - - -");
+			Properties pro = new Properties();
+			if (!userType.equals("Guest")) {
+				String xAccessToken = getXAccessTokenWithApiKey();
+				String pUsername = null;
+				String pPassword = null;
+				if (userType.contains("NonSubscribedUser")) {
+					pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+							.getParameter("NonsubscribedUserName");
+					pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+							.getParameter("NonsubscribedPassword");
+				} else {
+					pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+							.getParameter("SubscribedUserName");
+					pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+							.getParameter("SubscribedPassword");
+				}
+				String bearerToken = getBearerToken(pUsername, pPassword);
+				String url = "https://userapi.zee5.com/v1/user";
+				resp = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken)
+						.when().get(url);
+				System.out.println(resp.print());
+				CleverTapDashboardData.ActualCleverTapData.setProperty("Email", resp.jsonPath().getString("email"));
+				CleverTapDashboardData.ActualCleverTapData.setProperty("Gender", resp.jsonPath().getString("gender"));
+				CleverTapDashboardData.ActualCleverTapData.setProperty("Registering Country",
+						resp.jsonPath().getString("registration_country"));
+				CleverTapDashboardData.ActualCleverTapData.setProperty("Unique ID", resp.jsonPath().getString("id"));
+				CleverTapDashboardData.ActualCleverTapData.setProperty("user_id", resp.jsonPath().getString("id"));
 
-			String xAccessToken = getXAccessTokenWithApiKey();
-
-			String pUsername = "Autoclevertap@g.com";
-			String pPassword = "clevertap";
-
-			if (userType.contains("NonSubscribedUser")) {
-//				pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-//						.getParameter("NonsubscribedUserName");
-//				pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-//						.getParameter("NonsubscribedPassword");
-
+				CleverTapDashboardData.ActualCleverTapData.setProperty("IP", resp.jsonPath().getString("ip_address"));
+				CleverTapDashboardData.ActualCleverTapData.setProperty("Partner Name", resp.jsonPath().getString("additional.partner"));
+				getDOBforAppsFlyer();
+				try {
+					CleverTapDashboardData.ActualCleverTapData.setProperty("Phone Number", resp.jsonPath().getString("mobile"));
+				} catch (Exception e) {
+					System.out.println("Phone number not displayed");
+				}
+				CleverTapDashboardData.ActualCleverTapData.setProperty("Name",
+						resp.jsonPath().getString("first_name") + " " + resp.jsonPath().getString("last_name"));
+				try {
+					CleverTapDashboardData.ActualCleverTapData.setProperty("Platform Name",
+							resp.jsonPath().getString("additional.platform"));
+				} catch (Exception e) {
+					System.out.println("platform not displayed");
+				}
+				CleverTapDashboardData.ActualCleverTapData.forEach((key, value) -> System.out.println(key + " : " + value));
 			} else {
-				pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("SubscribedUserName");
-				pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("SubscribedPassword");
-
+				AppsFlyer.expectedData.setProperty("Unique ID",
+						"Z5X_ca2ef614db067f977ae58776fb46d3b4c4301e2d33e175b5a10ccc7c3dd2d393");
 			}
-
-			String bearerToken = getBearerToken(pUsername, pPassword);
-			String url = "https://userapi.zee5.com/v1/user";
-			resp = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken)
-					.when().get(url);
-			System.out.println(resp.print());
-			AppsFlyer.expectedData.setProperty("Email", resp.jsonPath().getString("email"));
-			AppsFlyer.expectedData.setProperty("Gender", resp.jsonPath().getString("gender"));
-			AppsFlyer.expectedData.setProperty("Registering Country",
-					resp.jsonPath().getString("registration_country"));
-
-			AppsFlyer.expectedData.setProperty("Unique ID", resp.jsonPath().getString("id"));
-
-			// user_id only for Registration scenario
-			AppsFlyer.expectedData.setProperty("user_id", resp.jsonPath().getString("id"));
-
-			AppsFlyer.expectedData.setProperty("IP", resp.jsonPath().getString("ip_address"));
-			AppsFlyer.expectedData.setProperty("Partner Name", resp.jsonPath().getString("additional.partner"));
-			getDOBforAppsFlyer();
-			try {
-				AppsFlyer.expectedData.setProperty("Phone Number", resp.jsonPath().getString("mobile"));
-			} catch (Exception e) {
-				System.out.println("Phone number not displayed");
-			}
-
-			AppsFlyer.expectedData.setProperty("Name",
-					resp.jsonPath().getString("first_name") + " " + resp.jsonPath().getString("last_name"));
-
-			try {
-				AppsFlyer.expectedData.setProperty("Platform Name", resp.jsonPath().getString("additional.platform"));
-			} catch (Exception e) {
-				System.out.println("platform not displayed");
-			}
-
-			AppsFlyer.expectedData.forEach((key, value) -> System.out.println(key + " : " + value));
-
-		} else {
-
-			AppsFlyer.expectedData.setProperty("Unique ID",
-					"Z5X_ca2ef614db067f977ae58776fb46d3b4c4301e2d33e175b5a10ccc7c3dd2d393");
+			return pro;
 		}
-		return pro;
-	}
 	
 	public static void SubcribedDetailsforCleverTap(String userType) throws ParseException {
-//		String UserType;
-//		UserType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
-		String username = "Autoclevertap@g.com";
-		String password = "clevertap";
-			if (userType.equals("SubscribedUser")) {
-//				username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-//						.getParameter("SubscribedUserName");
-//				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-//						.getParameter("SubscribedPassword");
-
-//			username = "zeetest10@test.com"; //"zeein7@mailnesia.com";
-//			password = "123456";
-
-			}
-
-			Response subscriptionResp = ResponseInstance.getSubscriptionDetails(username, password);
-			subscriptionResp.print();
-
-//			int subscriptionItems = subscriptionResp.jsonPath().get("subscription_plan.size()");
-//			String state = subscriptionResp.jsonPath().get("[" + (subscriptionItems - 1) + "].state");
-//			String id = subscriptionResp.jsonPath().get("subscription_plan[" + (subscriptionItems - 1) + "].id").toString();
-//			String subscription_plan_type = subscriptionResp.jsonPath()
-//					.get("subscription_plan[" + (subscriptionItems - 1) + "].subscription_plan_type").toString();
-//			String title = subscriptionResp.jsonPath().get("subscription_plan[" + (subscriptionItems - 1) + "].title")
-//					.toString();
-//			String Latest_Subscription_Pack = id + "_" + title + "_" + subscription_plan_type;
-//
-////		String packExpiry=subscriptionResp.jsonPath().get("subscription_end["+(subscriptionItems-1)+"]").toString();
-//			String packExpiry = subscriptionResp.jsonPath().get("[" + (subscriptionItems - 1) + "].subscription_end")
-//					.toString();
-////		System.out.println(" PACK "+packExpiry);
-////		SimpleDateFormat requiredFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-//
-////		java.text.DateFormat actualFormat = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-////		actualFormat.setTimeZone(java.util.TimeZone.getTimeZone("GMT"));
-////		java.util.Date packExpiryDate = actualFormat.parse(packExpiry);
-//			String Latest_Subscription_Pack_Expiry = packExpiry.toString();
-//			String Next_Expiring_Pack = Latest_Subscription_Pack;
-//			String Next_Pack_Expiry_Date = Latest_Subscription_Pack_Expiry;
-//
-//			String billing_frequency = subscriptionResp.jsonPath()
-//					.get("subscription_plan[" + (subscriptionItems - 1) + "].billing_frequency").toString();
-//			Response tvodResp = ResponseInstance.getTVODDetails(username, password);
-//			int tvodItems = tvodResp.jsonPath().get("playback_state.size()");
-//			String HasRental = "";
-//			try {
-//				if (tvodResp.jsonPath().get("playback_state[" + (tvodItems - 1) + "]").toString()
-//						.equalsIgnoreCase("purchased"))
-//					HasRental = "true";
-//				else
-//					HasRental = "false";
-//			} catch (Exception e) {
-//				HasRental = "false";
-//			}
-//
-//			Response settingsResp = ResponseInstance.getSettingsDetails(username, password);
-//			String hasEduauraa = "false", key = "";
-//			int pairs = settingsResp.jsonPath().get("key.size()");
-//			for (int i = 0; i < pairs; i++) {
-//				key = settingsResp.jsonPath().get("key[" + i + "]").toString();
-//				if (key.equals("eduauraaClaimed")) {
-//					hasEduauraa = settingsResp.jsonPath().get("value[" + i + "]").toString();
-//					if (hasEduauraa.equals(""))
-//						hasEduauraa = "false";
-//					break;
-//				}
-//			}
-//
-//			AppsFlyer.expectedData.setProperty("Latest Subscription Pack", Latest_Subscription_Pack);
-//			AppsFlyer.expectedData.setProperty("Latest Subscription Pack Expiry", Latest_Subscription_Pack_Expiry);
-//			AppsFlyer.expectedData.setProperty("Next Expiring Pack", Next_Expiring_Pack);
-//			AppsFlyer.expectedData.setProperty("Next Pack Expiry Date", Next_Pack_Expiry_Date);
-//			AppsFlyer.expectedData.setProperty("Free Trial Package", "N/A");
-//			AppsFlyer.expectedData.setProperty("hasEduauraa", hasEduauraa);
-//			AppsFlyer.expectedData.setProperty("Subscription Status", state);
-//			AppsFlyer.expectedData.setProperty("Free Trial Expiry Date", "N/A");
-//			AppsFlyer.expectedData.setProperty("Pack Duration", billing_frequency);
-//			AppsFlyer.expectedData.setProperty("HasRental", HasRental);
-
+		String username = null;
+		String password = null;
+		if (userType.equals("SubscribedUser")) {
+			username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SubscribedUserName");
+			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SubscribedPassword");
 
 		}
+		Response subscriptionResp = ResponseInstance.getSubscriptionDetails(username, password);
+		subscriptionResp.print();
+
+		int subscriptionItems = subscriptionResp.jsonPath().get("subscription_plan.size()");
+		String state = subscriptionResp.jsonPath().get("[" + (subscriptionItems - 1) + "].state");
+		String id = subscriptionResp.jsonPath().get("subscription_plan[" + (subscriptionItems - 1) + "].id").toString();
+		String subscription_plan_type = subscriptionResp.jsonPath()
+				.get("subscription_plan[" + (subscriptionItems - 1) + "].subscription_plan_type").toString();
+		String title = subscriptionResp.jsonPath().get("subscription_plan[" + (subscriptionItems - 1) + "].title")
+				.toString();
+		String Latest_Subscription_Pack = id + "_" + title + "_" + subscription_plan_type;
+
+		String packExpiry = subscriptionResp.jsonPath().get("[" + (subscriptionItems - 1) + "].subscription_end")
+				.toString();
+		String Latest_Subscription_Pack_Expiry = packExpiry.toString();
+		String Next_Expiring_Pack = Latest_Subscription_Pack;
+		String Next_Pack_Expiry_Date = Latest_Subscription_Pack_Expiry;
+
+		String billing_frequency = subscriptionResp.jsonPath()
+				.get("subscription_plan[" + (subscriptionItems - 1) + "].billing_frequency").toString();
+		Response tvodResp = ResponseInstance.getTVODDetails(username, password);
+		int tvodItems = tvodResp.jsonPath().get("playback_state.size()");
+		String HasRental = "";
+		try {
+			if (tvodResp.jsonPath().get("playback_state[" + (tvodItems - 1) + "]").toString()
+					.equalsIgnoreCase("purchased"))
+				HasRental = "true";
+			else
+				HasRental = "false";
+		} catch (Exception e) {
+			HasRental = "false";
+		}
+		Response settingsResp = ResponseInstance.getSettingsDetails(username, password);
+		String hasEduauraa = "false", key = "";
+		int pairs = settingsResp.jsonPath().get("key.size()");
+		for (int i = 0; i < pairs; i++) {
+			key = settingsResp.jsonPath().get("key[" + i + "]").toString();
+			if (key.equals("eduauraaClaimed")) {
+				hasEduauraa = settingsResp.jsonPath().get("value[" + i + "]").toString();
+				if (hasEduauraa.equals(""))
+					hasEduauraa = "false";
+				break;
+			}
+		}
+		CleverTapDashboardData.ActualCleverTapData.setProperty("Latest Subscription Pack", Latest_Subscription_Pack);
+		CleverTapDashboardData.ActualCleverTapData.setProperty("Latest Subscription Pack Expiry",
+				Latest_Subscription_Pack_Expiry);
+		CleverTapDashboardData.ActualCleverTapData.setProperty("Next Expiring Pack", Next_Expiring_Pack);
+		CleverTapDashboardData.ActualCleverTapData.setProperty("Next Pack Expiry Date", Next_Pack_Expiry_Date);
+		CleverTapDashboardData.ActualCleverTapData.setProperty("Free Trial Package", "N/A");
+		CleverTapDashboardData.ActualCleverTapData.setProperty("hasEduauraa", hasEduauraa);
+		CleverTapDashboardData.ActualCleverTapData.setProperty("Subscription Status", state);
+		CleverTapDashboardData.ActualCleverTapData.setProperty("Free Trial Expiry Date", "N/A");
+		CleverTapDashboardData.ActualCleverTapData.setProperty("Pack Duration", billing_frequency);
+		CleverTapDashboardData.ActualCleverTapData.setProperty("HasRental", HasRental);
+	}
 }

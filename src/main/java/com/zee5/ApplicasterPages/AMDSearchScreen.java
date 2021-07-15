@@ -236,4 +236,5 @@ public class AMDSearchScreen {
 	public static By objRecentSearches(int index) {
 	    	return By.xpath("(//*[@id='recentSearchRecyclerView']//*[@id='cell_top_container']//child::*[1])["+index+"]");
 	 }
+	public static By objFisrtSearchContent = By.xpath("(//*[@id='cell_center_container']//*[@class='android.widget.TextView'])[1]");
 }

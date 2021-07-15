@@ -369,4 +369,7 @@ public class PWASearchPage {
 	
 	public static By objShowTitleInConsumptionSreen=By.xpath("//div[@class='consumptionMetaDiv']//h1");
 	    
+	public static By objSpecificFirstSearch(String str) {
+		return By.xpath("//div[@class='clickWrapper']//img[@title='"+str+"']");
+	}
 }

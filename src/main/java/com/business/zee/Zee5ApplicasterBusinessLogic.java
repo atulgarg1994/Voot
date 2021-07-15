@@ -17579,7 +17579,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extentLoggerFail("Display language details",
 					"Web Value: " + webDisplayLanguage + " is not same as App value: " + appDisplayLanguage);
 		}
-
 	}
 
 	@SuppressWarnings("deprecation")
@@ -20034,8 +20033,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			System.out.println(performaceMatrics);
 			System.out.println("-------------------------------------------------------------------------------------------------------------------");
 			
-			softAssertion.assertEquals(trafficFlag, true);
-			softAssertion.assertAll();
+			
 
 			if (batteryInfo.contains("drain")) {
 				logger.info("\nApp Battery Info - " + batteryInfo);
@@ -20044,6 +20042,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				logger.error("\nApp Battery Info - " + batteryInfo);
 				extent.extentLoggerFail("Timer", "<b>App Battery Info - </b>" + batteryInfo);
 			}
+			
+			softAssertion.assertEquals(trafficFlag, true);
+			softAssertion.assertAll();
 		}	
 	}
 
@@ -26665,6 +26666,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		boolean timeFlag=true, memFlag=true, totalmemFlag=true, cpuFlag=true, gpuMemFlag=true, gpuRenFlag=true, trafficFlag=true;
 		
 		LoginWithEmailID("zeetest34new@test.com", "123456");
+		waitForElementDisplayed(AMDHomePage.objZee5Logo, 30);
 		SelectTopNavigationTab("Movies");
 		verifyElementPresentAndClick(AMDHomePage.objPlayBtn, "Play");
 		Instant startTime = Instant.now();
@@ -28340,7 +28342,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		int threshold_GPURendered = 60;
 		int threshold_Network = 300;
 
-		
+		waitForElementDisplayed(AMDHomePage.objZee5Logo, 60);
 		if (verifyElementPresent(AMDHomePage.objFirstRailDisplay, "First Rail")) {
 			// AppPerformanceTestInfo("com.graymatrix.did");
 
@@ -28440,6 +28442,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerFail("Traffic Usage",
 						"<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
 			}
+			
+			performaceDetails.add("App Launch"+","+DriverInstance.timeElapsed.getSeconds()+","+nativeMemory+" MB,"+totalMemory+" MB,"+nCpuUSage+"%,"+nGPUMemory+" MB,"+nGPURendered+","+nNetTraffic+" MB");
 			
 			String timeTaken = Long.toString(DriverInstance.timeElapsed.getSeconds());
 			String strNativeMemory = Integer.toString(nativeMemory);
@@ -29399,6 +29403,7 @@ public void InitiateContentPlaybackTVEPISODE() throws Exception {
 	boolean timeFlag=true, memFlag=true, totalmemFlag=true, cpuFlag=true, gpuMemFlag=true, gpuRenFlag=true, trafficFlag=true;
 	
 	LoginWithEmailID("zeetest34new@test.com", "123456");
+	waitForElementDisplayed(AMDHomePage.objZee5Logo, 30);
 	SelectTopNavigationTab("TV Shows");
 	verifyElementPresentAndClick(AMDHomePage.objPlayBtn, "Play");
 	Instant startTime = Instant.now();
@@ -29508,6 +29513,8 @@ public void InitiateContentPlaybackTVEPISODE() throws Exception {
 				"<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
 	}
 	
+	performaceDetails.add("Initiate content playback (Episode)"+","+timeElapsed.getSeconds()+","+nativeMemory+" MB,"+totalMemory+" MB,"+nCpuUSage+"%,"+nGPUMemory+" MB,"+nGPURendered+","+nNetTraffic+" MB");
+	
 	String timeTaken = Long.toString(timeElapsed.getSeconds());
 	String strNativeMemory = Integer.toString(nativeMemory);
 	String strTotalMemory = Integer.toString(totalMemory);
@@ -29539,7 +29546,6 @@ public void InitiateContentPlaybackTVEPISODE() throws Exception {
 		logger.error("\nApp Battery Info - " + batteryInfo);
 		extent.extentLoggerFail("Timer", "<b>App Battery Info - </b>" + batteryInfo);
 	}
-	performaceDetails.add("Initiate content playback (Episode)"+","+timeElapsed.getSeconds()+","+nativeMemory+" MB,"+totalMemory+" MB,"+nCpuUSage+"%,"+nGPUMemory+" MB,"+nGPURendered+","+nNetTraffic+" MB");
 }
 
 public void ConsumptionScreenforShows() throws Exception {
@@ -29560,6 +29566,7 @@ public void ConsumptionScreenforShows() throws Exception {
 	boolean timeFlag=true, memFlag=true, totalmemFlag=true, cpuFlag=true, gpuMemFlag=true, gpuRenFlag=true, trafficFlag=true;
 	
 	LoginWithEmailID("zeetest34new@test.com", "123456");
+	waitForElementDisplayed(AMDHomePage.objZee5Logo, 30);
 	SelectTopNavigationTab("TV Shows");
 	verifyElementPresentAndClick(AMDHomePage.objPlayBtn, "Play");
 	Instant startTime = Instant.now();
@@ -29680,6 +29687,8 @@ public void ConsumptionScreenforShows() throws Exception {
 	String strGPURendered = Integer.toString(nGPURendered);
 	String strTraffic = Integer.toString(nNetTraffic);
 	
+	performaceDetails.add("ConsumpitonScreen for Shows"+","+timeElapsed.getSeconds()+","+nativeMemory+" MB,"+totalMemory+" MB,"+nCpuUSage+"%,"+nGPUMemory+" MB,"+nGPURendered+","+nNetTraffic+" MB");
+	
 	performaceMatrics.put("Time Taken",timeTaken+" Sec");
 	performaceMatrics.put("Native Heap Memory",strNativeMemory+" MB");
 	performaceMatrics.put("Peak Memory",strTotalMemory+" MB");
@@ -29703,7 +29712,6 @@ public void ConsumptionScreenforShows() throws Exception {
 		logger.error("\nApp Battery Info - " + batteryInfo);
 		extent.extentLoggerFail("Timer", "<b>App Battery Info - </b>" + batteryInfo);
 	}
-	performaceDetails.add("ConsumpitonScreen for Shows"+","+timeElapsed.getSeconds()+","+nativeMemory+" MB,"+totalMemory+" MB,"+nCpuUSage+"%,"+nGPUMemory+" MB,"+nGPURendered+","+nNetTraffic+" MB");
 }
 
 public void ConsumptionScreenforMovies() throws Exception {
@@ -29724,6 +29732,7 @@ public void ConsumptionScreenforMovies() throws Exception {
 	boolean timeFlag=true, memFlag=true, totalmemFlag=true, cpuFlag=true, gpuMemFlag=true, gpuRenFlag=true, trafficFlag=true;
 	
 	LoginWithEmailID("zeetest34new@test.com", "123456");
+	waitForElementDisplayed(AMDHomePage.objZee5Logo, 30);
 	SelectTopNavigationTab("Movies");
 	verifyElementPresentAndClick(AMDHomePage.objPlayBtn, "Play");
 	Instant startTime = Instant.now();
@@ -29836,6 +29845,8 @@ public void ConsumptionScreenforMovies() throws Exception {
 				"<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
 	}
 	
+	performaceDetails.add("ConsumpitonScreen for Movies"+","+timeElapsed.getSeconds()+","+nativeMemory+" MB,"+totalMemory+" MB,"+nCpuUSage+"%,"+nGPUMemory+" MB,"+nGPURendered+","+nNetTraffic+" MB");
+
 	String timeTaken = Long.toString(timeElapsed.getSeconds());
 	String strNativeMemory = Integer.toString(nativeMemory);
 	String strTotalMemory = Integer.toString(totalMemory);
@@ -29867,8 +29878,8 @@ public void ConsumptionScreenforMovies() throws Exception {
 		logger.error("\nApp Battery Info - " + batteryInfo);
 		extent.extentLoggerFail("Timer", "<b>App Battery Info - </b>" + batteryInfo);
 	}
-	performaceDetails.add("ConsumpitonScreen for Movies"+","+timeElapsed.getSeconds()+","+nativeMemory+" MB,"+totalMemory+" MB,"+nCpuUSage+"%,"+nGPUMemory+" MB,"+nGPURendered+","+nNetTraffic+" MB");
 }
+
 
 public void installZee5AppFromPlayStore() throws Exception{
 	extent.HeaderChildNode("Install ZEE5 App from Playstore");
@@ -29917,6 +29928,7 @@ public void ListingScreenfromHome() throws Exception {
 	boolean timeFlag=true, memFlag=true, totalmemFlag=true, cpuFlag=true, gpuMemFlag=true, gpuRenFlag=true, trafficFlag=true;
 	
 	LoginWithEmailID("zeetest34new@test.com", "123456");
+	waitForElementDisplayed(AMDHomePage.objZee5Logo, 30);
 //	SelectTopNavigationTab("Movies");
 	verifyElementPresentAndClick(AMDHomePage.objSeeAllFirstRail, "See All");
 	Instant startTime = Instant.now();
@@ -30048,8 +30060,7 @@ public void ListingScreenfromHome() throws Exception {
 	System.out.println("------------------------------------------------------------------------------------------------------------------------");
 	ClearAllPerformanceMatrics();
 	
-	softAssertion.assertEquals(trafficFlag, true);
-	softAssertion.assertAll();
+	
 	
 	if (batteryInfo.contains("drain")) {
 		logger.info("\nApp Battery Info - " + batteryInfo);
@@ -30059,6 +30070,9 @@ public void ListingScreenfromHome() throws Exception {
 		extent.extentLoggerFail("Timer", "<b>App Battery Info - </b>" + batteryInfo);
 	}
 	performaceDetails.add("Load Listing screen"+","+timeElapsed.getSeconds()+","+nativeMemory+" MB,"+totalMemory+" MB,"+nCpuUSage+"%,"+nGPUMemory+" MB,"+nGPURendered+","+nNetTraffic+" MB");
+
+	softAssertion.assertEquals(trafficFlag, true);
+	softAssertion.assertAll();
 }
 
 public void LoadPaymentModeSelectionScreen() throws Exception {
@@ -30070,15 +30084,16 @@ public void LoadPaymentModeSelectionScreen() throws Exception {
 
 	// Threshold Values declaration
 	int threshold_TimeTaken = 13;
-	int threshold_NativeMemory = 42;
+	int threshold_NativeMemory = 40;
 	int threshold_TotalMemory = 300;
-	int threshold_CPU = 200;
-	int threshold_GPUMem = 9;
-	int threshold_GPURendered = 2500;
+	int threshold_CPU = 300;
+	int threshold_GPUMem = 7;
+	int threshold_GPURendered = 1500;
 	int threshold_Network = 400;
 	boolean timeFlag=true, memFlag=true, totalmemFlag=true, cpuFlag=true, gpuMemFlag=true, gpuRenFlag=true, trafficFlag=true;
 	
 	LoginWithEmailID("zee5latest@gmail.com", "User@123");
+	waitForElementDisplayed(AMDHomePage.objZee5Logo, 30);
 	verifyElementPresentAndClick(AMDHomePage.objBuyPlanCTA, "Buy Plan");
 	verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn,"Continue Button");
 	
@@ -30187,6 +30202,8 @@ public void LoadPaymentModeSelectionScreen() throws Exception {
 				"<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
 	}
 	
+	performaceDetails.add("Load Payment screen"+","+timeElapsed.getSeconds()+","+nativeMemory+" MB,"+totalMemory+" MB,"+nCpuUSage+"%,"+nGPUMemory+" MB,"+nGPURendered+","+nNetTraffic+" MB");
+	
 	String timeTaken = Long.toString(timeElapsed.getSeconds());
 	String strNativeMemory = Integer.toString(nativeMemory);
 	String strTotalMemory = Integer.toString(totalMemory);
@@ -30218,7 +30235,6 @@ public void LoadPaymentModeSelectionScreen() throws Exception {
 		logger.error("\nApp Battery Info - " + batteryInfo);
 		extent.extentLoggerFail("Timer", "<b>App Battery Info - </b>" + batteryInfo);
 	}
-	performaceDetails.add("Load Payment screen"+","+timeElapsed.getSeconds()+","+nativeMemory+" MB,"+totalMemory+" MB,"+nCpuUSage+"%,"+nGPUMemory+" MB,"+nGPURendered+","+nNetTraffic+" MB");
 }
 
 public void EduauraaPortalValidation(String usertype) throws Exception{

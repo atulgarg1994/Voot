@@ -2302,15 +2302,19 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		// verifyElementPresent(PWAAddToWatchListPage.objtoastMessage, "Added to
 		// WatchList");
 		// Click on My account
-		click(PWAHamburgerMenuPage.objProfileIconWEB, "Profile");
+		waitTime(3000);
+		JSClick(PWAHamburgerMenuPage.objProfileIconWEB, "Profile");
+		waitTime(3500);
 		// Click on Watchlist
-		click(PWAAddToWatchListPage.objMyWatchList, "Watch list");
+		JSClick(PWAAddToWatchListPage.objMyWatchList, "Watch list");
+		waitTime(3500);
 		// Click on Movies tab
-		click(PWAAddToWatchListPage.objMoviesTab, "Movies tab");
+		JSClick(PWAAddToWatchListPage.objMoviesTab, "Movies tab");
+		waitTime(3500);
 		// Verify added Item is present in Watchlist
 		checkElementDisplayed(PWAAddToWatchListPage.objContentsInWatchList, "Content in Watchlist");
-		click(PWAAddToWatchListPage.objRemoveContentsInWatchList, "Remove watchlist");
-		waitTime(3000);
+		JSClick(PWAAddToWatchListPage.objRemoveContentsInWatchList, "Remove watchlist");
+		waitTime(3500);
 		BackButton(1);
 		waitTime(5000);
 	}
@@ -2339,15 +2343,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			waitForPlayerAdToComplete1("Video Player");
 		}
 
-//		if (verifyElementPresent(PWAPlayerPage.audioBtn, "Audio Button")) {
-//			Actions actions = new Actions(getWebDriver());
-//			WebElement player = getWebDriver().findElement(PWAPlayerPage.audioBtn);
-//			actions.moveToElement(player).perform();
-//			Thread.sleep(5000);
-//			WebElement content = getWebDriver().findElement(PWAPlayerPage.objContentTitle);
-//			actions.moveToElement(content).perform();
-//			Thread.sleep(3000);
-//		}
+//	
 
 		Actions actions = new Actions(getWebDriver());
 		WebElement ele = getWebDriver().findElement(PWAPlayerPage.objPlaybackVideoOverlay);
@@ -2411,7 +2407,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		verifyElementPresent(PWAPlayerPage.totalDurationTime, "Total duration time");
 		verifyElementPresent(PWAPlayerPage.settingsBtn, "Settings icon");
 		verifyElementPresent(PWAPlayerPage.totalDurationTime, "Total time");
-		verifyElementPresentAndClick(PWAPlayerPage.minimizeBtn, "Minimize button");
+		verifyElementPresent(PWAPlayerPage.minimizeBtn, "Minimize button");
+		waitTime(1000);
+		JSClick(PWAPlayerPage.minimizeBtn, "Minimize button");
 		audioTrackSelection();
 	}
 
@@ -2426,8 +2424,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Validating rewind 10 seconds, farword 10 seconds and Audio icons");
 
 		waitTime(10000);
-//		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
-		JSClick(PWAPlayerPage.pauseBtn, "Pause icon");
+	
+		waitForPlayerAdToComplete("Video Player");
 		String currentDuration = getElementPropertyToString("innerText", PWAPlayerPage.currentDurationTime,
 				"Current duration");
 		System.out.println("time fetched before rewind: " + currentDuration);
@@ -2438,17 +2436,16 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		int timeDuration = Integer.parseInt(time[1]);
 		System.out.println("seconds lapsed before rewind: " + timeDuration);
 		int rewindTime = timeDuration - 10;
-		// To tap on the player
-//		click(PWAPlayerPage.objPlaybackVideoOverlay, "player");
-		// Verify Playback is rewinded 10 Seconds back
-		// click on pause button
-		click(PWAPlayerPage.rewind10SecBtn, "Rewind 10 seconds");
-		// Get the current time duration after clicking the rewind button
-		click(PWAPlayerPage.objPlaybackVideoOverlay, "player");
+		
+		JSClick(PWAPlayerPage.rewind10SecBtn, "Rewind 10 seconds");
+		
+		waitForPlayerAdToComplete("Video Player");
 		String currentDurationAfter10Sec = getElementPropertyToString("innerText", PWAPlayerPage.currentDurationTime,
 				"current duration");
 		System.out.println("time fetched after rewind: " + currentDurationAfter10Sec);
 		String[] time2 = currentDurationAfter10Sec.split(":");
+		waitTime(2000);
+		
 		int timeDuration2 = Integer.parseInt(time2[1]);
 		System.out.println("seconds lapsed after rewind: " + timeDuration2);
 		if (rewindTime <= timeDuration2) {
@@ -2463,8 +2460,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 
 		// Verify Farword 10 seconds icon
-//		click(PWAPlayerPage.objPlaybackVideoOverlay, "player");
-		pausePlayer();
+
 		String currentDurationF = getElementPropertyToString("innerText", PWAPlayerPage.currentDurationTime,
 				"current duration");
 		System.out.println("time fetched before Farword : " + currentDuration);
@@ -2473,10 +2469,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		int timeDurationF = Integer.parseInt(timeF[1]);
 		System.out.println("seconds lapsed before farword: " + timeDurationF);
 		int farwordTimeF = timeDurationF + 10;
-		// Verify Playback is farworded 10 Seconds back
-		click(PWAPlayerPage.forward10SecBtn, "Farword 10 seconds");
-		// Get the current time duration after clicking the rewind button
-		// click(PWAPlayerPage.objPlaybackVideoOverlay, "player");
+		
+		JSClick(PWAPlayerPage.forward10SecBtn, "Farword 10 seconds");
+		waitForPlayerAdToComplete("Video Player");
 		String currentDurationAfter10SecF = getElementPropertyToString("innerText", PWAPlayerPage.currentDurationTime,
 				"current duration");
 		System.out.println("time fetched after rewind: " + currentDurationAfter10Sec);
@@ -2493,9 +2488,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			softAssert.assertAll();
 			extent.extentLoggerFail("Verify rewind button", "Playback can not be Farword 10 seconds");
 			logger.info("Farword 10 sec is failed");
-
 		}
 	}
+	
 	/*
 	 * Validate the Audio functionality
 	 */
@@ -2697,14 +2692,13 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				.getParameter("premiumMovieWithTrailer");
 		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box");
 		Thread.sleep(2000);
-//	        type(PWASearchPage.objSearchEditBox, "nna", "Search Edit box");
+	      
 
-		// Select the content
-//	        click(PWASearchPage.objFirstContentCardNameAfterSearch(1), "First content in search history");
+	
 
 		waitTime(4000);
 
-		click(PWASearchPage.objFirstContentCardNameAfterSearch1(1), "Premium content");
+		JSClick(PWASearchPage.objSpecificFirstSearch(keyword), "Premium content");
 		Thread.sleep(4000);
 		// Verify the Pop up behavior
 
@@ -2717,10 +2711,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true) {
 			verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
 		}
-//		if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true) {
-//			verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
-//		}
-
 		// Verify Watch trailer option is displayed
 		checkElementDisplayed(PWASearchPage.objWEBWatchTrailerBtn, "Watch Trailer option");
 	}
@@ -2770,7 +2760,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		
 		waitTime(8000);
 		// Click on first content
-		click(PWASearchPage.objFirstSearchResult, "Content Card");
+		JSClick(PWASearchPage.objFirstAssetImgSearchNavigationTab, "Content Card");
+		waitTime(3000);
 		// close login up
 
 		if (userType.equalsIgnoreCase("Guest")) {
@@ -2877,7 +2868,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		type(PWASearchPage.objSearchEditBox, keyword + "\n", "Search Edit box: " + keyword);
 		waitTime(2000);
 		click(PWASearchPage.objSearchNavigationTab("TV Shows"), "TV Shows tab");
-		
+		mandatoryRegistrationPopUp(userType);
 		JSClick(PWASearchPage.objSearchedResult(keyword), "Search Result");
 		waitTime(2500);
 		click(PWAShowsPage.objShowDetailEpisodeDropdown, "Episode Dropdown");
@@ -2891,12 +2882,17 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			if (checkElementDisplayed(PWAPlayerPage.objWhyRegisterPopUp, "Create New Account Popup") == true) {
 				click(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Create New Account Popup close button");
 			}
+			
 		}
 		if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
+			mandatoryRegistrationPopUp(userType);
 			waitForPlayerAdToComplete("Video");
+			waitTime(2000);
+			
 		}
 		if (userType.equals("SubscribedUser") || userType.equals("ClubUser")) {
-			waitTime(10000);
+			waitForPlayerAdToComplete("Video");
+			waitTime(2000);
 		}
 		String sourceContent="";
 		try {		
@@ -2909,6 +2905,14 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		String[] abc = sourceContentURL.split("/");
 		String sourceContentID = abc[abc.length - 1];
 		ScrubToPlayerEnd();
+		waitForPlayerAdToComplete("Video");
+		waitTime(3000);
+		if(userType.equals("Guest")) {
+			if(checkElementDisplayed(PWAPlayerPage.objSkipButtonInEnglish, "skip")) {
+				JSClick(PWAPlayerPage.objSkipButtonInEnglish, "skip");
+				waitTime(4000);
+			}
+		}
 		String upnextTitle=waitUntilUpNextCardPlays(sourceContent);
 		contentURL = getWebDriver().getCurrentUrl();
 		String[] abc1 = contentURL.split("/");
@@ -8355,18 +8359,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		getWebDriver().get(URL);
 	}
 
-	public String checkPremiumORFreeFromLIVETVPageTrayAndSelect(String str, String premiumORfree) throws Exception {
-//		try {
-//			ScrollToTheElement(TextToXpath(str));
-//			waitTime(5000);
-//			ScrollToTheElement(TextToXpath(str));
-//			waitTime(8000);
-//		} catch (Exception e) {
-//			//Swipe("UP", 1);
-//			ScrollToTheElementWEB(TextToXpath(str));
-//			waitTime(8000);
-//			//ScrollToTheElement(TextToXpath(str));
-//		}
+public String checkPremiumORFreeFromLIVETVPageTrayAndSelect(String str, String premiumORfree) throws Exception {
+		
 		String ValueOfPremiumTumbnail = null;
 		System.out.println("Check premium and select");
 		List<WebElement> tumnails = getWebDriver()
@@ -8377,13 +8371,14 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		for (int j = 1; j <= 5; j++) {
 			for (int i = 1; i <= tumnails.size(); i++) {
 				WebElement specificTumbnail = getWebDriver().findElement(
-						By.xpath("(((((((//div[@class='trayContentWrap']//div[@class='trayHeader']//h2[.='" + str
-								+ "']))//parent::*//parent::*)//child::*[2])//child::*//div[@class='slick-track'])//child::*//div[@class='clickWrapper']//figure//a[@class='noSelect content'])["
-								+ i + "])"));
+						
+				By.xpath("(((((//div[@class='trayContentWrap']//div[@class='trayHeader']//h2[.='"+ str +"'])//parent::*//parent::*)//child::*[2])//child::*//div[@class='slick-track'])//child::*//div[@class='clickWrapper']//figure//a[@class='noSelect content '])["+i+"]"));
+				
+				
+				
 				if (checkElementDisplayed(PWAHomePage.objLIVETVIsPremiumTumbnail(str, i), "Premium") == true) {
 					System.out.println("premium Tumbnail");
-					// System.out.println(getAttributValue("title",
-					// PWAHomePage.objTumbnailTitle(str, i)));
+					
 					ValueOfPremiumTumbnail = getAttributValue("title", PWAHomePage.objLIVETvTumbnailTitle(str, i));
 					System.out.println("Premium LIVETV Tumbnail Title : " + ValueOfPremiumTumbnail);
 					if (premiumORfree.equals("PREMIUM")) {
@@ -8412,13 +8407,12 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 	public void PremiumFreeZeeOriginalKaltura(String Value, String userType) throws Exception {
 		// Thread.sleep(10000);
-		if (checkElementDisplayed(PWAHomePage.objKalGetPremium, "Get Premium") == true) { // zee originals
-																							// guest&nonSubscribed
-			System.out.println("Navigated to Title : " + getText(PWAHomePage.objKalGetTitle));
-			extent.extentLogger("Navigated to Title : " + getText(PWAHomePage.objKalGetTitle),
-					"Navigated to Title : " + getText(PWAHomePage.objKalGetTitle));
+		if (checkElementDisplayed(PWAHomePage.objKalturaGetPremium , "Get Premium") == true) { 
+			System.out.println("Navigated to Title : " + getText(PWAHomePage.objKalturaGetPremiumCardTitle));
+			extent.extentLogger("Navigated to Title : " + getText(PWAHomePage.objKalturaGetPremiumCardTitle),
+					"Navigated to Title : " + getText(PWAHomePage.objKalturaGetPremiumCardTitle));
 			waitTime(5000);
-			click(PWAHomePage.objKalGetPremiumPlayicon, "Play Button");
+			click(PWAHomePage.objKalturaPremiumContentImg, "Play Button");
 			waitTime(8000);
 			waitTime(5000);
 			if (userType.equals("Guest")) {
@@ -8427,8 +8421,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 					click(PWAPlayerPage.objWEBCloseBtnLoginPopup, "Register Pop up close button");
 				}
 			}
-//				waitForPlayerAdToComplete("Video Player");
-//				pausePlayer();
+//				
 			if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
 				if (checkElementDisplayed(PWAHamburgerMenuPage.objGetPremiumPopup, "GET PREMIUM POPUP") == true) {
 					verifyElementPresentAndClick(PWAHamburgerMenuPage.objPopupClose, "POP-UP CLOSE BUTTON");
@@ -8440,10 +8433,13 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				extent.extentLogger("Navigated to Kaltura Player", "Navigated to Kaltura Player");
 
 				if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
-					waitForPlayerAdToComplete("Video Player");
+					if(checkElementDisplayed(PWAPlayerPage.objAd, "AD")) {
+						waitForPlayerAdToComplete("Video Player");
+						}
 				}
 				if (BROWSER.equals("Chrome")) {
 					pausePlayer();
+					
 				} else {
 					firefoxpause();
 				}
@@ -8462,9 +8458,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			}
 			System.out.println("Playing Episode : " + getText(PWAHomePage.objKalconsumptionMetaDiv));
 			System.out.println("Type :" + getText(PWAHomePage.objKalconsumptionMetainfo));
-		} else if (checkElementDisplayed(PWAHomePage.objKalGetFirstEpisode, "Get First Episode") == true) { // zee
-																											// originals
-																											// subscribed
+		} else if (checkElementDisplayed(PWAHomePage.objKalGetFirstEpisode, "Get First Episode") == true) { 
 			System.out.println("Navigated to Title : " + getText(PWAHomePage.objKalGetTitle));
 			extent.extentLogger("Navigated to Title : " + getText(PWAHomePage.objKalGetTitle),
 					"Navigated to Title : " + getText(PWAHomePage.objKalGetTitle));
@@ -8489,10 +8483,13 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				extent.extentLogger("Navigated to Kaltura Player", "Navigated to Kaltura Player");
 
 				if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
-					waitForPlayerAdToComplete("Video Player");
+					if(checkElementDisplayed(PWAPlayerPage.objAd, "AD")) {
+						waitForPlayerAdToComplete("Video Player");
+						}
 				}
 				if (BROWSER.equals("Chrome")) {
 					pausePlayer();
+					
 				} else {
 					firefoxpause();
 				}
@@ -8539,10 +8536,13 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 						extent.extentLogger("Navigated to Kaltura Player", "Navigated to Kaltura Player");
 
 						if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
-							waitForPlayerAdToComplete("Video Player");
+							if(checkElementDisplayed(PWAPlayerPage.objAd, "AD")) {
+								waitForPlayerAdToComplete("Video Player");
+								}
 						}
 						if (BROWSER.equals("Chrome")) {
 							pausePlayer();
+							
 						} else {
 							firefoxpause();
 						}
@@ -8567,10 +8567,13 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 						extent.extentLogger("Navigated to Kaltura Player", "Navigated to Kaltura Player");
 
 						if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
-							waitForPlayerAdToComplete("Live Player");
+							if(checkElementDisplayed(PWAPlayerPage.objAd, "AD")) {
+								waitForPlayerAdToComplete("Video Player");
+								}
 						}
 						if (BROWSER.equals("Chrome")) {
 							pausePlayer();
+							
 						} else {
 							firefoxpause();
 						}
@@ -8604,10 +8607,13 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 						extent.extentLogger("Navigated to Kaltura Player", "Navigated to Kaltura Player");
 
 						if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
-							waitForPlayerAdToComplete("Video Player");
+							if(checkElementDisplayed(PWAPlayerPage.objAd, "AD")) {
+								waitForPlayerAdToComplete("Video Player");
+								}
 						}
 						if (BROWSER.equals("Chrome")) {
 							pausePlayer();
+							
 						} else {
 							firefoxpause();
 						}
@@ -8632,7 +8638,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 						extent.extentLogger("Navigated to Kaltura Player", "Navigated to Kaltura Player");
 
 						if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
+							if(checkElementDisplayed(PWAPlayerPage.objAd, "AD")) {
 							waitForPlayerAdToComplete("Video Player");
+							}
 						}
 						if (BROWSER.equals("Chrome")) {
 							pausePlayer();
@@ -8699,7 +8707,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		type(PWASearchPage.objSearchEditBox, keyword, "Search Field");
 		waitTime(8000);
 		mandatoryRegistrationPopUp(userType);
-		click(PWASearchPage.objSpecificSearch1(keyword), "Searched Show");
+		//click(PWASearchPage.objSpecificFirstSearch(keyword), "Searched Show");
+                JSClick(PWASearchPage.objSpecificFirstSearch(keyword), "Searched Show");
 		waitTime(10000);
 		waitForPlayerAdToComplete("Live Player");
 		pausePlayer();
@@ -8726,12 +8735,14 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		String keyword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 				.getParameter("freeMovie4");
 		type(PWASearchPage.objSearchEditBox, keyword, "Search Field");
-		waitTime(2000);
-		click(PWASearchPage.objSearchMoviesTab, "Movies tab");
+		waitTime(4000);
+		JSClick(PWASearchPage.objSearchMoviesTab, "Movies tab");
 		waitTime(5000);
 		mandatoryRegistrationPopUp(userType);
-		verifyElementPresentAndClick(PWASearchPage.objfirstdata, "Searched result");
-//		click(PWASearchPage.objSpecificSearch(keyword), "Searched Show");
+		
+		checkElementDisplayed(PWASearchPage.objFirstAssetImgSearchNavigationTab, "Searched result");
+		JSClick(PWASearchPage.objFirstAssetImgSearchNavigationTab, "First Searched result");
+
 		Thread.sleep(10000);
 		if (userType.equals("Guest")) {
 			if (checkElementDisplayed(PWAPlayerPage.objWhyRegisterPopUp, "Why Register Popup") == true) {

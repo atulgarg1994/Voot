@@ -215,12 +215,7 @@ public class AMDHomePage {
 		return By.xpath("//*[@resource-id='com.graymatrix.did:id/homeTabLayout']//*[@text='"+tab+"' and @selected='true']");
 	}
 	
-	public static By objRailName(String railName) {
-		return By.xpath("(//*[contains(text(),'"+ railName +"')]//following::*[@text='a']//parent::*//child::*[1])[@text='"+ railName +"']");
-	}
-	
 	public static By objGetPremiumCTAOnCarousel = By.xpath("//*[@resource-id='com.graymatrix.did:id/subscribeButton']");
-
 	
 	public static By objListingScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/zee5_collection_framelayout']");
 	
@@ -307,5 +302,9 @@ public class AMDHomePage {
 	}
 	
 	public static By objSeeAllFirstRail = By.xpath("(//*[@text='See All'])[1]");
+	
+	public static By objRailName(String railName) {
+		return By.xpath("//*[@text='See All']//parent::*//parent::*//*[contains(text(),'"+railName+"')][1]");
+	}
 
 }

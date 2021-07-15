@@ -12,8 +12,12 @@ import com.propertyfilereader.PropertyFileReader;
 import com.utility.LoggingUtils;
 import com.utility.Utilities;
 import com.zee5.ApplicasterPages.AMDCleverTapPage;
+import com.zee5.ApplicasterPages.AMDConsumptionScreen;
 import com.zee5.ApplicasterPages.AMDHomePage;
+import com.zee5.ApplicasterPages.AMDMoreMenu;
 import com.zee5.ApplicasterPages.AMDMySubscriptionPage;
+import com.zee5.ApplicasterPages.AMDSearchScreen;
+import com.zee5.ApplicasterPages.AMDWatchlistPage;
 import com.zee5.CleverTapScripts.AMDCelverTapScript;
 import com.zee5.PWAPages.CleverTapPage;
 import com.zee5.PWAPages.PWASubscriptionPages;
@@ -137,5 +141,54 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 		verifyElementPresentAndClick(AMDMySubscriptionPage.objPayNow, "Pay Now button");
 	}
 	
+	
+	public void DisplayLanguageChange() throws Exception {
+		HeaderChildNode("Display Language Change");
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenuBtn, "More menu");
+		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings");
+		verifyElementPresentAndClick(AMDMoreMenu.objDisplayLang, "Display Language");
+		verifyElementPresentAndClick(AMDMoreMenu.objContinueLangBtn,"Continue");
+	}
+
+	public void ContentLanguageChange() throws Exception {
+		HeaderChildNode("Content Language Change");
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenuBtn, "More menu");
+		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings");
+		verifyElementPresentAndClick(AMDMoreMenu.objContentLang, "Content Language");
+		verifyElementPresentAndClick(AMDMoreMenu.objContinueLangBtn,"Continue");
+	}
+
+	public void SearchCancelled() throws Exception {
+		HeaderChildNode("Search Cancelled");
+		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search");
+		verifyElementPresentAndClick(AMDSearchScreen.objBackBtn, "Back button");
+	}
+
+	public void AddToWatchlist() throws Exception {
+		HeaderChildNode("Add To Watchlist");
+		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search");
+		type(AMDSearchScreen.objsearchBox,"love u ganesha","search field");
+		verifyElementPresentAndClick(AMDSearchScreen.objFisrtSearchContent,"First Content In Search");
+		verifyElementPresentAndClick(AMDConsumptionScreen.objWatchlistBtn, "Watchlist button");
+	}
+
+	public void Share() {
+		HeaderChildNode("Share");
+		
+	}
+
+	public void RemoveFromWatchlist() throws Exception {
+		HeaderChildNode("Remove From Watchlist");
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenuBtn, "More menu");
+		verifyElementPresentAndClick(AMDMoreMenu.objWatchlist, "Watchlist");
+		verifyElementPresentAndClick(AMDWatchlistPage.objEditBtn, "Edit button");
+		verifyElementPresentAndClick(AMDWatchlistPage.objSelectCheckBox, "Check box");
+		verifyElementPresentAndClick(AMDWatchlistPage.objDeleteAllBtn, "Delete button");
+	}
+
+	public void PromoCodeResult() {
+		HeaderChildNode("Promo Code Result");
+		
+	}
 	
 }

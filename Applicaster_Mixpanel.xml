@@ -46,7 +46,9 @@
 	<parameter name="videoQualityOption" value="Best" />
 	<parameter name="downloadQualityOption" value="Best" />
 	<parameter name="AdID" value="606cb5c3-ba90-4981-a22e-0e40a2e0f591" />
-	
+	<parameter name="clipContentID" value="0-1-249189" />
+	<parameter name="clipContent" value="Paaru gets tipsy" />
+
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
 		<!--  <listener class-name="com.epam.reportportal.testng.ReportPortalTestNGListener"/> -->

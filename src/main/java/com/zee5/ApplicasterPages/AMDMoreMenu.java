@@ -106,11 +106,11 @@ public class AMDMoreMenu {
 	public static By objSearchHistroyLabel = By.xpath("//*[@resource-id='com.graymatrix.did:id/searchHistoryLabel']");
 	public static By objResetSettingsToDefault = By
 			.xpath("//*[@resource-id='com.graymatrix.did:id/resetSettingLabel']");
+	
 	// About Us Screen
 	public static By objAboutUsHeader = By.xpath("//*[@content-desc='About us' or @text='About us']");
 
 	// Logout
-
 	public static By objLogoutPopup = By.xpath("//*[@resource-id='com.graymatrix.did:id/txt_logout_header']");
 	public static By objCancelButton = By.xpath("//*[@resource-id='com.graymatrix.did:id/logoutCancelButton']");
 	public static By objLogoutButton = By.xpath("//*[@resource-id='com.graymatrix.did:id/logoutButton']");
@@ -300,4 +300,10 @@ public class AMDMoreMenu {
 	
 	public static By objPrepaidCodeField = By.xpath("//*[@id='edit_prepaid_code']");
 	public static By objAppliedcodeDesc = By.xpath("//*[@id='txt_success_desc']");
+	
+	public static By objKannadaLanguage = By.xpath("//*[@text='ಕನ್ನಡ']");
+	
+	public static By objTeluguLanguage = By.xpath("//*[@id='btn_content_lang' and @text='Telugu']");
+	
+	public static By objContinueLangBtn = By.xpath("//*[@id='dl_language_selection']");
 }
