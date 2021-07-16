@@ -25,10 +25,10 @@ private Zee5ApplicasterMixPanelBusinessLogic Zee5ApplicasterMixPanelBusinessLogi
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
 	}
 	
-	@Test(priority = 5)
+	@Test(priority = 2)
 	@Parameters({ "userType", "clipContent" })
 	public void AdClickEvent_Search(String usertype, String clipContent) throws Exception {
-		System.out.println("\nAd click event of Carousel content");
+		System.out.println("\nAd click event of content");
 		//Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.AdClickEventOfcontentFromSearchPage(usertype, clipContent);
 	}

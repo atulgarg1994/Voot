@@ -894,8 +894,7 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWALiveTVPage.objLivelogo, "Live logo");
 		waitTime(10000);
 		Back(1);
-		clearField(PWASearchPage.objSearchEditBox, "Search Bar");
-		waitTime(5000);
+		
 		if(checkElementDisplayed(PWAHomePage.objSearchBtn, "Search icon"))
 		{
 			click(PWAHomePage.objSearchBtn, "Search icon");
@@ -940,10 +939,7 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 			}
 			mandatoryRegistrationPopUp(userType);
 
-//			if (checkElementDisplayed(PWAPlayerPage.subscribePopUp, "Subscription popup")) {
-//				waitTime(3000);
-//				click(PWAPlayerPage.ObjSubscriptionpopupCloseIcon, "Subscription popup close icon");
-//			}
+//			
 
 			if (checkElementDisplayed(PWASearchPage.objShowTitleInConsumptionPage, "Show title In Consumption")) {
 				String ConsumptionScreenShowTitle = getText(PWASearchPage.objShowTitleInConsumptionPage);
@@ -954,7 +950,7 @@ public class Zee5PWASmokeWEBBusinessLogic extends Utilities {
 					extent.extentLoggerPass("Consumption Screen", "user is navigated to respective consumption screen");
 				} else {
 					logger.error("user is not navigated to respective consumption screen");
-					extent.extentLoggerFail("Consumption Screen", "user is navigated to respective consumption screen");
+					extent.extentLoggerFail("Consumption Screen", "user is not navigated to respective consumption screen");
 				}
 			} else {
 				String showtitle = getText(PWASearchPage.objShowTitle(searchScreenTitle));
@@ -2576,20 +2572,7 @@ public void accountinfopage() throws Exception {
 	 */
 	public void AddToWatchListGuestUser(String userType) throws Exception {
 
-		if (userType.contains("Guest")) {
-			System.out.println("AddToWatchListGuestUser");
-			extent.HeaderChildNode("Add to Watch List Guest user validations");
-			// Verify Add to Watchlist is displayed
-			verifyElementPresent(PWAPlayerPage.watchListBtn, "Add to Watchlist");
-			// Click on Add to Watchlist option
-			click(PWAPlayerPage.watchListBtn, "Add to Watchlist");
-
-			// Verify user is Observed Login pop up
-			verifyElementPresent(PWAPlayerPage.objLoginRequiredTxt, "Login Required Pop up");
-			// Close the Login Popup
-			click(PWAPlayerPage.objCloseBtnLoginPopupWeb, "Close button Login Popup");
-			getWebDriver().manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
-		} else {
+		if((userType.equals("NonSubscribedUser"))||(userType.equals("SubscribedUser"))){
 			System.out.println("AddToWatchListLoggedUser");
 			Thread.sleep(4000);
 
@@ -3359,7 +3342,6 @@ public void accountinfopage() throws Exception {
 			logger.info("Verified Left button click");
 			extent.extentLogger("Swipe left and right", "Verified Left button click");
 		}
-
 	}
 
 	// manas
@@ -4439,7 +4421,8 @@ public void accountinfopage() throws Exception {
 		System.out.println("Selected languages : " + languageSmallText);
 		List<String> allMetaTitleOnCarouselAPI = ResponseInstance.traysTitleCarousel(pageName, languageSmallText);
 		System.out.println("API Data : " + allMetaTitleOnCarouselAPI);
-		click(PWAHamburgerMenuPage.carouselFirstDot, "First Carousel Dot");
+		waitTime(2500);
+		JSClick(PWAHamburgerMenuPage.carouselFirstDot, "First Carousel Dot");
 		for (int i = 0; i < allMetaTitleOnCarouselAPI.size(); i++) {
 			for (int j = 0; j < 30; j++) {
 				WebElement mastHeadEle = (new WebDriverWait(getWebDriver(), 60))
@@ -4449,7 +4432,9 @@ public void accountinfopage() throws Exception {
 				if (isTitlePresent == true) {
 					break;
 				} else {
-					click(PWANewsPage.objRight, "Right button of Carousel");
+					
+					JSClick(PWANewsPage.objRight, "Right button of Carousel");
+					
 				}
 			}
 			if (isTitlePresent == true) {
@@ -4941,7 +4926,6 @@ public void accountinfopage() throws Exception {
 		logger.info("Build version is : " + version);
 		extent.extentLogger("version", "Build version is : " + version);
 		click(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
-
 	}
 
 	public void verificationsOfMenuOptions() throws Exception {

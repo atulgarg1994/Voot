@@ -27,9 +27,9 @@ public class AndroidMixpanel_ContentLanguageChanged {
 		}
 		
 		@Test(priority = 1)
-		@Parameters({"userType", "displayLanguage"})
-		public void verifyContentLanguageChangeEvent(String userType, String displayLanguage) throws Exception {
-			System.out.println("Display language Change");
+		@Parameters({"userType"})
+		public void verifyContentLanguageChangeEvent(String userType) throws Exception {
+			System.out.println("Content language Change");
 			//Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 			Zee5ApplicasterMixPanelBusinessLogic.verifyContentLanguageChangeEvent(userType);
 		}

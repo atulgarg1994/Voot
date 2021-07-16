@@ -25,7 +25,7 @@ public class AndroidMixpanel_AdInitialized {
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
 	}
 	
-	@Test(priority = 5)
+	@Test(priority = 2)
 	@Parameters({ "userType", "clipContent" })
 	public void AdInitializedEvent_Search(String usertype, String clipContent) throws Exception {
 		System.out.println("\nAd initialized event of content");

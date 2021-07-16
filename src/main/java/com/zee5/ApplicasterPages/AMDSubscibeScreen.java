@@ -53,8 +53,6 @@ public class AMDSubscibeScreen {
 	
 	public static By objSelectedPackText = By.xpath("//*[@resource-id='com.graymatrix.did:id/pack_selection_title']");
 	
-	public static By objHaveAPromocode = By.xpath("//*[@text='Have a code?']");
-	
 	public static By objClub365daysPack = By.xpath("//*[@id='holder_price' and ./*[./*[@text='INR 365 for 365 days']]]");
 	
 	public static By objPackDescription = By.xpath("//*[@resource-id='com.graymatrix.did:id/decription_tv']");
@@ -169,5 +167,7 @@ public class AMDSubscibeScreen {
 	public static By objminusOnVerifyOTP = By.xpath("//*[@id='pillView']");
 	
 	public static By objSubsciptionScreen = By.id("plansContainer");
+	
+	public static By objHaveAPromocode = By.xpath("//*[@text='Have a Code?']");
 	
 }

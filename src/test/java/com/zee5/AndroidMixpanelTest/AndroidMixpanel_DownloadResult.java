@@ -26,7 +26,7 @@ private Zee5ApplicasterMixPanelBusinessLogic Zee5ApplicasterMixPanelBusinessLogi
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
 	}
 	
-	@Test(priority = 5)
+	@Test(priority = 2)
 	@Parameters({ "userType", "clipContent" })
 	public void DownloadResultEvent_Search(String usertype, String clipContent) throws Exception {
 		System.out.println("\nDownload Result event of content");

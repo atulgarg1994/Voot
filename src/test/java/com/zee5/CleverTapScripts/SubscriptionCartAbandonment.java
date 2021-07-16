@@ -19,83 +19,83 @@ public class SubscriptionCartAbandonment {
 		Utilities.relaunch = true;
 		Zee5ApplicasterCleverTapBusinessLogic = new Zee5ApplicasterCleverTapBusinessLogic("zee");
 	}
-
+	
 	@Test(priority = 0)
+	@Parameters({ "userType" })
+	public void loginresult(String userType) throws Exception {
+		Zee5ApplicasterCleverTapBusinessLogic.ZeeApplicasterLogin(userType);
+	}
+
+	@Test(priority = 1)
 	@Parameters({ "userType" })
 	public void SubscriptionPageViewed(String userType) throws Exception {
 		Zee5ApplicasterCleverTapBusinessLogic.SubscriptionPageViewed();
 	}
 	
-	@Test(priority = 1)
+	@Test(priority = 2)
 	@Parameters({ "userType" })
 	public void SubscriptionCallInitiated(String userType) throws Exception {
 		Zee5ApplicasterCleverTapBusinessLogic.SubscriptionCallInitiated();
 	}
 	
-	@Test(priority = 2)
+	@Test(priority = 3)
 	@Parameters({ "userType" })
 	public void SubscriptionSelected(String userType) throws Exception {
 		Zee5ApplicasterCleverTapBusinessLogic.SubscriptionSelected();
 	}
 	
-	@Test(priority = 3)
+	@Test(priority = 4)
 	@Parameters({ "userType" })
 	public void SubscriptionCallReturned(String userType) throws Exception {
 		Zee5ApplicasterCleverTapBusinessLogic.SubscriptionCallReturned();
 	}
 	
-	@Test(priority = 4)
+	@Test(priority = 5)
 	@Parameters({ "userType" })
 	public void DisplayLanguageChange(String userType) throws Exception {
 		Zee5ApplicasterCleverTapBusinessLogic.DisplayLanguageChange();
 	}
 	
-	@Test(priority = 5)
+	@Test(priority = 6)
 	@Parameters({ "userType" })
 	public void ContentLanguageChange(String userType) throws Exception {
 		Zee5ApplicasterCleverTapBusinessLogic.ContentLanguageChange();
 	}
 	
-	@Test(priority = 6)
+	@Test(priority = 7)
 	@Parameters({ "userType" })
 	public void SearchCancelled(String userType) throws Exception {
 		Zee5ApplicasterCleverTapBusinessLogic.SearchCancelled();
 	}
 	
-	@Test(priority = 7)
+	@Test(priority = 8)
 	@Parameters({ "userType" })
 	public void AddToWatchlist(String userType) throws Exception {
 		Zee5ApplicasterCleverTapBusinessLogic.AddToWatchlist();
 	}
 	
-	@Test(priority = 8)
+	@Test(priority = 9)
 	@Parameters({ "userType" })
 	public void Share(String userType) throws Exception {
 		Zee5ApplicasterCleverTapBusinessLogic.Share();
 	}
 	
-	@Test(priority = 9)
+	@Test(priority = 10)
 	@Parameters({ "userType" })
 	public void RemoveFromWatchlist(String userType) throws Exception {
 		Zee5ApplicasterCleverTapBusinessLogic.RemoveFromWatchlist();
 	}
 	
-	@Test(priority = 10)
-	@Parameters({ "userType" })
-	public void PromoCodeResult(String userType) throws Exception {
-		Zee5ApplicasterCleverTapBusinessLogic.PromoCodeResult();
-	}
+//	@Test(priority = 10)
+//	@Parameters({ "userType" })
+//	public void PromoCodeResult(String userType) throws Exception {
+//		Zee5ApplicasterCleverTapBusinessLogic.PromoCodeResult();
+//	}
 	
-	@Test(priority = 11)
-	@Parameters({ "userType" })
-	public void loginresult(String userType) throws Exception {
-		Zee5ApplicasterCleverTapBusinessLogic.PromoCodeResult();
-	}
-
-	@Test(priority = 12)
+//	@Test(priority = 11)
 	@Parameters({ "userType" })
 	public void logout(String userType) throws Exception {
-		Zee5ApplicasterCleverTapBusinessLogic.PromoCodeResult();
+		Zee5ApplicasterCleverTapBusinessLogic.logout();
 	}
 	
 	

@@ -2,14 +2,14 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Android" parallel="false" thread-count="1">  <!-- name="Android" -->
 
-    <parameter name="userType" value="SubscribedUser" />  <!-- Guest/NonSubscribedUser/SubscribedUser -->
+    <parameter name="userType" value="Guest" />  <!-- Guest/NonSubscribedUser/SubscribedUser -->
 	<parameter name="runModule" value="Suite" />
 	<parameter name="runMode" value="Suites" /> 
 	
 	<parameter name="NonSubscribedUserName" value="amdnonmixpanel@yopmail.com" />
 	<parameter name="NonSubscribedUserPassword" value="123456" />
 	
-	<parameter name="SubscribedUserName" value="testz6@g.com" />
+	<parameter name="SubscribedUserName" value="zeetest34new@test.com" />
 	<parameter name="SubscribedPassword" value="123456" />
 	
 	<parameter name="ParentalNonsubscribedUserName" value="juspayuser@mailnesia.com" />
@@ -55,9 +55,21 @@
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
 	
+	
+	<test name="AndroidMixpanel_P1_Events">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_P1_Events" />
+		</classes>
+	</test>
+	
 	<test name="AndroidMixpanel_FirstLaunch">
 		<classes>
 			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_FirstLaunch" />
+		</classes>
+	</test>
+	<test name="AndroidMixpanel_DownloadStart">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_DownloadStart" />
 		</classes>
 	</test>
 	
@@ -85,29 +97,24 @@
 		</classes>
 	</test>
 	
-	<test name="AndroidMixpanel_Homepage_visited">
+	<test name="AndroidMixpanel_SkipLogin">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_SkipLogin" />
+		</classes>
+	</test>
+
+ 
+ 	<test name="AndroidMixpanel_Homepage_visited">
 		<classes>
 			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_Homepage_visited" />
 		</classes>
 	</test>
 	
-	<test name="AndroidMixpanel_SubscriptionJourneyEvents">
+	<test name="AndroidMixpanel_ScreensectionVisited">
 		<classes>
-			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_SubscriptionJourneyEvents" />
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_ScreensectionVisited" />
 		</classes>
 	</test>
 	
-	<test name="AndroidMixpanel_VideoWatchDuration">
-		<classes>
-			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_VideoWatchDuration" />
-		</classes>
-	</test>
-	
-	<test name="AndroidMixpanel_VideoView">
-		<classes>
-			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_VideoView" />
-		</classes>
-	</test>
-
 
 </suite>

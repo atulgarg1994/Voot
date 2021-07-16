@@ -22,4 +22,9 @@ public class CleverTapPage {
 	
 	public static By objEventProperties = By.xpath("(((.//*[@class='new_day'])[1])//td/span[1])[1]//following-sibling::*[contains(@class,'label-gray')]//span");
 
+	public static By objSegmentsBelowFindPeople = By.xpath(".//*[@class='has-gutter-cont']//*[@class='segments']");
+	
+	public static By objCreateSegmentsBtn = By.id("createSegmentBtn");
+	
+	public static By objPastActionsBtn = By.xpath(".//*[@data-id='pastBehaviorSegment']//*[@class='segCards_title' and text()='Actions']//parent::*//child::*[@class='btn btn-small btn-primary']");
 }

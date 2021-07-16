@@ -8,10 +8,9 @@ import org.testng.annotations.Test;
 import com.business.zee.Zee5ApplicasterMixPanelBusinessLogic;
 import com.utility.Utilities;
 
-public class AndroidMixpanel_PlayerViewChanged {
+public class AndroidMixpanel_AddToWatchlist {
+private Zee5ApplicasterMixPanelBusinessLogic Zee5ApplicasterMixPanelBusinessLogic;
 	
-	private Zee5ApplicasterMixPanelBusinessLogic Zee5ApplicasterMixPanelBusinessLogic;
-
 	@BeforeTest
 	public void init() throws Exception {
 		Utilities.relaunch = true;
@@ -27,11 +26,11 @@ public class AndroidMixpanel_PlayerViewChanged {
 	}
 	
 	@Test(priority = 2)
-	@Parameters({ "userType", "pTabName" })
-	public void PlayerViewChangedEventofCarouselContent(String usertype, String tabName) throws Exception {
-		System.out.println("\nPlayer view changed event of Carousel content");
+	@Parameters({ "userType", "clipContent" })
+	public void AddToWatchlistEvent_Search(String usertype, String clipContent) throws Exception {
+		System.out.println("\n Add to Watchlist event of content");
 		//Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.PlayerViewChangedEventForCarouselContent(usertype, tabName);
+		Zee5ApplicasterMixPanelBusinessLogic.addToWatchlistEventOfcontentFromSearchPage(usertype, clipContent);
 	}
 
 	//###############-------END OF TEST-------###############
@@ -41,4 +40,5 @@ public class AndroidMixpanel_PlayerViewChanged {
 		System.out.println("\nQuit the App");
 		Zee5ApplicasterMixPanelBusinessLogic.tearDown();
 	}
+
 }

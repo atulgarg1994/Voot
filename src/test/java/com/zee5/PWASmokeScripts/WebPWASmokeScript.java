@@ -168,8 +168,7 @@ public class WebPWASmokeScript {
 	/*
 	 * //@Test(priority = 13)
 	 * 
-	 * @Parameters({ "userType", "url" }) public void
-	 * ShareFunctionalityValidation(String userType, String url) throws Exception {
+	 * @Parameters({ "userType", "url" }) public void ShareFunctionalityValidation(String userType, String url) throws Exception {
 	 * //zee5WebBusinessLogic.dismissDisplayContentLanguagePopUp();
 	 * zee5WebBusinessLogic.navigateHome();
 	 * zee5WebBusinessLogic.ShareModule(userType); }

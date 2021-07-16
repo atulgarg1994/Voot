@@ -22,7 +22,7 @@ public class AMDCelverTapScript {
 	@Test(priority = 2)
 	public void CleverTapNavigation() throws Exception {
 		Zee5ApplicasterCleverTapBusinessLogic.navigateToCleverTap();
-		Zee5ApplicasterCleverTapBusinessLogic.getEventName();
+		Zee5ApplicasterCleverTapBusinessLogic.getEventName("");
 	}
 	
 	@AfterClass

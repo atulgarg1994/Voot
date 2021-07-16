@@ -4,7 +4,6 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
 import com.business.zee.Zee5ApplicasterMixPanelBusinessLogic;
 import com.utility.Utilities;
 
@@ -31,6 +30,7 @@ public class AndroidMixpanel_SubscriptionJourneyEvents {
 	public void verifySubscriptionPageViewedEvent(String userType) throws Exception {
 		System.out.println("Subscription page viewed event");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.verifySubscriptionPageViewedEvent(userType);
 	}
 	
@@ -38,6 +38,7 @@ public class AndroidMixpanel_SubscriptionJourneyEvents {
 	@Parameters({"userType"})
 	public void AndroidMixPanel_SubscriptionSelectedEventValidation(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.verifySubscriptionSelectedEvent(userType);
 	}
 	

@@ -8,6 +8,9 @@
 	<parameter name="runModule" value="Suite"/>
 	<parameter name="runMode" value="Suites"/>
 	
+	<parameter name="NonsubscribedUserName" value="Autoclevertap@g.com" />
+	<parameter name="NonsubscribedPassword" value="clevertap" />
+	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
 	</listeners>

@@ -8,10 +8,10 @@ import org.testng.annotations.Test;
 import com.business.zee.Zee5ApplicasterMixPanelBusinessLogic;
 import com.utility.Utilities;
 
-public class AndroidMixpanel_PlayerViewChanged {
+public class AndroidMixpanel_DownloadDelete {
 	
-	private Zee5ApplicasterMixPanelBusinessLogic Zee5ApplicasterMixPanelBusinessLogic;
-
+private Zee5ApplicasterMixPanelBusinessLogic Zee5ApplicasterMixPanelBusinessLogic;
+	
 	@BeforeTest
 	public void init() throws Exception {
 		Utilities.relaunch = true;
@@ -26,12 +26,12 @@ public class AndroidMixpanel_PlayerViewChanged {
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
 	}
 	
-	@Test(priority = 2)
-	@Parameters({ "userType", "pTabName" })
-	public void PlayerViewChangedEventofCarouselContent(String usertype, String tabName) throws Exception {
-		System.out.println("\nPlayer view changed event of Carousel content");
+	@Test(priority = 5)
+	@Parameters({ "userType", "clipContent" })
+	public void DownloadDeleteEvent_Search(String usertype, String clipContent) throws Exception {
+		System.out.println("\nDownload Delete event of content");
 		//Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.PlayerViewChangedEventForCarouselContent(usertype, tabName);
+		Zee5ApplicasterMixPanelBusinessLogic.DownloadDeleteEventOfcontentFromSearchPage(usertype, clipContent);
 	}
 
 	//###############-------END OF TEST-------###############
@@ -41,4 +41,6 @@ public class AndroidMixpanel_PlayerViewChanged {
 		System.out.println("\nQuit the App");
 		Zee5ApplicasterMixPanelBusinessLogic.tearDown();
 	}
+
+
 }
