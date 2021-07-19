@@ -4,10 +4,11 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+
 import com.business.zee.Zee5ApplicasterMixPanelBusinessLogic;
 import com.utility.Utilities;
 
-public class AndroidMixpanel_CTAs {
+public class AndroidMixpanel_ScreensectionVisited {
 	
 	private Zee5ApplicasterMixPanelBusinessLogic Zee5ApplicasterMixPanelBusinessLogic;
 
@@ -17,28 +18,23 @@ public class AndroidMixpanel_CTAs {
 		Zee5ApplicasterMixPanelBusinessLogic = new Zee5ApplicasterMixPanelBusinessLogic("zee");
 	}
 
+	@Test(priority = 0)
+	@Parameters({ "userType" })
+	public void AndroidAppMixPanelLogin(String userType) throws Exception {
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);	
+	}
+	
 	@Test(priority = 1)
 	@Parameters({"userType"})
-	public void AndroidMixPanel_CTAsEventValidation(String pUserType) throws Exception {
-		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
-		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(pUserType);
-		Zee5ApplicasterMixPanelBusinessLogic.verifyCTAsEvent(pUserType,"Subscribe");
+	public void ScreenVisitedEventsValidation(String pUserType) throws Exception {
+		Zee5ApplicasterMixPanelBusinessLogic.ScreenVisitedEventValidation(pUserType);
 	}
-	
-	@Test(priority = 2)
-	@Parameters({"userType"})
-	public void AndroidMixPanel_PlayerCTAsEventValidation(String pUserType) throws Exception {
-		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
-		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(pUserType);
-		Zee5ApplicasterMixPanelBusinessLogic.PlayerControlPlayPauseEvent(pUserType,"Movies");
-	}
-	
 	
 	@AfterTest
 	public void tearDownApp() {
-		System.out.println("Quit the App");
+		System.out.println("\nExecution Complete");
 		Zee5ApplicasterMixPanelBusinessLogic.tearDown();
 	}
-
 
 }

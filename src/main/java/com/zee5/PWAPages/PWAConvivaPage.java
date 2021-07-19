@@ -72,7 +72,7 @@ public class PWAConvivaPage {
 	public  static By objSearchEditField = By.xpath("//input[@title='Search']");
 	
 	//Google whats my ip suggestion
-	public static By objWhatsMyIPSuggestion = By.xpath("(//div[contains(@class,'suggestions')]//span[text()='whats my ip'])[1]");
+	public static By objWhatsMyIPSuggestion = By.xpath("(//span[text()='whatsmyip'])[1]");
 	
 	//Google public IP
 	public static By objPublicIP = By.xpath("(//div[@id='search']//div[@jsname='A813te']//span//span)[1]");
@@ -114,12 +114,29 @@ public class PWAConvivaPage {
 	// attempts
 	public static By objAttempts = By.xpath("//*[@title='Attempts']//ancestor::div[@class='container']//div[@class='big_num']");
 	
+	//Exits Before Video Start
+	public static By objExitBeforeVideoStart = By.xpath("//*[@title='Exits Before Video Start']//ancestor::div[@class='container']//div[@class='big_num']");
+	
+	//Plays
+	public static By objPlays = By.xpath("//*[@title='Plays']//ancestor::div[@class='container']//div[@class='big_num']");	
+	
 	// concurrent plays
 	public static By objConcurrentPlays = By.xpath("//*[@title='Concurrent Plays']//ancestor::div[@class='container']//div[@class='big_num']");	
+	
+	// rebuffering ratio
+	public static By objRebufferingRatio = By.xpath("//*[@title='Rebuffering Ratio']//ancestor::div[@class='container']//div[@class='big_num']");
 
-	// 
+	// AFR
 	public static By objAverageFrameRate = By.xpath("//*[@title='Average Frame Rate']//ancestor::div[@class='container']//div[@class='big_num']");	
 
+	// VRT
+	public static By objVideoRestartTime = By.xpath("//*[@title='Video Restart Time']//ancestor::div[@class='container']//div[@class='big_num']");
+		
+	
+	// VST
+	public static By objVideoStartupTime = By.xpath("//*[@title='Video Startup Time']//ancestor::div[@class='container']//div[@class='big_num']");
+	
+	public static By objAverageBitRate = By.xpath("//*[@title='Average Bitrate']//ancestor::div[@class='container']//div[@class='big_num']");	
 	//device validation sort
 	public static By objDeviceValidationSortButton = By.xpath("//*[@id='time_selector']");
 	
@@ -151,7 +168,7 @@ public class PWAConvivaPage {
 	public static By objMonitorSessionIDPlayedContent (String content) {
 		return By.xpath("//div[contains(text(),'"+content+"')]//ancestor::tr//td//div[@title='Played']//ancestor::tr//a");
 	}
-	
+
 	//monitor session ID with Started - Not Joined content 
 	public static By objMonitorSessionIDStartedNotJoinedContent (String content) {
 		return By.xpath("//div[contains(text(),'"+content+"')]//ancestor::tr//td//div[@title='Started - Not Joined']//ancestor::tr//a");
@@ -163,22 +180,23 @@ public class PWAConvivaPage {
 	}	
 		
 	//client ID
-	public static By objClientID = By.xpath("//td[@data-value='Client ID']//following-sibling::td");
+	public static By objClientID = By.xpath("//td[@data-value='Client ID']//following-sibling::td//div");
 	
 	//viewer ID
-	public static By objViewerID = By.xpath("//td[@data-value='Viewer ID']//following-sibling::td");
+	public static By objViewerID = By.xpath("//td[@data-value='Viewer ID']//following-sibling::td//div");
+	
 	
 	//Video Startup Time
-	public static By objVST = By.xpath("//td[@data-value='Video Startup Time']//following-sibling::td");
+	public static By objVST = By.xpath("//td[@data-value='Video Startup Time']//following-sibling::td//div");
 	
 	//Avg % Complete
-	public static By objAvgPercentageComplete = By.xpath("//td[@data-value='Average % Complete']//following-sibling::td");
+	public static By objAvgPercentageComplete = By.xpath("//td[@data-value='Average % Complete']//following-sibling::td//div");
 	
 	//Total Playing Time
-	public static By objTotalPlayingTime = By.xpath("//td[@data-value='Total Playing Time']//following-sibling::td");
+	public static By objTotalPlayingTime = By.xpath("//td[@data-value='Total Playing Time']//following-sibling::td//div");
 	
 	//Session
-	public static By objSessionStatus = By.xpath("//td[@data-value='Session Status']//following-sibling::td");
+	public static By objSessionStatus = By.xpath("//td[@data-value='Session Status']//following-sibling::td//div");
 	
 	//search filter field
 	public static By objSearchFilterField = By.xpath("//input[@type='search']");
@@ -192,6 +210,30 @@ public class PWAConvivaPage {
 	//Client ID value field
 	public static By objClientIDVlaueField = By.xpath("//input[@class='val_field']");
 	
+	//Rules Select Field
+	public static By objRulesSelectField(int i) {
+		return By.xpath("(//div[@class='form__row or_field'])["+i+"]//select[@class='type']");
+	}
+	
+	public static By objName = By.xpath("//input[@id='id_name']");
+	
+	public static By objRulesSelectField = By.xpath("(//select[@class='type'])['Asset Name']");
+	
+	public static By objDeleteField = By.xpath("//*[@class='Btn delete']");	
+	
+	//Rules Value Field
+	public static By objRulesValueField(int i) {
+		return By.xpath("(//input[@type='text' and contains(@class,'val_field')])["+i+"]");
+	}	
+	
+	public static By objFilterRulesFieldsCount = By.xpath("//div[@class='and_field']");
+	
+	public static By objAndButton = By.xpath("//span[@class='Btn and_button']");
+	
+	public static By objRulesSelectField(int i,String s) {
+		return By.xpath("(//div[@class='form__row or_field'])["+i+"]//option[.='"+s+"']");
+	}	
+	
 	//Save Filter button
 	public static By objSaveFilterButton = By.xpath("//input[@value='Save']");
 	
@@ -202,7 +244,7 @@ public class PWAConvivaPage {
 	public static By objAdFrame= By.xpath("//iframe[@allow]");
 	
 	//CDN
-	public static By objCDN = By.xpath("//td[@data-value='CDN']//following-sibling::td");
+	public static By objCDN = By.xpath("//td[@data-value='CDN']//following-sibling::td//div");
 
 	//Bowser version
 	public static By objChromeVersionFromChrome = By.xpath("//td[@class='version' and @id='version']//span");
@@ -217,77 +259,87 @@ public class PWAConvivaPage {
 	public static By objUserAgentFromChrome = By.xpath("//td[@id='useragent']");
 	
 	//Browser name
-	public static By objBrowserName = By.xpath("//td[@data-value='Browser Name']//following-sibling::td");
+	public static By objBrowserName = By.xpath("//td[@data-value='Browser Name']//following-sibling::td//div");
 	
 	//Browser Version
-	public static By objBrowserVersion = By.xpath("//td[@data-value='Browser Version']//following-sibling::td");
+	public static By objBrowserVersion = By.xpath("//td[@data-value='Browser Version']//following-sibling::td//div");
 
 	//Device Hardware Type
-	public static By objDeviceHardwareType = By.xpath("//td[@data-value='Device Hardware Type']//following-sibling::td");
+	public static By objDeviceHardwareType = By.xpath("//td[@data-value='Device Hardware Type']//following-sibling::td//div");
 
 	//Device Operating System
-	public static By objDeviceOS = By.xpath("//td[@data-value='Device Operating System']//following-sibling::td");
+	public static By objDeviceOS = By.xpath("//td[@data-value='Device Operating System']//following-sibling::td//div");
 		
 	//Device Operating System Family
-	public static By objDeviceOSFamily = By.xpath("//td[@data-value='Device Operating System Family']//following-sibling::td");
+	public static By objDeviceOSFamily = By.xpath("//td[@data-value='Device Operating System Family']//following-sibling::td//div");
 	
 	//Device Operating System Version
-	public static By objDeviceOSVersion = By.xpath("//td[@data-value='Device Operating System Version']//following-sibling::td");
+	public static By objDeviceOSVersion = By.xpath("//td[@data-value='Device Operating System Version']//following-sibling::td//div");
 	
 	//Player Framework Name
-	public static By objPlayerFrameworkName = By.xpath("//td[@data-value='Player Framework Name']//following-sibling::td");
+	public static By objPlayerFrameworkName = By.xpath("//td[@data-value='Player Framework Name']//following-sibling::td//div");
 
 	//Asset Name
-	public static By objAssetName = By.xpath("//td[@data-value='Asset Name']//following-sibling::td");
+	public static By objAssetName = By.xpath("//td[@data-value='Asset Name']//following-sibling::td//div");
 
 	//Asset Duration
-	public static By objAssetDuration = By.xpath("//td[@data-value='Content Length']//following-sibling::td");
+	public static By objAssetDuration = By.xpath("//td[@data-value='Content Length']//following-sibling::td//div");
 	
 	//Content Type
-	public static By objContentType = By.xpath("//td[@data-value='ContentType']//following-sibling::td");
+	public static By objContentType = By.xpath("//td[@data-value='ContentType']//following-sibling::td//div");
 	
 	//device
-	public static By objDevice = By.xpath("//td[@data-value='DEVICE']//following-sibling::td");
+	public static By objDevice = By.xpath("//td[@data-value='DEVICE']//following-sibling::td//div");
 	
 	//Zee5 App Version
-	public static By objAppVersion = By.xpath("//td[@data-value='appVersion']//following-sibling::td");
+	public static By objAppVersion = By.xpath("//td[@data-value='appVersion']//following-sibling::td//div");
 	
 	//audio language
-	public static By objAudioLanguage = By.xpath("//td[@data-value='audioLanguage']//following-sibling::td");
+	public static By objAudioLanguage = By.xpath("//td[@data-value='audioLanguage']//following-sibling::td//div");
 	
 	//category
-	public static By objCategory = By.xpath("//td[@data-value='category']//following-sibling::td");
+	public static By objCategory = By.xpath("//td[@data-value='category']//following-sibling::td//div");
 	
 	//contentID
-	public static By objContentIDC = By.xpath("//td[@data-value='contentID']//following-sibling::td");
+	public static By objContentIDC = By.xpath("//td[@data-value='contentID']//following-sibling::td//div");
 	
 	//episodeName
-	public static By objEpisodeName = By.xpath("//td[@data-value='episodeName']//following-sibling::td");
+	public static By objEpisodeName = By.xpath("//td[@data-value='episodeName']//following-sibling::td//div");
 	
 	//episodeNumber
-	public static By objEpisodeNumber = By.xpath("//td[@data-value='episodeNumber']//following-sibling::td");
+	public static By objEpisodeNumber = By.xpath("//td[@data-value='episodeNumber']//following-sibling::td//div");
 	
 	//genre
-	public static By objGenreC = By.xpath("//td[@data-value='genre']//following-sibling::td");
+	public static By objGenreC = By.xpath("//td[@data-value='genre']//following-sibling::td//div");
 	
 	//originalLanguage
-	public static By objOriginalLang = By.xpath("//td[@data-value='originalLanguage']//following-sibling::td");
+	public static By objOriginalLang = By.xpath("//td[@data-value='originalLanguage']//following-sibling::td//div");
 	
 	//pubDate
-	public static By objPubDate = By.xpath("//td[@data-value='pubDate']//following-sibling::td");
+	public static By objPubDate = By.xpath("//td[@data-value='pubDate']//following-sibling::td//div");
 	
 	//rootID
-	public static By objRootID = By.xpath("//td[@data-value='rootID']//following-sibling::td");
+	public static By objRootID = By.xpath("//td[@data-value='rootID']//following-sibling::td//div");
 	
 	//show
-	public static By objShow = By.xpath("//td[@data-value='show']//following-sibling::td");
+	public static By objShow = By.xpath("//td[@data-value='show']//following-sibling::td//div");
 	
 	//site
-	public static By objSite = By.xpath("//td[@data-value='site']//following-sibling::td");
+	public static By objSite = By.xpath("//td[@data-value='site']//following-sibling::td//div");
 	
 	//userAgent
-	public static By objUserAgent = By.xpath("//td[@data-value='userAgent']//following-sibling::td");
+	public static By objUserAgent = By.xpath("//td[@data-value='userAgent']//following-sibling::td//div");
 	
 	//episode number zee5
 	public static By objEpisodeNumberZee = By.xpath("//div[@class='metaInfo']//p");
+	
+	//monitor session ID with Playing content
+	public static By objMonitorSessionPlayingContent (String content) {
+		String xpath="//div[contains(text(),\""+content+"\")]//ancestor::tr//td//div[@title='Playing']";
+		System.out.println(xpath);
+		return By.xpath(xpath);
+	}	
+	
+	
+
 }

@@ -7,10 +7,11 @@ import org.testng.annotations.Test;
 import com.business.zee.Zee5ApplicasterMixPanelBusinessLogic;
 import com.utility.Utilities;
 
-public class AndroidMixpanel_CTAs {
-	
+public class AndroidMixpanel_CarousalBannerCTAs {
+
 	private Zee5ApplicasterMixPanelBusinessLogic Zee5ApplicasterMixPanelBusinessLogic;
 
+	
 	@BeforeTest
 	public void init() throws Exception {
 		Utilities.relaunch = true;
@@ -19,18 +20,10 @@ public class AndroidMixpanel_CTAs {
 
 	@Test(priority = 1)
 	@Parameters({"userType"})
-	public void AndroidMixPanel_CTAsEventValidation(String pUserType) throws Exception {
+	public void AndroidMixPanel_CarouselBannerCTAsEventValidation(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
-		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(pUserType);
-		Zee5ApplicasterMixPanelBusinessLogic.verifyCTAsEvent(pUserType,"Subscribe");
-	}
-	
-	@Test(priority = 2)
-	@Parameters({"userType"})
-	public void AndroidMixPanel_PlayerCTAsEventValidation(String pUserType) throws Exception {
-		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
-		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(pUserType);
-		Zee5ApplicasterMixPanelBusinessLogic.PlayerControlPlayPauseEvent(pUserType,"Movies");
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyCarousalBannerCTAsEvent(userType,"Home");
 	}
 	
 	
@@ -39,6 +32,5 @@ public class AndroidMixpanel_CTAs {
 		System.out.println("Quit the App");
 		Zee5ApplicasterMixPanelBusinessLogic.tearDown();
 	}
-
-
+	
 }

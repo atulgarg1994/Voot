@@ -4,10 +4,15 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Base64;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -15,14 +20,18 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Properties;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.ScreenOrientation;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Reporter;
 import org.testng.asserts.SoftAssert;
@@ -30340,5 +30349,1314 @@ public void ZeeApplicasterLoginForEduauraaPortal(String LoginMethod) throws Exce
 		break;
 	}
 }
+
+
+//============CONVIVO======================
+public void ConvivaVerification(String userType) throws Exception{
+	String firstContentID="0-0-103559";
+	String firstContentName="Robin Hood Forever Enemies";
+	String firstContentMetaInSearch="English";
+	ArrayList<String> firstContentdata=new ArrayList<String>();
+	firstContentdata.add(firstContentID);
+	firstContentdata.add(firstContentName);
+	firstContentdata.add(firstContentMetaInSearch);
+	//Initial Conviva setup
+	WebDriver driverForWeb=initialSetUpForConviva();		
+	ArrayList<Integer> playerTapDetails=setFilterForConviva(driverForWeb,firstContentdata);
+	//TC1 Attempts, TC2 Concurrent Plays, TC4 VST, TC5 Avg Percent Complete, TC6 Pause video, TC11 Average Frame Rate
+	verifyConvivaAttemptsConcurrentPlaysVST(driverForWeb,firstContentdata,playerTapDetails);
+	ResponseInstance.updateWatchHistory(firstContentID,1,"");
+	//TC9 exitBeforeVideoStarts
+	verifyConvivaExitBeforeVideoStarts(driverForWeb,firstContentdata,playerTapDetails);
+	ResponseInstance.updateWatchHistory(firstContentID,1,"");
+	//TC13 Click on progress bar
+	verifyConvivaClickOnProgressBar(driverForWeb,firstContentdata,playerTapDetails);
+	ResponseInstance.updateWatchHistory(firstContentID,1,"");
+	//TC14 Drag on progress bar
+	verifyConvivaDragOnProgressBar(driverForWeb,firstContentdata,playerTapDetails);
+	ResponseInstance.updateWatchHistory(firstContentID,1,"");
+	//TC15 Forward on progress bar
+	verifyConvivaForwardOnProgressBar(driverForWeb,firstContentdata,playerTapDetails);
+	ResponseInstance.updateWatchHistory(firstContentID,1,"");
+	//TC16 Background
+	verifyConvivaAppPutToBackground(driverForWeb,firstContentdata,playerTapDetails);
+	ResponseInstance.updateWatchHistory(firstContentID,1,"");
+	//TC17 Power off-on
+	verifyConvivaPhoneLockUnlock(driverForWeb,firstContentdata,playerTapDetails);
+	ResponseInstance.updateWatchHistory(firstContentID,1,"");
+}
+
+public WebDriver initialSetUpForConviva() throws Exception {
+	extent.HeaderChildNode("Conviva launch, login and initial setup");
+	System.out.println("------------------- Conviva launch, login and initial setup -------------------");
+	extent.extentLogger("", "<b>---------- Launch Conviva ----------</b>");
+	String phonePublicIP=getPhonePublicIP();
+	System.setProperty("webdriver.chrome.driver", "C:\\Users\\User\\.m2\\repository\\webdriver\\chromedriver\\win32\\90.0.4430.24\\chromedriver.exe");      
+    WebDriver driverForWeb=new ChromeDriver();  
+    driverForWeb.navigate().to("https://pulse.conviva.com/");  
+    logger.info("Launched Conviva website on Chrome");
+	extent.extentLogger("", "Launched Conviva website on Chrome");
+    driverForWeb.manage().window().maximize();
+    logger.info("Maximized Chrome window");
+	extent.extentLogger("", "Maximized Chrome window");
+    waitTime(3000);
+    extent.extentLogger("", "<b>---------- Login to Conviva ----------</b>");
+    String userID="murali.appadi@zee.esselgroup.com";
+    String userPassword="Ch@ng3m3!!";
+    driverForWeb.findElement(PWAConvivaPage.objUserNameField).sendKeys(userID);
+    driverForWeb.findElement(PWAConvivaPage.objNextButton).click();
+    logger.info("Entered User ID : "+userID);
+	extent.extentLogger("", "Entered User ID : "+userID);
+    waitTime(5000);
+    driverForWeb.findElement(PWAConvivaPage.objPasswordField).sendKeys(userPassword);
+    logger.info("Entered Password : "+userPassword);
+	extent.extentLogger("", "Entered Password : "+userPassword);
+    driverForWeb.findElement(PWAConvivaPage.objSignInButton).click();
+    logger.info("Logged in to Conviva");
+	extent.extentLogger("", "Logged in to Conviva");
+    waitTime(12000);
+    extent.extentLogger("", "<b>---------- Select Admin User ----------</b>");
+    driverForWeb.findElement(PWAConvivaPage.objUserTypeDropdown).click();
+    logger.info("Clicked User dropdown");
+	extent.extentLogger("", "Clicked User dropdown");
+	waitTime(3000);
+	driverForWeb.findElement(PWAConvivaPage.objAdminUser).click();
+	logger.info("Clicked Admin user from dropdown");
+	extent.extentLogger("", "Clicked Admin user from dropdown");
+	waitTime(7000);	
+	extent.extentLogger("", "<b>---------- Register IP Address of Test Device for Device Validation ----------</b>");
+	driverForWeb.get("https://pulse.conviva.com/device_validation/manage");
+	logger.info("Opened https://pulse.conviva.com/device_validation/manage");
+	extent.extentLogger("", "Opened https://pulse.conviva.com/device_validation/manage");
+	waitTime(3000);
+	JavascriptExecutor js = (JavascriptExecutor) driverForWeb;
+	js.executeScript("window.scrollBy(0,300)", "");
+	driverForWeb.findElement(PWAConvivaPage.objManageIPSortButton("For_Automation")).click();
+	logger.info("Clicked on 'For_Automation' field in Manage IPs");
+	extent.extentLogger("", "Clicked on 'For_Automation' field in Manage IPs");
+	waitTime(2000);
+	driverForWeb.findElement(PWAConvivaPage.objEditIP("For_Automation")).click();		
+	logger.info("Clicked on 'For_Automation' Edit button");
+	extent.extentLogger("", "Clicked on 'For_Automation' Edit button");
+	driverForWeb.findElement(PWAConvivaPage.objIPAddressField).clear();
+	logger.info("Cleared IP Address field");
+	extent.extentLogger("", "Cleared IP Address field");
+	waitTime(3000);
+	driverForWeb.findElement(PWAConvivaPage.objIPAddressField).sendKeys(phonePublicIP.trim());
+	logger.info("Entered device public address : "+phonePublicIP.trim());
+	extent.extentLogger("", "Entered device public address : "+phonePublicIP.trim());
+	driverForWeb.findElement(PWAConvivaPage.objUpdateButton).click();
+	logger.info("Clicked on Update button");
+	extent.extentLogger("", "Clicked on Update button");
+	return driverForWeb;
+}
+
+@SuppressWarnings("unused")
+public ArrayList<Integer> setFilterForConviva(WebDriver driverForWeb,ArrayList<String> contentdata) throws Exception{
+	ArrayList<Integer> playerTapDetails=new ArrayList<Integer>(); 
+	extent.extentLogger("", "<b>---------- Fetch Filter rules for Real Time testing----------</b>");
+	String contentID=contentdata.get(0);
+	String contentName=contentdata.get(1);
+	String contentMetaInSearch=contentdata.get(2);
+	click(AMDHomePage.objSearchBtn, "Search button");
+	waitTime(5000);
+	click(AMDSearchScreen.objSearchEditBox, "Search box");
+	type(AMDSearchScreen.objSearchBoxBar, contentName+"\n", "Search box");
+	hideKeyboard();
+	waitTime(6000);
+	click(AMDSearchScreen.objSearchResult(contentName,contentMetaInSearch), "Search result");
+	waitForAdToFinishInAmd();	
+	int playerHeight=0,playerWidth=0,heightOffset=0,widthOffset=0,requiredHeight=0,requiredWidth=0,playerX=0,playerY=0;
+	try {
+		WebElement player=getDriver().findElement(AMDPlayerScreen.objplayer);
+		playerHeight=player.getSize().getHeight();
+		playerWidth=player.getSize().getWidth();
+		heightOffset=playerHeight/5;
+		widthOffset=playerWidth/5;
+		playerX=player.getLocation().getX();
+		playerY=player.getLocation().getY();
+		requiredHeight=playerY+heightOffset;
+		requiredWidth=playerX+widthOffset;
+		System.out.println(requiredHeight);
+		System.out.println(requiredWidth);
+	}
+	catch(Exception e) {}
+	playerTapDetails.add(requiredHeight);
+	playerTapDetails.add(requiredWidth);
+	String url="https://pulse.conviva.com/app/pulse/device_validation/?live=true";
+	driverForWeb.get(url);	
+	logger.info("Opened : "+url);
+	extent.extentLogger("", "Opened : "+url);
+	waitTime(5000);
+	WebElement frameElement = driverForWeb.findElement(PWAConvivaPage.objIframePulse4);
+	driverForWeb.switchTo().frame(frameElement);
+	driverForWeb.findElement(PWAConvivaPage.objDeviceValidationFilter).click();
+	logger.info("Clicked on device validation dropdown");
+	extent.extentLogger("", "Clicked on device validation dropdown");
+	waitTime(5000);
+	driverForWeb.findElement(PWAConvivaPage.objDeviceValidation("For_Automation")).click();
+	logger.info("Clicked on 'For_Automation' from dropdown");
+	extent.extentLogger("", "Clicked on 'For_Automation' from dropdown");
+	boolean foundEntry=false;
+	ArrayList<String> rulesField=new ArrayList<String>();
+	ArrayList<String> rulesValue=new ArrayList<String>();
+	if(clickElementInRefreshingConvivaPage(driverForWeb,PWAConvivaPage.objMonitorSessionID(contentID),"Monitor Session ID for the played content")) {
+		ArrayList<String> filterValues=new ArrayList<String>();
+		String browserVersion = getTextFromRefreshingConvivaPage(driverForWeb,PWAConvivaPage.objBrowserVersion,"Rule Browser Version");
+		String deviceOperatingSystem = getTextFromRefreshingConvivaPage(driverForWeb,PWAConvivaPage.objDeviceOS,"Rule Device Operating System");
+		String deviceHardwareType = getTextFromRefreshingConvivaPage(driverForWeb,PWAConvivaPage.objDeviceHardwareType,"Rule Device Hardware Type");
+		String assetName = getTextFromRefreshingConvivaPage(driverForWeb,PWAConvivaPage.objAssetName,"Rule Asset Name");
+	
+		rulesField.add("Browser Version");
+		rulesValue.add(browserVersion);
+		
+		rulesField.add("Device Operating System");
+		rulesValue.add(deviceOperatingSystem);
+		
+		rulesField.add("Device Hardware Type");
+		rulesValue.add(deviceHardwareType);
+		
+		rulesField.add("Asset Name");
+		rulesValue.add(assetName);
+	
+	}
+	extent.extentLogger("", "<b>---------- Set Filter rules for Real Time testing----------</b>");
+	driverForWeb.get("https://pulse.conviva.com/app/pulse/filters");
+	logger.info("Opened : https://pulse.conviva.com/app/pulse/filters");
+	extent.extentLogger("", "Opened : https://pulse.conviva.com/app/pulse/filters");	
+	frameElement = driverForWeb.findElement(PWAConvivaPage.objIframePulse4);
+	driverForWeb.switchTo().frame(frameElement);
+	driverForWeb.findElement(PWAConvivaPage.objSearchFilterField).click();
+	logger.info("Clicked on Filter Search Field");
+	extent.extentLogger("", "Clicked on Filter Search Field");
+	driverForWeb.findElement(PWAConvivaPage.objSearchFilterField).sendKeys("For_Automation");
+	logger.info("Typed 'For_Automation' in search edit field");
+	extent.extentLogger("", "Typed 'For_Automation' in search edit field");
+	driverForWeb.findElement(PWAConvivaPage.objFiltersSortButton).click();
+	logger.info("Clicked on Filter Sort button");
+	extent.extentLogger("", "Clicked on Filter Sort button");
+	driverForWeb.findElement(PWAConvivaPage.objFiltersEditButton).click();
+	logger.info("Clicked on Edit button");
+	extent.extentLogger("", "Clicked on Edit button");
+	waitTime(5000);
+	int fields=driverForWeb.findElements(PWAConvivaPage.objFilterRulesFieldsCount).size();
+	int deleteButtons=driverForWeb.findElements(PWAConvivaPage.objDeleteField).size();
+	for(int i=0;i<deleteButtons;i++) {
+		driverForWeb.findElement(PWAConvivaPage.objDeleteField).click();
+		waitTime(2000);
+	}
+	logger.info("Deleted old Filter Rules");
+	extent.extentLogger("", "Deleted old Filter Rules");
+	int endCount=rulesField.size();
+	for(int i=1;i<=endCount;i++) {
+		String rule=rulesField.get(i-1);
+		String value=rulesValue.get(i-1);
+		driverForWeb.findElement(PWAConvivaPage.objRulesSelectField(i)).click();
+		waitTime(1000);
+		driverForWeb.findElement(PWAConvivaPage.objRulesSelectField(i,rule)).click();
+		logger.info("Clicked on Rule "+rule);
+		extent.extentLogger("", "Clicked on Rule "+rule);
+		waitTime(1000);
+		driverForWeb.findElement(PWAConvivaPage.objRulesValueField(i)).click();
+		waitTime(1000);
+		driverForWeb.findElement(PWAConvivaPage.objRulesValueField(i)).clear();
+		waitTime(1000);
+		driverForWeb.findElement(PWAConvivaPage.objRulesValueField(i)).sendKeys(value);
+		waitTime(1000);
+		logger.info("Typed Value "+value);
+		extent.extentLogger("", "Typed Value "+value);
+		driverForWeb.findElement(PWAConvivaPage.objAndButton).click();
+		waitTime(1000);
+		logger.info("Clicked on AND button");
+		extent.extentLogger("", "Clicked on AND button");
+		
+	}
+	driverForWeb.findElement(PWAConvivaPage.objSaveFilterButton).click();
+	return playerTapDetails;
+}
+
+@SuppressWarnings({ "unused", "rawtypes" })
+public void verifyConvivaAttemptsConcurrentPlaysVST(WebDriver webdriver,ArrayList<String> contentData,ArrayList<Integer> playerTapDetails) throws Exception{
+	//From front end
+	extent.HeaderChildNode("TC 1, 2, 4, 11 : Attempts, Concurrent Plays, VST, Average Frame Rate");
+	System.out.println("------------------- TC 1 : Attempts metric on Pulse -------------------");
+	String contentID=contentData.get(0);
+	String contentName=contentData.get(1);
+	String contentMetaInSearch=contentData.get(2);
+	Back(1);
+	click(AMDSearchScreen.objSearchResult(contentName,contentMetaInSearch), "Search result");		
+	Date startDate = new Date();
+	Date endDate = new Date();
+	ArrayList<Date> startAndEndTime=new ArrayList<Date>();
+	startAndEndTime=getPlayerStartEndTime(startDate,endDate,playerTapDetails);
+	startDate=startAndEndTime.get(0);
+	endDate=startAndEndTime.get(1);
+	ArrayList<Integer> vst=getDateDifference(startDate,endDate);
+	logger.info("VST from app : "+vst.get(0)+"min, "+vst.get(1)+"sec, "+vst.get(2)+"millisec");
+	extent.extentLogger("", "VST from app : "+vst.get(0)+"min, "+vst.get(1)+"sec, "+vst.get(2)+"millisec");
+	int vstMilliSecApp=vst.get(0)*60*1000+vst.get(1)*1000+vst.get(2);
+	logger.info("VST calculated in millisecs : "+vstMilliSecApp);
+	extent.extentLogger("", "VST calculated in millisecs : "+vstMilliSecApp);		
+	//From Conviva
+	webdriver.get("https://pulse.conviva.com/reports/54");
+	extent.extentLogger("", "Opened : https://pulse.conviva.com/reports/54");
+	logger.info("Opened : https://pulse.conviva.com/reports/54");
+	waitTime(10000);
+	logger.info("Waited for 10 seconds");
+	extent.extentLogger("", "Waited for 10 seconds");
+	boolean needWait=true;
+	String attempts="";
+	for(int i=1;i<=500;i++) {
+		webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		try {
+			attempts = webdriver.findElement(PWAConvivaPage.objAttempts).getAttribute("innerText");
+			if(Character.isDigit(attempts.charAt(0))){
+				if (attempts.trim().equals("0")) needWait=true;
+				else needWait=false;
+			}
+		}
+		catch(Exception e) {needWait=true;System.out.println("failed "+i);}
+		if(needWait==false) break;
+		else waitTime(3000);
+	}		
+	if (attempts.trim().equals("0") || attempts.equals("")) {
+		extent.extentLoggerFail("", "Attempts is displayed as " + attempts);
+		logger.error("Attempts is displayed as " + attempts);			
+	} else if(attempts.trim().equals("1")){
+		extent.extentLogger("", "Attempts is displayed as " + attempts+", expected behavior");
+		logger.info("Attempts is displayed as " + attempts+", expected behavior");
+	} else {
+		extent.extentLogger("", "Attempts is displayed as " + attempts);
+		logger.info("Attempts is displayed as " + attempts);
+	}
+	String concurrentPlays="";
+	try {
+		concurrentPlays = webdriver.findElement(PWAConvivaPage.objConcurrentPlays).getAttribute("innerText");
+	}
+	catch(Exception e) {}
+	if (concurrentPlays.trim().equals("0") || concurrentPlays.equals("")) {
+		extent.extentLoggerFail("", "Concurrent Plays is displayed as " + concurrentPlays);
+		logger.error("Concurrent Plays is displayed as " + concurrentPlays);			
+	} else if(concurrentPlays.trim().equals("1")){
+		extent.extentLogger("", "Concurrent Plays is displayed as " + concurrentPlays+", expected behavior");
+		logger.info("Concurrent Plays is displayed as " + concurrentPlays+", expected behavior");
+	} else {
+		extent.extentLogger("", "Concurrent Plays is displayed as " + concurrentPlays);
+		logger.info("Concurrent Plays is displayed as " + concurrentPlays);
+	}
+	String avgFrameRatePerSec="";
+	try {
+		avgFrameRatePerSec = webdriver.findElement(PWAConvivaPage.objAverageFrameRate).getAttribute("innerText");
+	}
+	catch(Exception e) {}
+	extent.extentLogger("", "Average Frame Rate is displayed as " + avgFrameRatePerSec);
+	logger.info("Average Frame Rate is displayed as " + avgFrameRatePerSec);	
+	String avgFrameRatePerSecTemp=avgFrameRatePerSec.replace(" fps", "");
+	float avgFrameRatePerSecFloat=Float.parseFloat(avgFrameRatePerSec);
+	if(avgFrameRatePerSecFloat<24.0 && avgFrameRatePerSecFloat>60.0) {
+		extent.extentLoggerFail("", "Average Frame Rate is not maintained within range 24 fps to 60 fps");
+		logger.error("Average Frame Rate is not maintained within range 24 fps to 60 fps");
+	}
+	else {
+		extent.extentLogger("", "Average Frame Rate is maintained within range 24 fps to 60 fps");
+		logger.info("Average Frame Rate is maintained within range 24 fps to 60 fps");
+	}
+	waitTime(5000);
+	screencapture(webdriver);
+	String vstConviva="",temp="",tempSec="",tempMilliSec="",tempPreviousIterationString="";
+	int tempVST=0,tempPreviousIteration=0;
+	for(int i=0;i<50;i++) {
+		try {
+			vstConviva = webdriver.findElement(PWAConvivaPage.objVideoStartupTime).getAttribute("title");
+			temp=vstConviva.replace(" sec", "").trim();
+			tempSec=temp.split("\\.")[0];
+			tempMilliSec=temp.split("\\.")[1];
+			tempVST=(Integer.valueOf(tempSec)*1000)+Integer.valueOf(tempMilliSec);				
+			if(tempVST>tempPreviousIteration) {
+				tempPreviousIteration=tempVST;
+				tempPreviousIterationString=vstConviva;
+			}
+			waitTime(1000);
+		}
+		catch(Exception e) {}	
+	}
+	
+	logger.info("Conviva VST is displayed as " + tempPreviousIterationString+" sec");
+	extent.extentLogger("", "Conviva VST is displayed as " + tempPreviousIterationString+" sec");
+	int vstMilliSecCon=tempPreviousIteration;	
+	logger.info("Conviva VST calculated in millisecs : "+vstMilliSecCon);
+	extent.extentLogger("", "Conviva VST calculated in millisecs : "+vstMilliSecCon);
+	if(Integer.valueOf(vstMilliSecCon).compareTo(vstMilliSecApp)<5000) {
+		logger.info("Calculated VST and Conviva VST have difference below 5 seconds");
+		extent.extentLogger("", "Calculated VST and Conviva VST have difference below 5 seconds");
+	}
+	else {
+		logger.error("Calculated VST and Conviva VST have difference above 5 seconds");
+		extent.extentLoggerFail("", "Calculated VST and Conviva VST have difference above 5 seconds");
+	}
+	extent.HeaderChildNode("TC 5 : Average % Complete");
+	String url="https://pulse.conviva.com/app/pulse/device_validation/?live=true";
+	webdriver.get(url);	
+	logger.info("Opened : "+url);
+	extent.extentLogger("", "Opened : "+url);
+	waitTime(5000);
+	WebElement frameElement = webdriver.findElement(PWAConvivaPage.objIframePulse4);
+	webdriver.switchTo().frame(frameElement);
+	webdriver.findElement(PWAConvivaPage.objDeviceValidationFilter).click();
+	logger.info("Clicked on device validation dropdown");
+	extent.extentLogger("", "Clicked on device validation dropdown");
+	waitTime(5000);
+	webdriver.findElement(PWAConvivaPage.objDeviceValidation("For_Automation")).click();
+	logger.info("Clicked on 'For_Automation' from dropdown");
+	extent.extentLogger("", "Clicked on 'For_Automation' from dropdown");
+	boolean foundEntry=false;
+	ArrayList<String> rulesField=new ArrayList<String>();
+	ArrayList<String> rulesValue=new ArrayList<String>();
+	int x=playerTapDetails.get(0);
+	int y=playerTapDetails.get(1);
+	TouchAction act = new TouchAction(getDriver());	
+	if(clickElementInRefreshingConvivaPage(webdriver,PWAConvivaPage.objMonitorSessionID(contentID),"Monitor Session ID for the played content")) {
+		boolean perCompChanged=false;
+		String percentCompleteBefore= getTextFromRefreshingConvivaPage(webdriver,PWAConvivaPage.objAvgPercentageComplete,"Average % Complete");
+		act.press(PointOption.point(x, y)).release().perform();
+		forwardRewindPlayer("forward");
+		waitTime(3000);
+		forwardRewindPlayer("forward");
+		waitTime(3000);
+		forwardRewindPlayer("forward");
+		waitTime(3000);
+		logger.info("Wait time added");
+		extent.extentLogger("", "Wait time added");
+		for(int i=0;i<50;i++) {
+			String percentCompleteAfter=getTextFromRefreshingConvivaPage(webdriver,PWAConvivaPage.objAvgPercentageComplete,"Average % Complete");
+			if(!percentCompleteAfter.equals(percentCompleteBefore)) {
+				perCompChanged=true;
+				break;
+			}
+			else waitTime(1000);
+		}
+		if(perCompChanged) {
+			logger.info("Average % Complete metric should increase has passed");
+			extent.extentLogger("", "Average % Complete metric should increase has passed");
+		}
+		else {
+			logger.info("Average % Complete metric should increase has failed");
+			extent.extentLogger("", "Average % Complete metric should increase has failed");
+		}
+	}
+	extent.HeaderChildNode("TC 6 : Monitoring session for Paused Video");
+	act.press(PointOption.point(x, y)).release().perform();
+	click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+	webdriver.navigate().back();
+	waitTime(10000);
+	logger.info("Waited for 10 seconds");
+	extent.extentLogger("", "Waited for 10 seconds");
+	frameElement = webdriver.findElement(PWAConvivaPage.objIframePulse4);
+	webdriver.switchTo().frame(frameElement);
+	String playing=getTextFromRefreshingConvivaPage(webdriver,PWAConvivaPage.objMonitorSessionPlayingContent(contentID),"Content log");
+	if(playing.equals("Playing")) {
+		logger.info("Session is maintained for Paused content in Device Validation page");
+		extent.extentLogger("", "Session is maintained for Paused content in Device Validation page");
+	}
+	else {
+		logger.error("Session is not maintained for Paused content in Device Validation page");
+		extent.extentLoggerFail("", "Session is not maintained for Paused content in Device Validation page");
+	}
+}	
+
+@SuppressWarnings("unused")
+public void verifyConvivaExitBeforeVideoStarts(WebDriver webdriver,ArrayList<String> contentData,ArrayList<Integer> playerTapDetails) throws Exception{			
+	tearDown();
+	new Zee5ApplicasterBusinessLogic("zee");
+	extent.HeaderChildNode("TC 9 : Monitoring real time for Exit before video start");	
+	String contentID=contentData.get(0);
+	String contentName=contentData.get(1);
+	String contentMetaInSearch=contentData.get(2);
+	click(AMDHomePage.objSearchBtn, "Search button");
+	waitTime(5000);
+	click(AMDSearchScreen.objSearchEditBox, "Search box");
+	type(AMDSearchScreen.objSearchBoxBar, contentName+"\n", "Search box");
+	hideKeyboard();
+	waitTime(6000);
+	click(AMDSearchScreen.objSearchResult(contentName,contentMetaInSearch), "Search result");
+	waitTime(1000);
+	Back(1);
+	logger.info("Navigated back to exit play");
+	extent.extentLogger("", "Navigated back to exit play");
+	webdriver.get("https://pulse.conviva.com/reports/54");
+	extent.extentLogger("", "Opened : https://pulse.conviva.com/reports/54");
+	logger.info("Opened : https://pulse.conviva.com/reports/54");
+	waitTime(10000);
+	logger.info("Waited for 10 seconds");
+	extent.extentLogger("", "Waited for 10 seconds");
+	boolean needWait=true;
+	String attempts="";
+	for(int i=1;i<=500;i++) {
+		webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		try {
+			attempts = webdriver.findElement(PWAConvivaPage.objAttempts).getAttribute("innerText");
+			if(Character.isDigit(attempts.charAt(0))){
+				if (attempts.trim().equals("0")) needWait=true;
+				else needWait=false;
+			}
+		}
+		catch(Exception e) {needWait=true;System.out.println("failed "+i);}
+		if(needWait==false) break;
+		else waitTime(3000);
+	}		
+	if(attempts.trim().equals("1")){
+		extent.extentLogger("", "Attempts is displayed as " + attempts+", expected behavior");
+		logger.info("Attempts is displayed as " + attempts+", expected behavior");
+	} else {
+		extent.extentLoggerFail("", "Attempts is displayed as " + attempts);
+		logger.error("Attempts is displayed as " + attempts);
+	}
+	String exitBeforeVideoStart="";
+	try {
+		exitBeforeVideoStart = webdriver.findElement(PWAConvivaPage.objExitBeforeVideoStart).getAttribute("innerText");
+	}
+	catch(Exception e) {}
+	if(exitBeforeVideoStart.trim().equals("100 %")){
+		extent.extentLogger("", "Exits Before Video Start is displayed as " + exitBeforeVideoStart+", expected behavior");
+		logger.info("Exits Before Video Start is displayed as " + exitBeforeVideoStart+", expected behavior");
+	} else {
+		extent.extentLoggerFail("", "Exits Before Video Start is displayed as " + exitBeforeVideoStart+", instead of 100%");
+		logger.error("Exits Before Video Start is displayed as " + exitBeforeVideoStart+", instead of 100%");
+	}
+}
+
+
+@SuppressWarnings({ "unused", "rawtypes" })
+public void verifyConvivaClickOnProgressBar(WebDriver webdriver,ArrayList<String> contentData,ArrayList<Integer> playerTapDetails) throws Exception{			
+	tearDown();
+	new Zee5ApplicasterBusinessLogic("zee");
+	extent.HeaderChildNode("TC 13 : Monitoring real time after clicking on Progress bar");	
+	String contentID=contentData.get(0);
+	String contentName=contentData.get(1);
+	String contentMetaInSearch=contentData.get(2);
+	click(AMDHomePage.objSearchBtn, "Search button");
+	waitTime(5000);
+	click(AMDSearchScreen.objSearchEditBox, "Search box");
+	type(AMDSearchScreen.objSearchBoxBar, contentName+"\n", "Search box");
+	hideKeyboard();
+	waitTime(6000);
+	click(AMDSearchScreen.objSearchResult(contentName,contentMetaInSearch), "Search result");
+	waitForAdToFinishInAmd();
+	int x=playerTapDetails.get(0);
+	int y=playerTapDetails.get(1);
+	TouchAction act = new TouchAction(getDriver());	
+	act.press(PointOption.point(x, y)).release().perform();
+	clickOnProgressBar(40);
+	waitForAdToFinishInAmd();
+	Date startDate = new Date();
+	Date endDate = new Date();
+	ArrayList<Date> startAndEndTime=new ArrayList<Date>();
+	startAndEndTime=getPlayerStartEndTime(startDate,endDate,playerTapDetails);
+	startDate=startAndEndTime.get(0);
+	endDate=startAndEndTime.get(1);
+	ArrayList<Integer> vst=getDateDifference(startDate,endDate);
+	logger.info("VRT from app : "+vst.get(0)+"min, "+vst.get(1)+"sec, "+vst.get(2)+"millisec");
+	extent.extentLogger("", "VRT from app : "+vst.get(0)+"min, "+vst.get(1)+"sec, "+vst.get(2)+"millisec");
+	int vstMilliSecApp=vst.get(0)*60*1000+vst.get(1)*1000+vst.get(2);
+	logger.info("VRT calculated in millisecs : "+vstMilliSecApp);
+	extent.extentLogger("", "VRT calculated in millisecs : "+vstMilliSecApp);
+	webdriver.get("https://pulse.conviva.com/reports/54");
+	extent.extentLogger("", "Opened : https://pulse.conviva.com/reports/54");
+	logger.info("Opened : https://pulse.conviva.com/reports/54");
+	waitTime(10000);
+	logger.info("Waited for 10 seconds");
+	extent.extentLogger("", "Waited for 10 seconds");
+	String concurrentPlays="";
+	boolean needWait=true;
+	for(int i=1;i<=500;i++) {
+		webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		try {
+			concurrentPlays = webdriver.findElement(PWAConvivaPage.objConcurrentPlays).getAttribute("innerText");
+			if(Character.isDigit(concurrentPlays.charAt(0))){
+				if (!concurrentPlays.trim().equals("1")) needWait=true;
+				else needWait=false;
+			}
+		}
+		catch(Exception e) {needWait=true;System.out.println("failed "+i);}
+		if(needWait==false) break;
+		else waitTime(3000);
+	}		
+	if (concurrentPlays.trim().equals("0") || concurrentPlays.equals("")) {
+		extent.extentLoggerFail("", "Concurrent Plays is displayed as " + concurrentPlays);
+		logger.error("Concurrent Plays is displayed as " + concurrentPlays);			
+	} else if(concurrentPlays.trim().equals("1")){
+		extent.extentLogger("", "Concurrent Plays is displayed as " + concurrentPlays+", expected behavior");
+		logger.info("Concurrent Plays is displayed as " + concurrentPlays+", expected behavior");
+	} else {
+		extent.extentLogger("", "Concurrent Plays is displayed as " + concurrentPlays);
+		logger.info("Concurrent Plays is displayed as " + concurrentPlays);
+	}
+	String rebufRatio="",temp="";
+	float highestRebufRatio=0.0f,lowestRebufRatio=0.0f;
+	for(int i=0;i<10;i++) {
+		try {
+			rebufRatio = webdriver.findElement(PWAConvivaPage.objRebufferingRatio).getAttribute("innerText");
+			System.out.println("rebufRatio: "+rebufRatio);
+			temp=rebufRatio.split(" ")[0];
+			float tempF=Float.valueOf(temp);
+			if(tempF>highestRebufRatio) highestRebufRatio=tempF;
+			if(tempF<lowestRebufRatio) lowestRebufRatio=tempF;
+			waitTime(1000);
+		}
+		catch(Exception e) {}	
+	}
+	extent.extentLogger("", "Highest Rebuffering ratio recorded " + highestRebufRatio);
+	logger.info("Highest Rebuffering ratio recorded " + highestRebufRatio);
+	extent.extentLogger("", "Lowest Rebuffering ratio recorded " + lowestRebufRatio);
+	logger.info("Lowest Rebuffering ratio recorded " + lowestRebufRatio);
+	if(lowestRebufRatio<highestRebufRatio) {
+		logger.info("Increasing Rebuffering ratio has been captured");
+		extent.extentLogger("", "Increasing Rebuffering ratio has been captured");
+	}
+	else {
+		logger.info("No buffering observed for the user");
+		extent.extentLogger("", "No buffering observed for the user");
+	}
+	
+	String vrtConviva="",tempvrt="",tempSec="",tempMilliSec="",tempPreviousIterationString="";
+	int tempVRT=0,tempPreviousIteration=0;
+	for(int i=0;i<50;i++) {
+		try {
+			vrtConviva = webdriver.findElement(PWAConvivaPage.objVideoRestartTime).getAttribute("title");
+			tempvrt=vrtConviva.replace(" sec", "").trim();
+			tempSec=tempvrt.split("\\.")[0];
+			tempMilliSec=tempvrt.split("\\.")[1];
+			tempVRT=(Integer.valueOf(tempSec)*1000)+Integer.valueOf(tempMilliSec);				
+			if(tempVRT>tempPreviousIteration) {
+				tempPreviousIteration=tempVRT;
+				tempPreviousIterationString=vrtConviva;
+			}
+			waitTime(1000);
+		}
+		catch(Exception e) {}	
+	}
+	
+	logger.info("Conviva VRT is displayed as " + tempPreviousIterationString+" sec");
+	extent.extentLogger("", "Conviva VRT is displayed as " + tempPreviousIterationString+" sec");
+	int vrtMilliSecCon=tempPreviousIteration;	
+	logger.info("Conviva VRT calculated in millisecs : "+vrtMilliSecCon);
+	extent.extentLogger("", "Conviva VRT calculated in millisecs : "+vrtMilliSecCon);
+	if(Integer.valueOf(vrtMilliSecCon).compareTo(vstMilliSecApp)<5000) {
+		logger.info("Calculated VRT and Conviva VRT have difference below 5 seconds");
+		extent.extentLogger("", "Calculated VRT and Conviva VRT have difference below 5 seconds");
+	}
+	else {
+		logger.error("Calculated VRT and Conviva VRT have difference above 5 seconds");
+		extent.extentLoggerFail("", "Calculated VRT and Conviva VRT have difference above 5 seconds");
+	}	
+}
+
+@SuppressWarnings({ "rawtypes", "unused" })
+public void verifyConvivaDragOnProgressBar(WebDriver webdriver,ArrayList<String> contentData,ArrayList<Integer> playerTapDetails) throws Exception{			
+	tearDown();
+	new Zee5ApplicasterBusinessLogic("zee");
+	extent.HeaderChildNode("TC 14 : Monitoring real time after dragging on Progress bar");	
+	String contentID=contentData.get(0);
+	String contentName=contentData.get(1);
+	String contentMetaInSearch=contentData.get(2);
+	click(AMDHomePage.objSearchBtn, "Search button");
+	waitTime(5000);
+	click(AMDSearchScreen.objSearchEditBox, "Search box");
+	type(AMDSearchScreen.objSearchBoxBar, contentName+"\n", "Search box");
+	hideKeyboard();
+	waitTime(6000);
+	click(AMDSearchScreen.objSearchResult(contentName,contentMetaInSearch), "Search result");
+	waitForAdToFinishInAmd();
+	int x=playerTapDetails.get(0);
+	int y=playerTapDetails.get(1);
+	TouchAction act = new TouchAction(getDriver());	
+	act.press(PointOption.point(x, y)).release().perform();
+	dragOnProgressBar(40);
+	waitForAdToFinishInAmd();
+	Date startDate = new Date();
+	Date endDate = new Date();
+	ArrayList<Date> startAndEndTime=new ArrayList<Date>();
+	startAndEndTime=getPlayerStartEndTime(startDate,endDate,playerTapDetails);
+	startDate=startAndEndTime.get(0);
+	endDate=startAndEndTime.get(1);
+	ArrayList<Integer> vst=getDateDifference(startDate,endDate);
+	logger.info("VRT from app : "+vst.get(0)+"min, "+vst.get(1)+"sec, "+vst.get(2)+"millisec");
+	extent.extentLogger("", "VRT from app : "+vst.get(0)+"min, "+vst.get(1)+"sec, "+vst.get(2)+"millisec");
+	int vstMilliSecApp=vst.get(0)*60*1000+vst.get(1)*1000+vst.get(2);
+	logger.info("VRT calculated in millisecs : "+vstMilliSecApp);
+	extent.extentLogger("", "VRT calculated in millisecs : "+vstMilliSecApp);
+	webdriver.get("https://pulse.conviva.com/reports/54");
+	extent.extentLogger("", "Opened : https://pulse.conviva.com/reports/54");
+	logger.info("Opened : https://pulse.conviva.com/reports/54");
+	waitTime(10000);
+	logger.info("Waited for 10 seconds");
+	extent.extentLogger("", "Waited for 10 seconds");
+	String concurrentPlays="";
+	boolean needWait=true;
+	for(int i=1;i<=500;i++) {
+		webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		try {
+			concurrentPlays = webdriver.findElement(PWAConvivaPage.objConcurrentPlays).getAttribute("innerText");
+			if(Character.isDigit(concurrentPlays.charAt(0))){
+				if (!concurrentPlays.trim().equals("1")) needWait=true;
+				else needWait=false;
+			}
+		}
+		catch(Exception e) {needWait=true;System.out.println("failed "+i);}
+		if(needWait==false) break;
+		else waitTime(3000);
+	}		
+	if (concurrentPlays.trim().equals("0") || concurrentPlays.equals("")) {
+		extent.extentLoggerFail("", "Concurrent Plays is displayed as " + concurrentPlays);
+		logger.error("Concurrent Plays is displayed as " + concurrentPlays);			
+	} else if(concurrentPlays.trim().equals("1")){
+		extent.extentLogger("", "Concurrent Plays is displayed as " + concurrentPlays+", expected behavior");
+		logger.info("Concurrent Plays is displayed as " + concurrentPlays+", expected behavior");
+	} else {
+		extent.extentLogger("", "Concurrent Plays is displayed as " + concurrentPlays);
+		logger.info("Concurrent Plays is displayed as " + concurrentPlays);
+	}
+	String rebufRatio="",temp="";
+	float highestRebufRatio=0.0f,lowestRebufRatio=0.0f;
+	for(int i=0;i<10;i++) {
+		try {
+			rebufRatio = webdriver.findElement(PWAConvivaPage.objRebufferingRatio).getAttribute("innerText");
+			System.out.println("rebufRatio: "+rebufRatio);
+			temp=rebufRatio.split(" ")[0];
+			float tempF=Float.valueOf(temp);
+			if(tempF>highestRebufRatio) highestRebufRatio=tempF;
+			if(tempF<lowestRebufRatio) lowestRebufRatio=tempF;
+			waitTime(1000);
+		}
+		catch(Exception e) {}	
+	}
+	extent.extentLogger("", "Highest Rebuffering ratio recorded " + highestRebufRatio);
+	logger.info("Highest Rebuffering ratio recorded " + highestRebufRatio);
+	extent.extentLogger("", "Lowest Rebuffering ratio recorded " + lowestRebufRatio);
+	logger.info("Lowest Rebuffering ratio recorded " + lowestRebufRatio);
+	if(lowestRebufRatio<highestRebufRatio) {
+		logger.info("Increasing Rebuffering ratio has been captured");
+		extent.extentLogger("", "Increasing Rebuffering ratio has been captured");
+	}
+	else {
+		logger.info("No buffering observed for the user");
+		extent.extentLogger("", "No buffering observed for the user");
+	}
+	
+	String vrtConviva="",tempvrt="",tempSec="",tempMilliSec="",tempPreviousIterationString="";
+	int tempVRT=0,tempPreviousIteration=0;
+	for(int i=0;i<50;i++) {
+		try {
+			vrtConviva = webdriver.findElement(PWAConvivaPage.objVideoRestartTime).getAttribute("title");
+			tempvrt=vrtConviva.replace(" sec", "").trim();
+			tempSec=tempvrt.split("\\.")[0];
+			tempMilliSec=tempvrt.split("\\.")[1];
+			tempVRT=(Integer.valueOf(tempSec)*1000)+Integer.valueOf(tempMilliSec);				
+			if(tempVRT>tempPreviousIteration) {
+				tempPreviousIteration=tempVRT;
+				tempPreviousIterationString=vrtConviva;
+			}
+			waitTime(1000);
+		}
+		catch(Exception e) {}	
+	}
+	
+	logger.info("Conviva VRT is displayed as " + tempPreviousIterationString+" sec");
+	extent.extentLogger("", "Conviva VRT is displayed as " + tempPreviousIterationString+" sec");
+	int vrtMilliSecCon=tempPreviousIteration;	
+	logger.info("Conviva VRT calculated in millisecs : "+vrtMilliSecCon);
+	extent.extentLogger("", "Conviva VRT calculated in millisecs : "+vrtMilliSecCon);
+	if(Integer.valueOf(vrtMilliSecCon).compareTo(vstMilliSecApp)<5000) {
+		logger.info("Calculated VRT and Conviva VRT have difference below 5 seconds");
+		extent.extentLogger("", "Calculated VRT and Conviva VRT have difference below 5 seconds");
+	}
+	else {
+		logger.error("Calculated VRT and Conviva VRT have difference above 5 seconds");
+		extent.extentLoggerFail("", "Calculated VRT and Conviva VRT have difference above 5 seconds");
+	}
+	screencapture(webdriver);		
+}
+
+@SuppressWarnings({ "unused", "rawtypes" })
+public void verifyConvivaForwardOnProgressBar(WebDriver webdriver,ArrayList<String> contentData,ArrayList<Integer> playerTapDetails) throws Exception{			
+	tearDown();
+	new Zee5ApplicasterBusinessLogic("zee");
+	extent.HeaderChildNode("TC 15 : Monitoring real time after pressing Forward on Progress bar");	
+	String contentID=contentData.get(0);
+	String contentName=contentData.get(1);
+	String contentMetaInSearch=contentData.get(2);
+	click(AMDHomePage.objSearchBtn, "Search button");
+	waitTime(5000);
+	click(AMDSearchScreen.objSearchEditBox, "Search box");
+	type(AMDSearchScreen.objSearchBoxBar, contentName+"\n", "Search box");
+	hideKeyboard();
+	waitTime(6000);
+	click(AMDSearchScreen.objSearchResult(contentName,contentMetaInSearch), "Search result");
+	waitForAdToFinishInAmd();
+	int x=playerTapDetails.get(0);
+	int y=playerTapDetails.get(1);
+	TouchAction act = new TouchAction(getDriver());	
+	act.press(PointOption.point(x, y)).release().perform();
+	forwardRewindPlayer("forward");
+	waitTime(3000);
+	forwardRewindPlayer("forward");
+	waitTime(3000);
+	forwardRewindPlayer("forward");
+	waitTime(3000);
+	waitForAdToFinishInAmd();
+	Date startDate = new Date();
+	Date endDate = new Date();
+	ArrayList<Date> startAndEndTime=new ArrayList<Date>();
+	startAndEndTime=getPlayerStartEndTime(startDate,endDate,playerTapDetails);
+	startDate=startAndEndTime.get(0);
+	endDate=startAndEndTime.get(1);
+	ArrayList<Integer> vst=getDateDifference(startDate,endDate);
+	logger.info("VRT from app : "+vst.get(0)+"min, "+vst.get(1)+"sec, "+vst.get(2)+"millisec");
+	extent.extentLogger("", "VRT from app : "+vst.get(0)+"min, "+vst.get(1)+"sec, "+vst.get(2)+"millisec");
+	int vstMilliSecApp=vst.get(0)*60*1000+vst.get(1)*1000+vst.get(2);
+	logger.info("VRT calculated in millisecs : "+vstMilliSecApp);
+	extent.extentLogger("", "VRT calculated in millisecs : "+vstMilliSecApp);
+	webdriver.get("https://pulse.conviva.com/reports/54");
+	extent.extentLogger("", "Opened : https://pulse.conviva.com/reports/54");
+	logger.info("Opened : https://pulse.conviva.com/reports/54");
+	waitTime(10000);
+	logger.info("Waited for 10 seconds");
+	extent.extentLogger("", "Waited for 10 seconds");
+	String concurrentPlays="";
+	boolean needWait=true;
+	for(int i=1;i<=500;i++) {
+		webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		try {
+			concurrentPlays = webdriver.findElement(PWAConvivaPage.objConcurrentPlays).getAttribute("innerText");
+			if(Character.isDigit(concurrentPlays.charAt(0))){
+				if (!concurrentPlays.trim().equals("1")) needWait=true;
+				else needWait=false;
+			}
+		}
+		catch(Exception e) {needWait=true;System.out.println("failed "+i);}
+		if(needWait==false) break;
+		else waitTime(3000);
+	}		
+	if (concurrentPlays.trim().equals("0") || concurrentPlays.equals("")) {
+		extent.extentLoggerFail("", "Concurrent Plays is displayed as " + concurrentPlays);
+		logger.error("Concurrent Plays is displayed as " + concurrentPlays);			
+	} else if(concurrentPlays.trim().equals("1")){
+		extent.extentLogger("", "Concurrent Plays is displayed as " + concurrentPlays+", expected behavior");
+		logger.info("Concurrent Plays is displayed as " + concurrentPlays+", expected behavior");
+	} else {
+		extent.extentLogger("", "Concurrent Plays is displayed as " + concurrentPlays);
+		logger.info("Concurrent Plays is displayed as " + concurrentPlays);
+	}
+	String rebufRatio="",temp="";
+	float highestRebufRatio=0.0f,lowestRebufRatio=0.0f;
+	for(int i=0;i<10;i++) {
+		try {
+			rebufRatio = webdriver.findElement(PWAConvivaPage.objRebufferingRatio).getAttribute("innerText");
+			System.out.println("rebufRatio: "+rebufRatio);
+			temp=rebufRatio.split(" ")[0];
+			float tempF=Float.valueOf(temp);
+			if(tempF>highestRebufRatio) highestRebufRatio=tempF;
+			if(tempF<lowestRebufRatio) lowestRebufRatio=tempF;
+			waitTime(1000);
+		}
+		catch(Exception e) {}	
+	}
+	extent.extentLogger("", "Highest Rebuffering ratio recorded " + highestRebufRatio);
+	logger.info("Highest Rebuffering ratio recorded " + highestRebufRatio);
+	extent.extentLogger("", "Lowest Rebuffering ratio recorded " + lowestRebufRatio);
+	logger.info("Lowest Rebuffering ratio recorded " + lowestRebufRatio);
+	if(lowestRebufRatio<highestRebufRatio) {
+		logger.info("Increasing Rebuffering ratio has been captured");
+		extent.extentLogger("", "Increasing Rebuffering ratio has been captured");
+	}
+	else {
+		logger.info("No buffering observed for the user");
+		extent.extentLogger("", "No buffering observed for the user");
+	}
+	
+	String vrtConviva="",tempvrt="",tempSec="",tempMilliSec="",tempPreviousIterationString="";
+	int tempVRT=0,tempPreviousIteration=0;
+	for(int i=0;i<50;i++) {
+		try {
+			vrtConviva = webdriver.findElement(PWAConvivaPage.objVideoRestartTime).getAttribute("title");
+			tempvrt=vrtConviva.replace(" sec", "").trim();
+			tempSec=tempvrt.split("\\.")[0];
+			tempMilliSec=tempvrt.split("\\.")[1];
+			tempVRT=(Integer.valueOf(tempSec)*1000)+Integer.valueOf(tempMilliSec);				
+			if(tempVRT>tempPreviousIteration) {
+				tempPreviousIteration=tempVRT;
+				tempPreviousIterationString=vrtConviva;
+			}
+			waitTime(1000);
+		}
+		catch(Exception e) {}	
+	}
+	
+	logger.info("Conviva VRT is displayed as " + tempPreviousIterationString+" sec");
+	extent.extentLogger("", "Conviva VRT is displayed as " + tempPreviousIterationString+" sec");
+	int vrtMilliSecCon=tempPreviousIteration;	
+	logger.info("Conviva VRT calculated in millisecs : "+vrtMilliSecCon);
+	extent.extentLogger("", "Conviva VRT calculated in millisecs : "+vrtMilliSecCon);
+	if(Integer.valueOf(vrtMilliSecCon).compareTo(vstMilliSecApp)<5000) {
+		logger.info("Calculated VRT and Conviva VRT have difference below 5 seconds");
+		extent.extentLogger("", "Calculated VRT and Conviva VRT have difference below 5 seconds");
+	}
+	else {
+		logger.error("Calculated VRT and Conviva VRT have difference above 5 seconds");
+		extent.extentLoggerFail("", "Calculated VRT and Conviva VRT have difference above 5 seconds");
+	}
+	screencapture(webdriver);		
+}
+
+
+@SuppressWarnings("unused")
+public void verifyConvivaPhoneLockUnlock(WebDriver webdriver,ArrayList<String> contentData,ArrayList<Integer> playerTapDetails) throws Exception{			
+	tearDown();
+	new Zee5ApplicasterBusinessLogic("zee");
+	extent.HeaderChildNode("TC 16 : Monitoring real time after App is put To Background during playback");	
+	String contentID=contentData.get(0);
+	String contentName=contentData.get(1);
+	String contentMetaInSearch=contentData.get(2);
+	click(AMDHomePage.objSearchBtn, "Search button");
+	waitTime(5000);
+	click(AMDSearchScreen.objSearchEditBox, "Search box");
+	type(AMDSearchScreen.objSearchBoxBar, contentName+"\n", "Search box");
+	hideKeyboard();
+	waitTime(6000);
+	click(AMDSearchScreen.objSearchResult(contentName,contentMetaInSearch), "Search result");
+	waitForAdToFinishInAmd();
+	webdriver.get("https://pulse.conviva.com/reports/54");
+	extent.extentLogger("", "Opened : https://pulse.conviva.com/reports/54");
+	logger.info("Opened : https://pulse.conviva.com/reports/54");
+	waitTime(10000);
+	logger.info("Waited for 10 seconds");
+	extent.extentLogger("", "Waited for 10 seconds");
+	String attempts="";
+	boolean needWait=true;
+	for(int i=1;i<=500;i++) {
+		webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		try {
+			attempts = webdriver.findElement(PWAConvivaPage.objAttempts).getAttribute("innerText");
+			if(Character.isDigit(attempts.charAt(0))){
+				if (!attempts.trim().equals("1")) needWait=true;
+				else needWait=false;
+			}
+		}
+		catch(Exception e) {needWait=true;System.out.println("failed "+i);}
+		if(needWait==false) break;
+		else waitTime(3000);
+	}		
+	if (attempts.trim().equals("0") || attempts.equals("")) {
+		extent.extentLoggerFail("", "Attempts is displayed as " + attempts);
+		logger.error("Attempts is displayed as " + attempts);			
+	} else if(attempts.trim().equals("1")){
+		extent.extentLogger("", "Attempts is displayed as " + attempts+", expected behavior");
+		logger.info("Attempts is displayed as " + attempts+", expected behavior");
+	} else {
+		extent.extentLogger("", "Attempts is displayed as " + attempts);
+		logger.info("Attempts is displayed as " + attempts);
+	}
+	String plays="";
+	try {
+		plays = webdriver.findElement(PWAConvivaPage.objPlays).getAttribute("innerText");
+	}
+	catch(Exception e) {}
+	if(plays.trim().equals("100 %")){
+		extent.extentLogger("", "Plays is displayed as " + plays+", expected behavior");
+		logger.info("Plays is displayed as " + plays+", expected behavior");
+	} else {
+		extent.extentLoggerFail("", "Plays is displayed as " + plays+", instead of 100%");
+		logger.error("Plays is displayed as " + plays+", instead of 100%");
+	}	
+	adbKeyevents(26);
+	extent.extentLogger("", "Phone is locked");
+	logger.info("Phone is locked");
+	String attemptsAtLocked="";
+	needWait=true;
+	for(int i=1;i<=500;i++) {
+		webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		try {
+			attemptsAtLocked = webdriver.findElement(PWAConvivaPage.objAttempts).getAttribute("innerText");
+			if(Character.isDigit(attemptsAtLocked.charAt(0))){
+				if (!attemptsAtLocked.trim().equals("0")) needWait=true;
+				else needWait=false;
+			}
+		}
+		catch(Exception e) {needWait=true;System.out.println("failed "+i);}
+		if(needWait==false) break;
+		else waitTime(3000);
+	}		
+	if(attemptsAtLocked.trim().equals("0")){
+		extent.extentLogger("", "Attempts is displayed as " + attemptsAtLocked+", expected behavior for app in background");
+		logger.info("Attempts is displayed as " + attemptsAtLocked+", expected behavior for app in background");
+	}
+	else {
+		extent.extentLoggerFail("", "Attempts is displayed as " + attemptsAtLocked+" for app in background");
+		logger.error("Attempts is displayed as " + attemptsAtLocked+" for app in background");
+	}
+	String playsAtLocked="";
+	try {
+		playsAtLocked = webdriver.findElement(PWAConvivaPage.objPlays).getAttribute("innerText");
+	}
+	catch(Exception e) {}
+	if(playsAtLocked.trim().equals("0 %")){
+		extent.extentLogger("", "Plays is displayed as " + playsAtLocked+", expected behavior for app in background");
+		logger.info("Plays is displayed as " + playsAtLocked+", expected behavior for app in background");
+	} else {
+		extent.extentLoggerFail("", "Plays is displayed as " + playsAtLocked+" for app in background instead of 0%");
+		logger.error("Plays is displayed as " + playsAtLocked+" for app in background instead of 0%");
+	}
+	screencapture(webdriver);
+	adbKeyevents(26);
+	waitTime(3000);
+	Swipe("Up", 1);
+	extent.extentLogger("", "Phone is locked");
+	logger.info("Phone is locked");
+}
+
+@SuppressWarnings("unused")
+public void verifyConvivaAppPutToBackground(WebDriver webdriver,ArrayList<String> contentData,ArrayList<Integer> playerTapDetails) throws Exception{			
+	tearDown();
+	new Zee5ApplicasterBusinessLogic("zee");
+	extent.HeaderChildNode("TC 16 : Monitoring real time after App is put To Background during playback");	
+	String contentID=contentData.get(0);
+	String contentName=contentData.get(1);
+	String contentMetaInSearch=contentData.get(2);
+	click(AMDHomePage.objSearchBtn, "Search button");
+	waitTime(5000);
+	click(AMDSearchScreen.objSearchEditBox, "Search box");
+	type(AMDSearchScreen.objSearchBoxBar, contentName+"\n", "Search box");
+	hideKeyboard();
+	waitTime(6000);
+	click(AMDSearchScreen.objSearchResult(contentName,contentMetaInSearch), "Search result");
+	waitForAdToFinishInAmd();
+	webdriver.get("https://pulse.conviva.com/reports/54");
+	extent.extentLogger("", "Opened : https://pulse.conviva.com/reports/54");
+	logger.info("Opened : https://pulse.conviva.com/reports/54");
+	waitTime(10000);
+	logger.info("Waited for 10 seconds");
+	extent.extentLogger("", "Waited for 10 seconds");
+	String attempts="";
+	boolean needWait=true;
+	for(int i=1;i<=500;i++) {
+		webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		try {
+			attempts = webdriver.findElement(PWAConvivaPage.objAttempts).getAttribute("innerText");
+			if(Character.isDigit(attempts.charAt(0))){
+				if (!attempts.trim().equals("1")) needWait=true;
+				else needWait=false;
+			}
+		}
+		catch(Exception e) {needWait=true;System.out.println("failed "+i);}
+		if(needWait==false) break;
+		else waitTime(3000);
+	}		
+	if (attempts.trim().equals("0") || attempts.equals("")) {
+		extent.extentLoggerFail("", "Attempts is displayed as " + attempts);
+		logger.error("Attempts is displayed as " + attempts);			
+	} else if(attempts.trim().equals("1")){
+		extent.extentLogger("", "Attempts is displayed as " + attempts+", expected behavior");
+		logger.info("Attempts is displayed as " + attempts+", expected behavior");
+	} else {
+		extent.extentLogger("", "Attempts is displayed as " + attempts);
+		logger.info("Attempts is displayed as " + attempts);
+	}
+	String plays="";
+	try {
+		plays = webdriver.findElement(PWAConvivaPage.objPlays).getAttribute("innerText");
+	}
+	catch(Exception e) {}
+	if(plays.trim().equals("100 %")){
+		extent.extentLogger("", "Plays is displayed as " + plays+", expected behavior");
+		logger.info("Plays is displayed as " + plays+", expected behavior");
+	} else {
+		extent.extentLoggerFail("", "Plays is displayed as " + plays+", instead of 100%");
+		logger.error("Plays is displayed as " + plays+", instead of 100%");
+	}	
+	getDriver().runAppInBackground(Duration.ofSeconds(15));
+	extent.extentLogger("", "App went to background for 15 minutes");
+	logger.info("App went to background for 15 minutes");
+	String attemptsAtBackground="";
+	needWait=true;
+	for(int i=1;i<=500;i++) {
+		webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		try {
+			attemptsAtBackground = webdriver.findElement(PWAConvivaPage.objAttempts).getAttribute("innerText");
+			if(Character.isDigit(attemptsAtBackground.charAt(0))){
+				if (!attemptsAtBackground.trim().equals("0")) needWait=true;
+				else needWait=false;
+			}
+		}
+		catch(Exception e) {needWait=true;System.out.println("failed "+i);}
+		if(needWait==false) break;
+		else waitTime(3000);
+	}		
+	if(attemptsAtBackground.trim().equals("0")){
+		extent.extentLogger("", "Attempts is displayed as " + attemptsAtBackground+", expected behavior for app in background");
+		logger.info("Attempts is displayed as " + attemptsAtBackground+", expected behavior for app in background");
+	}
+	else {
+		extent.extentLoggerFail("", "Attempts is displayed as " + attemptsAtBackground+" for app in background");
+		logger.error("Attempts is displayed as " + attemptsAtBackground+" for app in background");
+	}
+	String playsAtBackground="";
+	try {
+		playsAtBackground = webdriver.findElement(PWAConvivaPage.objPlays).getAttribute("innerText");
+	}
+	catch(Exception e) {}
+	if(playsAtBackground.trim().equals("0 %")){
+		extent.extentLogger("", "Plays is displayed as " + playsAtBackground+", expected behavior for app in background");
+		logger.info("Plays is displayed as " + playsAtBackground+", expected behavior for app in background");
+	} else {
+		extent.extentLoggerFail("", "Plays is displayed as " + playsAtBackground+" for app in background instead of 0%");
+		logger.error("Plays is displayed as " + playsAtBackground+" for app in background instead of 0%");
+	}
+	screencapture(webdriver);
+}
+
+
+public boolean clickElementInRefreshingConvivaPage(WebDriver webdriver, By locator,String displayText) throws Exception {
+	for(int i=1;i<=500;i++) {
+		webdriver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+		try {
+			webdriver.findElement(locator).click();
+			logger.info("Clicked on "+displayText);
+			extent.extentLogger("", "Clicked on "+displayText);
+			return true;
+		}
+		catch(Exception e) {
+			try {
+				js.executeScript("window.scrollBy(0,100)", "");
+				waitTime(2000);
+				System.out.println("Waiting ..");
+			}catch(Exception e1) {}
+		}
+	}
+	return false;
+}
+
+
+public String getTextFromRefreshingConvivaPage(WebDriver webdriver, By locator,String displayText) throws Exception {
+	for(int i=1;i<=500;i++) {
+		webdriver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+		try {
+			String text=webdriver.findElement(locator).getAttribute("innerText");
+			logger.info(displayText+" : "+text);
+			extent.extentLogger("", displayText+" : "+text);
+			return text;
+		}
+		catch(Exception e) {
+			try {
+				js.executeScript("window.scrollBy(0,100)", "");
+				waitTime(2000);
+				System.out.println("Waiting ..");
+			}catch(Exception e1) {}
+		}
+	}
+	logger.info("Text fetch failed for "+displayText);
+	extent.extentLogger("", "Text fetch failed for "+displayText);
+	return "";
+}
+
+public ArrayList<Integer> getDateDifference(Date startDate, Date endDate) throws Exception {
+	ArrayList<Integer> timeValues=new ArrayList<Integer>();
+	long duration  = endDate.getTime() - startDate.getTime();
+	long diffInMilliSeconds = TimeUnit.MILLISECONDS.toMillis(duration);
+	int milliSeconds= (int) Math.floorMod(diffInMilliSeconds, 1000);		
+	int seconds=(int) (diffInMilliSeconds/1000);
+	int mins=0;
+	if(seconds>=60) {
+		mins=seconds/60;
+		seconds=Math.floorMod(seconds, 60);
+	}
+	System.out.println("minutes: "+mins);
+	System.out.println("seconds: "+seconds);
+	System.out.println("milliSeconds: "+milliSeconds);
+	timeValues.add(mins);
+	timeValues.add(seconds);
+	timeValues.add(milliSeconds);
+	return timeValues;
+}
+
+public String getDateDetails(Date date) throws Exception {
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+	String dateString=dateFormat.format(date).toString();
+	return dateString;
+}
+
+@SuppressWarnings({ "rawtypes", "unused" })
+public ArrayList<Date> getPlayerStartEndTime (Date startDate,Date endDate,ArrayList<Integer> playerTapDetails) throws Exception {
+	int x=playerTapDetails.get(0);
+	int y=playerTapDetails.get(1);
+	ArrayList<Date> startAndEndTime=new ArrayList<Date>();
+	getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.MILLISECONDS);	
+	String playerHeadPosition="0";
+	boolean adPlay=false,adMessage=false;
+	TouchAction act = new TouchAction(getDriver());
+	main : for(int j=0;j<1000;j++) {				
+		try {
+			getDriver().findElement(AMDPlayerScreen.objAd2);
+			if (adMessage==false) {
+				logger.info("Ad play in progress");
+				extent.extentLogger("AdPlayInProgress", "Ad play in progress");
+				adMessage=true;
+			}
+		}
+		catch(Exception e1) {
+			startDate=new Date();
+			for(int k=0;k<50;k++) {
+				try {
+					act.press(PointOption.point(x, y)).release().perform();
+					WebElement timer=getDriver().findElement(AMDPlayerScreen.objTimer);
+					endDate=new Date();						
+					playerHeadPosition=timer.getText();						
+					screencapture();
+					break main;
+				}
+				catch(Exception e2) {}
+			}
+			
+		}
+	}
+	logger.info("Start Time calculated: "+getDateDetails(startDate));
+	extent.extentLogger("", "Start Time calculated: "+getDateDetails(startDate));
+	logger.info("Player head position : "+playerHeadPosition);
+	extent.extentLogger("AdPlayInProgress", "Player head position : "+playerHeadPosition);
+	logger.info("End Time calculated: "+getDateDetails(endDate));
+	extent.extentLogger("", "End Time calculated: "+getDateDetails(endDate));
+	startAndEndTime.add(startDate);
+	startAndEndTime.add(endDate);
+	return startAndEndTime;
+}
+
+public String getPhonePublicIP() throws Exception {
+	String cmd = "adb shell ip address show";
+	Process p = Runtime.getRuntime().exec(cmd);
+	BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+	String line = "", doc = "",ip="";
+	while ((line = br.readLine()) != null) {
+		doc = doc + line;
+	}
+	if(doc.contains(" scope global temporary dynamic ")) doc=doc.split("scope global temporary dynamic")[0];
+	else if(doc.contains(" scope global dynamic ")) doc=doc.split(" scope global dynamic ")[0];
+	String[] inets=doc.split("inet6");
+	doc=inets[inets.length-1];
+	ip=doc.split("/64")[0];
+	logger.info("ip :: " + doc);
+	return ip;
+}
+
+public static void decodeTokenParts(String token){
+	String[] parts = token.split("\\.", 0);
+	byte[] bytes = Base64.getUrlDecoder().decode(parts[1]);
+	String decodedString = new String(bytes, StandardCharsets.UTF_8);
+	System.out.println("Decoded: " + decodedString);
+}
+   
+public static String getIPAddressOfSystem(boolean useIPv4) {
+    try {
+        List<NetworkInterface> interfaces = Collections.list(NetworkInterface.getNetworkInterfaces());
+        for (NetworkInterface intf : interfaces) {
+            List<InetAddress> addrs = Collections.list(intf.getInetAddresses());
+            for (InetAddress addr : addrs) {
+                if (!addr.isLoopbackAddress()) {
+                    String sAddr = addr.getHostAddress();
+                    //boolean isIPv4 = InetAddressUtils.isIPv4Address(sAddr);
+                    boolean isIPv4 = sAddr.indexOf(':')<0;
+
+                    if (useIPv4) {
+                        if (isIPv4) 
+                            return sAddr;
+                    } else {
+                        if (!isIPv4) {
+                            int delim = sAddr.indexOf('%'); // drop ip6 zone suffix
+                            return delim<0 ? sAddr.toUpperCase() : sAddr.substring(0, delim).toUpperCase();
+                        }
+                    }
+                }
+            }
+        }
+    } catch (Exception ex) { } // for now eat exceptions
+    return "";
+}
+
+@SuppressWarnings("rawtypes")
+public void forwardRewindPlayer(String ForwardOrRewind) throws Exception {
+	touchAction = new TouchAction(getDriver());
+	int playerHeight=0,playerWidth=0,heightOffset=0,widthOffsetForward=0,widthOffsetRewind=0,playerX=0,playerY=0;
+	int requiredY=0,requiredXForward=0,requiredXRewind=0;
+	try {
+		WebElement player=getDriver().findElement(AMDPlayerScreen.objplayer);
+		playerHeight=player.getSize().getHeight();
+		playerWidth=player.getSize().getWidth();
+		heightOffset=playerHeight/3;
+		widthOffsetForward=playerWidth/8;
+		widthOffsetRewind=(playerWidth*7)/8;
+		playerX=player.getLocation().getX();
+		playerY=player.getLocation().getY();
+		requiredY=playerY+heightOffset;
+		requiredXForward=playerX+widthOffsetForward;
+		requiredXRewind=playerX+widthOffsetRewind;
+		if(ForwardOrRewind.equalsIgnoreCase("forward")) {
+			touchAction.press(PointOption.point(requiredXForward, requiredY)).release().perform()
+			.press(PointOption.point(requiredXForward, requiredY)).release().perform();
+			logger.info("Double tapped to forward by 10 seconds");
+			extent.extentLogger("", "Double tapped to forward by 10 seconds");
+		}
+		else{
+			touchAction.press(PointOption.point(requiredXRewind, requiredY)).release().perform()
+			.press(PointOption.point(requiredXRewind, requiredY)).release().perform();
+			logger.info("Double tapped to rewind by 10 seconds");
+			extent.extentLogger("", "Double tapped to rewind by 10 seconds");
+		}
+	}
+	catch(Exception e) {}
+}
+
+@SuppressWarnings("rawtypes")
+public void clickOnProgressBar(int percent)  throws Exception {
+	touchAction = new TouchAction(getDriver());
+	int seekbarX=0,seekbarY=0,seekbarHeight=0,seekbarWidth=0,offsetX=0,offsetY=0;
+	int requiredX=0,requiredY=0;
+	try {
+    	WebElement seekbar=getDriver().findElement(AMDPlayerScreen.objProgressBar);
+    	seekbarX=seekbar.getLocation().getX();
+    	seekbarY=seekbar.getLocation().getY();
+    	seekbarHeight=seekbar.getSize().getHeight();
+    	seekbarWidth=seekbar.getSize().getWidth();
+    	offsetX=(seekbarWidth*percent)/100;
+    	offsetY=seekbarHeight/2;
+    	requiredX=seekbarX+offsetX;
+    	requiredY=seekbarY+offsetY;
+    	touchAction.press(PointOption.point(requiredX, requiredY)).release().perform();
+    	logger.info("Clicked on "+percent+" percent of the seek bar");
+		extent.extentLogger("", "Clicked on "+percent+" percent of the seek bar");
+	}
+	catch(Exception e) {}
+}
+   
+@SuppressWarnings("rawtypes")
+public void dragOnProgressBar(int percent)  throws Exception {
+	touchAction = new TouchAction(getDriver());
+	int seekbarX=0,seekbarY=0,seekbarHeight=0,seekbarWidth=0,offsetX=0,offsetY=0;
+	int requiredX=0,requiredY=0;
+	try {
+    	WebElement seekbar=getDriver().findElement(AMDPlayerScreen.objProgressBar);
+    	seekbarX=seekbar.getLocation().getX();
+    	seekbarY=seekbar.getLocation().getY();
+    	seekbarHeight=seekbar.getSize().getHeight();
+    	seekbarWidth=seekbar.getSize().getWidth();
+    	offsetX=(seekbarWidth*percent)/100;
+    	offsetY=seekbarHeight/2;
+    	requiredX=seekbarX+offsetX;
+    	requiredY=seekbarY+offsetY;
+    	touchAction.longPress(PointOption.point(seekbarX, requiredY)).moveTo(PointOption.point(requiredX, requiredY)).release().perform();
+    	logger.info("Dragged to "+percent+" percent on the seek bar");
+		extent.extentLogger("", "Dragged to "+percent+" percent of the seek bar");
+	}
+	catch(Exception e) {}
+}
+
+
 
 }

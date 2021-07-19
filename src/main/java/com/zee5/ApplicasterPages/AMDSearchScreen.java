@@ -240,4 +240,8 @@ public class AMDSearchScreen {
 	
 	public static By objSearchBackBtn = By.xpath("//*[@id='searchBarBackButton']");
 	
+	public static By objSearchResult(String titleContains,String metaDataContains) {
+		return By.xpath("//*[contains(@text,\""+titleContains+"\")]//following-sibling::*[contains(@text,\""+metaDataContains+"\")]");
+	}
+	
 }

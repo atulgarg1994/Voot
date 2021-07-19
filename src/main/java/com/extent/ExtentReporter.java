@@ -306,6 +306,21 @@ public class ExtentReporter implements ITestListener {
 			e.printStackTrace();
 		}
 	}
+	
+	public void screencapture(WebDriver webdriver) {
+		try {
+			src = ((TakesScreenshot) webdriver).getScreenshotAs(org.openqa.selenium.OutputType.FILE);
+			org.apache.commons.io.FileUtils.copyFile(src,
+					new File(System.getProperty("user.dir") + "/Reports" + "/" + currentDate + "/" + getPlatform() + "/"
+							+ Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+									.getParameter("userType")
+							+ "/" + getReport() + "/Screenshots/" + getReport() + "_" + getDate() + ".jpg"));
+			childTest.get().addScreenCaptureFromBase64String(base64Encode(src));
+			logger.log(src, "Attachment");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public static String base64Encode(File file) {
 		if (file == null || !file.isFile()) {

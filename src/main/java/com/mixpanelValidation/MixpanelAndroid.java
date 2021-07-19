@@ -86,7 +86,7 @@ public class MixpanelAndroid extends ExtentReporter {
 		booleanParameters = Prop.getproperty("Boolean");
 		integerParameters = Prop.getproperty("Integer");
 		fileName = ReportName;
-		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
+		xlpath = System.getProperty("user.dir") + "\\XLSX\\" + fileName + ".xlsx";
 		StaticValues(distinctID);
 		getParameterValue();
 		fetchEvent(distinctID, eventName);

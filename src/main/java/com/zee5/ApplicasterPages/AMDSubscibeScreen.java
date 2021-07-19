@@ -13,7 +13,7 @@ public class AMDSubscibeScreen {
 	public static By objPriceAfterPromoCode = By.xpath("//*[@resource-id='com.graymatrix.did:id/old_price_tv']");
 	public static By objApplybuttonNotHighlighted = By.xpath("//*[@resource-id='com.graymatrix.did:id/apply_promocode' and @selected='false']");
 	public static By objApplyPromoCodeText = By.xpath("//*[@id='txtET_promocode_input'] and @text='Have a Promo Code?");
-	public static By objApply = By.xpath("//*[@resource-id='com.graymatrix.did:id/apply_promocode']");
+
 	public static By objDescriptionText = By.xpath("//*[@resource-id='com.graymatrix.did:id/deviceslayout']");
 	public static By objClubTab  = By.xpath("//*[@text='Club']");
 	public static By objSelectYourPreminumPackText = By.xpath("//*[@id='packsViewTextView']");
@@ -169,5 +169,7 @@ public class AMDSubscibeScreen {
 	public static By objSubsciptionScreen = By.id("plansContainer");
 	
 	public static By objHaveAPromocode = By.xpath("//*[@text='Have a Code?']");
+	
+	public static By objApply = By.xpath("//*[@text='Apply']");
 	
 }
