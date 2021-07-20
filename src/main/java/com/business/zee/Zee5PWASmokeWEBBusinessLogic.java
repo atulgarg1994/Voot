@@ -4770,6 +4770,7 @@ public void accountinfopage() throws Exception {
 		partialScroll();
 		verifyElementPresent(PWAHamburgerMenuPage.objAboutUsOption, "About Us option");
 		click(PWAHamburgerMenuPage.objAboutUsOption, "About Us option");
+		waitTime(2500);
 		if (checkElementDisplayed(PWAHamburgerMenuPage.objAboutUsTextInPage, "About Us Screen page")) {
 			logger.info("User is navigated to About Us screen");
 			extent.extentLogger("About Us", "User is navigated to About Us screen");
@@ -4784,8 +4785,9 @@ public void accountinfopage() throws Exception {
 		}
 		verifyElementPresent(PWAHamburgerMenuPage.objAboutUsInfo, "Brief information of the application");
 		Back(1);
+		waitTime(2500);
 
-		HeaderChildNode("Help Center Screen");
+		HeaderChildNode("Help Center screen");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 		partialScroll();
 		waitTime(2000);
@@ -4800,6 +4802,7 @@ public void accountinfopage() throws Exception {
 		waitTime(2000);
 		getWebDriver().close();
 		switchToParentWindow();
+		waitTime(3000);
 		// Terms of Use
 		HeaderChildNode("Terms of Use screen");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
@@ -4815,9 +4818,9 @@ public void accountinfopage() throws Exception {
 		if (termsOfUseURL.contains("termsofuse")) {
 			logger.info("Terms of Use screen is opened in webview");
 			extent.extentLogger("Terms of Use", "Terms of Use screen is opened in webview");
-
 		}
 		Back(1);
+		waitTime(2000);
 		// Privacy Policy
 		HeaderChildNode("Privacy Policy screen");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
@@ -4832,13 +4835,12 @@ public void accountinfopage() throws Exception {
 		if (privacyPolicyURL.contains("privacyPolicyURL")) {
 			logger.info("Privacy Policy screen is opened in webview");
 			extent.extentLogger("Privacy Policy", "Privacy Policy screen is opened in webview");
-
 		}
 		verifyElementPresent(PWAHamburgerMenuPage.objPrivacyPolicyInfo, "Legal information of the application");
 		partialScroll();
 		verifyElementPresent(PWAHamburgerMenuPage.objSecurityInfo, "Security Information of the application");
 		Back(1);
-
+		waitTime(3000);
 		HeaderChildNode("Build version");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 		partialScroll();

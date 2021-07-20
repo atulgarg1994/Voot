@@ -488,7 +488,7 @@ public class MixpanelAndroid extends ExtentReporter {
 		subscriptionResp.print();
 		
 		int subscriptionItems=subscriptionResp.jsonPath().get("subscription_plan.size()");
-		int index = subscriptionItems-3;
+		int index = subscriptionItems-1;
 
 		String SubscriptionStatus=subscriptionResp.jsonPath().get("["+index+"].state");
 		String id=subscriptionResp.jsonPath().get("subscription_plan["+index+"].id").toString();

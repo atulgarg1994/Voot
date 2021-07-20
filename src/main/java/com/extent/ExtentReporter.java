@@ -406,6 +406,7 @@ public class ExtentReporter implements ITestListener {
 	
 	public static void insertToExcel() {
 		System.out.println("Size : "+performaceDetails.size());
+		QOEMatrix.Count = true;
 		if (performaceDetails.size() > 0) {
 			for (int i = 0; i < performaceDetails.size(); i++) {
 				int row = QOEMatrix.getRowCount();

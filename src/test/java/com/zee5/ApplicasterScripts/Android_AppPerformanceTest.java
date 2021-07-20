@@ -88,7 +88,6 @@ public class Android_AppPerformanceTest {
 	
 	@AfterTest
 	public void tearDownApp() {
-		System.out.println(ZEE5ApplicasterBusinessLogic.performaceDetails);
 		ZEE5ApplicasterBusinessLogic.tearDown();
 	}
 }

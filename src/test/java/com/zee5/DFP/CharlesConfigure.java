@@ -75,6 +75,19 @@ public class CharlesConfigure {
 
 		}
 	}
+	
+	
+	public static void clearCharlesLog() throws IOException, InterruptedException{
+		
+		String ipAddress = localhost.getHostAddress().trim();
+		System.out.println(ipAddress);
+		
+		Thread.sleep(2000);
+		Runtime.getRuntime().exec(
+				"curl -v -x http://" + ipAddress + ":" + PortNumber + " http://control.charles/session/clear");
+		Thread.sleep(2000);
+	}	
+	
 
 	 private static void zipFile(String filePath) {
 	        try {

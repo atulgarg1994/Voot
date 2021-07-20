@@ -23,6 +23,19 @@ public class AMDOnboardingScreen {
 	// Back Icon
 	public static By objBackBtn = By.xpath("//*[@id='icon_back']");
 
+	
+	public static By objHindiLanguage = By.xpath("//*[@id='btn_content_lang' and @text='Hindi']");
+	public static By objMarathiLanguage = By.xpath("//*[@id='btn_content_lang' and @text='Marathi']");
+	public static By objTeluguLanguage = By.xpath("//*[@id='btn_content_lang' and @text='Telugu']");
+	public static By objTamilLanguage = By.xpath("//*[@id='btn_content_lang' and @text='Tamil']");
+	public static By objMalayalamLanguage = By.xpath("//*[@id='btn_content_lang' and @text='Malayalam']");
+	public static By objBengaliLanguage = By.xpath("//*[@id='btn_content_lang' and @text='Bengali']");
+	public static By objGujaratiLanguage = By.xpath("//*[@id='btn_content_lang' and @text='Gujarati']");
+	public static By objPunjabiLanguage = By.xpath("//*[@id='btn_content_lang' and @text='Punjabi']");
+	public static By objBhojpuriLanguage = By.xpath("//*[@id='btn_content_lang' and @text='Bhojpuri']");
+	public static By objOriyaLanguage = By.xpath("//*[@id='btn_content_lang' and @text='Oriya']");
+	
+	
 	// To Select the Display language
 	public static By objSelectDisplayLang(String Language) {
 		int index = 0;
@@ -137,6 +150,8 @@ public class AMDOnboardingScreen {
 	public static By objContinueBtnInCountryPopUp = By.xpath("//*[@resource-id='com.graymatrix.did:id/country_selection_button']");
 	
 	public static By objCarouselInIntroScreen = By.xpath("//*[@resource-id='com.graymatrix.did:id/zee5RailsTypeCarouselFragmentId']");
+	
+	public static By objContinueBtnInLanguagePopUp = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_content_language_selection']");
 	
 	public static By objFirstPermissionButton = By.xpath("(//*[@class='android.widget.Button'])[1]");
 	public static By objSecondPermissionButton = By.xpath("(//*[@class='android.widget.Button'])[2]");	

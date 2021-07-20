@@ -306,5 +306,18 @@ public class AMDHomePage {
 	public static By objRailName(String railName) {
 		return By.xpath("//*[@text='See All']//parent::*//parent::*//*[contains(text(),'"+railName+"')][1]");
 	}
+	
+	public static By objHomeTab1 = By.xpath("//*[@id='title' and @text='Home'] | //*[@text='Home']");
+	public static By objTvShowsTab = By.xpath("//*[@id='title' and @text='TV Shows'] | //*[@text='TV Shows']");
 
+	public static By objNativeAd = By.xpath("(((//*[@id='google_image_div'])[1]) | //*[@id='adImage'])");
+	
+	public static By objMastheadAd = By.xpath("//*[@id='adImage']");
+	public static By objMastheadAdPlayIcon = By.xpath("//*[@id='replay_button']");
+	public static By objMastheadAdPlayPauseIcon = By.xpath("//*[@id='pause_icon_image']");
+	public static By objMastheadAdPlayMuteIcon = By.xpath("//*[@id='mute_icon_image']");
+	
+	public static By objCompanionAd = By.xpath("((//*[@id='google_image_div'])//child::*) [1]");
+	
+	
 }

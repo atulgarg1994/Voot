@@ -2,24 +2,18 @@ package com.business.zee;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-
 import com.appsflyerValidation.AppsFlyer;
 import com.driverInstance.CommandBase;
 import com.extent.ExtentReporter;
@@ -27,19 +21,7 @@ import com.metadata.ResponseInstance;
 import com.propertyfilereader.PropertyFileReader;
 import com.utility.LoggingUtils;
 import com.utility.Utilities;
-import com.zee5.ApplicasterPages.AMDOnboardingScreen;
-import com.zee5.ApplicasterPages.AMDPlayerScreen;
-import com.zee5.ApplicasterPages.AMDRegistrationScreen;
-import com.zee5.ApplicasterPages.AMDSearchScreen;
-import com.zee5.ApplicasterPages.AMDSubscibeScreen;
-import com.zee5Pages.HomePage;
-import com.zee5Pages.HomeTabPage;
-import com.zee5.ApplicasterPages.AMDConsumptionScreen;
-import com.zee5.ApplicasterPages.AMDHomePage;
-import com.zee5.ApplicasterPages.AMDLoginScreen;
-import com.zee5.ApplicasterPages.AMDMoreMenu;
-import com.zee5.ApplicasterPages.AMDMySubscriptionPage;
-
+import com.zee5.ApplicasterPages.*;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.android.AndroidTouchAction;
@@ -224,8 +206,7 @@ public class Zee5AppsFlyerBusinessLogic extends Utilities{
 	}
 	
 	
-
-	
+	@SuppressWarnings("deprecation")
 	public void downloadAppsFlyerReport() throws InterruptedException{
 		
 		appsFlyerObj.deleteOldAppsFlyerFiles();

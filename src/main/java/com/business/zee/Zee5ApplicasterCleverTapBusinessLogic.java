@@ -61,11 +61,11 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 	}
 
 	public void init() {
-
 		PropertyFileReader handler = new PropertyFileReader("properties/Execution.properties");
 		setTimeout(Integer.parseInt(handler.getproperty("TIMEOUT")));
 		setRetryCount(Integer.parseInt(handler.getproperty("RETRY_COUNT")));
-	}
+		CleverTapTime();
+	}	
 	
 	public void tearDown() {
 		getWebDriver().quit();
@@ -78,7 +78,6 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 		verifyElementPresentAndClick(CleverTapPage.objFindBtn, "Find button");
 		waitTime(20000);
 		verifyElementPresentAndClick(CleverTapPage.objActivityBtn, "Activity button");
-		
 	}
 	
 	public void loginCleverTap() throws Exception {
@@ -86,8 +85,6 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 		type(CleverTapPage.objEmailID, getParameterFromXML("CTUser"), "email field");
 		type(CleverTapPage.objPasswordEditBx, getParameterFromXML("CTPwd"), "email field");
 		verifyElementPresentAndClick(CleverTapPage.objLoginBtn, "Login button");
-//		prathap.r@igsindia.net
-//		Qwerty123
 	}
 	
 	public void getEventName(String EventName) {
@@ -95,8 +92,11 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 		CleverTapDashboardData.creatExcelCleverTap();
 		waitTime(10000);
 		List<WebElement> event = findElements(CleverTapPage.objEventName);
+		List<WebElement> time = findElements(CleverTapPage.objTime);
 		System.out.println(event.size());
 		for (int i = 0; i < event.size(); i++) {
+			
+			if(time.get(i).getText().contains(currentDate)) {
 			if (event.get(i).getText().contains(EventName)) {
 //				List<WebElement> eventParameter = findElements(
 //						By.xpath("(((.//*[@class='new_day'])[1])//td/span[1])["+(i+1)+"]//following-sibling::*[contains(@class,'label-gray')]//span"));
@@ -109,6 +109,7 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 				logger.info("Event Reflected in dashboard "+EventName);
 				extent.extentLoggerPass("Event", "Event Reflected in dashboard "+EventName);
 			}
+		  }
 		}
 	}
 
@@ -295,7 +296,6 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 			getEventName("Subscription Call Initiated");
 			getEventName("Subscription Selected");
 			getEventName("Subscription Page Viewed");
-			
 			getEventName("Share");
 			getEventName("Remove From Watchlist");
 			getEventName("Search Cancelled");

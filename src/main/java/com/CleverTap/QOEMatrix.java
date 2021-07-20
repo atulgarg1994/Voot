@@ -6,9 +6,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.text.DateFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Date;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -24,6 +28,14 @@ public class QOEMatrix {
 	static String xlpath = "C:\\Users\\IGS0026\\Documents\\Performance\\performance.xlsx";
 	static int LastRow = 0;
 	public static ArrayList<String> performanceResult = new ArrayList<>();
+	public static boolean Count = false;
+	
+	public static String getDate() {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
+		String name = dateFormat.format(date).toString().replaceFirst(" ", "_").replaceAll("/", "_").replaceAll(":","_");
+		return name;
+	}
 	
 	
 	public static void creatExcelPerformance() {
@@ -88,10 +100,17 @@ public class QOEMatrix {
 					}
 					Cell cell = null;
 					if (cell == null) {
-						if(scenario.contains("Login")) {
+						if(Count) {
 							XSSFRow row1 = sheet.getRow(0);
 							cell = row1.createCell(0);
-							cell.setCellValue((getCellValue(0,0)+1));
+							int c = getCellValue(0,0);
+							cell.setCellValue((c+1));
+							Count = false;
+							if(c == 0) {
+								cell = xrow.createCell(9);
+								cell.setCellValue(scenario);
+								getDate();
+							}
 						}
 						cell = xrow.createCell(1);
 						cell.setCellValue(scenario);
@@ -190,6 +209,7 @@ public class QOEMatrix {
 			data = (int)myExcelSheet.getRow(row).getCell(col).getNumericCellValue();
 			myExcelBook.close();
 		} catch (Exception e) {
+			return data;
 		}
 		return data;
 	}
@@ -206,6 +226,11 @@ public class QOEMatrix {
 		calculateReadings(3,"Navigation to Premium");
 		calculateReadings(4,"Initiate Content playback");
 		calculateReadings(5,"DeepLink to Consumption screen");
+		calculateReadings(6,"DeepLink to SubscriptionScreen screen");
+		calculateReadings(7,"Initiate content playback (Episode)");
+		calculateReadings(8,"ConsumpitonScreen for Shows");
+		calculateReadings(9,"ConsumpitonScreen for Movies");
+		
 		System.out.println(performanceResult);
 	}
 	

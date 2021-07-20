@@ -205,4 +205,8 @@ public class AMDPlayerScreen {
 	public static By objLoginTextOnPlayer = By
 			.xpath("//*[@id='secondaryActionButton'] | //*[@resource-id='com.graymatrix.did:id/static_login_text']");
 
+	
+	public static By objCurrentTime = By.xpath("//*[@id='playerDurationCurrent']");
+	
+	
 }

@@ -56,11 +56,6 @@ public class PWALandingPages {
 
 	public static By objTrayTitle = By.xpath("(//a[@class='titleLink']) | (//div[@class='trayHeader']//h2)");
 
-	public static By objFirstAssetInTrayTitle(String trayTitleUI) {
-		return By.xpath("//h2[contains(text(),\"" + trayTitleUI
-				+ "\")]//parent::div//following-sibling::div//div[contains(@class,'slick-track')]//div[@data-index='0']//div[@data-minutelytitle]");
-	}
-
 	public static By objTrayTitleInUIContains(String apiTitle) {
 		return By.xpath("(//div[@class='trayHeader']//h2[contains(text(),\"" + apiTitle
 				+ "\")]) | (//h2//a[contains(text(),\"" + apiTitle + "\")])");
@@ -178,4 +173,8 @@ public class PWALandingPages {
 	}
 	public static By objCountryCodeDropDownIndia = By.xpath("//*[contains(@class,'react-dropdown-select-type-single')]");
 
+	public static By objFirstAssetInTrayTitle(String trayTitleUI) {
+		return By.xpath("//h2[contains(text(),\"" + trayTitleUI
+				+ "\")]//parent::div//following-sibling::div//div[contains(@class,'slick-track')]//div[@data-index='0']//a[@data-minutelytitle]");
+	}
 }

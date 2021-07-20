@@ -9,7 +9,7 @@
 	<parameter name="NonSubscribedUserName" value="amdnonmixpanel@yopmail.com" />
 	<parameter name="NonSubscribedUserPassword" value="123456" />
 	
-	<parameter name="SubscribedUserName" value="zeetest34new@test.com" />
+	<parameter name="SubscribedUserName" value="499subnoradhe@gmail.com" />
 	<parameter name="SubscribedPassword" value="123456" />
 	
 	<parameter name="ParentalNonsubscribedUserName" value="juspayuser@mailnesia.com" />
@@ -49,6 +49,14 @@
 	<parameter name="clipContentID" value="0-1-249189" />
 	<parameter name="clipContent" value="Paaru gets tipsy" />
 	<parameter name="audioTrackContent"	value="Episode 01 - Ganga Enters Widowhood" />
+	<parameter name="content1" value="Yennenu Soda"/>
+	<parameter name="contentID1" value="0-0-75729"/>
+	<parameter name="content2" value="Sundari - Hebbuli"/>
+	<parameter name="content3" value="Bhinna Sharapanjara"/>
+	<parameter name="contentID3" value="0-0-85267"/>
+	<parameter name="content4" value="Hebbuli Title Song"/>
+	<parameter name="content5" value="Kanneeraa - Kavacha"/>
+	<parameter name="contentID5" value="0-0-75977"/>
 	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />

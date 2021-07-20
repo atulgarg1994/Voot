@@ -244,4 +244,11 @@ public class AMDSearchScreen {
 		return By.xpath("//*[contains(@text,\""+titleContains+"\")]//following-sibling::*[contains(@text,\""+metaDataContains+"\")]");
 	}
 	
+	 public static By objFirstSearchResult1(String text)
+	 {
+		 return By.xpath("//*[@class='android.widget.TextView' and @text='"+text+"']");
+	 }
+	
+	
+	
 }

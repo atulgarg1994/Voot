@@ -236,6 +236,47 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 //		}
 	}
 
+	
+	
+	public void SelectYourCountryAndLanguage() throws Exception
+	{
+		extent.HeaderChildNode("Select Your country and Language");
+		verifyElementPresentAndClick(AMDOnboardingScreen.objContinueBtnInCountryPopUp, "SelectYourCountry Continue Button");
+		
+		waitTime(5000);
+		
+		searchAndClick(AMDOnboardingScreen.objHindiLanguage, "Hindi Langauge");
+		searchAndClick(AMDOnboardingScreen.objMarathiLanguage, "Marathi Langauge");
+		searchAndClick(AMDOnboardingScreen.objTeluguLanguage, "Telugu Langauge");
+		searchAndClick(AMDOnboardingScreen.objTamilLanguage, "Tamil Langauge");
+		searchAndClick(AMDOnboardingScreen.objMalayalamLanguage, "Malayalam Langauge");
+		searchAndClick(AMDOnboardingScreen.objBengaliLanguage, "Bengali Langauge");
+		searchAndClick(AMDOnboardingScreen.objGujaratiLanguage, "Gujarati Langauge");
+		searchAndClick(AMDOnboardingScreen.objPunjabiLanguage, "Punjabi Langauge");
+		searchAndClick(AMDOnboardingScreen.objBhojpuriLanguage, "Bhojpuri Langauge");
+		searchAndClick(AMDOnboardingScreen.objOriyaLanguage, "Oriya Langauge");
+		
+		verifyElementPresentAndClick(AMDOnboardingScreen.objContinueBtnInLanguagePopUp, "Continue Button");
+		
+	}
+	
+	
+	
+	public void searchAndClick(By locator, String str) throws Exception{
+		
+		for(int i=0; i<=3; i++){
+
+			if(verifyIsElementDisplayed(locator, str)){
+				verifyElementPresentAndClick(locator, str);
+				break;
+			}else{
+				PartialSwipe("UP", 2);
+			}	
+		}
+	}
+	
+	
+	
 	/*
 	 * =============================================================================
 	 * ===== ------------------------------ Script Author: SHREE NIDHI
@@ -31656,6 +31697,262 @@ public void dragOnProgressBar(int percent)  throws Exception {
 	}
 	catch(Exception e) {}
 }
+
+
+
+
+public void ValidateNativeAds(String userType) throws Exception{
+	extent.HeaderChildNode("Native Ads Validation");
+	
+	verifyElementPresentAndClick(AMDHomePage.objHomeTab1, "Home Tab");
+	checkForNativeAds("Home Tab",userType);
+	
+	verifyElementPresentAndClick(AMDHomePage.objTvShowsTab, "TV Shows Tab");
+	checkForNativeAds("TV Shows Tab",userType);
+	
+//	verifyElementPresentAndClick(AMDHomePage.objMoviesTab, "Movies Tab");
+//	checkForNativeAds("Movies Tab");
+	
+	verifyElementPresentAndClick(AMDHomePage.objNewsTab, "News Tab");
+	checkForNativeAds("News Tab",userType);
+
+}
+
+public void checkForNativeAds(String str, String userType){
+	
+	if(!userType.equalsIgnoreCase("SubscribedUser"))
+	{
+		int j = 0;
+		
+		for(int i=0; i<=20; i++){
+
+			if(verifyIsElementDisplayed(AMDHomePage.objNativeAd, "Native Ad")){
+				extent.extentLoggerPass("", "Native Ad is displayed in "+str);
+				break;
+			}else{
+				PartialSwipe("UP", 2);
+				waitTime(8000);
+				j=i;
+			}		
+		}
+		
+		if(j==20){
+			extent.extentLoggerFail("", "Native Ad is not displayed in "+str);
+		}
+	}else{
+		waitTime(8000);
+		
+		int j = 0;
+		
+		for(int i=0; i<=10; i++){
+
+			if(verifyIsElementDisplayed(AMDHomePage.objNativeAd, "Native Ad")){
+				extent.extentLoggerFail("", "Native Ad is displayed in "+str);
+				break;
+			}else{
+				PartialSwipe("UP", 2);
+				waitTime(8000);
+				j=i;
+			}		
+		}
+		
+		if(j==20){
+			extent.extentLoggerPass("", "Native Ad is not displayed in "+str);
+		}
+		
+		
+	}
+}
+
+
+public void ValidateMastheadAds(String userType) throws Exception{
+	extent.HeaderChildNode("Masthead Ads Validation");
+	
+	verifyElementPresentAndClick(AMDHomePage.objHomeBottomBtn, "Home Button");
+	waitTime(5000);
+	
+	verifyElementPresentAndClick(AMDHomePage.objHomeTab1, "Home Tab");
+	checkForMastheadAds("Home Tab",userType);
+	
+	verifyElementPresentAndClick(AMDHomePage.objTvShowsTab, "TV Shows Tab");
+	checkForMastheadAds("TV Shows Tab",userType);
+	
+	verifyElementPresentAndClick(AMDHomePage.objMoviesTab, "Movies Tab");
+	checkForMastheadAds("Movies Tab",userType);
+	
+	verifyElementPresentAndClick(AMDHomePage.objNewsTab, "News Tab");
+	checkForMastheadAds("News Tab",userType);
+
+}
+
+
+
+public void checkForMastheadAds(String str, String userType) throws Exception{
+	
+	if(!userType.equalsIgnoreCase("SubscribedUser")){
+		int j = 0;
+		waitTime(8000);
+		for(int i=0; i<=20; i++){
+
+			if(verifyIsElementDisplayed(AMDHomePage.objMastheadAd, "Masthead Ad")){
+				extent.extentLoggerPass("", "Masthead Ad is displayed in "+str);
+				waitTime(10000);
+				waitTime(3000);
+				if(verifyIsElementDisplayed(AMDHomePage.objMastheadAdPlayIcon, "Play icon")){
+					verifyElementPresentAndClick(AMDHomePage.objMastheadAdPlayIcon, "Play icon");
+					waitTime(2000);
+					if(verifyIsElementDisplayed(AMDHomePage.objMastheadAdPlayPauseIcon, "Masthead Pause icon")){
+						extent.extentLoggerPass("", "pause icon is displayed on the playable masthead Ad");
+					}else{
+						extent.extentLoggerFail("", "pause icon is not displayed on the playable masthead Ad");
+					}
+					
+					if(verifyIsElementDisplayed(AMDHomePage.objMastheadAdPlayMuteIcon, "Masthead Mute icon")){
+						extent.extentLoggerPass("", "Mute icon is displayed on the playable masthead Ad");
+					}else{
+						extent.extentLoggerFail("", "Mute icon is not displayed on the playable masthead Ad");
+					}
+				}
+				
+				break;
+			}else{
+				waitTime(8000);
+				j=i;
+			}		
+		}
+		
+		if(j==20){
+			extent.extentLoggerFail("", "Masthead Ad is not displayed in "+str);
+		}
+	}else{
+		int j = 0;
+		waitTime(8000);
+		for(int i=0; i<=5; i++){
+
+			if(verifyIsElementDisplayed(AMDHomePage.objMastheadAd, "Masthead Ad")){
+				extent.extentLoggerFail("", "Masthead Ad is displayed in "+str);
+				waitTime(10000);
+				waitTime(3000);
+								
+				break;
+			}else{
+				waitTime(8000);
+				j=i;
+			}		
+		}
+		
+		if(j==20){
+			extent.extentLoggerPass("", "Masthead Ad is not displayed in "+str);
+		}
+	}
+	
+	
+
+}
+
+
+public void completeProfilePopUpClose() throws Exception {
+	waitTime(15000);
+	if (verifyIsElementDisplayed(AMDPlayerScreen.objCompleteProfilePopUp)) {
+		logger.info("CompleteProfile PopUp is displayed");
+		extent.extentLogger("Register Pop Up", "CompleteProfile PopUp is displayed");
+		waitTime(5000);
+		click(AMDGenericObjects.objPopUpDivider, "CompleteProfile PopUp");
+//		Back(1);
+	}
+}
+
+
+public void ValidateCompanionAds(String userType) throws Exception{
+	extent.HeaderChildNode("Companion Ads Validation");
+	
+	verifyElementPresentAndClick(AMDHomePage.objHomeBottomBtn, "Home Button");
+	waitTime(5000);
+	
+	verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search Button");
+	waitTime(5000);
+	click(AMDSearchScreen.objSearchEditBox, "Search box");
+	type(AMDSearchScreen.objSearchBoxBar, "MD - Raat Baaki Hai - Movie - Republished1\n", "Search box");
+	hideKeyboard();
+	waitTime(6000);
+	click(AMDSearchScreen.objFirstSearchResult1("MD - Raat Baaki Hai - Movie - Republished1"), "Search result");
+	waitTime(5000);
+	waitTime(5000);
+	
+	verifyIsElementDisplayed(AMDHomePage.objCompanionAd, "Companion Ad");
+	
+	LoadingInProgress();
+	adPlay();
+	if(userType.equalsIgnoreCase("Guest")){
+		registerPopUpClose();		
+	}else if(userType.equalsIgnoreCase("NonSubscribedUser")){
+		completeProfilePopUpClose();
+	}
+
+	if(userType.equalsIgnoreCase("SubscribedUser")){
+		if(verifyIsElementDisplayed(AMDHomePage.objCompanionAd, "Companion Ad")){
+			extent.extentLoggerFail("", "Companion Ad is present");
+		}else{
+			extent.extentLoggerPass("", "Companion Ad is not present");
+		}
+	}else{
+		if(verifyIsElementDisplayed(AMDHomePage.objCompanionAd, "Companion Ad")){
+			extent.extentLoggerPass("", "Companion Ad is present");
+		}else{
+			extent.extentLoggerFail("", "Companion Ad is not present");
+		}		
+	}
+	
+	
+	waitTime(15000);
+	click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+	
+	if(verifyIsElementDisplayed(AMDPlayerScreen.objCurrentTime, "Current Time")){
+		extent.extentLoggerPass("", "Content played after Ad Play");
+	}else{
+		extent.extentLoggerFail("", "Content not played after Ad Play");		
+	}
+	
+	
+
+}
+
+
+public void AMDCharlesValidation(String userType, String pSearchContent) throws Exception{
+	extent.HeaderChildNode("Charles Validation");
+	
+	if(!userType.equalsIgnoreCase("SubscribedUser")){
+		waitTime(8000);
+		Swipe("UP", 2);
+		Swipe("DOWN", 2);
+		waitTime(8000);
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, pSearchContent + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		waitTime(4000);
+//		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+		click(AMDSearchScreen.objSearchResultContainsText(pSearchContent), "Search Result");
+		
+		waitTime(8000);
+
+		boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
+		if (ad == true) {
+			logger.info("Ad play in progress");
+			extent.extentLoggerPass("Ad", "Ad played");
+		} else {
+			logger.info("Ad is not available for Subscribed User");
+			extent.extentLogger("Ad", "Ad is not available");
+		}
+		waitTime(8000);
+		waitTime(8000);
+		waitTime(8000);
+		
+	}
+}
+
 
 
 

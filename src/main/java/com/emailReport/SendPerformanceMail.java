@@ -25,8 +25,10 @@ public class SendPerformanceMail {
 	
 	private static String UserName = "teamviewerigs123@gmail.com";
 	private static String Password = "gqvyrlfrixgizfbi";
-	private static String[] to = {"bosco.dsouza@zee.com","murali.appadi@zee.com","indu.karunakaran@zee.com"};
-	private static String[] cc = {"deepak.prakash@igsindia.net","naresh.h@igsindia.net","hitesh.c@igsindia.net","Shreenidhi.g@igsindia.net", "Basavaraj.PN@igsindia.net","kushal.revankar@igsindia.net","Tanisha.c@igsindia.net"};
+//	private static String[] to = {"bosco.dsouza@zee.com","murali.appadi@zee.com","indu.karunakaran@zee.com"};
+//	private static String[] cc = {"deepak.prakash@igsindia.net","naresh.h@igsindia.net","hitesh.c@igsindia.net","Shreenidhi.g@igsindia.net", "Basavaraj.PN@igsindia.net","kushal.revankar@igsindia.net","Tanisha.c@igsindia.net"};
+	private static String[] to = {};
+	private static String[] cc = {};
 	private static String[] bcc = {};
 
 	public static void EmailReport() {
