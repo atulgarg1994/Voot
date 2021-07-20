@@ -176,7 +176,7 @@ public class Zee5AppsFlyerBusinessLogic extends Utilities{
 		System.out.println("pid : Basapplicastertest"+idNumber);
 		String packagename = getAppPackage();
 		
-		String cmd = "adb shell am start -W -a android.intent.action.VIEW -d https://app.appsflyer.com/"+packagename+"?pid=Basapplicastertest"+idNumber+"&c=Bastesting"+idNumber+"&advertising_id=7e128be0-8f02-4eb4-93e4-e7382eb01d82";
+		String cmd = "adb shell am start -W -a android.intent.action.VIEW -d https://app.appsflyer.com/"+packagename+"?pid=Basapplicastertest"+idNumber+"&c=Bastesting"+idNumber+"&advertising_id="+ResponseInstance.AdvertiseId;
 		extent.extentLogger("","AppsFlyerLink to capture events : "+cmd);
 		try {
 			Runtime.getRuntime().exec(cmd);

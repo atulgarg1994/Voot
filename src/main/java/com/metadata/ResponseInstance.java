@@ -47,6 +47,8 @@ public class ResponseInstance {
 	public static boolean trailer = false;
 	public static String newEmailID = null;
 	public static String newPassword = null;
+	
+	public static String AdvertiseId = "7e128be0-8f02-4eb4-93e4-e7382eb01d82";
 
 	public static Response getResponse() {
 		resp = RestAssured.given().urlEncodingEnabled(false).when().get(
@@ -4462,8 +4464,7 @@ public class ResponseInstance {
 
 		} else {
 
-			AppsFlyer.expectedData.setProperty("Unique ID",
-					"Z5X_ca2ef614db067f977ae58776fb46d3b4c4301e2d33e175b5a10ccc7c3dd2d393");
+		//	AppsFlyer.expectedData.setProperty("Unique ID","Z5X_ca2ef614db067f977ae58776fb46d3b4c4301e2d33e175b5a10ccc7c3dd2d393");
 		}
 		return pro;
 
@@ -4616,7 +4617,7 @@ public class ResponseInstance {
 		Properties pro = new Properties();
 
 		AppsFlyer.expectedData.setProperty("App UTM Medium", "N/A");
-		AppsFlyer.expectedData.setProperty("Advertisement ID", "7e128be0-8f02-4eb4-93e4-e7382eb01d82");
+		AppsFlyer.expectedData.setProperty("Advertisement ID", AdvertiseId);
 		AppsFlyer.expectedData.setProperty("Latitude", "N/A");
 		AppsFlyer.expectedData.setProperty("App isRetargeting", "N/A");
 		AppsFlyer.expectedData.setProperty("App UTM Source", "N/A");
@@ -4656,7 +4657,7 @@ public class ResponseInstance {
 		// "2021-05-07T06:45:30Z");
 		AppsFlyer.expectedData.setProperty("Language", "English");
 		AppsFlyer.expectedData.setProperty("AppsFlyer ID", "1620307847410-6601692054452113154");
-		AppsFlyer.expectedData.setProperty("Advertising ID", "7e128be0-8f02-4eb4-93e4-e7382eb01d82");
+		AppsFlyer.expectedData.setProperty("Advertising ID", AdvertiseId);
 		AppsFlyer.expectedData.setProperty("Platform", "android");
 		AppsFlyer.expectedData.setProperty("SDK Version", "true");
 
@@ -4702,7 +4703,7 @@ public class ResponseInstance {
 			AppsFlyer.expectedData.setProperty("hasRental", "false");
 			AppsFlyer.expectedData.setProperty("Method", "N/A");
 			AppsFlyer.expectedData.setProperty("isRental", "false");
-			AppsFlyer.expectedData.setProperty("ad_id", "7e128be0-8f02-4eb4-93e4-e7382eb01d82");
+			AppsFlyer.expectedData.setProperty("ad_id", AdvertiseId);
 		} else if (userType.equals("SubscribedUser")) {
 			SubcribedDetailsforAppsFlyer(userType);
 		}
@@ -4991,7 +4992,7 @@ public class ResponseInstance {
 		// user_id only for Registration scenario
 		AppsFlyer.expectedData.setProperty("user_id", resp.jsonPath().getString("id"));
 
-		AppsFlyer.expectedData.setProperty("ad_id", "7e128be0-8f02-4eb4-93e4-e7382eb01d82");
+		AppsFlyer.expectedData.setProperty("ad_id", AdvertiseId);
 		AppsFlyer.expectedData.setProperty("af_registration_method", "email_password");
 		AppsFlyer.expectedData.forEach((key, value) -> System.out.println(key + " : " + value));
 
@@ -5199,8 +5200,7 @@ public class ResponseInstance {
 				}
 				CleverTapDashboardData.ActualCleverTapData.forEach((key, value) -> System.out.println(key + " : " + value));
 			} else {
-				AppsFlyer.expectedData.setProperty("Unique ID",
-						"Z5X_ca2ef614db067f977ae58776fb46d3b4c4301e2d33e175b5a10ccc7c3dd2d393");
+			//	AppsFlyer.expectedData.setProperty("Unique ID","Z5X_ca2ef614db067f977ae58776fb46d3b4c4301e2d33e175b5a10ccc7c3dd2d393");
 			}
 			return pro;
 		}

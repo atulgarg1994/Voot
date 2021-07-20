@@ -99,6 +99,28 @@ public class SubscriptionCartAbandonment {
 	}
 	
 	
+	@Test(priority = 11)
+	@Parameters({ "userType" })
+	public void CleverTapRegistrationCheck(String userType) throws Exception {
+		Zee5ApplicasterCleverTapBusinessLogic.relaunch(true);
+		Zee5ApplicasterCleverTapBusinessLogic.accessDeviceLocationPopUp("Allow", userType);	
+		Zee5ApplicasterCleverTapBusinessLogic.SelectYourCountry();
+		Zee5ApplicasterCleverTapBusinessLogic.RegisterFunctionality(userType);
+	}
+	
+	
+	
+	@Test(priority = 12)
+	@Parameters({ "userType" })
+	public void CleverTapLoginEventsCheck(String userType) throws Exception {
+		Zee5ApplicasterCleverTapBusinessLogic.relaunch(true);
+		Zee5ApplicasterCleverTapBusinessLogic.accessDeviceLocationPopUp("Allow", userType);	
+		Zee5ApplicasterCleverTapBusinessLogic.SelectYourCountry();
+		Zee5ApplicasterCleverTapBusinessLogic.cleverTapLoginFunctionality(userType);
+	}
+	
+	
+	
 	@AfterTest
 	public void tearDownApp() {
 		System.out.println("Quit the App");

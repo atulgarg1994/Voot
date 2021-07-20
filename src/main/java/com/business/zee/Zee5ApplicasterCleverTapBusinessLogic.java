@@ -14,6 +14,8 @@ import com.zee5.ApplicasterPages.AMDHomePage;
 import com.zee5.ApplicasterPages.AMDLoginScreen;
 import com.zee5.ApplicasterPages.AMDMoreMenu;
 import com.zee5.ApplicasterPages.AMDMySubscriptionPage;
+import com.zee5.ApplicasterPages.AMDOnboardingScreen;
+import com.zee5.ApplicasterPages.AMDRegistrationScreen;
 import com.zee5.ApplicasterPages.AMDSearchScreen;
 import com.zee5.ApplicasterPages.AMDWatchlistPage;
 import com.zee5.PWAPages.CleverTapPage;
@@ -284,7 +286,165 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 	public void logout() throws Exception {
 		HeaderChildNode("LogOut");
 		verifyElementPresentAndClick(AMDHomePage.objMoreMenuBtn, "More menu");
+		Swipe("UP", 1);
+		verifyElementPresentAndClick(AMDMoreMenu.objLogoutBtn, "Logout");
 	}
+	
+	
+	
+	public void accessDeviceLocationPopUp(String permission, String userType) throws Exception {
+		extent.HeaderChildNode("Access Device Location PopUp");
+		extent.extentLogger("User Type", "UserType : " + userType);
+		logger.info("UserType : " + userType);
+		System.out.println("Access Device Location PopUp");
+		Thread.sleep(10000);
+		Thread.sleep(10000);
+				if(verifyIsElementDisplayed(AMDOnboardingScreen.objUpdateZee5PopUpNOTHANKSButton, "NO THANKS Button"))
+				{
+					click(AMDOnboardingScreen.objUpdateZee5PopUpNOTHANKSButton, "NO THANKS Button");
+				}else{
+					System.out.println("UpdateZee5 Not displayed");
+				}
+				Thread.sleep(10000);
+		if (verifyIsElementDisplayed(AMDOnboardingScreen.objAllowLocationAccessPopup, "AllowPopup")) {
+			Wait(5000);
+
+			String str1 = getAttributValue("text", AMDOnboardingScreen.objFirstPermissionButton);
+			String str2 = getAttributValue("text", AMDOnboardingScreen.objSecondPermissionButton);
+			System.out.println(str1);
+			System.out.println(str2);
+
+			if (str1.contains("ALLOW")) {
+				System.out.println("ALLOW is present");
+				click(AMDOnboardingScreen.ele1Allow(str1), str1);
+			} else if (str1.contains("Allow")) {
+				System.out.println("Allow is present");
+				click(AMDOnboardingScreen.ele1Allow(str1), str1);
+			} else if (str2.contains("ALLOW")) {
+				System.out.println("ALLOW is present");
+				click(AMDOnboardingScreen.ele1Allow(str2), str2);
+			} else if (str2.contains("Allow")) {
+				System.out.println("Allow is present");
+				click(AMDOnboardingScreen.ele1Allow(str2), str2);
+			} else if (str1.contains("WHILE USING THE APP")) {
+				System.out.println("WHILE USING THE APP is present");
+				click(AMDOnboardingScreen.ele1Allow(str1), str1);
+			}
+			
+
+			Thread.sleep(10000);
+		} else {
+			System.out.println("Access Device Location PopUp not displayed");
+		}
+
+	}
+	
+	
+	
+	public void SelectYourCountry() throws Exception
+	{
+		extent.HeaderChildNode("Select Your country and Language");
+		waitTime(5000);
+		verifyElementPresentAndClick(AMDOnboardingScreen.objContinueBtnInCountryPopUp, "SelectYourCountry Continue Button");
+		
+		waitTime(5000);
+		
+	}
+	
+	
+	
+	public void cleverTapLoginFunctionality(String userType) throws Exception{
+		extent.HeaderChildNode("CleverTap Login");
+		
+		if(userType.equalsIgnoreCase("Guest")) {
+		
+		String Username = getParameterFromXML("NonsubscribedUserName");
+		String Password = getParameterFromXML("NonsubscribedPassword");
+
+		verifyElementPresentAndClick(AMDOnboardingScreen.objZeeMoreButton, "More button");
+		
+		verifyElementPresentAndClick(AMDOnboardingScreen.objZeeLoginRegisterLink, "Login/Register Link");
+
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+		type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
+		verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+		type(AMDLoginScreen.objPasswordField, Password, "Password field");
+		hideKeyboard();
+		verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+		waitTime(3000);
+		
+		}
+	}
+	
+	
+	
+	
+	public void RegisterFunctionality(String userType) throws Exception{
+		extent.HeaderChildNode("CleverTap Register");
+		
+		
+		if(userType.equals("Guest")){
+			//REGISTRATION
+			String pDOB = "01/01/1990";
+			String newEmailID = null;
+			String newPassword = "123456";
+			//ResponseInstance.newPassword = "123456";
+			String firstName = generateRandomString(6);
+			String lastName = generateRandomString(6);
+
+			verifyElementPresentAndClick(AMDHomePage.MoreMenuIcon, "More Menu");
+			
+			verifyElementPresentAndClick(AMDMoreMenu.objLoginRegister, "Login/Register Button");
+			//ResponseInstance.newEmailID = generateRandomString(8) + "@gmail.com";
+			newEmailID = generateRandomString(8) + "@gmail.com";
+			extent.extentLogger("", "New emailID : "+newEmailID);
+			type(AMDRegistrationScreen.objEmailIDTextField, newEmailID, "Email field");
+			click(AMDRegistrationScreen.objProceedBtn, "Proceed button");
+			
+			verifyElementExist(AMDRegistrationScreen.objScreenTitle, "Register for free title");
+			verifyElementPresentAndClick(AMDRegistrationScreen.objFirstNameTxtField, "First name field");		
+			type(AMDRegistrationScreen.objFirstNameTxtField, firstName, "First name");
+//			hideKeyboard();
+			
+			verifyElementPresentAndClick(AMDRegistrationScreen.objLastNameTxtField, "Last Name field");
+			type(AMDRegistrationScreen.objLastNameTxtField, lastName, "Last Name");
+//			hideKeyboard();
+			
+			click(AMDRegistrationScreen.objDOBTxtField, "DOB field");
+			type(AMDRegistrationScreen.objDOBTxtField, pDOB, "DOB");
+//			hideKeyboard();		
+			
+			verifyElementPresentAndClick(AMDRegistrationScreen.objGederTxtField, "Gender field");
+			verifyElementPresentAndClick(AMDRegistrationScreen.objMale, "Gender male");
+			
+			verifyElementPresentAndClick(AMDRegistrationScreen.objPasswordTxtField, "Passowrd field");
+			type(AMDRegistrationScreen.objPasswordTxtField, newPassword, "Password");
+			hideKeyboard();
+			waitTime(5000);
+			verifyElementPresentAndClick(AMDRegistrationScreen.objRegisterBtn, "Register button");
+			waitTime(10000);	
+		}
+	}
+	
+	
+	
+	/**
+	 * Function to Relaunch the driver
+	 */
+	public void relaunch(boolean clearData) throws Exception {
+		HeaderChildNode("Relaunch the app");
+		logger.info("Relaunching the application");
+		extent.extentLogger("Relaunch", "Relaunching the application");
+		waitTime(10000);
+		getDriver().quit();
+		relaunch = clearData;
+		new Zee5ApplicasterBusinessLogic("zee");
+		if (userType != "Guest" & clearData == false) {
+			System.out.println("Navigates to Landing Sccreen..");
+		}
+	}
+	
 	
 	public void validateResult() throws Exception {
 		HeaderChildNode("Verify Events are reflected in dashboard");
@@ -305,4 +465,13 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 			getWebDriver().quit();
 			setPlatform("Android");
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
