@@ -102,28 +102,26 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 			System.out.println(event.size());
 			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss a");
 			Date d1 = sdf.parse(currentDate);
+			boolean eventReflected = false;
 			for (int i = 0; i < event.size(); i++) {
 				Date d2 = sdf.parse(time.get(i).getText());
 				long elapsed = ((d2.getTime() - d1.getTime()) / 1000);
 				if (elapsed >= 0) {
 					if (event.get(i).getText().contains(EventName)) {
-//				List<WebElement> eventParameter = findElements(
-//						By.xpath("(((.//*[@class='new_day'])[1])//td/span[1])["+(i+1)+"]//following-sibling::*[contains(@class,'label-gray')]//span"));
-//				for (int j = 0; j < eventParameter.size(); j++) {
-//					String Key = eventParameter.get(j).getAttribute("title");
-//					String Value = eventParameter.get(j).getText();
-//					CleverTapDashboardData.InsertEventProperties((j+1), Key, Value);
-//				}
-//				break;
 						logger.info("Event Reflected in dashboard " + EventName);
 						extent.extentLoggerPass("Event", "Event Reflected in dashboard " + EventName);
+						eventReflected = true;
+						break;
 					}
-				}else {
+				} else {
 					break;
 				}
 			}
+			if (eventReflected) {
+				logger.info("Event not reflected in dashboard " + EventName);
+				extent.extentLoggerPass("Event", "Event not reflected in dashboard " + EventName);
+			}
 		} catch (Exception e) {
-
 		}
 	}
 
