@@ -69,6 +69,7 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 		setTimeout(Integer.parseInt(handler.getproperty("TIMEOUT")));
 		setRetryCount(Integer.parseInt(handler.getproperty("RETRY_COUNT")));
 		CleverTapTime();
+		decode();
 	}	
 	
 	public void tearDown() {
@@ -86,8 +87,8 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 	
 	public void loginCleverTap() throws Exception {
 		HeaderChildNode("Login Clever tap");
-		type(CleverTapPage.objEmailID, getParameterFromXML("CTUser"), "email field");
-		type(CleverTapPage.objPasswordEditBx, getParameterFromXML("CTPwd"), "email field");
+		type(CleverTapPage.objEmailID, CTUserName, "Email field");
+		type(CleverTapPage.objPasswordEditBx, CTPWD, "Password field");
 		verifyElementPresentAndClick(CleverTapPage.objLoginBtn, "Login button");
 	}
 	
@@ -130,7 +131,6 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 	public void SubscriptionPageViewed() throws Exception {
 		HeaderChildNode("Subscription Page Viewed");
 		waitTime(2000);
-//		verifyElementPresentAndClick(AMDCleverTapPage.objCountryScreenConitnueBtn, "Continue button");
 		verifyElementPresentAndClick(AMDHomePage.objBuyPlanCTA, "Buy Plan");
 	}
 	
@@ -241,7 +241,7 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 	
 	public void ZeeApplicasterLogin(String LoginMethod) throws Exception {
 		System.out.println("\nLogin to the App");
-
+		verifyElementPresentAndClick(AMDCleverTapPage.objCountryScreenConitnueBtn, "Continue button");
 		switch (LoginMethod) {
 		case "Guest":
 			extent.HeaderChildNode("Logged in as <b>Guest</b> User");
@@ -341,8 +341,6 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 				System.out.println("WHILE USING THE APP is present");
 				click(AMDOnboardingScreen.ele1Allow(str1), str1);
 			}
-			
-
 			Thread.sleep(10000);
 		} else {
 			System.out.println("Access Device Location PopUp not displayed");
@@ -357,9 +355,7 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 		extent.HeaderChildNode("Select Your country and Language");
 		waitTime(5000);
 		verifyElementPresentAndClick(AMDOnboardingScreen.objContinueBtnInCountryPopUp, "SelectYourCountry Continue Button");
-		
 		waitTime(5000);
-		
 	}
 	
 	
@@ -393,8 +389,6 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 	
 	public void RegisterFunctionality(String userType) throws Exception{
 		extent.HeaderChildNode("CleverTap Register");
-		
-		
 		if(userType.equals("Guest")){
 			//REGISTRATION
 			String pDOB = "01/01/1990";
@@ -476,13 +470,5 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 			getWebDriver().quit();
 			setPlatform("Android");
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

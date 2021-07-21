@@ -1,11 +1,5 @@
 package com.zee5.PWAPages;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-
 import org.openqa.selenium.By;
 
 public class CleverTapPage {
@@ -52,16 +46,5 @@ public class CleverTapPage {
 	
 	public static By objInputValue = By.xpath("//*[@id=\"FEQuery1\"]/div[2]/div/div/div[3]/div[1]/div/span[2]/div[3]/div/input");
 	
-	
-//	Campaign
-	public static void main(String[] args) throws ParseException {
-		 String startTime = "03:08:18 pm";
-		    String endTime = "03:08:17 pm";
-		    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss a");
-		    Date d1 = sdf.parse(startTime);
-		    Date d2 = sdf.parse(endTime);
-		    long elapsed = (d2.getTime() - d1.getTime()); 
-		    System.out.println(elapsed/(1000));
-	}
 	
 }

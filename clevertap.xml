@@ -10,6 +10,8 @@
 	
 	<parameter name="NonsubscribedUserName" value="Autoclevertap@g.com" />
 	<parameter name="NonsubscribedPassword" value="clevertap" />
+	<parameter name="CTUser" value="bXVyYWxpLmFwcGFkaUB6ZWUuY29t" />
+	<parameter name="CTPwd" value="Q2hAbmczbTMhIQ" />
 	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />

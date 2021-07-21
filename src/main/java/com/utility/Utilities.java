@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -30,7 +31,6 @@ import com.google.common.collect.Ordering;
 import com.zee5.ApplicasterPages.AMDGenericObjects;
 import com.zee5.TVPages.Zee5TvHomePage;
 import com.zee5.TVPages.Zee5TvSearchPage;
-
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
@@ -39,7 +39,6 @@ import io.appium.java_client.ios.IOSDriver;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 import io.appium.java_client.android.AndroidTouchAction;
 import io.appium.java_client.touch.LongPressOptions;
 import io.appium.java_client.touch.WaitOptions;
@@ -63,6 +62,10 @@ public class Utilities extends ExtentReporter {
 	private SoftAssert softAssert = new SoftAssert();
 
 	public static boolean relaunch = false;
+	
+	public static String CTUserName;
+	
+	public static String CTPWD;
 
 	public static String setPlatform = "";
 
@@ -116,6 +119,7 @@ public class Utilities extends ExtentReporter {
 	public static JavascriptExecutor js;
 	
 	public static String currentDate;
+	
 
 	public void initDriver() {
 		if (getPlatform().equals("Web")) {
@@ -2184,5 +2188,10 @@ public class Utilities extends ExtentReporter {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("hh:mm:ss a");
 		LocalDateTime now = LocalDateTime.now();
 		currentDate = dtf.format(now);
+	}
+	
+	public void decode() {
+		CTUserName = new String(Base64.getDecoder().decode(getParameterFromXML("CTUser"))); 
+		CTPWD = new String(Base64.getDecoder().decode(getParameterFromXML("CTPwd")));
 	}
 }

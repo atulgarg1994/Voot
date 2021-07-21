@@ -2491,7 +2491,6 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				Back(2);
 			}
 		}
-
 	}
 
 	public void videoExitEventOfContentFromUpNextRail(String usertype, String keyword4) throws Exception {
