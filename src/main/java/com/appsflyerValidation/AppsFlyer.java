@@ -185,8 +185,11 @@ public class AppsFlyer extends ExtentReporter{
 				}
 			}
 
+			File file = new File(System.getProperty("user.dir") +"\\AppsflyerConvertedReport");
+				file.mkdir();
 			generatedXlsxReportFilePath = System.getProperty("user.dir") +"\\AppsflyerConvertedReport"
 					+ "\\" + FILE_NAME + FILE_EXTN;
+			
 			// logger.info("The File Is Generated At The Following Location?= "
 			// + generatedXlsFilePath);
 			System.out.println("The File Is Generated At The Following Location?= " + generatedXlsxReportFilePath);

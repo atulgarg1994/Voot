@@ -186,5 +186,6 @@ public class AMDConsumptionScreen {
     public static By objLang = By.xpath("//*[@class='android.view.View']//*[@text='select language']");
     public static By objtemrsAndprivacypolicy = By.xpath("//*[@text=' Terms of use and Privacy Policy ']");
     
+    public static By objBuyPlanRibbonCTA = By.xpath("(//*[@id='subscribeButton' and @text='Buy Plan'])");
     
 }

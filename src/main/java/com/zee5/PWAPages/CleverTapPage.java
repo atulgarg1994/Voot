@@ -56,12 +56,12 @@ public class CleverTapPage {
 //	Campaign
 	public static void main(String[] args) throws ParseException {
 		 String startTime = "03:08:18 pm";
-		    String endTime = "03:08:50 pm";
+		    String endTime = "03:08:17 pm";
 		    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss a");
 		    Date d1 = sdf.parse(startTime);
 		    Date d2 = sdf.parse(endTime);
 		    long elapsed = (d2.getTime() - d1.getTime()); 
-		    System.out.println(elapsed/(1000 * 60));
+		    System.out.println(elapsed/(1000));
 	}
 	
 }

@@ -1,27 +1,21 @@
 package com.metadata;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 //import static com.jayway.restassured.RestAssured.given;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.Reporter;
 
 import com.CleverTap.CleverTapDashboardData;
 import com.appsflyerValidation.AppsFlyer;
-import com.driverInstance.DriverInstance;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 //import com.jayway.restassured.RestAssured;
 //import com.jayway.restassured.response.Response;
 //import com.jayway.restassured.specification.RequestSpecification;
@@ -49,6 +43,7 @@ public class ResponseInstance {
 	public static String newPassword = null;
 	
 	public static String AdvertiseId = "7e128be0-8f02-4eb4-93e4-e7382eb01d82";
+	public static String GuestLanguage = "en-kn";
 
 	public static Response getResponse() {
 		resp = RestAssured.given().urlEncodingEnabled(false).when().get(
@@ -4384,7 +4379,7 @@ public class ResponseInstance {
 		System.out.println("- - - - getLanguageforAppsFlyer - - - -");
 		String language = null;
 		if (userType.contains("Guest")) {
-			AppsFlyer.expectedData.setProperty("New Content Language", "en-kn");
+			AppsFlyer.expectedData.setProperty("New Content Language", GuestLanguage);
 		} else {
 			Response resplanguage = getUserinfoforNonSubORSub(userType);
 			for (int i = 0; i < resplanguage.jsonPath().getList("array").size(); i++) {
@@ -4491,14 +4486,14 @@ public class ResponseInstance {
 
 		if (!userType.equals("Guest")) {
 
-			String pUsername = "Autoclevertap@g.com";
-			String pPassword = "clevertap";
+			String pUsername = null;
+			String pPassword = null;
 
 			if (userType.contains("NonSubscribedUser")) {
-//				pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-//						.getParameter("NonsubscribedUserName");
-//				pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-//						.getParameter("NonsubscribedPassword");
+				pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("NonsubscribedUserName");
+				pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("NonsubscribedPassword");
 //			pUsername = "zeenonsubhipi@gmail.com";
 //			pPassword = "123456";
 			} else {

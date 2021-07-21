@@ -1,5 +1,7 @@
 package com.business.zee;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import org.openqa.selenium.WebElement;
 import com.CleverTap.CleverTapDashboardData;
@@ -90,16 +92,20 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 	}
 	
 	public void getEventName(String EventName) {
-		HeaderChildNode("Event Name");
-		CleverTapDashboardData.creatExcelCleverTap();
-		waitTime(10000);
-		List<WebElement> event = findElements(CleverTapPage.objEventName);
-		List<WebElement> time = findElements(CleverTapPage.objTime);
-		System.out.println(event.size());
-		for (int i = 0; i < event.size(); i++) {
-			
-			if(time.get(i).getText().contains(currentDate)) {
-			if (event.get(i).getText().contains(EventName)) {
+		try {
+			HeaderChildNode("Event Name");
+			CleverTapDashboardData.creatExcelCleverTap();
+			waitTime(10000);
+			List<WebElement> event = findElements(CleverTapPage.objEventName);
+			List<WebElement> time = findElements(CleverTapPage.objTime);
+			System.out.println(event.size());
+			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss a");
+			Date d1 = sdf.parse(currentDate);
+			for (int i = 0; i < event.size(); i++) {
+				Date d2 = sdf.parse(time.get(i).getText());
+				long elapsed = ((d2.getTime() - d1.getTime()) / 1000);
+				if (elapsed >= 0) {
+					if (event.get(i).getText().contains(EventName)) {
 //				List<WebElement> eventParameter = findElements(
 //						By.xpath("(((.//*[@class='new_day'])[1])//td/span[1])["+(i+1)+"]//following-sibling::*[contains(@class,'label-gray')]//span"));
 //				for (int j = 0; j < eventParameter.size(); j++) {
@@ -108,10 +114,15 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 //					CleverTapDashboardData.InsertEventProperties((j+1), Key, Value);
 //				}
 //				break;
-				logger.info("Event Reflected in dashboard "+EventName);
-				extent.extentLoggerPass("Event", "Event Reflected in dashboard "+EventName);
+						logger.info("Event Reflected in dashboard " + EventName);
+						extent.extentLoggerPass("Event", "Event Reflected in dashboard " + EventName);
+					}
+				}else {
+					break;
+				}
 			}
-		  }
+		} catch (Exception e) {
+
 		}
 	}
 
