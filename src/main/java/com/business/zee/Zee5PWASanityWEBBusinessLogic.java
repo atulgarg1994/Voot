@@ -31819,4 +31819,103 @@ public void collectionDescriptionShowArrowbutton(String tabname) throws Exceptio
 		navigateHome();	
 	}
 	
+public void PWA2KalturaPlayerversion(String userType)throws Exception
+{
+	extent.HeaderChildNode(" Kaltura Player Version 7.34.1 change (PWA2-8694)");
+	verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
+	type(PWASearchPage.objSearchEditBox, "Kumkum Bhagya - July 17, 2021", "Search Result");
+	waitTime(4000);
+	//waitForElement(PWASearchPage.objSearchedResult(contentTitle), 10, "Search Result");
+	
+	//verifyElementPresentAndClick(PWASearchPage.objSearchedResult(contentTitle), "Search Result");
+	click(PWASearchPage.objspecificSearch, "Searched content");
+	mandatoryRegistrationPopUp(userType);
+	waitTime(5000);
+	String Player=getWebDriver().findElement(By.xpath("//script[@id='kalturaScript']")).getAttribute("src");
+	String currenturl = getWebDriver().getCurrentUrl();
+	System.out.println(currenturl);
+	
+		if(Player.contains("https://cdnapisec.kaltura.com/p/2455421/embedPlaykitJs/uiconf_id/47921083"))
+		{
+			logger.info("Kaltura Player version changed , expected behaviour");
+			extent.extentLoggerPass(" ", "Kaltura Player version changed , expected behaviour");
+		}
+		else 
+		{
+			logger.info("Kaltura player version has not changed");
+			extent.extentLoggerFail(" ", "Kaltura player version has not changed");
+		} 
+}
+
+public void  UIOfSymbolShouldBeDisplayedAsExpected(String userType) throws Exception{
+	
+	extent.HeaderChildNode("[Mweb] Radio (\"?\") CTA fails to display properly in subscription page for Tamil display language (PWA2-8700)");
+	
+	
+	Tamillanguageselection();
+	
+	checkElementDisplayed(PWALandingPages.obj_Pwa_Subcription_teaser_btn, "Subcription button");
+	click(PWALandingPages.obj_Pwa_Subcription_teaser_btn, "Subcription button");
+	waitTime(5000);
+	if(verifyElementPresent(PWASubscriptionPages.objUISymbol,"UI Symbol")) {
+		logger.info(" UI of \\\"?\\\" symbol should be displayed as expected.");
+		extent.extentLogger("", " UI of \\\"?\\\" symbol should be displayed as expected.");
+	} else {
+		logger.error("The UI of \"?\" symbol fails to display properly that is beside 4th benefit text.");
+		extent.extentLoggerFail("", "The UI of \"?\" symbol fails to display properly that is beside 4th benefit text.");
+	}
+}
+
+public void pwaHaveagiftcardinputvalidation1(String userType) throws Exception {
+	if (userType.equals("NonSubscribedUser") || userType.equals("Guest")) {
+		extent.HeaderChildNode("\"Have a Gift Card?\" is accepting 'e' alphabet validation (PWA2-7756)");
+
+		verifyElementPresentAndClick(PWAHomePage.objSubscribeBtn, "Subscription button");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objContinuebuttominsubscriptionpage, "Continue Button");
+		waitTime(5000);
+
+		if (userType.equals("Guest")) {
+			accountinfopage();
+		}
+//		PWAIframe();
+//		verifyElementPresent(PWAHamburgerMenuPage.objnetbanking, "Net banking");
+		scrollToBottomOfPageWEB();
+		verifyElementPresent(PWAHamburgerMenuPage.objhaveagiftcard, "Have a gift card");
+		JSClick(PWAHamburgerMenuPage.objhaveagiftcard, "Have a gift card");
+		verifyElementPresent(PWAHamburgerMenuPage.objentercarddetailstohaveagiftcard, "Enter card details");
+		JSClick(PWAHamburgerMenuPage.objentercarddetailstohaveagiftcard, "Enter card details");
+		type(PWAHamburgerMenuPage.objentercarddetailstohaveagiftcard, "1abcdefghijklmnopqrstuvwxyz1",
+				"card number");
+		String cardnumber = findElement(PWAHamburgerMenuPage.objgiftcardnumber).getAttribute("value");
+		System.out.println(cardnumber);
+		extent.extentLogger("", " cardnumber  : " + cardnumber);
+		if (cardnumber.toLowerCase().contains("a") || cardnumber.toLowerCase().contains("b")
+				|| cardnumber.toLowerCase().contains("c") || cardnumber.toLowerCase().contains("d")
+				|| cardnumber.toLowerCase().contains("e") || cardnumber.toLowerCase().contains("f")
+				|| cardnumber.toLowerCase().contains("g") || cardnumber.toLowerCase().contains("h")
+				|| cardnumber.toLowerCase().contains("i") || cardnumber.toLowerCase().contains("j")
+				|| cardnumber.toLowerCase().contains("k") || cardnumber.toLowerCase().contains("l")
+				|| cardnumber.toLowerCase().contains("v") || cardnumber.toLowerCase().contains("q")
+				|| cardnumber.toLowerCase().contains("m") || cardnumber.toLowerCase().contains("w")
+				|| cardnumber.toLowerCase().contains("r") || cardnumber.toLowerCase().contains("n")
+				|| cardnumber.toLowerCase().contains("x") || cardnumber.toLowerCase().contains("s")
+				|| cardnumber.toLowerCase().contains("o") || cardnumber.toLowerCase().contains("y")
+				|| cardnumber.toLowerCase().contains("t") || cardnumber.toLowerCase().contains("p")
+				|| cardnumber.toLowerCase().contains("z") || cardnumber.toLowerCase().contains("u")) {
+			logger.info("The alphabet is accepted and the place holder is overlapped.");
+			extent.extentLoggerFail("", "The alphabet is accepted and the place holder is overlapped.");
+		} else {
+			logger.info("\"Have a Gift Card?\" field shouldn't accept alphabets., expected behavior");
+			extent.extentLoggerPass(" ",
+					"\"Have a Gift Card?\" field shouldn't accept alphabets., expected behavior");
+		}
+		verifyElementPresentAndClick(PWALandingPages.obj_Pwa_Zee5Logo, "ZeeLogo");
+
+		if (userType.equals("Guest")) {
+			logout();
+		}
+	}
+}
+
+
 }

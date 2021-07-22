@@ -7,8 +7,6 @@ import org.testng.annotations.Test;
 
 public class TvZee5TvperformanceScripts {
 
-	public class TvZee5ATVScripts {
-
 		private com.business.zee.Zee5TvBusinessLogic Zee5TvBusiness;
 
 		@BeforeTest
@@ -53,5 +51,4 @@ public class TvZee5TvperformanceScripts {
 			// System.out.println(Zee5TvBusiness.performaceDetails);
 			Zee5TvBusiness.TvtearDown();
 		}
-	}
 }

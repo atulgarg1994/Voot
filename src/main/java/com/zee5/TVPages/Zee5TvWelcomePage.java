@@ -16,6 +16,7 @@ public class Zee5TvWelcomePage {
 
 	public static By objauthenticatetext = By.xpath("//*[@id='authenticate_text']");
 	public static By objloginCode = By.xpath("//*[@id='code_text']");
+	public static By objLoginTimer = By.xpath("");
 
 	public static By objsettingsscreenRow = By.xpath("//*[@id='settingsicon_gridview' and @index='2']");
 	public static By objHomepageTrayContent = By.xpath(
@@ -259,4 +260,12 @@ public class Zee5TvWelcomePage {
 
 	public static By objhighlightedcontent = By
 			.xpath("//*[@id='main_image' and @selected='true']//parent::*//parent::*//child::*[@id='home_title']");
+	
+	public static By objLoginPopUp = By.xpath("//*[@id='pop_up_realtive']");
+	
+	public static By objAFSLoginPopUpSlider = By.xpath("//*[@id='mainlayout_for_plex']");
+	
+	public static By objautneticatePage = By.xpath("//*[@id='authenticate_text']");
+	
+	
 }

@@ -503,7 +503,7 @@ public class MixpanelAndroid extends ExtentReporter {
 		actualFormat.setTimeZone(java.util.TimeZone.getTimeZone("GMT"));
 		java.util.Date packExpiryDate = actualFormat.parse(packExpiry);
 		String Latest_Subscription_Pack_Expiry=requiredFormat.format(packExpiryDate).toString();
-	
+		
 		String Next_Expiring_Pack = Latest_Subscription_Pack;
 		String Next_Pack_Expiry_Date = Latest_Subscription_Pack_Expiry;
 		
@@ -984,6 +984,146 @@ public class MixpanelAndroid extends ExtentReporter {
 		}else {
 			System.out.println("Event not triggered");
 			extentReportFail("Event not triggered", "Event not triggered");
+		}
+	}
+	
+	public static void parentalSettingsValidateParameter(String distinctID, String eventName)
+			throws JsonParseException, JsonMappingException, IOException, InterruptedException, ParseException {
+		System.out.println("Parameter Validation " + distinctID);
+		PropertyFileReader Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
+		booleanParameters = Prop.getproperty("Boolean");
+		integerParameters = Prop.getproperty("Integer");
+		fileName = ReportName;
+		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
+		parentalStaticValues(distinctID);
+		getParentalSettingsParameterValue();
+		fetchEvent(distinctID, eventName);
+	}
+
+	public static void getParentalSettingsParameterValue() {
+		UserType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		if (!UserType.equals("Guest")) {
+			if (!fetchUserdata) {
+				String pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("ParentalNonsubscribedUserName");
+				String pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("ParentalNonsubscribedPassword");
+				ResponseInstance.getUserData(pUsername, pPassword);
+			}
+		}
+	}
+	
+	public static void parentalSubcribedDetails() throws ParseException {	
+
+		String username = getParameterFromXML("ParentalSubscribedUserName");
+		String password = getParameterFromXML("ParentalSubscribedPassword");
+
+		Response subscriptionResp=ResponseInstance.getSubscriptionDetails(username, password);
+		subscriptionResp.print();
+		
+		int subscriptionItems=subscriptionResp.jsonPath().get("subscription_plan.size()");
+		System.out.println(subscriptionItems);
+		int index = subscriptionItems-1;
+
+	//	String SubscriptionStatus=subscriptionResp.jsonPath().get("["+index+"].state");
+		String id=subscriptionResp.jsonPath().get("subscription_plan["+index+"].id").toString();
+		String subscription_plan_type=subscriptionResp.jsonPath().get("subscription_plan["+index+"].subscription_plan_type").toString();
+		String title=subscriptionResp.jsonPath().get("subscription_plan["+index+"].title").toString();
+		String Latest_Subscription_Pack=id+"_"+title+"_"+subscription_plan_type;
+
+		String packExpiry=subscriptionResp.jsonPath().get("["+index+"].subscription_end").toString().replace("Z", "");
+		
+		SimpleDateFormat requiredFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		java.text.DateFormat actualFormat = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		actualFormat.setTimeZone(java.util.TimeZone.getTimeZone("GMT"));
+		java.util.Date packExpiryDate = actualFormat.parse(packExpiry);
+		String Latest_Subscription_Pack_Expiry=requiredFormat.format(packExpiryDate).toString();
+	
+		String Next_Expiring_Pack = Latest_Subscription_Pack;
+		String Next_Pack_Expiry_Date = Latest_Subscription_Pack_Expiry;
+		
+		String billing_frequency=subscriptionResp.jsonPath().get("subscription_plan["+index+"].billing_frequency").toString();	
+		Response tvodResp=ResponseInstance.getTVODDetails(username, password);
+		int tvodItems=tvodResp.jsonPath().get("playback_state.size()");
+		String HasRental="";
+		try {			
+			if(tvodResp.jsonPath().get("playback_state["+(tvodItems-1)+"]").toString().equalsIgnoreCase("purchased")) HasRental="true";
+			else HasRental="false";
+		}catch(Exception e) {HasRental="false";}
+		
+		Response settingsResp=ResponseInstance.getSettingsDetails(username, password);
+		String hasEduauraa="false",key="";
+		int pairs=settingsResp.jsonPath().get("key.size()");
+		for (int i=0;i<pairs;i++) {
+			key=settingsResp.jsonPath().get("key["+i+"]").toString();
+			if(key.equals("eduauraaClaimed")) { 			
+				hasEduauraa=settingsResp.jsonPath().get("value["+i+"]").toString();
+				if(hasEduauraa.equals("")) hasEduauraa="false";
+				break;
+			}
+		}
+		MixpanelAndroid.FEProp.setProperty("Free Trial Expiry Date", "N/A");
+		MixpanelAndroid.FEProp.setProperty("Free Trial Package", "N/A");		
+		MixpanelAndroid.FEProp.setProperty("Latest Subscription Pack", Latest_Subscription_Pack);
+		MixpanelAndroid.FEProp.setProperty("Latest Subscription Pack Expiry", Latest_Subscription_Pack_Expiry);
+		MixpanelAndroid.FEProp.setProperty("Next Expiring Pack", Next_Expiring_Pack);
+		MixpanelAndroid.FEProp.setProperty("Next Pack Expiry Date", Next_Pack_Expiry_Date);
+		MixpanelAndroid.FEProp.setProperty("Pack Duration", billing_frequency);
+		MixpanelAndroid.FEProp.setProperty("hasRental", HasRental);
+		MixpanelAndroid.FEProp.setProperty("hasEduauraa", hasEduauraa);
+	}
+
+	public static void parentalStaticValues(String UniqueID) throws ParseException {
+		platform = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getSuite().getName();
+		if (platform.equals("Mpwa")) {
+			FEProp.setProperty("Platform Name", "Web");
+			FEProp.setProperty("os", "Android");
+		} else if (platform.equals("Android")) {
+			FEProp.setProperty("Platform Name", platform);
+			FEProp.setProperty("os", "Android");
+			PropertyFileReader handler = new PropertyFileReader("properties/AppPackageActivity.properties");
+			String appVersion = DeviceDetails.getAppVersion(handler.getproperty("zeePackage")).trim().replace("versionName=", "");
+			FEProp.setProperty("App Version", appVersion);
+		} else if (platform.equals("Web")) {
+			FEProp.setProperty("Platform Name", platform);
+			FEProp.setProperty("os", System.getProperty("os.name").split(" ")[0]);
+		}
+		MixpanelAndroid.FEProp.setProperty("Landing Page Name", "home");
+		if(!platform.equals("Android")) {
+		MixpanelAndroid.FEProp.setProperty("Unique ID", UniqueID);
+		}
+		
+		userType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		
+		if(userType.equals("Guest")) {
+			if(SubcribedDetails == false) {
+				MixpanelAndroid.FEProp.setProperty("Gender", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Age", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Free Trial Expiry Date", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Free Trial Package", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Latest Subscription Pack", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Latest Subscription Pack Expiry", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Next Expiring Pack", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Next Pack Expiry Date", "N/A");
+			//	MixpanelAndroid.FEProp.setProperty("Pack Duration", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Parent Control Setting", "N/A");
+		     // MixpanelAndroid.FEProp.setProperty("User Type", "Free");
+				MixpanelAndroid.FEProp.setProperty("Partner Name", "N/A");
+				MixpanelAndroid.FEProp.setProperty("HasRental", "false");
+				MixpanelAndroid.FEProp.setProperty("hasEduauraa", "false");
+			if(Language != false) {
+			//	MixpanelAndroid.FEProp.setProperty("New App Language", "en");
+			if(platform.equals("Android")) {
+				//MixpanelAndroid.FEProp.setProperty("New Content Language", "en,kn");
+			}else {
+				MixpanelAndroid.FEProp.setProperty("New Content Language", "[en-kn]");}
+			}
+			}
+		}else if(userType.equals("NonSubscribedUser"))
+		{
+			NonSubcribedDetails();
+		}else if(userType.equals("SubscribedUser")) {
+			parentalSubcribedDetails();
 		}
 	}
 }

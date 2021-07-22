@@ -23,6 +23,7 @@ public class SubscriptionCartAbandonment {
 	@Test(priority = 0)
 	@Parameters({ "userType" })
 	public void loginresult(String userType) throws Exception {
+		Zee5ApplicasterCleverTapBusinessLogic.NoThanksPopUp("ALLOW",userType);
 		Zee5ApplicasterCleverTapBusinessLogic.ZeeApplicasterLogin(userType);
 	}
 
@@ -47,7 +48,7 @@ public class SubscriptionCartAbandonment {
 	@Test(priority = 4)
 	@Parameters({ "userType" })
 	public void SubscriptionCallReturned(String userType) throws Exception {
-		Zee5ApplicasterCleverTapBusinessLogic.SubscriptionCallReturned();
+		Zee5ApplicasterCleverTapBusinessLogic.SubscriptionCallReturned(userType);
 	}
 	
 	@Test(priority = 5)
@@ -71,7 +72,7 @@ public class SubscriptionCartAbandonment {
 	@Test(priority = 8)
 	@Parameters({ "userType" })
 	public void AddToWatchlist(String userType) throws Exception {
-		Zee5ApplicasterCleverTapBusinessLogic.AddToWatchlist();
+		Zee5ApplicasterCleverTapBusinessLogic.AddToWatchlist(userType);
 	}
 	
 	@Test(priority = 9)
@@ -83,7 +84,7 @@ public class SubscriptionCartAbandonment {
 	@Test(priority = 10)
 	@Parameters({ "userType" })
 	public void RemoveFromWatchlist(String userType) throws Exception {
-		Zee5ApplicasterCleverTapBusinessLogic.RemoveFromWatchlist();
+		Zee5ApplicasterCleverTapBusinessLogic.RemoveFromWatchlist(userType);
 	}
 	
 //	@Test(priority = 10)
@@ -95,30 +96,35 @@ public class SubscriptionCartAbandonment {
 //	@Test(priority = 11)
 	@Parameters({ "userType" })
 	public void logout(String userType) throws Exception {
-		Zee5ApplicasterCleverTapBusinessLogic.logout();
+		Zee5ApplicasterCleverTapBusinessLogic.logout(userType);
 	}
 	
 	
-	@Test(priority = 11)
+//	@Test(priority = 11)
 	@Parameters({ "userType" })
 	public void CleverTapRegistrationCheck(String userType) throws Exception {
 		Zee5ApplicasterCleverTapBusinessLogic.relaunch(true);
-		Zee5ApplicasterCleverTapBusinessLogic.accessDeviceLocationPopUp("Allow", userType);	
+		Zee5ApplicasterCleverTapBusinessLogic.NoThanksPopUp("Allow", userType);	
 		Zee5ApplicasterCleverTapBusinessLogic.SelectYourCountry();
 		Zee5ApplicasterCleverTapBusinessLogic.RegisterFunctionality(userType);
 	}
 	
 	
 	
-	@Test(priority = 12)
+//	@Test(priority = 12)
 	@Parameters({ "userType" })
 	public void CleverTapLoginEventsCheck(String userType) throws Exception {
 		Zee5ApplicasterCleverTapBusinessLogic.relaunch(true);
-		Zee5ApplicasterCleverTapBusinessLogic.accessDeviceLocationPopUp("Allow", userType);	
+		Zee5ApplicasterCleverTapBusinessLogic.NoThanksPopUp("Allow", userType);	
 		Zee5ApplicasterCleverTapBusinessLogic.SelectYourCountry();
 		Zee5ApplicasterCleverTapBusinessLogic.cleverTapLoginFunctionality(userType);
 	}
 	
+	@Test(priority = 12)
+	@Parameters({ "userType" })
+	public void validation(String userType) throws Exception {
+		Zee5ApplicasterCleverTapBusinessLogic.validateResult();
+	}
 	
 	
 	@AfterTest

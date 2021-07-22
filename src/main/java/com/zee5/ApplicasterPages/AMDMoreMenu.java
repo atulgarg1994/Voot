@@ -306,4 +306,10 @@ public class AMDMoreMenu {
 	public static By objTeluguLanguage = By.xpath("//*[@id='btn_content_lang' and @text='Telugu']");
 	
 	public static By objContinueLangBtn = By.xpath("//*[@id='dl_language_selection']");
+	
+	public static By objRestrict18Plus = By.xpath("//*[@text='Restrict 18+ Content']");
+	
+	public static By objRestrict13Plus = By.xpath("//*[@text='Restrict 13+ Content']");
+	
+	public static By objSeletcedParentalControlOption = By.xpath("(//*[@id='selectionImageSelector']//parent::*//parent::*//child::*//child::*)[1]");
 }

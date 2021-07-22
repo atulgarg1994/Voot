@@ -237,6 +237,52 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	
+	public void accessDeviceLocationPopUpDFP(String permission, String userType) throws Exception {
+		extent.HeaderChildNode("Access Device Location PopUp");
+		extent.extentLogger("User Type", "UserType : " + userType);
+		logger.info("UserType : " + userType);
+		System.out.println("Access Device Location PopUp");
+		Thread.sleep(10000);
+		Thread.sleep(10000);
+				if(verifyIsElementDisplayed(AMDOnboardingScreen.objUpdateZee5PopUpNOTHANKSButton, "NO THANKS Button"))
+				{
+					verifyElementPresentAndClick(AMDOnboardingScreen.objUpdateZee5PopUpNOTHANKSButton, "NO THANKS Button");
+				}else{
+					System.out.println("UpdateZee5 Not displayed");
+				}
+				Thread.sleep(10000);
+		if (verifyElementExist(AMDOnboardingScreen.objAllowLocationAccessPopup, "AllowPopup")) {
+			Wait(5000);
+
+			String str1 = getAttributValue("text", AMDOnboardingScreen.objFirstPermissionButton);
+			String str2 = getAttributValue("text", AMDOnboardingScreen.objSecondPermissionButton);
+			System.out.println(str1);
+			System.out.println(str2);
+
+			if (str1.contains("ALLOW")) {
+				System.out.println("ALLOW is present");
+				click(AMDOnboardingScreen.ele1Allow(str1), str1);
+			} else if (str1.contains("Allow")) {
+				System.out.println("Allow is present");
+				click(AMDOnboardingScreen.ele1Allow(str1), str1);
+			} else if (str2.contains("ALLOW")) {
+				System.out.println("ALLOW is present");
+				click(AMDOnboardingScreen.ele1Allow(str2), str2);
+			} else if (str2.contains("Allow")) {
+				System.out.println("Allow is present");
+				click(AMDOnboardingScreen.ele1Allow(str2), str2);
+			} else if (str1.contains("WHILE USING THE APP")) {
+				System.out.println("WHILE USING THE APP is present");
+				click(AMDOnboardingScreen.ele1Allow(str1), str1);
+			}
+			
+
+			Thread.sleep(10000);
+		} else {
+			System.out.println("Access Device Location PopUp not displayed");
+		}
+
+	}
 	
 	public void SelectYourCountryAndLanguage() throws Exception
 	{

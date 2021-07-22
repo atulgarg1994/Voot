@@ -12,10 +12,10 @@
 	<parameter name="SubscribedUserName" value="499subnoradhe@gmail.com" />
 	<parameter name="SubscribedPassword" value="123456" />
 	
-	<parameter name="ParentalNonsubscribedUserName" value="juspayuser@mailnesia.com" />
-	<parameter name="ParentalNonsubscribedPassword" value="123456" />
+	<parameter name="ParentalNonsubscribedUserName" value="zeetest@gmail.com" />
+	<parameter name="ParentalNonsubscribedPassword" value="zee123" />
 	
-	<parameter name="ParentalSubscribedUserName" value="gdmuser3@mailnesia.com" />
+	<parameter name="ParentalSubscribedUserName" value="newsub12@gmail.com" />
 	<parameter name="ParentalSubscribedPassword" value="123456" />
 	
 	<parameter name="FirstName" value="edcv" />
@@ -57,6 +57,7 @@
 	<parameter name="content4" value="Hebbuli Title Song"/>
 	<parameter name="content5" value="Kanneeraa - Kavacha"/>
 	<parameter name="contentID5" value="0-0-75977"/>
+	<parameter name="rentalContent"	value="TVOD Test movie" />
 	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />

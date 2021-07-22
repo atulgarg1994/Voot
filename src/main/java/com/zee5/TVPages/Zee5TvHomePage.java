@@ -154,5 +154,6 @@ public class Zee5TvHomePage {
 	public static By objPlayerScreenUpNext = By.xpath("//*[@id='info_text']");
 
 	public static By objinfo = By.xpath("//*[@id='player_info']");
+	public static By obDeviceAutneticationPage = By.xpath("");
 
 }

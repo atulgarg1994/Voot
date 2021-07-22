@@ -636,4 +636,6 @@ public class PWASubscriptionPages {
 	public static By objChangeButtonHaveAcode = By.xpath("//*[@class='changeMobileButton']");
 
 	public static By objProceedBtnHighlighted = By.xpath("//*[contains(@class, 'noSelect buttonGradient')]/span");
+
+	public static By objUISymbol = By.xpath("(//*[@class='circle'])[4]");
 }

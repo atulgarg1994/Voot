@@ -114,12 +114,13 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 						break;
 					}
 				} else {
+					eventReflected = true;
 					break;
 				}
 			}
 			if (eventReflected) {
 				logger.info("Event not reflected in dashboard " + EventName);
-				extent.extentLoggerPass("Event", "Event not reflected in dashboard " + EventName);
+				extent.extentLoggerFail("Event", "Event not reflected in dashboard " + EventName);
 			}
 		} catch (Exception e) {
 		}
@@ -142,7 +143,8 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 		verifyElementPresentAndClick(AMDMySubscriptionPage.objContinueBtnInBuyPremiumNow, "Continue button");
 	}
 	
-	public void SubscriptionCallReturned() throws Exception {
+	public void SubscriptionCallReturned(String userType) throws Exception {
+		if(!userType.equals("Guest")) {
 		HeaderChildNode("Subscription Call Returned");
 		verifyElementPresentAndClick(AMDMySubscriptionPage.objEnterCardNumberBtn, "Enter Card Number");
 		type(AMDMySubscriptionPage.objEnterCCTxt,"4012001037141112", "Card Number");
@@ -150,6 +152,7 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 		type(AMDMySubscriptionPage.objCVVTxt, "124", "CVV");
 		verifyElementPresentAndClick(AMDMySubscriptionPage.objPayNow, "Pay Now button");
 		waitTime(180000);
+		}
 	}
 	
 	
@@ -180,7 +183,8 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 		verifyElementPresentAndClick(AMDSearchScreen.objSearchBackBtn, "Back button");
 	}
 
-	public void AddToWatchlist() throws Exception {
+	public void AddToWatchlist(String userType) throws Exception {
+		if(!userType.equals("Guest")) {
 		HeaderChildNode("Add To Watchlist");
 		waitTime(2000);
 		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search");
@@ -189,6 +193,7 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 		waitTime(2000);
 		verifyElementPresentAndClick(AMDSearchScreen.objFisrtSearchContent,"First Content In Search");
 		verifyElementPresentAndClick(AMDConsumptionScreen.objWatchlistBtn, "Watchlist button");
+		}
 	}
 
 	public void Share() throws Exception {
@@ -221,7 +226,8 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 		Back(1);
 	}
 
-	public void RemoveFromWatchlist() throws Exception {
+	public void RemoveFromWatchlist(String userType) throws Exception {
+		if(!userType.equals("Guest")) {
 		Back(1);
 		HeaderChildNode("Remove From Watchlist");
 		verifyElementPresentAndClick(AMDHomePage.objMoreMenuBtn, "More menu");
@@ -229,6 +235,7 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 		verifyElementPresentAndClick(AMDWatchlistPage.objEditBtn, "Edit button");
 		verifyElementPresentAndClick(AMDWatchlistPage.objSelectCheckBox, "Check box");
 		verifyElementPresentAndClick(AMDWatchlistPage.objDeleteAllBtn, "Delete button");
+		}
 	}
 
 	public void PromoCodeResult() {
@@ -292,16 +299,18 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 		}
 	}
 	
-	public void logout() throws Exception {
+	public void logout(String userType) throws Exception {
+		if(!userType.equals("Guest")) {
 		HeaderChildNode("LogOut");
 		verifyElementPresentAndClick(AMDHomePage.objMoreMenuBtn, "More menu");
 		Swipe("UP", 1);
 		verifyElementPresentAndClick(AMDMoreMenu.objLogoutBtn, "Logout");
+		}
 	}
 	
 	
 	
-	public void accessDeviceLocationPopUp(String permission, String userType) throws Exception {
+	public void NoThanksPopUp(String permission, String userType) throws Exception {
 		extent.HeaderChildNode("Access Device Location PopUp");
 		extent.extentLogger("User Type", "UserType : " + userType);
 		logger.info("UserType : " + userType);
@@ -314,35 +323,36 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 				}else{
 					System.out.println("UpdateZee5 Not displayed");
 				}
-				Thread.sleep(10000);
-		if (verifyIsElementDisplayed(AMDOnboardingScreen.objAllowLocationAccessPopup, "AllowPopup")) {
-			Wait(5000);
-
-			String str1 = getAttributValue("text", AMDOnboardingScreen.objFirstPermissionButton);
-			String str2 = getAttributValue("text", AMDOnboardingScreen.objSecondPermissionButton);
-			System.out.println(str1);
-			System.out.println(str2);
-
-			if (str1.contains("ALLOW")) {
-				System.out.println("ALLOW is present");
-				click(AMDOnboardingScreen.ele1Allow(str1), str1);
-			} else if (str1.contains("Allow")) {
-				System.out.println("Allow is present");
-				click(AMDOnboardingScreen.ele1Allow(str1), str1);
-			} else if (str2.contains("ALLOW")) {
-				System.out.println("ALLOW is present");
-				click(AMDOnboardingScreen.ele1Allow(str2), str2);
-			} else if (str2.contains("Allow")) {
-				System.out.println("Allow is present");
-				click(AMDOnboardingScreen.ele1Allow(str2), str2);
-			} else if (str1.contains("WHILE USING THE APP")) {
-				System.out.println("WHILE USING THE APP is present");
-				click(AMDOnboardingScreen.ele1Allow(str1), str1);
-			}
-			Thread.sleep(10000);
-		} else {
-			System.out.println("Access Device Location PopUp not displayed");
-		}
+//				Thread.sleep(10000);
+//		if (verifyIsElementDisplayed(AMDOnboardingScreen.objAllowLocationAccessPopup, "AllowPopup")) {
+//			Wait(5000);
+//
+//			String str1 = getAttributValue("text", AMDOnboardingScreen.objFirstPermissionButton);
+//			String str2 = getAttributValue("text", AMDOnboardingScreen.objSecondPermissionButton);
+//			System.out.println(str1);
+//			System.out.println(str2);
+//
+//			if (str1.contains("ALLOW")) {
+//				System.out.println("ALLOW is present");
+//				click(AMDOnboardingScreen.ele1Allow(str1), str1);
+//			} else if (str1.contains("Allow")) {
+//				System.out.println("Allow is present");
+//				click(AMDOnboardingScreen.ele1Allow(str1), str1);
+//			} else if (str2.contains("ALLOW")) {
+//				System.out.println("ALLOW is present");
+//				click(AMDOnboardingScreen.ele1Allow(str2), str2);
+//			} else if (str2.contains("Allow")) {
+//				System.out.println("Allow is present");
+//				click(AMDOnboardingScreen.ele1Allow(str2), str2);
+//			} else if (str1.contains("WHILE USING THE APP")) {
+//				System.out.println("WHILE USING THE APP is present");
+//				click(AMDOnboardingScreen.ele1Allow(str1), str1);
+//			}
+//			Thread.sleep(10000);
+//		} else {
+//			System.out.println("Access Device Location PopUp not displayed");
+//		}
+				SelectYourCountry();
 
 	}
 	
@@ -465,6 +475,7 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 			getEventName("Content Language Changed");
 			getEventName("Display Language Changed");
 			getEventName("Login Result");
+			getEventName("Logout");
 			getWebDriver().quit();
 			setPlatform("Android");
 	}

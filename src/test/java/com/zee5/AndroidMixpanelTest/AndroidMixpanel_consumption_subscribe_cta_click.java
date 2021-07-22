@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import com.business.zee.Zee5ApplicasterMixPanelBusinessLogic;
 import com.utility.Utilities;
 
-public class AndroidMixpanel_RibbonCTAs {
+public class AndroidMixpanel_consumption_subscribe_cta_click {
 	
 private Zee5ApplicasterMixPanelBusinessLogic Zee5ApplicasterMixPanelBusinessLogic;
 	
@@ -27,10 +27,10 @@ private Zee5ApplicasterMixPanelBusinessLogic Zee5ApplicasterMixPanelBusinessLogi
 	
 	@Test(priority = 2)
 	@Parameters({ "userType", "keyword3" })
-	public void RibbonCTAs_Event_Search(String usertype, String keyword3) throws Exception {
-		System.out.println("\nRibbon CTAs Event");
+	public void consumption_subscribe_cta_click_Event_Search(String usertype, String keyword3) throws Exception {
+		System.out.println("\nconsumption_subscribe_cta_click_Event");
 		//Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.RibbonCTAs_Event(usertype, keyword3);
+		Zee5ApplicasterMixPanelBusinessLogic.consumption_subscribe_cta_click_Event(usertype, keyword3);
 	}
 
 	//###############-------END OF TEST-------###############

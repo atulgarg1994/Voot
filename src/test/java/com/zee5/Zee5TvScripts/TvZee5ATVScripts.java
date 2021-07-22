@@ -15,130 +15,130 @@ public class TvZee5ATVScripts {
 		Zee5TvBusiness = new com.business.zee.Zee5TvBusinessLogic("zeeTV");
 	}
 
-//	@Test(priority = 1)
-//	public void deviceAuthentication() throws Exception {
-//		Zee5TvBusiness.device();
-//	}
-//
-//	@Test(priority = 2)
-//	@Parameters({ "userType" })
-//	public void welcomescreen(String userType) throws Exception {
-//		Zee5TvBusiness.welcomescreen();
-//	}
-//
+	@Test(priority = 1)
+	public void deviceAuthentication() throws Exception {
+		Zee5TvBusiness.device();
+	}
+
+	@Test(priority = 2)
+	@Parameters({ "userType" })
+	public void welcomescreen(String userType) throws Exception {
+		Zee5TvBusiness.welcomescreen();
+	}
+
 	@Test(priority = 3)
 	@Parameters({ "userType" })
 	public void TvLogin(String userType) throws Exception {
 		// Zee5TvBusiness.jiraID = "TES-119";
 		Zee5TvBusiness.login(userType);
 	}
-//
-//	@Test(priority = 4)
-//	@Parameters({ "userType" })
-//	public void searchScenarios(String userType) throws Exception {
-//		Zee5TvBusiness.searchScenarios(userType);
-//	}
-//
-//	@Test(priority = 5)
-//	@Parameters({ "userType" })
-//	public void playback(String userType) throws Exception {
-//		Zee5TvBusiness.playbackHomepage();
-//	}
-//
-//	@Test(priority = 6)
-//	@Parameters({ "userType" })
-//	public void carousel(String tab) throws Exception {
-//		Zee5TvBusiness.carouselValidation("Home");
-//	}
-//
-//	@Test(priority = 7)
-//	@Parameters({ "userType" })
-//	public void landingScenarios(String userType) throws Exception {
-//
-//		Zee5TvBusiness.landingPageHome(userType);
-//	}
-//
-//	@Test(priority = 8)
-//	@Parameters({ "userType" })
-//	public void playerScenarios(String userType) throws Exception {
-//		Zee5TvBusiness.playerScenarios();
-//	}
-//
-//	@Test(priority = 9)
-//	@Parameters({ "userType" })
-//	public void setting(String userType) throws Exception {
-//		Zee5TvBusiness.setting(userType);
-//	}
-//
-//	@Test(priority = 10)
-//	public void collectingPage() throws Exception {
-//		Zee5TvBusiness.collectionpage();
-//	}
-//
-//	@Test(priority = 11)
-//	public void subscription() throws Exception {
-//		Zee5TvBusiness.subscription();
-//	}
-//
-//	@Test(priority = 12)
-//	public void continueWatching() throws Exception {
-//		Zee5TvBusiness.continueWatching();
-//	}
-//
-//	@Test(priority = 13)
-//	public void liveTV() throws Exception {
-//		Zee5TvBusiness.liveTv();
-//	}
-//
-//	@Test(priority = 14)
-//	public void beforeTV() throws Exception {
-//		Zee5TvBusiness.beforeTV();
-//	}
-//
-//	@Test(priority = 15)
-//	public void upNext() throws Exception {
-//		Zee5TvBusiness.upnext();
-//	}
-//
-//	@Test(priority = 16)
-//	public void language() throws Exception {
-//		Zee5TvBusiness.languagePage();
-//	}
-//
-//	@Test(priority = 17)
-//	public void ads() throws Exception {
-//		Zee5TvBusiness.ads();
-//	}
-//
-//	@Test(priority = 18)
-//	public void profile() throws Exception {
-//		Zee5TvBusiness.profile();
-//	}
-//
-//	@Test(priority = 19)
-//	public void deeplinking() throws Exception {
-//		Zee5TvBusiness.deeplinking();
-//	}
-//
-//	@Test(priority = 20)
-//	public void headerSection() throws Exception {
-//		Zee5TvBusiness.headerSection();
-//	}
-//
-//	@Test(priority = 21)
-//	public void talamoos() throws Exception {
-//		Zee5TvBusiness.talamoos();
-//	}
-//
-//	@Test(priority = 22)
-//	public void staticPage() throws Exception {
-//		Zee5TvBusiness.staticPages();
-//	}
-//
-//	@Test(priority = 23)
-//	public void contactUS() throws Exception {
-//		Zee5TvBusiness.contactUs();
-//	}
+
+	@Test(priority = 4)
+	@Parameters({ "userType" })
+	public void searchScenarios(String userType) throws Exception {
+		Zee5TvBusiness.searchScenarios(userType);
+	}
+
+	@Test(priority = 5)
+	@Parameters({ "userType" })
+	public void playback(String userType) throws Exception {
+		Zee5TvBusiness.playbackHomepage();
+	}
+
+	@Test(priority = 6)
+	@Parameters({ "userType" })
+	public void carousel(String tab) throws Exception {
+		Zee5TvBusiness.carouselValidation("Home");
+	}
+
+	@Test(priority = 7)
+	@Parameters({ "userType" })
+	public void landingScenarios(String userType) throws Exception {
+
+		Zee5TvBusiness.landingPageHome(userType);
+	}
+
+	@Test(priority = 8)
+	@Parameters({ "userType" })
+	public void playerScenarios(String userType) throws Exception {
+		Zee5TvBusiness.playerScenarios();
+	}
+
+	@Test(priority = 9)
+	@Parameters({ "userType" })
+	public void setting(String userType) throws Exception {
+		Zee5TvBusiness.setting(userType);
+	}
+
+	@Test(priority = 10)
+	public void collectingPage() throws Exception {
+		Zee5TvBusiness.collectionpage();
+	}
+
+	@Test(priority = 11)
+	public void subscription() throws Exception {
+		Zee5TvBusiness.subscription();
+	}
+
+	@Test(priority = 12)
+	public void continueWatching() throws Exception {
+		Zee5TvBusiness.continueWatching();
+	}
+
+	@Test(priority = 13)
+	public void liveTV() throws Exception {
+		Zee5TvBusiness.liveTv();
+	}
+
+	@Test(priority = 14)
+	public void beforeTV() throws Exception {
+		Zee5TvBusiness.beforeTV();
+	}
+
+	@Test(priority = 15)
+	public void upNext() throws Exception {
+		Zee5TvBusiness.upnext();
+	}
+
+	@Test(priority = 16)
+	public void language() throws Exception {
+		Zee5TvBusiness.languagePage();
+	}
+
+	@Test(priority = 17)
+	public void ads() throws Exception {
+		Zee5TvBusiness.ads();
+	}
+
+	@Test(priority = 18)
+	public void profile() throws Exception {
+		Zee5TvBusiness.profile();
+	}
+
+	@Test(priority = 19)
+	public void deeplinking() throws Exception {
+		Zee5TvBusiness.deeplinking();
+	}
+
+	@Test(priority = 20)
+	public void headerSection() throws Exception {
+		Zee5TvBusiness.headerSection();
+	}
+
+	@Test(priority = 21)
+	public void talamoos() throws Exception {
+		Zee5TvBusiness.talamoos();
+	}
+
+	@Test(priority = 22)
+	public void staticPage() throws Exception {
+		Zee5TvBusiness.staticPages();
+	}
+
+	@Test(priority = 23)
+	public void contactUS() throws Exception {
+		Zee5TvBusiness.contactUs();
+	}
 
 //	@Test(priority = 26) //Insprint
 	@Parameters({ "userType" })
@@ -146,7 +146,7 @@ public class TvZee5ATVScripts {
 		Zee5TvBusiness.autheticateInsprint(userType);
 	}
 
-//	@Test(priority = 27) //Insprint
+	@Test(priority = 27) //Insprint
 	public void zeelogoVerificationInPlayer() throws Exception {
 		Zee5TvBusiness.zeelogoVerificationInPlayer();
 	}
@@ -156,7 +156,7 @@ public class TvZee5ATVScripts {
 		Zee5TvBusiness.zeeplex();
 	}
 
-//	@Test(priority = 29) //Insprint
+	@Test(priority = 29) //Insprint
 	public void nowplaying() throws Exception {
 		Zee5TvBusiness.nowplayingButton();
 	}
@@ -171,25 +171,25 @@ public class TvZee5ATVScripts {
 		Zee5TvBusiness.premiumInUpnext();
 	}
 
-//	@Test(priority = 32) //Insprint
+	@Test(priority = 32) //Insprint
 	@SuppressWarnings("static-access")
 	public void e24channelSearch() throws Exception {
 		Zee5TvBusiness.jiraID = "TES-121";
 		Zee5TvBusiness.e24ChannelSearch();
 	}
 
-//	@Test(priority = 33) //Insprint
+	@Test(priority = 33) //Insprint
 	public void noReminderText() throws Exception {
 		Zee5TvBusiness.noReminderText();
 	}
 
-//	@Test(priority = 34) //Insprint
+	@Test(priority = 34) //Insprint
 	public void premiumContentPlayback() throws Exception {
 		Zee5TvBusiness.premiumconetntPlayback();
 	}
 
 	@SuppressWarnings("static-access")
-//	@Test(priority = 40) // Insprint
+	@Test(priority = 40) // Insprint
 	@Parameters({ "userType" })
 	public void planTitle(String userType) throws Exception {
 		if (userType.equals("Guest")) {
@@ -204,7 +204,7 @@ public class TvZee5ATVScripts {
 	}
 
 	@SuppressWarnings("static-access")
-//	@Test(priority = 42) // Insprint
+	@Test(priority = 41) // Insprint
 	@Parameters({ "userType" })
 	public void planLanguage(String userType) throws Exception {
 		if (userType.equals("Guest")) {
@@ -219,7 +219,7 @@ public class TvZee5ATVScripts {
 	}
 
 	@SuppressWarnings("static-access")
-//	@Test(priority = 43) // Insprint
+	@Test(priority = 42) // Insprint
 	@Parameters({ "userType" })
 	public void planDescription(String userType) throws Exception {
 		if (userType.equals("Guest")) {
@@ -234,7 +234,7 @@ public class TvZee5ATVScripts {
 	}
 
 	@SuppressWarnings("static-access")
-//	@Test(priority = 44) // Insprint
+	@Test(priority = 43) // Insprint
 	@Parameters({ "userType" })
 	public void planDescriptionLanguage(String userType) throws Exception {
 		if (userType.equals("Guest")) {
@@ -249,7 +249,7 @@ public class TvZee5ATVScripts {
 	}
 
 	@SuppressWarnings("static-access")
-	// @Test(priority = 45) // Insprint
+	 @Test(priority = 44) // Insprint
 	@Parameters({ "userType" })
 	public void playercontol(String userType) throws Exception {
 		if (userType.equals("Guest")) {
@@ -264,7 +264,7 @@ public class TvZee5ATVScripts {
 	}
 
 	@SuppressWarnings("static-access")
-//	@Test(priority = 46) // Insprint
+	@Test(priority = 45) // Insprint
 	@Parameters({ "userType" })
 	public void playerfadeout(String userType) throws Exception {
 		if (userType.equals("Guest")) {
@@ -279,7 +279,7 @@ public class TvZee5ATVScripts {
 	}
 
 	@SuppressWarnings("static-access")
-//	@Test(priority = 47) // Insprint
+	@Test(priority = 46) // Insprint
 	@Parameters({ "userType" })
 	public void infoScreen(String userType) throws Exception {
 		if (userType.equals("Guest")) {
@@ -294,7 +294,7 @@ public class TvZee5ATVScripts {
 	}
 
 	@SuppressWarnings("static-access")
-//	@Test(priority = 48) // Insprint
+	@Test(priority = 47) // Insprint
 	@Parameters({ "userType" })
 	public void playerFadeout(String userType) throws Exception {
 		if (userType.equals("Guest")) {
@@ -309,7 +309,7 @@ public class TvZee5ATVScripts {
 	}
 
 	@SuppressWarnings("static-access")
-//	@Test(priority = 49) // Insprint
+	@Test(priority = 48) // Insprint
 	@Parameters({ "userType" })
 	public void playerFadeOutContentDetail(String userType) throws Exception {
 		if (userType.equals("Guest")) {
@@ -473,7 +473,7 @@ public class TvZee5ATVScripts {
 
 	}
 
-//	@Test(priority = 60) // Insprint
+	@Test(priority = 60) // Insprint
 	@SuppressWarnings("static-access")
 	@Parameters({ "userType" })
 	public void expiredPlan(String userType) throws Exception {
@@ -487,7 +487,7 @@ public class TvZee5ATVScripts {
 		}
 	}
 
-//	@Test(priority = 61) // Insprint
+	@Test(priority = 61) // Insprint
 	@SuppressWarnings("static-access")
 	@Parameters({ "userType" })
 	public void settingsOptionNaviation(String userType) throws Exception {
@@ -502,7 +502,7 @@ public class TvZee5ATVScripts {
 		Zee5TvBusiness.settingScreen();
 	}
 
-//	@Test(priority = 62) // Insprint
+	@Test(priority = 62) // Insprint
 	@SuppressWarnings("static-access")
 	@Parameters({ "userType" })
 	public void settingsIconFocus(String userType) throws Exception {
@@ -517,7 +517,7 @@ public class TvZee5ATVScripts {
 		Zee5TvBusiness.settingsIconFocus();
 	}
 
-//	@Test(priority = 63) // Insprint
+	@Test(priority = 63) // Insprint
 	@SuppressWarnings("static-access")
 	@Parameters({ "userType" })
 	public void firststRowLeftNavigation(String userType) throws Exception {
@@ -532,7 +532,7 @@ public class TvZee5ATVScripts {
 		Zee5TvBusiness.firststRowLeftNavigation();
 	}
 
-//	@Test(priority = 64) // Insprint
+	@Test(priority = 64) // Insprint
 	@SuppressWarnings("static-access")
 	@Parameters({ "userType" })
 	public void lastRowRightNavigation(String userType) throws Exception {
@@ -548,7 +548,7 @@ public class TvZee5ATVScripts {
 		Zee5TvBusiness.lastRowRightNavigation();
 	}
 
-//	@Test(priority = 65) // Insprint
+	@Test(priority = 65) // Insprint
 	@SuppressWarnings("static-access")
 	@Parameters({ "userType" })
 	public void firstRowLastcontentRightNavigation(String userType) throws Exception {
@@ -563,7 +563,7 @@ public class TvZee5ATVScripts {
 		Zee5TvBusiness.firstRowLastcontentRightNavigation();
 	}
 
-//	@Test(priority = 66) // Insprint
+	@Test(priority = 66) // Insprint
 	@SuppressWarnings("static-access")
 	@Parameters({ "userType" })
 	public void secondRowFirstcontentLeftNavigation(String userType) throws Exception {
@@ -579,7 +579,7 @@ public class TvZee5ATVScripts {
 		Zee5TvBusiness.secondRowFirstcontentLeftNavigation();
 	}
 
-//	@Test(priority = 67) // Insprint
+	@Test(priority = 67) // Insprint
 	@SuppressWarnings("static-access")
 	@Parameters({ "userType" })
 	public void appVersion(String userType) throws Exception {
@@ -595,7 +595,7 @@ public class TvZee5ATVScripts {
 		Zee5TvBusiness.versionInSettingPage();
 	}
 
-//	@Test(priority = 68) // Insprint
+	@Test(priority = 68) // Insprint
 	@SuppressWarnings("static-access")
 	@Parameters({ "userType" })
 	public void upButtonNavigation(String userType) throws Exception {
@@ -611,7 +611,7 @@ public class TvZee5ATVScripts {
 		Zee5TvBusiness.upButtonNavigation();
 	}
 
-//	@Test(priority = 69) // Insprint
+	@Test(priority = 69) // Insprint
 	@SuppressWarnings("static-access")
 	@Parameters({ "userType" })
 	public void deviceInfo(String userType) throws Exception {

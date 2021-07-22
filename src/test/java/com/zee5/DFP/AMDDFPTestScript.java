@@ -30,7 +30,7 @@ public class AMDDFPTestScript {
 	@Parameters({ "userType" })
 	public void ValidationOfDifferentTypeAds(String userType) throws Exception {
 		System.out.println("\n Ads validation");
-		zee5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		zee5ApplicasterBusinessLogic.accessDeviceLocationPopUpDFP("Allow", userType);
 		zee5ApplicasterBusinessLogic.SelectYourCountryAndLanguage();
 		zee5ApplicasterBusinessLogic.Zee5AppLoginDFP(userType);	
 		zee5ApplicasterBusinessLogic.ValidateNativeAds(userType);
@@ -44,7 +44,7 @@ public class AMDDFPTestScript {
 	public void DFPValidation(String userType, String pSearch) throws Exception {
 		System.out.println("\nAndroid DFP Validation");
 		zee5ApplicasterBusinessLogic.relaunch(true);
-		zee5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		zee5ApplicasterBusinessLogic.accessDeviceLocationPopUpDFP("Allow", userType);
 		zee5ApplicasterBusinessLogic.SelectYourCountryAndLanguage();
 		zee5ApplicasterBusinessLogic.Zee5AppLoginDFP(userType);	
 		zee5ApplicasterBusinessLogic.AMDDFPValidation(userType, pSearch);
@@ -57,7 +57,7 @@ public class AMDDFPTestScript {
 		System.out.println("\nAndroid DFP Validation");
 		zee5ApplicasterBusinessLogic.relaunch(true);
 		//CharlesConfigure.clearCharlesLog();
-		zee5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		zee5ApplicasterBusinessLogic.accessDeviceLocationPopUpDFP("Allow", userType);
 		zee5ApplicasterBusinessLogic.SelectYourCountryAndLanguage();
 		zee5ApplicasterBusinessLogic.Zee5AppLoginDFP(userType);	
 		zee5ApplicasterBusinessLogic.AMDCharlesValidation(userType, pSearch);
