@@ -319,5 +319,5 @@ public class AMDHomePage {
 	
 	public static By objCompanionAd = By.xpath("((//*[@id='google_image_div'])//child::*) [1]");
 	
-	
+	public static By objBuyPlanCTABelowPlayer = By.xpath("(//*[@resource-id='com.graymatrix.did:id/subscribeButton'])[2]");	
 }

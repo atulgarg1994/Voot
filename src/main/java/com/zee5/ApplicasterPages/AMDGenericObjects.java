@@ -119,4 +119,6 @@ public class AMDGenericObjects {
 	public static By objSelectFirstCardFromRailName(String RailName) {
 		return By.xpath("//*[@text='See All']//parent::*//parent::*//*[contains(text(),'"+RailName+"')]//following::*[@class='android.widget.ImageView'][1]");
 	}
+	public static By objOTPField = By.xpath("//*[@text='Enter OTP']");
+	public static By objSubmitAndPay = By.xpath("//*[@text='SUBMIT OTP & PAY']");
 }

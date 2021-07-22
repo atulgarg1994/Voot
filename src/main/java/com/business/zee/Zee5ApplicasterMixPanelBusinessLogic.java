@@ -12773,8 +12773,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			registerPopUpClose();
 			completeProfilePopUpClose(usertype);
 
-			click(AMDHomePage.objGetPremiumCTAOnCarousel, "Subscribe CTA");
-			waitTime(3000);
+			click(AMDTVODComboOffer.objRentNowCTABelowPlayer, "Rent Now CTA");
+			waitTime(10000);
 
 			setFEProperty(usertype);
 			setUserType_SubscriptionProperties(usertype);
@@ -12956,22 +12956,241 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			MixpanelAndroid.ValidateParameter("", setEventName);
 		} else {
 			logger.info("Consumption Subscribe CTA Click event is not applicable for Subscribed user");
-			extent.extentLogger("Consumption Subscribe CTA Click", "Consumption Subscribe CTA Click event is not applicable for Subscribed user");
+			extent.extentLogger("Consumption Subscribe CTA Click",
+					"Consumption Subscribe CTA Click event is not applicable for Subscribed user");
 		}
 	}
-	
 
-public void JourneyToCaptureManualRefreshEvent(String pUsertype, String pTabname) throws Exception {
-		extent.HeaderChildNode("Pull to Refresh "+pTabname+" screen functionality");
-		System.out.println("\nPull to Refresh "+pTabname+" screen functionality");
-		
+	public void JourneyToCaptureManualRefreshEvent(String pUsertype, String pTabname) throws Exception {
+		extent.HeaderChildNode("Pull to Refresh " + pTabname + " screen functionality");
+		System.out.println("\nPull to Refresh " + pTabname + " screen functionality");
+
 		verifyElementPresent(AMDHomePage.HomeIcon, "Home Screen");
 		SelectTopNavigationTab(pTabname);
 		waitTime(3000);
 		Swipe("DOWN", 2);
 		click(AMDHomePage.objBottomUpcomingBtn, "Upcoming");
-		
-		logger.info("Pull to refresh the page is performed in "+pTabname);
-		extent.extentLogger("Pull to Refresh", "Pull to refresh the page is performed in "+pTabname);
+
+		logger.info("Pull to refresh the page is performed in " + pTabname);
+		extent.extentLogger("Pull to Refresh", "Pull to refresh the page is performed in " + pTabname);
 	}
+
+	public void TVShows_Content_PlayEventOfContentFromSearchPage(String usertype, String keyword4) throws Exception {
+		extent.HeaderChildNode("TVShows_Content_Play Event of content from search page");
+
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objSearchResultFirstContent, "Search result");
+
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		if (usertype.equalsIgnoreCase("Guest")) {
+			registerPopUpClose();
+		}
+		completeProfilePopUpClose(usertype);
+		waitTime(5000);
+		if (!(verifyIsElementDisplayed(AMDPlayerScreen.objFullscreenIcon))) {
+			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		}
+		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		String contentID = getParameterFromXML("keywordID4");
+
+		Response ContentResp = ResponseInstance.getResponseDetails(contentID);
+		ResponseInstance.setFEPropertyOfContentFromAPI2(contentID, ContentResp, "Home");
+		setFEProperty(usertype);
+		setUserType_SubscriptionProperties(usertype);
+		SetAppsflyerProperty();
+
+		if (usertype.equalsIgnoreCase("Guest")) {
+			mixpanel.FEProp.setProperty("User Type", "Guest");
+		}
+
+		String pManufacturer = DeviceDetails.OEM;
+
+		mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+		mixpanel.FEProp.setProperty("brand", pManufacturer);
+
+		mixpanel.ValidateParameter("", "TVShows_Content_Play");
+
+	}
+
+	public void rentalPurchaseCallReturnedEventOfContentFromSearchPage(String usertype, String keyword)
+			throws Exception {
+		HeaderChildNode("Rental purchase call returned event of a content through searchpage");
+		if (!(usertype.equalsIgnoreCase("Guest"))) {
+			String nCC = "5318 3123 4521 9856";
+			String expiryDate = "0325";
+			String nCVV = "321";
+
+			String Username = getParameterFromXML("NonSubscribedUserName");
+			String Password = getParameterFromXML("NonSubscribedUserPassword");
+
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, keyword + "\n", "Search bar");
+			hideKeyboard();
+			waitTime(4000);
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			click(AMDSearchScreen.objSearchResultFirstContent, "Search result");
+			click(AMDTVODComboOffer.objRentNowCTABelowPlayer, "Rent Now CTA");
+			getDriver().findElement(By.xpath("//*[@id='tvodRentNowButton']")).click();
+
+			if (usertype.equalsIgnoreCase("NonSubscribedUser")) {
+				getDriver().findElement(By.xpath("//*[@id='zeeLoginAction']")).click();
+				verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+				type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
+				verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+				hideKeyboard();
+				verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+				type(AMDLoginScreen.objPasswordField, Password, "Password field");
+				hideKeyboard();
+				verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+			}
+
+			waitTime(20000);
+			click(AMDGenericObjects.objText("Enter Card Number"), "CC/DC");
+			type(AMDMySubscriptionPage.objEnterCCTxt, nCC, "CC number");
+			type(AMDMySubscriptionPage.objExpiryCCTxt, expiryDate, "Expiry date");
+			type(AMDMySubscriptionPage.objCVVTxt, nCVV, "CVV");
+			hideKeyboard();
+			click(AMDGenericObjects.objText("Pay Now"), "Pay Now CTA");
+			waitTime(5000);
+			verifyIsElementDisplayed(AMDGenericObjects.objText("OTP verification"));
+			waitTime(3000);
+			click(AMDGenericObjects.objOTPField, "otp field");
+			waitTime(4000);
+			type(AMDGenericObjects.objOTPField, "111111", "otp field");
+			hideKeyboard();
+			click(AMDGenericObjects.objSubmitAndPay, "Submit and Pay");
+
+			String pManufacturer = DeviceDetails.OEM;
+			String contentID = getParameterFromXML("zeeplexContentID");
+			Response ContentResp = ResponseInstance.getResponseDetails(contentID);
+			ResponseInstance.setFEPropertyOfContentFromAPI2(contentID, ContentResp, "Home");
+
+			setFEProperty(usertype);
+			setUserType_SubscriptionProperties(usertype);
+			SetAppsflyerProperty();
+
+			mixpanel.FEProp.setProperty("Page Name", "SubscriptionJourneyPage");
+			mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+			mixpanel.FEProp.setProperty("brand", pManufacturer);
+			mixpanel.FEProp.setProperty("Cost", "299.0");
+			mixpanel.FEProp.setProperty("Failure Reason", "Unable to process the request.");
+			mixpanel.FEProp.setProperty("Payment Method", "CARD");
+			mixpanel.FEProp.setProperty("Success", "false");
+
+			mixpanel.ValidateParameter("", "Rental Purchase Call Returned");
+		} else {
+			logger.info("This is not applicable for Guest User");
+			extent.extentLogger("", "This is not applicable for Guest User");
+		}
+	}
+
+	public void rentalPurchaseCallInitiatedEventOfContentFromSearchPage(String usertype, String keyword)
+			throws Exception {
+		HeaderChildNode("Rental purchase call initiated event of a content through searchpage");
+		if (!(usertype.equalsIgnoreCase("Guest"))) {
+			String nCC = "5318 3123 4521 9856";
+			String expiryDate = "0325";
+			String nCVV = "321";
+
+			String Username = getParameterFromXML("NonSubscribedUserName");
+			String Password = getParameterFromXML("NonSubscribedUserPassword");
+
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, keyword + "\n", "Search bar");
+			hideKeyboard();
+			waitTime(4000);
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			click(AMDSearchScreen.objSearchResultFirstContent, "Search result");
+			click(AMDTVODComboOffer.objRentNowCTABelowPlayer, "Rent Now CTA");
+			getDriver().findElement(By.xpath("//*[@id='tvodRentNowButton']")).click();
+
+			if (usertype.equalsIgnoreCase("NonSubscribedUser")) {
+				getDriver().findElement(By.xpath("//*[@id='zeeLoginAction']")).click();
+				verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+				type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
+				verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+				hideKeyboard();
+				verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+				type(AMDLoginScreen.objPasswordField, Password, "Password field");
+				hideKeyboard();
+				verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+			}
+
+			waitTime(20000);
+			click(AMDGenericObjects.objText("Enter Card Number"), "CC/DC");
+			type(AMDMySubscriptionPage.objEnterCCTxt, nCC, "CC number");
+			type(AMDMySubscriptionPage.objExpiryCCTxt, expiryDate, "Expiry date");
+			type(AMDMySubscriptionPage.objCVVTxt, nCVV, "CVV");
+			hideKeyboard();
+			click(AMDGenericObjects.objText("Pay Now"), "Pay Now CTA");
+			waitTime(5000);
+			verifyIsElementDisplayed(AMDGenericObjects.objText("OTP verification"));
+
+			String pManufacturer = DeviceDetails.OEM;
+			String contentID = getParameterFromXML("zeeplexContentID");
+			Response ContentResp = ResponseInstance.getResponseDetails(contentID);
+			ResponseInstance.setFEPropertyOfContentFromAPI2(contentID, ContentResp, "Home");
+
+			setFEProperty(usertype);
+			setUserType_SubscriptionProperties(usertype);
+			SetAppsflyerProperty();
+
+			mixpanel.FEProp.setProperty("Cost", "299.0");
+			mixpanel.FEProp.setProperty("Page Name", "SubscriptionJourneyPage");
+			mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+			mixpanel.FEProp.setProperty("brand", pManufacturer);
+
+			mixpanel.ValidateParameter("", "Rental Purchase Call Initiated");
+		} else {
+			logger.info("This is not applicable for Guest User");
+			extent.extentLogger("", "This is not applicable for Guest User");
+		}
+	}
+	
+	public void SubtitleLanguageChangeEventFromSearchPage(String usertype, String keyword4) throws Exception {
+		extent.HeaderChildNode("Subtitle Language Change of content from search page");
+		waitTime(4000);
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+
+		click(AMDSearchScreen.objSearchResultFirstContent, "Search result");
+		registerPopUpClose();
+		completeProfilePopUpClose(usertype);
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+			waitTime(5000);
+		}
+		
+		click(AMDPlayerScreen.objSubtitleOptionInPotraitMode, "Subtitle Option");
+		waitTime(2000);
+		click(AMDPlayerScreen.objEnglishSubtitle, "English Subtitle Option");
+		waitTime(10000);
+		
+		setFEProperty(usertype);
+		setUserType_SubscriptionProperties(usertype);
+		SetAppsflyerProperty();
+
+		MixpanelAndroid.FEProp.setProperty("Source", "SearchPage");
+		MixpanelAndroid.FEProp.setProperty("Page Name", "ConsumptionPage");
+		MixpanelAndroid.FEProp.setProperty("Subtitle Language", "en");
+		MixpanelAndroid.FEProp.setProperty("Subtitles", "en");
+		MixpanelAndroid.FEProp.setProperty("Player Name", "Kaltura Android");
+
+		MixpanelAndroid.ValidateParameter("", "Subtitle Language Change");
+	}
+
+	
 }

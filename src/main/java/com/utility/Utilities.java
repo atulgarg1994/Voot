@@ -118,8 +118,6 @@ public class Utilities extends ExtentReporter {
 
 	public static JavascriptExecutor js;
 	
-	public static String currentDate;
-	
 
 	public void initDriver() {
 		if (getPlatform().equals("Web")) {
@@ -2155,7 +2153,6 @@ public class Utilities extends ExtentReporter {
 	public void TVRemoteEvent(int value) throws Exception {
 		
 		String cmd = "adb shell input keyevent "+value+"";
-	//	System.out.println(cmd);
 		Runtime.getRuntime().exec(cmd);
 		
 	}
@@ -2181,13 +2178,6 @@ public class Utilities extends ExtentReporter {
 	
 	public void BrowsertearDown() {
 		getWebDriver().quit();
-	}
-
-	
-	public void CleverTapTime() {
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("hh:mm:ss a");
-		LocalDateTime now = LocalDateTime.now();
-		currentDate = dtf.format(now);
 	}
 	
 	public void decode() {

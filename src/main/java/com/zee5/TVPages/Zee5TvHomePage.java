@@ -9,7 +9,8 @@ public class Zee5TvHomePage {
 	public static By objSelectTab(String str) {
 		return By.xpath("//*[@id='menu_items_title' and @text='" + str + "']");
 	}
-
+	
+	public static By objdescription = By.xpath("//*[@id='details_description_text']");
 	public static By objchannelInAllchannelTab(int i) {
 		return By.xpath("(//*[@id='channel_horizontal_view_channel_image'])[" + i + "]");
 	}
@@ -154,6 +155,6 @@ public class Zee5TvHomePage {
 	public static By objPlayerScreenUpNext = By.xpath("//*[@id='info_text']");
 
 	public static By objinfo = By.xpath("//*[@id='player_info']");
-	public static By obDeviceAutneticationPage = By.xpath("");
+	public static By obDeviceAutneticationPage = By.xpath("//*[@id='device_activation_header']");
 
 }

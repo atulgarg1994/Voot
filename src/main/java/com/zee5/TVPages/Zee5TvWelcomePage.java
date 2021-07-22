@@ -16,7 +16,12 @@ public class Zee5TvWelcomePage {
 
 	public static By objauthenticatetext = By.xpath("//*[@id='authenticate_text']");
 	public static By objloginCode = By.xpath("//*[@id='code_text']");
-	public static By objLoginTimer = By.xpath("");
+	
+	public static By objloginCodeNew = By.xpath("//*[@id='device_activation_code']");
+	public static By objLoginTimer = By.xpath("//*[@id='device_activation_refresh_timer']");
+	public static By objNoThanks = By.xpath(".//*[text()='No thanks']");
+	
+	public static By objauthenticatePagePhone = By.xpath("//*[@id='phone']");
 
 	public static By objsettingsscreenRow = By.xpath("//*[@id='settingsicon_gridview' and @index='2']");
 	public static By objHomepageTrayContent = By.xpath(

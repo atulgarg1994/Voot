@@ -212,7 +212,7 @@ public class ResponseInstance {
 		} else if (tab.equalsIgnoreCase("kids")) {
 			tab = "3673";
 		} else if (tab.equalsIgnoreCase("videos")) {
-			tab = "5011";
+			tab = "videos";
 		} else if (tab.equalsIgnoreCase("movies")) {
 			tab = "movies";
 		} else if (tab.equalsIgnoreCase("music")) {
@@ -220,7 +220,7 @@ public class ResponseInstance {
 		} else if (tab.equalsIgnoreCase("zeeoriginals")) {
 			tab = "zeeoriginals";
 		} else if (tab.equalsIgnoreCase("news")) {
-			tab = "626";
+			tab = "5857";
 		}
 		Response regionResponse = RestAssured.given().urlEncodingEnabled(false).when()
 				.get("https://xtra.zee5.com/country");
@@ -228,10 +228,11 @@ public class ResponseInstance {
 		String Uri;
 		if (Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getSuite().getName().equals("TV")) {
 			Uri = "https://gwapi.zee5.com/content/reco?country=IN&translation=en&languages=" + contLang
-					+ "&version=9&collection_id=0-8-" + tab + "&region=" + region;
+					+ "&version=10&collection_id=0-8-" + tab + "&region=" + region;
+			
 		} else {
 			Uri = "https://gwapi.zee5.com/content/reco?country=IN&translation=en&languages=" + contLang
-					+ "&version=6&collection_id=0-8-" + tab + "&region=" + region;
+					+ "&version=10&collection_id=0-8-" + tab + "&region=" + region;
 		}
 		String xAccessToken = getXAccessToken();
 		if (userType.equalsIgnoreCase("Guest")) {

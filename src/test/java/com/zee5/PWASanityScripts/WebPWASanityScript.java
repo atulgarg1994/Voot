@@ -406,10 +406,12 @@ public class WebPWASanityScript {
 	}
 	
 	@Test(priority = 30)
-	public void TestSprint71Automation() throws Exception {
+	@Parameters({ "userType" })
+	public void TestSprint71Automation(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
 		Zee5WEBPWASanityBusinessLogic.removeMinutelyContent();
 		Zee5WEBPWASanityBusinessLogic.GrievanceRedressalOption();
+		Zee5WEBPWASanityBusinessLogic.LiveTvRailContenttypeCheck(userType);
 	}
 
 	@Test(priority = 31)
@@ -420,6 +422,7 @@ public class WebPWASanityScript {
 		Zee5WEBPWASanityBusinessLogic.landingpagePropertiesValidation(userType, "Play");
 	}
 
+	
 	@AfterClass
 	public void tearDown() {
 		Zee5WEBPWASanityBusinessLogic.tearDown();

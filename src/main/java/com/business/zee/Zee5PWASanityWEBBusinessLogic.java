@@ -31917,5 +31917,134 @@ public void pwaHaveagiftcardinputvalidation1(String userType) throws Exception {
 	}
 }
 
+	public void LiveTvRailContenttypeCheck(String usertype) throws Exception {
+	extent.HeaderChildNode("PWA2-4832 : Live channel rail recommended on News Landing Page");
+	navigateToAnyScreenOnWeb("News");
+	waitTime(2500);
+	String TrayContentAPIchannelTitle = null;
+	String TrayContentUIchannelTitle = null;
 
+	ArrayList<String> ChannelContentAPIList = new ArrayList<String>();
+	ArrayList<String> ChannelContentUIList = new ArrayList<String>();
+
+	Response recoresp = ResponseInstance.getRecoDataFromTab(usertype, "news", "en,hi,kn");
+	String TrayTitle = recoresp.jsonPath().getString("buckets[0].title");
+	System.out.println("The Tray tile is :" + TrayTitle);
+
+	for (int j = 0; j < 5; j++) {
+		if (recoresp.jsonPath().getString("buckets[" + j + "].content_type").equals("channel")) {
+			String ContentType = recoresp.jsonPath().getString("buckets[" + j + "].title");
+			logger.info("the title of the bucket that contains content type (channel) is: " + ContentType);
+			extent.extentLogger("", "the title of the bucket that contains content type (channel) is: " + ContentType);
+			break;
+		}
+	}
+	for (int i = 0; i < 4; i++) {
+		TrayContentAPIchannelTitle = recoresp.jsonPath().getString("buckets[0].items[" + i + "].title");
+
+		logger.info("The content channel title from API No " + i + " " + TrayContentAPIchannelTitle);
+		extent.extentLogger("", "The  content channel title from API No " + i + " " + TrayContentAPIchannelTitle);
+		ChannelContentAPIList.add(TrayContentAPIchannelTitle);
+	}
+	waitTime(3500);
+	for (int i = 0; i < 4; i++) {
+		TrayContentUIchannelTitle = getWebDriver().findElement(By.xpath(
+				"(((//div[@class='slick-slider latestEpisodeTray slick-initialized']/child::*/child::*)[1])/child::*//h3[@class='cardTitle cardTitleMultiline'])["
+						+ (i + 1) + "]"))
+				.getText();
+		logger.info("The content channel title in UI No " + (i + 1) + " " + TrayContentUIchannelTitle);
+		extent.extentLogger("", "The content channel title from in UI No " + (i + 1) + " " + TrayContentUIchannelTitle);
+		ChannelContentUIList.add(TrayContentUIchannelTitle);
+	}
+
+	logger.info(ChannelContentAPIList);
+	extent.extentLogger("", "The List from API is: " + ChannelContentAPIList);
+	logger.info(ChannelContentUIList);
+	extent.extentLogger("", "The List from UI is: " + ChannelContentUIList);
+
+	if (ChannelContentAPIList.equals(ChannelContentUIList) == true) {
+		logger.info("The contents fetched from API and Contents present in UI are same");
+		extent.extentLoggerPass("", "The contents fetched from API and Contents present in UI are same");
+	} else {
+		logger.error("The contents fetched from API and Contents present in UI are not same");
+		extent.extentLoggerFail("", "The contents fetched from API and Contents present in UI are not same");
+	}
+
+	}
+
+	public void VerifyComboOfferPagePlexMovies(String userType) throws Exception {
+		extent.HeaderChildNode(
+				"Verify whether Combo offer is not applicable for other plex Movies if not configured for combo offer ");
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+		if (checkElementDisplayed(PWAHamburgerMenuPage.objrentmovie, "Only Movie Rent Now")) {
+			click(PWAHamburgerMenuPage.objrentmovie, "Rent Now");
+			waitTime(3000);
+			if (verifyElementDisplayed(PWASubscriptionPages.objZEE5SubscriptionPage)) {
+				logger.info(
+						"Combo offer should not be applicable for other plex Movies if not configured for combo offer, expected behaviour");
+				extent.extentLoggerPass(" ",
+						"Combo offer should not be applicable for other plex Movies if not configured for combo offer , expected behaviour");
+			} else {
+				logger.info("combo offer page is  displayed ");
+				extent.extentLoggerFail(" ", "combo offer page is displayed ");
+			}
+		}
+	}
+
+
+	public void VerifyComboOfferForMovies(String userType, String tabname) throws Exception {
+		extent.HeaderChildNode("Verify whether Combo offer is applicable for Movies  if configurable ");
+		waitTime(2500);
+		navigateToAnyScreenOnWeb(tabname);
+		waitTime(2500);
+		ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("title of the configured movie with combo offer"));
+		waitTime(2500);
+		JSClick(PWAHomePage.objPlaybackMovieTitle("title of the configured movie with combo offer"),
+				"title of the configured movie with combo offer");
+		if (checkElementDisplayed(PWAHamburgerMenuPage.objrentmovie, "Only Movie Rent Now")) {
+			click(PWAHamburgerMenuPage.objrentmovie, "Rent Now");
+			waitTime(3000);
+			if (verifyElementPresent(PWAComboOfferPage.objContentCard, "Content Thumbnail")) {
+				logger.info("Combo offer is applicable for Movies configured is displayed , expected behaviour");
+				extent.extentLoggerPass(" ",
+						"Combo offer is applicable for Movies configured is displayed  , expected behaviour");
+			} else {
+				logger.info("combo offer page is not displayed ");
+				extent.extentLoggerFail(" ", "combo offer page is not displayed ");
+			}
+		}
+	}
+	
+	public void VerifyComboOfferThroughSearchEntry(String userType) throws Exception {
+		extent.HeaderChildNode("Verify if the combo pack is applicable from Search entry point  ");
+		click(PWAHomePage.objSearchBtn, "Search button");
+		waitTime(2500);
+		type(PWASearchPage.objSearchEditBox, "supermoon", "Search Field");
+		waitTime(2500);
+		JSClick(PWASearchPage.objFirstSearch, "supermoon");
+		waitTime(2500);
+		if (checkElementDisplayed(PWAHamburgerMenuPage.objrentmovie, "Only Movie Rent Now")) {
+			click(PWAHamburgerMenuPage.objrentmovie, "Rent Now");
+			waitTime(3000);
+			if (verifyElementPresent(PWAComboOfferPage.objContentCard, "Content Thumbnail")) {
+				logger.info("combo offer page is displayed  , expected behaviour");
+				extent.extentLoggerPass(" ", "combo offer page is displayed   , expected behaviour");
+			} else {
+				logger.info("combo offer page is not displayed ");
+				extent.extentLoggerFail(" ", "combo offer page is not displayed ");
+			}
+		}
+	}
+
+	public void VerifyEntireTextOnComboOfferPage(String userType) throws Exception {
+		extent.HeaderChildNode("Verify that entire text on the Combo Offer Page including CTA text is configurable");
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+		waitTime(3500);
+		if (checkElementDisplayed(PWAHamburgerMenuPage.objrentnowinlandingpage, "Rent Now")) {
+			JSClick(PWAHamburgerMenuPage.objrentnowinlandingpage, "Rent Now");
+			waitTime(3500);
+			verifyComboScreen();
+		}
+	}
+	
 }

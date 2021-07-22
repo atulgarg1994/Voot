@@ -58,6 +58,9 @@
 	<parameter name="content5" value="Kanneeraa - Kavacha"/>
 	<parameter name="contentID5" value="0-0-75977"/>
 	<parameter name="rentalContent"	value="TVOD Test movie" />
+	<parameter name="keywordID4" value="0-1-manual_779smvu9cl80" />
+	<parameter name="zeeplexContent" value="TVOD Test movie 2"/>
+	<parameter name="zeeplexContentID" value="0-0-425002"/>
 	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />

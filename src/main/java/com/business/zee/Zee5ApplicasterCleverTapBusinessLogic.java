@@ -19,6 +19,7 @@ import com.zee5.ApplicasterPages.AMDMySubscriptionPage;
 import com.zee5.ApplicasterPages.AMDOnboardingScreen;
 import com.zee5.ApplicasterPages.AMDRegistrationScreen;
 import com.zee5.ApplicasterPages.AMDSearchScreen;
+import com.zee5.ApplicasterPages.AMDSubscibeScreen;
 import com.zee5.ApplicasterPages.AMDWatchlistPage;
 import com.zee5.PWAPages.CleverTapPage;
 import io.appium.java_client.android.AndroidDriver;
@@ -64,22 +65,43 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 		this.retryCount = retryCount;
 	}
 
+	private static String AdID = "__g7e128be08f024eb493e4e7382eb01d82";
+	private static String newUsername = null;
+	private static Boolean registerUser = false;
+	
 	public void init() {
 		PropertyFileReader handler = new PropertyFileReader("properties/Execution.properties");
 		setTimeout(Integer.parseInt(handler.getproperty("TIMEOUT")));
 		setRetryCount(Integer.parseInt(handler.getproperty("RETRY_COUNT")));
-		CleverTapTime();
 		decode();
 	}	
 	
 	public void tearDown() {
 		getWebDriver().quit();
+		getDriver().quit();
 	}
 	
-	public void navigateToCleverTap() throws Exception{
+	public void navigateToCleverTap(String userType) throws Exception{
 		HeaderChildNode("Navigating to Segment section");
+		verifyElementPresentAndClick(CleverTapPage.objCleverTapLogo, "CleverTap Logo");
+		waitTime(2000);
 		verifyElementPresentAndClick(CleverTapPage.objSegments, "Segment");
-		type(CleverTapPage.objSearchField, "Autoclevertap@g.com", "Search field");
+		waitTime(2000);
+		
+		if(userType.equalsIgnoreCase("Guest")){
+			if(registerUser){
+				type(CleverTapPage.objSearchField, newUsername, "Search field");
+			}else{
+				type(CleverTapPage.objSearchField, AdID, "Search field");
+			}
+		}else if(userType.equalsIgnoreCase("NonSubscribedUser")){
+			
+			type(CleverTapPage.objSearchField, getParameterFromXML("NonsubscribedUserName"), "Search field");
+		}else if(userType.equalsIgnoreCase("SubscribedUser")){
+			type(CleverTapPage.objSearchField, getParameterFromXML("SubscribedUserName"), "Search field");
+		}
+		
+		waitTime(2000);
 		verifyElementPresentAndClick(CleverTapPage.objFindBtn, "Find button");
 		waitTime(20000);
 		verifyElementPresentAndClick(CleverTapPage.objActivityBtn, "Activity button");
@@ -90,26 +112,44 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 		type(CleverTapPage.objEmailID, CTUserName, "Email field");
 		type(CleverTapPage.objPasswordEditBx, CTPWD, "Password field");
 		verifyElementPresentAndClick(CleverTapPage.objLoginBtn, "Login button");
+		
+		waitTime(3000);
+		
+		try{
+			getWebDriver().switchTo().frame("wiz-iframe-intent");
+			verifyElementPresentAndClick(CleverTapPage.objPopUpCloseIcon, "Popup close icon");
+			waitTime(4000);
+			getWebDriver().switchTo().defaultContent();
+			waitTime(4000);
+		}catch(Exception e){
+			
+		}
 	}
 	
 	public void getEventName(String EventName) {
 		try {
-			HeaderChildNode("Event Name");
-			CleverTapDashboardData.creatExcelCleverTap();
+			HeaderChildNode("Event Name : "+EventName);
+//			CleverTapDashboardData.creatExcelCleverTap();
+			
 			waitTime(10000);
 			List<WebElement> event = findElements(CleverTapPage.objEventName);
 			List<WebElement> time = findElements(CleverTapPage.objTime);
 			System.out.println(event.size());
-			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss a");
-			Date d1 = sdf.parse(currentDate);
+			System.out.println(time.size());
+			SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+			System.out.println("D1 : "+CTCurrentTime);
 			boolean eventReflected = false;
 			for (int i = 0; i < event.size(); i++) {
-				Date d2 = sdf.parse(time.get(i).getText());
-				long elapsed = ((d2.getTime() - d1.getTime()) / 1000);
-				if (elapsed >= 0) {
+				System.out.println(i);
+				String t = time.get(i).getText();
+				System.out.println(event.get(i).getText());
+				System.out.println(t);
+				String CTTime = (t.replaceAll("am", "").replace("pm", ""));
+				System.out.println("D2 : "+CTTime);
+				if ((sdf.parse(CTCurrentTime).equals(sdf.parse(CTTime))) || (sdf.parse(CTCurrentTime).before(sdf.parse(CTTime)))) {
 					if (event.get(i).getText().contains(EventName)) {
-						logger.info("Event Reflected in dashboard " + EventName);
-						extent.extentLoggerPass("Event", "Event Reflected in dashboard " + EventName);
+						logger.info(EventName + " Event Reflected in dashboard ");
+						extent.extentLoggerPass("Event", EventName + " Event Reflected in dashboard ");
 						eventReflected = true;
 						break;
 					}
@@ -118,33 +158,60 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 					break;
 				}
 			}
-			if (eventReflected) {
-				logger.info("Event not reflected in dashboard " + EventName);
-				extent.extentLoggerFail("Event", "Event not reflected in dashboard " + EventName);
+			if (!eventReflected) {
+				logger.info( EventName +" Event not reflected in dashboard ");
+				extent.extentLoggerFail("Event", EventName + " Event not reflected in dashboard ");
 			}
 		} catch (Exception e) {
 		}
 	}
 
 	
-	public void SubscriptionPageViewed() throws Exception {
+	public void SubscriptionPageViewed(String userType) throws Exception {
 		HeaderChildNode("Subscription Page Viewed");
-		waitTime(2000);
-		verifyElementPresentAndClick(AMDHomePage.objBuyPlanCTA, "Buy Plan");
+		
+		if(!userType.equals("SubscribedUser")) {
+			
+			waitTime(2000);
+			verifyElementPresentAndClick(AMDHomePage.objBuyPlanCTA, "Buy Plan");
+			
+		}
 	}
 	
-	public void SubscriptionSelected() throws Exception {
+	public void SubscriptionSelected(String userType) throws Exception {
 		HeaderChildNode("Subscription Selected");
+		
+		if(!userType.equals("SubscribedUser")) {
+
+		waitTime(6000);
+		PartialSwipe("UP", 2);
+		waitTime(6000);
 		verifyElementPresentAndClick(AMDMySubscriptionPage.objSelectPlanCheckBx, "Premium Plan Check Box");
+
+		}
 	}
 	
-	public void SubscriptionCallInitiated() throws Exception {
-		HeaderChildNode("Subscription Call Initiated");
-		verifyElementPresentAndClick(AMDMySubscriptionPage.objContinueBtnInBuyPremiumNow, "Continue button");
+	public void SubscriptionCallInitiated(String userType) throws Exception {
+		HeaderChildNode("Promo Code Result & Subscription Call Initiated");
+		
+		if(!userType.equals("SubscribedUser")){
+			Swipe("UP", 1);
+			
+			verifyElementExist(AMDSubscibeScreen.objHaveACodeCTA, "Have a code in subscribe page");
+			click(AMDSubscibeScreen.objHaveACodeCTA, "Have a code in subscribe page");
+			
+			click(AMDSubscibeScreen.objEnterACodeEditFiled, "Promo");
+			type(AMDSubscibeScreen.objEnterACodeEditFiled, "zee5scb", "Promo code");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objApplyOnHaveACodescreen, "Apply button");
+			
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDMySubscriptionPage.objContinueBtnInBuyPremiumNow, "Continue button");	
+		}	
 	}
 	
 	public void SubscriptionCallReturned(String userType) throws Exception {
-		if(!userType.equals("Guest")) {
+		if(userType.equals("NonSubscribedUser")) {
 		HeaderChildNode("Subscription Call Returned");
 		verifyElementPresentAndClick(AMDMySubscriptionPage.objEnterCardNumberBtn, "Enter Card Number");
 		type(AMDMySubscriptionPage.objEnterCCTxt,"4012001037141112", "Card Number");
@@ -153,16 +220,18 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 		verifyElementPresentAndClick(AMDMySubscriptionPage.objPayNow, "Pay Now button");
 		waitTime(180000);
 		}
+		waitTime(5000);
+			Back(1);
+			Back(1);
 	}
 	
 	
 	public void DisplayLanguageChange() throws Exception {
 		HeaderChildNode("Display Language Change");
-		Back(1);
-		Back(1);
 		verifyElementPresentAndClick(AMDHomePage.objMoreMenuBtn, "More menu");
 		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings");
 		verifyElementPresentAndClick(AMDMoreMenu.objDisplayLang, "Display Language");
+		waitTime(2000);
 		click(AMDMoreMenu.objContinueLangBtn,"Continue");
 	}
 
@@ -171,29 +240,45 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 //		verifyElementPresentAndClick(AMDHomePage.objMoreMenuBtn, "More menu");
 //		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings");		
 		verifyElementPresentAndClick(AMDMoreMenu.objContentLang, "Content Language");
+		waitTime(5000);
 		click(AMDMoreMenu.objContinueLangBtn,"Continue");
+		waitTime(5000);
 	}
 
 	public void SearchCancelled() throws Exception {
 		Back(1);
-		waitTime(2000);
+		waitTime(6000);
 		Back(1);
+		waitTime(6000);
 		HeaderChildNode("Search Cancelled");
 		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search");
+		waitTime(6000);
 		verifyElementPresentAndClick(AMDSearchScreen.objSearchBackBtn, "Back button");
+		waitTime(6000);
 	}
 
 	public void AddToWatchlist(String userType) throws Exception {
-		if(!userType.equals("Guest")) {
+		
 		HeaderChildNode("Add To Watchlist");
-		waitTime(2000);
+		waitTime(6000);
 		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search");
-		waitTime(2000);
+		waitTime(6000);
+		verifyElementPresentAndClick(AMDSearchScreen.objsearchBox, "SerchBox");
+		waitTime(6000);
 		type(AMDSearchScreen.objsearchBox,"love u ganesha","search field");
-		waitTime(2000);
+		waitTime(6000);
+		hideKeyboard();
 		verifyElementPresentAndClick(AMDSearchScreen.objFisrtSearchContent,"First Content In Search");
+		waitTime(6000);
 		verifyElementPresentAndClick(AMDConsumptionScreen.objWatchlistBtn, "Watchlist button");
+		waitTime(6000);
+		if(userType.equalsIgnoreCase("Guest")){
+			waitTime(6000);
+			hideKeyboard();
+			waitTime(6000);
+			Back(1);
 		}
+		
 	}
 
 	public void Share() throws Exception {
@@ -204,20 +289,11 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 		click(AMDConsumptionScreen.objShareBtn, "Share button");
 		boolean isShareOption = verifyIsElementDisplayed(AMDMoreMenu.objshareOptions);
 		if (isShareOption) {
-			logger.info("User is navigated share options screen");
-			extent.extentLoggerPass("Share through options screen", "User is navigated to share options screen");
-			int shareOptions = getDriver().findElements(AMDMoreMenu.objShareOptions).size();
-			if (shareOptions == 0) {
-				extent.extentLoggerFail("Verify share options", "Share Options are not available");
-				logger.info("Share Options are not available");
-			} else {
-				for (int i = 2; i <= shareOptions; i++) {
-					String shareOptionName = getText(AMDMoreMenu.objShareOptions(i));
-					logger.info("Share Option : \"" + shareOptionName + "\" is available to share");
-					extent.extentLoggerPass("Share Option ",
-							"Share Option : \"" + shareOptionName + "\" is available to share");
-				}
-			}
+
+			verifyElementPresentAndClick(AMDMoreMenu.objFacebook1, "Facebook option");
+			waitTime(15000);
+			verifyElementPresentAndClick(AMDMoreMenu.objFacebookPost, "Post/Share button");
+		
 		} else {
 			logger.info("Share Options are not displayed after clicking on Share CTA");
 			extent.extentLoggerFail("Share through options screen",
@@ -246,7 +322,7 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 	
 	public void ZeeApplicasterLogin(String LoginMethod) throws Exception {
 		System.out.println("\nLogin to the App");
-		verifyElementPresentAndClick(AMDCleverTapPage.objCountryScreenConitnueBtn, "Continue button");
+		
 		switch (LoginMethod) {
 		case "Guest":
 			extent.HeaderChildNode("Logged in as <b>Guest</b> User");
@@ -257,7 +333,7 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 
 		case "NonSubscribedUser":
 			extent.HeaderChildNode("Login as NonSubscribed User");
-			verifyElementPresentAndClick(AMDCleverTapPage.objCountryScreenConitnueBtn, "Continue button");
+			
 			String Username = getParameterFromXML("NonsubscribedUserName");
 			String Password = getParameterFromXML("NonsubscribedPassword");
 
@@ -302,8 +378,10 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 	public void logout(String userType) throws Exception {
 		if(!userType.equals("Guest")) {
 		HeaderChildNode("LogOut");
+		waitTime(5000);
 		verifyElementPresentAndClick(AMDHomePage.objMoreMenuBtn, "More menu");
 		Swipe("UP", 1);
+		verifyElementPresentAndClick(AMDMoreMenu.objLogout, "Logout");
 		verifyElementPresentAndClick(AMDMoreMenu.objLogoutBtn, "Logout");
 		}
 	}
@@ -323,7 +401,9 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 				}else{
 					System.out.println("UpdateZee5 Not displayed");
 				}
-//				Thread.sleep(10000);
+				Thread.sleep(10000);
+				
+				
 //		if (verifyIsElementDisplayed(AMDOnboardingScreen.objAllowLocationAccessPopup, "AllowPopup")) {
 //			Wait(5000);
 //
@@ -352,8 +432,10 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 //		} else {
 //			System.out.println("Access Device Location PopUp not displayed");
 //		}
-				SelectYourCountry();
 
+				
+				SelectYourCountry();
+				
 	}
 	
 	
@@ -368,11 +450,11 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 	
 	
 	
-	public void cleverTapLoginFunctionality(String userType) throws Exception{
+	public void cleverTapLoginLogoutFunctionality(String userType) throws Exception{
 		extent.HeaderChildNode("CleverTap Login");
 		
 		if(userType.equalsIgnoreCase("Guest")) {
-		
+			
 		String Username = getParameterFromXML("NonsubscribedUserName");
 		String Password = getParameterFromXML("NonsubscribedPassword");
 
@@ -387,8 +469,16 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 		type(AMDLoginScreen.objPasswordField, Password, "Password field");
 		hideKeyboard();
 		verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
-		waitTime(3000);
+		waitTime(5000);
+
+		waitTime(5000);
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenuBtn, "More menu");
+		Swipe("UP", 1);
+		verifyElementPresentAndClick(AMDMoreMenu.objLogout, "Logout");
+		verifyElementPresentAndClick(AMDMoreMenu.objLogoutBtn, "Logout");
 		
+		
+		waitTime(5000);
 		}
 	}
 	
@@ -400,19 +490,20 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 		if(userType.equals("Guest")){
 			//REGISTRATION
 			String pDOB = "01/01/1990";
-			String newEmailID = null;
 			String newPassword = "123456";
 			//ResponseInstance.newPassword = "123456";
 			String firstName = generateRandomString(6);
 			String lastName = generateRandomString(6);
 
-			verifyElementPresentAndClick(AMDHomePage.MoreMenuIcon, "More Menu");
+			Swipe("DOWN", 1);
+			
+			//verifyElementPresentAndClick(AMDHomePage.MoreMenuIcon, "More Menu");
 			
 			verifyElementPresentAndClick(AMDMoreMenu.objLoginRegister, "Login/Register Button");
 			//ResponseInstance.newEmailID = generateRandomString(8) + "@gmail.com";
-			newEmailID = generateRandomString(8) + "@gmail.com";
-			extent.extentLogger("", "New emailID : "+newEmailID);
-			type(AMDRegistrationScreen.objEmailIDTextField, newEmailID, "Email field");
+			newUsername = generateRandomString(8) + "@gmail.com";
+			extent.extentLogger("", "New emailID : "+newUsername);
+			type(AMDRegistrationScreen.objEmailIDTextField, newUsername, "Email field");
 			click(AMDRegistrationScreen.objProceedBtn, "Proceed button");
 			
 			verifyElementExist(AMDRegistrationScreen.objScreenTitle, "Register for free title");
@@ -459,25 +550,56 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 	}
 	
 	
-	public void validateResult() throws Exception {
+	public void validateResult(String userType) throws Exception {
 		HeaderChildNode("Verify Events are reflected in dashboard");
-		setPlatform("Web");
 		new Zee5ApplicasterCleverTapBusinessLogic("Chrome");
 			loginCleverTap();
-			navigateToCleverTap();
-			getEventName("Subscription Call Returned");
-			getEventName("Subscription Call Initiated");
-			getEventName("Subscription Selected");
-			getEventName("Subscription Page Viewed");
-			getEventName("Share");
-			getEventName("Remove From Watchlist");
-			getEventName("Search Cancelled");
-			getEventName("Content Language Changed");
-			getEventName("Display Language Changed");
-			getEventName("Login Result");
-			getEventName("Logout");
-			getWebDriver().quit();
-			setPlatform("Android");
+			navigateToCleverTap(userType);
+			
+			if(userType.equalsIgnoreCase("Guest")){
+				getEventName("Subscription Page Viewed");
+				getEventName("Subscription Selected");
+				getEventName("Display Language Changed");
+				getEventName("Content Language Changed");
+				getEventName("Add To Watchlist");
+				getEventName("Share");
+				getEventName("Search Cancelled");
+				getEventName("Promo Code Result");
+				getEventName("Login Screen Display");
+				getEventName("Login Initatied");
+				getEventName("Logout");
+				getEventName("Register Screen Display");
+				getEventName("Registration Initiated");
+				registerUser = true;
+				navigateToCleverTap(userType);
+				getEventName("Registration Result");
+			}else if(userType.equalsIgnoreCase("NonSubscribedUser")){
+				getEventName("Subscription Page Viewed");
+				getEventName("Subscription Selected");
+				getEventName("Display Language Changed");
+				getEventName("Content Language Changed");
+				getEventName("Add To Watchlist");
+				getEventName("Share");
+				getEventName("Search Cancelled");
+				getEventName("Promo Code Result");
+				getEventName("Subscription Call Initiated");
+				getEventName("Subscription Call Returned");
+				getEventName("Remove From Watchlist");
+				getEventName("Logout");
+				getEventName("Login Result");
+				//getEventName("Registration Initiated");
+			}else if(userType.equalsIgnoreCase("SubscribedUser")){
+				getEventName("Login Result");
+				getEventName("Display Language Changed");
+				getEventName("Content Language Changed");
+				getEventName("Add To Watchlist");
+				getEventName("Share");
+				getEventName("Search Cancelled");
+				getEventName("Logout");
+			}
+
+//			getWebDriver().quit();
+//			setPlatform("Android");
 	}
 	
 }

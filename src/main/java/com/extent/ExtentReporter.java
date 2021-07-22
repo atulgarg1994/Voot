@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
@@ -19,7 +21,6 @@ import org.testng.ITestListener;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.SkipException;
-
 import com.CleverTap.QOEMatrix;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
@@ -60,6 +61,7 @@ public class ExtentReporter implements ITestListener {
 	public static String version;
 	public static String jiraID = "TC";
 	static String buildVersion;
+	public static String CTCurrentTime;
 	public static ArrayList<String> performaceDetails = new ArrayList<String>();
 	public static Dictionary<String, String> performaceMatrics = new Hashtable<String, String>();
 
@@ -145,6 +147,7 @@ public class ExtentReporter implements ITestListener {
 			DeviceDetails.getTheDeviceManufacturer();
 			DeviceDetails.getTheDeviceOSVersion();
 		}
+		CleverTapTime();
 //		QOEMatrix.creatExcelPerformance();
 	}
 
@@ -428,5 +431,11 @@ public class ExtentReporter implements ITestListener {
 						+  deviceDetails.split("Version - ")[1] + " </td>\r\n" + "          <td> " + buildVersion + " </td>\r\n"
 						+ "        </tr>\r\n");
 			return builder;
+	}
+	
+	public void CleverTapTime() {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("hh:mm:ss");
+		LocalDateTime now = LocalDateTime.now();
+		CTCurrentTime = dtf.format(now);
 	}
 }

@@ -312,4 +312,9 @@ public class AMDMoreMenu {
 	public static By objRestrict13Plus = By.xpath("//*[@text='Restrict 13+ Content']");
 	
 	public static By objSeletcedParentalControlOption = By.xpath("(//*[@id='selectionImageSelector']//parent::*//parent::*//child::*//child::*)[1]");
+
+	public static By objFacebook1 = By.xpath("//*[@text='News Feed' or @text='Facebook']");
+
+	public static By objFacebookPost = By.xpath("//*[@text='POST' or @text='Post' or @text='Share' or @text='SHARE' or @contentDescription='POST' or @contentDescription='Post']");
+
 }

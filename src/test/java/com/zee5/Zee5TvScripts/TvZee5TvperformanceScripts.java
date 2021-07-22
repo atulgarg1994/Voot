@@ -7,48 +7,46 @@ import org.testng.annotations.Test;
 
 public class TvZee5TvperformanceScripts {
 
-		private com.business.zee.Zee5TvBusinessLogic Zee5TvBusiness;
+	private com.business.zee.Zee5TvBusinessLogic Zee5TvBusiness;
 
-		@BeforeTest
-		public void Before() throws InterruptedException {
-			// Utilities.relaunch = true;
-			Zee5TvBusiness = new com.business.zee.Zee5TvBusinessLogic("zeeTV");
-		}
+	@BeforeTest
+	public void Before() throws InterruptedException {
+		Zee5TvBusiness = new com.business.zee.Zee5TvBusinessLogic("zeeTV");
+	}
 
-		@Test(priority = 01)
-		@Parameters({ "userType" })
-		public void appLaunchPerformance(String userType) throws Exception {
-			Zee5TvBusiness.appLaunch(userType);
-		}
+	@Test(priority = 1)
+	@Parameters({ "userType" })
+	public void appLaunchPerformance() throws Exception {
+		Zee5TvBusiness.appLaunch();
+	}
 
-		@Test(priority = 02)
-		@Parameters({ "userType" })
-		public void loginPerformance(String userType) throws Exception {
-			Zee5TvBusiness.loginPerformance(userType);
-		}
+	@Test(priority = 2)
+	@Parameters({ "userType" })
+	public void loginPerformance() throws Exception {
+		Zee5TvBusiness.loginPerformance();
+	}
 
-		@Test(priority = 03)
-		@Parameters({ "userType" })
-		public void navigationPerformance(String userType) throws Exception {
-			Zee5TvBusiness.SelectTopNavigationTab_Timer("Movies");
-		}
+	@Test(priority = 3)
+	@Parameters({ "userType" })
+	public void navigationPerformance(String userType) throws Exception {
+		Zee5TvBusiness.SelectTopNavigationTab_Timer("Shows");
+	}
 
-		@Test(priority = 04)
-		@Parameters({ "userType" })
-		public void playbackperformanace(String userType) throws Exception {
-			Zee5TvBusiness.Performance_InitiateContentPlayback();
-		}
+	@Test(priority = 4)
+	@Parameters({ "userType" })
+	public void playbackperformanace(String userType) throws Exception {
+		Zee5TvBusiness.Performance_InitiateContentPlayback();
+	}
 
-		@Test(priority = 05)
-		@Parameters({ "userType" })
-		public void deeplinkperformanace(String userType) throws Exception {
-			Zee5TvBusiness.deepLink_Validation("Consumption");
-		}
+	@Test(priority = 5)
+	@Parameters({ "userType" })
+	public void deeplinkperformanace(String userType) throws Exception {
+		Zee5TvBusiness.deepLink_Validation("Consumption");
+	}
 
-		@AfterTest
-		public void After() {
-			System.out.println("Tear Down");
-			// System.out.println(Zee5TvBusiness.performaceDetails);
-			Zee5TvBusiness.TvtearDown();
-		}
+	@AfterTest
+	public void After() {
+		System.out.println("Tear Down");
+		Zee5TvBusiness.TvtearDown();
+	}
 }

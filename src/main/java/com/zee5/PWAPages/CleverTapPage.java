@@ -4,6 +4,10 @@ import org.openqa.selenium.By;
 
 public class CleverTapPage {
 
+	public static By objCleverTapLogo = By.xpath(".//*[@class='logo-wrapper']");
+	
+	public static By objPopUpCloseIcon = By.xpath("(//div[@class='close-icon'])");
+	
 	public static By objEmailID = By.xpath(".//input[@type='email']");
 	
 	public static By objPasswordEditBx = By.xpath(".//input[@type='password']");
