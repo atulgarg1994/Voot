@@ -13,7 +13,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Reporter;
 import org.testng.asserts.SoftAssert;
-
 import com.driverInstance.CommandBase;
 import com.driverInstance.DriverInstance;
 import com.extent.ExtentReporter;
