@@ -37,8 +37,6 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.ios.IOSDriver;
 import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import io.appium.java_client.android.AndroidTouchAction;
 import io.appium.java_client.touch.LongPressOptions;
 import io.appium.java_client.touch.WaitOptions;
@@ -116,8 +114,7 @@ public class Utilities extends ExtentReporter {
 
 	static WebDriverWait wait;
 
-	public static JavascriptExecutor js;
-	
+	public static JavascriptExecutor js;	
 
 	public void initDriver() {
 		if (getPlatform().equals("Web")) {

@@ -1,11 +1,7 @@
 package com.emailReport;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Properties;
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
 import javax.mail.Message;
 import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
@@ -15,10 +11,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-
 import com.CleverTap.QOEMatrix;
-import com.driverInstance.DriverInstance;
-import com.excel.ExcelUpdate;
 import com.extent.ExtentReporter;
 
 public class SendPerformanceMail {
@@ -27,15 +20,19 @@ public class SendPerformanceMail {
 	private static String Password = "gqvyrlfrixgizfbi";
 //	private static String[] to = {"bosco.dsouza@zee.com","murali.appadi@zee.com","indu.karunakaran@zee.com"};
 //	private static String[] cc = {"deepak.prakash@igsindia.net","naresh.h@igsindia.net","hitesh.c@igsindia.net","Shreenidhi.g@igsindia.net", "Basavaraj.PN@igsindia.net","kushal.revankar@igsindia.net","Tanisha.c@igsindia.net"};
-	private static String[] to = {};
-	private static String[] cc = {};
 	private static String[] bcc = {};
+	private static String[] to = {"hitesh.c@igsindia.net","Shreenidhi.g@igsindia.net","kushal.revankar@igsindia.net"};
+	private static String[] cc = {};
 
+
+	@SuppressWarnings("unused")
 	public static void EmailReport() {
 		
 		if(QOEMatrix.VerifyIteration()) {
 			return;
-		}		
+		}else {
+			QOEMatrix.calculateaverage();
+		}
 		String filepath = "";//ExcelUpdate.xlpath;
 		String Subject = "QOE Matrix automation execution | Android App";
 		boolean EnableAttachment = true;;
@@ -89,6 +86,8 @@ public class SendPerformanceMail {
 					+ "        </tr>\r\n"
 					+			ExtentReporter.DeviceDetails()
 					+ "      </table>\r\n\n\n"
+					+"<br>"
+					+"<p><small>Start Time : "+QOEMatrix.getCellValue1(1,9)+"<br>End Time : "+QOEMatrix.getDate()+"</small></p>"
 					+"<br>"
 					+"<span> Execution Summary: </span>"
 					+"<br>"

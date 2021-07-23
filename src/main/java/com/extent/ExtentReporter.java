@@ -28,6 +28,7 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.deviceDetails.DeviceDetails;
 import com.driverInstance.DriverInstance;
+import com.emailReport.SendPerformanceMail;
 import com.excel.ExcelUpdate;
 import com.propertyfilereader.PropertyFileReader;
 import com.utility.Json;
@@ -147,8 +148,7 @@ public class ExtentReporter implements ITestListener {
 			DeviceDetails.getTheDeviceManufacturer();
 			DeviceDetails.getTheDeviceOSVersion();
 		}
-		CleverTapTime();
-//		QOEMatrix.creatExcelPerformance();
+		QOEMatrix.creatExcelPerformance();
 	}
 
 	@Override
@@ -282,6 +282,8 @@ public class ExtentReporter implements ITestListener {
 //		totalFailedTest = context.getFailedTests().size();
 //		totalSkipedTest = context.getSkippedTests().size();
 //		SendEmail.EmailReport();
+//		insertToExcel();
+//		SendPerformanceMail.EmailReport();
 	}
 
 	@Override
@@ -298,21 +300,6 @@ public class ExtentReporter implements ITestListener {
 	public void screencapture() {
 		try {
 			initExtentDriver();
-			org.apache.commons.io.FileUtils.copyFile(src,
-					new File(System.getProperty("user.dir") + "/Reports" + "/" + currentDate + "/" + getPlatform() + "/"
-							+ Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-									.getParameter("userType")
-							+ "/" + getReport() + "/Screenshots/" + getReport() + "_" + getDate() + ".jpg"));
-			childTest.get().addScreenCaptureFromBase64String(base64Encode(src));
-			logger.log(src, "Attachment");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void screencapture(WebDriver webdriver) {
-		try {
-			src = ((TakesScreenshot) webdriver).getScreenshotAs(org.openqa.selenium.OutputType.FILE);
 			org.apache.commons.io.FileUtils.copyFile(src,
 					new File(System.getProperty("user.dir") + "/Reports" + "/" + currentDate + "/" + getPlatform() + "/"
 							+ Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
@@ -394,9 +381,9 @@ public class ExtentReporter implements ITestListener {
 	
 	public static StringBuilder performanceDetails() {
 		StringBuilder builder = new StringBuilder();
-		if (performaceDetails.size() > 0) {
-			for (int i = 0; i < performaceDetails.size(); i++) {
-				String result[] = performaceDetails.get(i).toString().split(",");
+		if (QOEMatrix.performanceResult.size() > 0) {
+			for (int i = 0; i < QOEMatrix.performanceResult.size(); i++) {
+				String result[] = QOEMatrix.performanceResult.get(i).toString().split(",");
 					builder.append("<tr>\r\n" + "<td> " + result[0] + " </td>\r\n" + "<td>"+ result[1] + " </td>\r\n" + "<td>"+ result[2] + " </td>\r\n"
 							+"<td>"+ result[3] + " </td>\r\n"+"<td>"+ result[4] + " </td>\r\n"+"<td>"+ result[5] + " </td>\r\n"
 							+"<td>"+ result[6] + " </td>\r\n"+"<td>"+ result[7] + " </td>\r\n"+"</tr>\r\n");
@@ -414,7 +401,7 @@ public class ExtentReporter implements ITestListener {
 			for (int i = 0; i < performaceDetails.size(); i++) {
 				int row = QOEMatrix.getRowCount();
 				System.out.println(performaceDetails.get(i)+" == "+row);
-				String result[] = performaceDetails.get(i).toString().split(",");
+				String result[] = performaceDetails.get(i).toString().replaceAll(" MB", "").replaceAll("%", "").split(",");
 				QOEMatrix.InsertEventProperties((row+1), result[0], Integer.valueOf(result[1]), Integer.valueOf(result[2]), 
 						Double.parseDouble(result[3]), Double.parseDouble(result[4]),Double.parseDouble(result[5]),Double.parseDouble(result[6]),
 								Integer.valueOf(result[7]));
@@ -433,9 +420,25 @@ public class ExtentReporter implements ITestListener {
 			return builder;
 	}
 	
+	public void screencapture(WebDriver webdriver) {
+		try {
+			src = ((TakesScreenshot) webdriver).getScreenshotAs(org.openqa.selenium.OutputType.FILE);
+			org.apache.commons.io.FileUtils.copyFile(src,
+					new File(System.getProperty("user.dir") + "/Reports" + "/" + currentDate + "/" + getPlatform() + "/"
+							+ Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+									.getParameter("userType")
+							+ "/" + getReport() + "/Screenshots/" + getReport() + "_" + getDate() + ".jpg"));
+			childTest.get().addScreenCaptureFromBase64String(base64Encode(src));
+			logger.log(src, "Attachment");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void CleverTapTime() {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("hh:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
 		CTCurrentTime = dtf.format(now);
 	}
+	
 }

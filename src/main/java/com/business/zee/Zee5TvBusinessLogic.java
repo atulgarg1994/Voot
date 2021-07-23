@@ -582,7 +582,11 @@ public class Zee5TvBusinessLogic extends Utilities {
 			extent.extentLoggerPass("Login", "Guest user scenarios");
 		}
 		if (userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
-			waitTime(15000);
+			waitTime(10000);
+			TVRemoteEvent(19);
+			waitTime(2000);
+			TVRemoteEvent(19);
+			waitTime(2000);
 			verifyIsElementDisplayed(Zee5TvWelcomePage.objalreadyRegister, "Already Register button");
 			TVclick(Zee5TvWelcomePage.objalreadyRegister, "Already Register button");
 			waitTime(3000);
@@ -12904,6 +12908,8 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(3000);
 		getDriver().navigate().back();
 		waitTime(3000);
+		getDriver().navigate().back();
+		waitTime(3000);
 
 		// #### App Performance Usage Info
 		// AppPerformanceTestInfo(appPackageName);
@@ -12933,10 +12939,12 @@ public class Zee5TvBusinessLogic extends Utilities {
 			logger.info("Time taken to consumption screen through deeplink (Sec): " + timeElapsed.getSeconds());
 			extent.extentLoggerPass("Timer",
 					"<b>Time taken to consumption screen through deeplink (Sec)</b>: " + timeElapsed.getSeconds());
+			launch = false;
 		} else {
 			logger.info("Time taken to consumption screen through deeplink (Sec): " + timeElapsed.getSeconds());
 			extent.extentLoggerFail("Timer",
 					"<b>Time taken to consumption screen through deeplink (Sec)</b>: " + timeElapsed.getSeconds());
+			launch = true;
 		}
 		if (nativeMemory < threshold_NativeMemory) {
 			logger.info("App Memory Info - Native Heap : " + nativeMemory + " MB");
@@ -12990,6 +12998,9 @@ public class Zee5TvBusinessLogic extends Utilities {
 					"<b>The Current App traffic usage is : </b> " + (int) nNetTraffic + " Mbps");
 		}
 		performaceDetails.add("DeepLink to Playback " + pDeeplink + " screen"+","+timeElapsed.getSeconds()+","+nativeMemory+"MB,"+totalMemory+"MB,"+nCpuUSage+"%,"+nGPUMemory+"MB,"+nGPURendered+","+nNetTraffic+"MB");
+		logout();
+		softAssertion.assertEquals(launch, true);
+		softAssertion.assertAll();
 	}
 
 	public void Performance_InitiateContentPlayback() throws Exception {
@@ -13107,10 +13118,12 @@ public class Zee5TvBusinessLogic extends Utilities {
 			logger.info("Time taken to start playback in consumption screen (Sec): " + timeElapsed.getSeconds());
 			extent.extentLoggerPass("Timer",
 					"<b>Time taken to start playback in consumption screen (Sec)</b>: " + timeElapsed.getSeconds());
+			launch = false;
 		} else {
 			logger.info("Time taken to start playback in consumption screen (Sec): " + timeElapsed.getSeconds());
 			extent.extentLoggerFail("Timer",
 					"<b>Time taken to start playback in consumption screen (Sec)</b>: " + timeElapsed.getSeconds());
+			launch = true;
 		}
 
 		if (nativeMemory < threshold_NativeMemory) {
@@ -13171,6 +13184,8 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(2000);
 		getDriver().navigate().back();
 		waitTime(2000);
+		softAssertion.assertEquals(launch, true);
+		softAssertion.assertAll();
 	}
 
 	public void AppPerformanceTestInfo(String pPackageName) throws Exception {
@@ -13810,4 +13825,32 @@ public class Zee5TvBusinessLogic extends Utilities {
 		getDriver().navigate().back();
 		waitTime(3000);
 	}
+	public void  logout() {
+		try {
+		HeaderChildNode("Logout");
+		TVTabSelect("Home");
+
+		for (int i = 0; i <= 10; i++) {
+			TVRemoteEvent(22);
+			waitTime(2000);
+		}
+
+		TVTabSelect("Settings");
+		TVRemoteEvent(20);
+		waitTime(2000);
+		TVRemoteEvent(20);
+		for (int i = 0; i <= 14; i++) {
+			TVRemoteEvent(22);
+			waitTime(2000);
+		}
+		TVclick(Zee5TvWelcomePage.objLogoutOption, "Logout option");
+		waitTime(3000);
+		TVclick(Zee5TvWelcomePage.objLogoutOption, "Logout option");
+		waitTime(3000);
+		TVTabSelect("Home");
+	}catch(Exception e) {
+		
+	}
+	}
+
 }

@@ -98,10 +98,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	static HashSet<String> contentsInReminders = new HashSet<String>();
 	static ArrayList<String> AppSubscription = new ArrayList<String>();
 	static ArrayList<String> AppTransaction = new ArrayList<String>();
-	
+
 	static ArrayList<String> marketsettings = new ArrayList<String>();
 	static ArrayList<String> Upgradesettings = new ArrayList<String>();
-	static ArrayList<String> Upgradewatchlist = new ArrayList<String>();	
+	static ArrayList<String> Upgradewatchlist = new ArrayList<String>();
 	static ArrayList<String> marketwatchlist = new ArrayList<String>();
 	static ArrayList<String> Downloadedcontent = new ArrayList<String>();
 	static ArrayList<String> UpgradeDownloadedcontent = new ArrayList<String>();
@@ -110,7 +110,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	static ArrayList<String> UpgradeCWtray = new ArrayList<String>();
 	static ArrayList<String> MarketCWtray = new ArrayList<String>();
 
-	
 	private SoftAssert softAssertion = new SoftAssert();
 
 	public int getTimeout() {
@@ -236,7 +235,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 //		}
 	}
 
-	
 	public void accessDeviceLocationPopUpDFP(String permission, String userType) throws Exception {
 		extent.HeaderChildNode("Access Device Location PopUp");
 		extent.extentLogger("User Type", "UserType : " + userType);
@@ -244,13 +242,12 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		System.out.println("Access Device Location PopUp");
 		Thread.sleep(10000);
 		Thread.sleep(10000);
-				if(verifyIsElementDisplayed(AMDOnboardingScreen.objUpdateZee5PopUpNOTHANKSButton, "NO THANKS Button"))
-				{
-					verifyElementPresentAndClick(AMDOnboardingScreen.objUpdateZee5PopUpNOTHANKSButton, "NO THANKS Button");
-				}else{
-					System.out.println("UpdateZee5 Not displayed");
-				}
-				Thread.sleep(10000);
+		if (verifyIsElementDisplayed(AMDOnboardingScreen.objUpdateZee5PopUpNOTHANKSButton, "NO THANKS Button")) {
+			verifyElementPresentAndClick(AMDOnboardingScreen.objUpdateZee5PopUpNOTHANKSButton, "NO THANKS Button");
+		} else {
+			System.out.println("UpdateZee5 Not displayed");
+		}
+		Thread.sleep(10000);
 		if (verifyElementExist(AMDOnboardingScreen.objAllowLocationAccessPopup, "AllowPopup")) {
 			Wait(5000);
 
@@ -275,7 +272,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				System.out.println("WHILE USING THE APP is present");
 				click(AMDOnboardingScreen.ele1Allow(str1), str1);
 			}
-			
 
 			Thread.sleep(10000);
 		} else {
@@ -283,14 +279,14 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 
 	}
-	
-	public void SelectYourCountryAndLanguage() throws Exception
-	{
+
+	public void SelectYourCountryAndLanguage() throws Exception {
 		extent.HeaderChildNode("Select Your country and Language");
-		verifyElementPresentAndClick(AMDOnboardingScreen.objContinueBtnInCountryPopUp, "SelectYourCountry Continue Button");
-		
+		verifyElementPresentAndClick(AMDOnboardingScreen.objContinueBtnInCountryPopUp,
+				"SelectYourCountry Continue Button");
+
 		waitTime(5000);
-		
+
 		searchAndClick(AMDOnboardingScreen.objHindiLanguage, "Hindi Langauge");
 		searchAndClick(AMDOnboardingScreen.objMarathiLanguage, "Marathi Langauge");
 		searchAndClick(AMDOnboardingScreen.objTeluguLanguage, "Telugu Langauge");
@@ -301,28 +297,24 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		searchAndClick(AMDOnboardingScreen.objPunjabiLanguage, "Punjabi Langauge");
 		searchAndClick(AMDOnboardingScreen.objBhojpuriLanguage, "Bhojpuri Langauge");
 		searchAndClick(AMDOnboardingScreen.objOriyaLanguage, "Oriya Langauge");
-		
-		verifyElementPresentAndClick(AMDOnboardingScreen.objContinueBtnInLanguagePopUp, "Continue Button");
-		
-	}
-	
-	
-	
-	public void searchAndClick(By locator, String str) throws Exception{
-		
-		for(int i=0; i<=3; i++){
 
-			if(verifyIsElementDisplayed(locator, str)){
+		verifyElementPresentAndClick(AMDOnboardingScreen.objContinueBtnInLanguagePopUp, "Continue Button");
+
+	}
+
+	public void searchAndClick(By locator, String str) throws Exception {
+
+		for (int i = 0; i <= 3; i++) {
+
+			if (verifyIsElementDisplayed(locator, str)) {
 				verifyElementPresentAndClick(locator, str);
 				break;
-			}else{
+			} else {
 				PartialSwipe("UP", 2);
-			}	
+			}
 		}
 	}
-	
-	
-	
+
 	/*
 	 * =============================================================================
 	 * ===== ------------------------------ Script Author: SHREE NIDHI
@@ -2095,32 +2087,34 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementPresent(AMDLoginScreen.objPageTitle, "Display language page title");
 		verifyElementPresent(AMDOnboardingScreen.objDiplay_ContinueBtn, "Continue button");
 		verifyElementPresent(AMDOnboardingScreen.objBackBtn, "Back button");
-		
-		//To validate the selected display language, there is no unique indetifier
-		//(checked in New design change DNA-Build 32.82703110.0)
-		
-	/*	verifyElementPresent(AMDLoginScreen.objSelectedDisplayLanguage, "Selected display language");
-		verifyElementPresent(AMDLoginScreen.objSelectedDisplayLanguage,
-				"Tick mark is appeared for selected display language");
-		String selectedlanguage = getText(AMDLoginScreen.objSelectedDisplayLanguage);
-		if (selectedlanguage != null) {
-			logger.info(selectedlanguage + " language is selected by Default");
-			extentLoggerPass("Selected language", selectedlanguage + " language is selected by Default");
-		}
-		//		click(AMDOnboardingScreen.objSelectDisplayLang(displayLanguageSelection2), "language");
-		SelectDisplayLanguage(displayLanguageSelection2);
 
-		verifyElementPresent(AMDLoginScreen.objSelectedDisplayLanguage, "Selected display language");
-		int totalSelectedLanguages = getDriver().findElements(AMDLoginScreen.objSelectedDisplayLanguage).size();
+		// To validate the selected display language, there is no unique indetifier
+		// (checked in New design change DNA-Build 32.82703110.0)
 
-		if (totalSelectedLanguages == 1) {
-			logger.info("User is able to select only one language from the display language list");
-			extentLoggerPass("Select one language",
-					"User is able to select only one language from the display language list");
-		}
-         //		click(AMDOnboardingScreen.objSelectDisplayLang(displayLanguageSelection1), "English language");
- 
- */
+		/*
+		 * verifyElementPresent(AMDLoginScreen.objSelectedDisplayLanguage,
+		 * "Selected display language");
+		 * verifyElementPresent(AMDLoginScreen.objSelectedDisplayLanguage,
+		 * "Tick mark is appeared for selected display language"); String
+		 * selectedlanguage = getText(AMDLoginScreen.objSelectedDisplayLanguage); if
+		 * (selectedlanguage != null) { logger.info(selectedlanguage +
+		 * " language is selected by Default"); extentLoggerPass("Selected language",
+		 * selectedlanguage + " language is selected by Default"); } //
+		 * click(AMDOnboardingScreen.objSelectDisplayLang(displayLanguageSelection2),
+		 * "language"); SelectDisplayLanguage(displayLanguageSelection2);
+		 * 
+		 * verifyElementPresent(AMDLoginScreen.objSelectedDisplayLanguage,
+		 * "Selected display language"); int totalSelectedLanguages =
+		 * getDriver().findElements(AMDLoginScreen.objSelectedDisplayLanguage).size();
+		 * 
+		 * if (totalSelectedLanguages == 1) { logger.
+		 * info("User is able to select only one language from the display language list"
+		 * ); extentLoggerPass("Select one language",
+		 * "User is able to select only one language from the display language list"); }
+		 * // click(AMDOnboardingScreen.objSelectDisplayLang(displayLanguageSelection1),
+		 * "English language");
+		 * 
+		 */
 		SelectDisplayLanguage(displayLanguageSelection1);
 
 		String pos1 = getAttributValue("bounds", AMDOnboardingScreen.objSelectDisplayLang(displayLanguageSelection1));
@@ -2932,20 +2926,21 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		click(AMDRegistrationScreen.objMale, pGender);
 		click(AMDRegistrationScreen.objGederTxtField, "Gender Field");
 		waitTime(1000);
-		
-		//Tick mark has been removed and to validate the selected gender there is no unique identifier
-		
-/*	boolean checkTickMark = verifyElementExist(AMDRegistrationScreen.objSelecteGender,
-				"Tick mark on the selected option");
-		if (checkTickMark) {
-			String selectedGender = getText(AMDRegistrationScreen.objSelectedGenderName);
-			logger.info("Selected Gender : " + selectedGender);
-			extent.extentLoggerPass("Select Gender", "Tick mark is present for Selected Gender : " + selectedGender);
-		} else {
-			logger.info("Gender is not selected");
-			extent.extentLoggerFail("Gender", "Gender is not selected");
-		}
-*/
+
+		// Tick mark has been removed and to validate the selected gender there is no
+		// unique identifier
+
+		/*
+		 * boolean checkTickMark =
+		 * verifyElementExist(AMDRegistrationScreen.objSelecteGender,
+		 * "Tick mark on the selected option"); if (checkTickMark) { String
+		 * selectedGender = getText(AMDRegistrationScreen.objSelectedGenderName);
+		 * logger.info("Selected Gender : " + selectedGender);
+		 * extent.extentLoggerPass("Select Gender",
+		 * "Tick mark is present for Selected Gender : " + selectedGender); } else {
+		 * logger.info("Gender is not selected"); extent.extentLoggerFail("Gender",
+		 * "Gender is not selected"); }
+		 */
 		WebElement CloseIconElement = findElement(AMDRegistrationScreen.objXMark);
 		int CloseIconupperY = CloseIconElement.getLocation().getY();
 		int CloseIconlowerY = CloseIconupperY + CloseIconElement.getSize().getHeight();
@@ -7829,47 +7824,51 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		// Display language screen functionality validation
 		click(AMDMoreMenu.objDisplayLang, "Display language");
 		waitTime(2000);
-		//There is no unique identifier to validate selected display language
-		//Tick mark has been removed
-		
-/*		verifyElementPresent(AMDLoginScreen.objSelectedDisplayLanguage, "Selected display language");
-	String selectedlanguage1 = getText(AMDLoginScreen.objSelectedDisplayLanguage);
-*/
+		// There is no unique identifier to validate selected display language
+		// Tick mark has been removed
+
+		/*
+		 * verifyElementPresent(AMDLoginScreen.objSelectedDisplayLanguage,
+		 * "Selected display language"); String selectedlanguage1 =
+		 * getText(AMDLoginScreen.objSelectedDisplayLanguage);
+		 */
 //		click(AMDOnboardingScreen.objSelectDisplayLang(displayLanguageSelection2), "language");
 		SelectDisplayLanguage(displayLanguageSelection2);
-		//There is no unique identifier to validate selected display language
-				//Tick mark has been removed,hence commented the below code
-/*
-		WebElement selectedDisplayLanguage = findElement(AMDLoginScreen.objSelectedDisplayLanguage);
-		int selectedDisplayLanguageX = selectedDisplayLanguage.getLocation().getX();
-		int selectedDisplayLanguageY = selectedDisplayLanguage.getLocation().getY();
-
-		WebElement tickMark = findElement(AMDLoginScreen.objTickmarkforSelectedDisplayLanguage);
-		int tickMarkX = tickMark.getLocation().getX();
-		int tickMarkY = tickMark.getLocation().getY();
-
-		if (tickMarkY < (selectedDisplayLanguageY + 20)) {
-			if (tickMarkX < selectedDisplayLanguageX) {
-				logger.info("Selected Display Language screen with tick mark at the left side is displayed");
-				extent.extentLoggerPass("Selected Display Language",
-						"Selected Display Language screen with tick mark at the left side is displayed");
-			} else {
-				logger.error("Selected Display Language screen with tick mark at the left side is not displayed");
-				extent.extentLoggerFail("Selected Display Language",
-						"Selected Display Language screen with tick mark at the left side is not displayed");
-			}
-		}
-
-		String selectedlanguage2 = getText(AMDLoginScreen.objSelectedDisplayLanguage);
-
-		if (selectedlanguage1 != selectedlanguage2) {
-			logger.info("Display Language screen is functional");
-			extentLoggerPass("Display language screen", "Display Language screen is functional");
-		} else {
-			logger.info("Display Language screen is not functional");
-			extentLoggerFail("Display language screen", "Display Language screen is not functional");
-		}
-*/
+		// There is no unique identifier to validate selected display language
+		// Tick mark has been removed,hence commented the below code
+		/*
+		 * WebElement selectedDisplayLanguage =
+		 * findElement(AMDLoginScreen.objSelectedDisplayLanguage); int
+		 * selectedDisplayLanguageX = selectedDisplayLanguage.getLocation().getX(); int
+		 * selectedDisplayLanguageY = selectedDisplayLanguage.getLocation().getY();
+		 * 
+		 * WebElement tickMark =
+		 * findElement(AMDLoginScreen.objTickmarkforSelectedDisplayLanguage); int
+		 * tickMarkX = tickMark.getLocation().getX(); int tickMarkY =
+		 * tickMark.getLocation().getY();
+		 * 
+		 * if (tickMarkY < (selectedDisplayLanguageY + 20)) { if (tickMarkX <
+		 * selectedDisplayLanguageX) { logger.
+		 * info("Selected Display Language screen with tick mark at the left side is displayed"
+		 * ); extent.extentLoggerPass("Selected Display Language",
+		 * "Selected Display Language screen with tick mark at the left side is displayed"
+		 * ); } else { logger.
+		 * error("Selected Display Language screen with tick mark at the left side is not displayed"
+		 * ); extent.extentLoggerFail("Selected Display Language",
+		 * "Selected Display Language screen with tick mark at the left side is not displayed"
+		 * ); } }
+		 * 
+		 * String selectedlanguage2 =
+		 * getText(AMDLoginScreen.objSelectedDisplayLanguage);
+		 * 
+		 * if (selectedlanguage1 != selectedlanguage2) {
+		 * logger.info("Display Language screen is functional");
+		 * extentLoggerPass("Display language screen",
+		 * "Display Language screen is functional"); } else {
+		 * logger.info("Display Language screen is not functional");
+		 * extentLoggerFail("Display language screen",
+		 * "Display Language screen is not functional"); }
+		 */
 		int totalSelectedLanguages = getDriver().findElements(AMDLoginScreen.objSelectedDisplayLanguage).size();
 		logger.info(totalSelectedLanguages);
 
@@ -19627,8 +19626,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		float nGPUMemory = 0;
 		int nNetTraffic = 0;
 		String batteryInfo = null;
-		boolean timeFlag=true, memFlag=true, totalmemFlag=true, cpuFlag=true, gpuMemFlag=true, gpuRenFlag=true, trafficFlag=true;
-		
+		boolean timeFlag = true, memFlag = true, totalmemFlag = true, cpuFlag = true, gpuMemFlag = true,
+				gpuRenFlag = true, trafficFlag = true;
+
 		verifyElementPresentAndClick(AMDHomePage.objHome, "Home button");
 		verifyElementPresent(AMDHomePage.objFirstRailDisplay, "First Rail");
 
@@ -19672,14 +19672,14 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				timeElapsed = Duration.between(startTime, endTime);
 				logger.info("Time taken to navigate from Home to " + pTabname + " screen (sec): "
 						+ timeElapsed.getSeconds());
-				
+
 				if (timeElapsed.getSeconds() < threshold_TimeTaken) {
 					logger.info("Time taken to navigate from Home to " + pTabname + " screen (sec): "
 							+ timeElapsed.getSeconds());
 					extent.extentLoggerPass("Timer", "<b>Time taken to navigate from Home to " + pTabname
 							+ " screen (sec): </b>: " + timeElapsed.getSeconds());
 				} else {
-					timeFlag=false;
+					timeFlag = false;
 					logger.info("Time taken to navigate from Home to " + pTabname + " screen (sec): "
 							+ timeElapsed.getSeconds());
 					extent.extentLoggerFail("Timer", "<b>Time taken to navigate from Home to " + pTabname
@@ -19702,7 +19702,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerPass("Memory Info",
 						"<b>App Memory Info - Native Heap :</b> " + nativeMemory + " MB");
 			} else {
-				memFlag=false;
+				memFlag = false;
 				logger.error("App Memory Info - Native Heap : " + nativeMemory + " MB");
 				extent.extentLoggerFail("Memory Info",
 						"<b>App Memory Info - Native Heap :</b> " + nativeMemory + " MB");
@@ -19713,7 +19713,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				logger.info("App Memory Info - Total : " + totalMemory + " MB");
 				extent.extentLoggerPass("Memory Info", "<b>App Memory Info - Total :</b> " + totalMemory + " MB");
 			} else {
-				totalmemFlag=false;
+				totalmemFlag = false;
 				logger.error("App Memory Info - Total : " + totalMemory + " MB");
 				extent.extentLoggerFail("Memory Info", "<b>App Memory Info - Total :</b> " + totalMemory + " MB");
 			}
@@ -19723,7 +19723,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				logger.info("App CPU  Usage status : " + nCpuUSage + "%");
 				extent.extentLoggerPass("CPU Info", "<b>App CPU Usage status : </b> " + nCpuUSage + "%");
 			} else {
-				cpuFlag=false;
+				cpuFlag = false;
 				logger.error("App Memory Info - Total : " + nCpuUSage + "%");
 				extent.extentLoggerFail("CPU Info", "<b>App CPU Usage status : </b> " + nCpuUSage + "%");
 			}
@@ -19734,7 +19734,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerPass("GPU Info",
 						"<b>Total GPU Memory Usage of Current session :</b> " + nGPUMemory + " MB");
 			} else {
-				gpuMemFlag=false;
+				gpuMemFlag = false;
 				logger.error("\nTotal GPU Memory Usage of Current session exceeded : " + nGPUMemory + " MB");
 				extent.extentLoggerFail("GPU Info",
 						"<b>Total GPU Memory Usage of Current session exceeded:</b> " + nGPUMemory + " MB");
@@ -19746,7 +19746,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerPass("GPU Info",
 						"<b>GPU Current session - Total frames rendered: </b> " + nGPURendered);
 			} else {
-				gpuRenFlag=false;
+				gpuRenFlag = false;
 				logger.error("\nGPU Current session - Total frames rendered: " + nGPURendered);
 				extent.extentLoggerFail("GPU Info",
 						"<b>GPU Current session - Total frames rendered: </b> " + nGPURendered);
@@ -19758,15 +19758,16 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerPass("Traffic Usage",
 						"<b>The Current App traffic usage is : </b> " + (int) nNetTraffic + " Mb");
 			} else {
-				trafficFlag=false;
+				trafficFlag = false;
 				logger.error("\nThe current App traffic usage is : " + (int) nNetTraffic + " Mb");
 				extent.extentLoggerFail("Traffic Usage",
 						"<b>The Current App traffic usage is : </b> " + (int) nNetTraffic + " Mb");
 			}
-			
-			
-			performaceDetails.add("Navigation to "+pTabname+","+timeElapsed.getSeconds()+","+nativeMemory+" MB"+","+totalMemory+" MB"+","+nCpuUSage+"%"+","+nGPUMemory+" MB"+","+nGPURendered+","+nNetTraffic+" MB");
-			
+
+			performaceDetails.add("Navigation to " + pTabname + "," + timeElapsed.getSeconds() + "," + nativeMemory
+					+ " MB" + "," + totalMemory + " MB" + "," + nCpuUSage + "%" + "," + nGPUMemory + " MB" + ","
+					+ nGPURendered + "," + nNetTraffic + " MB");
+
 			String timeTaken = Long.toString(timeElapsed.getSeconds());
 			String strNativeMemory = Integer.toString(nativeMemory);
 			String strTotalMemory = Integer.toString(totalMemory);
@@ -19774,19 +19775,21 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			String strGPU = Float.toString(nGPUMemory);
 			String strGPURendered = Integer.toString(nGPURendered);
 			String strTraffic = Integer.toString(nNetTraffic);
-			
-			performaceMatrics.put("Time Taken",timeTaken+" Sec");
-			performaceMatrics.put("Memory Native Heap",strNativeMemory+" MB");
-			performaceMatrics.put("Total Memory",strTotalMemory+" MB");
-			performaceMatrics.put("CPU",strCPU+"%");
-			performaceMatrics.put("GPU",strGPU+" MB");
-			performaceMatrics.put("Total Frames Rendered",strGPURendered);
-			performaceMatrics.put("Current Traffic Usage",strTraffic+" MB");
-			
-			System.out.println("\n---------------------------------------------- Screen Navigation ----------------------------------------------");
+
+			performaceMatrics.put("Time Taken", timeTaken + " Sec");
+			performaceMatrics.put("Memory Native Heap", strNativeMemory + " MB");
+			performaceMatrics.put("Total Memory", strTotalMemory + " MB");
+			performaceMatrics.put("CPU", strCPU + "%");
+			performaceMatrics.put("GPU", strGPU + " MB");
+			performaceMatrics.put("Total Frames Rendered", strGPURendered);
+			performaceMatrics.put("Current Traffic Usage", strTraffic + " MB");
+
+			System.out.println(
+					"\n---------------------------------------------- Screen Navigation ----------------------------------------------");
 			System.out.println(performaceMatrics);
-			System.out.println("-------------------------------------------------------------------------------------------------------------------");
-			
+			System.out.println(
+					"-------------------------------------------------------------------------------------------------------------------");
+
 			softAssertion.assertEquals(trafficFlag, true);
 			softAssertion.assertAll();
 
@@ -19819,7 +19822,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		// Initiated Variable declaration
 		boolean flag = false;
-		boolean timeFlag=true, memFlag=true, totalmemFlag=true, cpuFlag=true, gpuMemFlag=true, gpuRenFlag=true, trafficFlag=true;
+		boolean timeFlag = true, memFlag = true, totalmemFlag = true, cpuFlag = true, gpuMemFlag = true,
+				gpuRenFlag = true, trafficFlag = true;
 		int nativeMemory = 0, totalMemory = 0, nCpuUSage = 0, nGPURendered = 0;
 		float nGPUMemory = 0;
 		int nNetTraffic = 0;
@@ -19836,9 +19840,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				command = "adb shell am start -W -a android.intent.action.VIEW -d  \"https://www.zee5.com/movies/details/rog/0-0-46027\"";
 			} else if (pDeeplink.equalsIgnoreCase("LiveTV")) {
 				command = "adb shell am start -W -a android.intent.action.VIEW -d  \"https://www.zee5.com/channels/details/republic-tv/0-9-channel_1422341819\"";
-			}else if (pDeeplink.equalsIgnoreCase("SubscriptionScreen")) {
+			} else if (pDeeplink.equalsIgnoreCase("SubscriptionScreen")) {
 				command = "adb shell am start -W -a android.intent.action.VIEW -d  \"https://www.zee5.com/myaccount/subscription\"";
-				
+
 			}
 
 			Process process = Runtime.getRuntime().exec(command);
@@ -19895,7 +19899,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 								"<b>Time taken to consumption screen through deeplink (Sec)</b>: "
 										+ timeElapsed.getSeconds());
 					} else {
-						timeFlag=false;
+						timeFlag = false;
 						logger.info(
 								"Time taken to consumption screen through deeplink (Sec): " + timeElapsed.getSeconds());
 						extent.extentLoggerFail("Timer",
@@ -19956,7 +19960,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 								"<b>Time taken to consumption screen through deeplink (Sec)</b>: "
 										+ timeElapsed.getSeconds());
 					} else {
-						timeFlag=false;
+						timeFlag = false;
 						logger.info(
 								"Time taken to consumption screen through deeplink (Sec): " + timeElapsed.getSeconds());
 						extent.extentLoggerFail("Timer",
@@ -19969,8 +19973,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					logger.info("Live TV is not played for the deeplink");
 					extent.extentLoggerFail("Live TV", "Live TV is not played for the deeplink");
 				}
-			} else if(pDeeplink.equalsIgnoreCase("SubscriptionScreen")){
-			
+			} else if (pDeeplink.equalsIgnoreCase("SubscriptionScreen")) {
+
 				threshold_TimeTaken = 8;
 				threshold_NativeMemory = 35;
 				threshold_TotalMemory = 300;
@@ -20020,7 +20024,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 								"<b>Time taken to subscription screen via  deeplink (Sec)</b>: "
 										+ timeElapsed.getSeconds());
 					} else {
-						timeFlag=false;
+						timeFlag = false;
 						logger.info(
 								"Time taken to subscription screen via  deeplink (Sec): " + timeElapsed.getSeconds());
 						extent.extentLoggerFail("Timer",
@@ -20046,7 +20050,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerPass("Memory Info",
 						"<b>App Memory Info - Native Heap :</b> " + nativeMemory + " MB");
 			} else {
-				memFlag=false;
+				memFlag = false;
 				logger.error("App Memory Info - Native Heap : " + nativeMemory + " MB");
 				extent.extentLoggerFail("Memory Info",
 						"<b>App Memory Info - Native Heap :</b> " + nativeMemory + " MB");
@@ -20057,7 +20061,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				logger.info("App Memory Info - Total : " + totalMemory + " MB");
 				extent.extentLoggerPass("Memory Info", "<b>App Memory Info - Total :</b> " + totalMemory + " MB");
 			} else {
-				totalmemFlag=false;
+				totalmemFlag = false;
 				logger.error("App Memory Info - Total : " + totalMemory + " MB");
 				extent.extentLoggerFail("Memory Info", "<b>App Memory Info - Total :</b> " + totalMemory + " MB");
 			}
@@ -20067,7 +20071,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				logger.info("App CPU  Usage status : " + nCpuUSage + "%");
 				extent.extentLoggerPass("CPU Info", "<b>App CPU Usage status : </b> " + nCpuUSage + "%");
 			} else {
-				cpuFlag=false;
+				cpuFlag = false;
 				logger.error("App Memory Info - Total : " + nCpuUSage + "%");
 				extent.extentLoggerFail("CPU Info", "<b>App CPU Usage status : </b> " + nCpuUSage + "%");
 			}
@@ -20078,7 +20082,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerPass("GPU Info",
 						"<b>Total GPU Memory Usage of Current session :</b> " + nGPUMemory + " MB");
 			} else {
-				gpuMemFlag=false;
+				gpuMemFlag = false;
 				logger.error("\nTotal GPU Memory Usage of Current session exceeded : " + nGPUMemory + " MB");
 				extent.extentLoggerFail("GPU Info",
 						"<b>Total GPU Memory Usage of Current session exceeded:</b> " + nGPUMemory + " MB");
@@ -20090,7 +20094,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerPass("GPU Info",
 						"<b>GPU Current session - Total frames rendered: </b> " + nGPURendered);
 			} else {
-				gpuRenFlag=false;
+				gpuRenFlag = false;
 				logger.error("\nGPU Current session - Total frames rendered: " + nGPURendered);
 				extent.extentLoggerFail("GPU Info",
 						"<b>GPU Current session - Total frames rendered: </b> " + nGPURendered);
@@ -20102,13 +20106,15 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerPass("Traffic Usage",
 						"<b>The Current App traffic usage is : </b> " + (int) nNetTraffic + " Mb");
 			} else {
-				trafficFlag=false;
+				trafficFlag = false;
 				logger.error("\nThe current App traffic usage is : " + (int) nNetTraffic + " Mb");
 				extent.extentLoggerFail("Traffic Usage",
 						"<b>The Current App traffic usage is : </b> " + (int) nNetTraffic + " Mb");
 			}
-			performaceDetails.add("DeepLink to " + pDeeplink + " screen"+","+timeElapsed.getSeconds()+","+nativeMemory+" MB,"+totalMemory+" MB,"+nCpuUSage+"%,"+nGPUMemory+" MB,"+nGPURendered+","+nNetTraffic+" MB");
-			
+			performaceDetails.add("DeepLink to " + pDeeplink + " screen" + "," + timeElapsed.getSeconds() + ","
+					+ nativeMemory + " MB," + totalMemory + " MB," + nCpuUSage + "%," + nGPUMemory + " MB,"
+					+ nGPURendered + "," + nNetTraffic + " MB");
+
 			String timeTaken = Long.toString(timeElapsed.getSeconds());
 			String strNativeMemory = Integer.toString(nativeMemory);
 			String strTotalMemory = Integer.toString(totalMemory);
@@ -20116,20 +20122,20 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			String strGPU = Float.toString(nGPUMemory);
 			String strGPURendered = Integer.toString(nGPURendered);
 			String strTraffic = Integer.toString(nNetTraffic);
-			
-			performaceMatrics.put("Time Taken",timeTaken+" Sec");
-			performaceMatrics.put("Memory Native Heap",strNativeMemory+" MB");
-			performaceMatrics.put("Total Memory",strTotalMemory+" MB");
-			performaceMatrics.put("CPU",strCPU+"%");
-			performaceMatrics.put("GPU",strGPU+" MB");
-			performaceMatrics.put("Total Frames Rendered",strGPURendered);
-			performaceMatrics.put("Current Traffic Usage",strTraffic+" MB");
-			
-			System.out.println("\n---------------------------------------------- Deeplink to consumption screen ----------------------------------------------");
+
+			performaceMatrics.put("Time Taken", timeTaken + " Sec");
+			performaceMatrics.put("Memory Native Heap", strNativeMemory + " MB");
+			performaceMatrics.put("Total Memory", strTotalMemory + " MB");
+			performaceMatrics.put("CPU", strCPU + "%");
+			performaceMatrics.put("GPU", strGPU + " MB");
+			performaceMatrics.put("Total Frames Rendered", strGPURendered);
+			performaceMatrics.put("Current Traffic Usage", strTraffic + " MB");
+
+			System.out.println(
+					"\n---------------------------------------------- Deeplink to consumption screen ----------------------------------------------");
 			System.out.println(performaceMatrics);
-			System.out.println("-------------------------------------------------------------------------------------------------------------------");
-			
-			
+			System.out.println(
+					"-------------------------------------------------------------------------------------------------------------------");
 
 			if (batteryInfo.contains("drain")) {
 				logger.info("\nApp Battery Info - " + batteryInfo);
@@ -20138,10 +20144,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				logger.error("\nApp Battery Info - " + batteryInfo);
 				extent.extentLoggerFail("Timer", "<b>App Battery Info - </b>" + batteryInfo);
 			}
-			
+
 			softAssertion.assertEquals(trafficFlag, true);
 			softAssertion.assertAll();
-		}	
+		}
 	}
 
 	public void ZeeApplicasterLogin_Timer(String LoginMethod) throws Exception {
@@ -26598,8 +26604,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		int threshold_GPURendered = 2300;
 		int threshold_Network = 27;
 
-		boolean timeFlag=true, memFlag=true, totalmemFlag=true, cpuFlag=true, gpuMemFlag=true, gpuRenFlag=true, trafficFlag=true;
-		
+		boolean timeFlag = true, memFlag = true, totalmemFlag = true, cpuFlag = true, gpuMemFlag = true,
+				gpuRenFlag = true, trafficFlag = true;
+
 		Instant startTime = Instant.now();
 		logger.info("Instant Start time : " + startTime);
 
@@ -26641,7 +26648,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLoggerPass("Timer",
 					"<b>Time taken to login with registered user (Sec)</b>: " + timeElapsed.getSeconds());
 		} else {
-			timeFlag=false;
+			timeFlag = false;
 			logger.info("Taken too long to login with registered user (Sec): " + timeElapsed.getSeconds());
 			extent.extentLoggerFail("Timer",
 					"<b>Taken too long to login with registered user (Sec)</b>: " + timeElapsed.getSeconds());
@@ -26652,7 +26659,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.info("App Memory Info - Native Heap : " + nativeMemory + " MB");
 			extent.extentLoggerPass("Memory Info", "<b>App Memory Info - Native Heap :</b> " + nativeMemory + " MB");
 		} else {
-			memFlag=false;
+			memFlag = false;
 			logger.error("App Memory Info - Native Heap : " + nativeMemory + " MB");
 			extent.extentLoggerFail("Memory Info", "<b>App Memory Info - Native Heap :</b> " + nativeMemory + " MB");
 		}
@@ -26662,7 +26669,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.info("App Memory Info - Total : " + totalMemory + " MB");
 			extent.extentLoggerPass("Memory Info", "<b>App Memory Info - Total :</b> " + totalMemory + " MB");
 		} else {
-			totalmemFlag=false;
+			totalmemFlag = false;
 			logger.error("App Memory Info - Total : " + totalMemory + " MB");
 			extent.extentLoggerFail("Memory Info", "<b>App Memory Info - Total :</b> " + totalMemory + " MB");
 		}
@@ -26672,7 +26679,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.info("App CPU  Usage status : " + nCpuUSage + "%");
 			extent.extentLoggerPass("CPU Info", "<b>App CPU Usage status : </b> " + nCpuUSage + "%");
 		} else {
-			cpuFlag=false;
+			cpuFlag = false;
 			logger.error("App Memory Info - Total : " + nCpuUSage + "%");
 			extent.extentLoggerFail("CPU Info", "<b>App CPU Usage status : </b> " + nCpuUSage + "%");
 		}
@@ -26683,7 +26690,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLoggerPass("GPU Info",
 					"<b>Total GPU Memory Usage of Current session :</b> " + nGPUMemory + " MB");
 		} else {
-			gpuMemFlag=false;
+			gpuMemFlag = false;
 			logger.error("\nTotal GPU Memory Usage of Current session exceeded : " + nGPUMemory + " MB");
 			extent.extentLoggerFail("GPU Info",
 					"<b>Total GPU Memory Usage of Current session exceeded:</b> " + nGPUMemory + " MB");
@@ -26694,7 +26701,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.info("\nGPU Current session - Total frames rendered: " + nGPURendered);
 			extent.extentLoggerPass("GPU Info", "<b>GPU Current session - Total frames rendered: </b> " + nGPURendered);
 		} else {
-			gpuRenFlag=false;
+			gpuRenFlag = false;
 			logger.error("\nGPU Current session - Total frames rendered: " + nGPURendered);
 			extent.extentLoggerFail("GPU Info", "<b>GPU Current session - Total frames rendered: </b> " + nGPURendered);
 		}
@@ -26705,13 +26712,14 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLoggerPass("Traffic Usage",
 					"<b>The Current App traffic usage is : </b> " + (int) nNetTraffic + " Mb");
 		} else {
-			trafficFlag=false;
+			trafficFlag = false;
 			logger.error("\nThe current App traffic usage is : " + (int) nNetTraffic + " Mb");
 			extent.extentLoggerFail("Traffic Usage",
 					"<b>The Current App traffic usage is : </b> " + (int) nNetTraffic + " Mb");
 		}
-		performaceDetails.add("Login "+","+timeElapsed.getSeconds()+","+nativeMemory+" MB,"+totalMemory+" MB,"+nCpuUSage+"%,"+nGPUMemory+" MB,"+nGPURendered+","+nNetTraffic+" MB");
-		
+		performaceDetails.add("Login " + "," + timeElapsed.getSeconds() + "," + nativeMemory + " MB," + totalMemory
+				+ " MB," + nCpuUSage + "%," + nGPUMemory + " MB," + nGPURendered + "," + nNetTraffic + " MB");
+
 		String timeTaken = Long.toString(timeElapsed.getSeconds());
 		String strNativeMemory = Integer.toString(nativeMemory);
 		String strTotalMemory = Integer.toString(totalMemory);
@@ -26719,19 +26727,21 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		String strGPU = Float.toString(nGPUMemory);
 		String strGPURendered = Integer.toString(nGPURendered);
 		String strTraffic = Integer.toString(nNetTraffic);
-		
-		performaceMatrics.put("Time Taken",timeTaken+" Sec");
-		performaceMatrics.put("Memory Native Heap",strNativeMemory+" MB");
-		performaceMatrics.put("Total Memory",strTotalMemory+" MB");
-		performaceMatrics.put("CPU",strCPU+"%");
-		performaceMatrics.put("GPU",strGPU+" MB");
-		performaceMatrics.put("Total Frames Rendered",strGPURendered);
-		performaceMatrics.put("Current Traffic Usage",strTraffic+" MB");
-		
-		System.out.println("\n---------------------------------------------- Login Functionality ----------------------------------------------");
+
+		performaceMatrics.put("Time Taken", timeTaken + " Sec");
+		performaceMatrics.put("Memory Native Heap", strNativeMemory + " MB");
+		performaceMatrics.put("Total Memory", strTotalMemory + " MB");
+		performaceMatrics.put("CPU", strCPU + "%");
+		performaceMatrics.put("GPU", strGPU + " MB");
+		performaceMatrics.put("Total Frames Rendered", strGPURendered);
+		performaceMatrics.put("Current Traffic Usage", strTraffic + " MB");
+
+		System.out.println(
+				"\n---------------------------------------------- Login Functionality ----------------------------------------------");
 		System.out.println(performaceMatrics);
-		System.out.println("-------------------------------------------------------------------------------------------------------------------");
-		
+		System.out.println(
+				"-------------------------------------------------------------------------------------------------------------------");
+
 		softAssertion.assertEquals(trafficFlag, true);
 		softAssertion.assertAll();
 
@@ -26759,8 +26769,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		int threshold_GPUMem = 26;
 		int threshold_GPURendered = 2300;
 		int threshold_Network = 90;
-		boolean timeFlag=true, memFlag=true, totalmemFlag=true, cpuFlag=true, gpuMemFlag=true, gpuRenFlag=true, trafficFlag=true;
-		
+		boolean timeFlag = true, memFlag = true, totalmemFlag = true, cpuFlag = true, gpuMemFlag = true,
+				gpuRenFlag = true, trafficFlag = true;
+
 		LoginWithEmailID("zeetest34new@test.com", "123456");
 		waitForElementDisplayed(AMDHomePage.objZee5Logo, 30);
 		SelectTopNavigationTab("Movies");
@@ -26803,7 +26814,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLoggerPass("Timer",
 					"<b>Time taken to start playback in consumption screen (Sec)</b>: " + timeElapsed.getSeconds());
 		} else {
-			timeFlag=false;
+			timeFlag = false;
 			logger.info("Time taken to start playback in consumption screen (Sec): " + timeElapsed.getSeconds());
 			extent.extentLoggerFail("Timer",
 					"<b>Time taken to start playback in consumption screen (Sec)</b>: " + timeElapsed.getSeconds());
@@ -26814,7 +26825,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.info("App Memory Info - Native Heap : " + nativeMemory + " MB");
 			extent.extentLoggerPass("Memory Info", "<b>App Memory Info - Native Heap :</b> " + nativeMemory + " MB");
 		} else {
-			memFlag=false;
+			memFlag = false;
 			logger.error("App Memory Info - Native Heap : " + nativeMemory + " MB");
 			extent.extentLoggerFail("Memory Info", "<b>App Memory Info - Native Heap :</b> " + nativeMemory + " MB");
 		}
@@ -26824,7 +26835,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.info("App Memory Info - Total : " + totalMemory + " MB");
 			extent.extentLoggerPass("Memory Info", "<b>App Memory Info - Total :</b> " + totalMemory + " MB");
 		} else {
-			totalmemFlag=false;
+			totalmemFlag = false;
 			logger.error("App Memory Info - Total : " + totalMemory + " MB");
 			extent.extentLoggerFail("Memory Info", "<b>App Memory Info - Total :</b> " + totalMemory + " MB");
 		}
@@ -26834,7 +26845,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.info("App CPU  Usage status : " + nCpuUSage + "%");
 			extent.extentLoggerPass("CPU Info", "<b>App CPU Usage status : </b> " + nCpuUSage + "%");
 		} else {
-			cpuFlag=false;
+			cpuFlag = false;
 			logger.error("App Memory Info - Total : " + nCpuUSage + "%");
 			extent.extentLoggerFail("CPU Info", "<b>App CPU Usage status : </b> " + nCpuUSage + "%");
 		}
@@ -26845,7 +26856,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLoggerPass("GPU Info",
 					"<b>Total GPU Memory Usage of Current session :</b> " + nGPUMemory + " MB");
 		} else {
-			gpuMemFlag=false;
+			gpuMemFlag = false;
 			logger.error("\nTotal GPU Memory Usage of Current session exceeded : " + nGPUMemory + " MB");
 			extent.extentLoggerFail("GPU Info",
 					"<b>Total GPU Memory Usage of Current session exceeded:</b> " + nGPUMemory + " MB");
@@ -26856,7 +26867,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.info("\nGPU Current session - Total frames rendered: " + nGPURendered);
 			extent.extentLoggerPass("GPU Info", "<b>GPU Current session - Total frames rendered: </b> " + nGPURendered);
 		} else {
-			gpuRenFlag=false;
+			gpuRenFlag = false;
 			logger.error("\nGPU Current session - Total frames rendered: " + nGPURendered);
 			extent.extentLoggerFail("GPU Info", "<b>GPU Current session - Total frames rendered: </b> " + nGPURendered);
 		}
@@ -26867,13 +26878,15 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLoggerPass("Traffic Usage",
 					"<b>The Current App traffic usage is : </b> " + (int) nNetTraffic + " Mb");
 		} else {
-			trafficFlag=false;
+			trafficFlag = false;
 			logger.error("\nThe current App traffic usage is : " + (int) nNetTraffic + " Mb");
 			extent.extentLoggerFail("Traffic Usage",
 					"<b>The Current App traffic usage is : </b> " + (int) nNetTraffic + " Mb");
 		}
-		performaceDetails.add("Initiate Content playback"+","+timeElapsed.getSeconds()+","+nativeMemory+" MB,"+totalMemory+" MB,"+nCpuUSage+"%,"+nGPUMemory+" MB,"+nGPURendered+","+nNetTraffic+" MB");
-		
+		performaceDetails.add(
+				"Initiate Content playback" + "," + timeElapsed.getSeconds() + "," + nativeMemory + " MB," + totalMemory
+						+ " MB," + nCpuUSage + "%," + nGPUMemory + " MB," + nGPURendered + "," + nNetTraffic + " MB");
+
 		String timeTaken = Long.toString(timeElapsed.getSeconds());
 		String strNativeMemory = Integer.toString(nativeMemory);
 		String strTotalMemory = Integer.toString(totalMemory);
@@ -26881,22 +26894,24 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		String strGPU = Float.toString(nGPUMemory);
 		String strGPURendered = Integer.toString(nGPURendered);
 		String strTraffic = Integer.toString(nNetTraffic);
-		
-		performaceMatrics.put("Time Taken",timeTaken+" Sec");
-		performaceMatrics.put("Memory Native Heap",strNativeMemory+" MB");
-		performaceMatrics.put("Total Memory",strTotalMemory+" MB");
-		performaceMatrics.put("CPU",strCPU+"%");
-		performaceMatrics.put("GPU",strGPU+" MB");
-		performaceMatrics.put("Total Frames Rendered",strGPURendered);
-		performaceMatrics.put("Current Traffic Usage",strTraffic+" MB");
-		
-		System.out.println("\n---------------------------------------------- Content Playback  ----------------------------------------------");
+
+		performaceMatrics.put("Time Taken", timeTaken + " Sec");
+		performaceMatrics.put("Memory Native Heap", strNativeMemory + " MB");
+		performaceMatrics.put("Total Memory", strTotalMemory + " MB");
+		performaceMatrics.put("CPU", strCPU + "%");
+		performaceMatrics.put("GPU", strGPU + " MB");
+		performaceMatrics.put("Total Frames Rendered", strGPURendered);
+		performaceMatrics.put("Current Traffic Usage", strTraffic + " MB");
+
+		System.out.println(
+				"\n---------------------------------------------- Content Playback  ----------------------------------------------");
 		System.out.println(performaceMatrics);
-		System.out.println("-------------------------------------------------------------------------------------------------------------------");
-		
+		System.out.println(
+				"-------------------------------------------------------------------------------------------------------------------");
+
 		softAssertion.assertEquals(trafficFlag, true);
 		softAssertion.assertAll();
-		
+
 		if (batteryInfo.contains("drain")) {
 			logger.info("\nApp Battery Info - " + batteryInfo);
 			extent.extentLoggerPass("Timer", "<b>App Battery Info - </b>" + batteryInfo);
@@ -26905,7 +26920,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLoggerFail("Timer", "<b>App Battery Info - </b>" + batteryInfo);
 		}
 	}
-
 
 	public void AppPerformanceTestInfo(String pPackageName) throws Exception {
 		System.out.println("\nApp Performance Test infomation - Memory|CPU|GPU|Battery and Network Usage");
@@ -27332,67 +27346,66 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	public int getApp_NetworkTrafficUsageV2(String pPackageName) throws Exception {
 
 //		String PackageName = "com.graymatrix.did";
-			int flowAction = 0;
+		int flowAction = 0;
+		try {
+			String pidCommand = "adb shell pidof " + pPackageName;
+			Process process = Runtime.getRuntime().exec(pidCommand);
+			BufferedReader pidResult = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+			String PID = pidResult.readLine().trim();
+			// System.out.println("PID : "+PID);
+
+			Runtime runtime = Runtime.getRuntime();
+			Process proc = runtime.exec("adb shell cat /proc/" + PID + "/net/dev");
 			try {
-				String pidCommand = "adb shell pidof " + pPackageName;
-				Process process = Runtime.getRuntime().exec(pidCommand);
-				BufferedReader pidResult = new BufferedReader(new InputStreamReader(process.getInputStream()));
-
-				String PID = pidResult.readLine().trim();
-				// System.out.println("PID : "+PID);
-
-				Runtime runtime = Runtime.getRuntime();
-				Process proc = runtime.exec("adb shell cat /proc/" + PID + "/net/dev");
-				try {
 //					if (proc.waitFor() != 0) {
 //						System.err.println("exit value = " + proc.exitValue());
 //					}
-					BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
-					StringBuffer stringBuffer = new StringBuffer();
-					String line = null;
-					while ((line = in.readLine()) != null) {
-						stringBuffer.append(line + " ");
+				BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+				StringBuffer stringBuffer = new StringBuffer();
+				String line = null;
+				while ((line = in.readLine()) != null) {
+					stringBuffer.append(line + " ");
 
-					}
-					String str1 = stringBuffer.toString();
-					String str2 = str1.substring(str1.indexOf("wlan0:"), str1.indexOf("wlan0:") + 100);
-					
+				}
+				String str1 = stringBuffer.toString();
+				String str2 = str1.substring(str1.indexOf("wlan0:"), str1.indexOf("wlan0:") + 100);
 
-					// System.out.println("sent first sentence" + str2);
-					// The space is divided into a string array to take the second and tenth
-					// numbers, which are the sending traffic and the receiving traffic.
-					String[] toks = str2.split(" +");
-					String str4 = toks[1];
-					String str6 = toks[9];
+				// System.out.println("sent first sentence" + str2);
+				// The space is divided into a string array to take the second and tenth
+				// numbers, which are the sending traffic and the receiving traffic.
+				String[] toks = str2.split(" +");
+				String str4 = toks[1];
+				String str6 = toks[9];
 //					int b = Integer.parseInt(str4);
 //					int a = Integer.parseInt(str6);
-					long b = Long.parseLong(str4);
-					long a = Long.parseLong(str6);
+				long b = Long.parseLong(str4);
+				long a = Long.parseLong(str6);
 
-					int sendFlow = (int) (a / 1024);
-					int revFlow = (int) (b / 1024);
-					flowAction = sendFlow + revFlow;
-					flowAction=flowAction/1024;
-					logger.info("\nCurrent App traffic usage: " + flowAction+ "MB");
-					// extent.extentLogger("Traffic Usage","<b>Current App traffic usage:
-					// </b> " + (int)flowAction/1024 + "Mbps");
-				}
+				int sendFlow = (int) (a / 1024);
+				int revFlow = (int) (b / 1024);
+				flowAction = sendFlow + revFlow;
+				flowAction = flowAction / 1024;
+				logger.info("\nCurrent App traffic usage: " + flowAction + "MB");
+				// extent.extentLogger("Traffic Usage","<b>Current App traffic usage:
+				// </b> " + (int)flowAction/1024 + "Mbps");
+			}
 //					catch (InterruptedException e) {
 //					System.err.println(e);
 //				} 
-					finally {
-					try {
-						proc.destroy();
-					} catch (Exception e2) {
-					}
+			finally {
+				try {
+					proc.destroy();
+				} catch (Exception e2) {
 				}
-			} catch (Exception StringIndexOutOfBoundsException) {
-				System.out.println("Please check if the device is connected | App is closed");
-				extent.extentLoggerWarning("Traffic Usage",
-						"<b>Please check if the device is connected | App is closed </b>");
 			}
-			return flowAction;
+		} catch (Exception StringIndexOutOfBoundsException) {
+			System.out.println("Please check if the device is connected | App is closed");
+			extent.extentLoggerWarning("Traffic Usage",
+					"<b>Please check if the device is connected | App is closed </b>");
 		}
+		return flowAction;
+	}
 
 	public String BatteryStats_PerformanceV2() throws Exception {
 		System.out.println("\nBattery Stats Information");
@@ -28075,85 +28088,91 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	}
 
-	public void RegisterCTAFunctionalityOnSelectingWhatsappOptIn(String userType)throws Exception {
+	public void RegisterCTAFunctionalityOnSelectingWhatsappOptIn(String userType) throws Exception {
 		if (userType.equals("Guest")) {
 			relaunch(false);
 			extent.HeaderChildNode("Validation of Register CTA Functionality on selecting whatsapp opt in");
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
-			click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");	
-				verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "EmailField");
-				type(AMDLoginScreen.objEmailIdField, UnRegisteredMobile, "Mobile");
-				hideKeyboard();
-				click(AMDLoginScreen.objProceedBtn, "Proceed icon");
-				waitTime(3000);
-					type(AMDRegistrationScreen.objFirstNameTxtField, FirstName, "First name field");
-					hideKeyboard();
-					click(AMDRegistrationScreen.objLastNameTxtField, "Last Name field");
-					type(AMDRegistrationScreen.objLastNameTxtField, LastName, "Last Name");
-					hideKeyboard();
-					
-					String pDOB = "01/01/1990", pNewPassword = "123456";
-					click(AMDRegistrationScreen.objDOBTxtField, "DOB field");
-					type(AMDRegistrationScreen.objDOBTxtField, pDOB, "DOB");
-					hideKeyboard();
-					verifyElementPresentAndClick(AMDRegistrationScreen.objGederTxtField, "Gender field");
-					verifyElementPresentAndClick(AMDRegistrationScreen.objMale, "Gender male");
-					click(AMDRegistrationScreen.objPasswordTxtField, "Passowrd");
-					type(AMDRegistrationScreen.objPasswordTxtField, pNewPassword, "Password field");
-					hideKeyboard();
-		            Swipe("UP", 1);
-		            waitTime(5000);
-					click(AMDRegistrationScreen.objWhatsappOptIn, "Whatsapp OptIn Tick Box");
-		            String btn= getAttributValue("clickable", AMDRegistrationScreen.objRegisterBtn);
-		            if(btn.equalsIgnoreCase("true")) {
-		            	logger.info("Register CTA is highlited for mobile No. user who Selects on WhatsApp opt-in tickbox, post entering all fields in registration screen ");
-		            	extent.extentLoggerPass("Register button", "Register CTA is highlited for mobile No. user who Selects on WhatsApp opt-in tickbox, post entering all fields in registration screen ");
-		            }else {
-		            	logger.error("Register CTA is not highlited for mobile No. user who Selects on WhatsApp opt-in tickbox, post entering all fields in registration screen ");
-		            	extent.extentLoggerFail("Register button", "Register CTA is not highlited for mobile No. user who Selects on WhatsApp opt-in tickbox, post entering all fields in registration screen ");
-		            }
-		}else {
+			click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "EmailField");
+			type(AMDLoginScreen.objEmailIdField, UnRegisteredMobile, "Mobile");
+			hideKeyboard();
+			click(AMDLoginScreen.objProceedBtn, "Proceed icon");
+			waitTime(3000);
+			type(AMDRegistrationScreen.objFirstNameTxtField, FirstName, "First name field");
+			hideKeyboard();
+			click(AMDRegistrationScreen.objLastNameTxtField, "Last Name field");
+			type(AMDRegistrationScreen.objLastNameTxtField, LastName, "Last Name");
+			hideKeyboard();
+
+			String pDOB = "01/01/1990", pNewPassword = "123456";
+			click(AMDRegistrationScreen.objDOBTxtField, "DOB field");
+			type(AMDRegistrationScreen.objDOBTxtField, pDOB, "DOB");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDRegistrationScreen.objGederTxtField, "Gender field");
+			verifyElementPresentAndClick(AMDRegistrationScreen.objMale, "Gender male");
+			click(AMDRegistrationScreen.objPasswordTxtField, "Passowrd");
+			type(AMDRegistrationScreen.objPasswordTxtField, pNewPassword, "Password field");
+			hideKeyboard();
+			Swipe("UP", 1);
+			waitTime(5000);
+			click(AMDRegistrationScreen.objWhatsappOptIn, "Whatsapp OptIn Tick Box");
+			String btn = getAttributValue("clickable", AMDRegistrationScreen.objRegisterBtn);
+			if (btn.equalsIgnoreCase("true")) {
+				logger.info(
+						"Register CTA is highlited for mobile No. user who Selects on WhatsApp opt-in tickbox, post entering all fields in registration screen ");
+				extent.extentLoggerPass("Register button",
+						"Register CTA is highlited for mobile No. user who Selects on WhatsApp opt-in tickbox, post entering all fields in registration screen ");
+			} else {
+				logger.error(
+						"Register CTA is not highlited for mobile No. user who Selects on WhatsApp opt-in tickbox, post entering all fields in registration screen ");
+				extent.extentLoggerFail("Register button",
+						"Register CTA is not highlited for mobile No. user who Selects on WhatsApp opt-in tickbox, post entering all fields in registration screen ");
+			}
+		} else {
 			extent.HeaderChildNode("Validation of Register CTA Functionality on selecting whatsapp opt in");
-			 logger.info("Not Applicable for this userType");
-			 extent.extentLogger("Not applicable", "Not Applicable for this userType");
+			logger.info("Not Applicable for this userType");
+			extent.extentLogger("Not applicable", "Not Applicable for this userType");
 		}
 	}
 
 	public void OtpScreen_OnselectingWhatsappOptIn(String userType) throws Exception {
-		if(userType.equalsIgnoreCase("Guest")) {
+		if (userType.equalsIgnoreCase("Guest")) {
 			relaunch(false);
-			extent.HeaderChildNode("OTP screen validation on tapping Register CTA, post selecting Whatsapp opt-in tick box");
+			extent.HeaderChildNode(
+					"OTP screen validation on tapping Register CTA, post selecting Whatsapp opt-in tick box");
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
-			click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");	
-				verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "EmailField");
-				type(AMDLoginScreen.objEmailIdField, UnRegisteredMobile, "Mobile");
-				hideKeyboard();
-				click(AMDLoginScreen.objProceedBtn, "Proceed icon");
-				waitTime(3000);
-					type(AMDRegistrationScreen.objFirstNameTxtField, FirstName, "First name field");
-					hideKeyboard();
-					click(AMDRegistrationScreen.objLastNameTxtField, "Last Name field");
-					type(AMDRegistrationScreen.objLastNameTxtField, LastName, "Last Name");
-					hideKeyboard();
-					
-					String pDOB = "01/01/1990", pNewPassword = "123456";
-					click(AMDRegistrationScreen.objDOBTxtField, "DOB field");
-					type(AMDRegistrationScreen.objDOBTxtField, pDOB, "DOB");
-					hideKeyboard();
-					verifyElementPresentAndClick(AMDRegistrationScreen.objGederTxtField, "Gender field");
-					verifyElementPresentAndClick(AMDRegistrationScreen.objMale, "Gender male");
-					click(AMDRegistrationScreen.objPasswordTxtField, "Passowrd");
-					type(AMDRegistrationScreen.objPasswordTxtField, pNewPassword, "Password field");
-					hideKeyboard();
-		            Swipe("UP", 1);
-		            waitTime(5000);
-					click(AMDRegistrationScreen.objWhatsappOptIn, "Whatsapp OptIn Tick Box");
-		            click(AMDRegistrationScreen.objRegisterBtn, "Register button");
-		            verifyElementExist(AMDLoginScreen.objOtpScreenTitle, "OTP screen");	
-		}else {
-			extent.HeaderChildNode("OTP screen validation on tapping Register CTA, post selecting Whatsapp opt-in tick box");
-			 logger.info("Not Applicable for this userType");
-			 extent.extentLogger("Not applicable", "Not Applicable for this userType");
+			click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "EmailField");
+			type(AMDLoginScreen.objEmailIdField, UnRegisteredMobile, "Mobile");
+			hideKeyboard();
+			click(AMDLoginScreen.objProceedBtn, "Proceed icon");
+			waitTime(3000);
+			type(AMDRegistrationScreen.objFirstNameTxtField, FirstName, "First name field");
+			hideKeyboard();
+			click(AMDRegistrationScreen.objLastNameTxtField, "Last Name field");
+			type(AMDRegistrationScreen.objLastNameTxtField, LastName, "Last Name");
+			hideKeyboard();
+
+			String pDOB = "01/01/1990", pNewPassword = "123456";
+			click(AMDRegistrationScreen.objDOBTxtField, "DOB field");
+			type(AMDRegistrationScreen.objDOBTxtField, pDOB, "DOB");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDRegistrationScreen.objGederTxtField, "Gender field");
+			verifyElementPresentAndClick(AMDRegistrationScreen.objMale, "Gender male");
+			click(AMDRegistrationScreen.objPasswordTxtField, "Passowrd");
+			type(AMDRegistrationScreen.objPasswordTxtField, pNewPassword, "Password field");
+			hideKeyboard();
+			Swipe("UP", 1);
+			waitTime(5000);
+			click(AMDRegistrationScreen.objWhatsappOptIn, "Whatsapp OptIn Tick Box");
+			click(AMDRegistrationScreen.objRegisterBtn, "Register button");
+			verifyElementExist(AMDLoginScreen.objOtpScreenTitle, "OTP screen");
+		} else {
+			extent.HeaderChildNode(
+					"OTP screen validation on tapping Register CTA, post selecting Whatsapp opt-in tick box");
+			logger.info("Not Applicable for this userType");
+			extent.extentLogger("Not applicable", "Not Applicable for this userType");
 		}
 	}
 
@@ -28446,8 +28465,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			int nativeMemory = Integer.parseInt(getMmoryInfo.get(0).trim());
 			int totalMemory = Integer.parseInt(getMmoryInfo.get(1).trim());
 
-			boolean timeFlag=true, memFlag=true, totalmemFlag=true, cpuFlag=true, gpuMemFlag=true, gpuRenFlag=true, trafficFlag=true;
-			
+			boolean timeFlag = true, memFlag = true, totalmemFlag = true, cpuFlag = true, gpuMemFlag = true,
+					gpuRenFlag = true, trafficFlag = true;
+
 			// #### App Performance CPU Usage Info
 			String getCPUInfo = CPU_UsagePerformanceV2();
 			int nCpuUSage = Integer.parseInt(getCPUInfo);
@@ -28465,7 +28485,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerPass("Timer",
 						"<b>Time taken to launch the App (Sec)</b>: " + DriverInstance.timeElapsed.getSeconds());
 			} else {
-				timeFlag=false;
+				timeFlag = false;
 				logger.info("Time taken to launch the App (Sec): " + DriverInstance.timeElapsed.getSeconds());
 				extent.extentLoggerFail("Timer",
 						"<b>Time taken to launch the App (Sec)</b>: " + DriverInstance.timeElapsed.getSeconds());
@@ -28474,13 +28494,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			if (nativeMemory < threshold_NativeMemory) {
 				logger.info("App Native Heap Memory: " + nativeMemory + " MB");
-				extent.extentLoggerPass("Memory Info",
-						"<b>App Native Heap Memory: </b>" + nativeMemory + " MB");
+				extent.extentLoggerPass("Memory Info", "<b>App Native Heap Memory: </b>" + nativeMemory + " MB");
 			} else {
-				memFlag=false;
+				memFlag = false;
 				logger.error("App Native Heap Memory: " + nativeMemory + " MB");
-				extent.extentLoggerFail("Memory Info",
-						"<b>App Native Heap Memory: </b>" + nativeMemory + " MB");
+				extent.extentLoggerFail("Memory Info", "<b>App Native Heap Memory: </b>" + nativeMemory + " MB");
 			}
 			softAssertion.assertEquals(memFlag, true);
 
@@ -28488,17 +28506,17 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				logger.info("App Peak Memory Usage: " + totalMemory + " MB");
 				extent.extentLoggerPass("Memory Info", "<b>App Peak Memory Usage: </b>" + totalMemory + " MB");
 			} else {
-				totalmemFlag=false;
+				totalmemFlag = false;
 				logger.error("App Peak Memory Usage: " + totalMemory + " MB");
 				extent.extentLoggerFail("Memory Info", "<b>AApp Peak Memory Usage: </b>" + totalMemory + " MB");
 			}
 			softAssertion.assertEquals(totalmemFlag, true);
-			
+
 			if (nCpuUSage < threshold_CPU) {
 				logger.info("CPU Usage: " + nCpuUSage + "%");
 				extent.extentLoggerPass("CPU Info", "<b>CPU Usage: </b>" + nCpuUSage + "%");
 			} else {
-				cpuFlag=false;
+				cpuFlag = false;
 				logger.error("CPU Usage: " + nCpuUSage + "%");
 				extent.extentLoggerFail("CPU Info", "<b>CPU Usage: </b>" + nCpuUSage + "%");
 			}
@@ -28506,41 +28524,37 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			if (nGPUMemory < threshold_GPUMem) {
 				logger.info("\nGPU Memory Usage: " + nGPUMemory + " MB");
-				extent.extentLoggerPass("GPU Info",
-						"<b>GPU Memory Usage: </b>" + nGPUMemory + " MB");
+				extent.extentLoggerPass("GPU Info", "<b>GPU Memory Usage: </b>" + nGPUMemory + " MB");
 			} else {
-				gpuMemFlag=false;
+				gpuMemFlag = false;
 				logger.error("\nGPU Memory Usage exceeded: " + nGPUMemory + " MB");
-				extent.extentLoggerFail("GPU Info",
-						"<b>GPU Memory Usage exceeded: </b>" + nGPUMemory + " MB");
+				extent.extentLoggerFail("GPU Info", "<b>GPU Memory Usage exceeded: </b>" + nGPUMemory + " MB");
 			}
 			softAssertion.assertEquals(gpuMemFlag, true);
 
 			if (nGPURendered < threshold_GPURendered) {
 				logger.info("\nGPU FPS: " + nGPURendered);
-				extent.extentLoggerPass("GPU Info",
-						"<b>GPU FPS: </b>" + nGPURendered);
+				extent.extentLoggerPass("GPU Info", "<b>GPU FPS: </b>" + nGPURendered);
 			} else {
-				gpuRenFlag=false;
+				gpuRenFlag = false;
 				logger.error("\nGPU FPS: " + nGPURendered);
-				extent.extentLoggerFail("GPU Info",
-						"<b>nGPU FPS: </b>" + nGPURendered);
+				extent.extentLoggerFail("GPU Info", "<b>nGPU FPS: </b>" + nGPURendered);
 			}
 			softAssertion.assertEquals(gpuRenFlag, true);
 
 			if (nNetTraffic < threshold_Network) {
 				logger.info("\nApp traffic usage: " + (int) nNetTraffic + " MB");
-				extent.extentLoggerPass("Traffic Usage",
-						"<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
+				extent.extentLoggerPass("Traffic Usage", "<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
 			} else {
-				trafficFlag=false;
+				trafficFlag = false;
 				logger.error("\nApp traffic usage: " + (int) nNetTraffic + " MB");
-				extent.extentLoggerFail("Traffic Usage",
-						"<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
+				extent.extentLoggerFail("Traffic Usage", "<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
 			}
-			
-			performaceDetails.add("App Launch"+","+DriverInstance.timeElapsed.getSeconds()+","+nativeMemory+" MB,"+totalMemory+" MB,"+nCpuUSage+"%,"+nGPUMemory+" MB,"+nGPURendered+","+nNetTraffic+" MB");
-			
+
+			performaceDetails.add("App Launch" + "," + DriverInstance.timeElapsed.getSeconds() + "," + nativeMemory
+					+ " MB," + totalMemory + " MB," + nCpuUSage + "%," + nGPUMemory + " MB," + nGPURendered + ","
+					+ nNetTraffic + " MB");
+
 			String timeTaken = Long.toString(DriverInstance.timeElapsed.getSeconds());
 			String strNativeMemory = Integer.toString(nativeMemory);
 			String strTotalMemory = Integer.toString(totalMemory);
@@ -28548,31 +28562,33 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			String strGPU = Float.toString(nGPUMemory);
 			String strGPURendered = Integer.toString(nGPURendered);
 			String strTraffic = Integer.toString(nNetTraffic);
-			
-			performaceMatrics.put("Time Taken",timeTaken+" Sec");
-			performaceMatrics.put("Native Heap Memory",strNativeMemory+" MB");
-			performaceMatrics.put("Peak Memory",strTotalMemory+" MB");
-			performaceMatrics.put("CPU Usage",strCPU+"%");
-			performaceMatrics.put("GPU Usage",strGPU+" MB");
-			performaceMatrics.put("GPU FPS",strGPURendered);
-			performaceMatrics.put("Traffic Usage",strTraffic+" MB");
-			
-			System.out.println("\n---------------------------------------------- App Launch Scenario ----------------------------------------------");
+
+			performaceMatrics.put("Time Taken", timeTaken + " Sec");
+			performaceMatrics.put("Native Heap Memory", strNativeMemory + " MB");
+			performaceMatrics.put("Peak Memory", strTotalMemory + " MB");
+			performaceMatrics.put("CPU Usage", strCPU + "%");
+			performaceMatrics.put("GPU Usage", strGPU + " MB");
+			performaceMatrics.put("GPU FPS", strGPURendered);
+			performaceMatrics.put("Traffic Usage", strTraffic + " MB");
+
+			System.out.println(
+					"\n---------------------------------------------- App Launch Scenario ----------------------------------------------");
 			System.out.println(performaceMatrics);
-			System.out.println("-------------------------------------------------------------------------------------------------------------------");
+			System.out.println(
+					"-------------------------------------------------------------------------------------------------------------------");
 			ClearAllPerformanceMatrics();
-			
+
 			softAssertion.assertEquals(trafficFlag, true);
 			softAssertion.assertAll();
-			
+
 		} else {
 			logger.error("\nHome page is not displayed");
 			extent.extentLoggerFail("Traffic Usage", "<b>Home page is not displayed!</b>");
 		}
 	}
-	
+
 	public void saveChangesCTA_Highlight_InEditProfileScreen(String userType) throws Exception {
-		if(!(userType.equalsIgnoreCase("Guest"))) {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
 			relaunch(false);
 			extent.HeaderChildNode("Save changes CTA functionality in EditProfile screen");
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
@@ -28583,25 +28599,30 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			hideKeyboard();
 			Swipe("UP", 1);
 			String cta = getAttributValue("enabled", AMDEditProfileScreen.objSaveChanges);
-			if(cta.equalsIgnoreCase("true")) {
-				logger.info("Savechanges CTA is highlighted for mobile No. user who Select/deselect on WhatsApp opt-in tickbox");
-				extent.extentLoggerPass("CTA", "Savechanges CTA is highlighted for mobile No. user who Select/deselect on WhatsApp opt-in tickbox");
-			}else {
-				logger.error("Savechanges CTA is not highlighted for mobile No. user who Select/deselect on WhatsApp opt-in tickbox");
-				extent.extentLoggerFail("CTA", "Savechanges CTA is not highlighted for mobile No. user who Select/deselect on WhatsApp opt-in tickbox");
+			if (cta.equalsIgnoreCase("true")) {
+				logger.info(
+						"Savechanges CTA is highlighted for mobile No. user who Select/deselect on WhatsApp opt-in tickbox");
+				extent.extentLoggerPass("CTA",
+						"Savechanges CTA is highlighted for mobile No. user who Select/deselect on WhatsApp opt-in tickbox");
+			} else {
+				logger.error(
+						"Savechanges CTA is not highlighted for mobile No. user who Select/deselect on WhatsApp opt-in tickbox");
+				extent.extentLoggerFail("CTA",
+						"Savechanges CTA is not highlighted for mobile No. user who Select/deselect on WhatsApp opt-in tickbox");
 			}
-		}else{
+		} else {
 			extent.HeaderChildNode("Save changes CTA functionality in EditProfile screen");
-		   	  logger.info("Not Applicable for this userType");
-		   	  extent.extentLogger("Not applicable", "Not Applicable for this userType");
-		   	}
+			logger.info("Not Applicable for this userType");
+			extent.extentLogger("Not applicable", "Not Applicable for this userType");
+		}
 	}
-	
+
 	public void saveChangesFunctionality_PreviouslyRegisteredUser_havingMobileNumber(String userType) throws Exception {
-		if(!(userType.equalsIgnoreCase("Guest"))) {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
 			relaunch(true);
 			ZeeApplicasterLogin(userType);
-			extent.HeaderChildNode("Save changes CTA functionality in EditProfile screen for previously registered user having mobile number");
+			extent.HeaderChildNode(
+					"Save changes CTA functionality in EditProfile screen for previously registered user having mobile number");
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
 			click(AMDHomePage.objMyProfileIcon, "profile icon");
 			verifyElementPresentAndClick(AMDMyProfileScreen.objEditProfileButton, "Edit CTA");
@@ -28611,32 +28632,34 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			hideKeyboard();
 			waitTime(5000);
 			click(AMDRegistrationScreen.objFirstNameTxtField, "First name field");
-			type(AMDRegistrationScreen.objFirstNameTxtField, firstName+"e", "First name field");
+			type(AMDRegistrationScreen.objFirstNameTxtField, firstName + "e", "First name field");
 			hideKeyboard();
 			Swipe("UP", 1);
 			click(AMDEditProfileScreen.objSaveChanges, "Save changes");
 			waitTime(5000);
-			if(verifyIsElementDisplayed(AMDMyProfileScreen.objEditProfileButton)) {
+			if (verifyIsElementDisplayed(AMDMyProfileScreen.objEditProfileButton)) {
 				logger.info("user navigated to My profile screen on tapping Save changes CTA");
 				extentLoggerPass("Myprofile", "user navigated to My profile screen on tapping Save changes CTA");
-			}else {
+			} else {
 				logger.error("user is not navigated to My profile screen on tapping Save changes CTA");
 				extentLoggerFail("Myprofile", "user is not navigated to My profile screen on tapping Save changes CTA");
 			}
-	}else{
-		extent.HeaderChildNode("Save changes CTA functionality in EditProfile screen for previously registered user having mobile number");
-	 	  logger.info("Not Applicable for this userType");
-	 	  extent.extentLogger("Not applicable", "Not Applicable for this userType");
-	 	}
+		} else {
+			extent.HeaderChildNode(
+					"Save changes CTA functionality in EditProfile screen for previously registered user having mobile number");
+			logger.info("Not Applicable for this userType");
+			extent.extentLogger("Not applicable", "Not Applicable for this userType");
+		}
 	}
 
 	public void saveChangesFunctionality_PreviouslyRegisteredUser_havingOnlyEmailID(String userType) throws Exception {
-		if(!(userType.equalsIgnoreCase("Guest"))) {
+		if (!(userType.equalsIgnoreCase("Guest"))) {
 			relaunch(true);
-			extent.HeaderChildNode("Save changes CTA functionality for previously registered user by entering mobile number in edit profile screen");
-			if(userType.equalsIgnoreCase("NonSubscribedUser")) {
+			extent.HeaderChildNode(
+					"Save changes CTA functionality for previously registered user by entering mobile number in edit profile screen");
+			if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 				LoginWithEmailID("igszeefive3@gmail.com", "123456");
-			}else {
+			} else {
 				LoginWithEmailID("zeein7@mailnesia.com", "123456");
 			}
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
@@ -28648,21 +28671,22 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			Swipe("UP", 1);
 			click(AMDEditProfileScreen.objSaveChanges, "Save changes");
 			waitTime(5000);
-			if(verifyIsElementDisplayed(AMDLoginScreen.objOtpScreenTitle)) {
+			if (verifyIsElementDisplayed(AMDLoginScreen.objOtpScreenTitle)) {
 				logger.info("user navigated to OTP screen on tapping Save changes CTA");
 				extentLoggerPass("Myprofile", "user navigated to OTP screen on tapping Save changes CTA");
-			}else {
+			} else {
 				logger.error("user is not navigated to OTP screen on tapping Save changes CTA");
 				extentLoggerFail("Myprofile", "user is not navigated to OTP screen on tapping Save changes CTA");
 			}
-	}else{
-		extent.HeaderChildNode("Save changes CTA functionality for previously registered user by entering mobile number in edit profile screen");
-	 	  logger.info("Not Applicable for this userType");
-	 	  extent.extentLogger("Not applicable", "Not Applicable for this userType");
-	 	}
+		} else {
+			extent.HeaderChildNode(
+					"Save changes CTA functionality for previously registered user by entering mobile number in edit profile screen");
+			logger.info("Not Applicable for this userType");
+			extent.extentLogger("Not applicable", "Not Applicable for this userType");
+		}
 	}
-	
-	public void installmarketBuild() throws Exception{
+
+	public void installmarketBuild() throws Exception {
 		extent.HeaderChildNode("Install market build");
 		logger.info("Install market build");
 		logger.info("Uninstalling zee5");
@@ -28677,13 +28701,13 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		extent.extentLogger("", "Launching Play store");
 		Runtime.getRuntime().exec("adb shell am start -n com.android.vending/com.android.vending.AssetBrowserActivity");
 		waitTime(3000);
-		installZeeApp();	
+		installZeeApp();
 	}
-	
-	public void installZeeApp() throws Exception{
+
+	public void installZeeApp() throws Exception {
 		logger.info("Install Zee5");
-	    extent.HeaderChildNode( "Install Zee5");
-	    waitTime(4000);
+		extent.HeaderChildNode("Install Zee5");
+		waitTime(4000);
 		click(AMDAppUpgrade.objplaystoreSearch, "Edit field");
 		type(AMDAppUpgrade.objplaystoreSearch, "Zee5 \n", "Edit field");
 		hideKeyboard();
@@ -28691,14 +28715,15 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		waitForElementAndClickIfPresent(AMDAppUpgrade.objOpenButton, 100, "Open CTA");
 	}
 
-	public void LoginForUpgradeModule(String LoginMethod) throws Exception{
-        System.out.println("\nLogin to the App");
-		
+	public void LoginForUpgradeModule(String LoginMethod) throws Exception {
+		System.out.println("\nLogin to the App");
+
 		switch (LoginMethod) {
 		case "Guest":
 			extent.HeaderChildNode("Logged in as <b>Guest</b> User");
-			
-			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as <b>Guest</b> user");
+
+			extent.extentLogger("Accessing the application as Guest user",
+					"Accessing the application as <b>Guest</b> user");
 			break;
 
 		case "NonSubscribedUser":
@@ -28710,7 +28735,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
 			verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
-			
+
 			click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
@@ -28727,11 +28752,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			String SubscribedUsername = getParameterFromXML("UpgradeSubscribedUserName");
 			String SubscribedPassword = getParameterFromXML("UpgradeSubscribedPassword");
-		
+
 			verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
 			verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
-			
+
 			click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, SubscribedUsername, "Email Field");
@@ -28744,10 +28769,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			break;
 		}
 	}
-		
 
 	@SuppressWarnings("unused")
-	public void GetSettingsDetails(String puserType) throws Exception{
+	public void GetSettingsDetails(String puserType) throws Exception {
 		extent.HeaderChildNode("Getting the user settings details for Market build");
 		String Streamvalue = null;
 		String Streamoverwifi = null;
@@ -28755,97 +28779,99 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		String downloadQuality = null;
 		String downloadoverwifi = null;
 		String displaylang = null;
-		
-			if(puserType.equalsIgnoreCase("Guest")) {
-				click(AMDHomePage.MoreMenuIcon, "More menu icon");
-				verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
-				verifyElementExist(AMDSettingsScreen.objVideoQualityDefaultvalue,"Video Quality");
-				 Streamvalue = findElement(AMDSettingsScreen.objVideoQualityDefaultvalue).getText();
-				
-				verifyElementExist(AMDSettingsScreen.objStreamOverWifiValue,"Stream over wifi");
-				String StreamOverwifi = findElement(AMDSettingsScreen.objStreamOverWifiValue).getText();
-				 Streamoverwifi = getAttributValue("checked", AMDSettingsScreen.objStreamOverWifiValue);
-				
-				verifyElementExist(AMDSettingsScreen.objAutoPlayToggleSwitch,"Auto Play");
-				String AutoPlay = findElement(AMDSettingsScreen.objAutoPlayToggleSwitch).getText();
-				 autoPlay = getAttributValue("checked", AMDSettingsScreen.objAutoPlayToggleSwitch);
-				
-				verifyElementExist(AMDSettingsScreen.objDownloadQualityValue,"Download Quality");
-				 downloadQuality = findElement(AMDSettingsScreen.objDownloadQualityValue).getText();
-				
-				verifyElementExist(AMDSettingsScreen.objDownloadOverWifiToggle,"Download over wifi");
-				String DownloadOverWifi = findElement(AMDSettingsScreen.objDownloadOverWifiToggle).getText();
-				 downloadoverwifi = getAttributValue("checked", AMDSettingsScreen.objDownloadOverWifiToggle);
-				Swipe("UP", 1);
-				verifyElementExist(AMDSettingsScreen.objDisplayLangValue,"Display Launguage");
-				 displaylang = findElement(AMDSettingsScreen.objDisplayLangValue).getText();
+
+		if (puserType.equalsIgnoreCase("Guest")) {
+			click(AMDHomePage.MoreMenuIcon, "More menu icon");
+			verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
+			verifyElementExist(AMDSettingsScreen.objVideoQualityDefaultvalue, "Video Quality");
+			Streamvalue = findElement(AMDSettingsScreen.objVideoQualityDefaultvalue).getText();
+
+			verifyElementExist(AMDSettingsScreen.objStreamOverWifiValue, "Stream over wifi");
+			String StreamOverwifi = findElement(AMDSettingsScreen.objStreamOverWifiValue).getText();
+			Streamoverwifi = getAttributValue("checked", AMDSettingsScreen.objStreamOverWifiValue);
+
+			verifyElementExist(AMDSettingsScreen.objAutoPlayToggleSwitch, "Auto Play");
+			String AutoPlay = findElement(AMDSettingsScreen.objAutoPlayToggleSwitch).getText();
+			autoPlay = getAttributValue("checked", AMDSettingsScreen.objAutoPlayToggleSwitch);
+
+			verifyElementExist(AMDSettingsScreen.objDownloadQualityValue, "Download Quality");
+			downloadQuality = findElement(AMDSettingsScreen.objDownloadQualityValue).getText();
+
+			verifyElementExist(AMDSettingsScreen.objDownloadOverWifiToggle, "Download over wifi");
+			String DownloadOverWifi = findElement(AMDSettingsScreen.objDownloadOverWifiToggle).getText();
+			downloadoverwifi = getAttributValue("checked", AMDSettingsScreen.objDownloadOverWifiToggle);
+			Swipe("UP", 1);
+			verifyElementExist(AMDSettingsScreen.objDisplayLangValue, "Display Launguage");
+			displaylang = findElement(AMDSettingsScreen.objDisplayLangValue).getText();
+		} else {
+			String Username = null;
+			String Password = null;
+			if (pUserType.equalsIgnoreCase("SubscribedUser")) {
+				Username = getParameterFromXML("UpgradeSubscribedUserName");
+				Password = getParameterFromXML("UpgradeSubscribedPassword");
+			} else if (pUserType.equalsIgnoreCase("NonSubscribedUser")) {
+				Username = getParameterFromXML("UpgradeNonsubscribedUserName");
+				Password = getParameterFromXML("UpgradeNonsubscribedPassword");
 			}
-			else {
-				String	Username = null;
-				String	Password = null;	
-					if(pUserType.equalsIgnoreCase("SubscribedUser")) {
-					Username = getParameterFromXML("UpgradeSubscribedUserName");
-					Password = getParameterFromXML("UpgradeSubscribedPassword");
-					}else if(pUserType.equalsIgnoreCase("NonSubscribedUser")) {
-							Username = getParameterFromXML("UpgradeNonsubscribedUserName");
-							Password = getParameterFromXML("UpgradeNonsubscribedPassword");
-					}		
-				Properties pro = new Properties();
-			     Streamvalue = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("streaming_quality");   
-			     autoPlay = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("auto_play");  
-			     downloadQuality = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("download_quality");
-			    if(downloadQuality.equalsIgnoreCase("High")) {
-			    	downloadQuality = "Better";
-			    }
-			    if(downloadQuality.equalsIgnoreCase("Medium")) {
-			    	downloadQuality = "Good";
-			    }
-			    if(downloadQuality.equalsIgnoreCase("Low")) {
-			    	downloadQuality = "Datasaver";
-			    }
-			     Streamoverwifi = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("stream_over_wifi");
-			     downloadoverwifi = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("download_over_wifi");
-			     displaylang = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("display_language"); 
-			    if(displaylang.equalsIgnoreCase("en")) {
-			    	displaylang = "English";
-			    } 
-			    
+			Properties pro = new Properties();
+			Streamvalue = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("streaming_quality");
+			autoPlay = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("auto_play");
+			downloadQuality = ResponseInstance.getUserSettingsDetails(Username, Password)
+					.getProperty("download_quality");
+			if (downloadQuality.equalsIgnoreCase("High")) {
+				downloadQuality = "Better";
 			}
-		
-	    extentLogger("", "Stream quality: " + Streamvalue );
-	    extentLogger("", "Auto play: " + autoPlay );
-	    extentLogger("", "Download quality: " + downloadQuality );
-	    extentLogger("", "Stream over wifi: " + Streamoverwifi );
-	    extentLogger("", "Download over wifi: " + downloadoverwifi );
-	    extentLogger("", "Display language: " + displaylang );
-	    
-	    marketsettings.add(Streamvalue);
-	    marketsettings.add(autoPlay);
-	    marketsettings.add(downloadQuality);
-	    marketsettings.add(Streamoverwifi);
-	    marketsettings.add(downloadoverwifi);
-	    marketsettings.add(displaylang);
-	 // marketsettings.add(contentlang);
-	    System.out.println("Market build user settings details : " + marketsettings);
-	    logger.info("Market build user settings details : " + marketsettings);
-	    Back(2);
+			if (downloadQuality.equalsIgnoreCase("Medium")) {
+				downloadQuality = "Good";
+			}
+			if (downloadQuality.equalsIgnoreCase("Low")) {
+				downloadQuality = "Datasaver";
+			}
+			Streamoverwifi = ResponseInstance.getUserSettingsDetails(Username, Password)
+					.getProperty("stream_over_wifi");
+			downloadoverwifi = ResponseInstance.getUserSettingsDetails(Username, Password)
+					.getProperty("download_over_wifi");
+			displaylang = ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("display_language");
+			if (displaylang.equalsIgnoreCase("en")) {
+				displaylang = "English";
+			}
+
+		}
+
+		extentLogger("", "Stream quality: " + Streamvalue);
+		extentLogger("", "Auto play: " + autoPlay);
+		extentLogger("", "Download quality: " + downloadQuality);
+		extentLogger("", "Stream over wifi: " + Streamoverwifi);
+		extentLogger("", "Download over wifi: " + downloadoverwifi);
+		extentLogger("", "Display language: " + displaylang);
+
+		marketsettings.add(Streamvalue);
+		marketsettings.add(autoPlay);
+		marketsettings.add(downloadQuality);
+		marketsettings.add(Streamoverwifi);
+		marketsettings.add(downloadoverwifi);
+		marketsettings.add(displaylang);
+		// marketsettings.add(contentlang);
+		System.out.println("Market build user settings details : " + marketsettings);
+		logger.info("Market build user settings details : " + marketsettings);
+		Back(2);
 	}
 
-	public void UninstallZee5() throws Exception{
-		  logger.info("Uninstalling zee5");
-		  extent.HeaderChildNode("Uninstalling zee5");
-		 Runtime.getRuntime().exec("adb uninstall com.graymatrix.did");
-		 logger.info("Uninstalled the zee5 application");
-		 extent.extentLogger("", "Uninstalled the zee5 application");
-		 waitTime(2000);	
+	public void UninstallZee5() throws Exception {
+		logger.info("Uninstalling zee5");
+		extent.HeaderChildNode("Uninstalling zee5");
+		Runtime.getRuntime().exec("adb uninstall com.graymatrix.did");
+		logger.info("Uninstalled the zee5 application");
+		extent.extentLogger("", "Uninstalled the zee5 application");
+		waitTime(2000);
 	}
 
 	public void LaunchPlayStoreApp() throws Exception {
-		  logger.info("Launching Play store");
-		  extent.HeaderChildNode("Launching Play store");
-	     Runtime.getRuntime().exec("adb shell am start -n com.android.vending/com.android.vending.AssetBrowserActivity");
-	     logger.info("Play store app is launched");
-	     waitTime(4000);
+		logger.info("Launching Play store");
+		extent.HeaderChildNode("Launching Play store");
+		Runtime.getRuntime().exec("adb shell am start -n com.android.vending/com.android.vending.AssetBrowserActivity");
+		logger.info("Play store app is launched");
+		waitTime(4000);
 	}
 
 	public void clearPlayStoreAppData() throws Exception {
@@ -28855,37 +28881,37 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		logger.info("cleared playstore app data");
 		extent.extentLogger("", "cleared playstore app data");
 		waitTime(4000);
-		}
+	}
 
-	public void InstallZee5() throws Exception{
+	public void InstallZee5() throws Exception {
 		logger.info("Installing Zee5 Upgrade build");
 		extent.HeaderChildNode("Installing Zee5 Upgrade build");
-		
-	    LaunchPlayStoreApp();
-	    verifyElementPresentAndClick(AMDAppUpgrade.objgmailProfileicon, "Gmail profile icon");
-	    click(AMDAppUpgrade.objdownArrow,"Down arrow");
-	   if(verifyElementIsNotDisplayed(AMDAppUpgrade.objSecondAacountInPlaystore)) {
-	    click(AMDAppUpgrade.objAddAccount,"Add Account");	
-	    waitTime(8000);
-	    click(AMDAppUpgrade.objeditEmailfield,"Edit email field");
-	    type(AMDAppUpgrade.objeditEmailfield, "mallikarjun.beta23@gmail.com", "Edit field");
-		hideKeyboard();
-		waitTime(2000);
-		click(AMDAppUpgrade.objNextbtn,"Next button");
-		waitTime(4000);
-		verifyElementPresentAndClick(AMDAppUpgrade.objEditPasswordfield,"Edit password field");
-		type(AMDAppUpgrade.objEditPasswordfield, "beta12345", "Edit field");
-		hideKeyboard();
-		click(AMDAppUpgrade.objNextbtn,"Next button");
-		waitTime(4000);
-		click(AMDAppUpgrade.objIagreebtn,"I agree button");
-		 waitTime(5000);
-	    }
-	    if(verifyElementDisplayed(AMDAppUpgrade.objSecondAacountInPlaystore)) {
-	    	click(AMDAppUpgrade.objSecondAacountInPlaystore,"Account");
-	    	waitTime(4000);
-	    }
-	    waitTime(5000);
+
+		LaunchPlayStoreApp();
+		verifyElementPresentAndClick(AMDAppUpgrade.objgmailProfileicon, "Gmail profile icon");
+		click(AMDAppUpgrade.objdownArrow, "Down arrow");
+		if (verifyElementIsNotDisplayed(AMDAppUpgrade.objSecondAacountInPlaystore)) {
+			click(AMDAppUpgrade.objAddAccount, "Add Account");
+			waitTime(8000);
+			click(AMDAppUpgrade.objeditEmailfield, "Edit email field");
+			type(AMDAppUpgrade.objeditEmailfield, "mallikarjun.beta23@gmail.com", "Edit field");
+			hideKeyboard();
+			waitTime(2000);
+			click(AMDAppUpgrade.objNextbtn, "Next button");
+			waitTime(4000);
+			verifyElementPresentAndClick(AMDAppUpgrade.objEditPasswordfield, "Edit password field");
+			type(AMDAppUpgrade.objEditPasswordfield, "beta12345", "Edit field");
+			hideKeyboard();
+			click(AMDAppUpgrade.objNextbtn, "Next button");
+			waitTime(4000);
+			click(AMDAppUpgrade.objIagreebtn, "I agree button");
+			waitTime(5000);
+		}
+		if (verifyElementDisplayed(AMDAppUpgrade.objSecondAacountInPlaystore)) {
+			click(AMDAppUpgrade.objSecondAacountInPlaystore, "Account");
+			waitTime(4000);
+		}
+		waitTime(5000);
 		Runtime.getRuntime().exec("adb shell pm clear -n com.android.vending");
 		waitTime(5000);
 		System.out.println("cleared play store app data");
@@ -28894,23 +28920,23 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		System.out.println("launched play store");
 		waitTime(5000);
 		verifyElementPresentAndClick(AMDAppUpgrade.objgmailProfileicon, "Gmail profile icon");
-		click(AMDAppUpgrade.objdownArrow,"Down arrow");
-	    click(AMDAppUpgrade.objSecondAacountInPlaystore,"Account"); 
-		 waitTime(8000);
+		click(AMDAppUpgrade.objdownArrow, "Down arrow");
+		click(AMDAppUpgrade.objSecondAacountInPlaystore, "Account");
+		waitTime(8000);
 		click(AMDAppUpgrade.objplaystoreSearch, "Edit field");
 		type(AMDAppUpgrade.objplaystoreSearch, "Zee5 \n", "Edit field");
 		hideKeyboard();
-		verifyElementPresentAndClick(AMDAppUpgrade.objUpdatebutton,"Update button");
-		waitTime(30000);		
+		verifyElementPresentAndClick(AMDAppUpgrade.objUpdatebutton, "Update button");
+		waitTime(30000);
 		waitForElementDisplayed(AMDAppUpgrade.objOpenButton, 30);
 		waitTime(25000);
-		click(AMDAppUpgrade.objOpenButton,"Open button");
+		click(AMDAppUpgrade.objOpenButton, "Open button");
 		waitTime(8000);
-}
+	}
 
 	public void accessDeviceLocationPopUp1(String permission, String userType) throws Exception {
 		extent.HeaderChildNode("Access Device Location PopUp");
-		extent.extentLogger("Time ","Time taken to launch the App (Sec)" + DriverInstance.timeElapsed.getSeconds());
+		extent.extentLogger("Time ", "Time taken to launch the App (Sec)" + DriverInstance.timeElapsed.getSeconds());
 		extent.extentLogger("User Type", "UserType : " + userType);
 		logger.info("UserType : " + userType);
 		System.out.println("Access Device Location PopUp");
@@ -28946,1865 +28972,2298 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 	}
 
-
-
-	public void GetContinueWatchingTrayDetails(String userType) throws Exception{
+	public void GetContinueWatchingTrayDetails(String userType) throws Exception {
 		extent.HeaderChildNode("Get Continue watching tray details for Market build");
-		if(!userType.equalsIgnoreCase("Guest")) {
-		waitForElementDisplayed(AMDHomePage.objContinueWatchingTray, 30);
-		boolean ContinueWatchingTray = verifyIsElementDisplayed(AMDHomePage.objContinueWatchingTray);
-		if (ContinueWatchingTray) {
-			List<WebElement> tabs = getDriver().findElements(AMDHomePage.objCWtraycontents);
-			System.out.println(tabs.size());
-			PartialSwipe("UP", 1);
-			for (int i = 1; i <= tabs.size(); i++) {
-				System.out.println("i : " + i);
-				WebElement ele = findElement(AMDHomePage.objCWContent(i));
-			    String CWTrayFirstContentTitle = ele.getText();
-				logger.info("Continue watching content title " + i + ":" + CWTrayFirstContentTitle);
-				extentLogger("","Continue watching content title " + i + ":" + CWTrayFirstContentTitle);
-				MarketCWtray.add(CWTrayFirstContentTitle);
-			}		
-		   logger.info("Market build Continue watching tray contents: " + MarketCWtray );
-		}else {
-			logger.error("Continue watching tray not displayed");
-			extent.extentLoggerWarning("Continue watching Tray","Continue watching tray not displayed in");
-		}
-		}else {
+		if (!userType.equalsIgnoreCase("Guest")) {
+			waitForElementDisplayed(AMDHomePage.objContinueWatchingTray, 30);
+			boolean ContinueWatchingTray = verifyIsElementDisplayed(AMDHomePage.objContinueWatchingTray);
+			if (ContinueWatchingTray) {
+				List<WebElement> tabs = getDriver().findElements(AMDHomePage.objCWtraycontents);
+				System.out.println(tabs.size());
+				PartialSwipe("UP", 1);
+				for (int i = 1; i <= tabs.size(); i++) {
+					System.out.println("i : " + i);
+					WebElement ele = findElement(AMDHomePage.objCWContent(i));
+					String CWTrayFirstContentTitle = ele.getText();
+					logger.info("Continue watching content title " + i + ":" + CWTrayFirstContentTitle);
+					extentLogger("", "Continue watching content title " + i + ":" + CWTrayFirstContentTitle);
+					MarketCWtray.add(CWTrayFirstContentTitle);
+				}
+				logger.info("Market build Continue watching tray contents: " + MarketCWtray);
+			} else {
+				logger.error("Continue watching tray not displayed");
+				extent.extentLoggerWarning("Continue watching Tray", "Continue watching tray not displayed in");
+			}
+		} else {
 			logger.info("This is not applicable for " + userType);
 			extent.extentLogger("", "This is not applicable for " + userType);
 		}
 	}
 
-	public void DownloadsDetails(String userType) throws Exception{
+	public void DownloadsDetails(String userType) throws Exception {
 		extent.HeaderChildNode("Get Downloads details for Market build");
-		if(!userType.equalsIgnoreCase("Guest")) {
-		verifyElementPresent(AMDHomePage.objDownloadBtn, "Downloads tab at the bottom navigation bar");
-		DownloadContent(content1, "Good", true);
+		if (!userType.equalsIgnoreCase("Guest")) {
+			verifyElementPresent(AMDHomePage.objDownloadBtn, "Downloads tab at the bottom navigation bar");
+			DownloadContent(content1, "Good", true);
 //		click(AMDHomePage.objDownloadBtn, "Downloads tab");
-		waitTime(3000);
-		click(AMDDownloadPage.objshowstab, "Shows tab in Downloads landing screen");
-		if(verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
-			logger.info("There are no contents in Shows tab");	
-			extent.extentLogger("", "There are no contents in Shows tab");
-		}
-		else {
-			verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
-			String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent).getText();
-			System.out.println(DownloadedContentText);
-			logger.info("Downloaded content: " + DownloadedContentText + " is displayed");
-			extent.extentLogger("", "Downloaded content: " + DownloadedContentText + " is displayed");
-			Downloadedcontent.add(DownloadedContentText);
-		}
-		click(AMDDownloadPage.objmoviestab, "Movies tab in Downlaods landing screen");
-		if(verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
-			logger.info("There are no contents in Movies tab");	
-			extent.extentLogger("", "There are no contents in Movies tab");
-		}
-		else {
-			verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
-			String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent).getText();
-			System.out.println(DownloadedContentText);
-			logger.info("Downloaded content: " + DownloadedContentText + " is displayed" );
-			extent.extentLogger("", "Downloaded content: " + DownloadedContentText + " is displayed" );
-			Downloadedcontent.add(DownloadedContentText);
-		}
-		click(AMDDownloadPage.objvideostab, "Videos tab in Downloads landing screen");
-		if(verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
-			logger.info("There are no contents in Videos tab");
-			extent.extentLogger("", "There are no contents in Vidoes tab");
-		}
-		else {
-			verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
-			String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent).getText();
-			System.out.println(DownloadedContentText);
-			logger.info("Downloaded content: " + DownloadedContentText + " is displayed" );
-			extent.extentLogger("","Downloaded content: " + DownloadedContentText + " is displayed");
-			Downloadedcontent.add(DownloadedContentText);
-		}
-		logger.info("Downloaded contents: " + Downloadedcontent );
-	}
-		else {
+			waitTime(3000);
+			click(AMDDownloadPage.objshowstab, "Shows tab in Downloads landing screen");
+			if (verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
+				logger.info("There are no contents in Shows tab");
+				extent.extentLogger("", "There are no contents in Shows tab");
+			} else {
+				verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
+				String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent)
+						.getText();
+				System.out.println(DownloadedContentText);
+				logger.info("Downloaded content: " + DownloadedContentText + " is displayed");
+				extent.extentLogger("", "Downloaded content: " + DownloadedContentText + " is displayed");
+				Downloadedcontent.add(DownloadedContentText);
+			}
+			click(AMDDownloadPage.objmoviestab, "Movies tab in Downlaods landing screen");
+			if (verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
+				logger.info("There are no contents in Movies tab");
+				extent.extentLogger("", "There are no contents in Movies tab");
+			} else {
+				verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
+				String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent)
+						.getText();
+				System.out.println(DownloadedContentText);
+				logger.info("Downloaded content: " + DownloadedContentText + " is displayed");
+				extent.extentLogger("", "Downloaded content: " + DownloadedContentText + " is displayed");
+				Downloadedcontent.add(DownloadedContentText);
+			}
+			click(AMDDownloadPage.objvideostab, "Videos tab in Downloads landing screen");
+			if (verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
+				logger.info("There are no contents in Videos tab");
+				extent.extentLogger("", "There are no contents in Vidoes tab");
+			} else {
+				verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
+				String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent)
+						.getText();
+				System.out.println(DownloadedContentText);
+				logger.info("Downloaded content: " + DownloadedContentText + " is displayed");
+				extent.extentLogger("", "Downloaded content: " + DownloadedContentText + " is displayed");
+				Downloadedcontent.add(DownloadedContentText);
+			}
+			logger.info("Downloaded contents: " + Downloadedcontent);
+		} else {
 			logger.info("This is not applicable for " + userType);
 			extent.extentLogger("", "This is not applicable for " + userType);
 		}
-		
+
 	}
 
-
-	public void WatchListDetails(String userType) throws Exception{
+	public void WatchListDetails(String userType) throws Exception {
 		extent.HeaderChildNode("Get Watchlist details for Market build");
-		if(!userType.equalsIgnoreCase("Guest")) {
-		String	Username = null;
-		String	Password = null;
-		if(pUserType.equalsIgnoreCase("SubscribedUser")) {
-			Username = getParameterFromXML("UpgradeSubscribedUserName");
-			Password = getParameterFromXML("UpgradeSubscribedPassword");
-			}else if(pUserType.equalsIgnoreCase("NonSubscribedUser")) {
-					Username = getParameterFromXML("UpgradeNonsubscribedUserName");
-					Password = getParameterFromXML("UpgradeNonsubscribedPassword");
-			}		
-		Response respWatchlist = ResponseInstance.getWatchList1(Username,Password);
-		int totalcontent =	respWatchlist.jsonPath().getList("array").size();
-		extent.extentLogger("", "Number of contents in Watch list " + totalcontent);
-		System.out.println("Number of contents in Watch list " + totalcontent);		
-		String contentid=null;
-		for(int i=0;i<totalcontent;i++) {
-		 contentid = respWatchlist.jsonPath().getString("["+i+"].id");
-		 Response contentresp = ResponseInstance.getContentDetails1(contentid);
-		 String assetSubtype = contentresp.jsonPath().getString("asset_subtype");
-		 String contenttitle=null;
-		 if(assetSubtype.equalsIgnoreCase("episode")) {
-			  contenttitle = contentresp.jsonPath().getString("tvshow_details.title");
-		 }else {
-			  contenttitle = contentresp.jsonPath().getString("original_title");
-		 } 
-		marketwatchlist.add(contenttitle);		 
-		}		
-		 System.out.println(marketwatchlist);
-		 extent.extentLogger("", "Watch list contents: " + marketwatchlist);
-	}else {
-		logger.info("This is not applicable for " + userType);
-		extent.extentLogger("", "This is not applicable for " + userType);
+		if (!userType.equalsIgnoreCase("Guest")) {
+			String Username = null;
+			String Password = null;
+			if (pUserType.equalsIgnoreCase("SubscribedUser")) {
+				Username = getParameterFromXML("UpgradeSubscribedUserName");
+				Password = getParameterFromXML("UpgradeSubscribedPassword");
+			} else if (pUserType.equalsIgnoreCase("NonSubscribedUser")) {
+				Username = getParameterFromXML("UpgradeNonsubscribedUserName");
+				Password = getParameterFromXML("UpgradeNonsubscribedPassword");
+			}
+			Response respWatchlist = ResponseInstance.getWatchList1(Username, Password);
+			int totalcontent = respWatchlist.jsonPath().getList("array").size();
+			extent.extentLogger("", "Number of contents in Watch list " + totalcontent);
+			System.out.println("Number of contents in Watch list " + totalcontent);
+			String contentid = null;
+			for (int i = 0; i < totalcontent; i++) {
+				contentid = respWatchlist.jsonPath().getString("[" + i + "].id");
+				Response contentresp = ResponseInstance.getContentDetails1(contentid);
+				String assetSubtype = contentresp.jsonPath().getString("asset_subtype");
+				String contenttitle = null;
+				if (assetSubtype.equalsIgnoreCase("episode")) {
+					contenttitle = contentresp.jsonPath().getString("tvshow_details.title");
+				} else {
+					contenttitle = contentresp.jsonPath().getString("original_title");
+				}
+				marketwatchlist.add(contenttitle);
+			}
+			System.out.println(marketwatchlist);
+			extent.extentLogger("", "Watch list contents: " + marketwatchlist);
+		} else {
+			logger.info("This is not applicable for " + userType);
+			extent.extentLogger("", "This is not applicable for " + userType);
+		}
 	}
-}
 
-public void navigateToIntroScreen_DisplaylangScreen1() throws Exception {
+	public void navigateToIntroScreen_DisplaylangScreen1() throws Exception {
 
-	click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button (Content-LanguageScreen)");
-}
+		click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button (Content-LanguageScreen)");
+	}
 
+	@SuppressWarnings("unused")
+	public void CaptureSettingsDetailsForupgradeBuild() throws Exception {
+		extent.HeaderChildNode("Capture user settings details for upgrade build");
+		click(AMDHomePage.MoreMenuIcon, "More menu icon");
+		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
+		verifyElementExist(AMDSettingsScreen.objVideoQualityDefaultvalue, "Video Quality");
+		String videoqaulity = findElement(AMDSettingsScreen.objVideoQualityDefaultvalue).getText();
 
-@SuppressWarnings("unused")
-public void CaptureSettingsDetailsForupgradeBuild() throws Exception {
-	extent.HeaderChildNode("Capture user settings details for upgrade build");
-	click(AMDHomePage.MoreMenuIcon, "More menu icon");
-	verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
-	verifyElementExist(AMDSettingsScreen.objVideoQualityDefaultvalue,"Video Quality");
-	String videoqaulity = findElement(AMDSettingsScreen.objVideoQualityDefaultvalue).getText();
-	
-	verifyElementExist(AMDSettingsScreen.objStreamOverWifiValue,"Stream over wifi");
-	String StreamOverWifi = findElement(AMDSettingsScreen.objStreamOverWifiValue).getText();
-	String streamoverwifi = getAttributValue("checked", AMDSettingsScreen.objStreamOverWifiValue);
-	
-	verifyElementExist(AMDSettingsScreen.objAutoPlayToggleSwitch,"Auto Play");
-	String AutoPlay = findElement(AMDSettingsScreen.objAutoPlayToggleSwitch).getText();
-	String autoplay = getAttributValue("checked", AMDSettingsScreen.objAutoPlayToggleSwitch);
-	
-	verifyElementExist(AMDSettingsScreen.objDownloadQualityValue,"Download Quality");
-	String Downloadquality = findElement(AMDSettingsScreen.objDownloadQualityValue).getText();
-	
-	verifyElementExist(AMDSettingsScreen.objDownloadOverWifiToggle,"Download over wifi");
-	String DownloadOverWifi = findElement(AMDSettingsScreen.objDownloadOverWifiToggle).getText();
-	String downloadoverwifi = getAttributValue("checked", AMDSettingsScreen.objDownloadOverWifiToggle);
-	Swipe("UP",1);
-	verifyElementExist(AMDSettingsScreen.objDisplayLangValue,"Display Launguage");
-	String DisplayLanguage = findElement(AMDSettingsScreen.objDisplayLangValue).getText();
-	
-	extentLogger("", "Stream quality: " + videoqaulity );
-   extentLogger("", "Auto play: " + autoplay );
-   extentLogger("", "Download quality: " + Downloadquality );
-   extentLogger("", "Stream over wifi: " + StreamOverWifi );
-   extentLogger("", "Download over wifi: " + DownloadOverWifi );
-   extentLogger("", "Display language: " + DisplayLanguage );	
+		verifyElementExist(AMDSettingsScreen.objStreamOverWifiValue, "Stream over wifi");
+		String StreamOverWifi = findElement(AMDSettingsScreen.objStreamOverWifiValue).getText();
+		String streamoverwifi = getAttributValue("checked", AMDSettingsScreen.objStreamOverWifiValue);
 
-	Upgradesettings.add(videoqaulity);
-	Upgradesettings.add(autoplay);
-	Upgradesettings.add(Downloadquality);
-	Upgradesettings.add(streamoverwifi);
-	Upgradesettings.add(downloadoverwifi);
-	Upgradesettings.add(DisplayLanguage);
+		verifyElementExist(AMDSettingsScreen.objAutoPlayToggleSwitch, "Auto Play");
+		String AutoPlay = findElement(AMDSettingsScreen.objAutoPlayToggleSwitch).getText();
+		String autoplay = getAttributValue("checked", AMDSettingsScreen.objAutoPlayToggleSwitch);
+
+		verifyElementExist(AMDSettingsScreen.objDownloadQualityValue, "Download Quality");
+		String Downloadquality = findElement(AMDSettingsScreen.objDownloadQualityValue).getText();
+
+		verifyElementExist(AMDSettingsScreen.objDownloadOverWifiToggle, "Download over wifi");
+		String DownloadOverWifi = findElement(AMDSettingsScreen.objDownloadOverWifiToggle).getText();
+		String downloadoverwifi = getAttributValue("checked", AMDSettingsScreen.objDownloadOverWifiToggle);
+		Swipe("UP", 1);
+		verifyElementExist(AMDSettingsScreen.objDisplayLangValue, "Display Launguage");
+		String DisplayLanguage = findElement(AMDSettingsScreen.objDisplayLangValue).getText();
+
+		extentLogger("", "Stream quality: " + videoqaulity);
+		extentLogger("", "Auto play: " + autoplay);
+		extentLogger("", "Download quality: " + Downloadquality);
+		extentLogger("", "Stream over wifi: " + StreamOverWifi);
+		extentLogger("", "Download over wifi: " + DownloadOverWifi);
+		extentLogger("", "Display language: " + DisplayLanguage);
+
+		Upgradesettings.add(videoqaulity);
+		Upgradesettings.add(autoplay);
+		Upgradesettings.add(Downloadquality);
+		Upgradesettings.add(streamoverwifi);
+		Upgradesettings.add(downloadoverwifi);
+		Upgradesettings.add(DisplayLanguage);
 //	Upgradesettings.add(contentlang);
-	
-	logger.info("Market build Settings details: "+ marketsettings);
-	logger.info("Upgrade build Settings details: " + Upgradesettings);
-	
-	for(int i=0;i<Upgradesettings.size();i++) {		
-		if(marketsettings.get(i).equalsIgnoreCase(Upgradesettings.get(i))){
-			logger.info("Market build user setting detail: " + marketsettings.get(i) + " is same as Upgrade build :" + Upgradesettings.get(i));
-			extent.extentLoggerPass("", "Market build user setting detail: " + marketsettings.get(i) + " is same as Upgrade build :" + Upgradesettings.get(i));
-		}else {
-			logger.error("Market build user setting detail: " + marketsettings.get(i) + " is NOT same as Upgrade build :" + Upgradesettings.get(i));
-			extent.extentLoggerFail("", "Market build user setting detail: " + marketsettings.get(i) + " is NOT same as Upgrade build :" + Upgradesettings.get(i));
-		}
-	}
-	BackToLandingScreen();
-}
 
-public void captureWatchlistDetailsForUpgradeBuild(String userType) throws Exception{
-	extent.HeaderChildNode("Capture Watchlist Details for Upgrade build");
-	if(!userType.equalsIgnoreCase("Guest")) {
-	verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
-	click(AMDMoreMenu.objWatchlist, "My Watchlist");
-	waitTime(3000);
-	if (verifyIsElementDisplayed(AMDWatchlistPage.objWatchlistTitle)) {
-		logger.info("User navigated to my Watchlist screen");
-		extent.extentLoggerPass("watchlist", "User navigated to my Watchlist screen");
-	} else {
-		logger.error("User not navigated to my Watchlist screen");
-		extent.extentLoggerFail("watchlist", "User not navigated to my Watchlist screen");
-	}
-	click(AMDWatchlistPage.objShowsTab, "Shows tab");
-	watchlistContents();
-	waitTime(3000);
-	click(AMDWatchlistPage.objMoviesTab, "Movies tab");
-	watchlistContents();
-	waitTime(3000);
-	click(AMDWatchlistPage.objVideosTab, "Videos tab");
-	watchlistContents();
-	waitTime(3000);
-	logger.info("Upgrade build watch list contents: " + Upgradewatchlist);
-	
-	for(int i=0;i<Upgradewatchlist.size();i++) {
-		
-		if(marketwatchlist.get(i).equalsIgnoreCase(Upgradewatchlist.get(i))){
-			logger.info("Market build Watchlist details: " + marketwatchlist.get(i) + " is same as Upgrade build :" + Upgradewatchlist.get(i));
-			extent.extentLoggerPass("", "Market build Watchlist details: " + marketwatchlist.get(i) + " is same as Upgrade build :" + Upgradewatchlist.get(i));
-		}else {
-			logger.error("Market build Watchlist details: " + marketwatchlist.get(i) + " is NOT same as Upgrade build :" + Upgradewatchlist.get(i));
-			extent.extentLoggerFail("", "Market build Watchlist details: " + marketwatchlist.get(i) + " is NOT same as Upgrade build :" + Upgradewatchlist.get(i));
+		logger.info("Market build Settings details: " + marketsettings);
+		logger.info("Upgrade build Settings details: " + Upgradesettings);
+
+		for (int i = 0; i < Upgradesettings.size(); i++) {
+			if (marketsettings.get(i).equalsIgnoreCase(Upgradesettings.get(i))) {
+				logger.info("Market build user setting detail: " + marketsettings.get(i) + " is same as Upgrade build :"
+						+ Upgradesettings.get(i));
+				extent.extentLoggerPass("", "Market build user setting detail: " + marketsettings.get(i)
+						+ " is same as Upgrade build :" + Upgradesettings.get(i));
+			} else {
+				logger.error("Market build user setting detail: " + marketsettings.get(i)
+						+ " is NOT same as Upgrade build :" + Upgradesettings.get(i));
+				extent.extentLoggerFail("", "Market build user setting detail: " + marketsettings.get(i)
+						+ " is NOT same as Upgrade build :" + Upgradesettings.get(i));
+			}
 		}
-	}
-	}else {
-		logger.info("This is not applicable for " + userType);
-		extent.extentLogger("", "This is not applicable for " + userType);
-	}
+		BackToLandingScreen();
 	}
 
-public void watchlistContents() throws Exception{
+	public void captureWatchlistDetailsForUpgradeBuild(String userType) throws Exception {
+		extent.HeaderChildNode("Capture Watchlist Details for Upgrade build");
+		if (!userType.equalsIgnoreCase("Guest")) {
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
+			click(AMDMoreMenu.objWatchlist, "My Watchlist");
+			waitTime(3000);
+			if (verifyIsElementDisplayed(AMDWatchlistPage.objWatchlistTitle)) {
+				logger.info("User navigated to my Watchlist screen");
+				extent.extentLoggerPass("watchlist", "User navigated to my Watchlist screen");
+			} else {
+				logger.error("User not navigated to my Watchlist screen");
+				extent.extentLoggerFail("watchlist", "User not navigated to my Watchlist screen");
+			}
+			click(AMDWatchlistPage.objShowsTab, "Shows tab");
+			watchlistContents();
+			waitTime(3000);
+			click(AMDWatchlistPage.objMoviesTab, "Movies tab");
+			watchlistContents();
+			waitTime(3000);
+			click(AMDWatchlistPage.objVideosTab, "Videos tab");
+			watchlistContents();
+			waitTime(3000);
+			logger.info("Upgrade build watch list contents: " + Upgradewatchlist);
+
+			for (int i = 0; i < Upgradewatchlist.size(); i++) {
+
+				if (marketwatchlist.get(i).equalsIgnoreCase(Upgradewatchlist.get(i))) {
+					logger.info("Market build Watchlist details: " + marketwatchlist.get(i)
+							+ " is same as Upgrade build :" + Upgradewatchlist.get(i));
+					extent.extentLoggerPass("", "Market build Watchlist details: " + marketwatchlist.get(i)
+							+ " is same as Upgrade build :" + Upgradewatchlist.get(i));
+				} else {
+					logger.error("Market build Watchlist details: " + marketwatchlist.get(i)
+							+ " is NOT same as Upgrade build :" + Upgradewatchlist.get(i));
+					extent.extentLoggerFail("", "Market build Watchlist details: " + marketwatchlist.get(i)
+							+ " is NOT same as Upgrade build :" + Upgradewatchlist.get(i));
+				}
+			}
+		} else {
+			logger.info("This is not applicable for " + userType);
+			extent.extentLogger("", "This is not applicable for " + userType);
+		}
+	}
+
+	public void watchlistContents() throws Exception {
 		boolean watchlistFlag = false;
-		
+
 		if (verifyIsElementDisplayed(AMDWatchlistPage.objNoReminderIcon)) {
 			logger.info("Watchlist screen displayed with Empty Watchlist icon");
 			extent.extentLoggerPass("Watchlist", "Watchlist screen displayed with Empty Watchlist icon");
-			
+
 		} else {
 			watchlistFlag = true;
 			logger.info("Watchlist has some content cards");
 			extent.extentLoggerPass("watchlist", "Watchlist has some content cards");
 			if (watchlistFlag) {
 				List<WebElement> contents = getDriver().findElements(AMDWatchlistPage.objContentNames);
-				System.out.println(contents.size());		
+				System.out.println(contents.size());
 				for (int i = 1; i <= contents.size(); i++) {
 					System.out.println("i : " + i);
 					WebElement ele = findElement(AMDWatchlistPage.objIterateTitle(i));
-				    String watchlistcontent = ele.getText();
-				logger.info(i + " Watch list content title : " + watchlistcontent);
-				extentLogger("", i + " Watch list content title :  " + watchlistcontent);
-				Upgradewatchlist.add(watchlistcontent);
-				}
-		}
-	}	 	
-}
-
-
-public void CaptureDownloadsForrUpgradeBuild() throws Exception{
-	extent.HeaderChildNode("Capture Downloads Details for Upgrade build");
-	verifyElementPresent(AMDHomePage.objDownloadBtn, "Downloads tab at the bottom navigation bar");
-	
-	click(AMDHomePage.objDownloadBtn, "Downloads tab");
-	waitTime(3000);
-	click(AMDDownloadPage.objshowstab, "Shows tab in Downloads landing screen");
-	if(verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
-		logger.info("There are no contents in Shows tab");	
-		extent.extentLogger("", "There are no contents in Shows tab");
-	}
-	else {
-		verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
-		String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent).getText();
-		System.out.println(DownloadedContentText);
-		logger.info(DownloadedContentText + " downloaded content is displayed");
-		extent.extentLogger("", DownloadedContentText + " downloaded content is displayed");
-		UpgradeDownloadedcontent.add(DownloadedContentText);
-	}
-	click(AMDDownloadPage.objmoviestab, "Movies tab in Downlaods landing screen");
-	if(verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
-		logger.info("There are no contents in Movies tab");	
-		extent.extentLogger("", "There are no contents in Movies tab");
-	}
-	else {
-		verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
-		String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent).getText();
-		System.out.println(DownloadedContentText);
-		logger.info(DownloadedContentText + " downloaded content is displayed");
-		extent.extentLogger("", DownloadedContentText + " downloaded content is displayed");
-		UpgradeDownloadedcontent.add(DownloadedContentText);
-	}
-	click(AMDDownloadPage.objvideostab, "Videos tab in Downloads landing screen");
-	if(verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
-		logger.info("There are no contents in Videos tab");
-		extent.extentLogger("", "There are no contents in Vidoes tab");
-	}
-	else {
-		verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
-		String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent).getText();
-		System.out.println(DownloadedContentText);
-		logger.info(DownloadedContentText + " downloaded content is displayed");
-		extent.extentLogger("", DownloadedContentText + " downloaded content is displayed");
-		UpgradeDownloadedcontent.add(DownloadedContentText);
-	}
-	
-	logger.info("Downloaded contents in Upgrade build: " + UpgradeDownloadedcontent);
-	
-	logger.info("Downloaded contents in Market build: " + Downloadedcontent);
-	
-   for(int i=0;i<UpgradeDownloadedcontent.size();i++) {
-		
-		if(Downloadedcontent.get(i).equalsIgnoreCase(UpgradeDownloadedcontent.get(i))){
-			logger.info("Market build Downloaded contents: " + Downloadedcontent.get(i) + " is same as Upgrade build :" + UpgradeDownloadedcontent.get(i));
-			extent.extentLoggerPass("", "Market build Downloaded contents: " + Downloadedcontent.get(i) + " is same as Upgrade build :" + UpgradeDownloadedcontent.get(i));
-		}else {
-			logger.error("Market build Downloaded contents: " + Downloadedcontent.get(i) + " is NOT same as Upgrade build :" + UpgradeDownloadedcontent.get(i));
-			extent.extentLoggerFail("", "Market build Downloaded contents: " + Downloadedcontent.get(i) + " is NOT same as Upgrade build :" + UpgradeDownloadedcontent.get(i));
-		}
-	}
-	
-	BackToLandingScreen();
-}
-
-
-public void CaptureContinueWatchingTrayForUpgradeBuild(String userType) throws Exception{
-	extent.HeaderChildNode("Capture Continue watching tray details for Upgrade build");
-	if(!userType.equalsIgnoreCase("Guest")) {
-	waitForElementDisplayed(AMDHomePage.objContinueWatchingTray, 30);
-	boolean ContinueWatchingTray = verifyIsElementDisplayed(AMDHomePage.objContinueWatchingTray);
-	if (ContinueWatchingTray) {
-		List<WebElement> tabs = getDriver().findElements(AMDHomePage.objCWtraycontents);
-		System.out.println(tabs.size());
-		PartialSwipe("UP", 1);
-		for (int i = 1; i <= tabs.size(); i++) {
-			System.out.println("i : " + i);
-			WebElement ele = findElement(AMDHomePage.objCWContent(i));
-		    String CWTrayFirstContentTitle = ele.getText();
-			logger.info("Continue watching content title " + i + ":" + CWTrayFirstContentTitle);
-			extentLogger("","Continue watching content title " + i + ":" + CWTrayFirstContentTitle);
-			UpgradeCWtray.add(CWTrayFirstContentTitle);
-		}		
-	   logger.info("Upgrade build Continue watching tray contents: " + UpgradeCWtray );
-	   
-	   for(int i=0;i<UpgradeCWtray.size();i++) {		
-		if(MarketCWtray.get(i).equalsIgnoreCase(UpgradeCWtray.get(i))){
-			logger.info("Market build Continue watching tray content: " + MarketCWtray.get(i) + " is same as Upgrade build :" + UpgradeCWtray.get(i));
-			extent.extentLoggerPass("", "Market build Continue watching tray content: " + MarketCWtray.get(i) + " is same as Upgrade build :" + UpgradeCWtray.get(i));
-		}else {
-			logger.error("Market build Continue watching tray content " + MarketCWtray.get(i) + " is NOT same as Upgrade build :" + UpgradeCWtray.get(i));
-			extent.extentLoggerFail("", "Market build Continue watching tray content: " + MarketCWtray.get(i) + " is NOT same as Upgrade build :" + UpgradeCWtray.get(i));
-		}
-	}
-	}
-	else {
-		logger.info("Continue watching tray not displayed");
-		extent.extentLoggerWarning("Continue watching Tray","Continue watching tray not displayed in");
-	}
-	
-	}else {
-		logger.info("This is not applicable for " + userType);
-		extent.extentLogger("", "This is not applicable for " + userType);
-	}
-}
-
-public void CaptureDownloadsForUpgradeBuild(String userType) throws Exception{
-	extent.HeaderChildNode("Capture Downloads Details for Upgrade build");
-	if(!userType.equalsIgnoreCase("Guest")) {
-	verifyElementPresent(AMDHomePage.objDownloadBtn, "Downloads tab at the bottom navigation bar");
-	
-	click(AMDHomePage.objDownloadBtn, "Downloads tab");
-	waitTime(3000);
-	click(AMDDownloadPage.objshowstab, "Shows tab in Downloads landing screen");
-	if(verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
-		logger.info("There are no contents in Shows tab");	
-		extent.extentLogger("", "There are no contents in Shows tab");
-	}
-	else {
-		verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
-		String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent).getText();
-		//System.out.println(DownloadedContentText);
-		logger.info(DownloadedContentText + " downloaded content is displayed");
-		extent.extentLogger("", DownloadedContentText + " downloaded content is displayed");
-		UpgradeDownloadedcontent.add(DownloadedContentText);
-	}
-	click(AMDDownloadPage.objmoviestab, "Movies tab in Downlaods landing screen");
-	if(verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
-		logger.info("There are no contents in Movies tab");	
-		extent.extentLogger("", "There are no contents in Movies tab");
-	}
-	else {
-		verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
-		String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent).getText();
-		//System.out.println(DownloadedContentText);
-		logger.info(DownloadedContentText + " downloaded content is displayed");
-		extent.extentLogger("", DownloadedContentText + " downloaded content is displayed");
-		UpgradeDownloadedcontent.add(DownloadedContentText);
-	}
-	click(AMDDownloadPage.objvideostab, "Videos tab in Downloads landing screen");
-	if(verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
-		logger.info("There are no contents in Videos tab");
-		extent.extentLogger("", "There are no contents in Vidoes tab");
-	}
-	else {
-		verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
-		String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent).getText();
-		//System.out.println(DownloadedContentText);
-		logger.info(DownloadedContentText + " downloaded content is displayed");
-		extent.extentLogger("", DownloadedContentText + " downloaded content is displayed");
-		UpgradeDownloadedcontent.add(DownloadedContentText);
-	}
-	
-	logger.info("Downloaded contents in Upgrade build: " + UpgradeDownloadedcontent);
-	
-	logger.info("Downloaded contents in Market build: " + Downloadedcontent);
-	
-     for(int i=0;i<UpgradeDownloadedcontent.size();i++) {
-		
-		if(Downloadedcontent.get(i).equalsIgnoreCase(UpgradeDownloadedcontent.get(i))){
-			logger.info("Market build Downloaded contents: " + Downloadedcontent.get(i) + " is same as Upgrade build :" + UpgradeDownloadedcontent.get(i));
-			extent.extentLoggerPass("", "Market build Downloaded contents: " + Downloadedcontent.get(i) + " is same as Upgrade build :" + UpgradeDownloadedcontent.get(i));
-		}else {
-			logger.error("Market build Downloaded contents: " + Downloadedcontent.get(i) + " is NOT same as Upgrade build :" + UpgradeDownloadedcontent.get(i));
-			extent.extentLoggerFail("", "Market build Downloaded contents: " + Downloadedcontent.get(i) + " is NOT same as Upgrade build :" + UpgradeDownloadedcontent.get(i));
-		}
-	}
-	
-	BackToLandingScreen();
-	}
-	else {
-		logger.info("This is not applicable for " + userType);
-		extent.extentLogger("", "This is not applicable for " + userType);
-	}
-}
-
-
-public void RecentSearchedForMarketBuild(String userType) throws Exception{
-	extent.HeaderChildNode("Capture Recent search history for Market build");
-	if(userType.equalsIgnoreCase("Guest")) {
-	verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
-	click(AMDSearchScreen.objSearchEditBox, "Search Box");
-	type(AMDSearchScreen.objSearchBoxBar, "Hero" + "\n", "Search bar");
-	hideKeyboard();
-	waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
-	click(AMDSearchScreen.objClearSearch, "ClearText");
-	waitTime(2000);
-	
-	click(AMDSearchScreen.objSearchEditBox, "Search Box");
-	type(AMDSearchScreen.objSearchBoxBar, "Mummy" + "\n", "Search bar");
-	hideKeyboard();
-	waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
-	click(AMDSearchScreen.objClearSearch, "ClearText");
-    waitTime(2000);
-	
-	click(AMDSearchScreen.objSearchEditBox, "Search Box");
-	type(AMDSearchScreen.objSearchBoxBar, "Friends" + "\n", "Search bar");
-	hideKeyboard();
-	waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
-	click(AMDSearchScreen.objClearSearch, "ClearText");
-    waitTime(2000);
-    
-    if (verifyIsElementDisplayed(AMDSearchScreen.objRecentSearch)) {
-		extent.extentLoggerPass("Recent Search Overlay",
-				"Recent Search Overlay is available in search results screen");
-		logger.info("Recent Search Overlay is available in search results screen");
-		
-		List<WebElement> contents = getDriver().findElements(AMDSearchScreen.objRecentSearchHistory);
-		System.out.println(contents.size());
-		for (int i = 1; i <= contents.size(); i++) {
-			System.out.println("i : " + i);
-			WebElement ele = findElement(AMDSearchScreen.objRecentSearches(i));
-		    String recentsearchlist = ele.getText();
-			logger.info("Recent search history content " + i + ":"+ recentsearchlist);
-			extentLogger("", "Recent search history content " + i + ":"+ recentsearchlist);
-			MarketRecentSearch.add(recentsearchlist);
-		}		
-		   logger.info("Market build Recent search history list: " + MarketRecentSearch );
-	} else {
-		extent.extentLogger("Recent Search Overlay",
-				"Recent Search Overlay is not available in search results screen");
-		logger.info("Recent Search Overlay is not available in search results screen");
-	}
-	}else {
-		logger.info("This is not applicable for " + userType);
-		extent.extentLogger("", "This is not applicable for " + userType);
-	}
-}
-
-
-public void RecentSearchedForUpgradeBuild(String userType) throws Exception{
-	extent.HeaderChildNode("Capture Recent search history for Upgrade build");
-	if(userType.equalsIgnoreCase("Guest")) {
-	verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");		
-    if (verifyIsElementDisplayed(AMDSearchScreen.objRecentSearch)) {
-		extent.extentLoggerPass("Recent Search Overlay",
-				"Recent Search Overlay is available in search results screen");
-		logger.info("Recent Search Overlay is available in search results screen");
-		
-			List<WebElement> contents = getDriver().findElements(AMDSearchScreen.objRecentSearchHistory);
-			System.out.println(contents.size());
-			for (int i = 1; i <= contents.size()-1; i++) {
-				System.out.println("i : " + i);
-				WebElement ele = findElement(AMDSearchScreen.objRecentSearches(i));
-			    String recentsearchlist = ele.getText();
-				logger.info("Recent search history content " + i + ":" + recentsearchlist);
-				extentLogger("","Recent search history content " + i + ":" + recentsearchlist);
-				UpgradeRecentSearch.add(recentsearchlist);
-			}		
-		   logger.info("Upgrade build Recent search history list: " + UpgradeRecentSearch );
-		   
-		   for(int i=0;i<UpgradeRecentSearch.size();i++) {
-				
-				if(MarketRecentSearch.get(i).equalsIgnoreCase(UpgradeRecentSearch.get(i))){
-					logger.info("Market build Recent search history detail: " + MarketRecentSearch.get(i) + " is same as Upgrade build :" + UpgradeRecentSearch.get(i));
-					extent.extentLoggerPass("", "Market build Recent search history detail: " + MarketRecentSearch.get(i) + " is same as Upgrade build :" + UpgradeRecentSearch.get(i));
-				}else {
-					logger.error("Market build Recent search history detail: " + MarketRecentSearch.get(i) + " is NOT same as Upgrade build :" + UpgradeRecentSearch.get(i));
-					extent.extentLoggerFail("", "Market build Recent search history detail: " + MarketRecentSearch.get(i) + " is NOT same as Upgrade build :" + UpgradeRecentSearch.get(i));
+					String watchlistcontent = ele.getText();
+					logger.info(i + " Watch list content title : " + watchlistcontent);
+					extentLogger("", i + " Watch list content title :  " + watchlistcontent);
+					Upgradewatchlist.add(watchlistcontent);
 				}
 			}
-		   
-	} else {
-		extent.extentLogger("Recent Search Overlay",
-				"Recent Search Overlay is not available in search results screen");
-		logger.info("Recent Search Overlay is not available in search results screen");
+		}
 	}
-    BackToLandingScreen();
-	}else {
-		logger.info("This is not applicable for " + userType);
-		extent.extentLogger("", "This is not applicable for " + userType);
-	}
-}
 
-public static void ClearAllPerformanceMatrics() {
-	performaceMatrics.remove("Time Taken");
-	performaceMatrics.remove("Native Heap Memory");
-	performaceMatrics.remove("Peak Memory");
-	performaceMatrics.remove("CPU Usage");
-	performaceMatrics.remove("GPU Usage");
-	performaceMatrics.remove("GPU FPS");
-	performaceMatrics.remove("Traffic Usage");
-}
-  
-public void InitiateContentPlaybackTVEPISODE() throws Exception {
-	extent.HeaderChildNode("Initiate content playback of Episode");
-	System.out.println("\n>>> Initiate content playback of Episode");
+	public void CaptureDownloadsForrUpgradeBuild() throws Exception {
+		extent.HeaderChildNode("Capture Downloads Details for Upgrade build");
+		verifyElementPresent(AMDHomePage.objDownloadBtn, "Downloads tab at the bottom navigation bar");
+
+		click(AMDHomePage.objDownloadBtn, "Downloads tab");
+		waitTime(3000);
+		click(AMDDownloadPage.objshowstab, "Shows tab in Downloads landing screen");
+		if (verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
+			logger.info("There are no contents in Shows tab");
+			extent.extentLogger("", "There are no contents in Shows tab");
+		} else {
+			verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
+			String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent).getText();
+			System.out.println(DownloadedContentText);
+			logger.info(DownloadedContentText + " downloaded content is displayed");
+			extent.extentLogger("", DownloadedContentText + " downloaded content is displayed");
+			UpgradeDownloadedcontent.add(DownloadedContentText);
+		}
+		click(AMDDownloadPage.objmoviestab, "Movies tab in Downlaods landing screen");
+		if (verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
+			logger.info("There are no contents in Movies tab");
+			extent.extentLogger("", "There are no contents in Movies tab");
+		} else {
+			verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
+			String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent).getText();
+			System.out.println(DownloadedContentText);
+			logger.info(DownloadedContentText + " downloaded content is displayed");
+			extent.extentLogger("", DownloadedContentText + " downloaded content is displayed");
+			UpgradeDownloadedcontent.add(DownloadedContentText);
+		}
+		click(AMDDownloadPage.objvideostab, "Videos tab in Downloads landing screen");
+		if (verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
+			logger.info("There are no contents in Videos tab");
+			extent.extentLogger("", "There are no contents in Vidoes tab");
+		} else {
+			verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
+			String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent).getText();
+			System.out.println(DownloadedContentText);
+			logger.info(DownloadedContentText + " downloaded content is displayed");
+			extent.extentLogger("", DownloadedContentText + " downloaded content is displayed");
+			UpgradeDownloadedcontent.add(DownloadedContentText);
+		}
+
+		logger.info("Downloaded contents in Upgrade build: " + UpgradeDownloadedcontent);
+
+		logger.info("Downloaded contents in Market build: " + Downloadedcontent);
+
+		for (int i = 0; i < UpgradeDownloadedcontent.size(); i++) {
+
+			if (Downloadedcontent.get(i).equalsIgnoreCase(UpgradeDownloadedcontent.get(i))) {
+				logger.info("Market build Downloaded contents: " + Downloadedcontent.get(i)
+						+ " is same as Upgrade build :" + UpgradeDownloadedcontent.get(i));
+				extent.extentLoggerPass("", "Market build Downloaded contents: " + Downloadedcontent.get(i)
+						+ " is same as Upgrade build :" + UpgradeDownloadedcontent.get(i));
+			} else {
+				logger.error("Market build Downloaded contents: " + Downloadedcontent.get(i)
+						+ " is NOT same as Upgrade build :" + UpgradeDownloadedcontent.get(i));
+				extent.extentLoggerFail("", "Market build Downloaded contents: " + Downloadedcontent.get(i)
+						+ " is NOT same as Upgrade build :" + UpgradeDownloadedcontent.get(i));
+			}
+		}
+
+		BackToLandingScreen();
+	}
+
+	public void CaptureContinueWatchingTrayForUpgradeBuild(String userType) throws Exception {
+		extent.HeaderChildNode("Capture Continue watching tray details for Upgrade build");
+		if (!userType.equalsIgnoreCase("Guest")) {
+			waitForElementDisplayed(AMDHomePage.objContinueWatchingTray, 30);
+			boolean ContinueWatchingTray = verifyIsElementDisplayed(AMDHomePage.objContinueWatchingTray);
+			if (ContinueWatchingTray) {
+				List<WebElement> tabs = getDriver().findElements(AMDHomePage.objCWtraycontents);
+				System.out.println(tabs.size());
+				PartialSwipe("UP", 1);
+				for (int i = 1; i <= tabs.size(); i++) {
+					System.out.println("i : " + i);
+					WebElement ele = findElement(AMDHomePage.objCWContent(i));
+					String CWTrayFirstContentTitle = ele.getText();
+					logger.info("Continue watching content title " + i + ":" + CWTrayFirstContentTitle);
+					extentLogger("", "Continue watching content title " + i + ":" + CWTrayFirstContentTitle);
+					UpgradeCWtray.add(CWTrayFirstContentTitle);
+				}
+				logger.info("Upgrade build Continue watching tray contents: " + UpgradeCWtray);
+
+				for (int i = 0; i < UpgradeCWtray.size(); i++) {
+					if (MarketCWtray.get(i).equalsIgnoreCase(UpgradeCWtray.get(i))) {
+						logger.info("Market build Continue watching tray content: " + MarketCWtray.get(i)
+								+ " is same as Upgrade build :" + UpgradeCWtray.get(i));
+						extent.extentLoggerPass("", "Market build Continue watching tray content: "
+								+ MarketCWtray.get(i) + " is same as Upgrade build :" + UpgradeCWtray.get(i));
+					} else {
+						logger.error("Market build Continue watching tray content " + MarketCWtray.get(i)
+								+ " is NOT same as Upgrade build :" + UpgradeCWtray.get(i));
+						extent.extentLoggerFail("", "Market build Continue watching tray content: "
+								+ MarketCWtray.get(i) + " is NOT same as Upgrade build :" + UpgradeCWtray.get(i));
+					}
+				}
+			} else {
+				logger.info("Continue watching tray not displayed");
+				extent.extentLoggerWarning("Continue watching Tray", "Continue watching tray not displayed in");
+			}
+
+		} else {
+			logger.info("This is not applicable for " + userType);
+			extent.extentLogger("", "This is not applicable for " + userType);
+		}
+	}
+
+	public void CaptureDownloadsForUpgradeBuild(String userType) throws Exception {
+		extent.HeaderChildNode("Capture Downloads Details for Upgrade build");
+		if (!userType.equalsIgnoreCase("Guest")) {
+			verifyElementPresent(AMDHomePage.objDownloadBtn, "Downloads tab at the bottom navigation bar");
+
+			click(AMDHomePage.objDownloadBtn, "Downloads tab");
+			waitTime(3000);
+			click(AMDDownloadPage.objshowstab, "Shows tab in Downloads landing screen");
+			if (verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
+				logger.info("There are no contents in Shows tab");
+				extent.extentLogger("", "There are no contents in Shows tab");
+			} else {
+				verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
+				String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent)
+						.getText();
+				// System.out.println(DownloadedContentText);
+				logger.info(DownloadedContentText + " downloaded content is displayed");
+				extent.extentLogger("", DownloadedContentText + " downloaded content is displayed");
+				UpgradeDownloadedcontent.add(DownloadedContentText);
+			}
+			click(AMDDownloadPage.objmoviestab, "Movies tab in Downlaods landing screen");
+			if (verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
+				logger.info("There are no contents in Movies tab");
+				extent.extentLogger("", "There are no contents in Movies tab");
+			} else {
+				verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
+				String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent)
+						.getText();
+				// System.out.println(DownloadedContentText);
+				logger.info(DownloadedContentText + " downloaded content is displayed");
+				extent.extentLogger("", DownloadedContentText + " downloaded content is displayed");
+				UpgradeDownloadedcontent.add(DownloadedContentText);
+			}
+			click(AMDDownloadPage.objvideostab, "Videos tab in Downloads landing screen");
+			if (verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
+				logger.info("There are no contents in Videos tab");
+				extent.extentLogger("", "There are no contents in Vidoes tab");
+			} else {
+				verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
+				String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent)
+						.getText();
+				// System.out.println(DownloadedContentText);
+				logger.info(DownloadedContentText + " downloaded content is displayed");
+				extent.extentLogger("", DownloadedContentText + " downloaded content is displayed");
+				UpgradeDownloadedcontent.add(DownloadedContentText);
+			}
+
+			logger.info("Downloaded contents in Upgrade build: " + UpgradeDownloadedcontent);
+
+			logger.info("Downloaded contents in Market build: " + Downloadedcontent);
+
+			for (int i = 0; i < UpgradeDownloadedcontent.size(); i++) {
+
+				if (Downloadedcontent.get(i).equalsIgnoreCase(UpgradeDownloadedcontent.get(i))) {
+					logger.info("Market build Downloaded contents: " + Downloadedcontent.get(i)
+							+ " is same as Upgrade build :" + UpgradeDownloadedcontent.get(i));
+					extent.extentLoggerPass("", "Market build Downloaded contents: " + Downloadedcontent.get(i)
+							+ " is same as Upgrade build :" + UpgradeDownloadedcontent.get(i));
+				} else {
+					logger.error("Market build Downloaded contents: " + Downloadedcontent.get(i)
+							+ " is NOT same as Upgrade build :" + UpgradeDownloadedcontent.get(i));
+					extent.extentLoggerFail("", "Market build Downloaded contents: " + Downloadedcontent.get(i)
+							+ " is NOT same as Upgrade build :" + UpgradeDownloadedcontent.get(i));
+				}
+			}
+
+			BackToLandingScreen();
+		} else {
+			logger.info("This is not applicable for " + userType);
+			extent.extentLogger("", "This is not applicable for " + userType);
+		}
+	}
+
+	public void RecentSearchedForMarketBuild(String userType) throws Exception {
+		extent.HeaderChildNode("Capture Recent search history for Market build");
+		if (userType.equalsIgnoreCase("Guest")) {
+			verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, "Hero" + "\n", "Search bar");
+			hideKeyboard();
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			click(AMDSearchScreen.objClearSearch, "ClearText");
+			waitTime(2000);
+
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, "Mummy" + "\n", "Search bar");
+			hideKeyboard();
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			click(AMDSearchScreen.objClearSearch, "ClearText");
+			waitTime(2000);
+
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, "Friends" + "\n", "Search bar");
+			hideKeyboard();
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			click(AMDSearchScreen.objClearSearch, "ClearText");
+			waitTime(2000);
+
+			if (verifyIsElementDisplayed(AMDSearchScreen.objRecentSearch)) {
+				extent.extentLoggerPass("Recent Search Overlay",
+						"Recent Search Overlay is available in search results screen");
+				logger.info("Recent Search Overlay is available in search results screen");
+
+				List<WebElement> contents = getDriver().findElements(AMDSearchScreen.objRecentSearchHistory);
+				System.out.println(contents.size());
+				for (int i = 1; i <= contents.size(); i++) {
+					System.out.println("i : " + i);
+					WebElement ele = findElement(AMDSearchScreen.objRecentSearches(i));
+					String recentsearchlist = ele.getText();
+					logger.info("Recent search history content " + i + ":" + recentsearchlist);
+					extentLogger("", "Recent search history content " + i + ":" + recentsearchlist);
+					MarketRecentSearch.add(recentsearchlist);
+				}
+				logger.info("Market build Recent search history list: " + MarketRecentSearch);
+			} else {
+				extent.extentLogger("Recent Search Overlay",
+						"Recent Search Overlay is not available in search results screen");
+				logger.info("Recent Search Overlay is not available in search results screen");
+			}
+		} else {
+			logger.info("This is not applicable for " + userType);
+			extent.extentLogger("", "This is not applicable for " + userType);
+		}
+	}
+
+	public void RecentSearchedForUpgradeBuild(String userType) throws Exception {
+		extent.HeaderChildNode("Capture Recent search history for Upgrade build");
+		if (userType.equalsIgnoreCase("Guest")) {
+			verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
+			if (verifyIsElementDisplayed(AMDSearchScreen.objRecentSearch)) {
+				extent.extentLoggerPass("Recent Search Overlay",
+						"Recent Search Overlay is available in search results screen");
+				logger.info("Recent Search Overlay is available in search results screen");
+
+				List<WebElement> contents = getDriver().findElements(AMDSearchScreen.objRecentSearchHistory);
+				System.out.println(contents.size());
+				for (int i = 1; i <= contents.size() - 1; i++) {
+					System.out.println("i : " + i);
+					WebElement ele = findElement(AMDSearchScreen.objRecentSearches(i));
+					String recentsearchlist = ele.getText();
+					logger.info("Recent search history content " + i + ":" + recentsearchlist);
+					extentLogger("", "Recent search history content " + i + ":" + recentsearchlist);
+					UpgradeRecentSearch.add(recentsearchlist);
+				}
+				logger.info("Upgrade build Recent search history list: " + UpgradeRecentSearch);
+
+				for (int i = 0; i < UpgradeRecentSearch.size(); i++) {
+
+					if (MarketRecentSearch.get(i).equalsIgnoreCase(UpgradeRecentSearch.get(i))) {
+						logger.info("Market build Recent search history detail: " + MarketRecentSearch.get(i)
+								+ " is same as Upgrade build :" + UpgradeRecentSearch.get(i));
+						extent.extentLoggerPass("",
+								"Market build Recent search history detail: " + MarketRecentSearch.get(i)
+										+ " is same as Upgrade build :" + UpgradeRecentSearch.get(i));
+					} else {
+						logger.error("Market build Recent search history detail: " + MarketRecentSearch.get(i)
+								+ " is NOT same as Upgrade build :" + UpgradeRecentSearch.get(i));
+						extent.extentLoggerFail("",
+								"Market build Recent search history detail: " + MarketRecentSearch.get(i)
+										+ " is NOT same as Upgrade build :" + UpgradeRecentSearch.get(i));
+					}
+				}
+
+			} else {
+				extent.extentLogger("Recent Search Overlay",
+						"Recent Search Overlay is not available in search results screen");
+				logger.info("Recent Search Overlay is not available in search results screen");
+			}
+			BackToLandingScreen();
+		} else {
+			logger.info("This is not applicable for " + userType);
+			extent.extentLogger("", "This is not applicable for " + userType);
+		}
+	}
+
+	public static void ClearAllPerformanceMatrics() {
+		performaceMatrics.remove("Time Taken");
+		performaceMatrics.remove("Native Heap Memory");
+		performaceMatrics.remove("Peak Memory");
+		performaceMatrics.remove("CPU Usage");
+		performaceMatrics.remove("GPU Usage");
+		performaceMatrics.remove("GPU FPS");
+		performaceMatrics.remove("Traffic Usage");
+	}
+
+	public void InitiateContentPlaybackTVEPISODE() throws Exception {
+		extent.HeaderChildNode("Initiate content playback of Episode");
+		System.out.println("\n>>> Initiate content playback of Episode");
 
 //String appPackageName = getParameterFromXML("appPackageName");
-	String appPackageName = "com.graymatrix.did";
+		String appPackageName = "com.graymatrix.did";
 
-	// Threshold Values declaration
-	int threshold_TimeTaken = 15;
-	int threshold_NativeMemory = 45;
-	int threshold_TotalMemory = 300;
-	int threshold_CPU = 150;
-	int threshold_GPUMem = 30;
-	int threshold_GPURendered = 15000;
-	int threshold_Network = 90;
-	boolean timeFlag=true, memFlag=true, totalmemFlag=true, cpuFlag=true, gpuMemFlag=true, gpuRenFlag=true, trafficFlag=true;
-	
-	LoginWithEmailID("zeetest34new@test.com", "123456");
-	waitForElementDisplayed(AMDHomePage.objZee5Logo, 30);
-	SelectTopNavigationTab("TV Shows");
-	verifyElementPresentAndClick(AMDHomePage.objPlayBtn, "Play");
-	Instant startTime = Instant.now();
-	logger.info("Instant Start time : " + startTime);
+		// Threshold Values declaration
+		int threshold_TimeTaken = 15;
+		int threshold_NativeMemory = 45;
+		int threshold_TotalMemory = 300;
+		int threshold_CPU = 150;
+		int threshold_GPUMem = 30;
+		int threshold_GPURendered = 15000;
+		int threshold_Network = 90;
+		boolean timeFlag = true, memFlag = true, totalmemFlag = true, cpuFlag = true, gpuMemFlag = true,
+				gpuRenFlag = true, trafficFlag = true;
 
-	verifyElementPresent(AMDPlayerScreen.objPauseIcon, "Player Start");
+		LoginWithEmailID("zeetest34new@test.com", "123456");
+		waitForElementDisplayed(AMDHomePage.objZee5Logo, 30);
+		SelectTopNavigationTab("TV Shows");
+		verifyElementPresentAndClick(AMDHomePage.objPlayBtn, "Play");
+		Instant startTime = Instant.now();
+		logger.info("Instant Start time : " + startTime);
 
-	// #### App Performance MEMORY Usage Info
-	ArrayList<String> getMmoryInfo = Memory_UsagePerformanceV2();
-	int nativeMemory = Integer.parseInt(getMmoryInfo.get(0).trim());
-	int totalMemory = Integer.parseInt(getMmoryInfo.get(1).trim());
+		verifyElementPresent(AMDPlayerScreen.objPauseIcon, "Player Start");
 
-	// #### App Performance CPU Usage Info
-	String getCPUInfo = CPU_UsagePerformanceV2();
-	int nCpuUSage = Integer.parseInt(getCPUInfo);
+		// #### App Performance MEMORY Usage Info
+		ArrayList<String> getMmoryInfo = Memory_UsagePerformanceV2();
+		int nativeMemory = Integer.parseInt(getMmoryInfo.get(0).trim());
+		int totalMemory = Integer.parseInt(getMmoryInfo.get(1).trim());
 
-	// #### App Performance GPU Usage Info
-	ArrayList<String> getGPUInfo = GPU_UsagePerformanceV2();
-	float nGPUMemory = Float.parseFloat(getGPUInfo.get(0).replace(" MB", "").trim());
-	int nGPURendered = Integer.parseInt(getGPUInfo.get(1).replace("Total frames rendered: ", "").trim());
+		// #### App Performance CPU Usage Info
+		String getCPUInfo = CPU_UsagePerformanceV2();
+		int nCpuUSage = Integer.parseInt(getCPUInfo);
 
-	// #### App Performance Network Traffic Usage Info
-	int nNetTraffic = getApp_NetworkTrafficUsageV2(appPackageName);
+		// #### App Performance GPU Usage Info
+		ArrayList<String> getGPUInfo = GPU_UsagePerformanceV2();
+		float nGPUMemory = Float.parseFloat(getGPUInfo.get(0).replace(" MB", "").trim());
+		int nGPURendered = Integer.parseInt(getGPUInfo.get(1).replace("Total frames rendered: ", "").trim());
 
-	// #### App Performance Battery Info
-	String batteryInfo = BatteryStats_PerformanceV2();
+		// #### App Performance Network Traffic Usage Info
+		int nNetTraffic = getApp_NetworkTrafficUsageV2(appPackageName);
 
-	Instant endTime = Instant.now();
-	logger.info("Instant End time : " + endTime);
+		// #### App Performance Battery Info
+		String batteryInfo = BatteryStats_PerformanceV2();
 
-	Duration timeElapsed = Duration.between(startTime, endTime);
-	extent.extentLogger("Timer",
-			"<b>Time taken to start playback for Episode(Sec):</b> " + timeElapsed.getSeconds());
-	Back(1);
+		Instant endTime = Instant.now();
+		logger.info("Instant End time : " + endTime);
 
-	if (timeElapsed.getSeconds() < threshold_TimeTaken) {
-		extent.extentLoggerPass("Timer",
-				"<b>Time taken to start playback for Episode(Sec)</b>: " + timeElapsed.getSeconds());
-	} else {
-		timeFlag=false;
-		logger.info("Time taken to start playback for Episode(Sec): " + timeElapsed.getSeconds());
-		extent.extentLoggerFail("Timer",
-				"<b>Time taken to start playback for Episode(Sec)</b>: " + timeElapsed.getSeconds());
+		Duration timeElapsed = Duration.between(startTime, endTime);
+		extent.extentLogger("Timer",
+				"<b>Time taken to start playback for Episode(Sec):</b> " + timeElapsed.getSeconds());
+		Back(1);
+
+		if (timeElapsed.getSeconds() < threshold_TimeTaken) {
+			extent.extentLoggerPass("Timer",
+					"<b>Time taken to start playback for Episode(Sec)</b>: " + timeElapsed.getSeconds());
+		} else {
+			timeFlag = false;
+			logger.info("Time taken to start playback for Episode(Sec): " + timeElapsed.getSeconds());
+			extent.extentLoggerFail("Timer",
+					"<b>Time taken to start playback for Episode(Sec)</b>: " + timeElapsed.getSeconds());
+		}
+		softAssertion.assertEquals(timeFlag, true);
+
+		if (nativeMemory < threshold_NativeMemory) {
+			logger.info("App Native Heap Memory: " + nativeMemory + " MB");
+			extent.extentLoggerPass("Memory Info", "<b>App Native Heap Memory: :</b> " + nativeMemory + " MB");
+		} else {
+			memFlag = false;
+			logger.error("App Native Heap Memory: " + nativeMemory + " MB");
+			extent.extentLoggerFail("Memory Info", "<b>App Native Heap Memory: </b> " + nativeMemory + " MB");
+		}
+		softAssertion.assertEquals(memFlag, true);
+
+		if (totalMemory < threshold_TotalMemory) {
+			logger.info("App Peak Memory Usage: " + totalMemory + " MB");
+			extent.extentLoggerPass("Memory Info", "<b>App Peak Memory Usage:</b> " + totalMemory + " MB");
+		} else {
+			totalmemFlag = false;
+			logger.error("App Peak Memory Usage: " + totalMemory + " MB");
+			extent.extentLoggerFail("Memory Info", "<b>App Peak Memory Usage:</b> " + totalMemory + " MB");
+		}
+		softAssertion.assertEquals(totalmemFlag, true);
+
+		if (nCpuUSage < threshold_CPU) {
+			logger.info("CPU Usage : " + nCpuUSage + "%");
+			extent.extentLoggerPass("CPU Info", "<b>CPU Usage: </b>" + nCpuUSage + "%");
+		} else {
+			cpuFlag = false;
+			logger.error("CPU Usage: " + nCpuUSage + "%");
+			extent.extentLoggerFail("CPU Info", "<b>CPU Usage: </b>" + nCpuUSage + "%");
+		}
+		softAssertion.assertEquals(cpuFlag, true);
+
+		if (nGPUMemory < threshold_GPUMem) {
+			logger.info("\nGPU Memory Usage: " + nGPUMemory + " MB");
+			extent.extentLoggerPass("GPU Info", "<b>GPU Memory Usage: </b>" + nGPUMemory + " MB");
+		} else {
+			gpuMemFlag = false;
+			logger.error("\nGPU Memory Usage exceeded: " + nGPUMemory + " MB");
+			extent.extentLoggerFail("GPU Info", "<b>GPU Memory Usage exceeded: </b>" + nGPUMemory + " MB");
+		}
+		softAssertion.assertEquals(gpuMemFlag, true);
+
+		if (nGPURendered < threshold_GPURendered) {
+			logger.info("\nGPU FPS: " + nGPURendered);
+			extent.extentLoggerPass("GPU Info", "<b>GPU FPS: </b>" + nGPURendered);
+		} else {
+			gpuRenFlag = false;
+			logger.error("\nGPU FPS: " + nGPURendered);
+			extent.extentLoggerFail("GPU Info", "<b>GPU FPS: </b>" + nGPURendered);
+		}
+		softAssertion.assertEquals(gpuRenFlag, true);
+
+		if (nNetTraffic < threshold_Network) {
+			logger.info("\nApp traffic usage: " + (int) nNetTraffic + " MB");
+			extent.extentLoggerPass("Traffic Usage", "<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
+		} else {
+			trafficFlag = false;
+			logger.error("\nApp traffic usage: " + (int) nNetTraffic + " MB");
+			extent.extentLoggerFail("Traffic Usage", "<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
+		}
+
+		performaceDetails.add("Initiate content playback (Episode)" + "," + timeElapsed.getSeconds() + ","
+				+ nativeMemory + " MB," + totalMemory + " MB," + nCpuUSage + "%," + nGPUMemory + " MB," + nGPURendered
+				+ "," + nNetTraffic + " MB");
+
+		String timeTaken = Long.toString(timeElapsed.getSeconds());
+		String strNativeMemory = Integer.toString(nativeMemory);
+		String strTotalMemory = Integer.toString(totalMemory);
+		String strCPU = Integer.toString(nCpuUSage);
+		String strGPU = Float.toString(nGPUMemory);
+		String strGPURendered = Integer.toString(nGPURendered);
+		String strTraffic = Integer.toString(nNetTraffic);
+
+		performaceMatrics.put("Time Taken", timeTaken + " Sec");
+		performaceMatrics.put("Native Heap Memory", strNativeMemory + " MB");
+		performaceMatrics.put("Peak Memory", strTotalMemory + " MB");
+		performaceMatrics.put("CPU Usage", strCPU + "%");
+		performaceMatrics.put("GPU Usage", strGPU + " MB");
+		performaceMatrics.put("GPU FPS", strGPURendered);
+		performaceMatrics.put("Traffic Usage", strTraffic + " MB");
+
+		System.out.println(
+				"\n---------------------------------------------- Playback Functionality EPISODE ----------------------------------------------");
+		System.out.println(performaceMatrics);
+		System.out.println(
+				"------------------------------------------------------------------------------------------------------------------------");
+		ClearAllPerformanceMatrics();
+
+		softAssertion.assertEquals(trafficFlag, true);
+		softAssertion.assertAll();
+
+		if (batteryInfo.contains("drain")) {
+			logger.info("\nApp Battery Info - " + batteryInfo);
+			extent.extentLoggerPass("Timer", "<b>App Battery Info - </b>" + batteryInfo);
+		} else {
+			logger.error("\nApp Battery Info - " + batteryInfo);
+			extent.extentLoggerFail("Timer", "<b>App Battery Info - </b>" + batteryInfo);
+		}
 	}
-	softAssertion.assertEquals(timeFlag, true);
 
-	if (nativeMemory < threshold_NativeMemory) {
-		logger.info("App Native Heap Memory: " + nativeMemory + " MB");
-		extent.extentLoggerPass("Memory Info", "<b>App Native Heap Memory: :</b> " + nativeMemory + " MB");
-	} else {
-		memFlag=false;
-		logger.error("App Native Heap Memory: " + nativeMemory + " MB");
-		extent.extentLoggerFail("Memory Info", "<b>App Native Heap Memory: </b> " + nativeMemory + " MB");
-	}
-	softAssertion.assertEquals(memFlag, true);
-
-	if (totalMemory < threshold_TotalMemory) {
-		logger.info("App Peak Memory Usage: " + totalMemory + " MB");
-		extent.extentLoggerPass("Memory Info", "<b>App Peak Memory Usage:</b> " + totalMemory + " MB");
-	} else {
-		totalmemFlag=false;
-		logger.error("App Peak Memory Usage: " + totalMemory + " MB");
-		extent.extentLoggerFail("Memory Info", "<b>App Peak Memory Usage:</b> " + totalMemory + " MB");
-	}
-	softAssertion.assertEquals(totalmemFlag, true);
-
-	if (nCpuUSage < threshold_CPU) {
-		logger.info("CPU Usage : " + nCpuUSage + "%");
-		extent.extentLoggerPass("CPU Info", "<b>CPU Usage: </b>" + nCpuUSage + "%");
-	} else {
-		cpuFlag=false;
-		logger.error("CPU Usage: " + nCpuUSage + "%");
-		extent.extentLoggerFail("CPU Info", "<b>CPU Usage: </b>" + nCpuUSage + "%");
-	}
-	softAssertion.assertEquals(cpuFlag, true);
-
-	if (nGPUMemory < threshold_GPUMem) {
-		logger.info("\nGPU Memory Usage: " + nGPUMemory + " MB");
-		extent.extentLoggerPass("GPU Info",
-				"<b>GPU Memory Usage: </b>" + nGPUMemory + " MB");
-	} else {
-		gpuMemFlag=false;
-		logger.error("\nGPU Memory Usage exceeded: " + nGPUMemory + " MB");
-		extent.extentLoggerFail("GPU Info",
-				"<b>GPU Memory Usage exceeded: </b>" + nGPUMemory + " MB");
-	}
-	softAssertion.assertEquals(gpuMemFlag, true);
-
-	if (nGPURendered < threshold_GPURendered) {
-		logger.info("\nGPU FPS: " + nGPURendered);
-		extent.extentLoggerPass("GPU Info", "<b>GPU FPS: </b>" + nGPURendered);
-	} else {
-		gpuRenFlag=false;
-		logger.error("\nGPU FPS: " + nGPURendered);
-		extent.extentLoggerFail("GPU Info", "<b>GPU FPS: </b>" + nGPURendered);
-	}
-	softAssertion.assertEquals(gpuRenFlag, true);
-
-	if (nNetTraffic < threshold_Network) {
-		logger.info("\nApp traffic usage: " + (int) nNetTraffic + " MB");
-		extent.extentLoggerPass("Traffic Usage",
-				"<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
-	} else {
-		trafficFlag=false;
-		logger.error("\nApp traffic usage: " + (int) nNetTraffic + " MB");
-		extent.extentLoggerFail("Traffic Usage",
-				"<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
-	}
-	
-	performaceDetails.add("Initiate content playback (Episode)"+","+timeElapsed.getSeconds()+","+nativeMemory+" MB,"+totalMemory+" MB,"+nCpuUSage+"%,"+nGPUMemory+" MB,"+nGPURendered+","+nNetTraffic+" MB");
-	
-	String timeTaken = Long.toString(timeElapsed.getSeconds());
-	String strNativeMemory = Integer.toString(nativeMemory);
-	String strTotalMemory = Integer.toString(totalMemory);
-	String strCPU = Integer.toString(nCpuUSage);
-	String strGPU = Float.toString(nGPUMemory);
-	String strGPURendered = Integer.toString(nGPURendered);
-	String strTraffic = Integer.toString(nNetTraffic);
-	
-	performaceMatrics.put("Time Taken",timeTaken+" Sec");
-	performaceMatrics.put("Native Heap Memory",strNativeMemory+" MB");
-	performaceMatrics.put("Peak Memory",strTotalMemory+" MB");
-	performaceMatrics.put("CPU Usage",strCPU+"%");
-	performaceMatrics.put("GPU Usage",strGPU+" MB");
-	performaceMatrics.put("GPU FPS",strGPURendered);
-	performaceMatrics.put("Traffic Usage",strTraffic+" MB");
-	
-	System.out.println("\n---------------------------------------------- Playback Functionality EPISODE ----------------------------------------------");
-	System.out.println(performaceMatrics);
-	System.out.println("------------------------------------------------------------------------------------------------------------------------");
-	ClearAllPerformanceMatrics();
-	
-	softAssertion.assertEquals(trafficFlag, true);
-	softAssertion.assertAll();
-	
-	if (batteryInfo.contains("drain")) {
-		logger.info("\nApp Battery Info - " + batteryInfo);
-		extent.extentLoggerPass("Timer", "<b>App Battery Info - </b>" + batteryInfo);
-	} else {
-		logger.error("\nApp Battery Info - " + batteryInfo);
-		extent.extentLoggerFail("Timer", "<b>App Battery Info - </b>" + batteryInfo);
-	}
-}
-
-public void ConsumptionScreenforShows() throws Exception {
-	extent.HeaderChildNode("Consumption screen for Shows");
-	System.out.println("\n>>> Consumption screen for Shows");
+	public void ConsumptionScreenforShows() throws Exception {
+		extent.HeaderChildNode("Consumption screen for Shows");
+		System.out.println("\n>>> Consumption screen for Shows");
 
 //String appPackageName = getParameterFromXML("appPackageName");
-	String appPackageName = "com.graymatrix.did";
+		String appPackageName = "com.graymatrix.did";
 
-	// Threshold Values declaration
-	int threshold_TimeTaken = 15;
-	int threshold_NativeMemory = 45;
-	int threshold_TotalMemory = 300;
-	int threshold_CPU = 150;
-	int threshold_GPUMem = 30;
-	int threshold_GPURendered = 1500;
-	int threshold_Network = 90;
-	boolean timeFlag=true, memFlag=true, totalmemFlag=true, cpuFlag=true, gpuMemFlag=true, gpuRenFlag=true, trafficFlag=true;
-	
-	LoginWithEmailID("zeetest34new@test.com", "123456");
-	waitForElementDisplayed(AMDHomePage.objZee5Logo, 30);
-	SelectTopNavigationTab("TV Shows");
-	verifyElementPresentAndClick(AMDHomePage.objPlayBtn, "Play");
-	Instant startTime = Instant.now();
-	logger.info("Instant Start time : " + startTime);
+		// Threshold Values declaration
+		int threshold_TimeTaken = 15;
+		int threshold_NativeMemory = 45;
+		int threshold_TotalMemory = 300;
+		int threshold_CPU = 150;
+		int threshold_GPUMem = 30;
+		int threshold_GPURendered = 1500;
+		int threshold_Network = 90;
+		boolean timeFlag = true, memFlag = true, totalmemFlag = true, cpuFlag = true, gpuMemFlag = true,
+				gpuRenFlag = true, trafficFlag = true;
 
-	verifyElementPresent(AMDPlayerScreen.objPauseIcon, "Player Start");
-	verifyElementPresent(AMDConsumptionScreen.objAudioLanguage,"Audio lang");
-	verifyElementPresent(AMDConsumptionScreen.objContentDesc,"Content Desc");
-	verifyElementPresent(AMDConsumptionScreen.objExpandDesc,"Expand view");
-	
-	// #### App Performance MEMORY Usage Info
-	ArrayList<String> getMmoryInfo = Memory_UsagePerformanceV2();
-	int nativeMemory = Integer.parseInt(getMmoryInfo.get(0).trim());
-	int totalMemory = Integer.parseInt(getMmoryInfo.get(1).trim());
+		LoginWithEmailID("zeetest34new@test.com", "123456");
+		waitForElementDisplayed(AMDHomePage.objZee5Logo, 30);
+		SelectTopNavigationTab("TV Shows");
+		verifyElementPresentAndClick(AMDHomePage.objPlayBtn, "Play");
+		Instant startTime = Instant.now();
+		logger.info("Instant Start time : " + startTime);
 
-	// #### App Performance CPU Usage Info
-	String getCPUInfo = CPU_UsagePerformanceV2();
-	int nCpuUSage = Integer.parseInt(getCPUInfo);
+		verifyElementPresent(AMDPlayerScreen.objPauseIcon, "Player Start");
+		verifyElementPresent(AMDConsumptionScreen.objAudioLanguage, "Audio lang");
+		verifyElementPresent(AMDConsumptionScreen.objContentDesc, "Content Desc");
+		verifyElementPresent(AMDConsumptionScreen.objExpandDesc, "Expand view");
 
-	// #### App Performance GPU Usage Info
-	ArrayList<String> getGPUInfo = GPU_UsagePerformanceV2();
-	float nGPUMemory = Float.parseFloat(getGPUInfo.get(0).replace(" MB", "").trim());
-	int nGPURendered = Integer.parseInt(getGPUInfo.get(1).replace("Total frames rendered: ", "").trim());
+		// #### App Performance MEMORY Usage Info
+		ArrayList<String> getMmoryInfo = Memory_UsagePerformanceV2();
+		int nativeMemory = Integer.parseInt(getMmoryInfo.get(0).trim());
+		int totalMemory = Integer.parseInt(getMmoryInfo.get(1).trim());
 
-	// #### App Performance Network Traffic Usage Info
-	int nNetTraffic = getApp_NetworkTrafficUsageV2(appPackageName);
+		// #### App Performance CPU Usage Info
+		String getCPUInfo = CPU_UsagePerformanceV2();
+		int nCpuUSage = Integer.parseInt(getCPUInfo);
 
-	// #### App Performance Battery Info
-	String batteryInfo = BatteryStats_PerformanceV2();
+		// #### App Performance GPU Usage Info
+		ArrayList<String> getGPUInfo = GPU_UsagePerformanceV2();
+		float nGPUMemory = Float.parseFloat(getGPUInfo.get(0).replace(" MB", "").trim());
+		int nGPURendered = Integer.parseInt(getGPUInfo.get(1).replace("Total frames rendered: ", "").trim());
 
-	Instant endTime = Instant.now();
-	logger.info("Instant End time : " + endTime);
+		// #### App Performance Network Traffic Usage Info
+		int nNetTraffic = getApp_NetworkTrafficUsageV2(appPackageName);
 
-	Duration timeElapsed = Duration.between(startTime, endTime);
-	extent.extentLogger("Timer",
-			"<b>Time taken to start playback for Episode(Sec):</b> " + timeElapsed.getSeconds());
-	Back(1);
+		// #### App Performance Battery Info
+		String batteryInfo = BatteryStats_PerformanceV2();
 
-	if (timeElapsed.getSeconds() < threshold_TimeTaken) {
-		extent.extentLoggerPass("Timer",
-				"<b>Time taken to start playback for Episode(Sec)</b>: " + timeElapsed.getSeconds());
-	} else {
-		timeFlag=false;
-		logger.info("Time taken to start playback for Episode(Sec): " + timeElapsed.getSeconds());
-		extent.extentLoggerFail("Timer",
-				"<b>Time taken to start playback for Episode(Sec)</b>: " + timeElapsed.getSeconds());
+		Instant endTime = Instant.now();
+		logger.info("Instant End time : " + endTime);
+
+		Duration timeElapsed = Duration.between(startTime, endTime);
+		extent.extentLogger("Timer",
+				"<b>Time taken to start playback for Episode(Sec):</b> " + timeElapsed.getSeconds());
+		Back(1);
+
+		if (timeElapsed.getSeconds() < threshold_TimeTaken) {
+			extent.extentLoggerPass("Timer",
+					"<b>Time taken to start playback for Episode(Sec)</b>: " + timeElapsed.getSeconds());
+		} else {
+			timeFlag = false;
+			logger.info("Time taken to start playback for Episode(Sec): " + timeElapsed.getSeconds());
+			extent.extentLoggerFail("Timer",
+					"<b>Time taken to start playback for Episode(Sec)</b>: " + timeElapsed.getSeconds());
+		}
+		softAssertion.assertEquals(timeFlag, true);
+
+		if (nativeMemory < threshold_NativeMemory) {
+			logger.info("App Native Heap Memory: " + nativeMemory + " MB");
+			extent.extentLoggerPass("Memory Info", "<b>App Native Heap Memory: :</b> " + nativeMemory + " MB");
+		} else {
+			memFlag = false;
+			logger.error("App Native Heap Memory: " + nativeMemory + " MB");
+			extent.extentLoggerFail("Memory Info", "<b>App Native Heap Memory: </b> " + nativeMemory + " MB");
+		}
+		softAssertion.assertEquals(memFlag, true);
+
+		if (totalMemory < threshold_TotalMemory) {
+			logger.info("App Peak Memory Usage: " + totalMemory + " MB");
+			extent.extentLoggerPass("Memory Info", "<b>App Peak Memory Usage:</b> " + totalMemory + " MB");
+		} else {
+			totalmemFlag = false;
+			logger.error("App Peak Memory Usage: " + totalMemory + " MB");
+			extent.extentLoggerFail("Memory Info", "<b>App Peak Memory Usage:</b> " + totalMemory + " MB");
+		}
+		softAssertion.assertEquals(totalmemFlag, true);
+
+		if (nCpuUSage < threshold_CPU) {
+			logger.info("CPU Usage : " + nCpuUSage + "%");
+			extent.extentLoggerPass("CPU Info", "<b>CPU Usage: </b>" + nCpuUSage + "%");
+		} else {
+			cpuFlag = false;
+			logger.error("CPU Usage: " + nCpuUSage + "%");
+			extent.extentLoggerFail("CPU Info", "<b>CPU Usage: </b>" + nCpuUSage + "%");
+		}
+		softAssertion.assertEquals(cpuFlag, true);
+
+		if (nGPUMemory < threshold_GPUMem) {
+			logger.info("\nGPU Memory Usage: " + nGPUMemory + " MB");
+			extent.extentLoggerPass("GPU Info", "<b>GPU Memory Usage: </b>" + nGPUMemory + " MB");
+		} else {
+			gpuMemFlag = false;
+			logger.error("\nGPU Memory Usage exceeded: " + nGPUMemory + " MB");
+			extent.extentLoggerFail("GPU Info", "<b>GPU Memory Usage exceeded: </b>" + nGPUMemory + " MB");
+		}
+		softAssertion.assertEquals(gpuMemFlag, true);
+
+		if (nGPURendered < threshold_GPURendered) {
+			logger.info("\nGPU FPS: " + nGPURendered);
+			extent.extentLoggerPass("GPU Info", "<b>GPU FPS: </b>" + nGPURendered);
+		} else {
+			gpuRenFlag = false;
+			logger.error("\nGPU FPS: " + nGPURendered);
+			extent.extentLoggerFail("GPU Info", "<b>GPU FPS: </b>" + nGPURendered);
+		}
+		softAssertion.assertEquals(gpuRenFlag, true);
+
+		if (nNetTraffic < threshold_Network) {
+			logger.info("\nApp traffic usage: " + (int) nNetTraffic + " MB");
+			extent.extentLoggerPass("Traffic Usage", "<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
+		} else {
+			trafficFlag = false;
+			logger.error("\nApp traffic usage: " + (int) nNetTraffic + " MB");
+			extent.extentLoggerFail("Traffic Usage", "<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
+		}
+
+		String timeTaken = Long.toString(timeElapsed.getSeconds());
+		String strNativeMemory = Integer.toString(nativeMemory);
+		String strTotalMemory = Integer.toString(totalMemory);
+		String strCPU = Integer.toString(nCpuUSage);
+		String strGPU = Float.toString(nGPUMemory);
+		String strGPURendered = Integer.toString(nGPURendered);
+		String strTraffic = Integer.toString(nNetTraffic);
+
+		performaceDetails.add("ConsumpitonScreen for Shows" + "," + timeElapsed.getSeconds() + "," + nativeMemory
+				+ " MB," + totalMemory + " MB," + nCpuUSage + "%," + nGPUMemory + " MB," + nGPURendered + ","
+				+ nNetTraffic + " MB");
+
+		performaceMatrics.put("Time Taken", timeTaken + " Sec");
+		performaceMatrics.put("Native Heap Memory", strNativeMemory + " MB");
+		performaceMatrics.put("Peak Memory", strTotalMemory + " MB");
+		performaceMatrics.put("CPU Usage", strCPU + "%");
+		performaceMatrics.put("GPU Usage", strGPU + " MB");
+		performaceMatrics.put("GPU FPS", strGPURendered);
+		performaceMatrics.put("Traffic Usage", strTraffic + " MB");
+
+		System.out.println(
+				"\n---------------------------------------------- Consumption screen for Shows ----------------------------------------------");
+		System.out.println(performaceMatrics);
+		System.out.println(
+				"------------------------------------------------------------------------------------------------------------------------");
+		ClearAllPerformanceMatrics();
+
+		softAssertion.assertEquals(trafficFlag, true);
+		softAssertion.assertAll();
+
+		if (batteryInfo.contains("drain")) {
+			logger.info("\nApp Battery Info - " + batteryInfo);
+			extent.extentLoggerPass("Timer", "<b>App Battery Info - </b>" + batteryInfo);
+		} else {
+			logger.error("\nApp Battery Info - " + batteryInfo);
+			extent.extentLoggerFail("Timer", "<b>App Battery Info - </b>" + batteryInfo);
+		}
 	}
-	softAssertion.assertEquals(timeFlag, true);
 
-	if (nativeMemory < threshold_NativeMemory) {
-		logger.info("App Native Heap Memory: " + nativeMemory + " MB");
-		extent.extentLoggerPass("Memory Info", "<b>App Native Heap Memory: :</b> " + nativeMemory + " MB");
-	} else {
-		memFlag=false;
-		logger.error("App Native Heap Memory: " + nativeMemory + " MB");
-		extent.extentLoggerFail("Memory Info", "<b>App Native Heap Memory: </b> " + nativeMemory + " MB");
-	}
-	softAssertion.assertEquals(memFlag, true);
-
-	if (totalMemory < threshold_TotalMemory) {
-		logger.info("App Peak Memory Usage: " + totalMemory + " MB");
-		extent.extentLoggerPass("Memory Info", "<b>App Peak Memory Usage:</b> " + totalMemory + " MB");
-	} else {
-		totalmemFlag=false;
-		logger.error("App Peak Memory Usage: " + totalMemory + " MB");
-		extent.extentLoggerFail("Memory Info", "<b>App Peak Memory Usage:</b> " + totalMemory + " MB");
-	}
-	softAssertion.assertEquals(totalmemFlag, true);
-
-	if (nCpuUSage < threshold_CPU) {
-		logger.info("CPU Usage : " + nCpuUSage + "%");
-		extent.extentLoggerPass("CPU Info", "<b>CPU Usage: </b>" + nCpuUSage + "%");
-	} else {
-		cpuFlag=false;
-		logger.error("CPU Usage: " + nCpuUSage + "%");
-		extent.extentLoggerFail("CPU Info", "<b>CPU Usage: </b>" + nCpuUSage + "%");
-	}
-	softAssertion.assertEquals(cpuFlag, true);
-
-	if (nGPUMemory < threshold_GPUMem) {
-		logger.info("\nGPU Memory Usage: " + nGPUMemory + " MB");
-		extent.extentLoggerPass("GPU Info",
-				"<b>GPU Memory Usage: </b>" + nGPUMemory + " MB");
-	} else {
-		gpuMemFlag=false;
-		logger.error("\nGPU Memory Usage exceeded: " + nGPUMemory + " MB");
-		extent.extentLoggerFail("GPU Info",
-				"<b>GPU Memory Usage exceeded: </b>" + nGPUMemory + " MB");
-	}
-	softAssertion.assertEquals(gpuMemFlag, true);
-
-	if (nGPURendered < threshold_GPURendered) {
-		logger.info("\nGPU FPS: " + nGPURendered);
-		extent.extentLoggerPass("GPU Info", "<b>GPU FPS: </b>" + nGPURendered);
-	} else {
-		gpuRenFlag=false;
-		logger.error("\nGPU FPS: " + nGPURendered);
-		extent.extentLoggerFail("GPU Info", "<b>GPU FPS: </b>" + nGPURendered);
-	}
-	softAssertion.assertEquals(gpuRenFlag, true);
-
-	if (nNetTraffic < threshold_Network) {
-		logger.info("\nApp traffic usage: " + (int) nNetTraffic + " MB");
-		extent.extentLoggerPass("Traffic Usage",
-				"<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
-	} else {
-		trafficFlag=false;
-		logger.error("\nApp traffic usage: " + (int) nNetTraffic + " MB");
-		extent.extentLoggerFail("Traffic Usage",
-				"<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
-	}
-	
-	String timeTaken = Long.toString(timeElapsed.getSeconds());
-	String strNativeMemory = Integer.toString(nativeMemory);
-	String strTotalMemory = Integer.toString(totalMemory);
-	String strCPU = Integer.toString(nCpuUSage);
-	String strGPU = Float.toString(nGPUMemory);
-	String strGPURendered = Integer.toString(nGPURendered);
-	String strTraffic = Integer.toString(nNetTraffic);
-	
-	performaceDetails.add("ConsumpitonScreen for Shows"+","+timeElapsed.getSeconds()+","+nativeMemory+" MB,"+totalMemory+" MB,"+nCpuUSage+"%,"+nGPUMemory+" MB,"+nGPURendered+","+nNetTraffic+" MB");
-	
-	performaceMatrics.put("Time Taken",timeTaken+" Sec");
-	performaceMatrics.put("Native Heap Memory",strNativeMemory+" MB");
-	performaceMatrics.put("Peak Memory",strTotalMemory+" MB");
-	performaceMatrics.put("CPU Usage",strCPU+"%");
-	performaceMatrics.put("GPU Usage",strGPU+" MB");
-	performaceMatrics.put("GPU FPS",strGPURendered);
-	performaceMatrics.put("Traffic Usage",strTraffic+" MB");
-	
-	System.out.println("\n---------------------------------------------- Consumption screen for Shows ----------------------------------------------");
-	System.out.println(performaceMatrics);
-	System.out.println("------------------------------------------------------------------------------------------------------------------------");
-	ClearAllPerformanceMatrics();
-	
-	softAssertion.assertEquals(trafficFlag, true);
-	softAssertion.assertAll();
-	
-	if (batteryInfo.contains("drain")) {
-		logger.info("\nApp Battery Info - " + batteryInfo);
-		extent.extentLoggerPass("Timer", "<b>App Battery Info - </b>" + batteryInfo);
-	} else {
-		logger.error("\nApp Battery Info - " + batteryInfo);
-		extent.extentLoggerFail("Timer", "<b>App Battery Info - </b>" + batteryInfo);
-	}
-}
-
-public void ConsumptionScreenforMovies() throws Exception {
-	extent.HeaderChildNode("Consumption screen for Movies");
-	System.out.println("\n>>> Consumption screen for Movies");
+	public void ConsumptionScreenforMovies() throws Exception {
+		extent.HeaderChildNode("Consumption screen for Movies");
+		System.out.println("\n>>> Consumption screen for Movies");
 
 //String appPackageName = getParameterFromXML("appPackageName");
-	String appPackageName = "com.graymatrix.did";
+		String appPackageName = "com.graymatrix.did";
 
-	// Threshold Values declaration
-	int threshold_TimeTaken = 18;
-	int threshold_NativeMemory = 45;
-	int threshold_TotalMemory = 300;
-	int threshold_CPU = 150;
-	int threshold_GPUMem = 30;
-	int threshold_GPURendered = 1500;
-	int threshold_Network = 90;
-	boolean timeFlag=true, memFlag=true, totalmemFlag=true, cpuFlag=true, gpuMemFlag=true, gpuRenFlag=true, trafficFlag=true;
-	
-	LoginWithEmailID("zeetest34new@test.com", "123456");
-	waitForElementDisplayed(AMDHomePage.objZee5Logo, 30);
-	SelectTopNavigationTab("Movies");
-	verifyElementPresentAndClick(AMDHomePage.objPlayBtn, "Play");
-	Instant startTime = Instant.now();
-	logger.info("Instant Start time : " + startTime);
+		// Threshold Values declaration
+		int threshold_TimeTaken = 18;
+		int threshold_NativeMemory = 45;
+		int threshold_TotalMemory = 300;
+		int threshold_CPU = 150;
+		int threshold_GPUMem = 30;
+		int threshold_GPURendered = 1500;
+		int threshold_Network = 90;
+		boolean timeFlag = true, memFlag = true, totalmemFlag = true, cpuFlag = true, gpuMemFlag = true,
+				gpuRenFlag = true, trafficFlag = true;
 
-	verifyElementPresent(AMDPlayerScreen.objPauseIcon, "Player Start");
-	verifyElementPresent(AMDConsumptionScreen.objAudioLanguage,"Audio lang");
-	verifyElementPresent(AMDConsumptionScreen.objContentDesc,"Content Desc");
-	verifyElementPresent(AMDConsumptionScreen.objExpandDesc,"Expand view");
-	
-	// #### App Performance MEMORY Usage Info
-	ArrayList<String> getMmoryInfo = Memory_UsagePerformanceV2();
-	int nativeMemory = Integer.parseInt(getMmoryInfo.get(0).trim());
-	int totalMemory = Integer.parseInt(getMmoryInfo.get(1).trim());
+		LoginWithEmailID("zeetest34new@test.com", "123456");
+		waitForElementDisplayed(AMDHomePage.objZee5Logo, 30);
+		SelectTopNavigationTab("Movies");
+		verifyElementPresentAndClick(AMDHomePage.objPlayBtn, "Play");
+		Instant startTime = Instant.now();
+		logger.info("Instant Start time : " + startTime);
 
-	// #### App Performance CPU Usage Info
-	String getCPUInfo = CPU_UsagePerformanceV2();
-	int nCpuUSage = Integer.parseInt(getCPUInfo);
+		verifyElementPresent(AMDPlayerScreen.objPauseIcon, "Player Start");
+		verifyElementPresent(AMDConsumptionScreen.objAudioLanguage, "Audio lang");
+		verifyElementPresent(AMDConsumptionScreen.objContentDesc, "Content Desc");
+		verifyElementPresent(AMDConsumptionScreen.objExpandDesc, "Expand view");
 
-	// #### App Performance GPU Usage Info
-	ArrayList<String> getGPUInfo = GPU_UsagePerformanceV2();
-	float nGPUMemory = Float.parseFloat(getGPUInfo.get(0).replace(" MB", "").trim());
-	int nGPURendered = Integer.parseInt(getGPUInfo.get(1).replace("Total frames rendered: ", "").trim());
+		// #### App Performance MEMORY Usage Info
+		ArrayList<String> getMmoryInfo = Memory_UsagePerformanceV2();
+		int nativeMemory = Integer.parseInt(getMmoryInfo.get(0).trim());
+		int totalMemory = Integer.parseInt(getMmoryInfo.get(1).trim());
 
-	// #### App Performance Network Traffic Usage Info
-	int nNetTraffic = getApp_NetworkTrafficUsageV2(appPackageName);
+		// #### App Performance CPU Usage Info
+		String getCPUInfo = CPU_UsagePerformanceV2();
+		int nCpuUSage = Integer.parseInt(getCPUInfo);
 
-	// #### App Performance Battery Info
-	String batteryInfo = BatteryStats_PerformanceV2();
+		// #### App Performance GPU Usage Info
+		ArrayList<String> getGPUInfo = GPU_UsagePerformanceV2();
+		float nGPUMemory = Float.parseFloat(getGPUInfo.get(0).replace(" MB", "").trim());
+		int nGPURendered = Integer.parseInt(getGPUInfo.get(1).replace("Total frames rendered: ", "").trim());
 
-	Instant endTime = Instant.now();
-	logger.info("Instant End time : " + endTime);
+		// #### App Performance Network Traffic Usage Info
+		int nNetTraffic = getApp_NetworkTrafficUsageV2(appPackageName);
 
-	Duration timeElapsed = Duration.between(startTime, endTime);
-	extent.extentLogger("Timer",
-			"<b>Time taken to start playback for Episode(Sec):</b> " + timeElapsed.getSeconds());
-	Back(1);
+		// #### App Performance Battery Info
+		String batteryInfo = BatteryStats_PerformanceV2();
 
-	if (timeElapsed.getSeconds() < threshold_TimeTaken) {
-		extent.extentLoggerPass("Timer",
-				"<b>Time taken to start playback for Episode(Sec)</b>: " + timeElapsed.getSeconds());
-	} else {
-		timeFlag=false;
-		logger.info("Time taken to start playback for Episode(Sec): " + timeElapsed.getSeconds());
-		extent.extentLoggerFail("Timer",
-				"<b>Time taken to start playback for Episode(Sec)</b>: " + timeElapsed.getSeconds());
+		Instant endTime = Instant.now();
+		logger.info("Instant End time : " + endTime);
+
+		Duration timeElapsed = Duration.between(startTime, endTime);
+		extent.extentLogger("Timer",
+				"<b>Time taken to start playback for Episode(Sec):</b> " + timeElapsed.getSeconds());
+		Back(1);
+
+		if (timeElapsed.getSeconds() < threshold_TimeTaken) {
+			extent.extentLoggerPass("Timer",
+					"<b>Time taken to start playback for Episode(Sec)</b>: " + timeElapsed.getSeconds());
+		} else {
+			timeFlag = false;
+			logger.info("Time taken to start playback for Episode(Sec): " + timeElapsed.getSeconds());
+			extent.extentLoggerFail("Timer",
+					"<b>Time taken to start playback for Episode(Sec)</b>: " + timeElapsed.getSeconds());
+		}
+		softAssertion.assertEquals(timeFlag, true);
+
+		if (nativeMemory < threshold_NativeMemory) {
+			logger.info("App Native Heap Memory: " + nativeMemory + " MB");
+			extent.extentLoggerPass("Memory Info", "<b>App Native Heap Memory: :</b> " + nativeMemory + " MB");
+		} else {
+			memFlag = false;
+			logger.error("App Native Heap Memory: " + nativeMemory + " MB");
+			extent.extentLoggerFail("Memory Info", "<b>App Native Heap Memory: </b> " + nativeMemory + " MB");
+		}
+		softAssertion.assertEquals(memFlag, true);
+
+		if (totalMemory < threshold_TotalMemory) {
+			logger.info("App Peak Memory Usage: " + totalMemory + " MB");
+			extent.extentLoggerPass("Memory Info", "<b>App Peak Memory Usage:</b> " + totalMemory + " MB");
+		} else {
+			totalmemFlag = false;
+			logger.error("App Peak Memory Usage: " + totalMemory + " MB");
+			extent.extentLoggerFail("Memory Info", "<b>App Peak Memory Usage:</b> " + totalMemory + " MB");
+		}
+		softAssertion.assertEquals(totalmemFlag, true);
+
+		if (nCpuUSage < threshold_CPU) {
+			logger.info("CPU Usage : " + nCpuUSage + "%");
+			extent.extentLoggerPass("CPU Info", "<b>CPU Usage: </b>" + nCpuUSage + "%");
+		} else {
+			cpuFlag = false;
+			logger.error("CPU Usage: " + nCpuUSage + "%");
+			extent.extentLoggerFail("CPU Info", "<b>CPU Usage: </b>" + nCpuUSage + "%");
+		}
+		softAssertion.assertEquals(cpuFlag, true);
+
+		if (nGPUMemory < threshold_GPUMem) {
+			logger.info("\nGPU Memory Usage: " + nGPUMemory + " MB");
+			extent.extentLoggerPass("GPU Info", "<b>GPU Memory Usage: </b>" + nGPUMemory + " MB");
+		} else {
+			gpuMemFlag = false;
+			logger.error("\nGPU Memory Usage exceeded: " + nGPUMemory + " MB");
+			extent.extentLoggerFail("GPU Info", "<b>GPU Memory Usage exceeded: </b>" + nGPUMemory + " MB");
+		}
+		softAssertion.assertEquals(gpuMemFlag, true);
+
+		if (nGPURendered < threshold_GPURendered) {
+			logger.info("\nGPU FPS: " + nGPURendered);
+			extent.extentLoggerPass("GPU Info", "<b>GPU FPS: </b>" + nGPURendered);
+		} else {
+			gpuRenFlag = false;
+			logger.error("\nGPU FPS: " + nGPURendered);
+			extent.extentLoggerFail("GPU Info", "<b>GPU FPS: </b>" + nGPURendered);
+		}
+		softAssertion.assertEquals(gpuRenFlag, true);
+
+		if (nNetTraffic < threshold_Network) {
+			logger.info("\nApp traffic usage: " + (int) nNetTraffic + " MB");
+			extent.extentLoggerPass("Traffic Usage", "<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
+		} else {
+			trafficFlag = false;
+			logger.error("\nApp traffic usage: " + (int) nNetTraffic + " MB");
+			extent.extentLoggerFail("Traffic Usage", "<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
+		}
+
+		performaceDetails.add("ConsumpitonScreen for Movies" + "," + timeElapsed.getSeconds() + "," + nativeMemory
+				+ " MB," + totalMemory + " MB," + nCpuUSage + "%," + nGPUMemory + " MB," + nGPURendered + ","
+				+ nNetTraffic + " MB");
+
+		String timeTaken = Long.toString(timeElapsed.getSeconds());
+		String strNativeMemory = Integer.toString(nativeMemory);
+		String strTotalMemory = Integer.toString(totalMemory);
+		String strCPU = Integer.toString(nCpuUSage);
+		String strGPU = Float.toString(nGPUMemory);
+		String strGPURendered = Integer.toString(nGPURendered);
+		String strTraffic = Integer.toString(nNetTraffic);
+
+		performaceMatrics.put("Time Taken", timeTaken + " Sec");
+		performaceMatrics.put("Native Heap Memory", strNativeMemory + " MB");
+		performaceMatrics.put("Peak Memory", strTotalMemory + " MB");
+		performaceMatrics.put("CPU Usage", strCPU + "%");
+		performaceMatrics.put("GPU Usage", strGPU + " MB");
+		performaceMatrics.put("GPU FPS", strGPURendered);
+		performaceMatrics.put("Traffic Usage", strTraffic + " MB");
+
+		System.out.println(
+				"\n---------------------------------------------- Consumption screen for Movies ----------------------------------------------");
+		System.out.println(performaceMatrics);
+		System.out.println(
+				"------------------------------------------------------------------------------------------------------------------------");
+		ClearAllPerformanceMatrics();
+
+		softAssertion.assertEquals(trafficFlag, true);
+		softAssertion.assertAll();
+
+		if (batteryInfo.contains("drain")) {
+			logger.info("\nApp Battery Info - " + batteryInfo);
+			extent.extentLoggerPass("Timer", "<b>App Battery Info - </b>" + batteryInfo);
+		} else {
+			logger.error("\nApp Battery Info - " + batteryInfo);
+			extent.extentLoggerFail("Timer", "<b>App Battery Info - </b>" + batteryInfo);
+		}
 	}
-	softAssertion.assertEquals(timeFlag, true);
 
-	if (nativeMemory < threshold_NativeMemory) {
-		logger.info("App Native Heap Memory: " + nativeMemory + " MB");
-		extent.extentLoggerPass("Memory Info", "<b>App Native Heap Memory: :</b> " + nativeMemory + " MB");
-	} else {
-		memFlag=false;
-		logger.error("App Native Heap Memory: " + nativeMemory + " MB");
-		extent.extentLoggerFail("Memory Info", "<b>App Native Heap Memory: </b> " + nativeMemory + " MB");
+	public void installZee5AppFromPlayStore() throws Exception {
+		extent.HeaderChildNode("Install ZEE5 App from Playstore");
+		System.out.println("\nInstall ZEE5 App from Playstore");
+
+		Runtime.getRuntime().exec("adb uninstall com.graymatrix.did");
+		logger.info("Uninstalling zee5");
+		extent.extentLogger("", "Uninstalling zee5");
+		waitTime(3000);
+
+		Runtime.getRuntime().exec("adb shell pm clear -n com.android.vending");
+		logger.info("Clearing play store app data");
+		extent.extentLogger("", "Clearing play store app data");
+
+		waitTime(3000);
+		Runtime.getRuntime().exec("adb shell am start -n com.android.vending/com.android.vending.AssetBrowserActivity");
+		logger.info("Launching Play store");
+		extent.extentLogger("", "Launching Play store");
+
+		System.out.println("\nInstalling Fresh Zee5 App");
+		waitTime(4000);
+		click(AMDAppUpgrade.objplaystoreSearch, "Edit field");
+		type(AMDAppUpgrade.objplaystoreSearch, "Zee5 \n", "Edit field");
+		hideKeyboard();
+		verifyElementPresentAndClick(AMDAppUpgrade.objInstallButton, "Install button");
+		waitTime(5000);
+		waitForElementAndClickIfPresent(AMDAppUpgrade.objOpenButton, 250, "Open CTA");
 	}
-	softAssertion.assertEquals(memFlag, true);
 
-	if (totalMemory < threshold_TotalMemory) {
-		logger.info("App Peak Memory Usage: " + totalMemory + " MB");
-		extent.extentLoggerPass("Memory Info", "<b>App Peak Memory Usage:</b> " + totalMemory + " MB");
-	} else {
-		totalmemFlag=false;
-		logger.error("App Peak Memory Usage: " + totalMemory + " MB");
-		extent.extentLoggerFail("Memory Info", "<b>App Peak Memory Usage:</b> " + totalMemory + " MB");
-	}
-	softAssertion.assertEquals(totalmemFlag, true);
-
-	if (nCpuUSage < threshold_CPU) {
-		logger.info("CPU Usage : " + nCpuUSage + "%");
-		extent.extentLoggerPass("CPU Info", "<b>CPU Usage: </b>" + nCpuUSage + "%");
-	} else {
-		cpuFlag=false;
-		logger.error("CPU Usage: " + nCpuUSage + "%");
-		extent.extentLoggerFail("CPU Info", "<b>CPU Usage: </b>" + nCpuUSage + "%");
-	}
-	softAssertion.assertEquals(cpuFlag, true);
-
-	if (nGPUMemory < threshold_GPUMem) {
-		logger.info("\nGPU Memory Usage: " + nGPUMemory + " MB");
-		extent.extentLoggerPass("GPU Info",
-				"<b>GPU Memory Usage: </b>" + nGPUMemory + " MB");
-	} else {
-		gpuMemFlag=false;
-		logger.error("\nGPU Memory Usage exceeded: " + nGPUMemory + " MB");
-		extent.extentLoggerFail("GPU Info",
-				"<b>GPU Memory Usage exceeded: </b>" + nGPUMemory + " MB");
-	}
-	softAssertion.assertEquals(gpuMemFlag, true);
-
-	if (nGPURendered < threshold_GPURendered) {
-		logger.info("\nGPU FPS: " + nGPURendered);
-		extent.extentLoggerPass("GPU Info", "<b>GPU FPS: </b>" + nGPURendered);
-	} else {
-		gpuRenFlag=false;
-		logger.error("\nGPU FPS: " + nGPURendered);
-		extent.extentLoggerFail("GPU Info", "<b>GPU FPS: </b>" + nGPURendered);
-	}
-	softAssertion.assertEquals(gpuRenFlag, true);
-
-	if (nNetTraffic < threshold_Network) {
-		logger.info("\nApp traffic usage: " + (int) nNetTraffic + " MB");
-		extent.extentLoggerPass("Traffic Usage",
-				"<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
-	} else {
-		trafficFlag=false;
-		logger.error("\nApp traffic usage: " + (int) nNetTraffic + " MB");
-		extent.extentLoggerFail("Traffic Usage",
-				"<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
-	}
-	
-	performaceDetails.add("ConsumpitonScreen for Movies"+","+timeElapsed.getSeconds()+","+nativeMemory+" MB,"+totalMemory+" MB,"+nCpuUSage+"%,"+nGPUMemory+" MB,"+nGPURendered+","+nNetTraffic+" MB");
-
-	String timeTaken = Long.toString(timeElapsed.getSeconds());
-	String strNativeMemory = Integer.toString(nativeMemory);
-	String strTotalMemory = Integer.toString(totalMemory);
-	String strCPU = Integer.toString(nCpuUSage);
-	String strGPU = Float.toString(nGPUMemory);
-	String strGPURendered = Integer.toString(nGPURendered);
-	String strTraffic = Integer.toString(nNetTraffic);
-	
-	performaceMatrics.put("Time Taken",timeTaken+" Sec");
-	performaceMatrics.put("Native Heap Memory",strNativeMemory+" MB");
-	performaceMatrics.put("Peak Memory",strTotalMemory+" MB");
-	performaceMatrics.put("CPU Usage",strCPU+"%");
-	performaceMatrics.put("GPU Usage",strGPU+" MB");
-	performaceMatrics.put("GPU FPS",strGPURendered);
-	performaceMatrics.put("Traffic Usage",strTraffic+" MB");
-	
-	System.out.println("\n---------------------------------------------- Consumption screen for Movies ----------------------------------------------");
-	System.out.println(performaceMatrics);
-	System.out.println("------------------------------------------------------------------------------------------------------------------------");
-	ClearAllPerformanceMatrics();
-	
-	softAssertion.assertEquals(trafficFlag, true);
-	softAssertion.assertAll();
-	
-	if (batteryInfo.contains("drain")) {
-		logger.info("\nApp Battery Info - " + batteryInfo);
-		extent.extentLoggerPass("Timer", "<b>App Battery Info - </b>" + batteryInfo);
-	} else {
-		logger.error("\nApp Battery Info - " + batteryInfo);
-		extent.extentLoggerFail("Timer", "<b>App Battery Info - </b>" + batteryInfo);
-	}
-}
-
-
-public void installZee5AppFromPlayStore() throws Exception{
-	extent.HeaderChildNode("Install ZEE5 App from Playstore");
-	System.out.println("\nInstall ZEE5 App from Playstore");
-	
-	Runtime.getRuntime().exec("adb uninstall com.graymatrix.did");
-	logger.info("Uninstalling zee5");
-	extent.extentLogger("", "Uninstalling zee5");
-	waitTime(3000);
-	
-	Runtime.getRuntime().exec("adb shell pm clear -n com.android.vending");
-	logger.info("Clearing play store app data");
-	extent.extentLogger("", "Clearing play store app data");
-	
-	waitTime(3000);	
-	Runtime.getRuntime().exec("adb shell am start -n com.android.vending/com.android.vending.AssetBrowserActivity");
-	logger.info("Launching Play store");
-	extent.extentLogger("", "Launching Play store");
-	
-	System.out.println("\nInstalling Fresh Zee5 App");
-    waitTime(4000);
-	click(AMDAppUpgrade.objplaystoreSearch, "Edit field");
-	type(AMDAppUpgrade.objplaystoreSearch, "Zee5 \n", "Edit field");
-	hideKeyboard();
-	verifyElementPresentAndClick(AMDAppUpgrade.objInstallButton, "Install button");
-	waitTime(5000);
-	waitForElementAndClickIfPresent(AMDAppUpgrade.objOpenButton, 250, "Open CTA");	
-}
-
-
-public void ListingScreenfromHome() throws Exception {
-	extent.HeaderChildNode("Listing screen from Home");
-	System.out.println("\n>>> Listing screen from Home");
+	public void ListingScreenfromHome() throws Exception {
+		extent.HeaderChildNode("Listing screen from Home");
+		System.out.println("\n>>> Listing screen from Home");
 
 //String appPackageName = getParameterFromXML("appPackageName");
-	String appPackageName = "com.graymatrix.did";
+		String appPackageName = "com.graymatrix.did";
 
-	// Threshold Values declaration
-	int threshold_TimeTaken = 4;
-	int threshold_NativeMemory = 35;
-	int threshold_TotalMemory = 300;
-	int threshold_CPU = 120;
-	int threshold_GPUMem = 7;
-	int threshold_GPURendered = 2000;
-	int threshold_Network = 100;
-	boolean timeFlag=true, memFlag=true, totalmemFlag=true, cpuFlag=true, gpuMemFlag=true, gpuRenFlag=true, trafficFlag=true;
-	
-	LoginWithEmailID("zeetest34new@test.com", "123456");
-	waitForElementDisplayed(AMDHomePage.objZee5Logo, 30);
+		// Threshold Values declaration
+		int threshold_TimeTaken = 4;
+		int threshold_NativeMemory = 35;
+		int threshold_TotalMemory = 300;
+		int threshold_CPU = 120;
+		int threshold_GPUMem = 7;
+		int threshold_GPURendered = 2000;
+		int threshold_Network = 100;
+		boolean timeFlag = true, memFlag = true, totalmemFlag = true, cpuFlag = true, gpuMemFlag = true,
+				gpuRenFlag = true, trafficFlag = true;
+
+		LoginWithEmailID("zeetest34new@test.com", "123456");
+		waitForElementDisplayed(AMDHomePage.objZee5Logo, 30);
 //	SelectTopNavigationTab("Movies");
-	verifyElementPresentAndClick(AMDHomePage.objSeeAllFirstRail, "See All");
-	Instant startTime = Instant.now();
-	logger.info("Instant Start time : " + startTime);
+		verifyElementPresentAndClick(AMDHomePage.objSeeAllFirstRail, "See All");
+		Instant startTime = Instant.now();
+		logger.info("Instant Start time : " + startTime);
 
-	verifyElementPresent(AMDHomePage.objTitle, "Listing page title");
-	verifyElementPresent(AMDHomePage.objBackIcon,"Back Button");
-	
-	// #### App Performance MEMORY Usage Info
-	ArrayList<String> getMmoryInfo = Memory_UsagePerformanceV2();
-	int nativeMemory = Integer.parseInt(getMmoryInfo.get(0).trim());
-	int totalMemory = Integer.parseInt(getMmoryInfo.get(1).trim());
+		verifyElementPresent(AMDHomePage.objTitle, "Listing page title");
+		verifyElementPresent(AMDHomePage.objBackIcon, "Back Button");
 
-	// #### App Performance CPU Usage Info
-	String getCPUInfo = CPU_UsagePerformanceV2();
-	int nCpuUSage = Integer.parseInt(getCPUInfo);
+		// #### App Performance MEMORY Usage Info
+		ArrayList<String> getMmoryInfo = Memory_UsagePerformanceV2();
+		int nativeMemory = Integer.parseInt(getMmoryInfo.get(0).trim());
+		int totalMemory = Integer.parseInt(getMmoryInfo.get(1).trim());
 
-	// #### App Performance GPU Usage Info
-	ArrayList<String> getGPUInfo = GPU_UsagePerformanceV2();
-	float nGPUMemory = Float.parseFloat(getGPUInfo.get(0).replace(" MB", "").trim());
-	int nGPURendered = Integer.parseInt(getGPUInfo.get(1).replace("Total frames rendered: ", "").trim());
+		// #### App Performance CPU Usage Info
+		String getCPUInfo = CPU_UsagePerformanceV2();
+		int nCpuUSage = Integer.parseInt(getCPUInfo);
 
-	// #### App Performance Network Traffic Usage Info
-	int nNetTraffic = getApp_NetworkTrafficUsageV2(appPackageName);
+		// #### App Performance GPU Usage Info
+		ArrayList<String> getGPUInfo = GPU_UsagePerformanceV2();
+		float nGPUMemory = Float.parseFloat(getGPUInfo.get(0).replace(" MB", "").trim());
+		int nGPURendered = Integer.parseInt(getGPUInfo.get(1).replace("Total frames rendered: ", "").trim());
 
-	// #### App Performance Battery Info
-	String batteryInfo = BatteryStats_PerformanceV2();
+		// #### App Performance Network Traffic Usage Info
+		int nNetTraffic = getApp_NetworkTrafficUsageV2(appPackageName);
 
-	Instant endTime = Instant.now();
-	logger.info("Instant End time : " + endTime);
+		// #### App Performance Battery Info
+		String batteryInfo = BatteryStats_PerformanceV2();
 
-	Duration timeElapsed = Duration.between(startTime, endTime);
-	extent.extentLogger("Timer",
-			"<b>Time taken to load listing screen(Sec):</b> " + timeElapsed.getSeconds());
-	Back(1);
+		Instant endTime = Instant.now();
+		logger.info("Instant End time : " + endTime);
 
-	if (timeElapsed.getSeconds() < threshold_TimeTaken) {
-		extent.extentLoggerPass("Timer",
-				"<b>Time taken to load listing screen(Sec)</b>: " + timeElapsed.getSeconds());
-	} else {
-		timeFlag=false;
-		logger.info("Time taken to load listing screen(Sec): " + timeElapsed.getSeconds());
-		extent.extentLoggerFail("Timer",
-				"<b>Time taken to load listing screen(Sec)</b>: " + timeElapsed.getSeconds());
+		Duration timeElapsed = Duration.between(startTime, endTime);
+		extent.extentLogger("Timer", "<b>Time taken to load listing screen(Sec):</b> " + timeElapsed.getSeconds());
+		Back(1);
+
+		if (timeElapsed.getSeconds() < threshold_TimeTaken) {
+			extent.extentLoggerPass("Timer",
+					"<b>Time taken to load listing screen(Sec)</b>: " + timeElapsed.getSeconds());
+		} else {
+			timeFlag = false;
+			logger.info("Time taken to load listing screen(Sec): " + timeElapsed.getSeconds());
+			extent.extentLoggerFail("Timer",
+					"<b>Time taken to load listing screen(Sec)</b>: " + timeElapsed.getSeconds());
+		}
+		softAssertion.assertEquals(timeFlag, true);
+
+		if (nativeMemory < threshold_NativeMemory) {
+			logger.info("App Native Heap Memory: " + nativeMemory + " MB");
+			extent.extentLoggerPass("Memory Info", "<b>App Native Heap Memory: :</b> " + nativeMemory + " MB");
+		} else {
+			memFlag = false;
+			logger.error("App Native Heap Memory: " + nativeMemory + " MB");
+			extent.extentLoggerFail("Memory Info", "<b>App Native Heap Memory: </b> " + nativeMemory + " MB");
+		}
+		softAssertion.assertEquals(memFlag, true);
+
+		if (totalMemory < threshold_TotalMemory) {
+			logger.info("App Peak Memory Usage: " + totalMemory + " MB");
+			extent.extentLoggerPass("Memory Info", "<b>App Peak Memory Usage:</b> " + totalMemory + " MB");
+		} else {
+			totalmemFlag = false;
+			logger.error("App Peak Memory Usage: " + totalMemory + " MB");
+			extent.extentLoggerFail("Memory Info", "<b>App Peak Memory Usage:</b> " + totalMemory + " MB");
+		}
+		softAssertion.assertEquals(totalmemFlag, true);
+
+		if (nCpuUSage < threshold_CPU) {
+			logger.info("CPU Usage : " + nCpuUSage + "%");
+			extent.extentLoggerPass("CPU Info", "<b>CPU Usage: </b>" + nCpuUSage + "%");
+		} else {
+			cpuFlag = false;
+			logger.error("CPU Usage: " + nCpuUSage + "%");
+			extent.extentLoggerFail("CPU Info", "<b>CPU Usage: </b>" + nCpuUSage + "%");
+		}
+		softAssertion.assertEquals(cpuFlag, true);
+
+		if (nGPUMemory < threshold_GPUMem) {
+			logger.info("\nGPU Memory Usage: " + nGPUMemory + " MB");
+			extent.extentLoggerPass("GPU Info", "<b>GPU Memory Usage: </b>" + nGPUMemory + " MB");
+		} else {
+			gpuMemFlag = false;
+			logger.error("\nGPU Memory Usage exceeded: " + nGPUMemory + " MB");
+			extent.extentLoggerFail("GPU Info", "<b>GPU Memory Usage exceeded: </b>" + nGPUMemory + " MB");
+		}
+		softAssertion.assertEquals(gpuMemFlag, true);
+
+		if (nGPURendered < threshold_GPURendered) {
+			logger.info("\nGPU FPS: " + nGPURendered);
+			extent.extentLoggerPass("GPU Info", "<b>GPU FPS: </b>" + nGPURendered);
+		} else {
+			gpuRenFlag = false;
+			logger.error("\nGPU FPS: " + nGPURendered);
+			extent.extentLoggerFail("GPU Info", "<b>GPU FPS: </b>" + nGPURendered);
+		}
+		softAssertion.assertEquals(gpuRenFlag, true);
+
+		if (nNetTraffic < threshold_Network) {
+			logger.info("\nApp traffic usage: " + (int) nNetTraffic + " MB");
+			extent.extentLoggerPass("Traffic Usage", "<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
+		} else {
+			trafficFlag = false;
+			logger.error("\nApp traffic usage: " + (int) nNetTraffic + " MB");
+			extent.extentLoggerFail("Traffic Usage", "<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
+		}
+
+		String timeTaken = Long.toString(timeElapsed.getSeconds());
+		String strNativeMemory = Integer.toString(nativeMemory);
+		String strTotalMemory = Integer.toString(totalMemory);
+		String strCPU = Integer.toString(nCpuUSage);
+		String strGPU = Float.toString(nGPUMemory);
+		String strGPURendered = Integer.toString(nGPURendered);
+		String strTraffic = Integer.toString(nNetTraffic);
+
+		performaceMatrics.put("Time Taken", timeTaken + " Sec");
+		performaceMatrics.put("Native Heap Memory", strNativeMemory + " MB");
+		performaceMatrics.put("Peak Memory", strTotalMemory + " MB");
+		performaceMatrics.put("CPU Usage", strCPU + "%");
+		performaceMatrics.put("GPU Usage", strGPU + " MB");
+		performaceMatrics.put("GPU FPS", strGPURendered);
+		performaceMatrics.put("Traffic Usage", strTraffic + " MB");
+
+		System.out.println(
+				"\n---------------------------------------------- Listing screen from Home ----------------------------------------------");
+		System.out.println(performaceMatrics);
+		System.out.println(
+				"------------------------------------------------------------------------------------------------------------------------");
+		ClearAllPerformanceMatrics();
+
+		if (batteryInfo.contains("drain")) {
+			logger.info("\nApp Battery Info - " + batteryInfo);
+			extent.extentLoggerPass("Timer", "<b>App Battery Info - </b>" + batteryInfo);
+		} else {
+			logger.error("\nApp Battery Info - " + batteryInfo);
+			extent.extentLoggerFail("Timer", "<b>App Battery Info - </b>" + batteryInfo);
+		}
+		performaceDetails
+				.add("Load Listing screen" + "," + timeElapsed.getSeconds() + "," + nativeMemory + " MB," + totalMemory
+						+ " MB," + nCpuUSage + "%," + nGPUMemory + " MB," + nGPURendered + "," + nNetTraffic + " MB");
+
+		softAssertion.assertEquals(trafficFlag, true);
+		softAssertion.assertAll();
 	}
-	softAssertion.assertEquals(timeFlag, true);
 
-	if (nativeMemory < threshold_NativeMemory) {
-		logger.info("App Native Heap Memory: " + nativeMemory + " MB");
-		extent.extentLoggerPass("Memory Info", "<b>App Native Heap Memory: :</b> " + nativeMemory + " MB");
-	} else {
-		memFlag=false;
-		logger.error("App Native Heap Memory: " + nativeMemory + " MB");
-		extent.extentLoggerFail("Memory Info", "<b>App Native Heap Memory: </b> " + nativeMemory + " MB");
-	}
-	softAssertion.assertEquals(memFlag, true);
-
-	if (totalMemory < threshold_TotalMemory) {
-		logger.info("App Peak Memory Usage: " + totalMemory + " MB");
-		extent.extentLoggerPass("Memory Info", "<b>App Peak Memory Usage:</b> " + totalMemory + " MB");
-	} else {
-		totalmemFlag=false;
-		logger.error("App Peak Memory Usage: " + totalMemory + " MB");
-		extent.extentLoggerFail("Memory Info", "<b>App Peak Memory Usage:</b> " + totalMemory + " MB");
-	}
-	softAssertion.assertEquals(totalmemFlag, true);
-
-	if (nCpuUSage < threshold_CPU) {
-		logger.info("CPU Usage : " + nCpuUSage + "%");
-		extent.extentLoggerPass("CPU Info", "<b>CPU Usage: </b>" + nCpuUSage + "%");
-	} else {
-		cpuFlag=false;
-		logger.error("CPU Usage: " + nCpuUSage + "%");
-		extent.extentLoggerFail("CPU Info", "<b>CPU Usage: </b>" + nCpuUSage + "%");
-	}
-	softAssertion.assertEquals(cpuFlag, true);
-
-	if (nGPUMemory < threshold_GPUMem) {
-		logger.info("\nGPU Memory Usage: " + nGPUMemory + " MB");
-		extent.extentLoggerPass("GPU Info",
-				"<b>GPU Memory Usage: </b>" + nGPUMemory + " MB");
-	} else {
-		gpuMemFlag=false;
-		logger.error("\nGPU Memory Usage exceeded: " + nGPUMemory + " MB");
-		extent.extentLoggerFail("GPU Info",
-				"<b>GPU Memory Usage exceeded: </b>" + nGPUMemory + " MB");
-	}
-	softAssertion.assertEquals(gpuMemFlag, true);
-
-	if (nGPURendered < threshold_GPURendered) {
-		logger.info("\nGPU FPS: " + nGPURendered);
-		extent.extentLoggerPass("GPU Info", "<b>GPU FPS: </b>" + nGPURendered);
-	} else {
-		gpuRenFlag=false;
-		logger.error("\nGPU FPS: " + nGPURendered);
-		extent.extentLoggerFail("GPU Info", "<b>GPU FPS: </b>" + nGPURendered);
-	}
-	softAssertion.assertEquals(gpuRenFlag, true);
-
-	if (nNetTraffic < threshold_Network) {
-		logger.info("\nApp traffic usage: " + (int) nNetTraffic + " MB");
-		extent.extentLoggerPass("Traffic Usage",
-				"<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
-	} else {
-		trafficFlag=false;
-		logger.error("\nApp traffic usage: " + (int) nNetTraffic + " MB");
-		extent.extentLoggerFail("Traffic Usage",
-				"<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
-	}
-	
-	String timeTaken = Long.toString(timeElapsed.getSeconds());
-	String strNativeMemory = Integer.toString(nativeMemory);
-	String strTotalMemory = Integer.toString(totalMemory);
-	String strCPU = Integer.toString(nCpuUSage);
-	String strGPU = Float.toString(nGPUMemory);
-	String strGPURendered = Integer.toString(nGPURendered);
-	String strTraffic = Integer.toString(nNetTraffic);
-	
-	performaceMatrics.put("Time Taken",timeTaken+" Sec");
-	performaceMatrics.put("Native Heap Memory",strNativeMemory+" MB");
-	performaceMatrics.put("Peak Memory",strTotalMemory+" MB");
-	performaceMatrics.put("CPU Usage",strCPU+"%");
-	performaceMatrics.put("GPU Usage",strGPU+" MB");
-	performaceMatrics.put("GPU FPS",strGPURendered);
-	performaceMatrics.put("Traffic Usage",strTraffic+" MB");
-	
-	System.out.println("\n---------------------------------------------- Listing screen from Home ----------------------------------------------");
-	System.out.println(performaceMatrics);
-	System.out.println("------------------------------------------------------------------------------------------------------------------------");
-	ClearAllPerformanceMatrics();
-	
-	
-	
-	if (batteryInfo.contains("drain")) {
-		logger.info("\nApp Battery Info - " + batteryInfo);
-		extent.extentLoggerPass("Timer", "<b>App Battery Info - </b>" + batteryInfo);
-	} else {
-		logger.error("\nApp Battery Info - " + batteryInfo);
-		extent.extentLoggerFail("Timer", "<b>App Battery Info - </b>" + batteryInfo);
-	}
-	performaceDetails.add("Load Listing screen"+","+timeElapsed.getSeconds()+","+nativeMemory+" MB,"+totalMemory+" MB,"+nCpuUSage+"%,"+nGPUMemory+" MB,"+nGPURendered+","+nNetTraffic+" MB");
-
-	softAssertion.assertEquals(trafficFlag, true);
-	softAssertion.assertAll();
-}
-
-public void LoadPaymentModeSelectionScreen() throws Exception {
-	extent.HeaderChildNode("Load payment mode selection screen");
-	System.out.println("\n>>> Load payment mode selection screen");
+	public void LoadPaymentModeSelectionScreen() throws Exception {
+		extent.HeaderChildNode("Load payment mode selection screen");
+		System.out.println("\n>>> Load payment mode selection screen");
 
 //String appPackageName = getParameterFromXML("appPackageName");
-	String appPackageName = "com.graymatrix.did";
+		String appPackageName = "com.graymatrix.did";
 
-	// Threshold Values declaration
-	int threshold_TimeTaken = 13;
-	int threshold_NativeMemory = 40;
-	int threshold_TotalMemory = 300;
-	int threshold_CPU = 300;
-	int threshold_GPUMem = 7;
-	int threshold_GPURendered = 1500;
-	int threshold_Network = 400;
-	boolean timeFlag=true, memFlag=true, totalmemFlag=true, cpuFlag=true, gpuMemFlag=true, gpuRenFlag=true, trafficFlag=true;
-	
-	LoginWithEmailID("zee5latest@gmail.com", "User@123");
-	waitForElementDisplayed(AMDHomePage.objZee5Logo, 30);
-	verifyElementPresentAndClick(AMDHomePage.objBuyPlanCTA, "Buy Plan");
-	verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn,"Continue Button");
-	
-	Instant startTime = Instant.now();
-	logger.info("Instant Start time : " + startTime);
-	
-	// #### App Performance MEMORY Usage Info
-	ArrayList<String> getMmoryInfo = Memory_UsagePerformanceV2();
-	int nativeMemory = Integer.parseInt(getMmoryInfo.get(0).trim());
-	int totalMemory = Integer.parseInt(getMmoryInfo.get(1).trim());
+		// Threshold Values declaration
+		int threshold_TimeTaken = 13;
+		int threshold_NativeMemory = 40;
+		int threshold_TotalMemory = 300;
+		int threshold_CPU = 300;
+		int threshold_GPUMem = 7;
+		int threshold_GPURendered = 1500;
+		int threshold_Network = 400;
+		boolean timeFlag = true, memFlag = true, totalmemFlag = true, cpuFlag = true, gpuMemFlag = true,
+				gpuRenFlag = true, trafficFlag = true;
 
-	// #### App Performance CPU Usage Info
-	String getCPUInfo = CPU_UsagePerformanceV2();
-	int nCpuUSage = Integer.parseInt(getCPUInfo);
+		LoginWithEmailID("zee5latest@gmail.com", "User@123");
+		waitForElementDisplayed(AMDHomePage.objZee5Logo, 30);
+		verifyElementPresentAndClick(AMDHomePage.objBuyPlanCTA, "Buy Plan");
+		verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Button");
 
-	// #### App Performance GPU Usage Info
-	ArrayList<String> getGPUInfo = GPU_UsagePerformanceV2();
-	float nGPUMemory = Float.parseFloat(getGPUInfo.get(0).replace(" MB", "").trim());
-	int nGPURendered = Integer.parseInt(getGPUInfo.get(1).replace("Total frames rendered: ", "").trim());
+		Instant startTime = Instant.now();
+		logger.info("Instant Start time : " + startTime);
 
-	// #### App Performance Network Traffic Usage Info
-	int nNetTraffic = getApp_NetworkTrafficUsageV2(appPackageName);
+		// #### App Performance MEMORY Usage Info
+		ArrayList<String> getMmoryInfo = Memory_UsagePerformanceV2();
+		int nativeMemory = Integer.parseInt(getMmoryInfo.get(0).trim());
+		int totalMemory = Integer.parseInt(getMmoryInfo.get(1).trim());
 
-	// #### App Performance Battery Info
-	String batteryInfo = BatteryStats_PerformanceV2();
+		// #### App Performance CPU Usage Info
+		String getCPUInfo = CPU_UsagePerformanceV2();
+		int nCpuUSage = Integer.parseInt(getCPUInfo);
 
-	verifyElementPresent(AMDSubscibeScreen.objMakePaymentScreen,"Payment Screen");
-	Instant endTime = Instant.now();
-	logger.info("Instant End time : " + endTime);
+		// #### App Performance GPU Usage Info
+		ArrayList<String> getGPUInfo = GPU_UsagePerformanceV2();
+		float nGPUMemory = Float.parseFloat(getGPUInfo.get(0).replace(" MB", "").trim());
+		int nGPURendered = Integer.parseInt(getGPUInfo.get(1).replace("Total frames rendered: ", "").trim());
 
-	Duration timeElapsed = Duration.between(startTime, endTime);
-	extent.extentLogger("Timer",
-			"<b>Time taken to load payment mode selection screen (Sec):</b> " + timeElapsed.getSeconds());
+		// #### App Performance Network Traffic Usage Info
+		int nNetTraffic = getApp_NetworkTrafficUsageV2(appPackageName);
 
-	if (timeElapsed.getSeconds() < threshold_TimeTaken) {
-		extent.extentLoggerPass("Timer",
-				"<b>Time taken to load payment mode selection screen(Sec)</b>: " + timeElapsed.getSeconds());
-	} else {
-		timeFlag=false;
-		logger.info("Time taken to load payment mode selection screen(Sec): " + timeElapsed.getSeconds());
-		extent.extentLoggerFail("Timer",
-				"<b>Time taken to load payment mode selection screen(Sec)</b>: " + timeElapsed.getSeconds());
+		// #### App Performance Battery Info
+		String batteryInfo = BatteryStats_PerformanceV2();
+
+		verifyElementPresent(AMDSubscibeScreen.objMakePaymentScreen, "Payment Screen");
+		Instant endTime = Instant.now();
+		logger.info("Instant End time : " + endTime);
+
+		Duration timeElapsed = Duration.between(startTime, endTime);
+		extent.extentLogger("Timer",
+				"<b>Time taken to load payment mode selection screen (Sec):</b> " + timeElapsed.getSeconds());
+
+		if (timeElapsed.getSeconds() < threshold_TimeTaken) {
+			extent.extentLoggerPass("Timer",
+					"<b>Time taken to load payment mode selection screen(Sec)</b>: " + timeElapsed.getSeconds());
+		} else {
+			timeFlag = false;
+			logger.info("Time taken to load payment mode selection screen(Sec): " + timeElapsed.getSeconds());
+			extent.extentLoggerFail("Timer",
+					"<b>Time taken to load payment mode selection screen(Sec)</b>: " + timeElapsed.getSeconds());
+		}
+		softAssertion.assertEquals(timeFlag, true);
+
+		if (nativeMemory < threshold_NativeMemory) {
+			logger.info("App Native Heap Memory: " + nativeMemory + " MB");
+			extent.extentLoggerPass("Memory Info", "<b>App Native Heap Memory: :</b> " + nativeMemory + " MB");
+		} else {
+			memFlag = false;
+			logger.error("App Native Heap Memory: " + nativeMemory + " MB");
+			extent.extentLoggerFail("Memory Info", "<b>App Native Heap Memory: </b> " + nativeMemory + " MB");
+		}
+		softAssertion.assertEquals(memFlag, true);
+
+		if (totalMemory < threshold_TotalMemory) {
+			logger.info("App Peak Memory Usage: " + totalMemory + " MB");
+			extent.extentLoggerPass("Memory Info", "<b>App Peak Memory Usage:</b> " + totalMemory + " MB");
+		} else {
+			totalmemFlag = false;
+			logger.error("App Peak Memory Usage: " + totalMemory + " MB");
+			extent.extentLoggerFail("Memory Info", "<b>App Peak Memory Usage:</b> " + totalMemory + " MB");
+		}
+		softAssertion.assertEquals(totalmemFlag, true);
+
+		if (nCpuUSage < threshold_CPU) {
+			logger.info("CPU Usage : " + nCpuUSage + "%");
+			extent.extentLoggerPass("CPU Info", "<b>CPU Usage: </b>" + nCpuUSage + "%");
+		} else {
+			cpuFlag = false;
+			logger.error("CPU Usage: " + nCpuUSage + "%");
+			extent.extentLoggerFail("CPU Info", "<b>CPU Usage: </b>" + nCpuUSage + "%");
+		}
+		softAssertion.assertEquals(cpuFlag, true);
+
+		if (nGPUMemory < threshold_GPUMem) {
+			logger.info("\nGPU Memory Usage: " + nGPUMemory + " MB");
+			extent.extentLoggerPass("GPU Info", "<b>GPU Memory Usage: </b>" + nGPUMemory + " MB");
+		} else {
+			gpuMemFlag = false;
+			logger.error("\nGPU Memory Usage exceeded: " + nGPUMemory + " MB");
+			extent.extentLoggerFail("GPU Info", "<b>GPU Memory Usage exceeded: </b>" + nGPUMemory + " MB");
+		}
+		softAssertion.assertEquals(gpuMemFlag, true);
+
+		if (nGPURendered < threshold_GPURendered) {
+			logger.info("\nGPU FPS: " + nGPURendered);
+			extent.extentLoggerPass("GPU Info", "<b>GPU FPS: </b>" + nGPURendered);
+		} else {
+			gpuRenFlag = false;
+			logger.error("\nGPU FPS: " + nGPURendered);
+			extent.extentLoggerFail("GPU Info", "<b>GPU FPS: </b>" + nGPURendered);
+		}
+		softAssertion.assertEquals(gpuRenFlag, true);
+
+		if (nNetTraffic < threshold_Network) {
+			logger.info("\nApp traffic usage: " + (int) nNetTraffic + " MB");
+			extent.extentLoggerPass("Traffic Usage", "<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
+		} else {
+			trafficFlag = false;
+			logger.error("\nApp traffic usage: " + (int) nNetTraffic + " MB");
+			extent.extentLoggerFail("Traffic Usage", "<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
+		}
+
+		performaceDetails
+				.add("Load Payment screen" + "," + timeElapsed.getSeconds() + "," + nativeMemory + " MB," + totalMemory
+						+ " MB," + nCpuUSage + "%," + nGPUMemory + " MB," + nGPURendered + "," + nNetTraffic + " MB");
+
+		String timeTaken = Long.toString(timeElapsed.getSeconds());
+		String strNativeMemory = Integer.toString(nativeMemory);
+		String strTotalMemory = Integer.toString(totalMemory);
+		String strCPU = Integer.toString(nCpuUSage);
+		String strGPU = Float.toString(nGPUMemory);
+		String strGPURendered = Integer.toString(nGPURendered);
+		String strTraffic = Integer.toString(nNetTraffic);
+
+		performaceMatrics.put("Time Taken", timeTaken + " Sec");
+		performaceMatrics.put("Native Heap Memory", strNativeMemory + " MB");
+		performaceMatrics.put("Peak Memory", strTotalMemory + " MB");
+		performaceMatrics.put("CPU Usage", strCPU + "%");
+		performaceMatrics.put("GPU Usage", strGPU + " MB");
+		performaceMatrics.put("GPU FPS", strGPURendered);
+		performaceMatrics.put("Traffic Usage", strTraffic + " MB");
+
+		System.out.println(
+				"\n---------------------------------------------- Load Payment mode selection screen ----------------------------------------------");
+		System.out.println(performaceMatrics);
+		System.out.println(
+				"------------------------------------------------------------------------------------------------------------------------");
+		ClearAllPerformanceMatrics();
+
+		softAssertion.assertEquals(trafficFlag, true);
+		softAssertion.assertAll();
+
+		if (batteryInfo.contains("drain")) {
+			logger.info("\nApp Battery Info - " + batteryInfo);
+			extent.extentLoggerPass("Timer", "<b>App Battery Info - </b>" + batteryInfo);
+		} else {
+			logger.error("\nApp Battery Info - " + batteryInfo);
+			extent.extentLoggerFail("Timer", "<b>App Battery Info - </b>" + batteryInfo);
+		}
 	}
-	softAssertion.assertEquals(timeFlag, true);
 
-	if (nativeMemory < threshold_NativeMemory) {
-		logger.info("App Native Heap Memory: " + nativeMemory + " MB");
-		extent.extentLoggerPass("Memory Info", "<b>App Native Heap Memory: :</b> " + nativeMemory + " MB");
-	} else {
-		memFlag=false;
-		logger.error("App Native Heap Memory: " + nativeMemory + " MB");
-		extent.extentLoggerFail("Memory Info", "<b>App Native Heap Memory: </b> " + nativeMemory + " MB");
+	public void EduauraaPortalValidation(String usertype) throws Exception {
+		extent.HeaderChildNode("Validation of Eduauraa portal");
+		if (userType.equalsIgnoreCase("SubscribedUser")) {
+			SelectTopNavigationTab("Eduauraa");
+			waitForElementAndClickIfPresent(AMDHomePage.objPlayBtn, 10, "Eduauraa content");
+			if (verifyElementDisplayed(AMDConsumptionScreen.objclaimOffercta)) {
+				click(AMDConsumptionScreen.objclaimOffercta, "Claim offer CTA");
+				verifyElementExist(AMDConsumptionScreen.objCongratulationTextOnplayer,
+						"Congartulation text message on player");
+				verifyElementPresentAndClick(AMDConsumptionScreen.objGotoEduauraaOnPlayer, "Go to Eduauraa");
+			} else {
+				click(AMDConsumptionScreen.objGoToEduauraaCTA, "Go to Eduauraa");
+			}
+			click(AMDConsumptionScreen.objconfirmbutton, "confirm");
+			waitTime(5000);
+			verifyElementExist(AMDConsumptionScreen.objWelcomeToEduauraaPage, "Welcome to Eduauraa page");
+			verifyElementExist(AMDConsumptionScreen.objNamefield, "Name field in Eduauraa page");
+			verifyElementExist(AMDConsumptionScreen.objMobileNo, "Mobile number field in Eduauraa page");
+			verifyElementExist(AMDConsumptionScreen.objEmailfield, "Email field in Eduauraa page");
+			boolean value = findElement(AMDConsumptionScreen.objContinueButton).isEnabled();
+			if (value == false) {
+				logger.info("By default Continue button is disabled");
+				extentLoggerPass("Myprofile", "By default Continue button is disabled");
+			} else {
+				logger.error("By default Continue button is Not disabled");
+				extentLoggerFail("Myprofile", "By default Continue button is Not disabled");
+			}
+			click(AMDConsumptionScreen.objMobileNo, "Mobile number");
+			type(AMDConsumptionScreen.objMobileNo, "9880653452", "Mobile number");
+			hideKeyboard();
+			waitTime(5000);
+			if (verifyElementDisplayed(AMDConsumptionScreen.objContinueEnabled)) {
+				logger.info("Continue button is enabled after filling the all fields");
+				extentLoggerPass("Myprofile", "Continue button is enabled after filling the all fields");
+			} else {
+				logger.error("Continue button is Not enabled after filling the all fields");
+				extentLoggerFail("Myprofile", "Continue button is Not enabled after filling the all fields");
+			}
+			waitTime(3000);
+			click(AMDConsumptionScreen.objContinueButton, "Continue button");
+			verifyElementExist(AMDConsumptionScreen.objChooseCourseType, "Choose your course type page");
+			verifyElementExist(AMDConsumptionScreen.objSelectboard, "Select Board");
+			verifyElementExist(AMDConsumptionScreen.objgrade, "Select Grade");
+			verifyElementExist(AMDConsumptionScreen.objLang, "Select Language");
+			verifyElementExist(AMDConsumptionScreen.objtemrsAndprivacypolicy, "Terms and Privacy policy links");
+			verifyElementExist(AMDConsumptionScreen.objContinueButton, "Continue button on Choose your course type");
+		}
 	}
-	softAssertion.assertEquals(memFlag, true);
 
-	if (totalMemory < threshold_TotalMemory) {
-		logger.info("App Peak Memory Usage: " + totalMemory + " MB");
-		extent.extentLoggerPass("Memory Info", "<b>App Peak Memory Usage:</b> " + totalMemory + " MB");
-	} else {
-		totalmemFlag=false;
-		logger.error("App Peak Memory Usage: " + totalMemory + " MB");
-		extent.extentLoggerFail("Memory Info", "<b>App Peak Memory Usage:</b> " + totalMemory + " MB");
+	public void ZeeApplicasterLoginForEduauraaPortal(String LoginMethod) throws Exception {
+		System.out.println("\nLogin to the App");
+
+		switch (LoginMethod) {
+		case "Guest":
+			extent.HeaderChildNode("Logged in as <b>Guest</b> User");
+
+			extent.extentLogger("Accessing the application as Guest user",
+					"Accessing the application as <b>Guest</b> user");
+			break;
+
+		case "NonSubscribedUser":
+			extent.HeaderChildNode("Login as NonSubscribed User");
+
+			String Username = getParameterFromXML("NonsubscribedUserName");
+			String Password = getParameterFromXML("NonsubscribedPassword");
+
+			verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
+
+			click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
+			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+			type(AMDLoginScreen.objPasswordField, Password, "Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+			waitTime(3000);
+			break;
+
+		case "SubscribedUser":
+			extent.HeaderChildNode("Login as Subscribed User");
+
+			String SubscribedUsername = getParameterFromXML("SubscribedUserNameForEduauraa");
+			String SubscribedPassword = getParameterFromXML("SubscribedPasswordForEduauraa");
+
+			verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
+
+			click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+			type(AMDLoginScreen.objEmailIdField, SubscribedUsername, "Email Field");
+			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+			type(AMDLoginScreen.objPasswordField, SubscribedPassword, "Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+			waitTime(3000);
+			break;
+		}
 	}
-	softAssertion.assertEquals(totalmemFlag, true);
-
-	if (nCpuUSage < threshold_CPU) {
-		logger.info("CPU Usage : " + nCpuUSage + "%");
-		extent.extentLoggerPass("CPU Info", "<b>CPU Usage: </b>" + nCpuUSage + "%");
-	} else {
-		cpuFlag=false;
-		logger.error("CPU Usage: " + nCpuUSage + "%");
-		extent.extentLoggerFail("CPU Info", "<b>CPU Usage: </b>" + nCpuUSage + "%");
-	}
-	softAssertion.assertEquals(cpuFlag, true);
-
-	if (nGPUMemory < threshold_GPUMem) {
-		logger.info("\nGPU Memory Usage: " + nGPUMemory + " MB");
-		extent.extentLoggerPass("GPU Info",
-				"<b>GPU Memory Usage: </b>" + nGPUMemory + " MB");
-	} else {
-		gpuMemFlag=false;
-		logger.error("\nGPU Memory Usage exceeded: " + nGPUMemory + " MB");
-		extent.extentLoggerFail("GPU Info",
-				"<b>GPU Memory Usage exceeded: </b>" + nGPUMemory + " MB");
-	}
-	softAssertion.assertEquals(gpuMemFlag, true);
-
-	if (nGPURendered < threshold_GPURendered) {
-		logger.info("\nGPU FPS: " + nGPURendered);
-		extent.extentLoggerPass("GPU Info", "<b>GPU FPS: </b>" + nGPURendered);
-	} else {
-		gpuRenFlag=false;
-		logger.error("\nGPU FPS: " + nGPURendered);
-		extent.extentLoggerFail("GPU Info", "<b>GPU FPS: </b>" + nGPURendered);
-	}
-	softAssertion.assertEquals(gpuRenFlag, true);
-
-	if (nNetTraffic < threshold_Network) {
-		logger.info("\nApp traffic usage: " + (int) nNetTraffic + " MB");
-		extent.extentLoggerPass("Traffic Usage",
-				"<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
-	} else {
-		trafficFlag=false;
-		logger.error("\nApp traffic usage: " + (int) nNetTraffic + " MB");
-		extent.extentLoggerFail("Traffic Usage",
-				"<b>App traffic usage: </b>" + (int) nNetTraffic + " MB");
-	}
-	
-	performaceDetails.add("Load Payment screen"+","+timeElapsed.getSeconds()+","+nativeMemory+" MB,"+totalMemory+" MB,"+nCpuUSage+"%,"+nGPUMemory+" MB,"+nGPURendered+","+nNetTraffic+" MB");
-	
-	String timeTaken = Long.toString(timeElapsed.getSeconds());
-	String strNativeMemory = Integer.toString(nativeMemory);
-	String strTotalMemory = Integer.toString(totalMemory);
-	String strCPU = Integer.toString(nCpuUSage);
-	String strGPU = Float.toString(nGPUMemory);
-	String strGPURendered = Integer.toString(nGPURendered);
-	String strTraffic = Integer.toString(nNetTraffic);
-	
-	performaceMatrics.put("Time Taken",timeTaken+" Sec");
-	performaceMatrics.put("Native Heap Memory",strNativeMemory+" MB");
-	performaceMatrics.put("Peak Memory",strTotalMemory+" MB");
-	performaceMatrics.put("CPU Usage",strCPU+"%");
-	performaceMatrics.put("GPU Usage",strGPU+" MB");
-	performaceMatrics.put("GPU FPS",strGPURendered);
-	performaceMatrics.put("Traffic Usage",strTraffic+" MB");
-	
-	System.out.println("\n---------------------------------------------- Load Payment mode selection screen ----------------------------------------------");
-	System.out.println(performaceMatrics);
-	System.out.println("------------------------------------------------------------------------------------------------------------------------");
-	ClearAllPerformanceMatrics();
-	
-	softAssertion.assertEquals(trafficFlag, true);
-	softAssertion.assertAll();
-	
-	if (batteryInfo.contains("drain")) {
-		logger.info("\nApp Battery Info - " + batteryInfo);
-		extent.extentLoggerPass("Timer", "<b>App Battery Info - </b>" + batteryInfo);
-	} else {
-		logger.error("\nApp Battery Info - " + batteryInfo);
-		extent.extentLoggerFail("Timer", "<b>App Battery Info - </b>" + batteryInfo);
-	}
-}
-
-public void EduauraaPortalValidation(String usertype) throws Exception{
-	extent.HeaderChildNode("Validation of Eduauraa portal");
-	if(userType.equalsIgnoreCase("SubscribedUser")) {
-	SelectTopNavigationTab("Eduauraa");
-	waitForElementAndClickIfPresent(AMDHomePage.objPlayBtn, 10, "Eduauraa content");
-	if(verifyElementDisplayed(AMDConsumptionScreen.objclaimOffercta)) {		
-	click(AMDConsumptionScreen.objclaimOffercta, "Claim offer CTA");
-	verifyElementExist(AMDConsumptionScreen.objCongratulationTextOnplayer, "Congartulation text message on player");
-	verifyElementPresentAndClick(AMDConsumptionScreen.objGotoEduauraaOnPlayer, "Go to Eduauraa");
-	} else {
-		click(AMDConsumptionScreen.objGoToEduauraaCTA, "Go to Eduauraa");
-	}
-	click(AMDConsumptionScreen.objconfirmbutton,"confirm");
-	waitTime(5000);
-	verifyElementExist(AMDConsumptionScreen.objWelcomeToEduauraaPage, "Welcome to Eduauraa page");
-	verifyElementExist(AMDConsumptionScreen.objNamefield, "Name field in Eduauraa page");
-	verifyElementExist(AMDConsumptionScreen.objMobileNo, "Mobile number field in Eduauraa page");
-	verifyElementExist(AMDConsumptionScreen.objEmailfield, "Email field in Eduauraa page");
-	boolean value = findElement(AMDConsumptionScreen.objContinueButton).isEnabled();
-	if(value == false) {
-		logger.info("By default Continue button is disabled");
-		extentLoggerPass("Myprofile", "By default Continue button is disabled");
-	}else {
-		logger.error("By default Continue button is Not disabled");
-		extentLoggerFail("Myprofile", "By default Continue button is Not disabled");
-	}
-	click(AMDConsumptionScreen.objMobileNo,"Mobile number");
-	type(AMDConsumptionScreen.objMobileNo,"9880653452","Mobile number");
-	hideKeyboard();
-	waitTime(5000);
-    if(verifyElementDisplayed(AMDConsumptionScreen.objContinueEnabled)) {
-		logger.info("Continue button is enabled after filling the all fields");
-		extentLoggerPass("Myprofile", "Continue button is enabled after filling the all fields");
-	}else {
-		logger.error("Continue button is Not enabled after filling the all fields");
-		extentLoggerFail("Myprofile", "Continue button is Not enabled after filling the all fields");
-	}
-	waitTime(3000);
-	click(AMDConsumptionScreen.objContinueButton,"Continue button");
-	verifyElementExist(AMDConsumptionScreen.objChooseCourseType, "Choose your course type page");
-	verifyElementExist(AMDConsumptionScreen.objSelectboard, "Select Board");
-	verifyElementExist(AMDConsumptionScreen.objgrade, "Select Grade");
-	verifyElementExist(AMDConsumptionScreen.objLang, "Select Language");
-	verifyElementExist(AMDConsumptionScreen.objtemrsAndprivacypolicy, "Terms and Privacy policy links");
-	verifyElementExist(AMDConsumptionScreen.objContinueButton, "Continue button on Choose your course type");		
-}		
-}
-
-
-public void ZeeApplicasterLoginForEduauraaPortal(String LoginMethod) throws Exception {
-	System.out.println("\nLogin to the App");
-
-	switch (LoginMethod) {
-	case "Guest":
-		extent.HeaderChildNode("Logged in as <b>Guest</b> User");
-
-		extent.extentLogger("Accessing the application as Guest user",
-				"Accessing the application as <b>Guest</b> user");
-		break;
-
-	case "NonSubscribedUser":
-		extent.HeaderChildNode("Login as NonSubscribed User");
-
-		String Username = getParameterFromXML("NonsubscribedUserName");
-		String Password = getParameterFromXML("NonsubscribedPassword");
-
-		verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
-		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
-		verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
-
-		click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
-		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
-		type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
-		verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
-		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
-		type(AMDLoginScreen.objPasswordField, Password, "Password field");
-		hideKeyboard();
-		verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
-		waitTime(3000);
-		break;
-
-	case "SubscribedUser":
-		extent.HeaderChildNode("Login as Subscribed User");
-
-		String SubscribedUsername = getParameterFromXML("SubscribedUserNameForEduauraa");
-		String SubscribedPassword = getParameterFromXML("SubscribedPasswordForEduauraa");
-
-		verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
-		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
-		verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
-
-		click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
-		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
-		type(AMDLoginScreen.objEmailIdField, SubscribedUsername, "Email Field");
-		verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
-		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
-		type(AMDLoginScreen.objPasswordField, SubscribedPassword, "Password field");
-		hideKeyboard();
-		verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
-		waitTime(3000);
-		break;
-	}
-}
-
 
 //============CONVIVO======================
-public void ConvivaVerification(String userType) throws Exception{
-	String firstContentID="0-0-103559";
-	String firstContentName="Robin Hood Forever Enemies";
-	String firstContentMetaInSearch="English";
-	ArrayList<String> firstContentdata=new ArrayList<String>();
-	firstContentdata.add(firstContentID);
-	firstContentdata.add(firstContentName);
-	firstContentdata.add(firstContentMetaInSearch);
-	//Initial Conviva setup
-	WebDriver driverForWeb=initialSetUpForConviva();		
-	ArrayList<Integer> playerTapDetails=setFilterForConviva(driverForWeb,firstContentdata);
-	//TC1 Attempts, TC2 Concurrent Plays, TC4 VST, TC5 Avg Percent Complete, TC6 Pause video, TC11 Average Frame Rate
-	verifyConvivaAttemptsConcurrentPlaysVST(driverForWeb,firstContentdata,playerTapDetails);
-	ResponseInstance.updateWatchHistory(firstContentID,1,"");
-	//TC9 exitBeforeVideoStarts
-	verifyConvivaExitBeforeVideoStarts(driverForWeb,firstContentdata,playerTapDetails);
-	ResponseInstance.updateWatchHistory(firstContentID,1,"");
-	//TC13 Click on progress bar
-	verifyConvivaClickOnProgressBar(driverForWeb,firstContentdata,playerTapDetails);
-	ResponseInstance.updateWatchHistory(firstContentID,1,"");
-	//TC14 Drag on progress bar
-	verifyConvivaDragOnProgressBar(driverForWeb,firstContentdata,playerTapDetails);
-	ResponseInstance.updateWatchHistory(firstContentID,1,"");
-	//TC15 Forward on progress bar
-	verifyConvivaForwardOnProgressBar(driverForWeb,firstContentdata,playerTapDetails);
-	ResponseInstance.updateWatchHistory(firstContentID,1,"");
-	//TC16 Background
-	verifyConvivaAppPutToBackground(driverForWeb,firstContentdata,playerTapDetails);
-	ResponseInstance.updateWatchHistory(firstContentID,1,"");
-	//TC17 Power off-on
-	verifyConvivaPhoneLockUnlock(driverForWeb,firstContentdata,playerTapDetails);
-	ResponseInstance.updateWatchHistory(firstContentID,1,"");
-}
-
-public WebDriver initialSetUpForConviva() throws Exception {
-	extent.HeaderChildNode("Conviva launch, login and initial setup");
-	System.out.println("------------------- Conviva launch, login and initial setup -------------------");
-	extent.extentLogger("", "<b>---------- Launch Conviva ----------</b>");
-	String phonePublicIP=getPhonePublicIP();
-	System.setProperty("webdriver.chrome.driver", "C:\\Users\\User\\.m2\\repository\\webdriver\\chromedriver\\win32\\90.0.4430.24\\chromedriver.exe");      
-    WebDriver driverForWeb=new ChromeDriver();  
-    driverForWeb.navigate().to("https://pulse.conviva.com/");  
-    logger.info("Launched Conviva website on Chrome");
-	extent.extentLogger("", "Launched Conviva website on Chrome");
-    driverForWeb.manage().window().maximize();
-    logger.info("Maximized Chrome window");
-	extent.extentLogger("", "Maximized Chrome window");
-    waitTime(3000);
-    extent.extentLogger("", "<b>---------- Login to Conviva ----------</b>");
-    String userID="murali.appadi@zee.esselgroup.com";
-    String userPassword="Ch@ng3m3!!";
-    driverForWeb.findElement(PWAConvivaPage.objUserNameField).sendKeys(userID);
-    driverForWeb.findElement(PWAConvivaPage.objNextButton).click();
-    logger.info("Entered User ID : "+userID);
-	extent.extentLogger("", "Entered User ID : "+userID);
-    waitTime(5000);
-    driverForWeb.findElement(PWAConvivaPage.objPasswordField).sendKeys(userPassword);
-    logger.info("Entered Password : "+userPassword);
-	extent.extentLogger("", "Entered Password : "+userPassword);
-    driverForWeb.findElement(PWAConvivaPage.objSignInButton).click();
-    logger.info("Logged in to Conviva");
-	extent.extentLogger("", "Logged in to Conviva");
-    waitTime(12000);
-    extent.extentLogger("", "<b>---------- Select Admin User ----------</b>");
-    driverForWeb.findElement(PWAConvivaPage.objUserTypeDropdown).click();
-    logger.info("Clicked User dropdown");
-	extent.extentLogger("", "Clicked User dropdown");
-	waitTime(3000);
-	driverForWeb.findElement(PWAConvivaPage.objAdminUser).click();
-	logger.info("Clicked Admin user from dropdown");
-	extent.extentLogger("", "Clicked Admin user from dropdown");
-	waitTime(7000);	
-	extent.extentLogger("", "<b>---------- Register IP Address of Test Device for Device Validation ----------</b>");
-	driverForWeb.get("https://pulse.conviva.com/device_validation/manage");
-	logger.info("Opened https://pulse.conviva.com/device_validation/manage");
-	extent.extentLogger("", "Opened https://pulse.conviva.com/device_validation/manage");
-	waitTime(3000);
-	JavascriptExecutor js = (JavascriptExecutor) driverForWeb;
-	js.executeScript("window.scrollBy(0,300)", "");
-	driverForWeb.findElement(PWAConvivaPage.objManageIPSortButton("For_Automation")).click();
-	logger.info("Clicked on 'For_Automation' field in Manage IPs");
-	extent.extentLogger("", "Clicked on 'For_Automation' field in Manage IPs");
-	waitTime(2000);
-	driverForWeb.findElement(PWAConvivaPage.objEditIP("For_Automation")).click();		
-	logger.info("Clicked on 'For_Automation' Edit button");
-	extent.extentLogger("", "Clicked on 'For_Automation' Edit button");
-	driverForWeb.findElement(PWAConvivaPage.objIPAddressField).clear();
-	logger.info("Cleared IP Address field");
-	extent.extentLogger("", "Cleared IP Address field");
-	waitTime(3000);
-	driverForWeb.findElement(PWAConvivaPage.objIPAddressField).sendKeys(phonePublicIP.trim());
-	logger.info("Entered device public address : "+phonePublicIP.trim());
-	extent.extentLogger("", "Entered device public address : "+phonePublicIP.trim());
-	driverForWeb.findElement(PWAConvivaPage.objUpdateButton).click();
-	logger.info("Clicked on Update button");
-	extent.extentLogger("", "Clicked on Update button");
-	return driverForWeb;
-}
-
-@SuppressWarnings("unused")
-public ArrayList<Integer> setFilterForConviva(WebDriver driverForWeb,ArrayList<String> contentdata) throws Exception{
-	ArrayList<Integer> playerTapDetails=new ArrayList<Integer>(); 
-	extent.extentLogger("", "<b>---------- Fetch Filter rules for Real Time testing----------</b>");
-	String contentID=contentdata.get(0);
-	String contentName=contentdata.get(1);
-	String contentMetaInSearch=contentdata.get(2);
-	click(AMDHomePage.objSearchBtn, "Search button");
-	waitTime(5000);
-	click(AMDSearchScreen.objSearchEditBox, "Search box");
-	type(AMDSearchScreen.objSearchBoxBar, contentName+"\n", "Search box");
-	hideKeyboard();
-	waitTime(6000);
-	click(AMDSearchScreen.objSearchResult(contentName,contentMetaInSearch), "Search result");
-	waitForAdToFinishInAmd();	
-	int playerHeight=0,playerWidth=0,heightOffset=0,widthOffset=0,requiredHeight=0,requiredWidth=0,playerX=0,playerY=0;
-	try {
-		WebElement player=getDriver().findElement(AMDPlayerScreen.objplayer);
-		playerHeight=player.getSize().getHeight();
-		playerWidth=player.getSize().getWidth();
-		heightOffset=playerHeight/5;
-		widthOffset=playerWidth/5;
-		playerX=player.getLocation().getX();
-		playerY=player.getLocation().getY();
-		requiredHeight=playerY+heightOffset;
-		requiredWidth=playerX+widthOffset;
-		System.out.println(requiredHeight);
-		System.out.println(requiredWidth);
+	public void ConvivaVerification(String userType) throws Exception {
+		String firstContentID = "0-0-103559";
+		String firstContentName = "Robin Hood Forever Enemies";
+		String firstContentMetaInSearch = "English";
+		ArrayList<String> firstContentdata = new ArrayList<String>();
+		firstContentdata.add(firstContentID);
+		firstContentdata.add(firstContentName);
+		firstContentdata.add(firstContentMetaInSearch);
+		// Initial Conviva setup
+		WebDriver driverForWeb = initialSetUpForConviva();
+		ArrayList<Integer> playerTapDetails = setFilterForConviva(driverForWeb, firstContentdata);
+		// TC1 Attempts, TC2 Concurrent Plays, TC4 VST, TC5 Avg Percent Complete, TC6
+		// Pause video, TC11 Average Frame Rate
+		verifyConvivaAttemptsConcurrentPlaysVST(driverForWeb, firstContentdata, playerTapDetails);
+		ResponseInstance.updateWatchHistory(firstContentID, 1, "");
+		// TC9 exitBeforeVideoStarts
+		verifyConvivaExitBeforeVideoStarts(driverForWeb, firstContentdata, playerTapDetails);
+		ResponseInstance.updateWatchHistory(firstContentID, 1, "");
+		// TC13 Click on progress bar
+		verifyConvivaClickOnProgressBar(driverForWeb, firstContentdata, playerTapDetails);
+		ResponseInstance.updateWatchHistory(firstContentID, 1, "");
+		// TC14 Drag on progress bar
+		verifyConvivaDragOnProgressBar(driverForWeb, firstContentdata, playerTapDetails);
+		ResponseInstance.updateWatchHistory(firstContentID, 1, "");
+		// TC15 Forward on progress bar
+		verifyConvivaForwardOnProgressBar(driverForWeb, firstContentdata, playerTapDetails);
+		ResponseInstance.updateWatchHistory(firstContentID, 1, "");
+		// TC16 Background
+		verifyConvivaAppPutToBackground(driverForWeb, firstContentdata, playerTapDetails);
+		ResponseInstance.updateWatchHistory(firstContentID, 1, "");
+		// TC17 Power off-on
+		verifyConvivaPhoneLockUnlock(driverForWeb, firstContentdata, playerTapDetails);
+		ResponseInstance.updateWatchHistory(firstContentID, 1, "");
 	}
-	catch(Exception e) {}
-	playerTapDetails.add(requiredHeight);
-	playerTapDetails.add(requiredWidth);
-	String url="https://pulse.conviva.com/app/pulse/device_validation/?live=true";
-	driverForWeb.get(url);	
-	logger.info("Opened : "+url);
-	extent.extentLogger("", "Opened : "+url);
-	waitTime(5000);
-	WebElement frameElement = driverForWeb.findElement(PWAConvivaPage.objIframePulse4);
-	driverForWeb.switchTo().frame(frameElement);
-	driverForWeb.findElement(PWAConvivaPage.objDeviceValidationFilter).click();
-	logger.info("Clicked on device validation dropdown");
-	extent.extentLogger("", "Clicked on device validation dropdown");
-	waitTime(5000);
-	driverForWeb.findElement(PWAConvivaPage.objDeviceValidation("For_Automation")).click();
-	logger.info("Clicked on 'For_Automation' from dropdown");
-	extent.extentLogger("", "Clicked on 'For_Automation' from dropdown");
-	boolean foundEntry=false;
-	ArrayList<String> rulesField=new ArrayList<String>();
-	ArrayList<String> rulesValue=new ArrayList<String>();
-	if(clickElementInRefreshingConvivaPage(driverForWeb,PWAConvivaPage.objMonitorSessionID(contentID),"Monitor Session ID for the played content")) {
-		ArrayList<String> filterValues=new ArrayList<String>();
-		String browserVersion = getTextFromRefreshingConvivaPage(driverForWeb,PWAConvivaPage.objBrowserVersion,"Rule Browser Version");
-		String deviceOperatingSystem = getTextFromRefreshingConvivaPage(driverForWeb,PWAConvivaPage.objDeviceOS,"Rule Device Operating System");
-		String deviceHardwareType = getTextFromRefreshingConvivaPage(driverForWeb,PWAConvivaPage.objDeviceHardwareType,"Rule Device Hardware Type");
-		String assetName = getTextFromRefreshingConvivaPage(driverForWeb,PWAConvivaPage.objAssetName,"Rule Asset Name");
-	
-		rulesField.add("Browser Version");
-		rulesValue.add(browserVersion);
-		
-		rulesField.add("Device Operating System");
-		rulesValue.add(deviceOperatingSystem);
-		
-		rulesField.add("Device Hardware Type");
-		rulesValue.add(deviceHardwareType);
-		
-		rulesField.add("Asset Name");
-		rulesValue.add(assetName);
-	
-	}
-	extent.extentLogger("", "<b>---------- Set Filter rules for Real Time testing----------</b>");
-	driverForWeb.get("https://pulse.conviva.com/app/pulse/filters");
-	logger.info("Opened : https://pulse.conviva.com/app/pulse/filters");
-	extent.extentLogger("", "Opened : https://pulse.conviva.com/app/pulse/filters");	
-	frameElement = driverForWeb.findElement(PWAConvivaPage.objIframePulse4);
-	driverForWeb.switchTo().frame(frameElement);
-	driverForWeb.findElement(PWAConvivaPage.objSearchFilterField).click();
-	logger.info("Clicked on Filter Search Field");
-	extent.extentLogger("", "Clicked on Filter Search Field");
-	driverForWeb.findElement(PWAConvivaPage.objSearchFilterField).sendKeys("For_Automation");
-	logger.info("Typed 'For_Automation' in search edit field");
-	extent.extentLogger("", "Typed 'For_Automation' in search edit field");
-	driverForWeb.findElement(PWAConvivaPage.objFiltersSortButton).click();
-	logger.info("Clicked on Filter Sort button");
-	extent.extentLogger("", "Clicked on Filter Sort button");
-	driverForWeb.findElement(PWAConvivaPage.objFiltersEditButton).click();
-	logger.info("Clicked on Edit button");
-	extent.extentLogger("", "Clicked on Edit button");
-	waitTime(5000);
-	int fields=driverForWeb.findElements(PWAConvivaPage.objFilterRulesFieldsCount).size();
-	int deleteButtons=driverForWeb.findElements(PWAConvivaPage.objDeleteField).size();
-	for(int i=0;i<deleteButtons;i++) {
-		driverForWeb.findElement(PWAConvivaPage.objDeleteField).click();
+
+	public WebDriver initialSetUpForConviva() throws Exception {
+		extent.HeaderChildNode("Conviva launch, login and initial setup");
+		System.out.println("------------------- Conviva launch, login and initial setup -------------------");
+		extent.extentLogger("", "<b>---------- Launch Conviva ----------</b>");
+		String phonePublicIP = getPhonePublicIP();
+		System.setProperty("webdriver.chrome.driver",
+				"C:\\Users\\User\\.m2\\repository\\webdriver\\chromedriver\\win32\\90.0.4430.24\\chromedriver.exe");
+		WebDriver driverForWeb = new ChromeDriver();
+		driverForWeb.navigate().to("https://pulse.conviva.com/");
+		logger.info("Launched Conviva website on Chrome");
+		extent.extentLogger("", "Launched Conviva website on Chrome");
+		driverForWeb.manage().window().maximize();
+		logger.info("Maximized Chrome window");
+		extent.extentLogger("", "Maximized Chrome window");
+		waitTime(3000);
+		extent.extentLogger("", "<b>---------- Login to Conviva ----------</b>");
+		String userID = "murali.appadi@zee.esselgroup.com";
+		String userPassword = "Ch@ng3m3!!";
+		driverForWeb.findElement(PWAConvivaPage.objUserNameField).sendKeys(userID);
+		driverForWeb.findElement(PWAConvivaPage.objNextButton).click();
+		logger.info("Entered User ID : " + userID);
+		extent.extentLogger("", "Entered User ID : " + userID);
+		waitTime(5000);
+		driverForWeb.findElement(PWAConvivaPage.objPasswordField).sendKeys(userPassword);
+		logger.info("Entered Password : " + userPassword);
+		extent.extentLogger("", "Entered Password : " + userPassword);
+		driverForWeb.findElement(PWAConvivaPage.objSignInButton).click();
+		logger.info("Logged in to Conviva");
+		extent.extentLogger("", "Logged in to Conviva");
+		waitTime(12000);
+		extent.extentLogger("", "<b>---------- Select Admin User ----------</b>");
+		driverForWeb.findElement(PWAConvivaPage.objUserTypeDropdown).click();
+		logger.info("Clicked User dropdown");
+		extent.extentLogger("", "Clicked User dropdown");
+		waitTime(3000);
+		driverForWeb.findElement(PWAConvivaPage.objAdminUser).click();
+		logger.info("Clicked Admin user from dropdown");
+		extent.extentLogger("", "Clicked Admin user from dropdown");
+		waitTime(7000);
+		extent.extentLogger("",
+				"<b>---------- Register IP Address of Test Device for Device Validation ----------</b>");
+		driverForWeb.get("https://pulse.conviva.com/device_validation/manage");
+		logger.info("Opened https://pulse.conviva.com/device_validation/manage");
+		extent.extentLogger("", "Opened https://pulse.conviva.com/device_validation/manage");
+		waitTime(3000);
+		JavascriptExecutor js = (JavascriptExecutor) driverForWeb;
+		js.executeScript("window.scrollBy(0,300)", "");
+		driverForWeb.findElement(PWAConvivaPage.objManageIPSortButton("For_Automation")).click();
+		logger.info("Clicked on 'For_Automation' field in Manage IPs");
+		extent.extentLogger("", "Clicked on 'For_Automation' field in Manage IPs");
 		waitTime(2000);
+		driverForWeb.findElement(PWAConvivaPage.objEditIP("For_Automation")).click();
+		logger.info("Clicked on 'For_Automation' Edit button");
+		extent.extentLogger("", "Clicked on 'For_Automation' Edit button");
+		driverForWeb.findElement(PWAConvivaPage.objIPAddressField).clear();
+		logger.info("Cleared IP Address field");
+		extent.extentLogger("", "Cleared IP Address field");
+		waitTime(3000);
+		driverForWeb.findElement(PWAConvivaPage.objIPAddressField).sendKeys(phonePublicIP.trim());
+		logger.info("Entered device public address : " + phonePublicIP.trim());
+		extent.extentLogger("", "Entered device public address : " + phonePublicIP.trim());
+		driverForWeb.findElement(PWAConvivaPage.objUpdateButton).click();
+		logger.info("Clicked on Update button");
+		extent.extentLogger("", "Clicked on Update button");
+		return driverForWeb;
 	}
-	logger.info("Deleted old Filter Rules");
-	extent.extentLogger("", "Deleted old Filter Rules");
-	int endCount=rulesField.size();
-	for(int i=1;i<=endCount;i++) {
-		String rule=rulesField.get(i-1);
-		String value=rulesValue.get(i-1);
-		driverForWeb.findElement(PWAConvivaPage.objRulesSelectField(i)).click();
-		waitTime(1000);
-		driverForWeb.findElement(PWAConvivaPage.objRulesSelectField(i,rule)).click();
-		logger.info("Clicked on Rule "+rule);
-		extent.extentLogger("", "Clicked on Rule "+rule);
-		waitTime(1000);
-		driverForWeb.findElement(PWAConvivaPage.objRulesValueField(i)).click();
-		waitTime(1000);
-		driverForWeb.findElement(PWAConvivaPage.objRulesValueField(i)).clear();
-		waitTime(1000);
-		driverForWeb.findElement(PWAConvivaPage.objRulesValueField(i)).sendKeys(value);
-		waitTime(1000);
-		logger.info("Typed Value "+value);
-		extent.extentLogger("", "Typed Value "+value);
-		driverForWeb.findElement(PWAConvivaPage.objAndButton).click();
-		waitTime(1000);
-		logger.info("Clicked on AND button");
-		extent.extentLogger("", "Clicked on AND button");
-		
-	}
-	driverForWeb.findElement(PWAConvivaPage.objSaveFilterButton).click();
-	return playerTapDetails;
-}
 
-@SuppressWarnings({ "unused", "rawtypes" })
-public void verifyConvivaAttemptsConcurrentPlaysVST(WebDriver webdriver,ArrayList<String> contentData,ArrayList<Integer> playerTapDetails) throws Exception{
-	//From front end
-	extent.HeaderChildNode("TC 1, 2, 4, 11 : Attempts, Concurrent Plays, VST, Average Frame Rate");
-	System.out.println("------------------- TC 1 : Attempts metric on Pulse -------------------");
-	String contentID=contentData.get(0);
-	String contentName=contentData.get(1);
-	String contentMetaInSearch=contentData.get(2);
-	Back(1);
-	click(AMDSearchScreen.objSearchResult(contentName,contentMetaInSearch), "Search result");		
-	Date startDate = new Date();
-	Date endDate = new Date();
-	ArrayList<Date> startAndEndTime=new ArrayList<Date>();
-	startAndEndTime=getPlayerStartEndTime(startDate,endDate,playerTapDetails);
-	startDate=startAndEndTime.get(0);
-	endDate=startAndEndTime.get(1);
-	ArrayList<Integer> vst=getDateDifference(startDate,endDate);
-	logger.info("VST from app : "+vst.get(0)+"min, "+vst.get(1)+"sec, "+vst.get(2)+"millisec");
-	extent.extentLogger("", "VST from app : "+vst.get(0)+"min, "+vst.get(1)+"sec, "+vst.get(2)+"millisec");
-	int vstMilliSecApp=vst.get(0)*60*1000+vst.get(1)*1000+vst.get(2);
-	logger.info("VST calculated in millisecs : "+vstMilliSecApp);
-	extent.extentLogger("", "VST calculated in millisecs : "+vstMilliSecApp);		
-	//From Conviva
-	webdriver.get("https://pulse.conviva.com/reports/54");
-	extent.extentLogger("", "Opened : https://pulse.conviva.com/reports/54");
-	logger.info("Opened : https://pulse.conviva.com/reports/54");
-	waitTime(10000);
-	logger.info("Waited for 10 seconds");
-	extent.extentLogger("", "Waited for 10 seconds");
-	boolean needWait=true;
-	String attempts="";
-	for(int i=1;i<=500;i++) {
-		webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	@SuppressWarnings("unused")
+	public ArrayList<Integer> setFilterForConviva(WebDriver driverForWeb, ArrayList<String> contentdata)
+			throws Exception {
+		ArrayList<Integer> playerTapDetails = new ArrayList<Integer>();
+		extent.extentLogger("", "<b>---------- Fetch Filter rules for Real Time testing----------</b>");
+		String contentID = contentdata.get(0);
+		String contentName = contentdata.get(1);
+		String contentMetaInSearch = contentdata.get(2);
+		click(AMDHomePage.objSearchBtn, "Search button");
+		waitTime(5000);
+		click(AMDSearchScreen.objSearchEditBox, "Search box");
+		type(AMDSearchScreen.objSearchBoxBar, contentName + "\n", "Search box");
+		hideKeyboard();
+		waitTime(6000);
+		click(AMDSearchScreen.objSearchResult(contentName, contentMetaInSearch), "Search result");
+		waitForAdToFinishInAmd();
+		int playerHeight = 0, playerWidth = 0, heightOffset = 0, widthOffset = 0, requiredHeight = 0, requiredWidth = 0,
+				playerX = 0, playerY = 0;
 		try {
-			attempts = webdriver.findElement(PWAConvivaPage.objAttempts).getAttribute("innerText");
-			if(Character.isDigit(attempts.charAt(0))){
-				if (attempts.trim().equals("0")) needWait=true;
-				else needWait=false;
-			}
+			WebElement player = getDriver().findElement(AMDPlayerScreen.objplayer);
+			playerHeight = player.getSize().getHeight();
+			playerWidth = player.getSize().getWidth();
+			heightOffset = playerHeight / 5;
+			widthOffset = playerWidth / 5;
+			playerX = player.getLocation().getX();
+			playerY = player.getLocation().getY();
+			requiredHeight = playerY + heightOffset;
+			requiredWidth = playerX + widthOffset;
+			System.out.println(requiredHeight);
+			System.out.println(requiredWidth);
+		} catch (Exception e) {
 		}
-		catch(Exception e) {needWait=true;System.out.println("failed "+i);}
-		if(needWait==false) break;
-		else waitTime(3000);
-	}		
-	if (attempts.trim().equals("0") || attempts.equals("")) {
-		extent.extentLoggerFail("", "Attempts is displayed as " + attempts);
-		logger.error("Attempts is displayed as " + attempts);			
-	} else if(attempts.trim().equals("1")){
-		extent.extentLogger("", "Attempts is displayed as " + attempts+", expected behavior");
-		logger.info("Attempts is displayed as " + attempts+", expected behavior");
-	} else {
-		extent.extentLogger("", "Attempts is displayed as " + attempts);
-		logger.info("Attempts is displayed as " + attempts);
-	}
-	String concurrentPlays="";
-	try {
-		concurrentPlays = webdriver.findElement(PWAConvivaPage.objConcurrentPlays).getAttribute("innerText");
-	}
-	catch(Exception e) {}
-	if (concurrentPlays.trim().equals("0") || concurrentPlays.equals("")) {
-		extent.extentLoggerFail("", "Concurrent Plays is displayed as " + concurrentPlays);
-		logger.error("Concurrent Plays is displayed as " + concurrentPlays);			
-	} else if(concurrentPlays.trim().equals("1")){
-		extent.extentLogger("", "Concurrent Plays is displayed as " + concurrentPlays+", expected behavior");
-		logger.info("Concurrent Plays is displayed as " + concurrentPlays+", expected behavior");
-	} else {
-		extent.extentLogger("", "Concurrent Plays is displayed as " + concurrentPlays);
-		logger.info("Concurrent Plays is displayed as " + concurrentPlays);
-	}
-	String avgFrameRatePerSec="";
-	try {
-		avgFrameRatePerSec = webdriver.findElement(PWAConvivaPage.objAverageFrameRate).getAttribute("innerText");
-	}
-	catch(Exception e) {}
-	extent.extentLogger("", "Average Frame Rate is displayed as " + avgFrameRatePerSec);
-	logger.info("Average Frame Rate is displayed as " + avgFrameRatePerSec);	
-	String avgFrameRatePerSecTemp=avgFrameRatePerSec.replace(" fps", "");
-	float avgFrameRatePerSecFloat=Float.parseFloat(avgFrameRatePerSec);
-	if(avgFrameRatePerSecFloat<24.0 && avgFrameRatePerSecFloat>60.0) {
-		extent.extentLoggerFail("", "Average Frame Rate is not maintained within range 24 fps to 60 fps");
-		logger.error("Average Frame Rate is not maintained within range 24 fps to 60 fps");
-	}
-	else {
-		extent.extentLogger("", "Average Frame Rate is maintained within range 24 fps to 60 fps");
-		logger.info("Average Frame Rate is maintained within range 24 fps to 60 fps");
-	}
-	waitTime(5000);
-	screencapture(webdriver);
-	String vstConviva="",temp="",tempSec="",tempMilliSec="",tempPreviousIterationString="";
-	int tempVST=0,tempPreviousIteration=0;
-	for(int i=0;i<50;i++) {
-		try {
-			vstConviva = webdriver.findElement(PWAConvivaPage.objVideoStartupTime).getAttribute("title");
-			temp=vstConviva.replace(" sec", "").trim();
-			tempSec=temp.split("\\.")[0];
-			tempMilliSec=temp.split("\\.")[1];
-			tempVST=(Integer.valueOf(tempSec)*1000)+Integer.valueOf(tempMilliSec);				
-			if(tempVST>tempPreviousIteration) {
-				tempPreviousIteration=tempVST;
-				tempPreviousIterationString=vstConviva;
-			}
+		playerTapDetails.add(requiredHeight);
+		playerTapDetails.add(requiredWidth);
+		String url = "https://pulse.conviva.com/app/pulse/device_validation/?live=true";
+		driverForWeb.get(url);
+		logger.info("Opened : " + url);
+		extent.extentLogger("", "Opened : " + url);
+		waitTime(5000);
+		WebElement frameElement = driverForWeb.findElement(PWAConvivaPage.objIframePulse4);
+		driverForWeb.switchTo().frame(frameElement);
+		driverForWeb.findElement(PWAConvivaPage.objDeviceValidationFilter).click();
+		logger.info("Clicked on device validation dropdown");
+		extent.extentLogger("", "Clicked on device validation dropdown");
+		waitTime(5000);
+		driverForWeb.findElement(PWAConvivaPage.objDeviceValidation("For_Automation")).click();
+		logger.info("Clicked on 'For_Automation' from dropdown");
+		extent.extentLogger("", "Clicked on 'For_Automation' from dropdown");
+		boolean foundEntry = false;
+		ArrayList<String> rulesField = new ArrayList<String>();
+		ArrayList<String> rulesValue = new ArrayList<String>();
+		if (clickElementInRefreshingConvivaPage(driverForWeb, PWAConvivaPage.objMonitorSessionID(contentID),
+				"Monitor Session ID for the played content")) {
+			ArrayList<String> filterValues = new ArrayList<String>();
+			String browserVersion = getTextFromRefreshingConvivaPage(driverForWeb, PWAConvivaPage.objBrowserVersion,
+					"Rule Browser Version");
+			String deviceOperatingSystem = getTextFromRefreshingConvivaPage(driverForWeb, PWAConvivaPage.objDeviceOS,
+					"Rule Device Operating System");
+			String deviceHardwareType = getTextFromRefreshingConvivaPage(driverForWeb,
+					PWAConvivaPage.objDeviceHardwareType, "Rule Device Hardware Type");
+			String assetName = getTextFromRefreshingConvivaPage(driverForWeb, PWAConvivaPage.objAssetName,
+					"Rule Asset Name");
+
+			rulesField.add("Browser Version");
+			rulesValue.add(browserVersion);
+
+			rulesField.add("Device Operating System");
+			rulesValue.add(deviceOperatingSystem);
+
+			rulesField.add("Device Hardware Type");
+			rulesValue.add(deviceHardwareType);
+
+			rulesField.add("Asset Name");
+			rulesValue.add(assetName);
+
+		}
+		extent.extentLogger("", "<b>---------- Set Filter rules for Real Time testing----------</b>");
+		driverForWeb.get("https://pulse.conviva.com/app/pulse/filters");
+		logger.info("Opened : https://pulse.conviva.com/app/pulse/filters");
+		extent.extentLogger("", "Opened : https://pulse.conviva.com/app/pulse/filters");
+		frameElement = driverForWeb.findElement(PWAConvivaPage.objIframePulse4);
+		driverForWeb.switchTo().frame(frameElement);
+		driverForWeb.findElement(PWAConvivaPage.objSearchFilterField).click();
+		logger.info("Clicked on Filter Search Field");
+		extent.extentLogger("", "Clicked on Filter Search Field");
+		driverForWeb.findElement(PWAConvivaPage.objSearchFilterField).sendKeys("For_Automation");
+		logger.info("Typed 'For_Automation' in search edit field");
+		extent.extentLogger("", "Typed 'For_Automation' in search edit field");
+		driverForWeb.findElement(PWAConvivaPage.objFiltersSortButton).click();
+		logger.info("Clicked on Filter Sort button");
+		extent.extentLogger("", "Clicked on Filter Sort button");
+		driverForWeb.findElement(PWAConvivaPage.objFiltersEditButton).click();
+		logger.info("Clicked on Edit button");
+		extent.extentLogger("", "Clicked on Edit button");
+		waitTime(5000);
+		int fields = driverForWeb.findElements(PWAConvivaPage.objFilterRulesFieldsCount).size();
+		int deleteButtons = driverForWeb.findElements(PWAConvivaPage.objDeleteField).size();
+		for (int i = 0; i < deleteButtons; i++) {
+			driverForWeb.findElement(PWAConvivaPage.objDeleteField).click();
+			waitTime(2000);
+		}
+		logger.info("Deleted old Filter Rules");
+		extent.extentLogger("", "Deleted old Filter Rules");
+		int endCount = rulesField.size();
+		for (int i = 1; i <= endCount; i++) {
+			String rule = rulesField.get(i - 1);
+			String value = rulesValue.get(i - 1);
+			driverForWeb.findElement(PWAConvivaPage.objRulesSelectField(i)).click();
 			waitTime(1000);
+			driverForWeb.findElement(PWAConvivaPage.objRulesSelectField(i, rule)).click();
+			logger.info("Clicked on Rule " + rule);
+			extent.extentLogger("", "Clicked on Rule " + rule);
+			waitTime(1000);
+			driverForWeb.findElement(PWAConvivaPage.objRulesValueField(i)).click();
+			waitTime(1000);
+			driverForWeb.findElement(PWAConvivaPage.objRulesValueField(i)).clear();
+			waitTime(1000);
+			driverForWeb.findElement(PWAConvivaPage.objRulesValueField(i)).sendKeys(value);
+			waitTime(1000);
+			logger.info("Typed Value " + value);
+			extent.extentLogger("", "Typed Value " + value);
+			driverForWeb.findElement(PWAConvivaPage.objAndButton).click();
+			waitTime(1000);
+			logger.info("Clicked on AND button");
+			extent.extentLogger("", "Clicked on AND button");
+
 		}
-		catch(Exception e) {}	
+		driverForWeb.findElement(PWAConvivaPage.objSaveFilterButton).click();
+		return playerTapDetails;
 	}
-	
-	logger.info("Conviva VST is displayed as " + tempPreviousIterationString+" sec");
-	extent.extentLogger("", "Conviva VST is displayed as " + tempPreviousIterationString+" sec");
-	int vstMilliSecCon=tempPreviousIteration;	
-	logger.info("Conviva VST calculated in millisecs : "+vstMilliSecCon);
-	extent.extentLogger("", "Conviva VST calculated in millisecs : "+vstMilliSecCon);
-	if(Integer.valueOf(vstMilliSecCon).compareTo(vstMilliSecApp)<5000) {
-		logger.info("Calculated VST and Conviva VST have difference below 5 seconds");
-		extent.extentLogger("", "Calculated VST and Conviva VST have difference below 5 seconds");
+
+	@SuppressWarnings({ "unused", "rawtypes" })
+	public void verifyConvivaAttemptsConcurrentPlaysVST(WebDriver webdriver, ArrayList<String> contentData,
+			ArrayList<Integer> playerTapDetails) throws Exception {
+		// From front end
+		extent.HeaderChildNode("TC 1, 2, 4, 11 : Attempts, Concurrent Plays, VST, Average Frame Rate");
+		System.out.println("------------------- TC 1 : Attempts metric on Pulse -------------------");
+		String contentID = contentData.get(0);
+		String contentName = contentData.get(1);
+		String contentMetaInSearch = contentData.get(2);
+		Back(1);
+		click(AMDSearchScreen.objSearchResult(contentName, contentMetaInSearch), "Search result");
+		Date startDate = new Date();
+		Date endDate = new Date();
+		ArrayList<Date> startAndEndTime = new ArrayList<Date>();
+		startAndEndTime = getPlayerStartEndTime(startDate, endDate, playerTapDetails);
+		startDate = startAndEndTime.get(0);
+		endDate = startAndEndTime.get(1);
+		ArrayList<Integer> vst = getDateDifference(startDate, endDate);
+		logger.info("VST from app : " + vst.get(0) + "min, " + vst.get(1) + "sec, " + vst.get(2) + "millisec");
+		extent.extentLogger("",
+				"VST from app : " + vst.get(0) + "min, " + vst.get(1) + "sec, " + vst.get(2) + "millisec");
+		int vstMilliSecApp = vst.get(0) * 60 * 1000 + vst.get(1) * 1000 + vst.get(2);
+		logger.info("VST calculated in millisecs : " + vstMilliSecApp);
+		extent.extentLogger("", "VST calculated in millisecs : " + vstMilliSecApp);
+		// From Conviva
+		webdriver.get("https://pulse.conviva.com/reports/54");
+		extent.extentLogger("", "Opened : https://pulse.conviva.com/reports/54");
+		logger.info("Opened : https://pulse.conviva.com/reports/54");
+		waitTime(10000);
+		logger.info("Waited for 10 seconds");
+		extent.extentLogger("", "Waited for 10 seconds");
+		boolean needWait = true;
+		String attempts = "";
+		for (int i = 1; i <= 500; i++) {
+			webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			try {
+				attempts = webdriver.findElement(PWAConvivaPage.objAttempts).getAttribute("innerText");
+				if (Character.isDigit(attempts.charAt(0))) {
+					if (attempts.trim().equals("0"))
+						needWait = true;
+					else
+						needWait = false;
+				}
+			} catch (Exception e) {
+				needWait = true;
+				System.out.println("failed " + i);
+			}
+			if (needWait == false)
+				break;
+			else
+				waitTime(3000);
+		}
+		if (attempts.trim().equals("0") || attempts.equals("")) {
+			extent.extentLoggerFail("", "Attempts is displayed as " + attempts);
+			logger.error("Attempts is displayed as " + attempts);
+		} else if (attempts.trim().equals("1")) {
+			extent.extentLogger("", "Attempts is displayed as " + attempts + ", expected behavior");
+			logger.info("Attempts is displayed as " + attempts + ", expected behavior");
+		} else {
+			extent.extentLogger("", "Attempts is displayed as " + attempts);
+			logger.info("Attempts is displayed as " + attempts);
+		}
+		String concurrentPlays = "";
+		try {
+			concurrentPlays = webdriver.findElement(PWAConvivaPage.objConcurrentPlays).getAttribute("innerText");
+		} catch (Exception e) {
+		}
+		if (concurrentPlays.trim().equals("0") || concurrentPlays.equals("")) {
+			extent.extentLoggerFail("", "Concurrent Plays is displayed as " + concurrentPlays);
+			logger.error("Concurrent Plays is displayed as " + concurrentPlays);
+		} else if (concurrentPlays.trim().equals("1")) {
+			extent.extentLogger("", "Concurrent Plays is displayed as " + concurrentPlays + ", expected behavior");
+			logger.info("Concurrent Plays is displayed as " + concurrentPlays + ", expected behavior");
+		} else {
+			extent.extentLogger("", "Concurrent Plays is displayed as " + concurrentPlays);
+			logger.info("Concurrent Plays is displayed as " + concurrentPlays);
+		}
+		String avgFrameRatePerSec = "";
+		try {
+			avgFrameRatePerSec = webdriver.findElement(PWAConvivaPage.objAverageFrameRate).getAttribute("innerText");
+		} catch (Exception e) {
+		}
+		extent.extentLogger("", "Average Frame Rate is displayed as " + avgFrameRatePerSec);
+		logger.info("Average Frame Rate is displayed as " + avgFrameRatePerSec);
+		String avgFrameRatePerSecTemp = avgFrameRatePerSec.replace(" fps", "");
+		float avgFrameRatePerSecFloat = Float.parseFloat(avgFrameRatePerSec);
+		if (avgFrameRatePerSecFloat < 24.0 && avgFrameRatePerSecFloat > 60.0) {
+			extent.extentLoggerFail("", "Average Frame Rate is not maintained within range 24 fps to 60 fps");
+			logger.error("Average Frame Rate is not maintained within range 24 fps to 60 fps");
+		} else {
+			extent.extentLogger("", "Average Frame Rate is maintained within range 24 fps to 60 fps");
+			logger.info("Average Frame Rate is maintained within range 24 fps to 60 fps");
+		}
+		waitTime(5000);
+		screencapture(webdriver);
+		String vstConviva = "", temp = "", tempSec = "", tempMilliSec = "", tempPreviousIterationString = "";
+		int tempVST = 0, tempPreviousIteration = 0;
+		for (int i = 0; i < 50; i++) {
+			try {
+				vstConviva = webdriver.findElement(PWAConvivaPage.objVideoStartupTime).getAttribute("title");
+				temp = vstConviva.replace(" sec", "").trim();
+				tempSec = temp.split("\\.")[0];
+				tempMilliSec = temp.split("\\.")[1];
+				tempVST = (Integer.valueOf(tempSec) * 1000) + Integer.valueOf(tempMilliSec);
+				if (tempVST > tempPreviousIteration) {
+					tempPreviousIteration = tempVST;
+					tempPreviousIterationString = vstConviva;
+				}
+				waitTime(1000);
+			} catch (Exception e) {
+			}
+		}
+
+		logger.info("Conviva VST is displayed as " + tempPreviousIterationString + " sec");
+		extent.extentLogger("", "Conviva VST is displayed as " + tempPreviousIterationString + " sec");
+		int vstMilliSecCon = tempPreviousIteration;
+		logger.info("Conviva VST calculated in millisecs : " + vstMilliSecCon);
+		extent.extentLogger("", "Conviva VST calculated in millisecs : " + vstMilliSecCon);
+		if (Integer.valueOf(vstMilliSecCon).compareTo(vstMilliSecApp) < 5000) {
+			logger.info("Calculated VST and Conviva VST have difference below 5 seconds");
+			extent.extentLogger("", "Calculated VST and Conviva VST have difference below 5 seconds");
+		} else {
+			logger.error("Calculated VST and Conviva VST have difference above 5 seconds");
+			extent.extentLoggerFail("", "Calculated VST and Conviva VST have difference above 5 seconds");
+		}
+		extent.HeaderChildNode("TC 5 : Average % Complete");
+		String url = "https://pulse.conviva.com/app/pulse/device_validation/?live=true";
+		webdriver.get(url);
+		logger.info("Opened : " + url);
+		extent.extentLogger("", "Opened : " + url);
+		waitTime(5000);
+		WebElement frameElement = webdriver.findElement(PWAConvivaPage.objIframePulse4);
+		webdriver.switchTo().frame(frameElement);
+		webdriver.findElement(PWAConvivaPage.objDeviceValidationFilter).click();
+		logger.info("Clicked on device validation dropdown");
+		extent.extentLogger("", "Clicked on device validation dropdown");
+		waitTime(5000);
+		webdriver.findElement(PWAConvivaPage.objDeviceValidation("For_Automation")).click();
+		logger.info("Clicked on 'For_Automation' from dropdown");
+		extent.extentLogger("", "Clicked on 'For_Automation' from dropdown");
+		boolean foundEntry = false;
+		ArrayList<String> rulesField = new ArrayList<String>();
+		ArrayList<String> rulesValue = new ArrayList<String>();
+		int x = playerTapDetails.get(0);
+		int y = playerTapDetails.get(1);
+		TouchAction act = new TouchAction(getDriver());
+		if (clickElementInRefreshingConvivaPage(webdriver, PWAConvivaPage.objMonitorSessionID(contentID),
+				"Monitor Session ID for the played content")) {
+			boolean perCompChanged = false;
+			String percentCompleteBefore = getTextFromRefreshingConvivaPage(webdriver,
+					PWAConvivaPage.objAvgPercentageComplete, "Average % Complete");
+			act.press(PointOption.point(x, y)).release().perform();
+			forwardRewindPlayer("forward");
+			waitTime(3000);
+			forwardRewindPlayer("forward");
+			waitTime(3000);
+			forwardRewindPlayer("forward");
+			waitTime(3000);
+			logger.info("Wait time added");
+			extent.extentLogger("", "Wait time added");
+			for (int i = 0; i < 50; i++) {
+				String percentCompleteAfter = getTextFromRefreshingConvivaPage(webdriver,
+						PWAConvivaPage.objAvgPercentageComplete, "Average % Complete");
+				if (!percentCompleteAfter.equals(percentCompleteBefore)) {
+					perCompChanged = true;
+					break;
+				} else
+					waitTime(1000);
+			}
+			if (perCompChanged) {
+				logger.info("Average % Complete metric should increase has passed");
+				extent.extentLogger("", "Average % Complete metric should increase has passed");
+			} else {
+				logger.info("Average % Complete metric should increase has failed");
+				extent.extentLogger("", "Average % Complete metric should increase has failed");
+			}
+		}
+		extent.HeaderChildNode("TC 6 : Monitoring session for Paused Video");
+		act.press(PointOption.point(x, y)).release().perform();
+		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+		webdriver.navigate().back();
+		waitTime(10000);
+		logger.info("Waited for 10 seconds");
+		extent.extentLogger("", "Waited for 10 seconds");
+		frameElement = webdriver.findElement(PWAConvivaPage.objIframePulse4);
+		webdriver.switchTo().frame(frameElement);
+		String playing = getTextFromRefreshingConvivaPage(webdriver,
+				PWAConvivaPage.objMonitorSessionPlayingContent(contentID), "Content log");
+		if (playing.equals("Playing")) {
+			logger.info("Session is maintained for Paused content in Device Validation page");
+			extent.extentLogger("", "Session is maintained for Paused content in Device Validation page");
+		} else {
+			logger.error("Session is not maintained for Paused content in Device Validation page");
+			extent.extentLoggerFail("", "Session is not maintained for Paused content in Device Validation page");
+		}
 	}
-	else {
-		logger.error("Calculated VST and Conviva VST have difference above 5 seconds");
-		extent.extentLoggerFail("", "Calculated VST and Conviva VST have difference above 5 seconds");
+
+	@SuppressWarnings("unused")
+	public void verifyConvivaExitBeforeVideoStarts(WebDriver webdriver, ArrayList<String> contentData,
+			ArrayList<Integer> playerTapDetails) throws Exception {
+		tearDown();
+		new Zee5ApplicasterBusinessLogic("zee");
+		extent.HeaderChildNode("TC 9 : Monitoring real time for Exit before video start");
+		String contentID = contentData.get(0);
+		String contentName = contentData.get(1);
+		String contentMetaInSearch = contentData.get(2);
+		click(AMDHomePage.objSearchBtn, "Search button");
+		waitTime(5000);
+		click(AMDSearchScreen.objSearchEditBox, "Search box");
+		type(AMDSearchScreen.objSearchBoxBar, contentName + "\n", "Search box");
+		hideKeyboard();
+		waitTime(6000);
+		click(AMDSearchScreen.objSearchResult(contentName, contentMetaInSearch), "Search result");
+		waitTime(1000);
+		Back(1);
+		logger.info("Navigated back to exit play");
+		extent.extentLogger("", "Navigated back to exit play");
+		webdriver.get("https://pulse.conviva.com/reports/54");
+		extent.extentLogger("", "Opened : https://pulse.conviva.com/reports/54");
+		logger.info("Opened : https://pulse.conviva.com/reports/54");
+		waitTime(10000);
+		logger.info("Waited for 10 seconds");
+		extent.extentLogger("", "Waited for 10 seconds");
+		boolean needWait = true;
+		String attempts = "";
+		for (int i = 1; i <= 500; i++) {
+			webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			try {
+				attempts = webdriver.findElement(PWAConvivaPage.objAttempts).getAttribute("innerText");
+				if (Character.isDigit(attempts.charAt(0))) {
+					if (attempts.trim().equals("0"))
+						needWait = true;
+					else
+						needWait = false;
+				}
+			} catch (Exception e) {
+				needWait = true;
+				System.out.println("failed " + i);
+			}
+			if (needWait == false)
+				break;
+			else
+				waitTime(3000);
+		}
+		if (attempts.trim().equals("1")) {
+			extent.extentLogger("", "Attempts is displayed as " + attempts + ", expected behavior");
+			logger.info("Attempts is displayed as " + attempts + ", expected behavior");
+		} else {
+			extent.extentLoggerFail("", "Attempts is displayed as " + attempts);
+			logger.error("Attempts is displayed as " + attempts);
+		}
+		String exitBeforeVideoStart = "";
+		try {
+			exitBeforeVideoStart = webdriver.findElement(PWAConvivaPage.objExitBeforeVideoStart)
+					.getAttribute("innerText");
+		} catch (Exception e) {
+		}
+		if (exitBeforeVideoStart.trim().equals("100 %")) {
+			extent.extentLogger("",
+					"Exits Before Video Start is displayed as " + exitBeforeVideoStart + ", expected behavior");
+			logger.info("Exits Before Video Start is displayed as " + exitBeforeVideoStart + ", expected behavior");
+		} else {
+			extent.extentLoggerFail("",
+					"Exits Before Video Start is displayed as " + exitBeforeVideoStart + ", instead of 100%");
+			logger.error("Exits Before Video Start is displayed as " + exitBeforeVideoStart + ", instead of 100%");
+		}
 	}
-	extent.HeaderChildNode("TC 5 : Average % Complete");
-	String url="https://pulse.conviva.com/app/pulse/device_validation/?live=true";
-	webdriver.get(url);	
-	logger.info("Opened : "+url);
-	extent.extentLogger("", "Opened : "+url);
-	waitTime(5000);
-	WebElement frameElement = webdriver.findElement(PWAConvivaPage.objIframePulse4);
-	webdriver.switchTo().frame(frameElement);
-	webdriver.findElement(PWAConvivaPage.objDeviceValidationFilter).click();
-	logger.info("Clicked on device validation dropdown");
-	extent.extentLogger("", "Clicked on device validation dropdown");
-	waitTime(5000);
-	webdriver.findElement(PWAConvivaPage.objDeviceValidation("For_Automation")).click();
-	logger.info("Clicked on 'For_Automation' from dropdown");
-	extent.extentLogger("", "Clicked on 'For_Automation' from dropdown");
-	boolean foundEntry=false;
-	ArrayList<String> rulesField=new ArrayList<String>();
-	ArrayList<String> rulesValue=new ArrayList<String>();
-	int x=playerTapDetails.get(0);
-	int y=playerTapDetails.get(1);
-	TouchAction act = new TouchAction(getDriver());	
-	if(clickElementInRefreshingConvivaPage(webdriver,PWAConvivaPage.objMonitorSessionID(contentID),"Monitor Session ID for the played content")) {
-		boolean perCompChanged=false;
-		String percentCompleteBefore= getTextFromRefreshingConvivaPage(webdriver,PWAConvivaPage.objAvgPercentageComplete,"Average % Complete");
+
+	@SuppressWarnings({ "unused", "rawtypes" })
+	public void verifyConvivaClickOnProgressBar(WebDriver webdriver, ArrayList<String> contentData,
+			ArrayList<Integer> playerTapDetails) throws Exception {
+		tearDown();
+		new Zee5ApplicasterBusinessLogic("zee");
+		extent.HeaderChildNode("TC 13 : Monitoring real time after clicking on Progress bar");
+		String contentID = contentData.get(0);
+		String contentName = contentData.get(1);
+		String contentMetaInSearch = contentData.get(2);
+		click(AMDHomePage.objSearchBtn, "Search button");
+		waitTime(5000);
+		click(AMDSearchScreen.objSearchEditBox, "Search box");
+		type(AMDSearchScreen.objSearchBoxBar, contentName + "\n", "Search box");
+		hideKeyboard();
+		waitTime(6000);
+		click(AMDSearchScreen.objSearchResult(contentName, contentMetaInSearch), "Search result");
+		waitForAdToFinishInAmd();
+		int x = playerTapDetails.get(0);
+		int y = playerTapDetails.get(1);
+		TouchAction act = new TouchAction(getDriver());
+		act.press(PointOption.point(x, y)).release().perform();
+		clickOnProgressBar(40);
+		waitForAdToFinishInAmd();
+		Date startDate = new Date();
+		Date endDate = new Date();
+		ArrayList<Date> startAndEndTime = new ArrayList<Date>();
+		startAndEndTime = getPlayerStartEndTime(startDate, endDate, playerTapDetails);
+		startDate = startAndEndTime.get(0);
+		endDate = startAndEndTime.get(1);
+		ArrayList<Integer> vst = getDateDifference(startDate, endDate);
+		logger.info("VRT from app : " + vst.get(0) + "min, " + vst.get(1) + "sec, " + vst.get(2) + "millisec");
+		extent.extentLogger("",
+				"VRT from app : " + vst.get(0) + "min, " + vst.get(1) + "sec, " + vst.get(2) + "millisec");
+		int vstMilliSecApp = vst.get(0) * 60 * 1000 + vst.get(1) * 1000 + vst.get(2);
+		logger.info("VRT calculated in millisecs : " + vstMilliSecApp);
+		extent.extentLogger("", "VRT calculated in millisecs : " + vstMilliSecApp);
+		webdriver.get("https://pulse.conviva.com/reports/54");
+		extent.extentLogger("", "Opened : https://pulse.conviva.com/reports/54");
+		logger.info("Opened : https://pulse.conviva.com/reports/54");
+		waitTime(10000);
+		logger.info("Waited for 10 seconds");
+		extent.extentLogger("", "Waited for 10 seconds");
+		String concurrentPlays = "";
+		boolean needWait = true;
+		for (int i = 1; i <= 500; i++) {
+			webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			try {
+				concurrentPlays = webdriver.findElement(PWAConvivaPage.objConcurrentPlays).getAttribute("innerText");
+				if (Character.isDigit(concurrentPlays.charAt(0))) {
+					if (!concurrentPlays.trim().equals("1"))
+						needWait = true;
+					else
+						needWait = false;
+				}
+			} catch (Exception e) {
+				needWait = true;
+				System.out.println("failed " + i);
+			}
+			if (needWait == false)
+				break;
+			else
+				waitTime(3000);
+		}
+		if (concurrentPlays.trim().equals("0") || concurrentPlays.equals("")) {
+			extent.extentLoggerFail("", "Concurrent Plays is displayed as " + concurrentPlays);
+			logger.error("Concurrent Plays is displayed as " + concurrentPlays);
+		} else if (concurrentPlays.trim().equals("1")) {
+			extent.extentLogger("", "Concurrent Plays is displayed as " + concurrentPlays + ", expected behavior");
+			logger.info("Concurrent Plays is displayed as " + concurrentPlays + ", expected behavior");
+		} else {
+			extent.extentLogger("", "Concurrent Plays is displayed as " + concurrentPlays);
+			logger.info("Concurrent Plays is displayed as " + concurrentPlays);
+		}
+		String rebufRatio = "", temp = "";
+		float highestRebufRatio = 0.0f, lowestRebufRatio = 0.0f;
+		for (int i = 0; i < 10; i++) {
+			try {
+				rebufRatio = webdriver.findElement(PWAConvivaPage.objRebufferingRatio).getAttribute("innerText");
+				System.out.println("rebufRatio: " + rebufRatio);
+				temp = rebufRatio.split(" ")[0];
+				float tempF = Float.valueOf(temp);
+				if (tempF > highestRebufRatio)
+					highestRebufRatio = tempF;
+				if (tempF < lowestRebufRatio)
+					lowestRebufRatio = tempF;
+				waitTime(1000);
+			} catch (Exception e) {
+			}
+		}
+		extent.extentLogger("", "Highest Rebuffering ratio recorded " + highestRebufRatio);
+		logger.info("Highest Rebuffering ratio recorded " + highestRebufRatio);
+		extent.extentLogger("", "Lowest Rebuffering ratio recorded " + lowestRebufRatio);
+		logger.info("Lowest Rebuffering ratio recorded " + lowestRebufRatio);
+		if (lowestRebufRatio < highestRebufRatio) {
+			logger.info("Increasing Rebuffering ratio has been captured");
+			extent.extentLogger("", "Increasing Rebuffering ratio has been captured");
+		} else {
+			logger.info("No buffering observed for the user");
+			extent.extentLogger("", "No buffering observed for the user");
+		}
+
+		String vrtConviva = "", tempvrt = "", tempSec = "", tempMilliSec = "", tempPreviousIterationString = "";
+		int tempVRT = 0, tempPreviousIteration = 0;
+		for (int i = 0; i < 50; i++) {
+			try {
+				vrtConviva = webdriver.findElement(PWAConvivaPage.objVideoRestartTime).getAttribute("title");
+				tempvrt = vrtConviva.replace(" sec", "").trim();
+				tempSec = tempvrt.split("\\.")[0];
+				tempMilliSec = tempvrt.split("\\.")[1];
+				tempVRT = (Integer.valueOf(tempSec) * 1000) + Integer.valueOf(tempMilliSec);
+				if (tempVRT > tempPreviousIteration) {
+					tempPreviousIteration = tempVRT;
+					tempPreviousIterationString = vrtConviva;
+				}
+				waitTime(1000);
+			} catch (Exception e) {
+			}
+		}
+
+		logger.info("Conviva VRT is displayed as " + tempPreviousIterationString + " sec");
+		extent.extentLogger("", "Conviva VRT is displayed as " + tempPreviousIterationString + " sec");
+		int vrtMilliSecCon = tempPreviousIteration;
+		logger.info("Conviva VRT calculated in millisecs : " + vrtMilliSecCon);
+		extent.extentLogger("", "Conviva VRT calculated in millisecs : " + vrtMilliSecCon);
+		if (Integer.valueOf(vrtMilliSecCon).compareTo(vstMilliSecApp) < 5000) {
+			logger.info("Calculated VRT and Conviva VRT have difference below 5 seconds");
+			extent.extentLogger("", "Calculated VRT and Conviva VRT have difference below 5 seconds");
+		} else {
+			logger.error("Calculated VRT and Conviva VRT have difference above 5 seconds");
+			extent.extentLoggerFail("", "Calculated VRT and Conviva VRT have difference above 5 seconds");
+		}
+	}
+
+	@SuppressWarnings({ "rawtypes", "unused" })
+	public void verifyConvivaDragOnProgressBar(WebDriver webdriver, ArrayList<String> contentData,
+			ArrayList<Integer> playerTapDetails) throws Exception {
+		tearDown();
+		new Zee5ApplicasterBusinessLogic("zee");
+		extent.HeaderChildNode("TC 14 : Monitoring real time after dragging on Progress bar");
+		String contentID = contentData.get(0);
+		String contentName = contentData.get(1);
+		String contentMetaInSearch = contentData.get(2);
+		click(AMDHomePage.objSearchBtn, "Search button");
+		waitTime(5000);
+		click(AMDSearchScreen.objSearchEditBox, "Search box");
+		type(AMDSearchScreen.objSearchBoxBar, contentName + "\n", "Search box");
+		hideKeyboard();
+		waitTime(6000);
+		click(AMDSearchScreen.objSearchResult(contentName, contentMetaInSearch), "Search result");
+		waitForAdToFinishInAmd();
+		int x = playerTapDetails.get(0);
+		int y = playerTapDetails.get(1);
+		TouchAction act = new TouchAction(getDriver());
+		act.press(PointOption.point(x, y)).release().perform();
+		dragOnProgressBar(40);
+		waitForAdToFinishInAmd();
+		Date startDate = new Date();
+		Date endDate = new Date();
+		ArrayList<Date> startAndEndTime = new ArrayList<Date>();
+		startAndEndTime = getPlayerStartEndTime(startDate, endDate, playerTapDetails);
+		startDate = startAndEndTime.get(0);
+		endDate = startAndEndTime.get(1);
+		ArrayList<Integer> vst = getDateDifference(startDate, endDate);
+		logger.info("VRT from app : " + vst.get(0) + "min, " + vst.get(1) + "sec, " + vst.get(2) + "millisec");
+		extent.extentLogger("",
+				"VRT from app : " + vst.get(0) + "min, " + vst.get(1) + "sec, " + vst.get(2) + "millisec");
+		int vstMilliSecApp = vst.get(0) * 60 * 1000 + vst.get(1) * 1000 + vst.get(2);
+		logger.info("VRT calculated in millisecs : " + vstMilliSecApp);
+		extent.extentLogger("", "VRT calculated in millisecs : " + vstMilliSecApp);
+		webdriver.get("https://pulse.conviva.com/reports/54");
+		extent.extentLogger("", "Opened : https://pulse.conviva.com/reports/54");
+		logger.info("Opened : https://pulse.conviva.com/reports/54");
+		waitTime(10000);
+		logger.info("Waited for 10 seconds");
+		extent.extentLogger("", "Waited for 10 seconds");
+		String concurrentPlays = "";
+		boolean needWait = true;
+		for (int i = 1; i <= 500; i++) {
+			webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			try {
+				concurrentPlays = webdriver.findElement(PWAConvivaPage.objConcurrentPlays).getAttribute("innerText");
+				if (Character.isDigit(concurrentPlays.charAt(0))) {
+					if (!concurrentPlays.trim().equals("1"))
+						needWait = true;
+					else
+						needWait = false;
+				}
+			} catch (Exception e) {
+				needWait = true;
+				System.out.println("failed " + i);
+			}
+			if (needWait == false)
+				break;
+			else
+				waitTime(3000);
+		}
+		if (concurrentPlays.trim().equals("0") || concurrentPlays.equals("")) {
+			extent.extentLoggerFail("", "Concurrent Plays is displayed as " + concurrentPlays);
+			logger.error("Concurrent Plays is displayed as " + concurrentPlays);
+		} else if (concurrentPlays.trim().equals("1")) {
+			extent.extentLogger("", "Concurrent Plays is displayed as " + concurrentPlays + ", expected behavior");
+			logger.info("Concurrent Plays is displayed as " + concurrentPlays + ", expected behavior");
+		} else {
+			extent.extentLogger("", "Concurrent Plays is displayed as " + concurrentPlays);
+			logger.info("Concurrent Plays is displayed as " + concurrentPlays);
+		}
+		String rebufRatio = "", temp = "";
+		float highestRebufRatio = 0.0f, lowestRebufRatio = 0.0f;
+		for (int i = 0; i < 10; i++) {
+			try {
+				rebufRatio = webdriver.findElement(PWAConvivaPage.objRebufferingRatio).getAttribute("innerText");
+				System.out.println("rebufRatio: " + rebufRatio);
+				temp = rebufRatio.split(" ")[0];
+				float tempF = Float.valueOf(temp);
+				if (tempF > highestRebufRatio)
+					highestRebufRatio = tempF;
+				if (tempF < lowestRebufRatio)
+					lowestRebufRatio = tempF;
+				waitTime(1000);
+			} catch (Exception e) {
+			}
+		}
+		extent.extentLogger("", "Highest Rebuffering ratio recorded " + highestRebufRatio);
+		logger.info("Highest Rebuffering ratio recorded " + highestRebufRatio);
+		extent.extentLogger("", "Lowest Rebuffering ratio recorded " + lowestRebufRatio);
+		logger.info("Lowest Rebuffering ratio recorded " + lowestRebufRatio);
+		if (lowestRebufRatio < highestRebufRatio) {
+			logger.info("Increasing Rebuffering ratio has been captured");
+			extent.extentLogger("", "Increasing Rebuffering ratio has been captured");
+		} else {
+			logger.info("No buffering observed for the user");
+			extent.extentLogger("", "No buffering observed for the user");
+		}
+
+		String vrtConviva = "", tempvrt = "", tempSec = "", tempMilliSec = "", tempPreviousIterationString = "";
+		int tempVRT = 0, tempPreviousIteration = 0;
+		for (int i = 0; i < 50; i++) {
+			try {
+				vrtConviva = webdriver.findElement(PWAConvivaPage.objVideoRestartTime).getAttribute("title");
+				tempvrt = vrtConviva.replace(" sec", "").trim();
+				tempSec = tempvrt.split("\\.")[0];
+				tempMilliSec = tempvrt.split("\\.")[1];
+				tempVRT = (Integer.valueOf(tempSec) * 1000) + Integer.valueOf(tempMilliSec);
+				if (tempVRT > tempPreviousIteration) {
+					tempPreviousIteration = tempVRT;
+					tempPreviousIterationString = vrtConviva;
+				}
+				waitTime(1000);
+			} catch (Exception e) {
+			}
+		}
+
+		logger.info("Conviva VRT is displayed as " + tempPreviousIterationString + " sec");
+		extent.extentLogger("", "Conviva VRT is displayed as " + tempPreviousIterationString + " sec");
+		int vrtMilliSecCon = tempPreviousIteration;
+		logger.info("Conviva VRT calculated in millisecs : " + vrtMilliSecCon);
+		extent.extentLogger("", "Conviva VRT calculated in millisecs : " + vrtMilliSecCon);
+		if (Integer.valueOf(vrtMilliSecCon).compareTo(vstMilliSecApp) < 5000) {
+			logger.info("Calculated VRT and Conviva VRT have difference below 5 seconds");
+			extent.extentLogger("", "Calculated VRT and Conviva VRT have difference below 5 seconds");
+		} else {
+			logger.error("Calculated VRT and Conviva VRT have difference above 5 seconds");
+			extent.extentLoggerFail("", "Calculated VRT and Conviva VRT have difference above 5 seconds");
+		}
+		screencapture(webdriver);
+	}
+
+	@SuppressWarnings({ "unused", "rawtypes" })
+	public void verifyConvivaForwardOnProgressBar(WebDriver webdriver, ArrayList<String> contentData,
+			ArrayList<Integer> playerTapDetails) throws Exception {
+		tearDown();
+		new Zee5ApplicasterBusinessLogic("zee");
+		extent.HeaderChildNode("TC 15 : Monitoring real time after pressing Forward on Progress bar");
+		String contentID = contentData.get(0);
+		String contentName = contentData.get(1);
+		String contentMetaInSearch = contentData.get(2);
+		click(AMDHomePage.objSearchBtn, "Search button");
+		waitTime(5000);
+		click(AMDSearchScreen.objSearchEditBox, "Search box");
+		type(AMDSearchScreen.objSearchBoxBar, contentName + "\n", "Search box");
+		hideKeyboard();
+		waitTime(6000);
+		click(AMDSearchScreen.objSearchResult(contentName, contentMetaInSearch), "Search result");
+		waitForAdToFinishInAmd();
+		int x = playerTapDetails.get(0);
+		int y = playerTapDetails.get(1);
+		TouchAction act = new TouchAction(getDriver());
 		act.press(PointOption.point(x, y)).release().perform();
 		forwardRewindPlayer("forward");
 		waitTime(3000);
@@ -30812,1194 +31271,838 @@ public void verifyConvivaAttemptsConcurrentPlaysVST(WebDriver webdriver,ArrayLis
 		waitTime(3000);
 		forwardRewindPlayer("forward");
 		waitTime(3000);
-		logger.info("Wait time added");
-		extent.extentLogger("", "Wait time added");
-		for(int i=0;i<50;i++) {
-			String percentCompleteAfter=getTextFromRefreshingConvivaPage(webdriver,PWAConvivaPage.objAvgPercentageComplete,"Average % Complete");
-			if(!percentCompleteAfter.equals(percentCompleteBefore)) {
-				perCompChanged=true;
-				break;
-			}
-			else waitTime(1000);
-		}
-		if(perCompChanged) {
-			logger.info("Average % Complete metric should increase has passed");
-			extent.extentLogger("", "Average % Complete metric should increase has passed");
-		}
-		else {
-			logger.info("Average % Complete metric should increase has failed");
-			extent.extentLogger("", "Average % Complete metric should increase has failed");
-		}
-	}
-	extent.HeaderChildNode("TC 6 : Monitoring session for Paused Video");
-	act.press(PointOption.point(x, y)).release().perform();
-	click(AMDPlayerScreen.objPauseIcon, "Pause icon");
-	webdriver.navigate().back();
-	waitTime(10000);
-	logger.info("Waited for 10 seconds");
-	extent.extentLogger("", "Waited for 10 seconds");
-	frameElement = webdriver.findElement(PWAConvivaPage.objIframePulse4);
-	webdriver.switchTo().frame(frameElement);
-	String playing=getTextFromRefreshingConvivaPage(webdriver,PWAConvivaPage.objMonitorSessionPlayingContent(contentID),"Content log");
-	if(playing.equals("Playing")) {
-		logger.info("Session is maintained for Paused content in Device Validation page");
-		extent.extentLogger("", "Session is maintained for Paused content in Device Validation page");
-	}
-	else {
-		logger.error("Session is not maintained for Paused content in Device Validation page");
-		extent.extentLoggerFail("", "Session is not maintained for Paused content in Device Validation page");
-	}
-}	
-
-@SuppressWarnings("unused")
-public void verifyConvivaExitBeforeVideoStarts(WebDriver webdriver,ArrayList<String> contentData,ArrayList<Integer> playerTapDetails) throws Exception{			
-	tearDown();
-	new Zee5ApplicasterBusinessLogic("zee");
-	extent.HeaderChildNode("TC 9 : Monitoring real time for Exit before video start");	
-	String contentID=contentData.get(0);
-	String contentName=contentData.get(1);
-	String contentMetaInSearch=contentData.get(2);
-	click(AMDHomePage.objSearchBtn, "Search button");
-	waitTime(5000);
-	click(AMDSearchScreen.objSearchEditBox, "Search box");
-	type(AMDSearchScreen.objSearchBoxBar, contentName+"\n", "Search box");
-	hideKeyboard();
-	waitTime(6000);
-	click(AMDSearchScreen.objSearchResult(contentName,contentMetaInSearch), "Search result");
-	waitTime(1000);
-	Back(1);
-	logger.info("Navigated back to exit play");
-	extent.extentLogger("", "Navigated back to exit play");
-	webdriver.get("https://pulse.conviva.com/reports/54");
-	extent.extentLogger("", "Opened : https://pulse.conviva.com/reports/54");
-	logger.info("Opened : https://pulse.conviva.com/reports/54");
-	waitTime(10000);
-	logger.info("Waited for 10 seconds");
-	extent.extentLogger("", "Waited for 10 seconds");
-	boolean needWait=true;
-	String attempts="";
-	for(int i=1;i<=500;i++) {
-		webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		try {
-			attempts = webdriver.findElement(PWAConvivaPage.objAttempts).getAttribute("innerText");
-			if(Character.isDigit(attempts.charAt(0))){
-				if (attempts.trim().equals("0")) needWait=true;
-				else needWait=false;
-			}
-		}
-		catch(Exception e) {needWait=true;System.out.println("failed "+i);}
-		if(needWait==false) break;
-		else waitTime(3000);
-	}		
-	if(attempts.trim().equals("1")){
-		extent.extentLogger("", "Attempts is displayed as " + attempts+", expected behavior");
-		logger.info("Attempts is displayed as " + attempts+", expected behavior");
-	} else {
-		extent.extentLoggerFail("", "Attempts is displayed as " + attempts);
-		logger.error("Attempts is displayed as " + attempts);
-	}
-	String exitBeforeVideoStart="";
-	try {
-		exitBeforeVideoStart = webdriver.findElement(PWAConvivaPage.objExitBeforeVideoStart).getAttribute("innerText");
-	}
-	catch(Exception e) {}
-	if(exitBeforeVideoStart.trim().equals("100 %")){
-		extent.extentLogger("", "Exits Before Video Start is displayed as " + exitBeforeVideoStart+", expected behavior");
-		logger.info("Exits Before Video Start is displayed as " + exitBeforeVideoStart+", expected behavior");
-	} else {
-		extent.extentLoggerFail("", "Exits Before Video Start is displayed as " + exitBeforeVideoStart+", instead of 100%");
-		logger.error("Exits Before Video Start is displayed as " + exitBeforeVideoStart+", instead of 100%");
-	}
-}
-
-
-@SuppressWarnings({ "unused", "rawtypes" })
-public void verifyConvivaClickOnProgressBar(WebDriver webdriver,ArrayList<String> contentData,ArrayList<Integer> playerTapDetails) throws Exception{			
-	tearDown();
-	new Zee5ApplicasterBusinessLogic("zee");
-	extent.HeaderChildNode("TC 13 : Monitoring real time after clicking on Progress bar");	
-	String contentID=contentData.get(0);
-	String contentName=contentData.get(1);
-	String contentMetaInSearch=contentData.get(2);
-	click(AMDHomePage.objSearchBtn, "Search button");
-	waitTime(5000);
-	click(AMDSearchScreen.objSearchEditBox, "Search box");
-	type(AMDSearchScreen.objSearchBoxBar, contentName+"\n", "Search box");
-	hideKeyboard();
-	waitTime(6000);
-	click(AMDSearchScreen.objSearchResult(contentName,contentMetaInSearch), "Search result");
-	waitForAdToFinishInAmd();
-	int x=playerTapDetails.get(0);
-	int y=playerTapDetails.get(1);
-	TouchAction act = new TouchAction(getDriver());	
-	act.press(PointOption.point(x, y)).release().perform();
-	clickOnProgressBar(40);
-	waitForAdToFinishInAmd();
-	Date startDate = new Date();
-	Date endDate = new Date();
-	ArrayList<Date> startAndEndTime=new ArrayList<Date>();
-	startAndEndTime=getPlayerStartEndTime(startDate,endDate,playerTapDetails);
-	startDate=startAndEndTime.get(0);
-	endDate=startAndEndTime.get(1);
-	ArrayList<Integer> vst=getDateDifference(startDate,endDate);
-	logger.info("VRT from app : "+vst.get(0)+"min, "+vst.get(1)+"sec, "+vst.get(2)+"millisec");
-	extent.extentLogger("", "VRT from app : "+vst.get(0)+"min, "+vst.get(1)+"sec, "+vst.get(2)+"millisec");
-	int vstMilliSecApp=vst.get(0)*60*1000+vst.get(1)*1000+vst.get(2);
-	logger.info("VRT calculated in millisecs : "+vstMilliSecApp);
-	extent.extentLogger("", "VRT calculated in millisecs : "+vstMilliSecApp);
-	webdriver.get("https://pulse.conviva.com/reports/54");
-	extent.extentLogger("", "Opened : https://pulse.conviva.com/reports/54");
-	logger.info("Opened : https://pulse.conviva.com/reports/54");
-	waitTime(10000);
-	logger.info("Waited for 10 seconds");
-	extent.extentLogger("", "Waited for 10 seconds");
-	String concurrentPlays="";
-	boolean needWait=true;
-	for(int i=1;i<=500;i++) {
-		webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		try {
-			concurrentPlays = webdriver.findElement(PWAConvivaPage.objConcurrentPlays).getAttribute("innerText");
-			if(Character.isDigit(concurrentPlays.charAt(0))){
-				if (!concurrentPlays.trim().equals("1")) needWait=true;
-				else needWait=false;
-			}
-		}
-		catch(Exception e) {needWait=true;System.out.println("failed "+i);}
-		if(needWait==false) break;
-		else waitTime(3000);
-	}		
-	if (concurrentPlays.trim().equals("0") || concurrentPlays.equals("")) {
-		extent.extentLoggerFail("", "Concurrent Plays is displayed as " + concurrentPlays);
-		logger.error("Concurrent Plays is displayed as " + concurrentPlays);			
-	} else if(concurrentPlays.trim().equals("1")){
-		extent.extentLogger("", "Concurrent Plays is displayed as " + concurrentPlays+", expected behavior");
-		logger.info("Concurrent Plays is displayed as " + concurrentPlays+", expected behavior");
-	} else {
-		extent.extentLogger("", "Concurrent Plays is displayed as " + concurrentPlays);
-		logger.info("Concurrent Plays is displayed as " + concurrentPlays);
-	}
-	String rebufRatio="",temp="";
-	float highestRebufRatio=0.0f,lowestRebufRatio=0.0f;
-	for(int i=0;i<10;i++) {
-		try {
-			rebufRatio = webdriver.findElement(PWAConvivaPage.objRebufferingRatio).getAttribute("innerText");
-			System.out.println("rebufRatio: "+rebufRatio);
-			temp=rebufRatio.split(" ")[0];
-			float tempF=Float.valueOf(temp);
-			if(tempF>highestRebufRatio) highestRebufRatio=tempF;
-			if(tempF<lowestRebufRatio) lowestRebufRatio=tempF;
-			waitTime(1000);
-		}
-		catch(Exception e) {}	
-	}
-	extent.extentLogger("", "Highest Rebuffering ratio recorded " + highestRebufRatio);
-	logger.info("Highest Rebuffering ratio recorded " + highestRebufRatio);
-	extent.extentLogger("", "Lowest Rebuffering ratio recorded " + lowestRebufRatio);
-	logger.info("Lowest Rebuffering ratio recorded " + lowestRebufRatio);
-	if(lowestRebufRatio<highestRebufRatio) {
-		logger.info("Increasing Rebuffering ratio has been captured");
-		extent.extentLogger("", "Increasing Rebuffering ratio has been captured");
-	}
-	else {
-		logger.info("No buffering observed for the user");
-		extent.extentLogger("", "No buffering observed for the user");
-	}
-	
-	String vrtConviva="",tempvrt="",tempSec="",tempMilliSec="",tempPreviousIterationString="";
-	int tempVRT=0,tempPreviousIteration=0;
-	for(int i=0;i<50;i++) {
-		try {
-			vrtConviva = webdriver.findElement(PWAConvivaPage.objVideoRestartTime).getAttribute("title");
-			tempvrt=vrtConviva.replace(" sec", "").trim();
-			tempSec=tempvrt.split("\\.")[0];
-			tempMilliSec=tempvrt.split("\\.")[1];
-			tempVRT=(Integer.valueOf(tempSec)*1000)+Integer.valueOf(tempMilliSec);				
-			if(tempVRT>tempPreviousIteration) {
-				tempPreviousIteration=tempVRT;
-				tempPreviousIterationString=vrtConviva;
-			}
-			waitTime(1000);
-		}
-		catch(Exception e) {}	
-	}
-	
-	logger.info("Conviva VRT is displayed as " + tempPreviousIterationString+" sec");
-	extent.extentLogger("", "Conviva VRT is displayed as " + tempPreviousIterationString+" sec");
-	int vrtMilliSecCon=tempPreviousIteration;	
-	logger.info("Conviva VRT calculated in millisecs : "+vrtMilliSecCon);
-	extent.extentLogger("", "Conviva VRT calculated in millisecs : "+vrtMilliSecCon);
-	if(Integer.valueOf(vrtMilliSecCon).compareTo(vstMilliSecApp)<5000) {
-		logger.info("Calculated VRT and Conviva VRT have difference below 5 seconds");
-		extent.extentLogger("", "Calculated VRT and Conviva VRT have difference below 5 seconds");
-	}
-	else {
-		logger.error("Calculated VRT and Conviva VRT have difference above 5 seconds");
-		extent.extentLoggerFail("", "Calculated VRT and Conviva VRT have difference above 5 seconds");
-	}	
-}
-
-@SuppressWarnings({ "rawtypes", "unused" })
-public void verifyConvivaDragOnProgressBar(WebDriver webdriver,ArrayList<String> contentData,ArrayList<Integer> playerTapDetails) throws Exception{			
-	tearDown();
-	new Zee5ApplicasterBusinessLogic("zee");
-	extent.HeaderChildNode("TC 14 : Monitoring real time after dragging on Progress bar");	
-	String contentID=contentData.get(0);
-	String contentName=contentData.get(1);
-	String contentMetaInSearch=contentData.get(2);
-	click(AMDHomePage.objSearchBtn, "Search button");
-	waitTime(5000);
-	click(AMDSearchScreen.objSearchEditBox, "Search box");
-	type(AMDSearchScreen.objSearchBoxBar, contentName+"\n", "Search box");
-	hideKeyboard();
-	waitTime(6000);
-	click(AMDSearchScreen.objSearchResult(contentName,contentMetaInSearch), "Search result");
-	waitForAdToFinishInAmd();
-	int x=playerTapDetails.get(0);
-	int y=playerTapDetails.get(1);
-	TouchAction act = new TouchAction(getDriver());	
-	act.press(PointOption.point(x, y)).release().perform();
-	dragOnProgressBar(40);
-	waitForAdToFinishInAmd();
-	Date startDate = new Date();
-	Date endDate = new Date();
-	ArrayList<Date> startAndEndTime=new ArrayList<Date>();
-	startAndEndTime=getPlayerStartEndTime(startDate,endDate,playerTapDetails);
-	startDate=startAndEndTime.get(0);
-	endDate=startAndEndTime.get(1);
-	ArrayList<Integer> vst=getDateDifference(startDate,endDate);
-	logger.info("VRT from app : "+vst.get(0)+"min, "+vst.get(1)+"sec, "+vst.get(2)+"millisec");
-	extent.extentLogger("", "VRT from app : "+vst.get(0)+"min, "+vst.get(1)+"sec, "+vst.get(2)+"millisec");
-	int vstMilliSecApp=vst.get(0)*60*1000+vst.get(1)*1000+vst.get(2);
-	logger.info("VRT calculated in millisecs : "+vstMilliSecApp);
-	extent.extentLogger("", "VRT calculated in millisecs : "+vstMilliSecApp);
-	webdriver.get("https://pulse.conviva.com/reports/54");
-	extent.extentLogger("", "Opened : https://pulse.conviva.com/reports/54");
-	logger.info("Opened : https://pulse.conviva.com/reports/54");
-	waitTime(10000);
-	logger.info("Waited for 10 seconds");
-	extent.extentLogger("", "Waited for 10 seconds");
-	String concurrentPlays="";
-	boolean needWait=true;
-	for(int i=1;i<=500;i++) {
-		webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		try {
-			concurrentPlays = webdriver.findElement(PWAConvivaPage.objConcurrentPlays).getAttribute("innerText");
-			if(Character.isDigit(concurrentPlays.charAt(0))){
-				if (!concurrentPlays.trim().equals("1")) needWait=true;
-				else needWait=false;
-			}
-		}
-		catch(Exception e) {needWait=true;System.out.println("failed "+i);}
-		if(needWait==false) break;
-		else waitTime(3000);
-	}		
-	if (concurrentPlays.trim().equals("0") || concurrentPlays.equals("")) {
-		extent.extentLoggerFail("", "Concurrent Plays is displayed as " + concurrentPlays);
-		logger.error("Concurrent Plays is displayed as " + concurrentPlays);			
-	} else if(concurrentPlays.trim().equals("1")){
-		extent.extentLogger("", "Concurrent Plays is displayed as " + concurrentPlays+", expected behavior");
-		logger.info("Concurrent Plays is displayed as " + concurrentPlays+", expected behavior");
-	} else {
-		extent.extentLogger("", "Concurrent Plays is displayed as " + concurrentPlays);
-		logger.info("Concurrent Plays is displayed as " + concurrentPlays);
-	}
-	String rebufRatio="",temp="";
-	float highestRebufRatio=0.0f,lowestRebufRatio=0.0f;
-	for(int i=0;i<10;i++) {
-		try {
-			rebufRatio = webdriver.findElement(PWAConvivaPage.objRebufferingRatio).getAttribute("innerText");
-			System.out.println("rebufRatio: "+rebufRatio);
-			temp=rebufRatio.split(" ")[0];
-			float tempF=Float.valueOf(temp);
-			if(tempF>highestRebufRatio) highestRebufRatio=tempF;
-			if(tempF<lowestRebufRatio) lowestRebufRatio=tempF;
-			waitTime(1000);
-		}
-		catch(Exception e) {}	
-	}
-	extent.extentLogger("", "Highest Rebuffering ratio recorded " + highestRebufRatio);
-	logger.info("Highest Rebuffering ratio recorded " + highestRebufRatio);
-	extent.extentLogger("", "Lowest Rebuffering ratio recorded " + lowestRebufRatio);
-	logger.info("Lowest Rebuffering ratio recorded " + lowestRebufRatio);
-	if(lowestRebufRatio<highestRebufRatio) {
-		logger.info("Increasing Rebuffering ratio has been captured");
-		extent.extentLogger("", "Increasing Rebuffering ratio has been captured");
-	}
-	else {
-		logger.info("No buffering observed for the user");
-		extent.extentLogger("", "No buffering observed for the user");
-	}
-	
-	String vrtConviva="",tempvrt="",tempSec="",tempMilliSec="",tempPreviousIterationString="";
-	int tempVRT=0,tempPreviousIteration=0;
-	for(int i=0;i<50;i++) {
-		try {
-			vrtConviva = webdriver.findElement(PWAConvivaPage.objVideoRestartTime).getAttribute("title");
-			tempvrt=vrtConviva.replace(" sec", "").trim();
-			tempSec=tempvrt.split("\\.")[0];
-			tempMilliSec=tempvrt.split("\\.")[1];
-			tempVRT=(Integer.valueOf(tempSec)*1000)+Integer.valueOf(tempMilliSec);				
-			if(tempVRT>tempPreviousIteration) {
-				tempPreviousIteration=tempVRT;
-				tempPreviousIterationString=vrtConviva;
-			}
-			waitTime(1000);
-		}
-		catch(Exception e) {}	
-	}
-	
-	logger.info("Conviva VRT is displayed as " + tempPreviousIterationString+" sec");
-	extent.extentLogger("", "Conviva VRT is displayed as " + tempPreviousIterationString+" sec");
-	int vrtMilliSecCon=tempPreviousIteration;	
-	logger.info("Conviva VRT calculated in millisecs : "+vrtMilliSecCon);
-	extent.extentLogger("", "Conviva VRT calculated in millisecs : "+vrtMilliSecCon);
-	if(Integer.valueOf(vrtMilliSecCon).compareTo(vstMilliSecApp)<5000) {
-		logger.info("Calculated VRT and Conviva VRT have difference below 5 seconds");
-		extent.extentLogger("", "Calculated VRT and Conviva VRT have difference below 5 seconds");
-	}
-	else {
-		logger.error("Calculated VRT and Conviva VRT have difference above 5 seconds");
-		extent.extentLoggerFail("", "Calculated VRT and Conviva VRT have difference above 5 seconds");
-	}
-	screencapture(webdriver);		
-}
-
-@SuppressWarnings({ "unused", "rawtypes" })
-public void verifyConvivaForwardOnProgressBar(WebDriver webdriver,ArrayList<String> contentData,ArrayList<Integer> playerTapDetails) throws Exception{			
-	tearDown();
-	new Zee5ApplicasterBusinessLogic("zee");
-	extent.HeaderChildNode("TC 15 : Monitoring real time after pressing Forward on Progress bar");	
-	String contentID=contentData.get(0);
-	String contentName=contentData.get(1);
-	String contentMetaInSearch=contentData.get(2);
-	click(AMDHomePage.objSearchBtn, "Search button");
-	waitTime(5000);
-	click(AMDSearchScreen.objSearchEditBox, "Search box");
-	type(AMDSearchScreen.objSearchBoxBar, contentName+"\n", "Search box");
-	hideKeyboard();
-	waitTime(6000);
-	click(AMDSearchScreen.objSearchResult(contentName,contentMetaInSearch), "Search result");
-	waitForAdToFinishInAmd();
-	int x=playerTapDetails.get(0);
-	int y=playerTapDetails.get(1);
-	TouchAction act = new TouchAction(getDriver());	
-	act.press(PointOption.point(x, y)).release().perform();
-	forwardRewindPlayer("forward");
-	waitTime(3000);
-	forwardRewindPlayer("forward");
-	waitTime(3000);
-	forwardRewindPlayer("forward");
-	waitTime(3000);
-	waitForAdToFinishInAmd();
-	Date startDate = new Date();
-	Date endDate = new Date();
-	ArrayList<Date> startAndEndTime=new ArrayList<Date>();
-	startAndEndTime=getPlayerStartEndTime(startDate,endDate,playerTapDetails);
-	startDate=startAndEndTime.get(0);
-	endDate=startAndEndTime.get(1);
-	ArrayList<Integer> vst=getDateDifference(startDate,endDate);
-	logger.info("VRT from app : "+vst.get(0)+"min, "+vst.get(1)+"sec, "+vst.get(2)+"millisec");
-	extent.extentLogger("", "VRT from app : "+vst.get(0)+"min, "+vst.get(1)+"sec, "+vst.get(2)+"millisec");
-	int vstMilliSecApp=vst.get(0)*60*1000+vst.get(1)*1000+vst.get(2);
-	logger.info("VRT calculated in millisecs : "+vstMilliSecApp);
-	extent.extentLogger("", "VRT calculated in millisecs : "+vstMilliSecApp);
-	webdriver.get("https://pulse.conviva.com/reports/54");
-	extent.extentLogger("", "Opened : https://pulse.conviva.com/reports/54");
-	logger.info("Opened : https://pulse.conviva.com/reports/54");
-	waitTime(10000);
-	logger.info("Waited for 10 seconds");
-	extent.extentLogger("", "Waited for 10 seconds");
-	String concurrentPlays="";
-	boolean needWait=true;
-	for(int i=1;i<=500;i++) {
-		webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		try {
-			concurrentPlays = webdriver.findElement(PWAConvivaPage.objConcurrentPlays).getAttribute("innerText");
-			if(Character.isDigit(concurrentPlays.charAt(0))){
-				if (!concurrentPlays.trim().equals("1")) needWait=true;
-				else needWait=false;
-			}
-		}
-		catch(Exception e) {needWait=true;System.out.println("failed "+i);}
-		if(needWait==false) break;
-		else waitTime(3000);
-	}		
-	if (concurrentPlays.trim().equals("0") || concurrentPlays.equals("")) {
-		extent.extentLoggerFail("", "Concurrent Plays is displayed as " + concurrentPlays);
-		logger.error("Concurrent Plays is displayed as " + concurrentPlays);			
-	} else if(concurrentPlays.trim().equals("1")){
-		extent.extentLogger("", "Concurrent Plays is displayed as " + concurrentPlays+", expected behavior");
-		logger.info("Concurrent Plays is displayed as " + concurrentPlays+", expected behavior");
-	} else {
-		extent.extentLogger("", "Concurrent Plays is displayed as " + concurrentPlays);
-		logger.info("Concurrent Plays is displayed as " + concurrentPlays);
-	}
-	String rebufRatio="",temp="";
-	float highestRebufRatio=0.0f,lowestRebufRatio=0.0f;
-	for(int i=0;i<10;i++) {
-		try {
-			rebufRatio = webdriver.findElement(PWAConvivaPage.objRebufferingRatio).getAttribute("innerText");
-			System.out.println("rebufRatio: "+rebufRatio);
-			temp=rebufRatio.split(" ")[0];
-			float tempF=Float.valueOf(temp);
-			if(tempF>highestRebufRatio) highestRebufRatio=tempF;
-			if(tempF<lowestRebufRatio) lowestRebufRatio=tempF;
-			waitTime(1000);
-		}
-		catch(Exception e) {}	
-	}
-	extent.extentLogger("", "Highest Rebuffering ratio recorded " + highestRebufRatio);
-	logger.info("Highest Rebuffering ratio recorded " + highestRebufRatio);
-	extent.extentLogger("", "Lowest Rebuffering ratio recorded " + lowestRebufRatio);
-	logger.info("Lowest Rebuffering ratio recorded " + lowestRebufRatio);
-	if(lowestRebufRatio<highestRebufRatio) {
-		logger.info("Increasing Rebuffering ratio has been captured");
-		extent.extentLogger("", "Increasing Rebuffering ratio has been captured");
-	}
-	else {
-		logger.info("No buffering observed for the user");
-		extent.extentLogger("", "No buffering observed for the user");
-	}
-	
-	String vrtConviva="",tempvrt="",tempSec="",tempMilliSec="",tempPreviousIterationString="";
-	int tempVRT=0,tempPreviousIteration=0;
-	for(int i=0;i<50;i++) {
-		try {
-			vrtConviva = webdriver.findElement(PWAConvivaPage.objVideoRestartTime).getAttribute("title");
-			tempvrt=vrtConviva.replace(" sec", "").trim();
-			tempSec=tempvrt.split("\\.")[0];
-			tempMilliSec=tempvrt.split("\\.")[1];
-			tempVRT=(Integer.valueOf(tempSec)*1000)+Integer.valueOf(tempMilliSec);				
-			if(tempVRT>tempPreviousIteration) {
-				tempPreviousIteration=tempVRT;
-				tempPreviousIterationString=vrtConviva;
-			}
-			waitTime(1000);
-		}
-		catch(Exception e) {}	
-	}
-	
-	logger.info("Conviva VRT is displayed as " + tempPreviousIterationString+" sec");
-	extent.extentLogger("", "Conviva VRT is displayed as " + tempPreviousIterationString+" sec");
-	int vrtMilliSecCon=tempPreviousIteration;	
-	logger.info("Conviva VRT calculated in millisecs : "+vrtMilliSecCon);
-	extent.extentLogger("", "Conviva VRT calculated in millisecs : "+vrtMilliSecCon);
-	if(Integer.valueOf(vrtMilliSecCon).compareTo(vstMilliSecApp)<5000) {
-		logger.info("Calculated VRT and Conviva VRT have difference below 5 seconds");
-		extent.extentLogger("", "Calculated VRT and Conviva VRT have difference below 5 seconds");
-	}
-	else {
-		logger.error("Calculated VRT and Conviva VRT have difference above 5 seconds");
-		extent.extentLoggerFail("", "Calculated VRT and Conviva VRT have difference above 5 seconds");
-	}
-	screencapture(webdriver);		
-}
-
-
-@SuppressWarnings("unused")
-public void verifyConvivaPhoneLockUnlock(WebDriver webdriver,ArrayList<String> contentData,ArrayList<Integer> playerTapDetails) throws Exception{			
-	tearDown();
-	new Zee5ApplicasterBusinessLogic("zee");
-	extent.HeaderChildNode("TC 16 : Monitoring real time after App is put To Background during playback");	
-	String contentID=contentData.get(0);
-	String contentName=contentData.get(1);
-	String contentMetaInSearch=contentData.get(2);
-	click(AMDHomePage.objSearchBtn, "Search button");
-	waitTime(5000);
-	click(AMDSearchScreen.objSearchEditBox, "Search box");
-	type(AMDSearchScreen.objSearchBoxBar, contentName+"\n", "Search box");
-	hideKeyboard();
-	waitTime(6000);
-	click(AMDSearchScreen.objSearchResult(contentName,contentMetaInSearch), "Search result");
-	waitForAdToFinishInAmd();
-	webdriver.get("https://pulse.conviva.com/reports/54");
-	extent.extentLogger("", "Opened : https://pulse.conviva.com/reports/54");
-	logger.info("Opened : https://pulse.conviva.com/reports/54");
-	waitTime(10000);
-	logger.info("Waited for 10 seconds");
-	extent.extentLogger("", "Waited for 10 seconds");
-	String attempts="";
-	boolean needWait=true;
-	for(int i=1;i<=500;i++) {
-		webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		try {
-			attempts = webdriver.findElement(PWAConvivaPage.objAttempts).getAttribute("innerText");
-			if(Character.isDigit(attempts.charAt(0))){
-				if (!attempts.trim().equals("1")) needWait=true;
-				else needWait=false;
-			}
-		}
-		catch(Exception e) {needWait=true;System.out.println("failed "+i);}
-		if(needWait==false) break;
-		else waitTime(3000);
-	}		
-	if (attempts.trim().equals("0") || attempts.equals("")) {
-		extent.extentLoggerFail("", "Attempts is displayed as " + attempts);
-		logger.error("Attempts is displayed as " + attempts);			
-	} else if(attempts.trim().equals("1")){
-		extent.extentLogger("", "Attempts is displayed as " + attempts+", expected behavior");
-		logger.info("Attempts is displayed as " + attempts+", expected behavior");
-	} else {
-		extent.extentLogger("", "Attempts is displayed as " + attempts);
-		logger.info("Attempts is displayed as " + attempts);
-	}
-	String plays="";
-	try {
-		plays = webdriver.findElement(PWAConvivaPage.objPlays).getAttribute("innerText");
-	}
-	catch(Exception e) {}
-	if(plays.trim().equals("100 %")){
-		extent.extentLogger("", "Plays is displayed as " + plays+", expected behavior");
-		logger.info("Plays is displayed as " + plays+", expected behavior");
-	} else {
-		extent.extentLoggerFail("", "Plays is displayed as " + plays+", instead of 100%");
-		logger.error("Plays is displayed as " + plays+", instead of 100%");
-	}	
-	adbKeyevents(26);
-	extent.extentLogger("", "Phone is locked");
-	logger.info("Phone is locked");
-	String attemptsAtLocked="";
-	needWait=true;
-	for(int i=1;i<=500;i++) {
-		webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		try {
-			attemptsAtLocked = webdriver.findElement(PWAConvivaPage.objAttempts).getAttribute("innerText");
-			if(Character.isDigit(attemptsAtLocked.charAt(0))){
-				if (!attemptsAtLocked.trim().equals("0")) needWait=true;
-				else needWait=false;
-			}
-		}
-		catch(Exception e) {needWait=true;System.out.println("failed "+i);}
-		if(needWait==false) break;
-		else waitTime(3000);
-	}		
-	if(attemptsAtLocked.trim().equals("0")){
-		extent.extentLogger("", "Attempts is displayed as " + attemptsAtLocked+", expected behavior for app in background");
-		logger.info("Attempts is displayed as " + attemptsAtLocked+", expected behavior for app in background");
-	}
-	else {
-		extent.extentLoggerFail("", "Attempts is displayed as " + attemptsAtLocked+" for app in background");
-		logger.error("Attempts is displayed as " + attemptsAtLocked+" for app in background");
-	}
-	String playsAtLocked="";
-	try {
-		playsAtLocked = webdriver.findElement(PWAConvivaPage.objPlays).getAttribute("innerText");
-	}
-	catch(Exception e) {}
-	if(playsAtLocked.trim().equals("0 %")){
-		extent.extentLogger("", "Plays is displayed as " + playsAtLocked+", expected behavior for app in background");
-		logger.info("Plays is displayed as " + playsAtLocked+", expected behavior for app in background");
-	} else {
-		extent.extentLoggerFail("", "Plays is displayed as " + playsAtLocked+" for app in background instead of 0%");
-		logger.error("Plays is displayed as " + playsAtLocked+" for app in background instead of 0%");
-	}
-	screencapture(webdriver);
-	adbKeyevents(26);
-	waitTime(3000);
-	Swipe("Up", 1);
-	extent.extentLogger("", "Phone is locked");
-	logger.info("Phone is locked");
-}
-
-@SuppressWarnings("unused")
-public void verifyConvivaAppPutToBackground(WebDriver webdriver,ArrayList<String> contentData,ArrayList<Integer> playerTapDetails) throws Exception{			
-	tearDown();
-	new Zee5ApplicasterBusinessLogic("zee");
-	extent.HeaderChildNode("TC 16 : Monitoring real time after App is put To Background during playback");	
-	String contentID=contentData.get(0);
-	String contentName=contentData.get(1);
-	String contentMetaInSearch=contentData.get(2);
-	click(AMDHomePage.objSearchBtn, "Search button");
-	waitTime(5000);
-	click(AMDSearchScreen.objSearchEditBox, "Search box");
-	type(AMDSearchScreen.objSearchBoxBar, contentName+"\n", "Search box");
-	hideKeyboard();
-	waitTime(6000);
-	click(AMDSearchScreen.objSearchResult(contentName,contentMetaInSearch), "Search result");
-	waitForAdToFinishInAmd();
-	webdriver.get("https://pulse.conviva.com/reports/54");
-	extent.extentLogger("", "Opened : https://pulse.conviva.com/reports/54");
-	logger.info("Opened : https://pulse.conviva.com/reports/54");
-	waitTime(10000);
-	logger.info("Waited for 10 seconds");
-	extent.extentLogger("", "Waited for 10 seconds");
-	String attempts="";
-	boolean needWait=true;
-	for(int i=1;i<=500;i++) {
-		webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		try {
-			attempts = webdriver.findElement(PWAConvivaPage.objAttempts).getAttribute("innerText");
-			if(Character.isDigit(attempts.charAt(0))){
-				if (!attempts.trim().equals("1")) needWait=true;
-				else needWait=false;
-			}
-		}
-		catch(Exception e) {needWait=true;System.out.println("failed "+i);}
-		if(needWait==false) break;
-		else waitTime(3000);
-	}		
-	if (attempts.trim().equals("0") || attempts.equals("")) {
-		extent.extentLoggerFail("", "Attempts is displayed as " + attempts);
-		logger.error("Attempts is displayed as " + attempts);			
-	} else if(attempts.trim().equals("1")){
-		extent.extentLogger("", "Attempts is displayed as " + attempts+", expected behavior");
-		logger.info("Attempts is displayed as " + attempts+", expected behavior");
-	} else {
-		extent.extentLogger("", "Attempts is displayed as " + attempts);
-		logger.info("Attempts is displayed as " + attempts);
-	}
-	String plays="";
-	try {
-		plays = webdriver.findElement(PWAConvivaPage.objPlays).getAttribute("innerText");
-	}
-	catch(Exception e) {}
-	if(plays.trim().equals("100 %")){
-		extent.extentLogger("", "Plays is displayed as " + plays+", expected behavior");
-		logger.info("Plays is displayed as " + plays+", expected behavior");
-	} else {
-		extent.extentLoggerFail("", "Plays is displayed as " + plays+", instead of 100%");
-		logger.error("Plays is displayed as " + plays+", instead of 100%");
-	}	
-	getDriver().runAppInBackground(Duration.ofSeconds(15));
-	extent.extentLogger("", "App went to background for 15 minutes");
-	logger.info("App went to background for 15 minutes");
-	String attemptsAtBackground="";
-	needWait=true;
-	for(int i=1;i<=500;i++) {
-		webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		try {
-			attemptsAtBackground = webdriver.findElement(PWAConvivaPage.objAttempts).getAttribute("innerText");
-			if(Character.isDigit(attemptsAtBackground.charAt(0))){
-				if (!attemptsAtBackground.trim().equals("0")) needWait=true;
-				else needWait=false;
-			}
-		}
-		catch(Exception e) {needWait=true;System.out.println("failed "+i);}
-		if(needWait==false) break;
-		else waitTime(3000);
-	}		
-	if(attemptsAtBackground.trim().equals("0")){
-		extent.extentLogger("", "Attempts is displayed as " + attemptsAtBackground+", expected behavior for app in background");
-		logger.info("Attempts is displayed as " + attemptsAtBackground+", expected behavior for app in background");
-	}
-	else {
-		extent.extentLoggerFail("", "Attempts is displayed as " + attemptsAtBackground+" for app in background");
-		logger.error("Attempts is displayed as " + attemptsAtBackground+" for app in background");
-	}
-	String playsAtBackground="";
-	try {
-		playsAtBackground = webdriver.findElement(PWAConvivaPage.objPlays).getAttribute("innerText");
-	}
-	catch(Exception e) {}
-	if(playsAtBackground.trim().equals("0 %")){
-		extent.extentLogger("", "Plays is displayed as " + playsAtBackground+", expected behavior for app in background");
-		logger.info("Plays is displayed as " + playsAtBackground+", expected behavior for app in background");
-	} else {
-		extent.extentLoggerFail("", "Plays is displayed as " + playsAtBackground+" for app in background instead of 0%");
-		logger.error("Plays is displayed as " + playsAtBackground+" for app in background instead of 0%");
-	}
-	screencapture(webdriver);
-}
-
-
-public boolean clickElementInRefreshingConvivaPage(WebDriver webdriver, By locator,String displayText) throws Exception {
-	for(int i=1;i<=500;i++) {
-		webdriver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-		try {
-			webdriver.findElement(locator).click();
-			logger.info("Clicked on "+displayText);
-			extent.extentLogger("", "Clicked on "+displayText);
-			return true;
-		}
-		catch(Exception e) {
+		waitForAdToFinishInAmd();
+		Date startDate = new Date();
+		Date endDate = new Date();
+		ArrayList<Date> startAndEndTime = new ArrayList<Date>();
+		startAndEndTime = getPlayerStartEndTime(startDate, endDate, playerTapDetails);
+		startDate = startAndEndTime.get(0);
+		endDate = startAndEndTime.get(1);
+		ArrayList<Integer> vst = getDateDifference(startDate, endDate);
+		logger.info("VRT from app : " + vst.get(0) + "min, " + vst.get(1) + "sec, " + vst.get(2) + "millisec");
+		extent.extentLogger("",
+				"VRT from app : " + vst.get(0) + "min, " + vst.get(1) + "sec, " + vst.get(2) + "millisec");
+		int vstMilliSecApp = vst.get(0) * 60 * 1000 + vst.get(1) * 1000 + vst.get(2);
+		logger.info("VRT calculated in millisecs : " + vstMilliSecApp);
+		extent.extentLogger("", "VRT calculated in millisecs : " + vstMilliSecApp);
+		webdriver.get("https://pulse.conviva.com/reports/54");
+		extent.extentLogger("", "Opened : https://pulse.conviva.com/reports/54");
+		logger.info("Opened : https://pulse.conviva.com/reports/54");
+		waitTime(10000);
+		logger.info("Waited for 10 seconds");
+		extent.extentLogger("", "Waited for 10 seconds");
+		String concurrentPlays = "";
+		boolean needWait = true;
+		for (int i = 1; i <= 500; i++) {
+			webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			try {
-				js.executeScript("window.scrollBy(0,100)", "");
-				waitTime(2000);
-				System.out.println("Waiting ..");
-			}catch(Exception e1) {}
-		}
-	}
-	return false;
-}
-
-
-public String getTextFromRefreshingConvivaPage(WebDriver webdriver, By locator,String displayText) throws Exception {
-	for(int i=1;i<=500;i++) {
-		webdriver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-		try {
-			String text=webdriver.findElement(locator).getAttribute("innerText");
-			logger.info(displayText+" : "+text);
-			extent.extentLogger("", displayText+" : "+text);
-			return text;
-		}
-		catch(Exception e) {
-			try {
-				js.executeScript("window.scrollBy(0,100)", "");
-				waitTime(2000);
-				System.out.println("Waiting ..");
-			}catch(Exception e1) {}
-		}
-	}
-	logger.info("Text fetch failed for "+displayText);
-	extent.extentLogger("", "Text fetch failed for "+displayText);
-	return "";
-}
-
-public ArrayList<Integer> getDateDifference(Date startDate, Date endDate) throws Exception {
-	ArrayList<Integer> timeValues=new ArrayList<Integer>();
-	long duration  = endDate.getTime() - startDate.getTime();
-	long diffInMilliSeconds = TimeUnit.MILLISECONDS.toMillis(duration);
-	int milliSeconds= (int) Math.floorMod(diffInMilliSeconds, 1000);		
-	int seconds=(int) (diffInMilliSeconds/1000);
-	int mins=0;
-	if(seconds>=60) {
-		mins=seconds/60;
-		seconds=Math.floorMod(seconds, 60);
-	}
-	System.out.println("minutes: "+mins);
-	System.out.println("seconds: "+seconds);
-	System.out.println("milliSeconds: "+milliSeconds);
-	timeValues.add(mins);
-	timeValues.add(seconds);
-	timeValues.add(milliSeconds);
-	return timeValues;
-}
-
-public String getDateDetails(Date date) throws Exception {
-	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-	String dateString=dateFormat.format(date).toString();
-	return dateString;
-}
-
-@SuppressWarnings({ "rawtypes", "unused" })
-public ArrayList<Date> getPlayerStartEndTime (Date startDate,Date endDate,ArrayList<Integer> playerTapDetails) throws Exception {
-	int x=playerTapDetails.get(0);
-	int y=playerTapDetails.get(1);
-	ArrayList<Date> startAndEndTime=new ArrayList<Date>();
-	getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.MILLISECONDS);	
-	String playerHeadPosition="0";
-	boolean adPlay=false,adMessage=false;
-	TouchAction act = new TouchAction(getDriver());
-	main : for(int j=0;j<1000;j++) {				
-		try {
-			getDriver().findElement(AMDPlayerScreen.objAd2);
-			if (adMessage==false) {
-				logger.info("Ad play in progress");
-				extent.extentLogger("AdPlayInProgress", "Ad play in progress");
-				adMessage=true;
-			}
-		}
-		catch(Exception e1) {
-			startDate=new Date();
-			for(int k=0;k<50;k++) {
-				try {
-					act.press(PointOption.point(x, y)).release().perform();
-					WebElement timer=getDriver().findElement(AMDPlayerScreen.objTimer);
-					endDate=new Date();						
-					playerHeadPosition=timer.getText();						
-					screencapture();
-					break main;
+				concurrentPlays = webdriver.findElement(PWAConvivaPage.objConcurrentPlays).getAttribute("innerText");
+				if (Character.isDigit(concurrentPlays.charAt(0))) {
+					if (!concurrentPlays.trim().equals("1"))
+						needWait = true;
+					else
+						needWait = false;
 				}
-				catch(Exception e2) {}
+			} catch (Exception e) {
+				needWait = true;
+				System.out.println("failed " + i);
 			}
-			
+			if (needWait == false)
+				break;
+			else
+				waitTime(3000);
+		}
+		if (concurrentPlays.trim().equals("0") || concurrentPlays.equals("")) {
+			extent.extentLoggerFail("", "Concurrent Plays is displayed as " + concurrentPlays);
+			logger.error("Concurrent Plays is displayed as " + concurrentPlays);
+		} else if (concurrentPlays.trim().equals("1")) {
+			extent.extentLogger("", "Concurrent Plays is displayed as " + concurrentPlays + ", expected behavior");
+			logger.info("Concurrent Plays is displayed as " + concurrentPlays + ", expected behavior");
+		} else {
+			extent.extentLogger("", "Concurrent Plays is displayed as " + concurrentPlays);
+			logger.info("Concurrent Plays is displayed as " + concurrentPlays);
+		}
+		String rebufRatio = "", temp = "";
+		float highestRebufRatio = 0.0f, lowestRebufRatio = 0.0f;
+		for (int i = 0; i < 10; i++) {
+			try {
+				rebufRatio = webdriver.findElement(PWAConvivaPage.objRebufferingRatio).getAttribute("innerText");
+				System.out.println("rebufRatio: " + rebufRatio);
+				temp = rebufRatio.split(" ")[0];
+				float tempF = Float.valueOf(temp);
+				if (tempF > highestRebufRatio)
+					highestRebufRatio = tempF;
+				if (tempF < lowestRebufRatio)
+					lowestRebufRatio = tempF;
+				waitTime(1000);
+			} catch (Exception e) {
+			}
+		}
+		extent.extentLogger("", "Highest Rebuffering ratio recorded " + highestRebufRatio);
+		logger.info("Highest Rebuffering ratio recorded " + highestRebufRatio);
+		extent.extentLogger("", "Lowest Rebuffering ratio recorded " + lowestRebufRatio);
+		logger.info("Lowest Rebuffering ratio recorded " + lowestRebufRatio);
+		if (lowestRebufRatio < highestRebufRatio) {
+			logger.info("Increasing Rebuffering ratio has been captured");
+			extent.extentLogger("", "Increasing Rebuffering ratio has been captured");
+		} else {
+			logger.info("No buffering observed for the user");
+			extent.extentLogger("", "No buffering observed for the user");
+		}
+
+		String vrtConviva = "", tempvrt = "", tempSec = "", tempMilliSec = "", tempPreviousIterationString = "";
+		int tempVRT = 0, tempPreviousIteration = 0;
+		for (int i = 0; i < 50; i++) {
+			try {
+				vrtConviva = webdriver.findElement(PWAConvivaPage.objVideoRestartTime).getAttribute("title");
+				tempvrt = vrtConviva.replace(" sec", "").trim();
+				tempSec = tempvrt.split("\\.")[0];
+				tempMilliSec = tempvrt.split("\\.")[1];
+				tempVRT = (Integer.valueOf(tempSec) * 1000) + Integer.valueOf(tempMilliSec);
+				if (tempVRT > tempPreviousIteration) {
+					tempPreviousIteration = tempVRT;
+					tempPreviousIterationString = vrtConviva;
+				}
+				waitTime(1000);
+			} catch (Exception e) {
+			}
+		}
+
+		logger.info("Conviva VRT is displayed as " + tempPreviousIterationString + " sec");
+		extent.extentLogger("", "Conviva VRT is displayed as " + tempPreviousIterationString + " sec");
+		int vrtMilliSecCon = tempPreviousIteration;
+		logger.info("Conviva VRT calculated in millisecs : " + vrtMilliSecCon);
+		extent.extentLogger("", "Conviva VRT calculated in millisecs : " + vrtMilliSecCon);
+		if (Integer.valueOf(vrtMilliSecCon).compareTo(vstMilliSecApp) < 5000) {
+			logger.info("Calculated VRT and Conviva VRT have difference below 5 seconds");
+			extent.extentLogger("", "Calculated VRT and Conviva VRT have difference below 5 seconds");
+		} else {
+			logger.error("Calculated VRT and Conviva VRT have difference above 5 seconds");
+			extent.extentLoggerFail("", "Calculated VRT and Conviva VRT have difference above 5 seconds");
+		}
+		screencapture(webdriver);
+	}
+
+	@SuppressWarnings("unused")
+	public void verifyConvivaPhoneLockUnlock(WebDriver webdriver, ArrayList<String> contentData,
+			ArrayList<Integer> playerTapDetails) throws Exception {
+		tearDown();
+		new Zee5ApplicasterBusinessLogic("zee");
+		extent.HeaderChildNode("TC 16 : Monitoring real time after App is put To Background during playback");
+		String contentID = contentData.get(0);
+		String contentName = contentData.get(1);
+		String contentMetaInSearch = contentData.get(2);
+		click(AMDHomePage.objSearchBtn, "Search button");
+		waitTime(5000);
+		click(AMDSearchScreen.objSearchEditBox, "Search box");
+		type(AMDSearchScreen.objSearchBoxBar, contentName + "\n", "Search box");
+		hideKeyboard();
+		waitTime(6000);
+		click(AMDSearchScreen.objSearchResult(contentName, contentMetaInSearch), "Search result");
+		waitForAdToFinishInAmd();
+		webdriver.get("https://pulse.conviva.com/reports/54");
+		extent.extentLogger("", "Opened : https://pulse.conviva.com/reports/54");
+		logger.info("Opened : https://pulse.conviva.com/reports/54");
+		waitTime(10000);
+		logger.info("Waited for 10 seconds");
+		extent.extentLogger("", "Waited for 10 seconds");
+		String attempts = "";
+		boolean needWait = true;
+		for (int i = 1; i <= 500; i++) {
+			webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			try {
+				attempts = webdriver.findElement(PWAConvivaPage.objAttempts).getAttribute("innerText");
+				if (Character.isDigit(attempts.charAt(0))) {
+					if (!attempts.trim().equals("1"))
+						needWait = true;
+					else
+						needWait = false;
+				}
+			} catch (Exception e) {
+				needWait = true;
+				System.out.println("failed " + i);
+			}
+			if (needWait == false)
+				break;
+			else
+				waitTime(3000);
+		}
+		if (attempts.trim().equals("0") || attempts.equals("")) {
+			extent.extentLoggerFail("", "Attempts is displayed as " + attempts);
+			logger.error("Attempts is displayed as " + attempts);
+		} else if (attempts.trim().equals("1")) {
+			extent.extentLogger("", "Attempts is displayed as " + attempts + ", expected behavior");
+			logger.info("Attempts is displayed as " + attempts + ", expected behavior");
+		} else {
+			extent.extentLogger("", "Attempts is displayed as " + attempts);
+			logger.info("Attempts is displayed as " + attempts);
+		}
+		String plays = "";
+		try {
+			plays = webdriver.findElement(PWAConvivaPage.objPlays).getAttribute("innerText");
+		} catch (Exception e) {
+		}
+		if (plays.trim().equals("100 %")) {
+			extent.extentLogger("", "Plays is displayed as " + plays + ", expected behavior");
+			logger.info("Plays is displayed as " + plays + ", expected behavior");
+		} else {
+			extent.extentLoggerFail("", "Plays is displayed as " + plays + ", instead of 100%");
+			logger.error("Plays is displayed as " + plays + ", instead of 100%");
+		}
+		adbKeyevents(26);
+		extent.extentLogger("", "Phone is locked");
+		logger.info("Phone is locked");
+		String attemptsAtLocked = "";
+		needWait = true;
+		for (int i = 1; i <= 500; i++) {
+			webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			try {
+				attemptsAtLocked = webdriver.findElement(PWAConvivaPage.objAttempts).getAttribute("innerText");
+				if (Character.isDigit(attemptsAtLocked.charAt(0))) {
+					if (!attemptsAtLocked.trim().equals("0"))
+						needWait = true;
+					else
+						needWait = false;
+				}
+			} catch (Exception e) {
+				needWait = true;
+				System.out.println("failed " + i);
+			}
+			if (needWait == false)
+				break;
+			else
+				waitTime(3000);
+		}
+		if (attemptsAtLocked.trim().equals("0")) {
+			extent.extentLogger("",
+					"Attempts is displayed as " + attemptsAtLocked + ", expected behavior for app in background");
+			logger.info("Attempts is displayed as " + attemptsAtLocked + ", expected behavior for app in background");
+		} else {
+			extent.extentLoggerFail("", "Attempts is displayed as " + attemptsAtLocked + " for app in background");
+			logger.error("Attempts is displayed as " + attemptsAtLocked + " for app in background");
+		}
+		String playsAtLocked = "";
+		try {
+			playsAtLocked = webdriver.findElement(PWAConvivaPage.objPlays).getAttribute("innerText");
+		} catch (Exception e) {
+		}
+		if (playsAtLocked.trim().equals("0 %")) {
+			extent.extentLogger("",
+					"Plays is displayed as " + playsAtLocked + ", expected behavior for app in background");
+			logger.info("Plays is displayed as " + playsAtLocked + ", expected behavior for app in background");
+		} else {
+			extent.extentLoggerFail("",
+					"Plays is displayed as " + playsAtLocked + " for app in background instead of 0%");
+			logger.error("Plays is displayed as " + playsAtLocked + " for app in background instead of 0%");
+		}
+		screencapture(webdriver);
+		adbKeyevents(26);
+		waitTime(3000);
+		Swipe("Up", 1);
+		extent.extentLogger("", "Phone is locked");
+		logger.info("Phone is locked");
+	}
+
+	@SuppressWarnings("unused")
+	public void verifyConvivaAppPutToBackground(WebDriver webdriver, ArrayList<String> contentData,
+			ArrayList<Integer> playerTapDetails) throws Exception {
+		tearDown();
+		new Zee5ApplicasterBusinessLogic("zee");
+		extent.HeaderChildNode("TC 16 : Monitoring real time after App is put To Background during playback");
+		String contentID = contentData.get(0);
+		String contentName = contentData.get(1);
+		String contentMetaInSearch = contentData.get(2);
+		click(AMDHomePage.objSearchBtn, "Search button");
+		waitTime(5000);
+		click(AMDSearchScreen.objSearchEditBox, "Search box");
+		type(AMDSearchScreen.objSearchBoxBar, contentName + "\n", "Search box");
+		hideKeyboard();
+		waitTime(6000);
+		click(AMDSearchScreen.objSearchResult(contentName, contentMetaInSearch), "Search result");
+		waitForAdToFinishInAmd();
+		webdriver.get("https://pulse.conviva.com/reports/54");
+		extent.extentLogger("", "Opened : https://pulse.conviva.com/reports/54");
+		logger.info("Opened : https://pulse.conviva.com/reports/54");
+		waitTime(10000);
+		logger.info("Waited for 10 seconds");
+		extent.extentLogger("", "Waited for 10 seconds");
+		String attempts = "";
+		boolean needWait = true;
+		for (int i = 1; i <= 500; i++) {
+			webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			try {
+				attempts = webdriver.findElement(PWAConvivaPage.objAttempts).getAttribute("innerText");
+				if (Character.isDigit(attempts.charAt(0))) {
+					if (!attempts.trim().equals("1"))
+						needWait = true;
+					else
+						needWait = false;
+				}
+			} catch (Exception e) {
+				needWait = true;
+				System.out.println("failed " + i);
+			}
+			if (needWait == false)
+				break;
+			else
+				waitTime(3000);
+		}
+		if (attempts.trim().equals("0") || attempts.equals("")) {
+			extent.extentLoggerFail("", "Attempts is displayed as " + attempts);
+			logger.error("Attempts is displayed as " + attempts);
+		} else if (attempts.trim().equals("1")) {
+			extent.extentLogger("", "Attempts is displayed as " + attempts + ", expected behavior");
+			logger.info("Attempts is displayed as " + attempts + ", expected behavior");
+		} else {
+			extent.extentLogger("", "Attempts is displayed as " + attempts);
+			logger.info("Attempts is displayed as " + attempts);
+		}
+		String plays = "";
+		try {
+			plays = webdriver.findElement(PWAConvivaPage.objPlays).getAttribute("innerText");
+		} catch (Exception e) {
+		}
+		if (plays.trim().equals("100 %")) {
+			extent.extentLogger("", "Plays is displayed as " + plays + ", expected behavior");
+			logger.info("Plays is displayed as " + plays + ", expected behavior");
+		} else {
+			extent.extentLoggerFail("", "Plays is displayed as " + plays + ", instead of 100%");
+			logger.error("Plays is displayed as " + plays + ", instead of 100%");
+		}
+		getDriver().runAppInBackground(Duration.ofSeconds(15));
+		extent.extentLogger("", "App went to background for 15 minutes");
+		logger.info("App went to background for 15 minutes");
+		String attemptsAtBackground = "";
+		needWait = true;
+		for (int i = 1; i <= 500; i++) {
+			webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			try {
+				attemptsAtBackground = webdriver.findElement(PWAConvivaPage.objAttempts).getAttribute("innerText");
+				if (Character.isDigit(attemptsAtBackground.charAt(0))) {
+					if (!attemptsAtBackground.trim().equals("0"))
+						needWait = true;
+					else
+						needWait = false;
+				}
+			} catch (Exception e) {
+				needWait = true;
+				System.out.println("failed " + i);
+			}
+			if (needWait == false)
+				break;
+			else
+				waitTime(3000);
+		}
+		if (attemptsAtBackground.trim().equals("0")) {
+			extent.extentLogger("",
+					"Attempts is displayed as " + attemptsAtBackground + ", expected behavior for app in background");
+			logger.info(
+					"Attempts is displayed as " + attemptsAtBackground + ", expected behavior for app in background");
+		} else {
+			extent.extentLoggerFail("", "Attempts is displayed as " + attemptsAtBackground + " for app in background");
+			logger.error("Attempts is displayed as " + attemptsAtBackground + " for app in background");
+		}
+		String playsAtBackground = "";
+		try {
+			playsAtBackground = webdriver.findElement(PWAConvivaPage.objPlays).getAttribute("innerText");
+		} catch (Exception e) {
+		}
+		if (playsAtBackground.trim().equals("0 %")) {
+			extent.extentLogger("",
+					"Plays is displayed as " + playsAtBackground + ", expected behavior for app in background");
+			logger.info("Plays is displayed as " + playsAtBackground + ", expected behavior for app in background");
+		} else {
+			extent.extentLoggerFail("",
+					"Plays is displayed as " + playsAtBackground + " for app in background instead of 0%");
+			logger.error("Plays is displayed as " + playsAtBackground + " for app in background instead of 0%");
+		}
+		screencapture(webdriver);
+	}
+
+	public boolean clickElementInRefreshingConvivaPage(WebDriver webdriver, By locator, String displayText)
+			throws Exception {
+		for (int i = 1; i <= 500; i++) {
+			webdriver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+			try {
+				webdriver.findElement(locator).click();
+				logger.info("Clicked on " + displayText);
+				extent.extentLogger("", "Clicked on " + displayText);
+				return true;
+			} catch (Exception e) {
+				try {
+					js.executeScript("window.scrollBy(0,100)", "");
+					waitTime(2000);
+					System.out.println("Waiting ..");
+				} catch (Exception e1) {
+				}
+			}
+		}
+		return false;
+	}
+
+	public String getTextFromRefreshingConvivaPage(WebDriver webdriver, By locator, String displayText)
+			throws Exception {
+		for (int i = 1; i <= 500; i++) {
+			webdriver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+			try {
+				String text = webdriver.findElement(locator).getAttribute("innerText");
+				logger.info(displayText + " : " + text);
+				extent.extentLogger("", displayText + " : " + text);
+				return text;
+			} catch (Exception e) {
+				try {
+					js.executeScript("window.scrollBy(0,100)", "");
+					waitTime(2000);
+					System.out.println("Waiting ..");
+				} catch (Exception e1) {
+				}
+			}
+		}
+		logger.info("Text fetch failed for " + displayText);
+		extent.extentLogger("", "Text fetch failed for " + displayText);
+		return "";
+	}
+
+	public ArrayList<Integer> getDateDifference(Date startDate, Date endDate) throws Exception {
+		ArrayList<Integer> timeValues = new ArrayList<Integer>();
+		long duration = endDate.getTime() - startDate.getTime();
+		long diffInMilliSeconds = TimeUnit.MILLISECONDS.toMillis(duration);
+		int milliSeconds = (int) Math.floorMod(diffInMilliSeconds, 1000);
+		int seconds = (int) (diffInMilliSeconds / 1000);
+		int mins = 0;
+		if (seconds >= 60) {
+			mins = seconds / 60;
+			seconds = Math.floorMod(seconds, 60);
+		}
+		System.out.println("minutes: " + mins);
+		System.out.println("seconds: " + seconds);
+		System.out.println("milliSeconds: " + milliSeconds);
+		timeValues.add(mins);
+		timeValues.add(seconds);
+		timeValues.add(milliSeconds);
+		return timeValues;
+	}
+
+	public String getDateDetails(Date date) throws Exception {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		String dateString = dateFormat.format(date).toString();
+		return dateString;
+	}
+
+	@SuppressWarnings({ "rawtypes", "unused" })
+	public ArrayList<Date> getPlayerStartEndTime(Date startDate, Date endDate, ArrayList<Integer> playerTapDetails)
+			throws Exception {
+		int x = playerTapDetails.get(0);
+		int y = playerTapDetails.get(1);
+		ArrayList<Date> startAndEndTime = new ArrayList<Date>();
+		getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.MILLISECONDS);
+		String playerHeadPosition = "0";
+		boolean adPlay = false, adMessage = false;
+		TouchAction act = new TouchAction(getDriver());
+		main: for (int j = 0; j < 1000; j++) {
+			try {
+				getDriver().findElement(AMDPlayerScreen.objAd2);
+				if (adMessage == false) {
+					logger.info("Ad play in progress");
+					extent.extentLogger("AdPlayInProgress", "Ad play in progress");
+					adMessage = true;
+				}
+			} catch (Exception e1) {
+				startDate = new Date();
+				for (int k = 0; k < 50; k++) {
+					try {
+						act.press(PointOption.point(x, y)).release().perform();
+						WebElement timer = getDriver().findElement(AMDPlayerScreen.objTimer);
+						endDate = new Date();
+						playerHeadPosition = timer.getText();
+						screencapture();
+						break main;
+					} catch (Exception e2) {
+					}
+				}
+
+			}
+		}
+		logger.info("Start Time calculated: " + getDateDetails(startDate));
+		extent.extentLogger("", "Start Time calculated: " + getDateDetails(startDate));
+		logger.info("Player head position : " + playerHeadPosition);
+		extent.extentLogger("AdPlayInProgress", "Player head position : " + playerHeadPosition);
+		logger.info("End Time calculated: " + getDateDetails(endDate));
+		extent.extentLogger("", "End Time calculated: " + getDateDetails(endDate));
+		startAndEndTime.add(startDate);
+		startAndEndTime.add(endDate);
+		return startAndEndTime;
+	}
+
+	public String getPhonePublicIP() throws Exception {
+		String cmd = "adb shell ip address show";
+		Process p = Runtime.getRuntime().exec(cmd);
+		BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+		String line = "", doc = "", ip = "";
+		while ((line = br.readLine()) != null) {
+			doc = doc + line;
+		}
+		if (doc.contains(" scope global temporary dynamic "))
+			doc = doc.split("scope global temporary dynamic")[0];
+		else if (doc.contains(" scope global dynamic "))
+			doc = doc.split(" scope global dynamic ")[0];
+		String[] inets = doc.split("inet6");
+		doc = inets[inets.length - 1];
+		ip = doc.split("/64")[0];
+		logger.info("ip :: " + doc);
+		return ip;
+	}
+
+	public static void decodeTokenParts(String token) {
+		String[] parts = token.split("\\.", 0);
+		byte[] bytes = Base64.getUrlDecoder().decode(parts[1]);
+		String decodedString = new String(bytes, StandardCharsets.UTF_8);
+		System.out.println("Decoded: " + decodedString);
+	}
+
+	public static String getIPAddressOfSystem(boolean useIPv4) {
+		try {
+			List<NetworkInterface> interfaces = Collections.list(NetworkInterface.getNetworkInterfaces());
+			for (NetworkInterface intf : interfaces) {
+				List<InetAddress> addrs = Collections.list(intf.getInetAddresses());
+				for (InetAddress addr : addrs) {
+					if (!addr.isLoopbackAddress()) {
+						String sAddr = addr.getHostAddress();
+						// boolean isIPv4 = InetAddressUtils.isIPv4Address(sAddr);
+						boolean isIPv4 = sAddr.indexOf(':') < 0;
+
+						if (useIPv4) {
+							if (isIPv4)
+								return sAddr;
+						} else {
+							if (!isIPv4) {
+								int delim = sAddr.indexOf('%'); // drop ip6 zone suffix
+								return delim < 0 ? sAddr.toUpperCase() : sAddr.substring(0, delim).toUpperCase();
+							}
+						}
+					}
+				}
+			}
+		} catch (Exception ex) {
+		} // for now eat exceptions
+		return "";
+	}
+
+	@SuppressWarnings("rawtypes")
+	public void forwardRewindPlayer(String ForwardOrRewind) throws Exception {
+		touchAction = new TouchAction(getDriver());
+		int playerHeight = 0, playerWidth = 0, heightOffset = 0, widthOffsetForward = 0, widthOffsetRewind = 0,
+				playerX = 0, playerY = 0;
+		int requiredY = 0, requiredXForward = 0, requiredXRewind = 0;
+		try {
+			WebElement player = getDriver().findElement(AMDPlayerScreen.objplayer);
+			playerHeight = player.getSize().getHeight();
+			playerWidth = player.getSize().getWidth();
+			heightOffset = playerHeight / 3;
+			widthOffsetForward = playerWidth / 8;
+			widthOffsetRewind = (playerWidth * 7) / 8;
+			playerX = player.getLocation().getX();
+			playerY = player.getLocation().getY();
+			requiredY = playerY + heightOffset;
+			requiredXForward = playerX + widthOffsetForward;
+			requiredXRewind = playerX + widthOffsetRewind;
+			if (ForwardOrRewind.equalsIgnoreCase("forward")) {
+				touchAction.press(PointOption.point(requiredXForward, requiredY)).release().perform()
+						.press(PointOption.point(requiredXForward, requiredY)).release().perform();
+				logger.info("Double tapped to forward by 10 seconds");
+				extent.extentLogger("", "Double tapped to forward by 10 seconds");
+			} else {
+				touchAction.press(PointOption.point(requiredXRewind, requiredY)).release().perform()
+						.press(PointOption.point(requiredXRewind, requiredY)).release().perform();
+				logger.info("Double tapped to rewind by 10 seconds");
+				extent.extentLogger("", "Double tapped to rewind by 10 seconds");
+			}
+		} catch (Exception e) {
 		}
 	}
-	logger.info("Start Time calculated: "+getDateDetails(startDate));
-	extent.extentLogger("", "Start Time calculated: "+getDateDetails(startDate));
-	logger.info("Player head position : "+playerHeadPosition);
-	extent.extentLogger("AdPlayInProgress", "Player head position : "+playerHeadPosition);
-	logger.info("End Time calculated: "+getDateDetails(endDate));
-	extent.extentLogger("", "End Time calculated: "+getDateDetails(endDate));
-	startAndEndTime.add(startDate);
-	startAndEndTime.add(endDate);
-	return startAndEndTime;
-}
 
-public String getPhonePublicIP() throws Exception {
-	String cmd = "adb shell ip address show";
-	Process p = Runtime.getRuntime().exec(cmd);
-	BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
-	String line = "", doc = "",ip="";
-	while ((line = br.readLine()) != null) {
-		doc = doc + line;
-	}
-	if(doc.contains(" scope global temporary dynamic ")) doc=doc.split("scope global temporary dynamic")[0];
-	else if(doc.contains(" scope global dynamic ")) doc=doc.split(" scope global dynamic ")[0];
-	String[] inets=doc.split("inet6");
-	doc=inets[inets.length-1];
-	ip=doc.split("/64")[0];
-	logger.info("ip :: " + doc);
-	return ip;
-}
-
-public static void decodeTokenParts(String token){
-	String[] parts = token.split("\\.", 0);
-	byte[] bytes = Base64.getUrlDecoder().decode(parts[1]);
-	String decodedString = new String(bytes, StandardCharsets.UTF_8);
-	System.out.println("Decoded: " + decodedString);
-}
-   
-public static String getIPAddressOfSystem(boolean useIPv4) {
-    try {
-        List<NetworkInterface> interfaces = Collections.list(NetworkInterface.getNetworkInterfaces());
-        for (NetworkInterface intf : interfaces) {
-            List<InetAddress> addrs = Collections.list(intf.getInetAddresses());
-            for (InetAddress addr : addrs) {
-                if (!addr.isLoopbackAddress()) {
-                    String sAddr = addr.getHostAddress();
-                    //boolean isIPv4 = InetAddressUtils.isIPv4Address(sAddr);
-                    boolean isIPv4 = sAddr.indexOf(':')<0;
-
-                    if (useIPv4) {
-                        if (isIPv4) 
-                            return sAddr;
-                    } else {
-                        if (!isIPv4) {
-                            int delim = sAddr.indexOf('%'); // drop ip6 zone suffix
-                            return delim<0 ? sAddr.toUpperCase() : sAddr.substring(0, delim).toUpperCase();
-                        }
-                    }
-                }
-            }
-        }
-    } catch (Exception ex) { } // for now eat exceptions
-    return "";
-}
-
-@SuppressWarnings("rawtypes")
-public void forwardRewindPlayer(String ForwardOrRewind) throws Exception {
-	touchAction = new TouchAction(getDriver());
-	int playerHeight=0,playerWidth=0,heightOffset=0,widthOffsetForward=0,widthOffsetRewind=0,playerX=0,playerY=0;
-	int requiredY=0,requiredXForward=0,requiredXRewind=0;
-	try {
-		WebElement player=getDriver().findElement(AMDPlayerScreen.objplayer);
-		playerHeight=player.getSize().getHeight();
-		playerWidth=player.getSize().getWidth();
-		heightOffset=playerHeight/3;
-		widthOffsetForward=playerWidth/8;
-		widthOffsetRewind=(playerWidth*7)/8;
-		playerX=player.getLocation().getX();
-		playerY=player.getLocation().getY();
-		requiredY=playerY+heightOffset;
-		requiredXForward=playerX+widthOffsetForward;
-		requiredXRewind=playerX+widthOffsetRewind;
-		if(ForwardOrRewind.equalsIgnoreCase("forward")) {
-			touchAction.press(PointOption.point(requiredXForward, requiredY)).release().perform()
-			.press(PointOption.point(requiredXForward, requiredY)).release().perform();
-			logger.info("Double tapped to forward by 10 seconds");
-			extent.extentLogger("", "Double tapped to forward by 10 seconds");
-		}
-		else{
-			touchAction.press(PointOption.point(requiredXRewind, requiredY)).release().perform()
-			.press(PointOption.point(requiredXRewind, requiredY)).release().perform();
-			logger.info("Double tapped to rewind by 10 seconds");
-			extent.extentLogger("", "Double tapped to rewind by 10 seconds");
+	@SuppressWarnings("rawtypes")
+	public void clickOnProgressBar(int percent) throws Exception {
+		touchAction = new TouchAction(getDriver());
+		int seekbarX = 0, seekbarY = 0, seekbarHeight = 0, seekbarWidth = 0, offsetX = 0, offsetY = 0;
+		int requiredX = 0, requiredY = 0;
+		try {
+			WebElement seekbar = getDriver().findElement(AMDPlayerScreen.objProgressBar);
+			seekbarX = seekbar.getLocation().getX();
+			seekbarY = seekbar.getLocation().getY();
+			seekbarHeight = seekbar.getSize().getHeight();
+			seekbarWidth = seekbar.getSize().getWidth();
+			offsetX = (seekbarWidth * percent) / 100;
+			offsetY = seekbarHeight / 2;
+			requiredX = seekbarX + offsetX;
+			requiredY = seekbarY + offsetY;
+			touchAction.press(PointOption.point(requiredX, requiredY)).release().perform();
+			logger.info("Clicked on " + percent + " percent of the seek bar");
+			extent.extentLogger("", "Clicked on " + percent + " percent of the seek bar");
+		} catch (Exception e) {
 		}
 	}
-	catch(Exception e) {}
-}
 
-@SuppressWarnings("rawtypes")
-public void clickOnProgressBar(int percent)  throws Exception {
-	touchAction = new TouchAction(getDriver());
-	int seekbarX=0,seekbarY=0,seekbarHeight=0,seekbarWidth=0,offsetX=0,offsetY=0;
-	int requiredX=0,requiredY=0;
-	try {
-    	WebElement seekbar=getDriver().findElement(AMDPlayerScreen.objProgressBar);
-    	seekbarX=seekbar.getLocation().getX();
-    	seekbarY=seekbar.getLocation().getY();
-    	seekbarHeight=seekbar.getSize().getHeight();
-    	seekbarWidth=seekbar.getSize().getWidth();
-    	offsetX=(seekbarWidth*percent)/100;
-    	offsetY=seekbarHeight/2;
-    	requiredX=seekbarX+offsetX;
-    	requiredY=seekbarY+offsetY;
-    	touchAction.press(PointOption.point(requiredX, requiredY)).release().perform();
-    	logger.info("Clicked on "+percent+" percent of the seek bar");
-		extent.extentLogger("", "Clicked on "+percent+" percent of the seek bar");
+	@SuppressWarnings("rawtypes")
+	public void dragOnProgressBar(int percent) throws Exception {
+		touchAction = new TouchAction(getDriver());
+		int seekbarX = 0, seekbarY = 0, seekbarHeight = 0, seekbarWidth = 0, offsetX = 0, offsetY = 0;
+		int requiredX = 0, requiredY = 0;
+		try {
+			WebElement seekbar = getDriver().findElement(AMDPlayerScreen.objProgressBar);
+			seekbarX = seekbar.getLocation().getX();
+			seekbarY = seekbar.getLocation().getY();
+			seekbarHeight = seekbar.getSize().getHeight();
+			seekbarWidth = seekbar.getSize().getWidth();
+			offsetX = (seekbarWidth * percent) / 100;
+			offsetY = seekbarHeight / 2;
+			requiredX = seekbarX + offsetX;
+			requiredY = seekbarY + offsetY;
+			touchAction.longPress(PointOption.point(seekbarX, requiredY))
+					.moveTo(PointOption.point(requiredX, requiredY)).release().perform();
+			logger.info("Dragged to " + percent + " percent on the seek bar");
+			extent.extentLogger("", "Dragged to " + percent + " percent of the seek bar");
+		} catch (Exception e) {
+		}
 	}
-	catch(Exception e) {}
-}
-   
-@SuppressWarnings("rawtypes")
-public void dragOnProgressBar(int percent)  throws Exception {
-	touchAction = new TouchAction(getDriver());
-	int seekbarX=0,seekbarY=0,seekbarHeight=0,seekbarWidth=0,offsetX=0,offsetY=0;
-	int requiredX=0,requiredY=0;
-	try {
-    	WebElement seekbar=getDriver().findElement(AMDPlayerScreen.objProgressBar);
-    	seekbarX=seekbar.getLocation().getX();
-    	seekbarY=seekbar.getLocation().getY();
-    	seekbarHeight=seekbar.getSize().getHeight();
-    	seekbarWidth=seekbar.getSize().getWidth();
-    	offsetX=(seekbarWidth*percent)/100;
-    	offsetY=seekbarHeight/2;
-    	requiredX=seekbarX+offsetX;
-    	requiredY=seekbarY+offsetY;
-    	touchAction.longPress(PointOption.point(seekbarX, requiredY)).moveTo(PointOption.point(requiredX, requiredY)).release().perform();
-    	logger.info("Dragged to "+percent+" percent on the seek bar");
-		extent.extentLogger("", "Dragged to "+percent+" percent of the seek bar");
-	}
-	catch(Exception e) {}
-}
 
+	public void ValidateNativeAds(String userType) throws Exception {
+		extent.HeaderChildNode("Native Ads Validation");
 
+		verifyElementPresentAndClick(AMDHomePage.objHomeTab1, "Home Tab");
+		checkForNativeAds("Home Tab", userType);
 
+		verifyElementPresentAndClick(AMDHomePage.objTvShowsTab, "TV Shows Tab");
+		checkForNativeAds("TV Shows Tab", userType);
 
-public void ValidateNativeAds(String userType) throws Exception{
-	extent.HeaderChildNode("Native Ads Validation");
-	
-	verifyElementPresentAndClick(AMDHomePage.objHomeTab1, "Home Tab");
-	checkForNativeAds("Home Tab",userType);
-	
-	verifyElementPresentAndClick(AMDHomePage.objTvShowsTab, "TV Shows Tab");
-	checkForNativeAds("TV Shows Tab",userType);
-	
 //	verifyElementPresentAndClick(AMDHomePage.objMoviesTab, "Movies Tab");
 //	checkForNativeAds("Movies Tab");
-	
-	verifyElementPresentAndClick(AMDHomePage.objNewsTab, "News Tab");
-	checkForNativeAds("News Tab",userType);
 
-}
+		verifyElementPresentAndClick(AMDHomePage.objNewsTab, "News Tab");
+		checkForNativeAds("News Tab", userType);
 
-public void checkForNativeAds(String str, String userType){
-	
-	if(!userType.equalsIgnoreCase("SubscribedUser"))
-	{
-		int j = 0;
-		
-		for(int i=0; i<=20; i++){
-
-			if(verifyIsElementDisplayed(AMDHomePage.objNativeAd, "Native Ad")){
-				extent.extentLoggerPass("", "Native Ad is displayed in "+str);
-				break;
-			}else{
-				PartialSwipe("UP", 2);
-				waitTime(8000);
-				j=i;
-			}		
-		}
-		
-		if(j==20){
-			extent.extentLoggerFail("", "Native Ad is not displayed in "+str);
-		}
-	}else{
-		waitTime(8000);
-		
-		int j = 0;
-		
-		for(int i=0; i<=10; i++){
-
-			if(verifyIsElementDisplayed(AMDHomePage.objNativeAd, "Native Ad")){
-				extent.extentLoggerFail("", "Native Ad is displayed in "+str);
-				break;
-			}else{
-				PartialSwipe("UP", 2);
-				waitTime(8000);
-				j=i;
-			}		
-		}
-		
-		if(j==20){
-			extent.extentLoggerPass("", "Native Ad is not displayed in "+str);
-		}
-		
-		
 	}
-}
 
+	public void checkForNativeAds(String str, String userType) {
 
-public void ValidateMastheadAds(String userType) throws Exception{
-	extent.HeaderChildNode("Masthead Ads Validation");
-	
-	verifyElementPresentAndClick(AMDHomePage.objHomeBottomBtn, "Home Button");
-	waitTime(5000);
-	
-	verifyElementPresentAndClick(AMDHomePage.objHomeTab1, "Home Tab");
-	checkForMastheadAds("Home Tab",userType);
-	
-	verifyElementPresentAndClick(AMDHomePage.objTvShowsTab, "TV Shows Tab");
-	checkForMastheadAds("TV Shows Tab",userType);
-	
-	verifyElementPresentAndClick(AMDHomePage.objMoviesTab, "Movies Tab");
-	checkForMastheadAds("Movies Tab",userType);
-	
-	verifyElementPresentAndClick(AMDHomePage.objNewsTab, "News Tab");
-	checkForMastheadAds("News Tab",userType);
+		if (!userType.equalsIgnoreCase("SubscribedUser")) {
+			int j = 0;
 
-}
+			for (int i = 0; i <= 20; i++) {
 
-
-
-public void checkForMastheadAds(String str, String userType) throws Exception{
-	
-	if(!userType.equalsIgnoreCase("SubscribedUser")){
-		int j = 0;
-		waitTime(8000);
-		for(int i=0; i<=20; i++){
-
-			if(verifyIsElementDisplayed(AMDHomePage.objMastheadAd, "Masthead Ad")){
-				extent.extentLoggerPass("", "Masthead Ad is displayed in "+str);
-				waitTime(10000);
-				waitTime(3000);
-				if(verifyIsElementDisplayed(AMDHomePage.objMastheadAdPlayIcon, "Play icon")){
-					verifyElementPresentAndClick(AMDHomePage.objMastheadAdPlayIcon, "Play icon");
-					waitTime(2000);
-					if(verifyIsElementDisplayed(AMDHomePage.objMastheadAdPlayPauseIcon, "Masthead Pause icon")){
-						extent.extentLoggerPass("", "pause icon is displayed on the playable masthead Ad");
-					}else{
-						extent.extentLoggerFail("", "pause icon is not displayed on the playable masthead Ad");
-					}
-					
-					if(verifyIsElementDisplayed(AMDHomePage.objMastheadAdPlayMuteIcon, "Masthead Mute icon")){
-						extent.extentLoggerPass("", "Mute icon is displayed on the playable masthead Ad");
-					}else{
-						extent.extentLoggerFail("", "Mute icon is not displayed on the playable masthead Ad");
-					}
+				if (verifyIsElementDisplayed(AMDHomePage.objNativeAd, "Native Ad")) {
+					extent.extentLoggerPass("", "Native Ad is displayed in " + str);
+					break;
+				} else {
+					PartialSwipe("UP", 2);
+					waitTime(8000);
+					j = i;
 				}
-				
-				break;
-			}else{
-				waitTime(8000);
-				j=i;
-			}		
-		}
-		
-		if(j==20){
-			extent.extentLoggerFail("", "Masthead Ad is not displayed in "+str);
-		}
-	}else{
-		int j = 0;
-		waitTime(8000);
-		for(int i=0; i<=5; i++){
+			}
 
-			if(verifyIsElementDisplayed(AMDHomePage.objMastheadAd, "Masthead Ad")){
-				extent.extentLoggerFail("", "Masthead Ad is displayed in "+str);
-				waitTime(10000);
-				waitTime(3000);
-								
-				break;
-			}else{
-				waitTime(8000);
-				j=i;
-			}		
-		}
-		
-		if(j==20){
-			extent.extentLoggerPass("", "Masthead Ad is not displayed in "+str);
-		}
-	}
-	
-	
-
-}
-
-
-public void completeProfilePopUpClose() throws Exception {
-	waitTime(15000);
-	if (verifyIsElementDisplayed(AMDPlayerScreen.objCompleteProfilePopUp)) {
-		logger.info("CompleteProfile PopUp is displayed");
-		extent.extentLogger("Register Pop Up", "CompleteProfile PopUp is displayed");
-		waitTime(5000);
-		click(AMDGenericObjects.objPopUpDivider, "CompleteProfile PopUp");
-//		Back(1);
-	}
-}
-
-
-public void ValidateCompanionAds(String userType) throws Exception{
-	extent.HeaderChildNode("Companion Ads Validation");
-	
-	verifyElementPresentAndClick(AMDHomePage.objHomeBottomBtn, "Home Button");
-	waitTime(5000);
-	
-	verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search Button");
-	waitTime(5000);
-	click(AMDSearchScreen.objSearchEditBox, "Search box");
-	type(AMDSearchScreen.objSearchBoxBar, "MD - Raat Baaki Hai - Movie - Republished1\n", "Search box");
-	hideKeyboard();
-	waitTime(6000);
-	click(AMDSearchScreen.objFirstSearchResult1("MD - Raat Baaki Hai - Movie - Republished1"), "Search result");
-	waitTime(5000);
-	waitTime(5000);
-	
-	verifyIsElementDisplayed(AMDHomePage.objCompanionAd, "Companion Ad");
-	
-	LoadingInProgress();
-	adPlay();
-	if(userType.equalsIgnoreCase("Guest")){
-		registerPopUpClose();		
-	}else if(userType.equalsIgnoreCase("NonSubscribedUser")){
-		completeProfilePopUpClose();
-	}
-
-	if(userType.equalsIgnoreCase("SubscribedUser")){
-		if(verifyIsElementDisplayed(AMDHomePage.objCompanionAd, "Companion Ad")){
-			extent.extentLoggerFail("", "Companion Ad is present");
-		}else{
-			extent.extentLoggerPass("", "Companion Ad is not present");
-		}
-	}else{
-		if(verifyIsElementDisplayed(AMDHomePage.objCompanionAd, "Companion Ad")){
-			extent.extentLoggerPass("", "Companion Ad is present");
-		}else{
-			extent.extentLoggerFail("", "Companion Ad is not present");
-		}		
-	}
-	
-	
-	waitTime(15000);
-	click(AMDPlayerScreen.objPlayerScreen, "Player screen");
-	
-	if(verifyIsElementDisplayed(AMDPlayerScreen.objCurrentTime, "Current Time")){
-		extent.extentLoggerPass("", "Content played after Ad Play");
-	}else{
-		extent.extentLoggerFail("", "Content not played after Ad Play");		
-	}
-	
-	
-
-}
-
-
-public void AMDCharlesValidation(String userType, String pSearchContent) throws Exception{
-	extent.HeaderChildNode("Charles Validation");
-	
-	if(!userType.equalsIgnoreCase("SubscribedUser")){
-		waitTime(8000);
-		Swipe("UP", 2);
-		Swipe("DOWN", 2);
-		waitTime(8000);
-		click(AMDSearchScreen.objSearchIcon, "Search icon");
-		click(AMDSearchScreen.objSearchEditBox, "Search Box");
-		type(AMDSearchScreen.objSearchBoxBar, pSearchContent + "\n", "Search bar");
-		hideKeyboard();
-		waitTime(4000);
-		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
-		waitTime(4000);
-//		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
-		click(AMDSearchScreen.objSearchResultContainsText(pSearchContent), "Search Result");
-		
-		waitTime(8000);
-
-		boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
-		if (ad == true) {
-			logger.info("Ad play in progress");
-			extent.extentLoggerPass("Ad", "Ad played");
+			if (j == 20) {
+				extent.extentLoggerFail("", "Native Ad is not displayed in " + str);
+			}
 		} else {
-			logger.info("Ad is not available for Subscribed User");
-			extent.extentLogger("Ad", "Ad is not available");
+			waitTime(8000);
+
+			int j = 0;
+
+			for (int i = 0; i <= 10; i++) {
+
+				if (verifyIsElementDisplayed(AMDHomePage.objNativeAd, "Native Ad")) {
+					extent.extentLoggerFail("", "Native Ad is displayed in " + str);
+					break;
+				} else {
+					PartialSwipe("UP", 2);
+					waitTime(8000);
+					j = i;
+				}
+			}
+
+			if (j == 20) {
+				extent.extentLoggerPass("", "Native Ad is not displayed in " + str);
+			}
+
 		}
-		waitTime(8000);
-		waitTime(8000);
-		waitTime(8000);
-		
 	}
-}
 
+	public void ValidateMastheadAds(String userType) throws Exception {
+		extent.HeaderChildNode("Masthead Ads Validation");
 
+		verifyElementPresentAndClick(AMDHomePage.objHomeBottomBtn, "Home Button");
+		waitTime(5000);
 
+		verifyElementPresentAndClick(AMDHomePage.objHomeTab1, "Home Tab");
+		checkForMastheadAds("Home Tab", userType);
+
+		verifyElementPresentAndClick(AMDHomePage.objTvShowsTab, "TV Shows Tab");
+		checkForMastheadAds("TV Shows Tab", userType);
+
+		verifyElementPresentAndClick(AMDHomePage.objMoviesTab, "Movies Tab");
+		checkForMastheadAds("Movies Tab", userType);
+
+		verifyElementPresentAndClick(AMDHomePage.objNewsTab, "News Tab");
+		checkForMastheadAds("News Tab", userType);
+
+	}
+
+	public void checkForMastheadAds(String str, String userType) throws Exception {
+
+		if (!userType.equalsIgnoreCase("SubscribedUser")) {
+			int j = 0;
+			waitTime(8000);
+			for (int i = 0; i <= 20; i++) {
+
+				if (verifyIsElementDisplayed(AMDHomePage.objMastheadAd, "Masthead Ad")) {
+					extent.extentLoggerPass("", "Masthead Ad is displayed in " + str);
+					waitTime(10000);
+					waitTime(3000);
+					if (verifyIsElementDisplayed(AMDHomePage.objMastheadAdPlayIcon, "Play icon")) {
+						verifyElementPresentAndClick(AMDHomePage.objMastheadAdPlayIcon, "Play icon");
+						waitTime(2000);
+						if (verifyIsElementDisplayed(AMDHomePage.objMastheadAdPlayPauseIcon, "Masthead Pause icon")) {
+							extent.extentLoggerPass("", "pause icon is displayed on the playable masthead Ad");
+						} else {
+							extent.extentLoggerFail("", "pause icon is not displayed on the playable masthead Ad");
+						}
+
+						if (verifyIsElementDisplayed(AMDHomePage.objMastheadAdPlayMuteIcon, "Masthead Mute icon")) {
+							extent.extentLoggerPass("", "Mute icon is displayed on the playable masthead Ad");
+						} else {
+							extent.extentLoggerFail("", "Mute icon is not displayed on the playable masthead Ad");
+						}
+					}
+
+					break;
+				} else {
+					waitTime(8000);
+					j = i;
+				}
+			}
+
+			if (j == 20) {
+				extent.extentLoggerFail("", "Masthead Ad is not displayed in " + str);
+			}
+		} else {
+			int j = 0;
+			waitTime(8000);
+			for (int i = 0; i <= 5; i++) {
+
+				if (verifyIsElementDisplayed(AMDHomePage.objMastheadAd, "Masthead Ad")) {
+					extent.extentLoggerFail("", "Masthead Ad is displayed in " + str);
+					waitTime(10000);
+					waitTime(3000);
+
+					break;
+				} else {
+					waitTime(8000);
+					j = i;
+				}
+			}
+
+			if (j == 20) {
+				extent.extentLoggerPass("", "Masthead Ad is not displayed in " + str);
+			}
+		}
+
+	}
+
+	public void completeProfilePopUpClose() throws Exception {
+		waitTime(15000);
+		if (verifyIsElementDisplayed(AMDPlayerScreen.objCompleteProfilePopUp)) {
+			logger.info("CompleteProfile PopUp is displayed");
+			extent.extentLogger("Register Pop Up", "CompleteProfile PopUp is displayed");
+			waitTime(5000);
+			click(AMDGenericObjects.objPopUpDivider, "CompleteProfile PopUp");
+//		Back(1);
+		}
+	}
+
+	public void ValidateCompanionAds(String userType) throws Exception {
+		extent.HeaderChildNode("Companion Ads Validation");
+
+		verifyElementPresentAndClick(AMDHomePage.objHomeBottomBtn, "Home Button");
+		waitTime(5000);
+
+		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search Button");
+		waitTime(5000);
+		click(AMDSearchScreen.objSearchEditBox, "Search box");
+		type(AMDSearchScreen.objSearchBoxBar, "MD - Raat Baaki Hai - Movie - Republished1\n", "Search box");
+		hideKeyboard();
+		waitTime(6000);
+		click(AMDSearchScreen.objFirstSearchResult1("MD - Raat Baaki Hai - Movie - Republished1"), "Search result");
+		waitTime(5000);
+		waitTime(5000);
+
+		verifyIsElementDisplayed(AMDHomePage.objCompanionAd, "Companion Ad");
+
+		LoadingInProgress();
+		adPlay();
+		if (userType.equalsIgnoreCase("Guest")) {
+			registerPopUpClose();
+		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+			completeProfilePopUpClose();
+		}
+
+		if (userType.equalsIgnoreCase("SubscribedUser")) {
+			if (verifyIsElementDisplayed(AMDHomePage.objCompanionAd, "Companion Ad")) {
+				extent.extentLoggerFail("", "Companion Ad is present");
+			} else {
+				extent.extentLoggerPass("", "Companion Ad is not present");
+			}
+		} else {
+			if (verifyIsElementDisplayed(AMDHomePage.objCompanionAd, "Companion Ad")) {
+				extent.extentLoggerPass("", "Companion Ad is present");
+			} else {
+				extent.extentLoggerFail("", "Companion Ad is not present");
+			}
+		}
+
+		waitTime(15000);
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+
+		if (verifyIsElementDisplayed(AMDPlayerScreen.objCurrentTime, "Current Time")) {
+			extent.extentLoggerPass("", "Content played after Ad Play");
+		} else {
+			extent.extentLoggerFail("", "Content not played after Ad Play");
+		}
+
+	}
+
+	public void AMDCharlesValidation(String userType, String pSearchContent) throws Exception {
+		extent.HeaderChildNode("Charles Validation");
+
+		if (!userType.equalsIgnoreCase("SubscribedUser")) {
+			waitTime(8000);
+			Swipe("UP", 2);
+			Swipe("DOWN", 2);
+			waitTime(8000);
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, pSearchContent + "\n", "Search bar");
+			hideKeyboard();
+			waitTime(4000);
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			waitTime(4000);
+//		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+			click(AMDSearchScreen.objSearchResultContainsText(pSearchContent), "Search Result");
+
+			waitTime(8000);
+
+			boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
+			if (ad == true) {
+				logger.info("Ad play in progress");
+				extent.extentLoggerPass("Ad", "Ad played");
+			} else {
+				logger.info("Ad is not available for Subscribed User");
+				extent.extentLogger("Ad", "Ad is not available");
+			}
+			waitTime(8000);
+			waitTime(8000);
+			waitTime(8000);
+
+		}
+	}
 
 }

@@ -2,7 +2,6 @@ package com.CleverTap;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -12,7 +11,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
-
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -24,19 +22,19 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class QOEMatrix {
 	
-//	static String xlpath = System.getProperty("user.dir") + "\\Performance\\performance.xlsx";
-	static String xlpath = "C:\\Users\\IGS0026\\Documents\\Performance\\performance.xlsx";
+	static String xlpath = System.getProperty("user.dir") + "\\Performance\\performance.xlsx";
+//	static String xlpath = "C:\\Users\\IGS0026\\Documents\\Performance\\performance.xlsx";
 	static int LastRow = 0;
 	public static ArrayList<String> performanceResult = new ArrayList<>();
 	public static boolean Count = false;
 	
+	
 	public static String getDate() {
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:MM:ss a");
 		Date date = new Date();
-		String name = dateFormat.format(date).toString().replaceFirst(" ", "_").replaceAll("/", "_").replaceAll(":","_");
+		String name = dateFormat.format(date).toString();
 		return name;
 	}
-	
 	
 	public static void creatExcelPerformance() {
 		try {
@@ -108,8 +106,7 @@ public class QOEMatrix {
 							Count = false;
 							if(c == 0) {
 								cell = xrow.createCell(9);
-								cell.setCellValue(scenario);
-								getDate();
+								cell.setCellValue(getDate());
 							}
 						}
 						cell = xrow.createCell(1);
@@ -209,7 +206,18 @@ public class QOEMatrix {
 			data = (int)myExcelSheet.getRow(row).getCell(col).getNumericCellValue();
 			myExcelBook.close();
 		} catch (Exception e) {
-			return data;
+		}
+		return data;
+	}
+	
+	public static String getCellValue1(int row, int col) {
+		String data = "";
+		try {
+			XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlpath));
+			XSSFSheet myExcelSheet = myExcelBook.getSheetAt(0);
+			data = myExcelSheet.getRow(row).getCell(col).toString();
+			myExcelBook.close();
+		} catch (Exception e) {
 		}
 		return data;
 	}
@@ -221,6 +229,16 @@ public class QOEMatrix {
 //		System.out.println("Done");
 //		String Token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE2MjU1NDc1MTksImV4cCI6MTYzNTkxNTUxOSwiaXNzIjoiaHR0cHM6Ly91c2VyYXBpLnplZTUuY29tIiwiYXVkIjpbImh0dHBzOi8vdXNlcmFwaS56ZWU1LmNvbS9yZXNvdXJjZXMiLCJzdWJzY3JpcHRpb25hcGkiLCJ1c2VyYXBpIl0sImNsaWVudF9pZCI6InJlZnJlc2hfdG9rZW5fY2xpZW50Iiwic3ViIjoiNDcxZTEwYmUtNTYyOS00YzkwLThkMDAtZjA0ZjFjMWUwNzExIiwiYXV0aF90aW1lIjoxNjI1NTQ3NTE5LCJpZHAiOiJsb2NhbCIsInVzZXJfaWQiOiI0NzFlMTBiZS01NjI5LTRjOTAtOGQwMC1mMDRmMWMxZTA3MTEiLCJzeXN0ZW0iOiJaNSIsImFjdGl2YXRpb25fZGF0ZSI6IjIwMjAtMDMtMTlUMDY6MDk6NDYiLCJjcmVhdGVkX2RhdGUiOiIyMDIwLTAzLTE5VDA2OjA5OjQ2IiwicmVnaXN0cmF0aW9uX2NvdW50cnkiOiJJTiIsInVzZXJfZW1haWwiOiJ6ZWU1bGF0ZXN0QGdtYWlsLmNvbSIsInVzZXJfbW9iaWxlIjoiOTE4NjY5MDA1NTg0Iiwic3Vic2NyaXB0aW9ucyI6IltdIiwic2NvcGUiOlsic3Vic2NyaXB0aW9uYXBpIiwidXNlcmFwaSIsIm9mZmxpbmVfYWNjZXNzIl0sImFtciI6WyJkZWxlZ2F0aW9uIl19.YNhsIcVG2G_T4k_mYL-Muacxwz1oYDQoix3i0zMIoyHUcyLkrgq-bUnpJvh0ao3jq7e4JE8RfOcAqBjqR1t2t4N-3HH714rPAzVMIQ-dSUNBSjvIShiKEKxzdYn0wO5eZs38HFP9R9kYZ5BAwx3Hfg6XJAWFTq6X3RG0MsZgMdeOxZTn0P0buhdaUxj3SmWKELkTsVocm4qz44IhaHEIbv_m9eKzfuCBc_o1IazJin-lVp-lsI433cjk3hAjVw57ff8tww0FRwiTvTx17sz_m5Bmg1i3ps2CxdowSRUofDSomxwwYDrQiPOAsFm9mEI_YewKKuC6thU8N8TIQm58Rw";
 //		decodeTokenParts(Token);
+//		calculateReadings(1,"App Launch");
+//		calculateReadings(2,"Login");
+//		calculateReadings(3,"Navigation to Premium");
+//		calculateReadings(4,"Initiate Content playback");
+//		calculateReadings(5,"DeepLink to Consumption screen");
+//		System.out.println(performanceResult);
+		System.out.println(getCellValue1(1,9));
+	}
+	
+	public static void calculateaverage() {
 		calculateReadings(1,"App Launch");
 		calculateReadings(2,"Login");
 		calculateReadings(3,"Navigation to Premium");
@@ -230,7 +248,6 @@ public class QOEMatrix {
 		calculateReadings(7,"Initiate content playback (Episode)");
 		calculateReadings(8,"ConsumpitonScreen for Shows");
 		calculateReadings(9,"ConsumpitonScreen for Movies");
-		
 		System.out.println(performanceResult);
 	}
 	
@@ -257,10 +274,11 @@ public class QOEMatrix {
 			XSSFSheet myExcelSheet = myExcelBook.getSheetAt(0);
 			data = (int)myExcelSheet.getRow(0).getCell(0).getNumericCellValue();
 			myExcelBook.close();
+			System.out.println("Iteration : "+data);
 			if(data != 10) {
 				return true;
 			}else {
-				AddFormulaToCell();
+//				AddFormulaToCell();
 				return false;
 			}
 		} catch (Exception e) {
@@ -268,7 +286,8 @@ public class QOEMatrix {
 		}
 	}
 	
-	public static void calculateReadings(int resultRow,String compareScenario) throws FileNotFoundException, IOException {
+	public static void calculateReadings(int resultRow,String compareScenario) {
+		try {
 		int row = getRowCount();
 		int counter = 0 ;
 		NumberFormat nf= NumberFormat.getInstance();
@@ -292,6 +311,8 @@ public class QOEMatrix {
 		FinalResult(resultRow,compareScenario,TimeTakenSec/counter,AppNativeHeapMemory/counter,AppTotalMemory/counter,CPUUsage/counter,GPUMemory/counter,GPUFPS/counter,AppTrafficusage/counter);
 		performanceResult.add(compareScenario+","+nf.format(TimeTakenSec/counter)+","+nf.format(AppNativeHeapMemory/counter)+","+nf.format(AppTotalMemory/counter)
 				+","+nf.format(CPUUsage/counter)+","+nf.format(GPUMemory/counter)+","+nf.format(GPUFPS/counter)+","+nf.format(AppTrafficusage/counter));
+	}catch (Exception e) {
+	}
 	}
 	
 	
