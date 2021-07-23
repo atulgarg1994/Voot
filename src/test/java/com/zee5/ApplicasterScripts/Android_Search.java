@@ -96,6 +96,16 @@ public class Android_Search {
 		ZEE5ApplicasterBusinessLogic.SearchResultByContentDescription("Tanu is shocked to see Pradeep alive. He threatens her, but she offers him a deal. Prachi tries to start things afresh with Rhea. Pallavi talks to Abhi and Pragya about Ranbeer and Rhea’s wedding.");
 	}
 	
+	@Test(priority = 8) //--- Kushal
+	@Parameters({"userType"})
+	public void TrendingAndRecentSearchScreen(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
+		ZEE5ApplicasterBusinessLogic.RecentSearchHistoryValidation();
+	}
+	
 	@AfterTest
 	public void tearDownApp() {
 		System.out.println("\nQuit the App\n");

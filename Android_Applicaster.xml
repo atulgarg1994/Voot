@@ -28,7 +28,7 @@
 	<parameter name="regUserName" value="igszeefive3@gmail.com" />
 	<parameter name="regPassword" value="123456" />
 
-    <parameter name="RegisteredMobile" value="7892215214" />
+        <parameter name="RegisteredMobile" value="7892215214" />
 	<parameter name="RegisteredMobilePassword" value="123456" />
 	
 	<parameter name="UnRegisteredMobile" value="8073661163" />
@@ -114,7 +114,7 @@
 	<parameter name="SettingsSubscribedPassword" value="123456" />
 	
 	<parameter name="ClubUserName" value="clubpacktesting1@gmail.com" />
-    <parameter name="ClubPassword" value="000000" />
+        <parameter name="ClubPassword" value="000000" />
 
 	<parameter name="SVODShow" value="Nisha" />
 	<parameter name="SVODEpisode" value="Aditya apologises to Paarvathi - Paaru" />
@@ -122,8 +122,8 @@
 	<parameter name="SVODMusic" value="Rekkeyaa Duet - Kavacha | Shivaraj Kumar | Baby Anunaya" />
 	
 	<parameter name="SearchVODContent"  value="Ammana Mane" />
-    <parameter name="SearchVODContent2"  value="Prema Baraha" />
-    <parameter name="keyword3" value="Kam" />
+        <parameter name="SearchVODContent2"  value="Prema Baraha" />
+        <parameter name="keyword3" value="Kam" />
 <!--   <parameter name="SVODShow" value="Code M" />	 -->
 	
  	<parameter name="SearchVODContent3"  value="Hebbuli" />
@@ -192,8 +192,7 @@
 				name="com.zee5.ApplicasterScripts.Android_AppLaunch" />
 		</classes>
 	</test> 
-	
-	
+		
 	<test name="Android_Onboarding_Suite1">
 		<classes>
 			<class
@@ -201,7 +200,6 @@
 		</classes>
 	</test> 
  
-
 	<test name="Android_Onboarding_Suite2">
 		<classes>
 			<class
@@ -209,7 +207,6 @@
 		</classes>
 	</test>
 	
-
 	<test name="Android_Onboarding_Suite3">
 		<classes>
 			<class
@@ -217,13 +214,11 @@
 		</classes>
 	</test>
 
-
 	<test name="Android_Search">
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_Search" />
 		</classes>
 	</test>
-
 
 	<test name="Android_LandingScreen_BottomNavigation">
 		<classes>
@@ -232,34 +227,29 @@
 		</classes>
 	</test>
 	
-
 	<test name="Android_Subscription">
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_Subscription" />
 		</classes>
 	</test> 
 	
-
-	<test name="Android_ListingScreen">
+	<test name="Android_Eduauraa">
 		<classes>
-			<class name="com.zee5.ApplicasterScripts.Android_ListingScreen" />
+			<class name="com.zee5.ApplicasterScripts.Android_Eduauraa" />
 		</classes>
 	</test>
-
-
-	<test name="Android_Settings">
+	 
+	<test name="Android_EduauraaPortal">
+		<classes>
+			<class name="com.zee5.ApplicasterScripts.Android_EduauraaPortal" />
+		</classes>
+	</test>
+	 
+    <test name="Android_Settings">
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_Settings" />
 		</classes>
 	</test>
-
-
-	<test name="Android_ExitPop">
-		<classes>
-			<class name="com.zee5.ApplicasterScripts.Android_ExitPop" />
-		</classes>
-	</test>
-	
 
 	<test name="Android_MoreScreen">
 		<classes>
@@ -267,14 +257,18 @@
 		</classes>
 	</test> 
 	
-
 	<test name="Android_BeforeTV">
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_BeforeTV" />
 		</classes>
 	</test>
 	
-
+    <test name="Android_ListingScreen">
+		<classes>
+			<class name="com.zee5.ApplicasterScripts.Android_ListingScreen" />
+		</classes>
+	</test>
+	
 	<test name="Android_LandingScreen_TopNavigation">
 		<classes>
 			<class
@@ -282,13 +276,11 @@
 		</classes>
 	</test>
 	
-
 	<test name="Android_Consumption_Screen">
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_Consumption_Screen" />
 		</classes>
 	</test>
-
 
 	<test name="Android_Downloads">
 		<classes>
@@ -296,20 +288,29 @@
 		</classes>
 	</test>
 	
-
 	<test name="Android_PlayerScreen">
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_PlayerScreen" />
 		</classes>
 	</test>
 
-
+    <test name="Android_AppUpgradeScenarios">
+		<classes>
+			<class name="com.zee5.ApplicasterScripts.Android_AppUpgradeScenarios" />
+		</classes>
+	</test>
+	
+    <test name="Android_ExitPop">
+		<classes>
+			<class name="com.zee5.ApplicasterScripts.Android_ExitPop" />
+		</classes>
+	</test>
+	
 	<test name="Android_UserSessionManagement">
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_UserSessionManagement" />
 		</classes>
 	</test>
-
 
 	<test name="Android_Tasks">
 		<classes>
@@ -317,7 +318,6 @@
 		</classes>
 	</test>
  
-
  	<test name="Android_Defects">
 		<classes>
 			<class name="com.zee5.ApplicasterScripts.Android_Defects" />
@@ -330,14 +330,7 @@
 				name="com.zee5.ApplicasterScripts.Android_WhatsAppFeature" />
 		</classes>
 	</test> 
-	
-	<test name="Android_AppUpgradeScenarios">
-		<classes>
-			<class name="com.zee5.ApplicasterScripts.Android_AppUpgradeScenarios" />
-		</classes>
-	</test>	
-	
-	
+		
 <!-- #20 
 	<test name="Android_TVOD_TestSuite">
 		<classes>
@@ -376,5 +369,11 @@
 	</test>
 	
 -->
+	<test name="Android_Conviva">
+		<classes>
+			<class
+				name="com.zee5.ApplicasterScripts.Android_Conviva" />
+		</classes>
+	</test> 
 	
 </suite>

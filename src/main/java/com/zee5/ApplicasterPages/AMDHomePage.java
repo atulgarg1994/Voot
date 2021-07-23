@@ -139,8 +139,6 @@ public class AMDHomePage {
 
 	public static By objUpcoming = By
 			.xpath("(//*[@text='Upcoming']//parent::*)[1] | (//*[@id='navigationIconView'])[2]");
-	
-	public static By objMoreMenu = By.xpath("(//*[@text='More']//parent::*)[1] | (//*[@id='navigationIconView'])[5]");
      	
     public static By objHomeTab = By.xpath("//*[@id='title' and @text='Home'] | (//*[@id='title' or @text='Home'])[1]");
     
@@ -320,4 +318,5 @@ public class AMDHomePage {
 	public static By objCompanionAd = By.xpath("((//*[@id='google_image_div'])//child::*) [1]");
 	
 	public static By objBuyPlanCTABelowPlayer = By.xpath("(//*[@resource-id='com.graymatrix.did:id/subscribeButton'])[2]");	
+	public static By objMoreMenu = By.xpath("(//*[@id='navigationTitleTextView' and @text='More'])");
 }

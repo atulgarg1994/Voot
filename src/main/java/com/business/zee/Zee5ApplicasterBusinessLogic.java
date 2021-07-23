@@ -21230,12 +21230,12 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		boolean desc = verifyIsElementDisplayed(AMDConsumptionScreen.objEduauraaDescriptionForAboutEduauraaSection,
 				"Eduaruaa description for About Eduauraa section");
-		if (desc == true) {
-			logger.info("By default About Eduauraa section is open");
-			extentLoggerPass("About Eduauraa section", "By default About Eduauraa section is open");
+		if (desc == false) {
+			logger.info("By default About Eduauraa section is not open");
+			extentLoggerPass("About Eduauraa section", "By default About Eduauraa section is not open");
 		} else {
-			logger.error("By default About Eduauraa section is not open");
-			extentLoggerFail("About Eduauraa section", "By default About Eduauraa section is not open - AMA2-4996");
+			logger.error("By default About Eduauraa section is open");
+			extentLoggerFail("About Eduauraa section", "By default About Eduauraa section is open");
 		}
 		click(AMDConsumptionScreen.objExpandIcon("About Eduauraa"), "Expand Icon for 'About Eduauraa' section");
 		boolean var1 = verifyIsElementDisplayed(AMDConsumptionScreen.objEduauraaDescriptionForAboutEduauraaSection,
