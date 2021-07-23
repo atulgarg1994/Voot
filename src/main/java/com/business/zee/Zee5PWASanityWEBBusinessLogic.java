@@ -32046,5 +32046,187 @@ public void pwaHaveagiftcardinputvalidation1(String userType) throws Exception {
 			verifyComboScreen();
 		}
 	}
+
+	public void VerifyKnowMoreCTA(String userType) throws Exception {
+
+		extent.HeaderChildNode(
+				"Verify that user is redirected to Super moon Combo offer page on clicking Know More CTA displayed on Combo offer nudge on consumption page below player");
+		navigateToAnyScreenOnWeb("tabname");
+		waitTime(2500);
+		ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
+		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		waitTime(2500);
+		verifyElementPresent(PWAComboOfferPage.objKnowMore, "Know More CTA below the player");
+		JSClick(PWAComboOfferPage.objKnowMore, "Know More CTA below the player");
+		waitTime(2500);
+		if (verifyElementPresent(PWAComboOfferPage.objContentCard, "Content Thumbnail")
+				&& verifyElementPresent(PWAComboOfferPage.objPremiumCard, "1 year Premium Thumbnail")) {
+			logger.info("combo offer page is displayed , expected behaviour");
+			extent.extentLoggerPass(" ", "combo offer page is displayed  , expected behaviour");
+		} else {
+			logger.info("combo offer page is not displayed ");
+			extent.extentLoggerFail(" ", "combo offer page is not displayed ");
+		}
+	}
+	
+	public void VerifySupermoonLogoPremiumIconsPrice(String userType) throws Exception {
+		extent.HeaderChildNode("Verify that Supermoon logo and Premium icons are displayed along with Price and Know More CTA");
+		navigateToAnyScreenOnWeb("tabname");
+		waitTime(2500);
+		ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
+		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		waitTime(2500);
+		verifyElementPresent(PWAComboOfferPage.objPremiumCard, " Premium icon ");
+		verifyElementPresent(PWAComboOfferPage.objKnowMore, "Know More CTA ");
+		verifyElementPresent(PWAComboOfferPage.objTitle,"Supermoon Logo");
+	}
+	
+	public void userIsAbleToSeeTheComboOfferWidgetBelowPlayerOnPlexConsumptionPageforSupermooon(String userType) throws Exception {
+		userIsAbleToSeeTheComboOfferWidgetBelowPlayerOnPlexConsumptionPage(userType);
+	}
+	
+	public void textOnComboOffernudgeIsConfigurable(String userType) throws Exception{
+		extent.HeaderChildNode("Verify that all the text on combo-offer nudge is configurable");
+		navigateToAnyScreenOnWeb("tabname");
+		waitTime(2500);
+		ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
+		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		waitTime(2500);
+		verifyElementPresent(PWAComboOfferPage.objPremiumCard, " Premium icon ");
+		verifyElementPresent(PWAComboOfferPage.objKnowMore, "Know More CTA ");
+		verifyElementPresent(PWAComboOfferPage.objTitle,"Supermoon Logo");
+		verifyElementPresent(PWAComboOfferPage.objBuySupermoonComboat499, "Buy Supermoon Combo at 499 ");
+	}
+	
+	public void blocbusterMoviesAndLiveEventsAtHome(String userType) throws Exception {
+		extent.HeaderChildNode("Verify that user is able to see message  if trailer is available then post trailer \"Blockbuster movies and live events at home\" and CTA's - Rent Now are available");
+		if (userType.equalsIgnoreCase("Guest")) {
+			navigateToAnyScreenOnWeb("ZEEPLEX");
+			waitTime(3000);
+		}
+		if (userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
+			navigateToAnyScreenOnWeb("ZEEPLEX");
+			waitTime(3000);
+		}
+		ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
+		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		waitTime(3500);
+		
+	
+		
+		if (verifyElementPresent(PWAComboOfferPage.objBlockbusterText, "Blockbuster movies and live events at home")) {
+			logger.info(
+					"Blockbuster movies and live events at home\"Text in zee plex landing page, expected behaviour");
+			extent.extentLoggerPass(" ",
+					"ZEEPLEX brings Blockbuster Movies in the comfort of your home, expected behaviour");
+		} else {
+			logger.info("Blockbuster movies and live events at home\"Text fails to display.");
+			extent.extentLoggerFail(" ", " Blockbuster movies and live events at home\"Text fails to display. ");
+		}
+		
+		if(verifyElementPresent(PWAComboOfferPage.objRentNowBelowPlayer, "Rent Now CTA below the player")){
+			logger.info("Rent Now CTA below the player");
+			extent.extentLoggerPass(" ",
+					"Rent Now CTA below the player, expected behaviour");
+			
+		}else {
+			logger.info("Rent Now CTA below the player in not Present");
+			extent.extentLoggerFail(" ",
+					"Rent Now CTA below the player in not Present");
+			
+		}
+}
+	
+	public void comboOfferPageAfterClickinOnRentNow(String userType, String tabname) throws Exception {
+		extent.HeaderChildNode("Verify that Combo Offer page is displayed on clicking Rent Now CTA on player");
+		navigateToAnyScreenOnWeb(tabname);
+		waitTime(3500);
+		ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
+		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		waitTime(3500);
+		verifyElementPresentAndClick(PWAComboOfferPage.objRentNowPlaybackOnConsumptionPage, "Rent Now CTA below the player");
+		waitTime(3000);
+		if(verifyElementPresent(PWAComboOfferPage.objContentCard, "Content Thumbnail")&&
+				verifyElementPresent(PWAComboOfferPage.objPremiumCard, "1 year Premium Thumbnail"))
+				{
+					logger.info("combo offer page is displayed , expected behaviour");
+					extent.extentLoggerPass(" ", "combo offer page is displayed  , expected behaviour");
+				}
+				else 
+				{
+					logger.info("combo offer page is not displayed ");
+					extent.extentLoggerFail(" ", "combo offer page is not displayed ");
+				} 
+	}
+	
+	public void LoginButtonBelowRentNow(String userType,String tabname) throws Exception {
+		extent.HeaderChildNode("Verify that Login option is displayed for guest user on player below Rent Now CTA on Player screen");
+		if(userType.equals("Guest")) {
+			navigateToAnyScreenOnWeb(tabname);
+			waitTime(3500);
+			ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
+			JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+			waitTime(3500);
+			
+			if(verifyElementPresent(PWAComboOfferPage.objLoginButtonPlaybackOnConsumptionPage, "Login button below the Rent Now CTA")) {	
+				logger.info("Login button below the Rent Now CTA, expected behaviour");
+				extent.extentLoggerPass(" ", "Login button below the Rent Now CTA  , expected behaviour");
+			}
+			else 
+			{
+				logger.info("Login button below the Rent Now CTA is not displayed ");
+				extent.extentLoggerFail(" ", "Login button below the Rent Now CTA is not displayed ");
+			} 
+	
+		}
+	}
+	
+	public void LoginButtonRentNowCTALoginCTAafterTrailer(String userType,String tabname) throws Exception {
+		extent.HeaderChildNode("Verify that user is able to see the Rent Now CTA and Login CTA on player post trailer consumption on consumption page");
+		if(userType.equals("Guest")) {
+			navigateToAnyScreenOnWeb(tabname);
+			waitTime(3500);
+			ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
+			JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+			waitTime(5500);
+			if(verifyElementPresent(PWAComboOfferPage.objLoginButtonPlaybackOnConsumptionPage, "Login button below the Rent Now CTA")) {	
+				logger.info("Login button below the Rent Now CTA, expected behaviour");
+				extent.extentLoggerPass(" ", "Login button below the Rent Now CTA  , expected behaviour");
+			}
+			else 
+			{
+				logger.info("Login button below the Rent Now CTA is not displayed ");
+				extent.extentLoggerFail(" ", "Login button below the Rent Now CTA  is not displayed");
+			} 
+			
+			if(verifyElementPresent(PWAComboOfferPage.objRentNowPlaybackOnConsumptionPage, "the Rent Now CTA on player")) {	
+				logger.info("the Rent Now CTA on player, expected behaviour");
+				extent.extentLoggerPass(" ", "the Rent Now CTA on player  , expected behaviour");
+			}
+			else 
+			{
+				logger.info("the Rent Now CTA on player is not displayed ");
+				extent.extentLoggerFail(" ", "the Rent Now CTA on player is not displayed ");
+			} 
+		}
+	}
+	
+	public void RentnowCTAonPlayer(String userType, String tabname) throws Exception {
+		extent.HeaderChildNode("Verify that user is able to see the Rent Now CTA below player on  consumption page");
+		navigateToAnyScreenOnWeb(tabname);
+		waitTime(3500);
+		ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
+		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		waitTime(3500);
+		if(verifyElementPresent(PWAComboOfferPage.objRentNowPlaybackOnConsumptionPage, "Rent Now CTA below the player")) {
+			logger.info("the Rent Now CTA on player, expected behaviour");
+			extent.extentLoggerPass(" ", "the Rent Now CTA on player  , expected behaviour");
+		}else 
+		{
+			logger.info("the Rent Now CTA on player is not displayed ");
+			extent.extentLoggerFail(" ", "the Rent Now CTA on player is not displayed ");
+		} 
+	}
+	
 	
 }

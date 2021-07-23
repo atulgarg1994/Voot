@@ -246,13 +246,14 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 	}
 
 	public void SearchCancelled() throws Exception {
+		waitTime(8000);
 		Back(1);
-		waitTime(6000);
+		waitTime(8000);
 		Back(1);
-		waitTime(6000);
+		waitTime(8000);
 		HeaderChildNode("Search Cancelled");
 		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search");
-		waitTime(6000);
+		waitTime(8000);
 		verifyElementPresentAndClick(AMDSearchScreen.objSearchBackBtn, "Back button");
 		waitTime(6000);
 	}
@@ -380,9 +381,11 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 		HeaderChildNode("LogOut");
 		waitTime(5000);
 		verifyElementPresentAndClick(AMDHomePage.objMoreMenuBtn, "More menu");
-		Swipe("UP", 1);
+		PartialSwipe("UP", 2);
 		verifyElementPresentAndClick(AMDMoreMenu.objLogout, "Logout");
+		waitTime(5000);
 		verifyElementPresentAndClick(AMDMoreMenu.objLogoutBtn, "Logout");
+		waitTime(5000);
 		}
 	}
 	
@@ -473,8 +476,11 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 
 		waitTime(5000);
 		verifyElementPresentAndClick(AMDHomePage.objMoreMenuBtn, "More menu");
-		Swipe("UP", 1);
+		waitTime(5000);
+		PartialSwipe("UP", 2);
+		waitTime(5000);
 		verifyElementPresentAndClick(AMDMoreMenu.objLogout, "Logout");
+		waitTime(5000);
 		verifyElementPresentAndClick(AMDMoreMenu.objLogoutBtn, "Logout");
 		
 		
@@ -587,13 +593,13 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 				getEventName("Remove From Watchlist");
 				getEventName("Logout");
 				getEventName("Login Result");
-				//getEventName("Registration Initiated");
 			}else if(userType.equalsIgnoreCase("SubscribedUser")){
 				getEventName("Login Result");
 				getEventName("Display Language Changed");
 				getEventName("Content Language Changed");
 				getEventName("Add To Watchlist");
 				getEventName("Share");
+				getEventName("Remove From Watchlist");
 				getEventName("Search Cancelled");
 				getEventName("Logout");
 			}

@@ -206,4 +206,8 @@ public class PWAComboOfferPage {
 	
 	//Buy Plan In Player below Player CTA.
 	public static By objBuyPlanInPlayerBelowPlayerCTA = By.xpath("//*[@class='subscribe-teaser-button ']");
+	
+	public static By objBuySupermoonComboat499 =By.xpath("");
+	
+	public static By objBlockbusterText=By.xpath("");
 }

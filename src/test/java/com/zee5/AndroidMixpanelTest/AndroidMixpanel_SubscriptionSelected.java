@@ -18,7 +18,7 @@ public class AndroidMixpanel_SubscriptionSelected {
 		Zee5ApplicasterMixPanelBusinessLogic = new Zee5ApplicasterMixPanelBusinessLogic("zee");
 	}
 
-	@Test(priority = 1)
+//	@Test(priority = 1)
 	@Parameters({"userType"})
 	public void AndroidMixPanel_SubscriptionSelectedEventValidation(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
@@ -26,6 +26,50 @@ public class AndroidMixpanel_SubscriptionSelected {
 		Zee5ApplicasterMixPanelBusinessLogic.verifySubscriptionSelectedEvent(userType);
 	}
 	
+	@Test(priority = 2)
+	@Parameters({"userType"})
+	public void AndroidMixPanel_SubscriptionSelectedEvent_MoreSection(String userType) throws Exception {
+		Utilities.relaunch = true;
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
+		Zee5ApplicasterMixPanelBusinessLogic.verifySubscriptionSelectedEvent_MoreSection(userType);
+	}
+	
+	@Test(priority = 2)
+	@Parameters({"userType"})
+	public void AndroidMixPanel_SubscriptionSelectedEvent_MySubscription(String userType) throws Exception {
+		Utilities.relaunch = true;
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
+		Zee5ApplicasterMixPanelBusinessLogic.verifySubscriptionSelectedEvent_MySubscription(userType);
+	}
+	
+	@Test(priority = 2)
+	@Parameters({"userType"})
+	public void AndroidMixPanel_SubscriptionSelectedEvent_MyTransaction(String userType) throws Exception {
+		Utilities.relaunch = true;
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
+		Zee5ApplicasterMixPanelBusinessLogic.verifySubscriptionSelectedEvent_MyTransaction(userType);
+	}
+	
+	@Test(priority = 2)
+	@Parameters({"userType","keyword3"})
+	public void AndroidMixPanel_SubscriptionSelectedEvent_BelowPlayer(String userType,String keyword3) throws Exception {
+		Utilities.relaunch = true;
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
+		Zee5ApplicasterMixPanelBusinessLogic.verifySubscriptionSelectedEvent_BelowPlayer(userType,keyword3);
+	}
+	
+	@Test(priority = 2)
+	@Parameters({"userType","trailerContent"})
+	public void AndroidMixPanel_SubscriptionSelectedEvent_Trailer(String userType,String trailerContent) throws Exception {
+		Utilities.relaunch = true;
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
+		Zee5ApplicasterMixPanelBusinessLogic.verifySubscriptionSelectedEvent_Trailer(userType,trailerContent);
+	}
 	
 	@AfterTest
 	public void tearDownApp() {

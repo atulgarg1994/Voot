@@ -28,6 +28,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -235,72 +236,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 //		}
 	}
 
-	public void accessDeviceLocationPopUpDFP(String permission, String userType) throws Exception {
-		extent.HeaderChildNode("Access Device Location PopUp");
-		extent.extentLogger("User Type", "UserType : " + userType);
-		logger.info("UserType : " + userType);
-		System.out.println("Access Device Location PopUp");
-		Thread.sleep(10000);
-		Thread.sleep(10000);
-		if (verifyIsElementDisplayed(AMDOnboardingScreen.objUpdateZee5PopUpNOTHANKSButton, "NO THANKS Button")) {
-			verifyElementPresentAndClick(AMDOnboardingScreen.objUpdateZee5PopUpNOTHANKSButton, "NO THANKS Button");
-		} else {
-			System.out.println("UpdateZee5 Not displayed");
-		}
-		Thread.sleep(10000);
-		if (verifyElementExist(AMDOnboardingScreen.objAllowLocationAccessPopup, "AllowPopup")) {
-			Wait(5000);
-
-			String str1 = getAttributValue("text", AMDOnboardingScreen.objFirstPermissionButton);
-			String str2 = getAttributValue("text", AMDOnboardingScreen.objSecondPermissionButton);
-			System.out.println(str1);
-			System.out.println(str2);
-
-			if (str1.contains("ALLOW")) {
-				System.out.println("ALLOW is present");
-				click(AMDOnboardingScreen.ele1Allow(str1), str1);
-			} else if (str1.contains("Allow")) {
-				System.out.println("Allow is present");
-				click(AMDOnboardingScreen.ele1Allow(str1), str1);
-			} else if (str2.contains("ALLOW")) {
-				System.out.println("ALLOW is present");
-				click(AMDOnboardingScreen.ele1Allow(str2), str2);
-			} else if (str2.contains("Allow")) {
-				System.out.println("Allow is present");
-				click(AMDOnboardingScreen.ele1Allow(str2), str2);
-			} else if (str1.contains("WHILE USING THE APP")) {
-				System.out.println("WHILE USING THE APP is present");
-				click(AMDOnboardingScreen.ele1Allow(str1), str1);
-			}
-
-			Thread.sleep(10000);
-		} else {
-			System.out.println("Access Device Location PopUp not displayed");
-		}
-
-	}
-
-	public void SelectYourCountryAndLanguage() throws Exception {
-		extent.HeaderChildNode("Select Your country and Language");
-		verifyElementPresentAndClick(AMDOnboardingScreen.objContinueBtnInCountryPopUp,
-				"SelectYourCountry Continue Button");
-
-		waitTime(5000);
-
-		searchAndClick(AMDOnboardingScreen.objHindiLanguage, "Hindi Langauge");
-		searchAndClick(AMDOnboardingScreen.objMarathiLanguage, "Marathi Langauge");
-		searchAndClick(AMDOnboardingScreen.objTeluguLanguage, "Telugu Langauge");
-		searchAndClick(AMDOnboardingScreen.objTamilLanguage, "Tamil Langauge");
-		searchAndClick(AMDOnboardingScreen.objMalayalamLanguage, "Malayalam Langauge");
-		searchAndClick(AMDOnboardingScreen.objBengaliLanguage, "Bengali Langauge");
-		searchAndClick(AMDOnboardingScreen.objGujaratiLanguage, "Gujarati Langauge");
-		searchAndClick(AMDOnboardingScreen.objPunjabiLanguage, "Punjabi Langauge");
-		searchAndClick(AMDOnboardingScreen.objBhojpuriLanguage, "Bhojpuri Langauge");
-		searchAndClick(AMDOnboardingScreen.objOriyaLanguage, "Oriya Langauge");
-
-		verifyElementPresentAndClick(AMDOnboardingScreen.objContinueBtnInLanguagePopUp, "Continue Button");
-
-	}
 
 	public void searchAndClick(By locator, String str) throws Exception {
 
@@ -13789,9 +13724,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void registerPopUpClose() throws Exception {
-		waitTime(5000);
+		waitTime(6000);
 		if (verifyIsElementDisplayed(AMDPlayerScreen.objRegisterPopUp)) {
 			logger.info("Register Pop Up is displayed");
+			waitTime(8000);
 			extent.extentLogger("Register Pop Up", "Register Pop Up is displayed");
 			click(AMDGenericObjects.objPopUpDivider, "Register Popup");
 //			Back(1);
@@ -18830,124 +18766,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 	}
 
-//======================================================================================================
-	public void Zee5AppLoginDFP(String LoginMethod) throws Exception {
-		extent.HeaderChildNode("Login Functionality");
 
-		String UserType = getParameterFromXML("userType");
-		if (UserType.equals("Guest")) {
-			extent.extentLogger("userType", "UserType : Guest");
-		}
 
-//		verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
-//		waitTime(3000);
-
-		switch (LoginMethod) {
-		case "Guest":
-			extent.HeaderChildNode("Guest User");
-			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
-			waitTime(1000);
-			hideKeyboard();
-			verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
-			waitTime(3000);
-			break;
-
-		case "NonSubscribedUser":
-			extent.HeaderChildNode("Login as NonSubscribed User");
-
-			String Username = getParameterFromXML("NonsubscribedUserName");
-			String Password = getParameterFromXML("NonsubscribedPassword");
-			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
-			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
-			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
-			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
-			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
-			type(AMDLoginScreen.objPasswordField, Password, "Password field");
-			hideKeyboard();
-			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
-			waitTime(3000);
-			break;
-
-		case "SubscribedUser":
-			extent.HeaderChildNode("Login as Subscribed User");
-
-			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
-			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
-			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
-			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
-			type(AMDLoginScreen.objEmailIdField, SubscribedUsername, "Email Field");
-			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
-			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
-			type(AMDLoginScreen.objPasswordField, SubscribedPassword, "Password field");
-			hideKeyboard();
-			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
-			waitTime(3000);
-			break;
-
-		}
-	}
-
-	public void AMDDFPValidation(String userType, String pSearchContent) throws Exception {
-
-		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode("Verify Ad View event for Trailer content");
-			click(AMDSearchScreen.objSearchIcon, "Search icon");
-			click(AMDSearchScreen.objSearchEditBox, "Search Box");
-			type(AMDSearchScreen.objSearchBoxBar, pSearchContent + "\n", "Search bar");
-			hideKeyboard();
-			waitTime(4000);
-			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
-			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
-
-			// PRE-ROLL
-			waitTime(8000);
-			boolean adPreroll = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
-			if (adPreroll == true) {
-				logger.info("Ad play in progress");
-				extentLoggerPass("Ad", "Ad play in progress");
-				waitForAdToFinishInAmd();
-			} else {
-				logger.info("Ad is not available for the content");
-				extent.extentLogger("Ad", "Ad is not available for the content");
-			}
-			registerPopUpClose();
-			scrubProgressBarToMidDFP(AMDPlayerScreen.objProgressBar);
-			waitTime(5000);
-			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
-			waitTime(2000);
-
-			// MID-ROLL
-			boolean adMidRoll = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
-			if (adMidRoll) {
-				logger.info("Ad play in progress");
-				extent.extentLoggerPass("Ad", "Ad played in Midroll");
-				waitTime(5000);
-				waitForAdToFinishInAmd();
-			} else {
-				logger.info("Ad is not available for the content");
-				extent.extentLogger("Ad", "Ad is not available for the content");
-			}
-
-			waitTime(6000);
-			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
-			scrubProgressBarTillEndDFP(AMDPlayerScreen.objProgressBar);
-			waitTime(5000);
-
-			// POST-ROLL
-			boolean adPostroll = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
-			if (adPostroll) {
-				logger.info("Ad play in progress");
-				extent.extentLoggerPass("Ad", "Ad played in Postroll");
-				waitTime(5000);
-			} else {
-				logger.info("Ad is not available for the content");
-				extent.extentLogger("Ad", "Ad is not available for the content");
-			}
-		} else {
-			logger.info("Ad validation is not applicable for - " + userType);
-			extent.extentLogger("Ad", "Ad validation is not applicable for - " + userType);
-		}
-	}
 
 	public void scrubProgressBarToMid(By byLocator1) throws Exception {
 		String beforeSeek = findElement(AMDPlayerScreen.objTimer).getText();
@@ -31866,20 +31686,151 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 	}
 
-	public void ValidateNativeAds(String userType) throws Exception {
+	
+	//--------------------------------------------------------------- DFP --------------------------------------------------------------
+	
+	
+	public void Zee5AppLoginDFP(String LoginMethod) throws Exception {
+		extent.HeaderChildNode("Login Functionality");
+
+		String UserType = getParameterFromXML("userType");
+		if (UserType.equals("Guest")) {
+			extent.extentLogger("userType", "UserType : Guest");
+		}
+
+//		verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+//		waitTime(3000);
+
+		switch (LoginMethod) {
+		case "Guest":
+			extent.HeaderChildNode("Guest User");
+			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
+			waitTime(1000);
+			//hideKeyboard();
+			//verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
+			waitTime(3000);
+			break;
+
+		case "NonSubscribedUser":
+			extent.HeaderChildNode("Login as NonSubscribed User");
+
+			String Username = getParameterFromXML("NonsubscribedUserName");
+			String Password = getParameterFromXML("NonsubscribedPassword");
+			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
+			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+			type(AMDLoginScreen.objPasswordField, Password, "Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+			waitTime(3000);
+			break;
+
+		case "SubscribedUser":
+			extent.HeaderChildNode("Login as Subscribed User");
+
+			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
+			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
+			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+			type(AMDLoginScreen.objEmailIdField, SubscribedUsername, "Email Field");
+			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+			verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+			type(AMDLoginScreen.objPasswordField, SubscribedPassword, "Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+			waitTime(3000);
+			break;
+
+		}
+	}
+	
+	public void accessDeviceLocationPopUpDFP(String permission, String userType) throws Exception {
+		extent.HeaderChildNode("Access Device Location PopUp");
+		extent.extentLogger("User Type", "UserType : " + userType);
+		logger.info("UserType : " + userType);
+		System.out.println("Access Device Location PopUp");
+		Thread.sleep(10000);
+		Thread.sleep(10000);
+				if(verifyIsElementDisplayed(AMDOnboardingScreen.objUpdateZee5PopUpNOTHANKSButton, "NO THANKS Button"))
+				{
+					verifyElementPresentAndClick(AMDOnboardingScreen.objUpdateZee5PopUpNOTHANKSButton, "NO THANKS Button");
+				}else{
+					System.out.println("UpdateZee5 Not displayed");
+				}
+				Thread.sleep(10000);
+		if (verifyElementExist(AMDOnboardingScreen.objAllowLocationAccessPopup, "AllowPopup")) {
+			Wait(5000);
+
+			String str1 = getAttributValue("text", AMDOnboardingScreen.objFirstPermissionButton);
+			String str2 = getAttributValue("text", AMDOnboardingScreen.objSecondPermissionButton);
+			System.out.println(str1);
+			System.out.println(str2);
+
+			if (str1.contains("ALLOW")) {
+				System.out.println("ALLOW is present");
+				click(AMDOnboardingScreen.ele1Allow(str1), str1);
+			} else if (str1.contains("Allow")) {
+				System.out.println("Allow is present");
+				click(AMDOnboardingScreen.ele1Allow(str1), str1);
+			} else if (str2.contains("ALLOW")) {
+				System.out.println("ALLOW is present");
+				click(AMDOnboardingScreen.ele1Allow(str2), str2);
+			} else if (str2.contains("Allow")) {
+				System.out.println("Allow is present");
+				click(AMDOnboardingScreen.ele1Allow(str2), str2);
+			} else if (str1.contains("WHILE USING THE APP")) {
+				System.out.println("WHILE USING THE APP is present");
+				click(AMDOnboardingScreen.ele1Allow(str1), str1);
+			}
+			
+
+			Thread.sleep(10000);
+		} else {
+			System.out.println("Access Device Location PopUp not displayed");
+		}
+
+	}
+
+	public void SelectYourCountryAndLanguage() throws Exception
+	{
+		extent.HeaderChildNode("Select Your country and Language");
+		verifyElementPresentAndClick(AMDOnboardingScreen.objContinueBtnInCountryPopUp, "SelectYourCountry Continue Button");
+		
+		waitTime(5000);
+		
+		//searchAndClick(AMDOnboardingScreen.objHindiLanguage, "Hindi Langauge");
+		searchAndClick(AMDOnboardingScreen.objMarathiLanguage, "Marathi Langauge");
+		searchAndClick(AMDOnboardingScreen.objTeluguLanguage, "Telugu Langauge");
+		searchAndClick(AMDOnboardingScreen.objTamilLanguage, "Tamil Langauge");
+		searchAndClick(AMDOnboardingScreen.objMalayalamLanguage, "Malayalam Langauge");
+		searchAndClick(AMDOnboardingScreen.objBengaliLanguage, "Bengali Langauge");
+		searchAndClick(AMDOnboardingScreen.objGujaratiLanguage, "Gujarati Langauge");
+		searchAndClick(AMDOnboardingScreen.objPunjabiLanguage, "Punjabi Langauge");
+		searchAndClick(AMDOnboardingScreen.objBhojpuriLanguage, "Bhojpuri Langauge");
+		searchAndClick(AMDOnboardingScreen.objOriyaLanguage, "Oriya Langauge");
+		
+		verifyElementPresentAndClick(AMDOnboardingScreen.objContinueBtnInLanguagePopUp, "Continue Button");
+		
+	}
+	
+	
+	
+	public void ValidateNativeAds(String userType) throws Exception{
 		extent.HeaderChildNode("Native Ads Validation");
-
+		
 		verifyElementPresentAndClick(AMDHomePage.objHomeTab1, "Home Tab");
-		checkForNativeAds("Home Tab", userType);
-
+		checkForNativeAds("Home Tab",userType);
+		
 		verifyElementPresentAndClick(AMDHomePage.objTvShowsTab, "TV Shows Tab");
-		checkForNativeAds("TV Shows Tab", userType);
-
-//	verifyElementPresentAndClick(AMDHomePage.objMoviesTab, "Movies Tab");
-//	checkForNativeAds("Movies Tab");
-
-		verifyElementPresentAndClick(AMDHomePage.objNewsTab, "News Tab");
-		checkForNativeAds("News Tab", userType);
+		checkForNativeAds("TV Shows Tab",userType);
+		
+//		verifyElementPresentAndClick(AMDHomePage.objMoviesTab, "Movies Tab");
+//		checkForNativeAds("Movies Tab");
+		
+//		verifyElementPresentAndClick(AMDHomePage.objNewsTab, "News Tab");
+//		checkForNativeAds("News Tab",userType);
 
 	}
 
@@ -32019,59 +31970,271 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 	}
 
-	public void ValidateCompanionAds(String userType) throws Exception {
+	public void ValidateCompanionAds(String userType, String SearchContent) throws Exception{
 		extent.HeaderChildNode("Companion Ads Validation");
-
+		
 		verifyElementPresentAndClick(AMDHomePage.objHomeBottomBtn, "Home Button");
 		waitTime(5000);
-
+		
 		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search Button");
 		waitTime(5000);
 		click(AMDSearchScreen.objSearchEditBox, "Search box");
-		type(AMDSearchScreen.objSearchBoxBar, "MD - Raat Baaki Hai - Movie - Republished1\n", "Search box");
+		type(AMDSearchScreen.objSearchBoxBar, SearchContent + "\n", "Search box");
 		hideKeyboard();
 		waitTime(6000);
-		click(AMDSearchScreen.objFirstSearchResult1("MD - Raat Baaki Hai - Movie - Republished1"), "Search result");
+		click(AMDSearchScreen.objFirstSearchResult1(SearchContent), "Search result");
 		waitTime(5000);
 		waitTime(5000);
-
+		
 		verifyIsElementDisplayed(AMDHomePage.objCompanionAd, "Companion Ad");
-
+		
 		LoadingInProgress();
 		adPlay();
-		if (userType.equalsIgnoreCase("Guest")) {
-			registerPopUpClose();
-		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+		if(userType.equalsIgnoreCase("Guest")){
+			registerPopUpClose();		
+		}else if(userType.equalsIgnoreCase("NonSubscribedUser")){
 			completeProfilePopUpClose();
 		}
 
-		if (userType.equalsIgnoreCase("SubscribedUser")) {
-			if (verifyIsElementDisplayed(AMDHomePage.objCompanionAd, "Companion Ad")) {
+		if(userType.equalsIgnoreCase("SubscribedUser")){
+			if(verifyIsElementDisplayed(AMDHomePage.objCompanionAd, "Companion Ad")){
 				extent.extentLoggerFail("", "Companion Ad is present");
-			} else {
+			}else{
 				extent.extentLoggerPass("", "Companion Ad is not present");
 			}
-		} else {
-			if (verifyIsElementDisplayed(AMDHomePage.objCompanionAd, "Companion Ad")) {
+		}else{
+			if(verifyIsElementDisplayed(AMDHomePage.objCompanionAd, "Companion Ad")){
 				extent.extentLoggerPass("", "Companion Ad is present");
-			} else {
+			}else{
 				extent.extentLoggerFail("", "Companion Ad is not present");
+			}		
+		}
+		
+		
+		waitTime(15000);
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		
+		if(verifyIsElementDisplayed(AMDPlayerScreen.objCurrentTime, "Current Time")){
+			extent.extentLoggerPass("", "Content played after Ad Play");
+		}else{
+			extent.extentLoggerFail("", "Content not played after Ad Play");		
+		}
+	}
+	
+	
+	public void ValidatePlaybackAds(String userType, String SearchContent) throws Exception {
+		extent.HeaderChildNode("Validation of Playback Ads");
+		verifyElementPresentAndClick(AMDHomePage.objHomeBottomBtn, "Home Button");
+		waitTime(5000);
+		
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode("Verify Ad View event");
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, SearchContent + "\n", "Search bar");
+			hideKeyboard();
+			waitTime(4000);
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			waitTime(4000);
+//			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+			click(AMDSearchScreen.objSearchResultContainsText(SearchContent), "Search Result");
+			
+			// PRE-ROLL
+			waitTime(5000);
+			boolean adPreroll = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
+			if (adPreroll == true) {
+				logger.info("PreRoll Ad play in progress");
+				extentLoggerPass("Ad", "PreRoll Ad play in progress");
+				waitForAdToFinishInAmd1(AMDPlayerScreen.objAd);
+			} else {
+				logger.info("PreRoll Ad is not available for the content");
+				extent.extentLogger("Ad", "PreRoll Ad is not available for the content");
+			}
+			boolean adPreroll1 = verifyIsElementDisplayed(AMDPlayerScreen.objAd1);
+			if (adPreroll1 == true) {
+				logger.info("PreRoll Bumper Ad play in progress");
+				extentLoggerPass("Ad", "PreRoll Bumper Ad play in progress");
+				waitForAdToFinishInAmd1(AMDPlayerScreen.objAd1);
+			} else {
+				logger.info("PreRoll Bumper Ad is not available for the content");
+				extent.extentLogger("Ad", "PreRoll Bumper Ad is not available for the content");
+			}
+
+			System.out.println(userType);
+			if(userType.equalsIgnoreCase("Guest")){
+				registerPopUpClose();		
+			}else{
+				
+			}
+			
+			if(userType.equalsIgnoreCase("NonSubscribedUser")){
+				completeProfilePopUpClose();
+			}else{
+				
+			}
+			
+			waitTime(20000);
+			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			scrubProgressBarToMidDFP1(AMDPlayerScreen.objProgressBar);
+			waitTime(5000);
+//			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			waitTime(2000);
+
+			// MID-ROLL
+			boolean adMidRoll = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
+			if (adMidRoll) {
+				logger.info("Mid roll Ad play in progress");
+				extent.extentLoggerPass("Ad", "Mid roll Ad played in Midroll");
+				waitForAdToFinishInAmd1(AMDPlayerScreen.objAd);
+			} else {
+				logger.info("Mid roll Ad is not available for the content");
+				extent.extentLogger("Ad", "Mid roll Ad is not available for the content");
+			}
+			boolean adMidRoll1 = verifyIsElementDisplayed(AMDPlayerScreen.objAd1);
+			if (adMidRoll1) {
+				logger.info("Mid roll Ad play in progress");
+				extent.extentLoggerPass("Ad", "Mid roll Ad played in Midroll");
+				waitForAdToFinishInAmd1(AMDPlayerScreen.objAd1);
+			} else {
+				logger.info("Mid roll Ad is not available for the content");
+				extent.extentLogger("Ad", "Mid roll Ad is not available for the content");
+			}
+
+			waitTime(10000);
+			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			scrubProgressBarTillEndDFP1(AMDPlayerScreen.objProgressBar);
+			waitTime(5000);
+
+			// POST-ROLL
+			boolean adPostroll = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
+			if (adPostroll) {
+				logger.info("Post Roll Ad play in progress");
+				extent.extentLoggerPass("Ad", "Post Roll Ad played in Postroll");
+				waitForAdToFinishInAmd1(AMDPlayerScreen.objAd);
+			} else {
+				logger.info("Post Roll Ad is not available for the content");
+				extent.extentLogger("Ad", "Post Roll Ad is not available for the content");
+			}
+			boolean adPostroll1 = verifyIsElementDisplayed(AMDPlayerScreen.objAd1);
+			if (adPostroll1) {
+				logger.info("Post Roll Bumper Ad play in progress");
+				extent.extentLoggerPass("Ad", "Post Roll Bumper Ad played in Postroll");
+				waitForAdToFinishInAmd1(AMDPlayerScreen.objAd1);
+			} else {
+				logger.info("Ad is not available for the content");
+				extent.extentLogger("Ad", "Post Roll Bumper Ad is not available for the content");
+			}
+		} else {
+			
+			extent.HeaderChildNode("Ad validation is not applicable for - " + userType);
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, SearchContent + "\n", "Search bar");
+			hideKeyboard();
+			waitTime(4000);
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			waitTime(4000);
+//			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
+			click(AMDSearchScreen.objSearchResultContainsText(SearchContent), "Search Result");
+			
+			waitTime(8000);
+
+			boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
+			if (ad == true) {
+				logger.info("Ad play in progress");
+				extent.extentLoggerFail("Ad", "Ad played for Subscribed User");
+			} else {
+				logger.info("Ad is not available for Subscribed User");
+				extent.extentLoggerPass("Ad", "Ad is not available for Subscribed User");
+			}
+			
+
+		}
+	}
+	
+	
+	public void waitForAdToFinishInAmd1(By locator) {
+		//waitTime(20000);
+		
+		for(int i=0; i<=50 ; i++){
+			if(verifyIsElementDisplayed(locator)){
+				System.out.println("Ad is Playing");
+			}else{
+				System.out.println("Ad completed");
+				break;
 			}
 		}
 
-		waitTime(15000);
-		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+	}	
 
-		if (verifyIsElementDisplayed(AMDPlayerScreen.objCurrentTime, "Current Time")) {
-			extent.extentLoggerPass("", "Content played after Ad Play");
-		} else {
-			extent.extentLoggerFail("", "Content not played after Ad Play");
-		}
 
+	public void scrubProgressBarToMidDFP1(By byLocator1) throws Exception {
+		
+		//click(AMDPlayerScreen.objPauseIcon, "Pause");
+		WebElement element = getDriver().findElement(byLocator1);
+		Dimension size = element.getSize();
+		Point point = element.getLocation();
+
+		int getX = point.getX();
+		int getY = point.getY();
+		int height = (int) (size.getHeight());
+		int width = (int) (size.getWidth());
+		
+		//System.out.println(getX);
+		//System.out.println(getY);
+		//System.out.println(height);
+		//System.out.println(width);
+		
+		float midOfWidth = (float) (width * 0.5);
+		int pointX = (int) (getX + midOfWidth);
+		//System.out.println(pointX);
+		float midOfHeight = (float) (height/2);
+		int pointY = (int) (getY + midOfHeight);
+		//System.out.println(pointY);
+
+		AndroidTouchAction touch = new AndroidTouchAction(getDriver());
+		touch.longPress(LongPressOptions.longPressOptions().withElement(ElementOption.element(element)))
+				.waitAction(WaitOptions.waitOptions(Duration.ofMillis(3000))).moveTo(PointOption.point(pointX, pointY))
+				.release().perform();
+		
 	}
 
-	public void AMDCharlesValidation(String userType, String pSearchContent) throws Exception {
-		extent.HeaderChildNode("Charles Validation");
+
+	public void scrubProgressBarTillEndDFP1(By byLocator1) throws Exception {
+//		click(AMDPlayerScreen.objPauseIcon, "Pause");
+		
+		WebElement element = getDriver().findElement(byLocator1);
+		Dimension size = element.getSize();
+		Point point = element.getLocation();
+
+		int getX = point.getX();
+		int getY = point.getY();
+		int height = (int) (size.getHeight());
+		int width = (int) (size.getWidth());
+		
+		//System.out.println(getX);
+		//System.out.println(getY);
+		//System.out.println(height);
+		//System.out.println(width);
+		
+		float midOfWidth = (float) (width * 0.9);
+		int pointX = (int) (getX + midOfWidth);
+		//System.out.println(pointX);
+		float midOfHeight = (float) (height/2);
+		int pointY = (int) (getY + midOfHeight);
+		//System.out.println(pointY);
+
+		AndroidTouchAction touch = new AndroidTouchAction(getDriver());
+		touch.longPress(LongPressOptions.longPressOptions().withElement(ElementOption.element(element)))
+				.waitAction(WaitOptions.waitOptions(Duration.ofMillis(3000))).moveTo(PointOption.point(pointX, pointY))
+				.release().perform();
+	}
+
+	
+	
+	
+	public void ValidateCharlesResponseAds(String userType, String SearchContent) throws Exception {
+		extent.HeaderChildNode("Validation of charles Response Ads");
 
 		if (!userType.equalsIgnoreCase("SubscribedUser")) {
 			waitTime(8000);
@@ -32080,13 +32243,13 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			waitTime(8000);
 			click(AMDSearchScreen.objSearchIcon, "Search icon");
 			click(AMDSearchScreen.objSearchEditBox, "Search Box");
-			type(AMDSearchScreen.objSearchBoxBar, pSearchContent + "\n", "Search bar");
+			type(AMDSearchScreen.objSearchBoxBar, SearchContent + "\n", "Search bar");
 			hideKeyboard();
 			waitTime(4000);
 			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
 			waitTime(4000);
 //		click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
-			click(AMDSearchScreen.objSearchResultContainsText(pSearchContent), "Search Result");
+			click(AMDSearchScreen.objSearchResultContainsText(SearchContent), "Search Result");
 
 			waitTime(8000);
 
@@ -32104,5 +32267,12 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
 
 }

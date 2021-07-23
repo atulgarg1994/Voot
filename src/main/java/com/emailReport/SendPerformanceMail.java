@@ -21,7 +21,7 @@ public class SendPerformanceMail {
 //	private static String[] to = {"bosco.dsouza@zee.com","murali.appadi@zee.com","indu.karunakaran@zee.com"};
 //	private static String[] cc = {"deepak.prakash@igsindia.net","naresh.h@igsindia.net","hitesh.c@igsindia.net","Shreenidhi.g@igsindia.net", "Basavaraj.PN@igsindia.net","kushal.revankar@igsindia.net","Tanisha.c@igsindia.net"};
 	private static String[] bcc = {};
-	private static String[] to = {"hitesh.c@igsindia.net","Shreenidhi.g@igsindia.net","kushal.revankar@igsindia.net"};
+	private static String[] to = {"hitesh.c@igsindia.net","Shreenidhi.g@igsindia.net"};
 	private static String[] cc = {};
 
 
@@ -34,7 +34,7 @@ public class SendPerformanceMail {
 			QOEMatrix.calculateaverage();
 		}
 		String filepath = "";//ExcelUpdate.xlpath;
-		String Subject = "QOE Matrix automation execution | Android App";
+		String Subject = "QOE Matrix automation execution | Android TV";
 		boolean EnableAttachment = true;;
 		String fileName = "";//ExcelUpdate.xlFileName;
 		String columnHeader = "Number of Total Test";
@@ -87,7 +87,7 @@ public class SendPerformanceMail {
 					+			ExtentReporter.DeviceDetails()
 					+ "      </table>\r\n\n\n"
 					+"<br>"
-					+"<p><small>Start Time : "+QOEMatrix.getCellValue1(1,9)+"<br>End Time : "+QOEMatrix.getDate()+"</small></p>"
+					+"<span style=\"font-weight: normal;\">Start Time : "+ExtentReporter.CTCurrentTime+"<br>End Time : "+QOEMatrix.getDate()+"</span>"
 					+"<br>"
 					+"<span> Execution Summary: </span>"
 					+"<br>"

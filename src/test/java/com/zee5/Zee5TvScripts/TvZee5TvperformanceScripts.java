@@ -47,6 +47,7 @@ public class TvZee5TvperformanceScripts {
 	@AfterTest
 	public void After() {
 		System.out.println("Tear Down");
+		Zee5TvBusiness.logout();
 		Zee5TvBusiness.TvtearDown();
 	}
 }

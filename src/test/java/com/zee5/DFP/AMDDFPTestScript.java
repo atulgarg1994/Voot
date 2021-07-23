@@ -19,7 +19,7 @@ public class AMDDFPTestScript {
 
 	@BeforeTest
 	public void init() throws Exception {
-		CharlesConfigure.openCharles();
+	//	CharlesConfigure.openCharles();
 		Utilities.relaunch = true;
 		zee5ApplicasterBusinessLogic = new Zee5ApplicasterBusinessLogic("zee");
 	}
@@ -27,40 +27,40 @@ public class AMDDFPTestScript {
 
 	
 	@Test(priority = 1)
-	@Parameters({ "userType" })
-	public void ValidationOfDifferentTypeAds(String userType) throws Exception {
-		System.out.println("\n Ads validation");
+	@Parameters({ "userType", "DFPData" })
+	public void ValidationOfDifferentTypeAds(String userType, String SearchData) throws Exception {
+		System.out.println("\n Validation Of Different Type Ads");
 		zee5ApplicasterBusinessLogic.accessDeviceLocationPopUpDFP("Allow", userType);
 		zee5ApplicasterBusinessLogic.SelectYourCountryAndLanguage();
 		zee5ApplicasterBusinessLogic.Zee5AppLoginDFP(userType);	
 		zee5ApplicasterBusinessLogic.ValidateNativeAds(userType);
 		zee5ApplicasterBusinessLogic.ValidateMastheadAds(userType);
-		zee5ApplicasterBusinessLogic.ValidateCompanionAds(userType);
+		zee5ApplicasterBusinessLogic.ValidateCompanionAds(userType,SearchData);
 	}
 	
 	
-	@Test(priority = 2)
-	@Parameters({ "userType", "keyword2" })
-	public void DFPValidation(String userType, String pSearch) throws Exception {
-		System.out.println("\nAndroid DFP Validation");
+//	@Test(priority = 2)
+	@Parameters({ "userType", "DFPData" })
+	public void ValidationOfPlaybackAds(String userType, String SearchData) throws Exception {
+		System.out.println("\nValidation Of Playback Ads");
 		zee5ApplicasterBusinessLogic.relaunch(true);
 		zee5ApplicasterBusinessLogic.accessDeviceLocationPopUpDFP("Allow", userType);
 		zee5ApplicasterBusinessLogic.SelectYourCountryAndLanguage();
 		zee5ApplicasterBusinessLogic.Zee5AppLoginDFP(userType);	
-		zee5ApplicasterBusinessLogic.AMDDFPValidation(userType, pSearch);
+		zee5ApplicasterBusinessLogic.ValidatePlaybackAds(userType, SearchData);
 	}
 	
 	
-	@Test(priority = 3)
-	@Parameters({ "userType", "keyword2" })
-	public void CharlesValidation(String userType, String pSearch) throws Exception {
-		System.out.println("\nAndroid DFP Validation");
+//	@Test(priority = 3)
+	@Parameters({ "userType", "DFPData" })
+	public void CharlesScenarioValidation(String userType, String SearchData) throws Exception {
+		System.out.println("\n Charles Scenario Validation");
 		zee5ApplicasterBusinessLogic.relaunch(true);
 		//CharlesConfigure.clearCharlesLog();
 		zee5ApplicasterBusinessLogic.accessDeviceLocationPopUpDFP("Allow", userType);
 		zee5ApplicasterBusinessLogic.SelectYourCountryAndLanguage();
 		zee5ApplicasterBusinessLogic.Zee5AppLoginDFP(userType);	
-		zee5ApplicasterBusinessLogic.AMDCharlesValidation(userType, pSearch);
+		zee5ApplicasterBusinessLogic.ValidateCharlesResponseAds(userType, SearchData);
 		if(!userType.equalsIgnoreCase("SubscribedUser")){
 			CharlesConfigure.saveCharles("DFPContentlog3_");
 			ParseCharlesLogs.readDocumnet();

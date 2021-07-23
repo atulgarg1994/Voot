@@ -984,16 +984,10 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			extent.extentLogger("userType", "UserType : Guest");
 		}
 
-		verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
-		waitTime(3000);
-
 		switch (LoginMethod) {
 		case "Guest":
 			extent.HeaderChildNode("Guest User");
-			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
-			waitTime(1000);
-			hideKeyboard();
-			verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
+			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");	
 			waitTime(3000);
 			break;
 
@@ -1002,6 +996,9 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 			String Username = getParameterFromXML("ParentalNonsubscribedUserName");
 			String Password = getParameterFromXML("ParentalNonsubscribedPassword");
+
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			verifyElementPresentAndClick(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
 
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
@@ -1018,6 +1015,9 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 			String SubscribedUsername = getParameterFromXML("ParentalSubscribedUserName");
 			String SubscribedPassword = getParameterFromXML("ParentalSubscribedPassword");
+			
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			verifyElementPresentAndClick(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
 
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, SubscribedUsername, "Email Field");
@@ -12785,7 +12785,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 			MixpanelAndroid.FEProp.setProperty("Player Name", "Kaltura Android");
 
-			MixpanelAndroid.ValidateParameter("", "Ribbon CTAs ");
+			MixpanelAndroid.ValidateParameter("", "Ribbon CTAs");
 		}
 	}
 
@@ -13192,5 +13192,143 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		MixpanelAndroid.ValidateParameter("", "Subtitle Language Change");
 	}
 
+	@SuppressWarnings("static-access")
+	public void verifySubscriptionSelectedEvent_MoreSection(String userType) throws Exception {
+		extent.HeaderChildNode("Verify Subscription Selected Event From More section Buy Plan ");
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDHomePage.objBuyPlanCTAMoreSection, "Buy Plan CTA");
+			waitTime(3000);
+			// Swipe("Up", 2);
+			verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Button");
+			waitTime(10000);
+			hideKeyboard();
+			setFEProperty(userType);
+			setUserType_SubscriptionProperties(userType);
+			MixpanelAndroid.FEProp.setProperty("Element", "Continue");
+			MixpanelAndroid.FEProp.setProperty("Page Name", "Plan Selection");
+			MixpanelAndroid.ValidateParameter("", "Subscription Selected");
+		}
+	}
 	
+	@SuppressWarnings("static-access")
+	public void verifySubscriptionSelectedEvent_MySubscription(String userType) throws Exception {
+		extent.HeaderChildNode("Verify Subscription Selected Event From My Subscription Buy Plan ");
+		if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDMoreMenu.objMySubscription, "My Subscription");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDHomePage.objBuyPlanCTAMoreSection, "Buy Plan CTA");
+			waitTime(3000);
+			// Swipe("Up", 2);
+			verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Button");
+			waitTime(10000);
+			hideKeyboard();
+			setFEProperty(userType);
+			setUserType_SubscriptionProperties(userType);
+			MixpanelAndroid.FEProp.setProperty("Element", "Continue");
+			
+			MixpanelAndroid.FEProp.setProperty("Page Name", "Plan Selection");
+			MixpanelAndroid.ValidateParameter("", "Subscription Selected");
+		}
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifySubscriptionSelectedEvent_MyTransaction(String userType) throws Exception {
+		extent.HeaderChildNode("Verify Subscription Selected Event From My Transaction Buy Plan ");
+		if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDMoreMenu.objMyTransactions, "My Transaction");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDHomePage.objBuyPlanCTAMoreSection, "Buy Plan CTA");
+			waitTime(3000);
+			// Swipe("Up", 2);
+			verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Button");
+			waitTime(10000);
+			hideKeyboard();
+			setFEProperty(userType);
+			setUserType_SubscriptionProperties(userType);
+			MixpanelAndroid.FEProp.setProperty("Element", "Continue");
+			
+			MixpanelAndroid.FEProp.setProperty("Page Name", "Plan Selection");
+			MixpanelAndroid.ValidateParameter("", "Subscription Selected");
+		}
+	}
+
+	public void verifySubscriptionSelectedEvent_BelowPlayer(String usertype, String keyword3) throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode("Verify Subscription Selected Event - Buy Plan below player");
+			extent.HeaderChildNode("Ribbon CTAs Event ");
+			waitTime(4000);
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, keyword3 + "\n", "Search bar");
+			hideKeyboard();
+			waitTime(4000);
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+
+			click(AMDSearchScreen.objSearchResultFirstContent, "Search result");
+			waitTime(4000);
+			registerPopUpClose();
+			completeProfilePopUpClose(usertype);
+
+			click(AMDHomePage.objBuyPlanCTABelowPlayer, "Buy Plan CTA below player");
+			waitTime(10000);
+
+			setFEProperty(usertype);
+			setUserType_SubscriptionProperties(usertype);
+			SetAppsflyerProperty();
+
+			MixpanelAndroid.FEProp.setProperty("Source", "ConsumptionPage");
+			MixpanelAndroid.FEProp.setProperty("Element", "Continue");
+			MixpanelAndroid.FEProp.setProperty("Page Name", "Plan Selection");
+			MixpanelAndroid.FEProp.setProperty("Player Name", "Kaltura Android");
+
+			MixpanelAndroid.ValidateParameter("", "Subscription Selected");
+		}
+	}
+
+	public void verifySubscriptionSelectedEvent_Trailer(String usertype, String keyword3) throws Exception {
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode("Verify Subscription Selected Event - Buy Plan on player post completion of trailer playback");
+			extent.HeaderChildNode("Ribbon CTAs Event ");
+			waitTime(4000);
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, keyword3 + "\n", "Search bar");
+			hideKeyboard();
+			waitTime(4000);
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+
+			click(AMDSearchScreen.objSearchResultFirstContent, "Search result");
+			waitTime(4000);
+			registerPopUpClose();
+			completeProfilePopUpClose(usertype);
+
+			if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+				waitForAdToFinishInAmd();
+				waitTime(5000);
+			}
+			waitForElementDisplayed(AMDHomePage.objBuyPlanCTAOnPlayer, 120);
+			click(AMDHomePage.objBuyPlanCTAOnPlayer, "Buy Plan CTA on player");
+			waitTime(10000);
+
+			setFEProperty(usertype);
+			setUserType_SubscriptionProperties(usertype);
+			SetAppsflyerProperty();
+
+			MixpanelAndroid.FEProp.setProperty("Source", "ConsumptionPage");
+			MixpanelAndroid.FEProp.setProperty("Element", "Continue");
+			MixpanelAndroid.FEProp.setProperty("Page Name", "Plan Selection");
+			MixpanelAndroid.FEProp.setProperty("Player Name", "Kaltura Android");
+
+			MixpanelAndroid.ValidateParameter("", "Subscription Selected");
+		}
+	}
 }

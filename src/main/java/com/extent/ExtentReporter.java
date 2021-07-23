@@ -148,7 +148,8 @@ public class ExtentReporter implements ITestListener {
 			DeviceDetails.getTheDeviceManufacturer();
 			DeviceDetails.getTheDeviceOSVersion();
 		}
-		QOEMatrix.creatExcelPerformance();
+		CleverTapTime();
+//		QOEMatrix.creatExcelPerformance();
 	}
 
 	@Override
@@ -311,6 +312,21 @@ public class ExtentReporter implements ITestListener {
 			e.printStackTrace();
 		}
 	}
+	
+	public void screencapture(WebDriver webdriver) {
+		try {
+			src = ((TakesScreenshot) webdriver).getScreenshotAs(org.openqa.selenium.OutputType.FILE);
+			org.apache.commons.io.FileUtils.copyFile(src,
+					new File(System.getProperty("user.dir") + "/Reports" + "/" + currentDate + "/" + getPlatform() + "/"
+							+ Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+									.getParameter("userType")
+							+ "/" + getReport() + "/Screenshots/" + getReport() + "_" + getDate() + ".jpg"));
+			childTest.get().addScreenCaptureFromBase64String(base64Encode(src));
+			logger.log(src, "Attachment");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public static String base64Encode(File file) {
 		if (file == null || !file.isFile()) {
@@ -330,7 +346,7 @@ public class ExtentReporter implements ITestListener {
 	}
 
 	public void appVersion() {
-		if (getPlatform().equals("Android")) {
+		if (getPlatform().equals("Android") || getPlatform().equals("TV")) {
 			PropertyFileReader handler = new PropertyFileReader("properties/AppPackageActivity.properties");
 			setAppVersion("Build " + DeviceDetails.getAppVersion(handler.getproperty("zeePackage")).trim()
 					.replace("versionName=", ""));
@@ -381,9 +397,10 @@ public class ExtentReporter implements ITestListener {
 	
 	public static StringBuilder performanceDetails() {
 		StringBuilder builder = new StringBuilder();
-		if (QOEMatrix.performanceResult.size() > 0) {
-			for (int i = 0; i < QOEMatrix.performanceResult.size(); i++) {
-				String result[] = QOEMatrix.performanceResult.get(i).toString().split(",");
+		System.out.println(performaceDetails);
+		if (performaceDetails.size() > 0) {
+			for (int i = 0; i < performaceDetails.size(); i++) {
+				String result[] = performaceDetails.get(i).toString().split(",");
 					builder.append("<tr>\r\n" + "<td> " + result[0] + " </td>\r\n" + "<td>"+ result[1] + " </td>\r\n" + "<td>"+ result[2] + " </td>\r\n"
 							+"<td>"+ result[3] + " </td>\r\n"+"<td>"+ result[4] + " </td>\r\n"+"<td>"+ result[5] + " </td>\r\n"
 							+"<td>"+ result[6] + " </td>\r\n"+"<td>"+ result[7] + " </td>\r\n"+"</tr>\r\n");
@@ -401,7 +418,7 @@ public class ExtentReporter implements ITestListener {
 			for (int i = 0; i < performaceDetails.size(); i++) {
 				int row = QOEMatrix.getRowCount();
 				System.out.println(performaceDetails.get(i)+" == "+row);
-				String result[] = performaceDetails.get(i).toString().replaceAll(" MB", "").replaceAll("%", "").split(",");
+				String result[] = performaceDetails.get(i).toString().split(",");
 				QOEMatrix.InsertEventProperties((row+1), result[0], Integer.valueOf(result[1]), Integer.valueOf(result[2]), 
 						Double.parseDouble(result[3]), Double.parseDouble(result[4]),Double.parseDouble(result[5]),Double.parseDouble(result[6]),
 								Integer.valueOf(result[7]));
@@ -412,7 +429,7 @@ public class ExtentReporter implements ITestListener {
 	}
 	
 	public static StringBuilder DeviceDetails() {
-		String deviceDetails = DeviceDetails.DeviceInfo();
+		String deviceDetails = "Device Name - MarQ 2K Android TV Version - 9";
 		StringBuilder builder = new StringBuilder();
 				builder.append("        <tr>\r\n" + "          <td> " + deviceDetails.split("Version")[0]+ " </td>\r\n" + "          <td> "
 						+  deviceDetails.split("Version - ")[1] + " </td>\r\n" + "          <td> " + buildVersion + " </td>\r\n"
@@ -420,25 +437,10 @@ public class ExtentReporter implements ITestListener {
 			return builder;
 	}
 	
-	public void screencapture(WebDriver webdriver) {
-		try {
-			src = ((TakesScreenshot) webdriver).getScreenshotAs(org.openqa.selenium.OutputType.FILE);
-			org.apache.commons.io.FileUtils.copyFile(src,
-					new File(System.getProperty("user.dir") + "/Reports" + "/" + currentDate + "/" + getPlatform() + "/"
-							+ Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-									.getParameter("userType")
-							+ "/" + getReport() + "/Screenshots/" + getReport() + "_" + getDate() + ".jpg"));
-			childTest.get().addScreenCaptureFromBase64String(base64Encode(src));
-			logger.log(src, "Attachment");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	public void CleverTapTime() {
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("hh:mm:ss");
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss a");
 		LocalDateTime now = LocalDateTime.now();
 		CTCurrentTime = dtf.format(now);
+		System.out.println(CTCurrentTime);
 	}
-	
 }

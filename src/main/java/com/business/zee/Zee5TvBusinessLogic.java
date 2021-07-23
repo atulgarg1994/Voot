@@ -94,6 +94,8 @@ public class Zee5TvBusinessLogic extends Utilities {
 	public static boolean appliTools = false;
 
 	public static boolean PopUp = false;
+	
+	private static String IP = "-s 192.168.0.89:5555";
 
 	public String title = "";
 
@@ -12226,8 +12228,8 @@ public class Zee5TvBusinessLogic extends Utilities {
 
 		String getNativeMemory = "";
 		String getTotalMemory = "";
-		String adbCommand1 = "adb shell \"dumpsys meminfo com.graymatrix.did | grep Native\"";
-		String adbCommand2 = "adb shell \"dumpsys meminfo com.graymatrix.did | grep TOTAL\"";
+		String adbCommand1 = "adb "+IP+" shell \"dumpsys meminfo com.graymatrix.did | grep Native\"";
+		String adbCommand2 = "adb "+IP+" shell \"dumpsys meminfo com.graymatrix.did | grep TOTAL\"";
 
 		Process process1 = Runtime.getRuntime().exec(adbCommand1);
 		BufferedReader nativeResult = new BufferedReader(new InputStreamReader(process1.getInputStream()));
@@ -12271,7 +12273,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 
 		String getBatteryInfo = "";
 //		String adbCommand="adb shell dumpsys batterystats --charged com.graymatrix.did | grep Computed";
-		String adbCommand = "adb shell pm dump com.graymatrix.did | grep Computed";
+		String adbCommand = "adb "+IP+" shell pm dump com.graymatrix.did | grep Computed";
 		String strDrain = "Not found";
 		try {
 			Process process = Runtime.getRuntime().exec(adbCommand);
@@ -12301,7 +12303,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 		System.out.println("\nCPU Usage of App");
 
 		String getCpuStats = "";
-		String adbCommand = "adb shell \"dumpsys cpuinfo | grep com.graymatrix.did\"";
+		String adbCommand = "adb "+IP+" shell \"dumpsys cpuinfo | grep com.graymatrix.did\"";
 		Process process = Runtime.getRuntime().exec(adbCommand);
 		BufferedReader adbResult = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
@@ -12320,8 +12322,8 @@ public class Zee5TvBusinessLogic extends Utilities {
 		String getGPUInfo = "";
 		String nGPUFramesRendered = "";
 		String GPUConsumed = null;
-		String adbCommand = "adb shell \"dumpsys gfxinfo com.graymatrix.did | grep MB\"";
-		String adbCommand2 = "adb shell \"dumpsys gfxinfo com.graymatrix.did | grep rendered\"";
+		String adbCommand = "adb "+IP+" shell \"dumpsys gfxinfo com.graymatrix.did | grep MB\"";
+		String adbCommand2 = "adb "+IP+" shell \"dumpsys gfxinfo com.graymatrix.did | grep rendered\"";
 
 		Process process = Runtime.getRuntime().exec(adbCommand);
 		BufferedReader result = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -12362,7 +12364,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 
 		double flowAction = 0;
 		try {
-			String pidCommand = "adb shell pidof " + pPackageName;
+			String pidCommand = "adb "+IP+" shell pidof " + pPackageName;
 			Process process = Runtime.getRuntime().exec(pidCommand);
 			BufferedReader pidResult = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
@@ -12370,7 +12372,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 			// System.out.println("PID : "+PID);
 
 			Runtime runtime = Runtime.getRuntime();
-			Process proc = runtime.exec("adb shell cat /proc/" + PID + "/net/dev");
+			Process proc = runtime.exec("adb "+IP+" shell cat /proc/" + PID + "/net/dev");
 			try {
 				if (proc.waitFor() != 0) {
 					System.err.println("exit value = " + proc.exitValue());
@@ -12473,13 +12475,13 @@ public class Zee5TvBusinessLogic extends Utilities {
 		String appPackageName = "com.graymatrix.did";
 
 		// Threshold Values declaration
-				int threshold_TimeTaken = 16;
-				int threshold_NativeMemory = 30;
-				int threshold_TotalMemory = 200;
-				int threshold_CPU = 200;
-				int threshold_GPUMem = 7;
-				int threshold_GPURendered = 1500;
-				int threshold_Network = 8;
+		int threshold_TimeTaken = 16;
+		int threshold_NativeMemory = 30;
+		int threshold_TotalMemory = 200;
+		int threshold_CPU = 200;
+		int threshold_GPUMem = 7;
+		int threshold_GPURendered = 1500;
+		int threshold_Network = 8;
 
 		logger.info("Instant Start time : " + DriverInstance.startTime);
 		extent.extentLoggerPass("Time", "Instant Start time : " + DriverInstance.startTime);
@@ -12579,7 +12581,9 @@ public class Zee5TvBusinessLogic extends Utilities {
 			extent.extentLoggerFail("Traffic Usage",
 					"<b>The Current App traffic usage is : </b> " + (int) nNetTraffic + " Mbps");
 		}
-
+		performaceDetails.add("App Launch " + "," + timeElapsed.getSeconds() + "," + nativeMemory
+				+ "MB," + totalMemory + "MB," + nCpuUSage + "%," + nGPUMemory + "MB," + nGPURendered + "," + nNetTraffic
+				+ "MB");
 		softAssertion.assertEquals(launch, true);
 		softAssertion.assertAll();
 	}
@@ -12591,13 +12595,13 @@ public class Zee5TvBusinessLogic extends Utilities {
 		String appPackageName = "com.graymatrix.did";
 
 		// Threshold Values declaration
-				int threshold_TimeTaken = 100;
-				int threshold_NativeMemory = 70;
-				int threshold_TotalMemory = 140;
-				int threshold_CPU = 75;
-				int threshold_GPUMem = 12;
-				int threshold_GPURendered = 2300;
-				int threshold_Network = 27;
+		int threshold_TimeTaken = 100;
+		int threshold_NativeMemory = 70;
+		int threshold_TotalMemory = 140;
+		int threshold_CPU = 75;
+		int threshold_GPUMem = 12;
+		int threshold_GPURendered = 2300;
+		int threshold_Network = 27;
 
 		Instant startTime = Instant.now();
 		logger.info("Instant Start time : " + startTime);
@@ -12706,7 +12710,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 //			logger.error("\nApp Battery Info - " + batteryInfo);
 //			extent.extentLoggerFail("Timer", "<b>App Battery Info - </b>" + batteryInfo);
 //		}
-		performaceDetails.add("Login Functionality Performance" + "," + timeElapsed.getSeconds() + "," + nativeMemory
+		performaceDetails.add("Login Functionality " + "," + timeElapsed.getSeconds() + "," + nativeMemory
 				+ "MB," + totalMemory + "MB," + nCpuUSage + "%," + nGPUMemory + "MB," + nGPURendered + "," + nNetTraffic
 				+ "MB");
 		softAssertion.assertEquals(launch, true);
@@ -12838,7 +12842,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 			extent.extentLoggerFail("Traffic Usage",
 					"<b>The Current App traffic usage is : </b> " + (int) nNetTraffic + " Mbps");
 		}
-		performaceDetails.add("Screen Navigation Performance" + "," + timeElapsed.getSeconds() + "," + nativeMemory
+		performaceDetails.add("Screen Navigation " + "," + timeElapsed.getSeconds() + "," + nativeMemory
 				+ "MB," + totalMemory + "MB," + nCpuUSage + "%," + nGPUMemory + "MB," + nGPURendered + "," + nNetTraffic
 				+ "MB");
 		softAssertion.assertEquals(launch, true);
@@ -12854,15 +12858,14 @@ public class Zee5TvBusinessLogic extends Utilities {
 		String appPackageName = "com.graymatrix.did";
 
 		// Threshold Values declaration
-				int threshold_TimeTaken = 13;
-				int threshold_NativeMemory = 75;
-				int threshold_TotalMemory = 280;
-				int threshold_CPU = 100;
-				int threshold_GPUMem = 13;
-				int threshold_GPURendered = 2500;
-				int threshold_Network = 144;
-				Duration timeElapsed = null;
-
+		int threshold_TimeTaken = 13;
+		int threshold_NativeMemory = 75;
+		int threshold_TotalMemory = 280;
+		int threshold_CPU = 100;
+		int threshold_GPUMem = 13;
+		int threshold_GPURendered = 2500;
+		int threshold_Network = 144;
+		Duration timeElapsed = null;
 
 		// Initiated Variable declaration
 
@@ -12877,9 +12880,9 @@ public class Zee5TvBusinessLogic extends Utilities {
 		logger.info("Start time: " + startTime);
 		extent.extentLogger("Start Time", "Start time: " + startTime);
 		if (pDeeplink.equalsIgnoreCase("Consumption")) {
-			command = "adb shell am start -W -a android.intent.action.VIEW -d  \"https://www.zee5.com/movies/details/rog/0-0-46027\"";
+			command = "adb "+IP+" shell am start -W -a android.intent.action.VIEW -d  \"https://www.zee5.com/movies/details/rog/0-0-46027\"";
 		} else if (pDeeplink.equalsIgnoreCase("LiveTV")) {
-			command = "adb shell am start -W -a android.intent.action.VIEW -d  \"https://www.zee5.com/channels/details/republic-tv/0-9-channel_1422341819\"";
+			command = "adb "+IP+" shell am start -W -a android.intent.action.VIEW -d  \"https://www.zee5.com/channels/details/republic-tv/0-9-channel_1422341819\"";
 		}
 
 		Process process = Runtime.getRuntime().exec(command);
@@ -12907,8 +12910,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(3000);
 		getDriver().navigate().back();
 		waitTime(3000);
-		getDriver().navigate().back();
-		waitTime(3000);
+		
 
 		// #### App Performance Usage Info
 		// AppPerformanceTestInfo(appPackageName);
@@ -12938,12 +12940,10 @@ public class Zee5TvBusinessLogic extends Utilities {
 			logger.info("Time taken to consumption screen through deeplink (Sec): " + timeElapsed.getSeconds());
 			extent.extentLoggerPass("Timer",
 					"<b>Time taken to consumption screen through deeplink (Sec)</b>: " + timeElapsed.getSeconds());
-			launch = false;
 		} else {
 			logger.info("Time taken to consumption screen through deeplink (Sec): " + timeElapsed.getSeconds());
 			extent.extentLoggerFail("Timer",
 					"<b>Time taken to consumption screen through deeplink (Sec)</b>: " + timeElapsed.getSeconds());
-			launch = true;
 		}
 		if (nativeMemory < threshold_NativeMemory) {
 			logger.info("App Memory Info - Native Heap : " + nativeMemory + " MB");
@@ -12996,10 +12996,9 @@ public class Zee5TvBusinessLogic extends Utilities {
 			extent.extentLoggerFail("Traffic Usage",
 					"<b>The Current App traffic usage is : </b> " + (int) nNetTraffic + " Mbps");
 		}
-		performaceDetails.add("DeepLink to Playback " + pDeeplink + " screen"+","+timeElapsed.getSeconds()+","+nativeMemory+"MB,"+totalMemory+"MB,"+nCpuUSage+"%,"+nGPUMemory+"MB,"+nGPURendered+","+nNetTraffic+"MB");
-		logout();
-		softAssertion.assertEquals(launch, true);
-		softAssertion.assertAll();
+		performaceDetails.add("DeepLink to Playback " + pDeeplink + " screen" + "," + timeElapsed.getSeconds() + ","
+				+ nativeMemory + "MB," + totalMemory + "MB," + nCpuUSage + "%," + nGPUMemory + "MB," + nGPURendered
+				+ "," + nNetTraffic + "MB");
 	}
 
 	public void Performance_InitiateContentPlayback() throws Exception {
@@ -13010,13 +13009,13 @@ public class Zee5TvBusinessLogic extends Utilities {
 		String appPackageName = "com.graymatrix.did";
 
 		// Threshold Values declaration
-				int threshold_TimeTaken = 15;
-				int threshold_NativeMemory = 120;
-				int threshold_TotalMemory = 280;
-				int threshold_CPU = 110;
-				int threshold_GPUMem = 48;
-				int threshold_GPURendered = 2300;
-				int threshold_Network = 90;
+		int threshold_TimeTaken = 15;
+		int threshold_NativeMemory = 120;
+		int threshold_TotalMemory = 280;
+		int threshold_CPU = 110;
+		int threshold_GPUMem = 48;
+		int threshold_GPURendered = 2300;
+		int threshold_Network = 90;
 
 		waitTime(3000);
 		if (TVgetAttributValue("focused", Zee5TvHomePage.objSearchIcon).equals("false")) {
@@ -13117,12 +13116,10 @@ public class Zee5TvBusinessLogic extends Utilities {
 			logger.info("Time taken to start playback in consumption screen (Sec): " + timeElapsed.getSeconds());
 			extent.extentLoggerPass("Timer",
 					"<b>Time taken to start playback in consumption screen (Sec)</b>: " + timeElapsed.getSeconds());
-			launch = false;
 		} else {
 			logger.info("Time taken to start playback in consumption screen (Sec): " + timeElapsed.getSeconds());
 			extent.extentLoggerFail("Timer",
 					"<b>Time taken to start playback in consumption screen (Sec)</b>: " + timeElapsed.getSeconds());
-			launch = true;
 		}
 
 		if (nativeMemory < threshold_NativeMemory) {
@@ -13176,15 +13173,13 @@ public class Zee5TvBusinessLogic extends Utilities {
 			extent.extentLoggerFail("Traffic Usage",
 					"<b>The Current App traffic usage is : </b> " + (int) nNetTraffic + " Mbps");
 		}
-		performaceDetails.add("Initiate content playback Performance detail" + "," + timeElapsed.getSeconds() + ","
+		performaceDetails.add("Initiate content playback" + "," + timeElapsed.getSeconds() + ","
 				+ nativeMemory + "MB," + totalMemory + "MB," + nCpuUSage + "%," + nGPUMemory + "MB," + nGPURendered
 				+ "," + nNetTraffic + "MB");
 		getDriver().navigate().back();
 		waitTime(2000);
 		getDriver().navigate().back();
 		waitTime(2000);
-		softAssertion.assertEquals(launch, true);
-		softAssertion.assertAll();
 	}
 
 	public void AppPerformanceTestInfo(String pPackageName) throws Exception {
@@ -13680,8 +13675,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(15000);
 		getDriver().closeApp();
 		waitTime(5000);
-		String	command = "adb shell am start -W -a android.intent.action.VIEW -d  \"https://www.zee5.com/movies/details/rog/0-0-46027\"";
-		
+		String command = "adb "+IP+" shell am start -W -a android.intent.action.VIEW -d  \"https://www.zee5.com/movies/details/rog/0-0-46027\"";
 
 		Process process = Runtime.getRuntime().exec(command);
 		new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -13824,32 +13818,33 @@ public class Zee5TvBusinessLogic extends Utilities {
 		getDriver().navigate().back();
 		waitTime(3000);
 	}
-	public void  logout() {
+
+	public void logout() {
 		try {
-		HeaderChildNode("Logout");
-		TVTabSelect("Home");
+			HeaderChildNode("Logout");
+			TVTabSelect("Home");
 
-		for (int i = 0; i <= 10; i++) {
-			TVRemoteEvent(22);
-			waitTime(2000);
-		}
+			for (int i = 0; i <= 10; i++) {
+				TVRemoteEvent(22);
+				waitTime(2000);
+			}
 
-		TVTabSelect("Settings");
-		TVRemoteEvent(20);
-		waitTime(2000);
-		TVRemoteEvent(20);
-		for (int i = 0; i <= 14; i++) {
-			TVRemoteEvent(22);
+			TVTabSelect("Settings");
+			TVRemoteEvent(20);
 			waitTime(2000);
+			TVRemoteEvent(20);
+			for (int i = 0; i <= 14; i++) {
+				TVRemoteEvent(22);
+				waitTime(2000);
+			}
+			TVclick(Zee5TvWelcomePage.objLogoutOption, "Logout option");
+			waitTime(3000);
+			TVclick(Zee5TvWelcomePage.objLogoutOption, "Logout option");
+			waitTime(3000);
+			TVTabSelect("Home");
+		} catch (Exception e) {
+
 		}
-		TVclick(Zee5TvWelcomePage.objLogoutOption, "Logout option");
-		waitTime(3000);
-		TVclick(Zee5TvWelcomePage.objLogoutOption, "Logout option");
-		waitTime(3000);
-		TVTabSelect("Home");
-	}catch(Exception e) {
-		
-	}
 	}
 
 }
