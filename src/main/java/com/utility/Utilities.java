@@ -2079,6 +2079,26 @@ public class Utilities extends ExtentReporter {
 		System.out.println("Cleared all background Apps");
 	}
 
+	public boolean findElementInRefreshingConvivaPage(WebDriver webdriver, By locator,String displayText) throws Exception {
+		for(int i=1;i<=500;i++) {
+			webdriver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+			try {
+				webdriver.findElement(locator);
+				logger.info(displayText+" is displayed");
+				extent.extentLogger("", displayText+" is displayed");
+				return true;
+			}
+			catch(Exception e) {
+				try {
+					js.executeScript("window.scrollBy(0,100)", "");
+					waitTime(2000);
+					System.out.println("Waiting ..");
+				}catch(Exception e1) {}
+			}
+		}
+		return false;
+	}
+	
 //	====================================================TV=================================================
 	public boolean verifyElementExistTv(By byLocator, String str) throws Exception {
 

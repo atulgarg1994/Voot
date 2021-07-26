@@ -13,6 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Reporter;
 import org.testng.asserts.SoftAssert;
+
 import com.driverInstance.CommandBase;
 import com.driverInstance.DriverInstance;
 import com.extent.ExtentReporter;
@@ -13318,56 +13319,130 @@ public class Zee5TvBusinessLogic extends Utilities {
 
 	}
 
-	public void blockerScreenSoftBlocker() {
-		HeaderChildNode("Authenticate Device changes CON-7747/CON-8249/CON-8250");
+	public void blockerScreenSoftBlocker() throws Exception {
+		HeaderChildNode("Blocker screen Soft Blocker CON-8251");
+		waitTime(15000);
+		if (verifyIsElementDisplayed(Zee5TvHomePage.objUpdateButtonInBlockerScreen, "Update Button")) {
+			logger.info("Update button is displayed when user launch zee5 app");
+			extent.extentLoggerPass("Id", "Update button is displayed when user launch zee5 app");
+
+		} else {
+			logger.info("Update button is displayed when user launch zee5 app");
+			extent.extentLoggerFail("Authentication", "Update button is displayed when user launch zee5 app");
+		}
+		if (verifyIsElementDisplayed(Zee5TvHomePage.objContinueButtonInBlockerScreen, "Continue button")) {
+			logger.info("Continue to zee5 button is displayed in soft blocker screen");
+			extent.extentLoggerPass("Id", "Continue to zee5 button is displayed in soft blocker screen");
+
+		} else {
+			logger.info("Continue to zee5 button is not displayed in soft blocker screen");
+			extent.extentLoggerFail("Authentication", "Continue to zee5 button is not displayed in soft blocker screen");
+		}
+		TVclick(Zee5TvHomePage.objUpdateButtonInBlockerScreen, "Update now button");
+		waitTime(7000);
+		if(verifyIsElementDisplayed(Zee5TvHomePage.objPlaystore, "Play store zee5 app")) {
+			logger.info("User is navigated to play store to update the app");
+			extent.extentLoggerPass("Playstore", "User is navigated to play store to update the app");
+		}else {
+			logger.info("User is not navigated to play store and functionality failed");
+			extent.extentLoggerPass("Playstore", "User is not navigated to play store and functionality failed");
+		}
+		getDriver().navigate().back();
+		waitTime(3000);
 		waitTime(5000);
-		if (verifyIsElementDisplayed(Zee5TvHomePage.objSelectTab("Home"), "Home landing")) {
-			logger.info("User is navigated to Home landing page post authentication automatically");
-			extent.extentLoggerPass("Id", "User is navigated to Home landing page post authentication automatically");
+		if (verifyIsElementDisplayed(Zee5TvHomePage.objUpdateButtonInBlockerScreen, "Update Button")) {
+			logger.info("User is navigated back to zee5 app post tapping back button from play store");
+			extent.extentLoggerPass("Id", "User is navigated back to zee5 app post tapping back button from play store");
 
 		} else {
-			logger.info("Automatic authentication Navigation failed");
-			extent.extentLoggerFail("Authentication", "Automatic authentication Navigation failed");
+			logger.info("User is not navigated back to zee5 app post tapping back button from play store");
+			extent.extentLoggerFail("Authentication", "User is not navigated back to zee5 app post tapping back button from play store");
 		}
-		if (verifyIsElementDisplayed(Zee5TvHomePage.objSelectTab("Home"), "Home landing")) {
-			logger.info("User is navigated to Home landing page post authentication automatically");
-			extent.extentLoggerPass("Id", "User is navigated to Home landing page post authentication automatically");
-
-		} else {
-			logger.info("Automatic authentication Navigation failed");
-			extent.extentLoggerFail("Authentication", "Automatic authentication Navigation failed");
+		TVRemoteEvent(20);
+		waitTime(2000);
+		TVRemoteEvent(20);
+		waitTime(2000);
+		TVclick(Zee5TvHomePage.objContinueButtonInBlockerScreen, "Continue button in blocker screen");
+		waitTime(8000);
+		if(verifyIsElementDisplayed(Zee5TvHomePage.objzee5app, "Zee5 app logo")) {
+			logger.info("User is navigated to zee5 app post clicking on continue to zee5 app button in blocker screen");
+			extent.extentLoggerPass("Page", "User is navigated to zee5 app post clicking on continue to zee5 app button in blocker screen");
+		}else {
+			logger.info("User is not navigated to zee5 app post clicking on continue to zee5 app button in blocker screen");
+			extent.extentLoggerFail("Page", "User is not navigated to zee5 app post clicking on continue to zee5 app button in blocker screen");
 		}
-		// TV click and navigation
-
-		// Back click and navigation
-
-		// Playstore click and navigation
+		getDriver().navigate().back();
+		waitTime(3000);
+		if(!verifyIsElementDisplayed(Zee5TvHomePage.objUpdateButtonInBlockerScreen, "Zee5 app logo")) {
+			logger.info("User is navigated to TV home page post clicking on back rcu from zee5 app");
+			extent.extentLoggerPass("Page", "User is navigated to TV home page post clicking on back rcu from zee5 app");
+		}else {
+			logger.info("User is not navigated to TV home page post clicking on back rcu from zee5 app");
+			extent.extentLoggerFail("Page", "User is not navigated to TV home page post clicking on back rcu from zee5 app");
+		}
 	}
 
-	public void blockerScreenHardBlocker() {
-		HeaderChildNode("Authenticate Device changes CON-7747/CON-8249/CON-8250");
+	public void blockerScreenHardBlocker() throws Exception {
+		HeaderChildNode("Blocker screen Hard Blocker CON-8251");
+		waitTime(15000);
+		if (verifyIsElementDisplayed(Zee5TvHomePage.objUpdateButtonInBlockerScreen, "Update Button")) {
+			logger.info("Update button is displayed when user launch zee5 app");
+			extent.extentLoggerPass("Id", "Update button is displayed when user launch zee5 app");
+
+		} else {
+			logger.info("Update button is displayed when user launch zee5 app");
+			extent.extentLoggerFail("Authentication", "Update button is displayed when user launch zee5 app");
+		}
+		if (verifyIsElementDisplayed(Zee5TvHomePage.objExitButtonInBlockerScreen, "Exit button")) {
+			logger.info("Exit button is displayed in hard blocker screen");
+			extent.extentLoggerPass("Id", "Exit button is displayed in hard blocker screen");
+
+		} else {
+			logger.info("Exit button is not displayed in hard blocker screen");
+			extent.extentLoggerFail("Authentication", "Exit button is not displayed in hard blocker screen");
+		}
+		TVclick(Zee5TvHomePage.objUpdateButtonInBlockerScreen, "Update now button");
+		waitTime(7000);
+		if(verifyIsElementDisplayed(Zee5TvHomePage.objPlaystore, "Play store zee5 app")) {
+			logger.info("User is navigated to play store to update the app");
+			extent.extentLoggerPass("Playstore", "User is navigated to play store to update the app");
+		}else {
+			logger.info("User is not navigated to play store and functionality failed");
+			extent.extentLoggerPass("Playstore", "User is not navigated to play store and functionality failed");
+		}
+		getDriver().navigate().back();
+		waitTime(3000);
 		waitTime(5000);
-		if (verifyIsElementDisplayed(Zee5TvHomePage.objSelectTab("Home"), "Home landing")) {
-			logger.info("User is navigated to Home landing page post authentication automatically");
-			extent.extentLoggerPass("Id", "User is navigated to Home landing page post authentication automatically");
+		if (verifyIsElementDisplayed(Zee5TvHomePage.objUpdateButtonInBlockerScreen, "Update Button")) {
+			logger.info("User is navigated back to zee5 app post tapping back button from play store");
+			extent.extentLoggerPass("Id", "User is navigated back to zee5 app post tapping back button from play store");
 
 		} else {
-			logger.info("Automatic authentication Navigation failed");
-			extent.extentLoggerFail("Authentication", "Automatic authentication Navigation failed");
+			logger.info("User is not navigated back to zee5 app post tapping back button from play store");
+			extent.extentLoggerFail("Authentication", "User is not navigated back to zee5 app post tapping back button from play store");
 		}
-		if (verifyIsElementDisplayed(Zee5TvHomePage.objSelectTab("Home"), "Home landing")) {
-			logger.info("User is navigated to Home landing page post authentication automatically");
-			extent.extentLoggerPass("Id", "User is navigated to Home landing page post authentication automatically");
-
-		} else {
-			logger.info("Automatic authentication Navigation failed");
-			extent.extentLoggerFail("Authentication", "Automatic authentication Navigation failed");
+		TVRemoteEvent(20);
+		waitTime(2000);
+		TVRemoteEvent(20);
+		waitTime(2000);
+		TVclick(Zee5TvHomePage.objContinueButtonInBlockerScreen, "Continue button in blocker screen");
+		waitTime(8000);
+		if(verifyIsElementDisplayed(Zee5TvHomePage.objzee5app, "Zee5 app logo")) {
+			logger.info("User is navigated to zee5 app post clicking on continue to zee5 app button in blocker screen");
+			extent.extentLoggerPass("Page", "User is navigated to zee5 app post clicking on continue to zee5 app button in blocker screen");
+		}else {
+			logger.info("User is not navigated to zee5 app post clicking on continue to zee5 app button in blocker screen");
+			extent.extentLoggerFail("Page", "User is not navigated to zee5 app post clicking on continue to zee5 app button in blocker screen");
 		}
-		// TV click and navigation
-
-		// Back click and navigation
-
-		// Playstore click and navigation
+		getDriver().navigate().back();
+		waitTime(3000);
+		if(!verifyIsElementDisplayed(Zee5TvHomePage.objUpdateButtonInBlockerScreen, "Zee5 app logo")) {
+			logger.info("User is navigated to TV home page post clicking on back rcu from zee5 app");
+			extent.extentLoggerPass("Page", "User is navigated to TV home page post clicking on back rcu from zee5 app");
+		}else {
+			logger.info("User is not navigated to TV home page post clicking on back rcu from zee5 app");
+			extent.extentLoggerFail("Page", "User is not navigated to TV home page post clicking on back rcu from zee5 app");
+		}
 	}
 
 	public void blockerScreenCompleteBlocker() {
@@ -13675,7 +13750,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(15000);
 		getDriver().closeApp();
 		waitTime(5000);
-		String command = "adb "+IP+" shell am start -W -a android.intent.action.VIEW -d  \"https://www.zee5.com/movies/details/rog/0-0-46027\"";
+		String command = "adb shell am start -W -a android.intent.action.VIEW -d  \"https://www.zee5.com/movies/details/rog/0-0-46027\"";
 
 		Process process = Runtime.getRuntime().exec(command);
 		new BufferedReader(new InputStreamReader(process.getInputStream()));

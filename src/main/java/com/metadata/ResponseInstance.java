@@ -5267,4 +5267,19 @@ public class ResponseInstance {
 		CleverTapDashboardData.ActualCleverTapData.setProperty("Pack Duration", billing_frequency);
 		CleverTapDashboardData.ActualCleverTapData.setProperty("HasRental", HasRental);
 	}
+	
+	public static String getFirstRailNameFromPage(String pTabName, String pUserType) {
+
+		String pFirstRail = null;
+		String pContentLang = getContentLanguageForAppMixpanel(pUserType);
+		
+		System.out.println("Default Content Languages: " + pContentLang);
+		
+		resp = ResponseInstance.getResponseForAppPages(pTabName, pContentLang, pUserType);	
+		int totalBuckets = resp.jsonPath().getList("buckets").size();	
+		if(totalBuckets!=0) {
+			pFirstRail = resp.jsonPath().get("buckets[1].title").toString();
+		}
+		return pFirstRail;
+	}
 }

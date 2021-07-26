@@ -10,6 +10,15 @@ public class Zee5TvHomePage {
 		return By.xpath("//*[@id='menu_items_title' and @text='" + str + "']");
 	}
 	
+	public static By objUpdateButtonInBlockerScreen = By.xpath("//*[@id='update']");
+	
+	public static By objPlaystore = By.xpath("//*[@contentDescription='Image of app or game icon for ZEE5: Movies, TV Shows, Web Series, News']");
+	
+	public static By objContinueButtonInBlockerScreen = By.xpath("//*[@id='continueBrowsing']");
+	
+	public static By objExitButtonInBlockerScreen = By.xpath("");
+	
+	public static By objzee5app = By.xpath("//*[@id='language_title']");
 	public static By objdescription = By.xpath("//*[@id='details_description_text']");
 	public static By objchannelInAllchannelTab(int i) {
 		return By.xpath("(//*[@id='channel_horizontal_view_channel_image'])[" + i + "]");

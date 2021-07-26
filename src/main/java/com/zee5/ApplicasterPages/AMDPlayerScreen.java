@@ -209,6 +209,9 @@ public class AMDPlayerScreen {
 
 	
 	public static By objCurrentTime = By.xpath("//*[@id='playerDurationCurrent']");
+
+	public static By objContentMeta = By.xpath("//*[@resource-id='com.graymatrix.did:id/content_info']");
 	
+	public static By objPlayPageUpnextFirstCardImage = By.xpath("(//*[@text='Up Next']//parent::*//following-sibling::*[@id='cell_center_container']//*[@class='android.widget.ImageView'])[1]");
 	
 }
