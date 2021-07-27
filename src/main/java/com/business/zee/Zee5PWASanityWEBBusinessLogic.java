@@ -32228,5 +32228,135 @@ public void pwaHaveagiftcardinputvalidation1(String userType) throws Exception {
 		} 
 	}
 	
-	
+	public void textDisplayedBelowBanner(String userType,String tabname) throws Exception {
+		extent.HeaderChildNode("Verify if the text is displayed below the banner");
+		navigateToAnyScreenOnWeb(tabname);
+		ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
+		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		waitTime(3500);
+		if(verifyElementPresent(PWAComboOfferPage.objPayLessWatchMoreHeader, " Pay less, Watch more! below the Supermoon banner")) {
+			logger.info("Pay less, Watch more! below the Supermoon banner, expected behaviour");
+			extent.extentLoggerPass(" ", "Pay less, Watch more! below the Supermoon banner  , expected behaviour");
+		}else 
+		{
+			logger.info("Pay less, Watch more! below the Supermoon banner is not displayed ");
+			extent.extentLoggerFail(" ", "Pay less, Watch more! below the Supermoon banner is not displayed ");
+		} 
+		
+	}
+
+	public void verifyinformationisdisplayingonComboScreen(String userType, String tabname) throws Exception {
+		HeaderChildNode("Verify information is displaying on combo page");
+		navigateToAnyScreenOnWeb(tabname);
+		waitTime(3500);
+		ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
+		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		waitTime(3500);
+		waitTime(3500);
+		verifyElementPresentAndClick(PWAComboOfferPage.objRentNowPlaybackOnConsumptionPage,
+				"Rent Now CTA below the player");
+		waitTime(3000);
+
+		// verifyElementPresent(PWAComboOfferPage.objContentCard, "Content Thumbnail");
+		compareText(PWAComboOfferPage.objSupermoonPlanTxt, "Supermoon Plan");
+		verifyElementPresent(PWAComboOfferPage.objPremiumCard, "1 year Premium plan 499 with cut off 999");
+		compareText(PWAComboOfferPage.objLiveEventTicket, "Live Event Ticket");
+		compareText(PWAComboOfferPage.objExclusiveVideos, "Exclusive Videos");
+
+		compareText(PWAComboOfferPage.obj4000blockusterTxt, "2800 + blockbuster movies");
+		compareText(PWAComboOfferPage.objzee5OriginalTxt, "150 + Web Series");
+		compareText(PWAComboOfferPage.objWatchshowsTxt, "Watch shows before TV");
+		compareText(PWAComboOfferPage.objWatchAdTxt, "Watch Ad Free");
+
+	}
+
+	public void comboOfferSaveAmount(String userType, String tabname) throws Exception {
+
+		HeaderChildNode(
+				"Verify if the user can see the Supermoon combo offer price with amount to be paid and save amount");
+		navigateToAnyScreenOnWeb(tabname);
+		waitTime(3500);
+		ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
+		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		waitTime(3500);
+
+		verifyElementPresentAndClick(PWAComboOfferPage.objRentNowPlaybackOnConsumptionPage,
+				"Rent Now CTA below the player");
+		waitTime(3000);
+		String SaveAmount = getText(PWAComboOfferPage.objDiscount).replace("Save ₹", "");
+		compareText(PWAComboOfferPage.objDiscount, "Save ₹" + SaveAmount);
+		compareText(PWAComboOfferPage.objTotalDiscount, "Save ₹" + SaveAmount);
+
+	}
+
+	public void OtherPlanOnlyRentContentForINR249(String userType, String tabname) throws Exception {
+		HeaderChildNode("Verify if the user can see the other plan Only Rent Content for INR 249 with information");
+		navigateToAnyScreenOnWeb(tabname);
+		waitTime(3500);
+		ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
+		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		waitTime(3500);
+
+		verifyElementPresentAndClick(PWAComboOfferPage.objRentNowPlaybackOnConsumptionPage,
+				"Rent Now CTA below the player");
+		waitTime(3000);
+		verifyElementPresent(PWAComboOfferPage.objOnlyRentMovie, "Only Rent Content");
+		verifyElementPresent(PWAComboOfferPage.objpackprice249, "Only Rent Content with INR 249");
+		compareText(PWAComboOfferPage.objSupermoonPlanTxtinOnlyRent, "Supermoon Plan");
+
+		compareText(PWAComboOfferPage.objLiveEventTicket, "Live Event Ticket");
+		compareText(PWAComboOfferPage.objExclusiveVideos, "Exclusive Videos");
+
+	}
+
+	public void SupermoonComboPackDefaultSelect(String userType, String tabname) throws Exception {
+		HeaderChildNode("Verify if the Supermoon combo pack is selected by default when user land on the combo page");
+		navigateToAnyScreenOnWeb(tabname);
+		waitTime(3500);
+		ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
+		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		waitTime(3500);
+
+		verifyElementPresentAndClick(PWAComboOfferPage.objRentNowPlaybackOnConsumptionPage,
+				"Rent Now CTA below the player");
+		waitTime(3000);
+		verifyElementPresentAndClick(PWAComboOfferPage.objCheckbox, "Supermoon combo pack selected");
+
+	}
+
+	public void supermoonPrivacyPolicyAndTermsAndConditions(String userType, String tabname) throws Exception {
+		HeaderChildNode("Verify if the user can see the other plan Only Rent Content for INR 249 with information");
+		navigateToAnyScreenOnWeb(tabname);
+		waitTime(3500);
+		ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
+		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		waitTime(3500);
+
+		verifyElementPresentAndClick(PWAComboOfferPage.objRentNowPlaybackOnConsumptionPage,
+				"Rent Now CTA below the player");
+		waitTime(3000);
+
+		compareText(PWAComboOfferPage.objPrivacyPolicyTitle, "Privacy policy");
+		compareText(PWAComboOfferPage.objTermsOfServiceTitle, "Terms of Service");
+
+	}
+
+	public void BuyorRentorUpgrade(String userType, String tabname) throws Exception {
+		HeaderChildNode("Verify if the user can see Buy or Rent CTA or Upgrade sticky in the bottom of the page");
+		navigateToAnyScreenOnWeb(tabname);
+		waitTime(3500);
+		ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
+		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		waitTime(3500);
+
+		verifyElementPresentAndClick(PWAComboOfferPage.objRentNowPlaybackOnConsumptionPage,
+				"Rent Now CTA below the player");
+		waitTime(3000);
+		if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
+			verifyElementPresent(PWAComboOfferPage.objBuySupermoonComboBtn, "Buy Supermoon Combo Button");
+		} else if (userType.equals("SubscribedUser")) {
+			verifyElementPresent(PWAComboOfferPage.objUpgradeBtn, "Upgrade Button");
+		}
+	}
+
 }

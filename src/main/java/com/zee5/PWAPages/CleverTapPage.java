@@ -42,7 +42,7 @@ public class CleverTapPage {
 	
 	public static By objFilterByBtn = By.xpath(".//*[@class='filterClass']");
 	
-	public static By SystemPropertiesDD = By.xpath("//*[@id=\"selPM8_chzn\"]/a");
+	public static By objSystemPropertiesDD = By.xpath("//*[@id=\"selPM8_chzn\"]/a");
 	
 	public static By objSystemPropertiesSearchBtn = By.xpath("//*[@id=\"selPM8_chzn\"]/*[@class='chzn-drop']/*[@class='chzn-search']/input");
 	
@@ -50,5 +50,23 @@ public class CleverTapPage {
 	
 	public static By objInputValue = By.xpath("//*[@id=\"FEQuery1\"]/div[2]/div/div/div[3]/div[1]/div/span[2]/div[3]/div/input");
 	
+//:::::::::::::::::Campaign::::::::::::::::::
+	public static By objCampaignIcon = By.xpath(".//*[@class='campaigns']");
+	
+	public static By objCampaignlist = By.xpath(".//*[@class='campaign-name-link']");
+	
+	public static By objCloneIcon = By.xpath(".//*[@id='targetReschedule']");
+	
+	public static By objWhoEditIcon = By.xpath(".//*[@class='overview-section__edit']/a[@href='#who']/img");
+	
+	public static By objWhoEventDD = By.xpath("//*[@id='sel4JU_chzn']/a/div");
+	
+	public static By objSearchInput = By.xpath(".//*[@id='sel4JU_chzn']//*[@class='chzn-search']/input");
+	
+	public static By objSearchResult(String EventName) { 
+			return By.xpath(".//*[@id='sel4JU_chzn']//*[@class='chzn-results']//*[@class='active-result' and contains(text()='"+EventName+"')]");
+	}
+	
+	public static By objContinueBtn = By.xpath("//*[@id='btn_top_nav_continue']");
 	
 }

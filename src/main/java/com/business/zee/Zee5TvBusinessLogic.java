@@ -13353,7 +13353,6 @@ public class Zee5TvBusinessLogic extends Utilities {
 		if (verifyIsElementDisplayed(Zee5TvHomePage.objUpdateButtonInBlockerScreen, "Update Button")) {
 			logger.info("User is navigated back to zee5 app post tapping back button from play store");
 			extent.extentLoggerPass("Id", "User is navigated back to zee5 app post tapping back button from play store");
-
 		} else {
 			logger.info("User is not navigated back to zee5 app post tapping back button from play store");
 			extent.extentLoggerFail("Authentication", "User is not navigated back to zee5 app post tapping back button from play store");

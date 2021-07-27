@@ -188,4 +188,6 @@ public class AMDConsumptionScreen {
     
     public static By objBuyPlanRibbonCTA = By.xpath("(//*[@id='subscribeButton' and @text='Buy Plan'])");
     
+    public static By objEnterYour4DigitPIN = By.xpath(""); 
+    
 }

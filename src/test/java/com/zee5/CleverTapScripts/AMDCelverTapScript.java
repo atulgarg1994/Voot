@@ -22,11 +22,12 @@ public class AMDCelverTapScript {
 	@Test(priority = 2)
 	public void CleverTapNavigation() throws Exception {
 //		Zee5ApplicasterCleverTapBusinessLogic.navigateToCleverTap();
-		Zee5ApplicasterCleverTapBusinessLogic.getEventName("");
+//		Zee5ApplicasterCleverTapBusinessLogic.getEventName("");
+		Zee5ApplicasterCleverTapBusinessLogic.EditCampaign("Subscription Page Viewed","AutoTest");
 	}
 	
 	@AfterClass
 	public void tearDown() {
-		Zee5ApplicasterCleverTapBusinessLogic.tearDown();
+//		Zee5ApplicasterCleverTapBusinessLogic.tearDown();
 	}
 }

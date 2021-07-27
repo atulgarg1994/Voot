@@ -3,6 +3,8 @@ package com.business.zee;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import com.CleverTap.CleverTapDashboardData;
 import com.driverInstance.CommandBase;
@@ -606,6 +608,32 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 
 //			getWebDriver().quit();
 //			setPlatform("Android");
+	}
+	
+	public void EditCampaign(String EventName,String CampaignName) throws Exception {
+		HeaderChildNode("Edit Campaign");
+		verifyElementPresentAndClick(CleverTapPage.objCampaignIcon, "Campaign Icon");
+		waitTime(3000);
+		List<WebElement> listOfEvents = findElements(CleverTapPage.objCampaignlist);
+		for (int i = 1; i < listOfEvents.size(); i++) {
+			WebElement Eventname = listOfEvents.get(i);
+			if(i == 7) {
+				scrollDownWEB();
+			}
+			System.out.println(Eventname.getText());
+			if(Eventname.getText().contains(CampaignName)) {
+				Eventname.click();
+				break;
+			}
+		}
+		verifyElementPresentAndClick(CleverTapPage.objCloneIcon, "Clone Icon");
+		waitTime(8000);
+		verifyElementPresentAndClick(CleverTapPage.objWhoEditIcon, "Edit Icon");
+		verifyElementPresentAndClick(CleverTapPage.objWhoEventDD, "Event Drop Down");
+		type(CleverTapPage.objSearchInput, EventName,"Search Event");
+		verifyElementPresentAndClick(CleverTapPage.objSearchResult(EventName), "Event Name");
+		waitTime(8000);
+		verifyElementPresentAndClick(CleverTapPage.objContinueBtn, "Continue Button");
 	}
 	
 }

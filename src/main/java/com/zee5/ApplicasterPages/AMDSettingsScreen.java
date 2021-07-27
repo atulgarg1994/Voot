@@ -47,4 +47,54 @@ public class AMDSettingsScreen {
 	public static By objDownloadQualityValue = By.xpath("//*[@id='downloadLabel']");
 	public static By objDisplayLangValue = By.xpath("//*[@id='displayLanguageValue']");
 	public static By objContentLangValue = By.xpath("//*[@id='contentLanguageValue']");
+
+	//ParentalControloption
+	public static  By objParentalControloption = By.xpath("//*[@resource-id='com.graymatrix.did:id/parentalControl']");
+		
+	//No Restrictions
+	public static By objNoRestrictions = By.xpath("//*[@id='agelimit_text' and @text='No Restriction']");
+	//Restrict A 18+ Content
+	public static By objRestrictA18Content = By.xpath("//*[@id='agelimit_text' and @text='Restrict 18+ Content']");
+	//Restrict U/A 16+ Content 
+	public static By objRestrictUA16Content = By.xpath("");
+	//Restrict U/A 13+ Content
+	public static By objRestrictUA13Content = By.xpath("//*[@id='agelimit_text' and @text='Restrict 13+ Content']");
+	//Restrict U/A 7+ Content
+	public static By objRestrictUA7Content  = By.xpath("");
+	//Restrict All Content
+	public static By objRestrictAllContent = By.xpath("//*[@id='agelimit_text' and @text='Restrict All Content']");
+	//Parental Control title in the centre of the Header 
+	public static By objParentalControlTitleCentreOfTheHeader = By.xpath("//*[@resource-id='com.graymatrix.did:id/screen_title']");
+	// Back button should be displayed at the top left corner of the screen.
+	public static By objBackButton = By.xpath("//*[@resource-id='com.graymatrix.did:id/icon_back']");
+	//Set a parental lock to block your child from accessing certain content" should be displayed at the centre of the screen, below the Header.
+	public static By objSetAParentalLockToBlockYourChildFromAccessingCertainContent = By.xpath("//*[@resource-id='com.graymatrix.did:id/selector_screen_title']");
+	//Continue CTA
+	public static By objContinueCTA = By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_parental_control_continue']");
+	//Select Option
+	public static By objSelectOption = By.xpath("//*[@resource-id='com.graymatrix.did:id/selectionImageSelector']");
+	
+	//Done Button
+	public static By objDoneButton = By.xpath("//*[@resource-id='com.graymatrix.did:id/dialog_done']");
+	
+	//Success!
+	public static By objSuccessPage = By.xpath("//*[@resource-id='com.graymatrix.did:id/txt_success_title']");
+	
+	//Parental control settings applied successfully
+	public static By objParentalControlSettingsAppliedSuccessfully = By.xpath("//*[@resource-id='com.graymatrix.did:id/txt_success_desc']");
+	
+	//Set PIN
+	public static By objSetPIN = By.xpath("//*[@resource-id='com.graymatrix.did:id/txt_verify_email_account_header']");
+	
+	//Enter new 4-digit PIN
+	public static By objEnterNew4DigitPIN = By.xpath("//*[@resource-id='com.graymatrix.did:id/verify_email_account_desc']");
+	
+	//Show PIN
+	public static By objShowPIN = By.xpath("//*[@resource-id='com.graymatrix.did:id/tv_showpin']");
+	
+	//Continue Button Set PIN page
+	public static By objContinueButtonSetPINpage =By.xpath("//*[@resource-id='com.graymatrix.did:id/btn_set_pin_continue']");
+	
+	//Enter PIN Text Feiled 
+	public static By objEnterPINTextFeiled  = By.xpath("//*[@resource-id='com.graymatrix.did:id/editTextsLinearLayout']");
 }

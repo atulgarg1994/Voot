@@ -684,4 +684,7 @@ public class PWAHomePage {
 	public static By objLIVETvTumbnailTitle(String str, int i) {	
 		return By.xpath("(((((((//div[@class='trayContentWrap']//div[@class='trayHeader']//h2[.='" + str + "']))//parent::*//parent::*)//child::*[2])//child::*//div[@class='slick-track'])//child::*//div[@class='clickWrapper'])//h3[@class='cardTitle']//a[@class='noSelect '])['" +i+ "']");
 	}
+	
+	public static By objAddToWatchlist = By.xpath("//div[contains(@class, 'iconInitialLoad-ic_add_Watchlist')]");
+
 }

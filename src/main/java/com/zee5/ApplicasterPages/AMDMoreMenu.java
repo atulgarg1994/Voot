@@ -317,4 +317,8 @@ public class AMDMoreMenu {
 
 	public static By objFacebookPost = By.xpath("//*[@text='POST' or @text='Post' or @text='Share' or @text='SHARE' or @contentDescription='POST' or @contentDescription='Post']");
 
+	public static By Restrict18AboveContent = By.xpath("//*[@text='Restrict 18+ Content']");
+	public static By Restrict7AboveContent = By.xpath("");
+	public static By Restrict16AboveContent = By.xpath("");
+	public static By objGrievanceRedressalOption = By.xpath("");
 }

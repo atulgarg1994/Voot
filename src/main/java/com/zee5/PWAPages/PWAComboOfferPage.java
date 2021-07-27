@@ -210,4 +210,10 @@ public class PWAComboOfferPage {
 	public static By objBuySupermoonComboat499 =By.xpath("");
 	
 	public static By objBlockbusterText=By.xpath("");
+	
+	public static By objLiveEventTicket=By.xpath("");
+	public static By objExclusiveVideos=By.xpath("");
+	public static By objSupermoonPlanTxtinOnlyRent=By.xpath("");
+	public static By objSupermoonPlanTxt=By.xpath("");
+	public static By objBuySupermoonComboBtn = By.xpath("");
 }

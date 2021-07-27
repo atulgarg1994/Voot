@@ -6660,14 +6660,19 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		// Validate Continue watching tray is not displayed for Guest user
 		if (getPlatform().equalsIgnoreCase("Android")) {
 			ScrollToElement(PWAHomePage.objFirstContentCardOfTray("Recommended Movies"), "Recommended Movies Tray");
+	
 		} else if (getPlatform().equalsIgnoreCase("Web")) {
 			ScrollToTheElementWEB(PWAHomePage.objFirstContentCardOfTray("Recommended Movies"));
 		}
 		if (checkElementExist(PWAHomePage.objFirstContentCardOfTray("Recommended Movies"),
 				"First Content Card Of Recommended Movies Tray")) {
+			waitTime(2000);
+			verifyElementPresentAndClick(PWAHomePage.objFirstContentCardOfTray("Recommended Movies"), "Recommended Movies Tray");
+			waitTime(3000);
 			Actions action = new Actions(getDriver());
 			action.moveToElement(findElement(PWAHomePage.objFirstContentCardOfTray("Recommended Movies")));
 			action.perform();
+/*
 			if (checkElementExist(PWAHomePage.objAddToWatchlistButtonOnTrayContentCard("Recommended Movies"),
 					"Add To Watchlist icon on tray 1st content card")) {
 				extent.extentLogger("Verify Add To Watchlist icon on tray content card",
@@ -6681,6 +6686,10 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 
 			click(PWAHomePage.objAddToWatchlistButtonOnTrayContentCard("Recommended Movies"),
 					"Add To Watchlist icon on tray 1st content card");
+*/			
+			verifyElementPresentAndClick(PWAHomePage.objAddToWatchlist,"Add to watchlist");
+			waitTime(2000);
+			
 			if (checkElementExist(PWAHomePage.objLoginRequiredPopUpHeader, "Login Required PopUp Header")) {
 				extent.extentLogger(
 						"Login popup is displayed when clicked on 'Add to Watchlist' icon on tray content card",
@@ -6718,6 +6727,7 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 			navigateToAnyScreenOnWeb("Live TV");
 		}
 		waitTime(5000);
+		navigateToAnyScreen("Live TV");
 		// click on channel guide
 		click(PWALiveTVPage.objChannelGuideToggle, "Channel guide");
 		// Verify Reminder option is not available
@@ -6737,28 +6747,29 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 			logger.info("Reminder button is displayed for the Guest user");
 
 		}
-
 	}
 
+
 	public void validateDisplayLanguagePopup() throws Exception {
-
-		if (waitForElement1(PWAHomePage.objDisplayLanguagePopupTitle, 20, "Display Language Popup")) {
-
-			verifyElementPresentAndClick(PWAHomePage.objDisplayLanguagePopupOption("English"),
-					"English option in Display Language popup");
-			verifyElementPresentAndClick(PWAHomePage.objDisplayLanguageContinueButton,
-					"Continue Button in Display Language popup");
-
-			verifyElementPresent(PWAHomePage.objContentLanguagePopupSelectedOption("English"),
-					"English option in Content Language popup");
-			verifyElementPresent(PWAHomePage.objContentLanguagePopupSelectedOption("Kannada"),
-					"Kannada option in Content Language popup");
-			verifyElementPresentAndClick(PWAHomePage.objContentLanguagePopupUnSelectedOption("Hindi"),
-					"Hindi option in Content Language popup");
-			verifyElementPresentAndClick(PWAHomePage.objDisplayLanguageContinueButton,
-					"Continue Button in Content Language popup");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger Menu");
+		waitTime(3000);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objLanguageBtn, "Language Button");
+		waitTime(2000);
+		waitForElementAndClick(PWAHamburgerMenuPage.objContentLanguageBtn, 2, "Content Languages");
+		waitTime(2000);
+		unselectAllContentLanguages();
+		clickElementWithLocator(PWAHamburgerMenuPage.objUnselectedKannadaContentLanguage);
+		clickElementWithLocator(PWAHamburgerMenuPage.objUnselectedHindiContentLanguage);
+		clickElementWithLocator(PWAHamburgerMenuPage.objUnselectedEnglishContentLanguage);
+		click(PWAHamburgerMenuPage.objApplyButtonInContentLangugaePopup, "Apply button");
+		waitTime(3000);
+	}
+	
+	public void unselectAllContentLanguages() throws Exception {
+		List<WebElement> selectedLanguages = getDriver().findElements(PWAHamburgerMenuPage.objSelectedLanguages);
+		for (int i = 0; i < selectedLanguages.size(); i++) {
+			clickElementWithWebElement(selectedLanguages.get(i));
 		}
-
 	}
 
 	public void FilterLanguage() throws Exception {

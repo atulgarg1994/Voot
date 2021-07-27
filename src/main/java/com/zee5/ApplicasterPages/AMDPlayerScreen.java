@@ -214,4 +214,12 @@ public class AMDPlayerScreen {
 	
 	public static By objPlayPageUpnextFirstCardImage = By.xpath("(//*[@text='Up Next']//parent::*//following-sibling::*[@id='cell_center_container']//*[@class='android.widget.ImageView'])[1]");
 	
+	public static By objParentalSuccessScreen = By.xpath("//*[@id='txt_success_title']");
+	public static By objParentalPinDialog = By.xpath("//*[@id='parentalFragmentTitleTextView']");
+	public static By objShowPin = By.xpath("//*[@id='parentalFragmentShowPin']");
+	public static By objForgotPin = By.xpath("//*[@id='parentalFragmentForgotPin']");
+	public static By objtoastErrorMesssage = By.xpath("//*[text()='Incorrect pin entered. Please try again']");
+	public static By objcontentDescriptor = By.xpath("");
+	public static By objcontentRating = By.xpath("");
+	public static By objPlayerStartTime = By.xpath("");
 }
