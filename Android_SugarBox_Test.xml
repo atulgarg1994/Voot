@@ -19,6 +19,8 @@
 
 	<parameter name="RegisteredEmail" value="zee5latest@gmail.com" />
 	<parameter name="RegisteredEmailPassword" value="User@123" />
+	
+	<parameter name="Platform" value="SugarBox"/>
 
 	<parameter name="regUserName" value="igszeefive3@gmail.com" />
 	<parameter name="regPassword" value="123456" />

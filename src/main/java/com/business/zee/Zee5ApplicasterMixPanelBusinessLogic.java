@@ -6861,7 +6861,6 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			setFEProperty(userType);
 			setUserType_SubscriptionProperties(userType);
 			MixpanelAndroid.FEProp.setProperty("Element", "Continue");
-			MixpanelAndroid.FEProp.setProperty("Pack Duration", "365");
 			MixpanelAndroid.FEProp.setProperty("Page Name", "Plan Selection");
 			MixpanelAndroid.ValidateParameter("", "Subscription Selected");
 		}
@@ -13231,7 +13230,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			setFEProperty(userType);
 			setUserType_SubscriptionProperties(userType);
 			MixpanelAndroid.FEProp.setProperty("Element", "Continue");
-			
+
 			MixpanelAndroid.FEProp.setProperty("Page Name", "Plan Selection");
 			MixpanelAndroid.ValidateParameter("", "Subscription Selected");
 		}
@@ -13255,7 +13254,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			setFEProperty(userType);
 			setUserType_SubscriptionProperties(userType);
 			MixpanelAndroid.FEProp.setProperty("Element", "Continue");
-			
+
 			MixpanelAndroid.FEProp.setProperty("Page Name", "Plan Selection");
 			MixpanelAndroid.ValidateParameter("", "Subscription Selected");
 		}
@@ -13279,6 +13278,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			completeProfilePopUpClose(usertype);
 
 			click(AMDHomePage.objBuyPlanCTABelowPlayer, "Buy Plan CTA below player");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Button");
 			waitTime(10000);
 
 			setFEProperty(usertype);
@@ -13296,8 +13297,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 	public void verifySubscriptionSelectedEvent_Trailer(String usertype, String keyword3) throws Exception {
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode("Verify Subscription Selected Event - Buy Plan on player post completion of trailer playback");
-			extent.HeaderChildNode("Ribbon CTAs Event ");
+			extent.HeaderChildNode(
+					"Verify Subscription Selected Event - Buy Plan on player post completion of trailer playback");
 			waitTime(4000);
 			click(AMDSearchScreen.objSearchIcon, "Search icon");
 			click(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -13315,8 +13316,11 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				waitForAdToFinishInAmd();
 				waitTime(5000);
 			}
-			waitForElementDisplayed(AMDHomePage.objBuyPlanCTAOnPlayer, 120);
-			click(AMDHomePage.objBuyPlanCTAOnPlayer, "Buy Plan CTA on player");
+			// waitForElementDisplayed(AMDHomePage.objBuyPlanTextOnPlayer, 120);
+			waitTime(200000);
+			verifyElementPresentAndClick(AMDHomePage.objBuyPlanCTAOnPlayer, "Buy Plan CTA on player");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Button");
 			waitTime(10000);
 
 			setFEProperty(usertype);
@@ -13327,8 +13331,278 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			MixpanelAndroid.FEProp.setProperty("Element", "Continue");
 			MixpanelAndroid.FEProp.setProperty("Page Name", "Plan Selection");
 			MixpanelAndroid.FEProp.setProperty("Player Name", "Kaltura Android");
-
 			MixpanelAndroid.ValidateParameter("", "Subscription Selected");
 		}
+	}
+	
+	public void verifyScreenViewEvent_BottomNavigation(String userType, String tabName) throws Exception {
+		extent.HeaderChildNode("Verify Screen View Event for bottom navigation - "+tabName);
+		waitTime(3000);
+		getDriver().findElement(By.xpath("//*[@id='navigationTitleTextView' and @text='Home']")).click();
+		waitTime(3000);
+		try {
+			getDriver().findElement(By.xpath("//*[@id='navigationTitleTextView' and @text='"+tabName+"']")).click();
+			logger.info("Clicked on "+tabName);
+			extent.extentLogger("", "Clicked on "+tabName);
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		
+		setFEProperty(userType);
+		setUserType_SubscriptionProperties(userType);
+		SetAppsflyerProperty();
+		
+		if(tabName.equalsIgnoreCase("Home")) {
+			if (pUserType.equalsIgnoreCase("Guest")) {
+				mixpanel.FEProp.setProperty("Source", "SplashPage");
+			}else {
+				mixpanel.FEProp.setProperty("Source", "More");
+			}
+			
+		}else {
+			mixpanel.FEProp.setProperty("Source", "Homepage");
+		}
+		
+		if(tabName.equalsIgnoreCase("More")) {
+			mixpanel.FEProp.setProperty("Page Name", "More");
+		}else if(tabName.equalsIgnoreCase("Upcoming")) {
+			mixpanel.FEProp.setProperty("Page Name", "UpcomingPage");
+		}else if(tabName.equalsIgnoreCase("Downloads")) {
+			mixpanel.FEProp.setProperty("Page Name", "DownloadPage");
+		}else if(tabName.equalsIgnoreCase("Home")) {
+			mixpanel.FEProp.setProperty("Page Name", "Homepage");
+		}
+		
+		mixpanel.FEProp.setProperty("manufacturer", DeviceDetails.OEM);
+		mixpanel.FEProp.setProperty("brand", DeviceDetails.OEM);
+		if (pUserType.equalsIgnoreCase("Guest")) {
+			mixpanel.FEProp.setProperty("User Type", "Guest");
+		}
+		mixpanel.ValidateParameter("", "Screen View");
+	}
+	
+	public void verifyScreenViewEvent_MoreMenuOptions(String userType, String page) throws Exception{
+		extent.HeaderChildNode("Verify Screen View Event for bottom navigation - "+page);
+		click(AMDHomePage.MoreMenuIcon, "More menu icon");
+		waitTime(3000);
+		boolean flag = false;
+		if(!(userType.equalsIgnoreCase("Guest"))) {
+			if(page.equalsIgnoreCase("My account")) {
+				verifyElementPresentAndClick(AMDMoreMenu.objProfile, "My account");
+			}else {
+				if(page.equalsIgnoreCase("Settings")) {
+					Swipe("UP", 1);
+				}
+				try {
+					getDriver().findElement(By.xpath("//*[@id='list_item' and @text='"+page+"']")).click();
+					logger.info("Clicked on "+page);
+					extent.extentLogger("", "Clicked on "+page);
+					flag = true;
+				}catch(Exception e) {
+					System.out.println(e);
+				}
+			}
+		}else {
+			if(page.equalsIgnoreCase("Settings")) {
+				if(page.equalsIgnoreCase("Settings")) {
+					Swipe("UP", 1);
+				}
+				try {
+					getDriver().findElement(By.xpath("//*[@id='list_item' and @text='"+page+"']")).click();
+					logger.info("Clicked on "+page);
+					extent.extentLogger("", "Clicked on "+page);
+					flag = true;
+				}catch(Exception e) {
+					System.out.println(e);
+				}
+			}else {
+				logger.info("Not applicable for this userType");
+				extent.extentLogger("", "Not applicable for this userType");
+			}
+		}
+		if(flag= true){
+			setFEProperty(userType);
+			setUserType_SubscriptionProperties(userType);
+			SetAppsflyerProperty();
+			mixpanel.FEProp.setProperty("Source", "More");
+			if(page.equalsIgnoreCase("My Subscription")) {
+				mixpanel.FEProp.setProperty("Page Name", "MySubscription");
+			}else if(page.equalsIgnoreCase("My Transactions")) {
+				mixpanel.FEProp.setProperty("Page Name", "MyTransactions");
+			}else if(page.equalsIgnoreCase("Settings")) {
+				mixpanel.FEProp.setProperty("Page Name", "Settings");
+			}else if(page.equalsIgnoreCase("My account")) {
+				mixpanel.FEProp.setProperty("Page Name", "accountdetails");
+			}
+			mixpanel.FEProp.setProperty("manufacturer", DeviceDetails.OEM);
+			mixpanel.FEProp.setProperty("brand", DeviceDetails.OEM);
+			mixpanel.ValidateParameter("", "Screen View");
+		}
+	}
+	
+	public void verifyScreenViewEvent_SearchPage(String userType) throws Exception {
+		extent.HeaderChildNode("Verify Screen View Event for Search page");
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon, "Search icon");
+		waitTime(3000);
+		setFEProperty(userType);
+		setUserType_SubscriptionProperties(userType);
+		SetAppsflyerProperty();
+		mixpanel.FEProp.setProperty("Source", "HomePage");
+		mixpanel.FEProp.setProperty("Page Name", "SearchPage");
+		mixpanel.FEProp.setProperty("manufacturer", DeviceDetails.OEM);
+		mixpanel.FEProp.setProperty("brand", DeviceDetails.OEM);
+		if (pUserType.equalsIgnoreCase("Guest")) {
+			mixpanel.FEProp.setProperty("User Type", "Guest");
+		}
+		mixpanel.ValidateParameter("", "Screen View");
+	}
+	
+	public void verifyScreenViewEvent_SplashPage(String userType) throws Exception {
+		extent.HeaderChildNode("Verify Screen View Event for Splash page");
+		extent.extentLogger("Splash page", "Splash screen is displayed");
+		if(userType.equalsIgnoreCase("Guest")) {
+			waitTime(3000);
+			setFEProperty(userType);
+			setUserType_SubscriptionProperties(userType);
+			SetAppsflyerProperty();
+			mixpanel.FEProp.setProperty("Source", "HomePage");
+			mixpanel.FEProp.setProperty("Page Name", "SplashPage");
+			mixpanel.FEProp.setProperty("manufacturer", DeviceDetails.OEM);
+			mixpanel.FEProp.setProperty("brand", DeviceDetails.OEM);
+			if (pUserType.equalsIgnoreCase("Guest")) {
+				mixpanel.FEProp.setProperty("User Type", "Guest");
+			}
+			mixpanel.ValidateParameter("", "Screen View");
+		}else {
+			logger.info("Not applicable for this userType");
+			extent.extentLogger("", "Not applicable for this userType");
+		}
+	}
+	
+	@SuppressWarnings("static-access")
+	public void verifyCTAsEventForBuyPlanHeader(String userType) throws Exception {
+		extent.HeaderChildNode("Verify CTAs Event");
+		waitTime(3000);
+
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			verifyElementPresentAndClick(AMDHomePage.objSubscribeIcon, "Subscribe button");
+			waitTime(3000);
+			setFEProperty(userType);
+			setUserType_SubscriptionProperties(userType);
+			SetAppsflyerProperty();
+
+			MixpanelAndroid.FEProp.setProperty("Element", "Buy Plan");
+			MixpanelAndroid.FEProp.setProperty("Page Name", "HomePage");
+			MixpanelAndroid.FEProp.setProperty("Button Type", "Header");
+		}
+		MixpanelAndroid.ValidateParameter("", "CTAs");
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyCTAsEventForZeeLogo(String userType) throws Exception {
+		extent.HeaderChildNode("Verify CTAs Event");
+		waitTime(3000);
+
+		verifyElementPresentAndClick(AMDHomePage.objZee5Logo, "ZEE5 Logo");
+		waitTime(3000);
+		setFEProperty(userType);
+		setUserType_SubscriptionProperties(userType);
+		SetAppsflyerProperty();
+
+		MixpanelAndroid.ValidateParameter("", "CTAs");
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyCTAsEventForSettingsInMore(String userType) throws Exception {
+		extent.HeaderChildNode("Verify CTAs Event");
+		waitTime(3000);
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+		waitTime(3000);
+		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings CTA");
+		waitTime(3000);
+		setFEProperty(userType);
+		setUserType_SubscriptionProperties(userType);
+		SetAppsflyerProperty();
+
+		MixpanelAndroid.FEProp.setProperty("Element", "Settings");
+		MixpanelAndroid.FEProp.setProperty("Page Name", "More");
+		MixpanelAndroid.FEProp.setProperty("Button Type", "CTA");
+		MixpanelAndroid.ValidateParameter("", "CTAs");
+	}
+
+	@SuppressWarnings("static-access")
+	public void verifyCTAsEventForMySubscriptionInMore(String userType) throws Exception {
+		extent.HeaderChildNode("Verify CTAs Event");
+		waitTime(3000);
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+		waitTime(3000);
+		verifyElementPresentAndClick(AMDMoreMenu.objMySubscription, "My Subscription CTA");
+		waitTime(3000);
+		setFEProperty(userType);
+		setUserType_SubscriptionProperties(userType);
+		SetAppsflyerProperty();
+
+		MixpanelAndroid.FEProp.setProperty("Element", "MySubscription");
+		MixpanelAndroid.FEProp.setProperty("Page Name", "More");
+		MixpanelAndroid.FEProp.setProperty("Button Type", "CTA");
+
+		MixpanelAndroid.ValidateParameter("", "CTAs");
+	}
+	
+	@SuppressWarnings("static-access")
+	public void verifyCTAsEventForMyTransactionInMore(String userType) throws Exception {
+		extent.HeaderChildNode("Verify CTAs Event");
+		waitTime(3000);
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+		waitTime(3000);
+		verifyElementPresentAndClick(AMDMoreMenu.objMyTransactions, "My Transactions CTA");
+		waitTime(3000);
+		setFEProperty(userType);
+		setUserType_SubscriptionProperties(userType);
+		SetAppsflyerProperty();
+
+		MixpanelAndroid.FEProp.setProperty("Element", "MyTransactions");
+		MixpanelAndroid.FEProp.setProperty("Page Name", "More");
+		MixpanelAndroid.FEProp.setProperty("Button Type", "CTA");
+
+		MixpanelAndroid.ValidateParameter("", "CTAs");
+	}
+	
+	@SuppressWarnings("static-access")
+	public void verifyCTAsEventForContinueBtn(String userType) throws Exception {
+		
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode("Verify CTAs Event");
+			verifyElementPresentAndClick(AMDHomePage.objSubscribeIcon, "Subscribe button");
+			waitTime(3000);
+			Swipe("Up", 2);
+			verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Button");
+			waitTime(100000);
+			hideKeyboard();
+			setFEProperty(userType);
+			setUserType_SubscriptionProperties(userType);
+			MixpanelAndroid.FEProp.setProperty("Element", "Continue with ₹ 499");
+			MixpanelAndroid.FEProp.setProperty("Page Name", "Subscription");
+			MixpanelAndroid.FEProp.setProperty("Button Type", "Button");
+			MixpanelAndroid.ValidateParameter("", "CTAs");
+		}
+	}
+	
+	@SuppressWarnings("static-access")
+	public void verifyCTAsEventForMyProfile(String userType) throws Exception {
+		extent.HeaderChildNode("Verify CTAs Event");
+		waitTime(3000);
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+		waitTime(3000);
+		verifyElementPresentAndClick(AMDMoreMenu.objLoginRegisterText, "Profile CTA");
+		waitTime(3000);
+		setFEProperty(userType);
+		setUserType_SubscriptionProperties(userType);
+		SetAppsflyerProperty();
+
+		MixpanelAndroid.FEProp.setProperty("Element", "MyProfile");
+		MixpanelAndroid.FEProp.setProperty("Page Name", "More");
+		MixpanelAndroid.FEProp.setProperty("Button Type", "CTA");
+		MixpanelAndroid.ValidateParameter("", "CTAs");
 	}
 }

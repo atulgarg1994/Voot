@@ -24,11 +24,13 @@
 	
 	<parameter name="RegisteredEmail" value="ramkt@gmail.com" />
 	<parameter name="RegisteredEmailPassword" value="123456" />
+	
+	<parameter name="Platform" value="Conviva"/>
 
 	<parameter name="regUserName" value="igszeefive3@gmail.com" />
 	<parameter name="regPassword" value="123456" />
 
-        <parameter name="RegisteredMobile" value="7892215214" />
+    <parameter name="RegisteredMobile" value="7892215214" />
 	<parameter name="RegisteredMobilePassword" value="123456" />
 	
 	<parameter name="UnRegisteredMobile" value="8073661163" />

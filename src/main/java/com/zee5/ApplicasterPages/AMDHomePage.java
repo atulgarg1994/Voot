@@ -318,10 +318,9 @@ public class AMDHomePage {
 	public static By objCompanionAd = By.xpath("((//*[@id='google_image_div'])//child::*) [1]");
 	public static By objMoreMenu = By.xpath("(//*[@id='navigationTitleTextView' and @text='More'])");
 	
-	public static By objBuyPlanCTABelowPlayer = By.xpath("(//*[@resource-id='com.graymatrix.did:id/subscribeButton'])[2]");
+	public static By objBuyPlanCTABelowPlayer = By.xpath("(//*[@resource-id='com.graymatrix.did:id/subscribeButton'])");
 	
 	public static By objBuyPlanCTAMoreSection = By.xpath("//*[@text='Buy Plan']");
 	
 	public static By objBuyPlanCTAOnPlayer = By.xpath("(//*[@resource-id='com.graymatrix.did:id/subscribeButton'])[1]");
-	
 }

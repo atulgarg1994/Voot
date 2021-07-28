@@ -16,6 +16,9 @@
 	<parameter name="SubscribedUserName" value="zeetest10@test.com"/>
 	<parameter name="SubscribedPassword" value="123456"/>
 	
+	<parameter name="Platform" value="CleverTap"/>
+	
+	
 	<parameter name="CTUser" value="bXVyYWxpLmFwcGFkaUB6ZWUuY29t" />
 	<parameter name="CTPwd" value="Q2hAbmczbTMhIQ" />
 	

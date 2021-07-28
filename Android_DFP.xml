@@ -18,7 +18,7 @@
 	<parameter name="SubscribedPassword" value="123456" />
 
 	<parameter name="DFPData" value="MD - Raat Baaki Hai - Movie - Republished1" />
-	
+	<parameter name="Platform" value="DFP"/>
 	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />

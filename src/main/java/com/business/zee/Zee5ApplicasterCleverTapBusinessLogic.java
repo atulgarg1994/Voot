@@ -132,7 +132,6 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 		try {
 			HeaderChildNode("Event Name : "+EventName);
 //			CleverTapDashboardData.creatExcelCleverTap();
-			
 			waitTime(10000);
 			List<WebElement> event = findElements(CleverTapPage.objEventName);
 			List<WebElement> time = findElements(CleverTapPage.objTime);
@@ -171,25 +170,19 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 	
 	public void SubscriptionPageViewed(String userType) throws Exception {
 		HeaderChildNode("Subscription Page Viewed");
-		
 		if(!userType.equals("SubscribedUser")) {
-			
 			waitTime(2000);
 			verifyElementPresentAndClick(AMDHomePage.objBuyPlanCTA, "Buy Plan");
-			
 		}
 	}
 	
 	public void SubscriptionSelected(String userType) throws Exception {
 		HeaderChildNode("Subscription Selected");
-		
 		if(!userType.equals("SubscribedUser")) {
-
 		waitTime(6000);
 		PartialSwipe("UP", 2);
 		waitTime(6000);
 		verifyElementPresentAndClick(AMDMySubscriptionPage.objSelectPlanCheckBx, "Premium Plan Check Box");
-
 		}
 	}
 	

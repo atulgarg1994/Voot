@@ -10,7 +10,6 @@ import com.utility.Utilities;
 
 public class SubscriptionCartAbandonment {
 
-	
 	private Zee5ApplicasterCleverTapBusinessLogic Zee5ApplicasterCleverTapBusinessLogic;
 
 	@BeforeTest

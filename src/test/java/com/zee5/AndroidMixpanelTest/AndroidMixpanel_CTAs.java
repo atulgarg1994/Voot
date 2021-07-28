@@ -22,23 +22,57 @@ public class AndroidMixpanel_CTAs {
 	public void AndroidMixPanel_CTAsEventValidation(String pUserType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(pUserType);
-		Zee5ApplicasterMixPanelBusinessLogic.verifyCTAsEvent(pUserType,"Subscribe");
+		Zee5ApplicasterMixPanelBusinessLogic.verifyCTAsEventForBuyPlanHeader(pUserType);
 	}
 	
 	@Test(priority = 2)
 	@Parameters({"userType"})
-	public void AndroidMixPanel_PlayerCTAsEventValidation(String pUserType) throws Exception {
+	public void verifyCTAsEventForSettingsInMore(String pUserType) throws Exception {
+		Utilities.relaunch = true;
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(pUserType);
-		Zee5ApplicasterMixPanelBusinessLogic.PlayerControlPlayPauseEvent(pUserType,"Movies");
+		Zee5ApplicasterMixPanelBusinessLogic.verifyCTAsEventForSettingsInMore(pUserType);
 	}
 	
+	@Test(priority = 3)
+	@Parameters({"userType"})
+	public void verifyCTAsEventForMySubscriptionInMore(String pUserType) throws Exception {
+		Utilities.relaunch = true;
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(pUserType);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyCTAsEventForMySubscriptionInMore(pUserType);
+	}
+	
+	@Test(priority = 4)
+	@Parameters({"userType"})
+	public void verifyCTAsEventForMyTransactionInMore(String pUserType) throws Exception {
+		Utilities.relaunch = true;
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(pUserType);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyCTAsEventForMyTransactionInMore(pUserType);
+	}
+	
+	@Test(priority = 5)
+	@Parameters({"userType"})
+	public void verifyCTAsEventForContinueBtn(String pUserType) throws Exception {
+		Utilities.relaunch = true;
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(pUserType);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyCTAsEventForContinueBtn(pUserType);
+	}
+	
+	@Test(priority = 6)
+	@Parameters({"userType"})
+	public void verifyCTAsEventForMyProfile(String pUserType) throws Exception {
+		Utilities.relaunch = true;
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(pUserType);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyCTAsEventForMyProfile(pUserType);
+	}
 	
 	@AfterTest
 	public void tearDownApp() {
 		System.out.println("Quit the App");
 		Zee5ApplicasterMixPanelBusinessLogic.tearDown();
 	}
-
-
 }

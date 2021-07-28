@@ -85,7 +85,8 @@ public class DriverInstance extends Drivertools {
 			capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, "Chrome");
 			return capabilities;
 		}
-		logger.info("APK INSTALLED..");
+//		logger.info("APK INSTALLED..");
+//		installAPK();
 		capabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, getAppPackage());
 		capabilities.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, getappActivity());
 		if (Utilities.relaunch) {
@@ -93,6 +94,27 @@ public class DriverInstance extends Drivertools {
 		}
 		startTime = Instant.now();
 		return capabilities;
+	}
+	
+	private void installAPK() {
+		String dir = System.getProperty("user.dir") + "\\APK\\";
+		switch("1") {
+		case "CleverTap":
+			capabilities.setCapability(MobileCapabilityType.APP, dir+"");
+			break;
+		case "AppsFlyer":
+			capabilities.setCapability(MobileCapabilityType.APP, dir+"");
+			break;
+		case "Conviva":
+			capabilities.setCapability(MobileCapabilityType.APP, dir+"");
+			break;
+		case "DFP":
+			capabilities.setCapability(MobileCapabilityType.APP, dir+"");
+			break;
+		case "Mixpanel":
+			capabilities.setCapability(MobileCapabilityType.APP, dir+"");
+			break;
+		}
 	}
 
 	/**

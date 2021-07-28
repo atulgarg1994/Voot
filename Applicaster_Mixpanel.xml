@@ -61,6 +61,9 @@
 	<parameter name="keywordID4" value="0-1-manual_779smvu9cl80" />
 	<parameter name="zeeplexContent" value="TVOD Test movie 2"/>
 	<parameter name="zeeplexContentID" value="0-0-425002"/>
+	<parameter name="BottomNavigation" value="Home" />   <!--  Home|Upcoming|Downloads|More -->
+	<parameter name="MoreMenuOptions" value="My Transactions" />   <!-- My account|My Subscription|My Transactions|Settings -->
+	
 	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />

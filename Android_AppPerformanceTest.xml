@@ -24,6 +24,8 @@
 
 	<parameter name="regUserName" value="igszeefive3@gmail.com" />
 	<parameter name="regPassword" value="123456" />
+	
+	<parameter name="Platform" value="AndroidPerformance"/>
 
 	<parameter name="RegisteredMobile" value="7892215214" />
 	<parameter name="RegisteredMobilePassword" value="User@123" />

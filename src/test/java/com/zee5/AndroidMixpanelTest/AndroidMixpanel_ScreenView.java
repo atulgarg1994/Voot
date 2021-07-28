@@ -4,7 +4,6 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
 import com.business.zee.Zee5ApplicasterMixPanelBusinessLogic;
 import com.utility.Utilities;
 
@@ -27,11 +26,39 @@ public class AndroidMixpanel_ScreenView {
 	}
 	
 	@Test(priority = 1)
-	@Parameters({"userType", "pTabName"})
-	public void verifyScreenViewEvent(String userType, String pTabName) throws Exception {
-		System.out.println("Screen view event");
+	@Parameters({"userType", "BottomNavigation"})
+	public void verifyScreenViewEvent_BottomNavigation(String userType, String pTabName) throws Exception {
+		System.out.println("Screen view event for Bottom Navigation");
 		//Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.verifyScreenViewEvent(userType);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyScreenViewEvent_BottomNavigation(userType, pTabName);
+	}
+	
+	@Test(priority = 2)
+	@Parameters({"userType", "MoreMenuOptions"})
+	public void verifyScreenViewEvent_MoreMenuOptions(String userType, String page) throws Exception {
+		System.out.println("Screen view event for More menu options");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyScreenViewEvent_MoreMenuOptions(userType, page);
+	}
+	
+	@Test(priority = 3)
+	@Parameters({"userType"})
+	public void verifyScreenViewEvent_Search(String userType) throws Exception {
+		System.out.println("Screen view event for Search");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyScreenViewEvent_SearchPage(userType);
+	}
+	
+	@Test(priority = 4)
+	@Parameters({"userType"})
+	public void verifyScreenViewEvent_SplashPage(String userType) throws Exception {
+		System.out.println("Screen view event for Splash page");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyScreenViewEvent_SplashPage(userType);
 	}
 	
 	@AfterTest

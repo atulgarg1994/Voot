@@ -19,7 +19,7 @@
 	<!--  Subscribed User --> 
 	<parameter name="SubscribedUserName" value="zeetest10@test.com"/>
 	<parameter name="SubscribedPassword" value="123456"/>
-
+	<parameter name="Platform" value="AppsFlyer"/>
 
 
 	<listeners>
