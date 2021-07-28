@@ -13605,4 +13605,444 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		MixpanelAndroid.FEProp.setProperty("Button Type", "CTA");
 		MixpanelAndroid.ValidateParameter("", "CTAs");
 	}
+	
+	@SuppressWarnings("static-access")
+	public void verifyLoginInitiatedEventViaBuyPlanHeader(String userType) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Verify Login Initiated Event - Buy Plan Header");
+			String getEmail = getParameterFromXML("NonSubscribedUserName");
+			String getPwd = getParameterFromXML("NonSubscribedUserPassword");
+
+			verifyElementPresentAndClick(AMDHomePage.objSubscribeIcon, "Subscribe button");
+			waitTime(3000);
+			// Swipe("Up", 2);
+			verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Button");
+			waitTime(2000);
+			click(AMDSubscibeScreen.objEmailID, "EmailId Field");
+			type(AMDSubscibeScreen.objEmailID, getEmail, "EmailId");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objContinueBtn, "Continue");
+			waitTime(3000);
+			click(AMDSubscibeScreen.objEnterPassword, "Pwd field");
+			type(AMDSubscibeScreen.objEmailID, getPwd, "Password");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objContinueBtn, "Continue");
+			waitTime(10000);
+			
+			setFEProperty(userType);
+			setUserType_SubscriptionProperties(userType);
+			
+			MixpanelAndroid.FEProp.setProperty("Page Name", "Subscription");
+			MixpanelAndroid.ValidateParameter("", "Login Initiated");
+		}
+	}
+	
+	@SuppressWarnings("static-access")
+	public void verifyLoginInitiatedEventViaBuyPlanMoreSection(String userType) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Verify Login Initiated Event - Buy Plan More Section");
+			String getEmail = getParameterFromXML("NonSubscribedUserName");
+			String getPwd = getParameterFromXML("NonSubscribedUserPassword");
+
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDHomePage.objBuyPlanCTAMoreSection, "Buy Plan CTA");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Button");
+			waitTime(2000);
+			click(AMDSubscibeScreen.objEmailID, "EmailId Field");
+			type(AMDSubscibeScreen.objEmailID, getEmail, "EmailId");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objContinueBtn, "Continue");
+			waitTime(3000);
+			click(AMDSubscibeScreen.objEnterPassword, "Pwd field");
+			type(AMDSubscibeScreen.objEmailID, getPwd, "Password");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objContinueBtn, "Continue");
+			waitTime(10000);
+			
+			setFEProperty(userType);
+			setUserType_SubscriptionProperties(userType);
+			
+			MixpanelAndroid.FEProp.setProperty("Page Name", "Subscription");
+			MixpanelAndroid.ValidateParameter("", "Login Initiated");
+		}
+	}
+	
+	
+	@SuppressWarnings("static-access")
+	public void verifyLoginInitiatedEventViaBuyPlanMySubscription(String userType) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Verify Login Initiated Event - Buy Plan My Subscription");
+			String getEmail = getParameterFromXML("NonSubscribedUserName");
+			String getPwd = getParameterFromXML("NonSubscribedUserPassword");
+
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDMoreMenu.objMySubscription, "My Subscription");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Button");
+			waitTime(2000);
+			click(AMDSubscibeScreen.objEmailID, "EmailId Field");
+			type(AMDSubscibeScreen.objEmailID, getEmail, "EmailId");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objContinueBtn, "Continue");
+			waitTime(3000);
+			click(AMDSubscibeScreen.objEnterPassword, "Pwd field");
+			type(AMDSubscibeScreen.objEmailID, getPwd, "Password");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objContinueBtn, "Continue");
+			waitTime(10000);
+			
+			setFEProperty(userType);
+			setUserType_SubscriptionProperties(userType);
+			
+			MixpanelAndroid.FEProp.setProperty("Page Name", "Subscription");
+			MixpanelAndroid.ValidateParameter("", "Login Initiated");
+		}
+	}
+	
+	@SuppressWarnings("static-access")
+	public void verifyLoginInitiatedEventViaBuyPlanMyTransactions(String userType) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Verify Login Initiated Event - Buy Plan My Transaction");
+			String getEmail = getParameterFromXML("NonSubscribedUserName");
+			String getPwd = getParameterFromXML("NonSubscribedUserPassword");
+
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDMoreMenu.objMyTransactions, "My Transactions");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Button");
+			waitTime(2000);
+			click(AMDSubscibeScreen.objEmailID, "EmailId Field");
+			type(AMDSubscibeScreen.objEmailID, getEmail, "EmailId");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objContinueBtn, "Continue");
+			waitTime(3000);
+			click(AMDSubscibeScreen.objEnterPassword, "Pwd field");
+			type(AMDSubscibeScreen.objEmailID, getPwd, "Password");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objContinueBtn, "Continue");
+			waitTime(10000);
+			
+			setFEProperty(userType);
+			setUserType_SubscriptionProperties(userType);
+			
+			MixpanelAndroid.FEProp.setProperty("Page Name", "Subscription");
+			MixpanelAndroid.ValidateParameter("", "Login Initiated");
+		}
+	}
+	
+	@SuppressWarnings("static-access")
+	public void verifyLoginInitiatedEventViaBuyPlanBelowPlayer(String userType,String keyword3) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Verify Login Initiated Event - Buy Plan below player");
+			String getEmail = getParameterFromXML("NonSubscribedUserName");
+			String getPwd = getParameterFromXML("NonSubscribedUserPassword");
+
+			waitTime(3000);
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, keyword3 + "\n", "Search bar");
+			hideKeyboard();
+			waitTime(4000);
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+
+			click(AMDSearchScreen.objSearchResultFirstContent, "Search result");
+			waitTime(4000);
+			registerPopUpClose();
+			completeProfilePopUpClose(userType);
+
+			click(AMDHomePage.objBuyPlanCTABelowPlayer, "Buy Plan CTA below player");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Button");
+			waitTime(3000);
+			
+			click(AMDSubscibeScreen.objEmailID, "EmailId Field");
+			type(AMDSubscibeScreen.objEmailID, getEmail, "EmailId");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objContinueBtn, "Continue");
+			waitTime(3000);
+			click(AMDSubscibeScreen.objEnterPassword, "Pwd field");
+			type(AMDSubscibeScreen.objEmailID, getPwd, "Password");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objContinueBtn, "Continue");
+			waitTime(10000);
+			
+			setFEProperty(userType);
+			setUserType_SubscriptionProperties(userType);
+			
+			MixpanelAndroid.FEProp.setProperty("Page Name", "Subscription");
+			MixpanelAndroid.ValidateParameter("", "Login Initiated");
+		}
+	}
+	
+	@SuppressWarnings("static-access")
+	public void verifyLoginInitiatedEventViaBuyPlan_Trailer(String userType,String keyword3) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Verify Login Initiated Event - Buy Plan on player post completion of trailer playback");
+			String getEmail = getParameterFromXML("NonSubscribedUserName");
+			String getPwd = getParameterFromXML("NonSubscribedUserPassword");
+
+			waitTime(3000);
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, keyword3 + "\n", "Search bar");
+			hideKeyboard();
+			waitTime(4000);
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+
+			click(AMDSearchScreen.objSearchResultFirstContent, "Search result");
+			waitTime(4000);
+			registerPopUpClose();
+			completeProfilePopUpClose(userType);
+
+			// waitForElementDisplayed(AMDHomePage.objBuyPlanTextOnPlayer, 120);
+			waitTime(200000);
+			verifyElementPresentAndClick(AMDHomePage.objBuyPlanCTAOnPlayer, "Buy Plan CTA on player");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Button");
+			waitTime(2000);
+			click(AMDSubscibeScreen.objEmailID, "EmailId Field");
+			type(AMDSubscibeScreen.objEmailID, getEmail, "EmailId");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objContinueBtn, "Continue");
+			waitTime(3000);
+			click(AMDSubscibeScreen.objEnterPassword, "Pwd field");
+			type(AMDSubscibeScreen.objEmailID, getPwd, "Password");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objContinueBtn, "Continue");
+			waitTime(10000);
+			
+			setFEProperty(userType);
+			setUserType_SubscriptionProperties(userType);
+			
+			MixpanelAndroid.FEProp.setProperty("Page Name", "Subscription");
+			MixpanelAndroid.ValidateParameter("", "Login Initiated");
+		}
+	}
+	
+	@SuppressWarnings("static-access")
+	public void verifyLoginResultEventViaBuyPlanHeader(String userType) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Verify Login Result Event - Buy Plan Header");
+			String getEmail = getParameterFromXML("NonSubscribedUserName");
+			String getPwd = getParameterFromXML("NonSubscribedUserPassword");
+
+			verifyElementPresentAndClick(AMDHomePage.objSubscribeIcon, "Subscribe button");
+			waitTime(3000);
+			// Swipe("Up", 2);
+			verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Button");
+			waitTime(2000);
+			click(AMDSubscibeScreen.objEmailID, "EmailId Field");
+			type(AMDSubscibeScreen.objEmailID, getEmail, "EmailId");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objContinueBtn, "Continue");
+			waitTime(2000);
+			click(AMDSubscibeScreen.objEnterPassword, "Pwd field");
+			type(AMDSubscibeScreen.objEmailID, getPwd, "Password");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objContinueBtn, "Continue");
+			waitTime(10000);
+			
+			setFEProperty(userType);
+			setUserType_SubscriptionProperties(userType);
+			
+			MixpanelAndroid.FEProp.setProperty("Page Name", "Subscription");
+			MixpanelAndroid.ValidateParameter("", "Login Result");
+		}
+	}
+	
+	@SuppressWarnings("static-access")
+	public void verifyLoginResultEventViaBuyPlanMoreSection(String userType) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Verify Login Result Event - Buy Plan More Section");
+			String getEmail = getParameterFromXML("NonSubscribedUserName");
+			String getPwd = getParameterFromXML("NonSubscribedUserPassword");
+
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDHomePage.objBuyPlanCTAMoreSection, "Buy Plan CTA");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Button");
+			waitTime(2000);
+			click(AMDSubscibeScreen.objEmailID, "EmailId Field");
+			type(AMDSubscibeScreen.objEmailID, getEmail, "EmailId");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objContinueBtn, "Continue");
+			waitTime(3000);
+			click(AMDSubscibeScreen.objEnterPassword, "Pwd field");
+			type(AMDSubscibeScreen.objEmailID, getPwd, "Password");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objContinueBtn, "Continue");
+			waitTime(10000);
+			
+			setFEProperty(userType);
+			setUserType_SubscriptionProperties(userType);
+			
+			MixpanelAndroid.FEProp.setProperty("Page Name", "Subscription");
+			MixpanelAndroid.ValidateParameter("", "Login Result");
+		}
+	}
+	
+	@SuppressWarnings("static-access")
+	public void verifyLoginResultEventViaBuyPlanMySubscription(String userType) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Verify Login Result Event - Buy Plan My Subscription");
+			String getEmail = getParameterFromXML("NonSubscribedUserName");
+			String getPwd = getParameterFromXML("NonSubscribedUserPassword");
+
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDMoreMenu.objMySubscription, "My Subscription");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Button");
+			waitTime(2000);
+			click(AMDSubscibeScreen.objEmailID, "EmailId Field");
+			type(AMDSubscibeScreen.objEmailID, getEmail, "EmailId");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objContinueBtn, "Continue");
+			waitTime(3000);
+			click(AMDSubscibeScreen.objEnterPassword, "Pwd field");
+			type(AMDSubscibeScreen.objEmailID, getPwd, "Password");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objContinueBtn, "Continue");
+			waitTime(10000);
+			
+			setFEProperty(userType);
+			setUserType_SubscriptionProperties(userType);
+			
+			MixpanelAndroid.FEProp.setProperty("Page Name", "Subscription");
+			MixpanelAndroid.ValidateParameter("", "Login Result");
+		}
+	}
+	
+	@SuppressWarnings("static-access")
+	public void verifyLoginResultEventViaBuyPlanMyTransactions(String userType) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Verify Login Result Event - Buy Plan My Transaction");
+			String getEmail = getParameterFromXML("NonSubscribedUserName");
+			String getPwd = getParameterFromXML("NonSubscribedUserPassword");
+
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDMoreMenu.objMyTransactions, "My Transactions");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Button");
+			waitTime(2000);
+			click(AMDSubscibeScreen.objEmailID, "EmailId Field");
+			type(AMDSubscibeScreen.objEmailID, getEmail, "EmailId");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objContinueBtn, "Continue");
+			waitTime(3000);
+			click(AMDSubscibeScreen.objEnterPassword, "Pwd field");
+			type(AMDSubscibeScreen.objEmailID, getPwd, "Password");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objContinueBtn, "Continue");
+			waitTime(10000);
+			
+			setFEProperty(userType);
+			setUserType_SubscriptionProperties(userType);
+			
+			MixpanelAndroid.FEProp.setProperty("Page Name", "Subscription");
+			MixpanelAndroid.ValidateParameter("", "Login Result");
+		}
+	}
+	
+	@SuppressWarnings("static-access")
+	public void verifyLoginResultEventViaBuyPlanBelowPlayer(String userType,String keyword3) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Verify Login Result Event - Buy Plan below player");
+			String getEmail = getParameterFromXML("NonSubscribedUserName");
+			String getPwd = getParameterFromXML("NonSubscribedUserPassword");
+
+			waitTime(3000);
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, keyword3 + "\n", "Search bar");
+			hideKeyboard();
+			waitTime(4000);
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+
+			click(AMDSearchScreen.objSearchResultFirstContent, "Search result");
+			waitTime(4000);
+			registerPopUpClose();
+			completeProfilePopUpClose(userType);
+
+			click(AMDHomePage.objBuyPlanCTABelowPlayer, "Buy Plan CTA below player");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Button");
+			waitTime(3000);
+			
+			click(AMDSubscibeScreen.objEmailID, "EmailId Field");
+			type(AMDSubscibeScreen.objEmailID, getEmail, "EmailId");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objContinueBtn, "Continue");
+			waitTime(3000);
+			click(AMDSubscibeScreen.objEnterPassword, "Pwd field");
+			type(AMDSubscibeScreen.objEmailID, getPwd, "Password");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objContinueBtn, "Continue");
+			waitTime(10000);
+			
+			setFEProperty(userType);
+			setUserType_SubscriptionProperties(userType);
+			
+			MixpanelAndroid.FEProp.setProperty("Page Name", "Subscription");
+			MixpanelAndroid.ValidateParameter("", "Login Result");
+		}
+	}
+	
+	@SuppressWarnings("static-access")
+	public void verifyLoginResultEventViaBuyPlan_Trailer(String userType,String keyword3) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Verify Login Result Event - Buy Plan on player post completion of trailer playback");
+			String getEmail = getParameterFromXML("NonSubscribedUserName");
+			String getPwd = getParameterFromXML("NonSubscribedUserPassword");
+
+			waitTime(3000);
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, keyword3 + "\n", "Search bar");
+			hideKeyboard();
+			waitTime(4000);
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+
+			click(AMDSearchScreen.objSearchResultFirstContent, "Search result");
+			waitTime(4000);
+			registerPopUpClose();
+			completeProfilePopUpClose(userType);
+
+			// waitForElementDisplayed(AMDHomePage.objBuyPlanTextOnPlayer, 120);
+			waitTime(200000);
+			verifyElementPresentAndClick(AMDHomePage.objBuyPlanCTAOnPlayer, "Buy Plan CTA on player");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Button");
+			waitTime(2000);
+			click(AMDSubscibeScreen.objEmailID, "EmailId Field");
+			type(AMDSubscibeScreen.objEmailID, getEmail, "EmailId");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objContinueBtn, "Continue");
+			waitTime(3000);
+			click(AMDSubscibeScreen.objEnterPassword, "Pwd field");
+			type(AMDSubscibeScreen.objEmailID, getPwd, "Password");
+			hideKeyboard();
+			click(AMDSubscibeScreen.objContinueBtn, "Continue");
+			waitTime(10000);
+			
+			setFEProperty(userType);
+			setUserType_SubscriptionProperties(userType);
+			
+			MixpanelAndroid.FEProp.setProperty("Page Name", "Subscription");
+			MixpanelAndroid.ValidateParameter("", "Login Result");
+		}
+	}
+	
 }

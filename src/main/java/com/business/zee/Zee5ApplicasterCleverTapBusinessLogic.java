@@ -135,18 +135,18 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 			waitTime(10000);
 			List<WebElement> event = findElements(CleverTapPage.objEventName);
 			List<WebElement> time = findElements(CleverTapPage.objTime);
-			System.out.println(event.size());
-			System.out.println(time.size());
+//			System.out.println(event.size());
+//			System.out.println(time.size());
 			SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
-			System.out.println("D1 : "+CTCurrentTime);
+//			System.out.println("D1 : "+CTCurrentTime);
 			boolean eventReflected = false;
 			for (int i = 0; i < event.size(); i++) {
-				System.out.println(i);
+//				System.out.println(i);
 				String t = time.get(i).getText();
-				System.out.println(event.get(i).getText());
-				System.out.println(t);
+//				System.out.println(event.get(i).getText());
+//				System.out.println(t);
 				String CTTime = (t.replaceAll("am", "").replace("pm", ""));
-				System.out.println("D2 : "+CTTime);
+//				System.out.println("D2 : "+CTTime);
 				if ((sdf.parse(CTCurrentTime).equals(sdf.parse(CTTime))) || (sdf.parse(CTCurrentTime).before(sdf.parse(CTTime)))) {
 					if (event.get(i).getText().contains(EventName)) {
 						logger.info(EventName + " Event Reflected in dashboard ");

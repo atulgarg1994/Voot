@@ -4,7 +4,7 @@
 
 	<parameter name="url" value="https://in1.dashboard.clevertap.com/login.html#/" />
 	<parameter name="browserType" value="Chrome"/>   <!-- Chrome/Firefox -->
-	<parameter name="userType" value="SubscribedUser"/>  <!-- Guest/NonSubscribedUser/SubscribedUser -->
+	<parameter name="userType" value="NonSubscribedUser"/>  <!-- Guest/NonSubscribedUser/SubscribedUser -->
 	<parameter name="runModule" value="Suite"/>
 	<parameter name="runMode" value="Suites"/>
 
@@ -26,17 +26,17 @@
 		<listener class-name="com.extent.ExtentReporter" />
 	</listeners>
 
-	<!-- <test name="cleverTap">
+	<test name="cleverTap">
 		<classes>
 			<class name="com.zee5.CleverTapScripts.SubscriptionCartAbandonment" />
 		</classes>
-	</test> -->
+	</test>
 	
-	<test name="cleverTap">
+	<!-- <test name="cleverTap">
 		<classes>
 			<class name="com.zee5.CleverTapScripts.AMDCelverTapScript" />
 		</classes>
-	</test>
+	</test> -->
     
     
 </suite>

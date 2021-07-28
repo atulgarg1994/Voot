@@ -57,6 +57,7 @@ import io.appium.java_client.touch.LongPressOptions;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.ElementOption;
 import io.appium.java_client.touch.offset.PointOption;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
@@ -13724,7 +13725,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	public void registerPopUpClose() throws Exception {
 		waitTime(6000);
-		if (verifyIsElementDisplayed(AMDPlayerScreen.objRegisterPopUp)) {
+		if (verifyIsElementDisplayed(AMDPlayerScreen.objRegisterPopUp1)) {
 			logger.info("Register Pop Up is displayed");
 			waitTime(8000);
 			extent.extentLogger("Register Pop Up", "Register Pop Up is displayed");
@@ -30398,8 +30399,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		System.out.println("------------------- Conviva launch, login and initial setup -------------------");
 		extent.extentLogger("", "<b>---------- Launch Conviva ----------</b>");
 		String phonePublicIP = getPhonePublicIP();
-		System.setProperty("webdriver.chrome.driver",
-				"C:\\Users\\User\\.m2\\repository\\webdriver\\chromedriver\\win32\\90.0.4430.24\\chromedriver.exe");
+//		System.setProperty("webdriver.chrome.driver",
+//				"C:\\Users\\User\\.m2\\repository\\webdriver\\chromedriver\\win32\\90.0.4430.24\\chromedriver.exe");
+		WebDriverManager.chromedriver().version(DriverInstance.getDriverVersion()).setup();
 		WebDriver driverForWeb = new ChromeDriver();
 		driverForWeb.navigate().to("https://pulse.conviva.com/");
 		logger.info("Launched Conviva website on Chrome");

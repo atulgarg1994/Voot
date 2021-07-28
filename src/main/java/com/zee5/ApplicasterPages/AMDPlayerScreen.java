@@ -23,6 +23,7 @@ public class AMDPlayerScreen {
 	public static By objSubtitlePopUp = By.xpath("//*[@id='popup_title']");
 	public static By objEnglishSubtitle = By.xpath("//*[@text='English']");
 	public static By objRegisterPopUp = By.xpath("//*[@id='registrationContainer']");
+	public static By objRegisterPopUp1 = By.xpath("//*[@id='tvtitle' and @text='Register']");
 	public static By objUpnextContentCard = By.xpath("(//*[@resource-id='com.graymatrix.did:id/card'])[3]");
 	public static By objUpnextContentCardTitle = By.xpath("(//*[@id='title_similar'])[3]");
 	public static By objUpnextRail = By.xpath("//*[@id='similarcontentlistView']");
@@ -207,7 +208,6 @@ public class AMDPlayerScreen {
 	public static By objLoginTextOnPlayer = By
 			.xpath("//*[@id='secondaryActionButton'] | //*[@resource-id='com.graymatrix.did:id/static_login_text']");
 
-	
 	public static By objCurrentTime = By.xpath("//*[@id='playerDurationCurrent']");
 
 	public static By objContentMeta = By.xpath("//*[@resource-id='com.graymatrix.did:id/content_info']");

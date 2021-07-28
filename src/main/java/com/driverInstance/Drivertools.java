@@ -50,6 +50,15 @@ public class Drivertools {
 	public static Instant startTime ;
 	public static Duration timeElapsed ;
 	private static String DeviceList;
+	private static String apk;
+
+	public static String getApk() {
+		return apk;
+	}
+
+	public static void setApk(String apk) {
+		Drivertools.apk = apk;
+	}
 
 	public static String getDeviceList() {
 		return DeviceList;
@@ -299,6 +308,7 @@ public class Drivertools {
 			}
 		} else if (getPlatform().equals("Android")) {
 			setENV("Native App");
+			setApk(Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("Platform"));
 			click = false;
 		} else if (getPlatform().equals("MPWA")) {
 			setENV("Chrome Application");

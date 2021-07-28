@@ -98,21 +98,21 @@ public class DriverInstance extends Drivertools {
 	
 	private void installAPK() {
 		String dir = System.getProperty("user.dir") + "\\APK\\";
-		switch("1") {
+		switch(getApk()) {
 		case "CleverTap":
-			capabilities.setCapability(MobileCapabilityType.APP, dir+"");
+			capabilities.setCapability(MobileCapabilityType.APP, dir+"clevertap.apk");
 			break;
 		case "AppsFlyer":
-			capabilities.setCapability(MobileCapabilityType.APP, dir+"");
+//			capabilities.setCapability(MobileCapabilityType.APP, dir+"");
 			break;
 		case "Conviva":
-			capabilities.setCapability(MobileCapabilityType.APP, dir+"");
+//			capabilities.setCapability(MobileCapabilityType.APP, dir+"");
 			break;
 		case "DFP":
-			capabilities.setCapability(MobileCapabilityType.APP, dir+"");
+			capabilities.setCapability(MobileCapabilityType.APP, dir+"DFP.apk");
 			break;
 		case "Mixpanel":
-			capabilities.setCapability(MobileCapabilityType.APP, dir+"");
+			capabilities.setCapability(MobileCapabilityType.APP, dir+"mixpanel.apk");
 			break;
 		}
 	}

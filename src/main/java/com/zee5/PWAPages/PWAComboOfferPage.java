@@ -216,4 +216,9 @@ public class PWAComboOfferPage {
 	public static By objSupermoonPlanTxtinOnlyRent=By.xpath("");
 	public static By objSupermoonPlanTxt=By.xpath("");
 	public static By objBuySupermoonComboBtn = By.xpath(".//*[@class='buttonContainer']//child::*[text()='Buy Supermoon Combo']");
+	
+	public static By objsupermoonComboOffer = By.xpath(".//*[@class='titleSubTitleComp']");
+	public static By objSupermoonThumbnail=By.xpath("");
+	public static By objRentContent=By.xpath("");
+	public static By objPaymentheaderComboOfferPrice=By.xpath("");
 }

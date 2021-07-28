@@ -32465,6 +32465,212 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitTime(5000);
 	}
 
-	
+	public void comboOfferTitleAndRentContentCardTitle(String userType,String tabname) throws Exception {
+		extent.HeaderChildNode("Verify that user is able to See Supermoon Combo Offer card Title and Rent content card tile");
+		Loginto299Pack();
+	        waitTime(3000);
+		navigateToAnyScreenOnWeb("tabname");
+		waitTime(3000);
+		 
+		   ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
+			JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+			waitTime(3500);
+			 verifyElementDisplayed(PWAComboOfferPage.objRentNow);
+			   JSClick(PWAComboOfferPage.objRentNow, "Rent Now CTA");
+			   waitTime(3000);
+			   
+			   
+			  if( verifyElementPresent(PWAComboOfferPage.objsupermoonComboOffer, "Supermoon Combo offer Title")){
+				  
+				  logger.info("Supermoon Combo offer Title is displayed , expected behaviour");
+					extent.extentLoggerPass(" ", "Supermoon Combo offer Title is displayed , expected behaviour");
+				}
+				else 
+				{
+					logger.info("Supermoon Combo offer Title is not displayed ");
+					extent.extentLoggerFail(" ", "Supermoon Combo offer Titleis not displayed ");
+				}
+			  
+			   if(verifyElementPresent(PWAComboOfferPage.objOnlyRentMovie, " Rent Content title")) {
+				   
+				   logger.info("Rent Content title is displayed , expected behaviour");
+					extent.extentLoggerPass(" ", "Rent Content title is displayed , expected behaviour");
+				}
+				else 
+				{
+					logger.info("Rent Content title is not displayed ");
+					extent.extentLoggerFail(" ", "Rent Content title is not displayed ");
+			   }
+		
+	}
+
+	public void supermoonCardAndStrikedPrice(String userType) throws Exception {
+		extent.HeaderChildNode("Verify that user is able see Plan Card/ title,Supermoon thumbnail and Price");
+		Loginto299Pack();
+		waitTime(3000);
+		navigateToAnyScreenOnWeb("tabname");
+		waitTime(3000);
+		 
+		   ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
+			JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+			waitTime(3500);
+			 verifyElementDisplayed(PWAComboOfferPage.objRentNow);
+			   JSClick(PWAComboOfferPage.objRentNow, "Rent Now CTA");
+			   waitTime(3000);
+			  if( verifyElementPresent(PWAComboOfferPage.objPremiumCard, "1 year Premium Thumbnail")) {
+				  
+				   logger.info("1 year Premium Thumbnail is displayed , expected behaviour");
+					extent.extentLoggerPass(" ", "1 year Premium Thumbnail is displayed , expected behaviour");
+				}
+				else 
+				{
+					logger.info("1 year Premium Thumbnail is not displayed ");
+					extent.extentLoggerFail(" ", "1 year Premium Thumbnail is not displayed ");
+			   }
+			  
+			  if( verifyElementPresent(PWAComboOfferPage.objSupermoonThumbnail, "Supermoon Thumbnail")) {
+				  
+				   logger.info("Supermoon Thumbnail is displayed , expected behaviour");
+					extent.extentLoggerPass(" ", "Supermoon Thumbnail is displayed , expected behaviour");
+				}
+				else 
+				{
+					logger.info("Supermoon Thumbnail is not displayed ");
+					extent.extentLoggerFail(" ", "Supermoon  Thumbnail is not displayed ");
+			   }
+			  
+			  }
+
+public void comboOfferpageText(String userType,String tabname ) throws Exception {
+		HeaderChildNode("Verify that user is able to  Beneficiary text in Combo offer card for 299 subscribed user");
+		Loginto299Pack();
+		waitTime(3500);
+		navigateToAnyScreenOnWeb(tabname);
+		waitTime(3500);
+		ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
+		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		waitTime(3500);
+		waitTime(3500);
+		verifyElementPresentAndClick(PWAComboOfferPage.objRentNowPlaybackOnConsumptionPage, "Rent Now CTA below the player");
+		waitTime(3000);
+
+		verifyElementPresent(PWAComboOfferPage.objContentCard, "Content Thumbnail");
+		verifyElementPresent(PWAComboOfferPage.objPremiumCard, "1 year Premium plan 499 with cut off 999");
+		compareText(PWAComboOfferPage.objSupermoonPlanTxt,"Supermoon Plan");
+		compareText(PWAComboOfferPage.objLiveEventTicket,"Live Event Ticket");
+		compareText(PWAComboOfferPage.objExclusiveVideos,"Exclusive Videos");
+
+		compareText(PWAComboOfferPage.obj4000blockusterTxt, "2800 + blockbuster movies");
+		compareText(PWAComboOfferPage.objzee5OriginalTxt, "150 + Web Series");
+		compareText(PWAComboOfferPage.objWatchshowsTxt, "Watch before TV");
+		compareText(PWAComboOfferPage.objWatchAdTxt, "Watch Ad Free");
+		
+		waitTime(3000);
+		String SaveAmount = getText(PWAComboOfferPage.objDiscount).replace("Save ₹", "");
+		compareText(PWAComboOfferPage.objDiscount, "Save ₹" + SaveAmount);
+		compareText(PWAComboOfferPage.objTotalDiscount, "Save ₹" + SaveAmount);
+		
+		verifyElementPresent(PWAComboOfferPage.objOnlyRentMovie, "Only Rent Content");
+		verifyElementPresent(PWAComboOfferPage.objpackprice249, "Only Rent Content with INR 249");
+		compareText(PWAComboOfferPage.objSupermoonPlanTxtinOnlyRent,"Supermoon Plan");
+		
+		compareText(PWAComboOfferPage.objLiveEventTicket,"Live Event Ticket");
+		compareText(PWAComboOfferPage.objExclusiveVideos,"Exclusive Videos");
+		
+	}
+
+public void VerifyUpgragebuttonFor299user(String userType,String tabname ) throws Exception {
+		HeaderChildNode("Verify that on Selecting Super Combo  Rs 499 user will see Upgrade CTA");
+		Loginto299Pack();
+		waitTime(3500);
+		navigateToAnyScreenOnWeb(tabname);
+		waitTime(3500);
+		ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
+		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		waitTime(3500);
+		waitTime(3500);
+		verifyElementPresentAndClick(PWAComboOfferPage.objRentNowPlaybackOnConsumptionPage, "Rent Now CTA below the player");
+		waitTime(3000);
+		
+		if(verifyElementPresent(PWAComboOfferPage.objUpgradeBtn, "Upgrade CTA in combo offer page")) {
+			 logger.info("Upgrade CTA in combo offer page is displayed , expected behaviour");
+				extent.extentLoggerPass(" ", "Upgrade CTA in combo offer page is displayed , expected behaviour");
+			}
+			else 
+			{
+				logger.info("Upgrade CTA in combo offer page is not displayed ");
+				extent.extentLoggerFail(" ", "Upgrade CTA in combo offer page is not displayed ");
+		   }
+		}
+
+public void VerifyFor299userRentShow(String userType,String tabname ) throws Exception {
+		HeaderChildNode("Verify that user is able to see Rent Content cta on selecting only Rent content");
+		Loginto299Pack();
+		waitTime(3500);
+		navigateToAnyScreenOnWeb(tabname);
+		waitTime(3500);
+		ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
+		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		
+		waitTime(3500);
+		verifyElementPresentAndClick(PWAComboOfferPage.objRentNowPlaybackOnConsumptionPage, "Rent Now CTA below the player");
+		waitTime(3000);
+		verifyElementPresent(PWAComboOfferPage.objOnlyRentMovieCheckBox, "249 check box");
+		JSClick(PWAComboOfferPage.objOnlyRentMovieCheckBox, "249 check box select");
+		waitTime(3000);
+		JSClick(PWAComboOfferPage.objUpgradeBtn, "Upgrade CTA in combo offer page");
+		
+		waitTime(3000);
+		if(verifyElementPresent(PWAComboOfferPage.objRentContent, "Rent Content CTA after clicking on Upgrade CTA")) {
+			 logger.info("Rent Content CTA after clicking on Upgrade CTA in combo offer page is displayed , expected behaviour");
+				extent.extentLoggerPass(" ", "Rent Content CTA after clicking on Upgrade CTA in combo offer page is displayed , expected behaviour");
+			}
+			else 
+			{
+				logger.info("Rent Content CTA after clicking on Upgrade CTA in combo offer page is not displayed ");
+				extent.extentLoggerFail(" ", "Rent Content CTA after clicking on Upgrade CTA in combo offer page is not displayed ");
+		   }
+	}
+
+public void VerifyFor299PaymentPage(String userType,String tabname ) throws Exception {
+		HeaderChildNode("Verify that on clicking Upgrade user will redirect to payment mode screen and Differential amount will get calculated");
+		Loginto299Pack();
+		waitTime(3500);
+		navigateToAnyScreenOnWeb(tabname);
+		waitTime(3500);
+		ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
+		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		
+		waitTime(3500);
+		verifyElementPresentAndClick(PWAComboOfferPage.objRentNowPlaybackOnConsumptionPage, "Rent Now CTA below the player");
+		waitTime(3000);
+		verifyElementPresentAndClick(PWAComboOfferPage.objOnlyRentMovieCheckBox, "249 check box");
+		JSClick(PWAComboOfferPage.objOnlyRentMovieCheckBox, "249 check box select");
+		waitTime(3000);
+		JSClick(PWAComboOfferPage.objUpgradeBtn, "Upgrade CTA in combo offer page");
+		
+		waitTime(3000);
+		JSClick(PWAComboOfferPage.objRentContent, "Rent Content CTA after clicking on Upgrade CTA");
+		waitTime(3000);
+		if(verifyElementPresent(PWAComboOfferPage.objPaymentPageHeader, "Payment page after clicking on Rent Content CTA")) {
+			 logger.info("Payment page after clicking on Rent Content CTA in combo offer page is displayed , expected behaviour");
+				extent.extentLoggerPass(" ", "Payment page after clicking on Rent Content CTA in combo offer page is displayed , expected behaviour");
+			}
+			else 
+			{
+				logger.info("Payment page after clicking on Rent Content CTA in combo offer page is not displayed ");
+				extent.extentLoggerFail(" ", "Payment page after clicking on Rent Content CTA in combo offer page is not displayed ");
+		   }
+		if(verifyElementPresent(PWAComboOfferPage.objPaymentheaderComboOfferPrice, "Payment page combo offer price ")) {
+			 logger.info("Differential amount calculated and shown in Payment page is displayed , expected behaviour");
+				extent.extentLoggerPass(" ", "Differential amount calculated and shown in Payment page is displayed , expected behaviour");
+			}
+			else 
+			{
+				logger.info("Differential amount calculated and shown in Payment page is not displayed ");
+				extent.extentLoggerFail(" ", "Differential amount calculated and shown in Payment page is not displayed ");
+		   }
+		
+	}
 	
 }

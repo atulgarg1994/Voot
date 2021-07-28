@@ -438,7 +438,7 @@ public class ExtentReporter implements ITestListener {
 	}
 	
 	public void CleverTapTime() {
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss a");
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("hh:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
 		CTCurrentTime = dtf.format(now);
 		System.out.println(CTCurrentTime);
