@@ -61,9 +61,6 @@
 	<parameter name="keywordID4" value="0-1-manual_779smvu9cl80" />
 	<parameter name="zeeplexContent" value="TVOD Test movie 2"/>
 	<parameter name="zeeplexContentID" value="0-0-425002"/>
-	<parameter name="BottomNavigation" value="Home" />   <!--  Home|Upcoming|Downloads|More -->
-	<parameter name="MoreMenuOptions" value="My Transactions" />   <!-- My account|My Subscription|My Transactions|Settings -->
-	
 	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
@@ -107,9 +104,9 @@
 		</classes>
 	</test>
 	
-	<test name="AndroidMixpanel_RegistrationEvents">
+	<test name="AndroidMixpanel_ContentBucketSwipe">
 		<classes>
-			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_RegistrationEvents" />
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_ContentBucketSwipe" />
 		</classes>
 	</test>
 	
@@ -126,11 +123,318 @@
 		</classes>
 	</test>
 	
+	<test name="AndroidMixpanel_Downloadsection_visited">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_Downloadsection_visited" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_UpcomingSection_visited">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_UpcomingSection_visited" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_Moresection_visited">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_Moresection_visited" />
+		</classes>
+	</test>
+	
 	<test name="AndroidMixpanel_ScreensectionVisited">
 		<classes>
 			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_ScreensectionVisited" />
 		</classes>
 	</test>
 	
+	<test name="AndroidMixpanel_TVShowsSection_visited">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_TVShowsSection_visited" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_ThumbnailClick">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_ThumbnailClick" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_ScreenView">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_ScreenView" />
+		</classes>
+	</test>
+	
+	<test name="AdroidMixpanel_AdView">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AdroidMixpanel_AdView" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_AdClick">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_AdClick" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_AdInitialized">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_AdInitialized" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_af_preroll_adview">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_af_preroll_adview" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_af_svod_first_episode_free_Event">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_af_svod_first_episode_free_Event" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_AutoSeek">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_AutoSeek" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_CarousalBannerClick">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_CarousalBannerClick" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_CarousalBannerCTAs">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_CarousalBannerCTAs" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_CarousalBannerSwipe">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_CarousalBannerSwipe" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_DisplayLanguageChanged">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_DisplayLanguageChanged" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_ContentLanguageChanged">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_ContentLanguageChanged" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_DefaultSettingsRestored">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_DefaultSettingsRestored" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_ChangePasswordResult">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_ChangePasswordResult" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_ChangePasswordStarted">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_ChangePasswordStarted" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_ConsumptionSubscribeCTA">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_ConsumptionSubscribeCTA" />
+		</classes>
+	</test>
 
+	<test name="AndroidMixpanel_DownloadClick">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_DownloadClick" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_DownloadDelete">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_DownloadDelete" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_DownloadOverWifiChanged">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_DownloadOverWifiChanged" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_DownloadQualityChanged">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_DownloadQualityChanged" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_DownloadResult">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_DownloadResult" />
+		</classes>
+	</test>
+		
+	<test name="AndroidMixpanel_LoginInitiated">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_LoginInitiated" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_LoginRegistrationScreenDisplay">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_LoginRegistrationScreenDisplay" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_LoginResult">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_LoginResult" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_LoginScreenDisplay">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_LoginScreenDisplay" />
+		</classes>
+	</test>
+
+	<test name="AndroidMixpanel_Logout">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_Logout" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_ManualRefresh">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_ManualRefresh" />
+		</classes>
+	</test>
+	
+	
+	<test name="AndroidMixpanel_PackToggle">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_PackToggle" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_AddToWatchlist">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_AddToWatchlist" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_AddToWatchlist">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_AddToWatchlist" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_AddToWatchlistSuccessfull">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_AddToWatchlistSuccessfull" />
+		</classes>
+	</test>
+
+	<test name="AndroidMixpanel_Search">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_Search" />
+		</classes>
+	</test>
+
+	<test name="AndroidMixpanel_ScrubSeek">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_ScrubSeek" />
+		</classes>
+	</test>
+
+	<test name="AndroidMixpanel_PlayerViewChanged">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_PlayerViewChanged" />
+		</classes>
+	</test>
+
+	<test name="AndroidMixpanel_PromoCodeResult">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_PromoCodeResult" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_RemoveFromWatchlist">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_RemoveFromWatchlist" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_RibbonCTAs">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_RibbonCTAs" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_RentalPurchaseCallInitiated">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_RentalPurchaseCallInitiated" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_RentalPurchaseCallReturned">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_RentalPurchaseCallReturned" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_SettingChanged">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_SettingChanged" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_Share">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_Share" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_SubscriptionJourneyEvents">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_SubscriptionJourneyEvents" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_SubtitleLanguageChange">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_SubtitleLanguageChange" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_Svod_content_view">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_Svod_content_view" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_Tab_View">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_Tab_View" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_TVShows_Content_Play">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_TVShows_Content_Play" />
+		</classes>
+	</test>
+	
+	
 </suite>
