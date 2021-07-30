@@ -4,7 +4,6 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
 import com.business.zee.Zee5ApplicasterMixPanelBusinessLogic;
 import com.utility.Utilities;
 
@@ -33,7 +32,30 @@ private Zee5ApplicasterMixPanelBusinessLogic Zee5ApplicasterMixPanelBusinessLogi
 		//Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.AdViewEventOfcontentFromSearchPage(usertype, clipContent);
 	}
+	
+	@Test(priority = 3)
+	@Parameters({ "userType", "pTabName" })
+	public void AdViewEvent_Carousal(String usertype, String pTabName) throws Exception {
+		System.out.println("\nAd view event of content");
+		//Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.AdViewEventForCarouselContent(usertype, pTabName);
+	}
+	
+	@Test(priority = 4)
+	@Parameters({ "userType", "clipContent", "clipID", "clipContentID" })
+	public void AdViewEvent_ConsumptionPageRail(String usertype, String clipContent, String clipID, String clipContentID) throws Exception {
+		System.out.println("\nAd view event of content");
+		//Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.AdViewEventOfContentFromConsumptionPageRail(usertype, clipContent, clipID, clipContentID);
+	}
 
+	@Test(priority = 5)
+	@Parameters({ "userType", "pTabName" })
+	public void AdViewEvent_ContinueWatchingRail(String usertype, String pTabName) throws Exception {
+		System.out.println("\nAd view event of content");
+		//Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.AdViewEventForContinueWatchingTray(usertype, pTabName);
+	}
 	//###############-------END OF TEST-------###############
 	
 	@AfterTest

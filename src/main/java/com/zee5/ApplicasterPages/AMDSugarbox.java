@@ -72,6 +72,12 @@ public class AMDSugarbox {
 	
 	public static By objLocateNearBySB = By.id("button_locate_sugarBox_zone");
 	
+	public static By objListofZones = By.id("sbDpName");
 	
+	public static By SBLogoWelcomeScreen = By.id("img_sb_logo");
+	
+	public static By SBLogoPopup = By.id("img_sugarBox_logo");
+	
+	public static By objContinueToSugarBoxCTA = By.xpath("//*[@id='button_continue' and @text='Continue to SugarBox']");
 	
 }

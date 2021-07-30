@@ -33705,7 +33705,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			click(AMDSugarbox.objLocateBtn, "Locate btn");
 			verifyElementPresentAndClick(AMDSugarbox.objAllowLocationPopup, "Allow");
 			waitTime(3000);
-			waitForElementDisplayed(AMDHomePage.objUpcomingBtn, 8);
+			
 			if (verifyElementIsNotDisplayed(AMDSugarbox.objConnectToSugarBox)) {
 				click(AMDHomePage.objZee5Logo, "Zee5Logo");
 				try {
@@ -33716,7 +33716,19 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					verifyElementPresentAndClick(AMDSugarbox.objConnectToSugarBox, "ConnectToSugarBox CTA");
 					waitTime(3000);
 					TurnONWifi();
-					verifyElementPresentAndClick(AMDSugarbox.objSugrBoxWifi, "Sugarbox wifi");
+//					verifyElementPresentAndClick(AMDSugarbox.objSugrBoxWifi, "Sugarbox wifi");
+
+				} catch (Exception e) {
+					// TODO: handle exception
+					System.out.println("Sugarbox icon in landing screen is not present: " + e);
+					logger.info("Sugarbox icon in landing screen is not present: " + e);
+				}
+			}else if(verifyElementDisplayed(AMDSugarbox.objConnectToSugarBox)) {		
+				try {
+					verifyElementPresentAndClick(AMDSugarbox.objConnectToSugarBox, "ConnectToSugarBox CTA");
+					waitTime(3000);
+					TurnONWifi();
+//					verifyElementPresentAndClick(AMDSugarbox.objSugrBoxWifi, "Sugarbox wifi");
 
 				} catch (Exception e) {
 					// TODO: handle exception
@@ -33747,7 +33759,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 						waitTime(2000);
 						click(AMDSugarbox.objSubmitOTP, "Submit OTP");
 
-						verifyElementPresentAndClick(AMDSugarbox.objSkip, "Skip Button");
+						verifyElementPresent(AMDSugarbox.objSkip, "Skip Button");
+						verifyElementPresentAndClick(AMDSugarbox.objContinueNext, "Continue");
+						verifyElementPresentAndClick(AMDSugarbox.objContinueNext, "Continue CTA");
+						verifyElementPresentAndClick(AMDSugarbox.objContinueNext, "Continue To Sugarbox");
 						verifyElementPresent(AMDSugarbox.objSugarboxLogo, "Sugarbox logo in Home Screen");
 					} else {
 						logger.info("OTP is not recieved after waiting for min");
@@ -33792,6 +33807,91 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 						"Selected Content card is playable in SugarBox Network: " + getTitle);
 				Back(1);
 			}
+		}
+	}
+	
+	public void PlaybackVerificationInSugarboxNetwork(String pTabName,String pUsertype) throws Exception {
+		extent.HeaderChildNode("Content Playback Validation");
+		System.out.println("\nContent Playback Validation");
+
+		String railName = ResponseInstance.getFirstRailNameFromPage(pTabName, pUsertype);
+		System.out.println(railName);
+
+		for (int i = 1; i <= 5; i++) {
+			click(AMDSugarbox.objContentCard(railName, i), "Content card");
+			
+			
+			if (verifyElementDisplayed(AMDSugarbox.objVideoNotAvailableContinue)) {
+				String getHeader = getText(AMDSugarbox.objHeadeTitle);
+				if (getHeader.contains("video is not available at this SugarBox")) {
+					logger.info("Popup with text: "+getHeader);
+					extent.extentLoggerPass("Pop Up","Popup with text: "+getHeader);
+					
+					//******Verifying the Popup screen CTA and title
+					verifyElementPresent(AMDSugarbox.SBLogoPopup, "SugarBox Logo");
+					verifyElementPresent(AMDGenericObjects.objText("Continue to stream or download this video using your mobile data"), "Continue to stream or download this video using your mobile data");
+					verifyElementPresent(AMDSugarbox.objDontShowCheckBx, "Dont Show this again");
+					verifyElementPresent(AMDSugarbox.objVideoNotAvailableContinue, "Continue");
+					verifyElementPresentAndClick(AMDSugarbox.objCancelCTA, "Cancel CTA");
+					verifyElementPresent(AMDHomePage.objRailName(railName), railName);
+					
+					
+					//******Verify content can be played with Mobile Data
+					click(AMDSugarbox.objContentCard(railName, i), "Content card");
+					click(AMDSugarbox.objVideoNotAvailableContinue, "Continue CTA");
+					waitTime(7000);
+					if(verifyElementDisplayed(AMDPlayerScreen.objPlayerScreen)) {
+						logger.info("Content is played with Mob data: " + getText(AMDPlayerScreen.objcontentTitleInconsumptionPage));
+						extent.extentLoggerPass("Content playback","Content is played with Mob data: " + getText(AMDPlayerScreen.objcontentTitleInconsumptionPage));
+					}else {
+						logger.error("Content is not played with Mob data!");
+						extent.extentLoggerFail("Content playback","Content is not played with Mob data!");
+					}
+				}
+			} else {
+				if(verifyElementPresent(AMDPlayerScreen.objPlayerScreen, "Player Screen")) {
+					String getTitle = getText(AMDPlayerScreen.objcontentTitleInconsumptionPage);
+					logger.info("SugarBox Content is played: " + getTitle);
+					extent.extentLoggerPass("Content playback","SugarBox Content is played: " + getTitle);
+					
+					verifyElementPresentAndClick(AMDPlayerScreen.objDownloadIcon, "Download CTA");
+					verifyElementPresent(AMDLoginScreen.objLoginOrRegisterPageTitle, "Login/Registration screen");
+					if(verifyElementPresent(AMDLoginScreen.objLoginOrRegisterPageTitle, "Login/Registration screen")) {
+						logger.info("Login/Register screen is displayed");
+						extent.extentLoggerPass("Login/Register","Login/Register screen is displayed");
+						Back(1);
+					}else {
+						logger.error("Login/Register screen is not displayed");
+						extent.extentLoggerFail("Login/Register","Login/Register screen is not displayed");
+					}	
+				}	
+			}
+		}
+	}
+	
+	public void SBDisconnectionValidation() throws Exception {
+		extent.HeaderChildNode("SugarBox Disconnection Validation");
+		System.out.println("\nSugarBox Disconnection Validation");
+
+		verifyElementPresentAndClick(AMDSugarbox.objSugarboxLogo, "Logo");
+
+		if (verifyElementDisplayed(AMDSugarbox.objExitSBNetwrkPopup)) {
+			verifyElementPresentAndClick(AMDGenericObjects.objText("No"), "No CTA");
+			verifyElementPresent(AMDHomePage.objHomeBottomBtn, "Home Screen");
+			
+			click(AMDSugarbox.objSugarboxLogo, "Logo");
+			verifyElementPresentAndClick(AMDGenericObjects.objText("Yes"), "Yes CTA");
+			TurnOFFWifi();
+			if (verifyElementDisplayed(AMDGenericObjects.objText("DONE"))) {
+				Back(1);
+//				Runtime.getRuntime().exec("adb shell monkey -p com.graymatrix.did -c android.intent.category.LAUNCHER 1");
+			}
+			verifyElementPresent(AMDGenericObjects.objText("Disconnected"), "Disconnected");
+			verifyElementPresent(AMDGenericObjects.objText("Thank you for using SugarBox"), "Thank you for using SugarBox");
+			verifyElementPresent(AMDGenericObjects.objText("#SaveTheInternet"), "#SaveTheInternet");
+			verifyElementPresent(AMDSugarbox.objCloseImg, "X icon");
+			verifyElementPresentAndClick(AMDSugarbox.objLocateNearBySB, "Locate a Sugarbox Zone");
+			verifyElementPresent(AMDSugarbox.objListofZones, "List of Sugarbox Zones");	
 		}
 	}
 
@@ -34666,5 +34766,104 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extentLoggerFail("MoreMenu", "Grievance Redressal option is NOT displayed for " + userType);
 		}
 	}
+	
+	public void verifySugarBoxNotification(String pTitle, String pSubTitle) throws Exception {
+		extent.HeaderChildNode("SugarBox Notification Validation");
+		System.out.println("\nSugarBox Notification Validation");
+			
+//		String pTitle = "Welcome to the SugarBox Zone";
+//		String pSubTitle = "Connect to SugarBox Wi-Fi and start watching ZEE5 Premium without using mobile data";
+		
+		String readNotification,readNotification2;
+		String notificationCommand = "adb shell dumpsys notification --noredact | grep SugarBox";
+		String notificationCommand2 = "adb shell dumpsys notification --noredact | grep ZEE5";
 
+		Process process = Runtime.getRuntime().exec(notificationCommand);
+		BufferedReader Result = new BufferedReader(new InputStreamReader(process.getInputStream()));
+		
+		Process secProcess = Runtime.getRuntime().exec(notificationCommand2);
+		BufferedReader secResult = new BufferedReader(new InputStreamReader(secProcess.getInputStream()));
+		
+		boolean flagTitle=false,flagSubTitle=false;
+		for(int iCount=1 ;iCount < 15; iCount++) {
+			readNotification = Result.readLine();
+			readNotification2 = secResult.readLine();
+			if(readNotification.contains(pTitle) && flagTitle==false) {
+				flagTitle=true;
+				logger.info("SugarBox Notification (Title) is displayed: "+pTitle);
+				extent.extentLoggerPass("Notification","Notification (Title) is displayed: "+pTitle);
+			}	
+			if(readNotification.contains(pSubTitle)&& flagSubTitle==false) {
+				flagSubTitle=true;
+				logger.info("SugarBox Notification (SubTitle) is displayed: "+pSubTitle);
+				extent.extentLoggerPass("Notification","Notification (SubTitle) is displayed: "+pSubTitle);
+			}else if(readNotification2.contains(pSubTitle)&& flagSubTitle==false) {
+				flagSubTitle=true;
+				logger.info("SugarBox Notification (SubTitle) is displayed: "+pSubTitle);
+				extent.extentLoggerPass("Notification","Notification (SubTitle) is displayed: "+pSubTitle);
+			}
+		}
+		if(flagTitle==false || flagSubTitle==false) {
+			logger.info("SugarBox Notification is not displayed");
+			extent.extentLoggerFail("Notification","SugarBox Notification (SubTitle) is not displayed");
+		}
+	}
+	
+	
+	public void VerifyWelcomeBackScreenInSugarboxNetwork(String pUsertype) throws Exception {
+		extent.HeaderChildNode("Welcome Back Screen");
+		System.out.println("\nWelcome Back Screen");
+		
+		verifyElementPresentAndClick(AMDHomePage.HomeIcon, "Landing screen");
+		Back(1);
+		if(verifyElementDisplayed(AMDGenericObjects.objText("Are you sure you want to exit ZEE5?"))) {
+			click(AMDHomePage.objQuitYesCTA, "YES CTA");
+			logger.info("Quiting the ZEE5 App");
+			extent.extentLoggerPass("App Quit","Quiting the ZEE5 App");
+			waitTime(5000);
+		}
+		
+		//Re-launching the App to verify 'Welcome Back' Screen
+		relaunch(false);
+		waitTime(30000);
+		waitForElementDisplayed(AMDGenericObjects.objContainText("Welcome Back"), 60);
+		if(verifyElementDisplayed(AMDGenericObjects.objText("Welcome Back"))) {
+			logger.info("Welcome Back screen is displayed");
+			extent.extentLoggerPass("Welcome Back","<b>Welcome Back</b> screen is displayed");
+		}else {
+			logger.error("Welcome Back screen is not displayed");
+			extent.extentLoggerFail("Welcome Back","<b>Welcome Back</b> screen is not displayed");
+		}
+		
+		if(verifyElementDisplayed(AMDSugarbox.SBLogoWelcomeScreen)) {
+			logger.info("SugarBox logo is displayed in Welcom Back screen");
+			extent.extentLoggerPass("Logo","<b>SugarBox logo</b> is displayed in Welcom Back screen");
+		}else {
+			logger.error("SugarBox logo is not displayed");
+			extent.extentLoggerFail("Logo","<b>SugarBox logo</b> is not displayed");
+		}
+		
+		if(verifyElementDisplayed(AMDGenericObjects.objText("Continue your ZEE5 experience at ZERO data cost with SugarBox"))) {
+			logger.info("Continue your ZEE5 experience at ZERO data cost with SugarBox is displayed");
+			extent.extentLoggerPass("Welcome Back","<b>Continue your ZEE5 experience at ZERO data cost with SugarBox</b> is displayed");
+		}else {
+			logger.error("Continue your ZEE5 experience at ZERO data cost with SugarBox is not displayed");
+			extent.extentLoggerFail("Welcome Back","<b>Continue your ZEE5 experience at ZERO data cost with SugarBox</b> is not displayed");
+		}
+		
+		if(verifyElementDisplayed(AMDGenericObjects.objText("#SaveTheInternet"))) {
+			logger.info("#SaveTheInternet is displayed");
+			extent.extentLoggerPass("#SaveTheInternet","<b>#SaveTheInternet</b> is displayed");
+		}else {
+			logger.error("#SaveTheInternet is not displayed");
+			extent.extentLoggerFail("#SaveTheInternet","<b>#SaveTheInternet</b> is not displayed");
+		}
+
+		verifyElementPresentAndClick(AMDSugarbox.objContinueToSugarBoxCTA, "ContinueToSugarBox CTA");
+		waitTime(3000);
+		verifyElementPresent(AMDHomePage.objHomeBottomBtn, "Home Page");
+	}
+	
+
+	
 }

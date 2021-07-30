@@ -32,6 +32,30 @@ public class AndroidMixpanel_AdInitialized {
 		//Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.AdInitializedEventOfcontentFromSearchPage(usertype, clipContent);
 	}
+	
+	@Test(priority = 3)
+	@Parameters({ "userType", "pTabName" })
+	public void AdInitializedEvent_Carousal(String usertype, String pTabName) throws Exception {
+		System.out.println("\nAd initialized event of content");
+		//Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.AdInitializedEventForCarouselContent(usertype, pTabName);
+	}
+	
+	@Test(priority = 4)
+	@Parameters({ "userType", "clipContent", "clipID", "clipContentID" })
+	public void AdInitializedEvent_ConsumptionPageRail(String usertype, String clipContent, String clipID, String clipContentID) throws Exception {
+		System.out.println("\nAd initialized event of content");
+		//Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.AdInitializedEventOfcontentFromConsumptionPageRail(usertype, clipContent, clipID, clipContentID);
+	}
+	
+	@Test(priority = 5)
+	@Parameters({ "userType", "pTabName" })
+	public void AdInitializedEvent_ContinueWatchingRail(String usertype, String pTabName) throws Exception {
+		System.out.println("\nAd Initialized event of content");
+		//Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.AdInitializedForContinueWatchingTray(usertype, pTabName);
+	}
 
 	//###############-------END OF TEST-------###############
 	

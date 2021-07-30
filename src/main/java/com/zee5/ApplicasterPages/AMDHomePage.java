@@ -323,4 +323,7 @@ public class AMDHomePage {
 	public static By objBuyPlanCTAMoreSection = By.xpath("//*[@text='Buy Plan']");
 	
 	public static By objBuyPlanCTAOnPlayer = By.xpath("(//*[@resource-id='com.graymatrix.did:id/subscribeButton'])[1]");
+	
+	public static By objQuitYesCTA = By.id("accept");
+	public static By objQuitNoCTA = By.id("dismiss");	
 }

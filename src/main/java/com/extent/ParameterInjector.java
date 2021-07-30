@@ -144,6 +144,8 @@ public class ParameterInjector implements IAlterSuiteListener {
 			params.put("ExpiredTVODUserName", suite.getParameter("ExpiredTVODUserName"));
 			params.put("ExpiredTVODPassword", suite.getParameter("ExpiredTVODPassword"));
 //			params.put("ClubPassword", suite.getParameter("ClubPassword"));
+			params.put("RSVODUser499", suite.getParameter("RSVODUser499"));
+			params.put("RSVODUserPassword499", suite.getParameter("RSVODUserPassword499"));
 			
 		}
 		if (region.equals("MH")) {
@@ -222,6 +224,8 @@ public class ParameterInjector implements IAlterSuiteListener {
 			params.put("freeContentURL",
 					"https://newpwa.zee5.com/tvshows/details/paaru/0-6-1179/paaru-gets-tipsy-paaru-highlights/0-1-249189");
 			params.put("comboOfferMovie", "Radhe - Your Most Wanted Bhai");
+			params.put("RSVODUser499", suite.getParameter("RSVODUser499"));
+			params.put("RSVODUserPassword499", suite.getParameter("RSVODUserPassword499"));
 			if(suite.getParameter("url").equals("newpwa")) {
 				params.put("DeeplinkConsumption","https://newpwa.zee5.com/movies/details/radhe-your-most-wanted-bhai/0-0-399328");
 				params.put("DeeplinkSubscription","https://newpwa.zee5.com/myaccount/subscription");

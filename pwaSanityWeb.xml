@@ -97,6 +97,9 @@
 	<!-- TVOD User(Expired TVOD user) -->
 	<parameter name="ExpiredTVODUserName" value="hdhd@g.com" />
 	<parameter name="ExpiredTVODPassword" value="123456" />
+	<!--  Subscribed User RSVOD 499 Plan--> 
+	<parameter name="RSVODUser499" value="juspayprod12@yopmail.com"/>
+	<parameter name="RSVODUserPassword499" value="qwerty"/>
 
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />

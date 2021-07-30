@@ -61,8 +61,14 @@
 	
 	<parameter name="SearchVODContent"  value="Ammana Mane" />
     <parameter name="SearchVODContent2"  value="Prema Baraha" />
-
-	<parameter name="SugarBoxPhoneNum" value="9620001566" />
+    
+    <parameter name="NewUserNotificationTitle"  value="Welcome to the SugarBox Zone" />
+    <parameter name="NewUserNotificationSubTitle"  value="Connect to SugarBox Wi-Fi and start watching ZEE5 Premium without using mobile data" />
+    
+	<parameter name="ExistingUserNotificationTitle"  value="Welcome back to the SugarBox Zone" />
+    <parameter name="ExistingUserNotificationSubTitle"  value="Logon to ZEE5 to binge-watch the latest originals, TV shows" />
+    
+	<parameter name="SugarBoxPhoneNum" value="9620001535" />
 
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
@@ -70,9 +76,15 @@
 	</listeners>
 
 	
-	<test name="Android_SugarboxTest">
+	<test name="Android_SugarBoxTest">
 		<classes>
-			<class name="com.zee5.AndroidSugarbox.Android_SugarboxTest" />
+			<class name="com.zee5.AndroidSugarbox.Android_SugarBoxTest" />
+		</classes>
+	</test>
+	
+	<test name="Android_SugarBox_OnboardingStream">
+		<classes>
+			<class name="com.zee5.AndroidSugarbox.Android_SugarBox_OnboardingStream" />
 		</classes>
 	</test>
 	

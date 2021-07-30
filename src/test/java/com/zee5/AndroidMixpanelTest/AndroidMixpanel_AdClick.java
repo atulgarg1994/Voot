@@ -33,6 +33,30 @@ private Zee5ApplicasterMixPanelBusinessLogic Zee5ApplicasterMixPanelBusinessLogi
 		Zee5ApplicasterMixPanelBusinessLogic.AdClickEventOfcontentFromSearchPage(usertype, clipContent);
 	}
 
+	@Test(priority = 3)
+	@Parameters({ "userType", "pTabName" })
+	public void AdClickEvent_Carousal(String usertype, String pTabName) throws Exception {
+		System.out.println("\nAd click event of content");
+		//Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.AdClickEventForCarouselContent(usertype, pTabName);
+	}
+	
+	@Test(priority = 4)
+	@Parameters({ "userType", "clipContent", "clipID", "clipContentID" })
+	public void AdClickEvent_ConsumptionPageRail(String usertype, String clipContent, String clipID, String clipContentID) throws Exception {
+		System.out.println("\nAd click event of content");
+		//Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.AdClickEventOfContentFromConsumptionPageRail(usertype, clipContent, clipID, clipContentID);
+	}
+	
+	@Test(priority = 5)
+	@Parameters({ "userType", "pTabName" })
+	public void AdClickEvent_ContinueWatchingRail(String usertype, String pTabName) throws Exception {
+		System.out.println("\nAd click event of content");
+		//Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.AdClickForContinueWatchingTray(usertype, pTabName);
+	}
+	
 	//###############-------END OF TEST-------###############
 	
 	@AfterTest

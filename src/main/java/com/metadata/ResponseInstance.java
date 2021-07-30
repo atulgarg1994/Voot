@@ -5282,4 +5282,43 @@ public class ResponseInstance {
 		}
 		return pFirstRail;
 	}
+	
+	public static Response getUpNextContentResponse(String showID, String episodeID) {
+
+		Response responseRAW = null;
+		String URI = "https://gwapi.zee5.com/content/season/next_previous/"+showID+"?episode_id="+episodeID+"&type=next&limit=25&translation=en&country=IN&page=1";
+		responseRAW = RestAssured.given().headers("X-ACCESS-TOKEN", getXAccessTokenAMD()).when().get(URI);
+		System.out.println("\n" + URI);
+		if (responseRAW.statusCode() != 200) {
+			System.out.println(responseRAW.getStatusLine() + " | Content ID: " + episodeID);
+		}
+		//responseRAW.print();
+		return responseRAW;
+	}
+	
+	public static Response getRespofCWTray_Mixpanel(String userType) {
+		Response respCW = null;
+
+		String Uri = "https://gwapi.zee5.com/user/v2/watchhistory?country=IN&translation=en";
+		String xAccessToken = getXAccessTokenWithApiKey();
+		System.out.println(xAccessToken);
+		
+		if (userType.equalsIgnoreCase("Guest")) {
+			respCW = RestAssured.given().headers("x-access-token", xAccessToken).when().get(Uri);
+		} else if (userType.equalsIgnoreCase("SubscribedUser")) {
+			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserName");
+			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedPassword");
+			String bearerToken = getBearerToken(email, password);
+			respCW = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(Uri);
+		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonSubscribedUserName");
+			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonSubscribedUserPassword");
+			String bearerToken = getBearerToken(email, password);
+			respCW = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(Uri);
+		} else {
+			System.out.println("Incorrect user type passed to method");
+		}
+		respCW.print();
+		return respCW;
+	}
 }

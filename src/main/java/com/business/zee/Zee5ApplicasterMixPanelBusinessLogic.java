@@ -3182,29 +3182,39 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	}
 
 	public void AdInitializedEventForCarouselContent(String usertype, String tabName) throws Exception {
+		extent.HeaderChildNode("Ad Initialized Event for carousel content");
 		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode("Ad Initialized Event for carousel content");
 			waitTime(10000);
 			SelectTopNavigationTab(tabName);
-			verifyElementPresentAndClick(AMDHomePage.objCarouselConetentCard, "carousel content");
-			waitTime(10000);
-			Boolean var = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
-			if (var == true) {
-				logger.info("Ad is Displayed");
-				extentLogger("Ad", "Ad is Displayed");
+
+			String contentName = ResponseInstance.getCarouselContentFromAPI2(usertype, tabName);
+			System.out.println(contentName);
+
+			waitForElementAndClickIfPresent(AMDHomePage.objContentTitle(contentName), 7, "carousal content");
+			waitTime(20000);
+			boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
+			if (ad == true) {
+				logger.info("Ad is displayed");
+				extent.extentLogger("Ad", "Ad is displayed");
+				String pManufacturer = DeviceDetails.OEM;
 
 				setFEProperty(usertype);
-				mixpanel.FEProp.setProperty("Source", "home");
-				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+				setUserType_SubscriptionProperties(usertype);
+				SetAppsflyerProperty();
 
-				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
-				mixpanel.FEProp.setProperty("Ad Location", "instream");
+				mixpanel.FEProp.setProperty("Source", "Homepage");
+				mixpanel.FEProp.setProperty("Page Name", "ConsumptionPage");
+				mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+				mixpanel.FEProp.setProperty("brand", pManufacturer);
+				
 				mixpanel.ValidateParameter("", "Ad Initialized");
-
 			} else {
-				logger.info("Ad is not Displayed");
-				extentLogger("Ad", "Ad is not Displayed");
+				logger.info("Ad is not displayed");
+				extentLoggerPass("Ad", "Ad is not displayed");
 			}
+		}else {
+			logger.info("Not Applicable to this usertype");
+			extent.extentLogger("Not Applicable", "Not Applicable to this usertype");
 		}
 	}
 
@@ -3269,27 +3279,24 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				String pManufacturer = DeviceDetails.OEM;
 
 				String contentID = getParameterFromXML("clipContentID");
-
+				
 				Response ContentResp = ResponseInstance.getResponseDetails(contentID);
-				ResponseInstance.setFEPropertyOfContentFromAPI2(contentID, ContentResp, "Home");
+				ResponseInstance.setFEPropertyOfContentFromAPI2(contentID,ContentResp, "Home");
 				setFEProperty(usertype);
 				setUserType_SubscriptionProperties(usertype);
 				SetAppsflyerProperty();
 
-				if (usertype.equalsIgnoreCase("Guest")) {
-					mixpanel.FEProp.setProperty("User Type", "Guest");
-				}
 				mixpanel.FEProp.setProperty("Source", "SearchPage");
 				mixpanel.FEProp.setProperty("Page Name", "ConsumptionPage");
 				mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
 				mixpanel.FEProp.setProperty("brand", pManufacturer);
-
+				
 				mixpanel.ValidateParameter("", "Ad Initialized");
 			} else {
 				logger.info("Ad is not displayed");
 				extentLoggerPass("Ad", "Ad is not displayed");
 			}
-		} else {
+		}else {
 			logger.info("Not Applicable for this usertype");
 			extent.extentLoggerPass("", "Not Applicable for this usertype");
 		}
@@ -3403,31 +3410,44 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	}
 
 	public void AdViewEventForCarouselContent(String usertype, String tabName) throws Exception {
-		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode("Ad View Event for carousel content");
-			waitTime(10000);
-			SelectTopNavigationTab(tabName);
-			verifyElementPresentAndClick(AMDHomePage.objCarouselConetentCard, "carousel content");
-			waitTime(10000);
-			Boolean var = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
-			if (var == true) {
-				logger.info("Ad is Displayed");
-				extentLogger("Ad", "Ad is Displayed");
-				waitTime(2000);
-				setFEProperty(usertype);
-				mixpanel.FEProp.setProperty("Source", "home");
-				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
-				mixpanel.FEProp.setProperty("Ad Position", "Pre-Roll");
+		extent.HeaderChildNode("Ad View Event for carousel content");
+	if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
 
-				mixpanel.ValidateParameter("", "Ad view");
-			} else {
-				logger.info("Ad is not Displayed");
-				extentLogger("Ad", "Ad is not Displayed");
+		String contentName = ResponseInstance.getCarouselContentFromAPI2(usertype, tabName);
+		System.out.println(contentName);
+
+		waitForElementAndClickIfPresent(AMDHomePage.objContentTitle(contentName), 7, "carousal content");
+		waitTime(20000);
+		boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
+		if (ad == true) {
+			logger.info("Ad is displayed");
+			extent.extentLogger("Ad", "Ad is displayed");
+			String pManufacturer = DeviceDetails.OEM;
+
+			setFEProperty(usertype);
+			setUserType_SubscriptionProperties(usertype);
+			SetAppsflyerProperty();
+
+			if(usertype.equalsIgnoreCase("Guest")) {
+				mixpanel.FEProp.setProperty("User Type", "Free");
 			}
+			
+			mixpanel.FEProp.setProperty("Source", "Homepage");
+			mixpanel.FEProp.setProperty("Page Name", "ConsumptionPage");
+			mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+			mixpanel.FEProp.setProperty("brand", pManufacturer);
+			
+			mixpanel.ValidateParameter("", "Ad view");
 		} else {
-			logger.info("Ad Validation is not applicable for " + usertype);
-			extentLoggerPass("Ad", "Ad validation is not applicable for " + usertype);
+			logger.info("Ad is not displayed");
+			extentLoggerPass("Ad", "Ad is not displayed");
 		}
+	}else {
+		logger.info("Not Applicable to this usertype");
+		extent.extentLogger("Not Applicable", "Not Applicable to this usertype");
+	  }
 	}
 
 	public void AdViewEventForContentFromTray(String usertype, String tabName) throws Exception {
@@ -3476,7 +3496,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	public void AdViewEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
 		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Ad view Event of content from search page");
-
+			
 			click(AMDSearchScreen.objSearchIcon, "Search icon");
 			click(AMDSearchScreen.objSearchEditBox, "Search Box");
 			type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
@@ -3486,35 +3506,34 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			click(AMDSearchScreen.objSearchResultFirstContent, "Search result");
 			waitTime(20000);
 			boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
-			if (ad == true) {
+			if(ad==true) {
 				logger.info("Ad is displayed");
 				extent.extentLogger("Ad", "Ad is displayed");
 				String pManufacturer = DeviceDetails.OEM;
 
 				String contentID = getParameterFromXML("clipContentID");
-
+				
 				Response ContentResp = ResponseInstance.getResponseDetails(contentID);
-				ResponseInstance.setFEPropertyOfContentFromAPI2(contentID, ContentResp, "Home");
+				ResponseInstance.setFEPropertyOfContentFromAPI2(contentID,ContentResp, "Home");
 				setFEProperty(usertype);
 				setUserType_SubscriptionProperties(usertype);
 				SetAppsflyerProperty();
 
-				if (usertype.equalsIgnoreCase("Guest")) {
-					mixpanel.FEProp.setProperty("User Type", "Guest");
+				if(usertype.equalsIgnoreCase("Guest")) {
+					mixpanel.FEProp.setProperty("User Type", "Free");
 				}
-
 				mixpanel.FEProp.setProperty("Source", "SearchPage");
 				mixpanel.FEProp.setProperty("Page Name", "ConsumptionPage");
 				mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
 				mixpanel.FEProp.setProperty("brand", pManufacturer);
-
+				
 				mixpanel.ValidateParameter("", "Ad view");
-			} else {
+			}else {
 				logger.info("Ad is not displayed");
 				extent.extentLogger("Ad", "Ad is not displayed");
 			}
-
-		} else {
+				
+		}else {
 			logger.info("Not Applicable for this usertype");
 			extent.extentLoggerPass("", "Not Applicable for this usertype");
 		}
@@ -3688,34 +3707,41 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	}
 
 	public void AdClickEventForCarouselContent(String usertype, String tabName) throws Exception {
-		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode("Ad Click Event for carousel content");
-			waitTime(10000);
-			SelectTopNavigationTab(tabName);
-			verifyElementPresentAndClick(AMDHomePage.objCarouselConetentCard, "carousel content");
-			waitTime(10000);
-			Boolean var = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
-			if (var == true) {
-				logger.info("Ad is Displayed");
-				extentLogger("Ad", "Ad is Displayed");
-				verifyElementPresentAndClick(AMDPlayerScreen.objLearnMoreTextOnAdPlayBack, "Learn More");
-				waitTime(4000);
+		extent.HeaderChildNode("Ad click Event for carousel content");
+	if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
 
-				setFEProperty(usertype);
-				mixpanel.FEProp.setProperty("Source", "home");
-				mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
+		String contentName = ResponseInstance.getCarouselContentFromAPI2(usertype, tabName);
+		System.out.println(contentName);
 
-				mixpanel.FEProp.setProperty("Ad Title", "In-Stream Video");
-				mixpanel.FEProp.setProperty("Ad Location", "instream");
-				mixpanel.FEProp.setProperty("Ad Position", "Pre-Roll");
+		waitForElementAndClickIfPresent(AMDHomePage.objContentTitle(contentName), 7, "carousal content");
+		waitTime(20000);
+		boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
+		if (ad == true) {
+			logger.info("Ad is displayed");
+			extent.extentLogger("Ad", "Ad is displayed");
+			verifyElementPresentAndClick(AMDPlayerScreen.objLearnMoreTextOnAdPlayBack, "Learn More");
+			String pManufacturer = DeviceDetails.OEM;
 
-				mixpanel.ValidateParameter("", "Ad click");
-			} else {
-				logger.info("Ad is not Displayed");
-				extentLogger("Ad", "Ad is not Displayed");
-			}
+			setFEProperty(usertype);
+			setUserType_SubscriptionProperties(usertype);
+			SetAppsflyerProperty();
+
+			mixpanel.FEProp.setProperty("Source", "Homepage");
+			mixpanel.FEProp.setProperty("Page Name", "ConsumptionPage");
+			mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+			mixpanel.FEProp.setProperty("brand", pManufacturer);
+			
+			mixpanel.ValidateParameter("", "Ad click");
+		} else {
+			logger.info("Ad is not displayed");
+			extentLoggerPass("Ad", "Ad is not displayed");
 		}
-
+	}else {
+		logger.info("Not Applicable to this usertype");
+		extent.extentLogger("Not Applicable", "Not Applicable to this usertype");
+	  }
 	}
 
 	public void AdClickEventForContentFromTray(String usertype, String tabName) throws Exception {
@@ -3782,27 +3808,27 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				String pManufacturer = DeviceDetails.OEM;
 
 				String contentID = getParameterFromXML("clipContentID");
-
+				
 				Response ContentResp = ResponseInstance.getResponseDetails(contentID);
-				ResponseInstance.setFEPropertyOfContentFromAPI2(contentID, ContentResp, "Home");
+				ResponseInstance.setFEPropertyOfContentFromAPI2(contentID,ContentResp, "Home");
 				setFEProperty(usertype);
 				setUserType_SubscriptionProperties(usertype);
 				SetAppsflyerProperty();
 
-				if (usertype.equalsIgnoreCase("Guest")) {
-					mixpanel.FEProp.setProperty("User Type", "Guest");
-				}
 				mixpanel.FEProp.setProperty("Source", "SearchPage");
 				mixpanel.FEProp.setProperty("Page Name", "ConsumptionPage");
 				mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
 				mixpanel.FEProp.setProperty("brand", pManufacturer);
-
+				
 				mixpanel.ValidateParameter("", "Ad click");
 			} else {
 				logger.info("Ad is not displayed");
 				extentLogger("Ad", "Ad is not displayed");
-			}
-		}
+			}	
+		}else {
+			logger.info("Not Applicable to this usertype");
+			extent.extentLogger("Not Applicable", "Not Applicable to this usertype");
+		  }
 	}
 
 	public void AdClickEventOfContentFromMyWatchListPage(String usertype) throws Exception {
@@ -14044,5 +14070,312 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			MixpanelAndroid.ValidateParameter("", "Login Result");
 		}
 	}
+	
+	public void AdViewEventOfContentFromConsumptionPageRail(String usertype, String keyword4, String clipID, String clipContentID) throws Exception {
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode("Ad view Event of content from consumption page rail");
+			
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
+			hideKeyboard();
+			waitTime(4000);
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			click(AMDSearchScreen.objSearchResultFirstContent, "Search result");
+			if (usertype.equalsIgnoreCase("Guest")) {
+				registerPopUpClose();
+			}
+			completeProfilePopUpClose(usertype);
+			PartialSwipeInConsumptionScreen("UP", 1);
+			waitTime(3000);
+			if (verifyIsElementDisplayed(AMDPlayerScreen.objFirstContentCardTitleInUpNextRail)) {
+				verifyElementPresentAndClick(AMDPlayerScreen.objFirstContentCardTitleInUpNextRail, "Upnext rail content");
+			}
+			waitTime(20000);
+			boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
+			if(ad==true) {
+				logger.info("Ad is displayed");
+				extent.extentLogger("Ad", "Ad is displayed");
+				String pManufacturer = DeviceDetails.OEM;
+
+				Response upNextResp = ResponseInstance.getUpNextContentResponse(clipID, clipContentID);
+				String contentID = upNextResp.jsonPath().getString("items[0].id");
+				
+				Response ContentResp = ResponseInstance.getResponseDetails(contentID);
+				ResponseInstance.setFEPropertyOfContentFromAPI2(contentID,ContentResp, "Home");
+				
+				setFEProperty(usertype);
+				setUserType_SubscriptionProperties(usertype);
+				SetAppsflyerProperty();
+				
+				mixpanel.FEProp.setProperty("Source", "SearchPage");
+				mixpanel.FEProp.setProperty("Page Name", "ConsumptionPage");
+				mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+				mixpanel.FEProp.setProperty("brand", pManufacturer);
+				
+				mixpanel.ValidateParameter("", "Ad view");
+			}else {
+				logger.info("Ad is not displayed");
+				extent.extentLogger("Ad", "Ad is not displayed");
+			}
+				
+		}else {
+			logger.info("Not Applicable for this usertype");
+			extent.extentLoggerPass("", "Not Applicable for this usertype");
+		}
+	}
+	
+	public void AdViewEventForContinueWatchingTray(String usertype, String tabName) throws Exception {
+		extent.HeaderChildNode("Ad View Event for Continue watching tray content");
+		if (usertype.equalsIgnoreCase("NonSubscribedUser")) {
+			waitTime(10000);
+			SelectTopNavigationTab(tabName);
+			waitTime(10000);
+			PartialSwipe("UP", 1);
+			if(verifyIsElementDisplayed(AMDHomePage.objTrayTitle("Continue Watching"), "Continuw watching tray")) {
+				verifyElementPresentAndClick(AMDHomePage.objContinueWatchingTrayContentCard, "contentCard of CW tray");
+				waitTime(20000);
+				boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
+				if (ad == true) {
+					logger.info("Ad is displayed");
+					extent.extentLogger("Ad", "Ad is displayed");
+					waitTime(2000);
+					Back(1);
+					Response respOFCW = ResponseInstance.getRespofCWTray_Mixpanel(usertype);
+					String contentID = respOFCW.jsonPath().getString("[0].id");
+					System.out.println(contentID);
+					
+					Response ContentResp = ResponseInstance.getResponseDetails(contentID);
+					ResponseInstance.setFEPropertyOfContentFromAPI2(contentID,ContentResp, "Home");
+					
+					
+					String pManufacturer = DeviceDetails.OEM;
+
+					setFEProperty(usertype);
+					setUserType_SubscriptionProperties(usertype);
+					SetAppsflyerProperty();
+
+					if(usertype.equalsIgnoreCase("Guest")) {
+						mixpanel.FEProp.setProperty("User Type", "Free");
+					}
+					
+					mixpanel.FEProp.setProperty("Source", "Homepage");
+					mixpanel.FEProp.setProperty("Page Name", "ConsumptionPage");
+					mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+					mixpanel.FEProp.setProperty("brand", pManufacturer);
+					
+					mixpanel.ValidateParameter("", "Ad view");
+				} else {
+					logger.info("Ad is not displayed");
+					extentLoggerPass("Ad", "Ad is not displayed");
+				}
+			}else {
+				logger.info("Continue watching tray is not displayed");
+				extent.extentLogger("", "Continue watching tray is not displayed");
+			}
+		}
+	}
+	
+	public void AdClickEventOfContentFromConsumptionPageRail(String usertype, String keyword4, String clipID, String clipContentID) throws Exception {
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode("Ad click Event of content from consumption page rail");
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
+			hideKeyboard();
+			waitTime(4000);
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			click(AMDSearchScreen.objSearchResultFirstContent, "Search result");
+			if (usertype.equalsIgnoreCase("Guest")) {
+				registerPopUpClose();
+			}
+			completeProfilePopUpClose(usertype);
+			PartialSwipeInConsumptionScreen("UP", 1);
+			waitTime(3000);
+			if (verifyIsElementDisplayed(AMDPlayerScreen.objFirstContentCardTitleInUpNextRail)) {
+				verifyElementPresentAndClick(AMDPlayerScreen.objFirstContentCardTitleInUpNextRail, "Upnext rail content");
+			}
+			waitTime(20000);
+			boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
+			if (ad == true) {
+				logger.info("Ad is Displayed");
+				extentLogger("Ad", "Ad is Displayed");
+				verifyElementPresentAndClick(AMDPlayerScreen.objLearnMoreTextOnAdPlayBack, "Learn More");
+				String pManufacturer = DeviceDetails.OEM;
+
+				Response upNextResp = ResponseInstance.getUpNextContentResponse(clipID, clipContentID);
+				String contentID = upNextResp.jsonPath().getString("items[0].id");
+				
+				Response ContentResp = ResponseInstance.getResponseDetails(contentID);
+				ResponseInstance.setFEPropertyOfContentFromAPI2(contentID,ContentResp, "Home");
+				
+				setFEProperty(usertype);
+				setUserType_SubscriptionProperties(usertype);
+				SetAppsflyerProperty();
+
+				mixpanel.FEProp.setProperty("Source", "SearchPage");
+				mixpanel.FEProp.setProperty("Page Name", "ConsumptionPage");
+				mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+				mixpanel.FEProp.setProperty("brand", pManufacturer);
+				
+				mixpanel.ValidateParameter("", "Ad click");
+			} else {
+				logger.info("Ad is not displayed");
+				extentLogger("Ad", "Ad is not displayed");
+			}	
+		}else {
+			logger.info("Not Applicable to this usertype");
+			extent.extentLogger("Not Applicable", "Not Applicable to this usertype");
+		  }
+	}
+	
+	
+	public void AdClickForContinueWatchingTray(String usertype, String tabName) throws Exception {
+		extent.HeaderChildNode("Ad click Event for Continue watching tray content");
+		if (usertype.equalsIgnoreCase("NonSubscribedUser")) {
+			waitTime(10000);
+			SelectTopNavigationTab(tabName);
+			waitTime(10000);
+			PartialSwipe("UP", 1);
+			if(verifyIsElementDisplayed(AMDHomePage.objTrayTitle("Continue Watching"), "Continuw watching tray")) {
+				verifyElementPresentAndClick(AMDHomePage.objContinueWatchingTrayContentCard, "contentCard of CW tray");
+				waitTime(20000);
+				boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
+				if (ad == true) {
+					logger.info("Ad is displayed");
+					extent.extentLogger("Ad", "Ad is displayed");
+					verifyElementPresentAndClick(AMDPlayerScreen.objLearnMoreTextOnAdPlayBack, "Learn More");
+					String pManufacturer = DeviceDetails.OEM;
+
+					Response respOFCW = ResponseInstance.getRespofCWTray_Mixpanel(usertype);
+					String contentID = respOFCW.jsonPath().getString("[0].id");
+					System.out.println(contentID);
+					
+					Response ContentResp = ResponseInstance.getResponseDetails(contentID);
+					ResponseInstance.setFEPropertyOfContentFromAPI2(contentID,ContentResp, "Home");
+					
+					setFEProperty(usertype);
+					setUserType_SubscriptionProperties(usertype);
+					SetAppsflyerProperty();
+
+					mixpanel.FEProp.setProperty("Source", "Homepage");
+					mixpanel.FEProp.setProperty("Page Name", "ConsumptionPage");
+					mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+					mixpanel.FEProp.setProperty("brand", pManufacturer);
+					
+					mixpanel.ValidateParameter("", "Ad click");
+				} else {
+					logger.info("Ad is not displayed");
+					extentLoggerPass("Ad", "Ad is not displayed");
+				}
+			}else {
+				logger.info("Continue watching tray is not displayed");
+				extent.extentLogger("", "Continue watching tray is not displayed");
+			}
+		}
+	}
+	
+	public void AdInitializedEventOfcontentFromConsumptionPageRail(String usertype, String keyword4, String clipID, String clipContentID) throws Exception {
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			extent.HeaderChildNode("Ad Initialized Event of content from consumption page rail");
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
+			hideKeyboard();
+			waitTime(4000);
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			click(AMDSearchScreen.objSearchResultFirstContent, "Search result");
+			if (usertype.equalsIgnoreCase("Guest")) {
+				registerPopUpClose();
+			}
+			completeProfilePopUpClose(usertype);
+			PartialSwipeInConsumptionScreen("UP", 1);
+			waitTime(3000);
+			if (verifyIsElementDisplayed(AMDPlayerScreen.objFirstContentCardTitleInUpNextRail)) {
+				verifyElementPresentAndClick(AMDPlayerScreen.objFirstContentCardTitleInUpNextRail, "Upnext rail content");
+			}
+			waitTime(20000);
+			boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
+			if (ad == true) {
+				logger.info("Ad is displayed");
+				extent.extentLogger("Ad", "Ad is displayed");
+				String pManufacturer = DeviceDetails.OEM;
+
+				Response upNextResp = ResponseInstance.getUpNextContentResponse(clipID, clipContentID);
+				String contentID = upNextResp.jsonPath().getString("items[0].id");
+				
+				Response ContentResp = ResponseInstance.getResponseDetails(contentID);
+				ResponseInstance.setFEPropertyOfContentFromAPI2(contentID,ContentResp, "Home");
+				
+				setFEProperty(usertype);
+				setUserType_SubscriptionProperties(usertype);
+				SetAppsflyerProperty();
+
+				mixpanel.FEProp.setProperty("Source", "SearchPage");
+				mixpanel.FEProp.setProperty("Page Name", "ConsumptionPage");
+				mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+				mixpanel.FEProp.setProperty("brand", pManufacturer);
+				
+				mixpanel.ValidateParameter("", "Ad Initialized");
+			} else {
+				logger.info("Ad is not displayed");
+				extentLoggerPass("Ad", "Ad is not displayed");
+			}
+		}else {
+			logger.info("Not Applicable for this usertype");
+			extent.extentLoggerPass("", "Not Applicable for this usertype");
+		}
+	}
+	
+	public void AdInitializedForContinueWatchingTray(String usertype, String tabName) throws Exception {
+		extent.HeaderChildNode("Ad Initialized Event for Continue watching tray content");
+		if (usertype.equalsIgnoreCase("NonSubscribedUser")) {
+			waitTime(10000);
+			SelectTopNavigationTab(tabName);
+			waitTime(10000);
+			PartialSwipe("UP", 1);
+			if(verifyIsElementDisplayed(AMDHomePage.objTrayTitle("Continue Watching"), "Continuw watching tray")) {
+				verifyElementPresentAndClick(AMDHomePage.objContinueWatchingTrayContentCard, "contentCard of CW tray");
+				waitTime(20000);
+				boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
+				if (ad == true) {
+					logger.info("Ad is displayed");
+					extent.extentLogger("Ad", "Ad is displayed");
+					waitTime(3000);
+					Back(1);
+					
+					Response respOFCW = ResponseInstance.getRespofCWTray(usertype);
+					String contentID = respOFCW.jsonPath().getString("[0].id");
+					System.out.println(contentID);
+					
+					Response ContentResp = ResponseInstance.getResponseDetails(contentID);
+					ResponseInstance.setFEPropertyOfContentFromAPI2(contentID,ContentResp, "Home");
+					
+					String pManufacturer = DeviceDetails.OEM;
+
+					setFEProperty(usertype);
+					setUserType_SubscriptionProperties(usertype);
+					SetAppsflyerProperty();
+
+					mixpanel.FEProp.setProperty("Source", "Homepage");
+					mixpanel.FEProp.setProperty("Page Name", "ConsumptionPage");
+					mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+					mixpanel.FEProp.setProperty("brand", pManufacturer);
+					
+					mixpanel.ValidateParameter("", "Ad Initialized");
+				} else {
+					logger.info("Ad is not displayed");
+					extentLoggerPass("Ad", "Ad is not displayed");
+				}
+			}else {
+				logger.info("Continue watching tray is not displayed");
+				extent.extentLogger("", "Continue watching tray is not displayed");
+			}
+		}
+	}
+
+	
+	
+	
 	
 }
