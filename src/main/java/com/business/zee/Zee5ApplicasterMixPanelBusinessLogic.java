@@ -3196,6 +3196,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			if (ad == true) {
 				logger.info("Ad is displayed");
 				extent.extentLogger("Ad", "Ad is displayed");
+				waitTime(3000);
+				Back(1);
 				String pManufacturer = DeviceDetails.OEM;
 
 				setFEProperty(usertype);
@@ -3276,6 +3278,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			if (ad == true) {
 				logger.info("Ad is displayed");
 				extent.extentLogger("Ad", "Ad is displayed");
+				waitTime(3000);
+				Back(1);
 				String pManufacturer = DeviceDetails.OEM;
 
 				String contentID = getParameterFromXML("clipContentID");
@@ -3424,6 +3428,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		if (ad == true) {
 			logger.info("Ad is displayed");
 			extent.extentLogger("Ad", "Ad is displayed");
+			waitTime(3000);
+			Back(1);
 			String pManufacturer = DeviceDetails.OEM;
 
 			setFEProperty(usertype);
@@ -3509,6 +3515,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			if(ad==true) {
 				logger.info("Ad is displayed");
 				extent.extentLogger("Ad", "Ad is displayed");
+				waitTime(3000);
+				Back(1);
 				String pManufacturer = DeviceDetails.OEM;
 
 				String contentID = getParameterFromXML("clipContentID");
@@ -3791,7 +3799,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 	public void AdClickEventOfcontentFromSearchPage(String usertype, String keyword4) throws Exception {
 		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
-			extent.HeaderChildNode("Ad view complete Event of content from search page");
+			extent.HeaderChildNode("Ad click Event of content from search page");
 			click(AMDSearchScreen.objSearchIcon, "Search icon");
 			click(AMDSearchScreen.objSearchEditBox, "Search Box");
 			type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
@@ -3830,6 +3838,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			extent.extentLogger("Not Applicable", "Not Applicable to this usertype");
 		  }
 	}
+
 
 	public void AdClickEventOfContentFromMyWatchListPage(String usertype) throws Exception {
 		if (usertype.equalsIgnoreCase("NonSubscribedUser")) {
@@ -14096,6 +14105,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			if(ad==true) {
 				logger.info("Ad is displayed");
 				extent.extentLogger("Ad", "Ad is displayed");
+				waitTime(3000);
+				Back(1);
 				String pManufacturer = DeviceDetails.OEM;
 
 				Response upNextResp = ResponseInstance.getUpNextContentResponse(clipID, clipContentID);
@@ -14107,6 +14118,11 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				setFEProperty(usertype);
 				setUserType_SubscriptionProperties(usertype);
 				SetAppsflyerProperty();
+				
+
+				if(usertype.equalsIgnoreCase("Guest")) {
+					mixpanel.FEProp.setProperty("User Type", "Guest");
+				}
 				
 				mixpanel.FEProp.setProperty("Source", "SearchPage");
 				mixpanel.FEProp.setProperty("Page Name", "ConsumptionPage");
@@ -14156,7 +14172,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					SetAppsflyerProperty();
 
 					if(usertype.equalsIgnoreCase("Guest")) {
-						mixpanel.FEProp.setProperty("User Type", "Free");
+						mixpanel.FEProp.setProperty("User Type", "Guest");
 					}
 					
 					mixpanel.FEProp.setProperty("Source", "Homepage");
@@ -14173,6 +14189,9 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				logger.info("Continue watching tray is not displayed");
 				extent.extentLogger("", "Continue watching tray is not displayed");
 			}
+		}else {
+			logger.info("Not Applicable for this usertype");
+			extent.extentLoggerPass("", "Not Applicable for this usertype");
 		}
 	}
 	
@@ -14299,6 +14318,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			if (ad == true) {
 				logger.info("Ad is displayed");
 				extent.extentLogger("Ad", "Ad is displayed");
+				waitTime(3000);
+				Back(1);
 				String pManufacturer = DeviceDetails.OEM;
 
 				Response upNextResp = ResponseInstance.getUpNextContentResponse(clipID, clipContentID);
@@ -14374,8 +14395,5 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-	
-	
-	
 	
 }

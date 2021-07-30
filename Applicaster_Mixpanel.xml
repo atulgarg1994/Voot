@@ -334,13 +334,7 @@
 			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_AddToWatchlist" />
 		</classes>
 	</test>
-	
-	<test name="AndroidMixpanel_AddToWatchlist">
-		<classes>
-			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_AddToWatchlist" />
-		</classes>
-	</test>
-	
+
 	<test name="AndroidMixpanel_AddToWatchlistSuccessfull">
 		<classes>
 			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_AddToWatchlistSuccessfull" />
@@ -437,5 +431,100 @@
 		</classes>
 	</test>
 	
+	<test name="AndroidMixpanel_VideoClick1">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_TVShows_Content_Play" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_VideoClick3">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_TVShows_Content_Play" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_VideoClick5">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_TVShows_Content_Play" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_Videos_Content_Play">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_TVShows_Content_Play" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_VideoStreamingAutoplayChanged">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_TVShows_Content_Play" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_VideoStreamingOverWifiChanged">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_TVShows_Content_Play" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_VideoStreamingQualityChanged">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_TVShows_Content_Play" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_VideoView">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_TVShows_Content_Play" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_VideoWatchDuration">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_TVShows_Content_Play" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_WatchTrailerClicked">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_TVShows_Content_Play" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_WidgetCTAs">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_TVShows_Content_Play" />
+		</classes>
+	</test>
+	
+	<test name="Android_Mixpanel_LIVETVsection_visited">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_TVShows_Content_Play" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_consumption_subscribe_cta_click">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_TVShows_Content_Play" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_RegisterScreenDisplay">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_TVShows_Content_Play" />
+		</classes>
+	</test>
+
+	<test name="AndroidMixpanel_SubscriptionPageViewed">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_TVShows_Content_Play" />
+		</classes>
+	</test>
+	
+	<test name="AndroidMixpanel_SubscriptionSelected">
+		<classes>
+			<class name="com.zee5.AndroidMixpanelTest.AndroidMixpanel_TVShows_Content_Play" />
+		</classes>
+	</test>
 	
 </suite>

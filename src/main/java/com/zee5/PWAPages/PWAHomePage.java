@@ -686,5 +686,7 @@ public class PWAHomePage {
 	}
 	
 	public static By objAddToWatchlist = By.xpath("//div[contains(@class, 'iconInitialLoad-ic_add_Watchlist')]");
+	
+	public static By objRentNowIncarousel=By.xpath("//div[contains(@class,'slick-slide slick-active slick-center slick-current')]//div//span[contains(text(),'Rent Now')]");
 
 }

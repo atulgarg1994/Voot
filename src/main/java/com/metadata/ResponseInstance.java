@@ -1220,8 +1220,8 @@ public class ResponseInstance {
 				respCarousel = RestAssured.given().headers("x-access-token", getXAccessTokenAMD())
 						.header("authorization", bearerToken).when().get(Url);
 			} else if (pUserType.equalsIgnoreCase("NonSubscribedUser")) {
-				String email = getParameterFromXML("NonSubscribedUserName");
-				String password = getParameterFromXML("NonSubscribedUserPassword");
+				String email = getParameterFromXML("NonsubscribedUserName");
+				String password = getParameterFromXML("NonsubscribedPassword");
 				String bearerToken = getBearerToken(email, password);
 				respCarousel = RestAssured.given().headers("x-access-token", getXAccessTokenAMD())
 						.header("authorization", bearerToken).when().get(Url);
@@ -1815,8 +1815,8 @@ public class ResponseInstance {
 			resp = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken)
 					.when().get(url);
 		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
-			String email = getParameterFromXML("NonSubscribedUserName");
-			String password = getParameterFromXML("NonSubscribedUserPassword");
+			String email = getParameterFromXML("NonsubscribedUserName");
+			String password = getParameterFromXML("NonsubscribedPassword");
 			String bearerToken = getBearerToken(email, password);
 			resp = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken)
 					.when().get(url);
@@ -3980,7 +3980,16 @@ public class ResponseInstance {
 		for (int i = 0; i < 5; i++) {
 			String carousalName = pageResp.jsonPath().get("buckets[0].title");
 			MixpanelAndroid.FEProp.setProperty("Carousal Name", carousalName);
-			asset_subtype = pageResp.jsonPath().get("buckets[0].items[" + i + "].asset_subtype");
+			String businessType = pageResp.jsonPath().get("buckets[0].items[" + i + "].business_type");
+			
+			boolean asset = pageResp.jsonPath().get("buckets[0].items[" + i + "].asset_subtype")!=null;
+			if(asset== false) {
+				asset_subtype = "Invalid";
+			}else {
+				asset_subtype = pageResp.jsonPath().get("buckets[0].items[" + i + "].asset_subtype");
+
+			}
+			
 			contentName = pageResp.jsonPath().get("buckets[0].items[" + i + "].title");
 			System.out.println("asset_subtype: " + asset_subtype);
 			String contentID1 = null;
@@ -4005,7 +4014,14 @@ public class ResponseInstance {
 					var = "Invalid";
 				}
 
-			} else {
+			} else if (tabName.equalsIgnoreCase("Music")) {
+					if (asset_subtype.equalsIgnoreCase("video")) {
+						var = asset_subtype;
+					} else {
+						var = "Invalid";
+					}
+				
+			}else {
 				var = asset_subtype;
 			}
 

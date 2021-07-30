@@ -29,7 +29,9 @@ private Zee5ApplicasterMixPanelBusinessLogic Zee5ApplicasterMixPanelBusinessLogi
 	@Parameters({ "userType", "clipContent" })
 	public void AdClickEvent_Search(String usertype, String clipContent) throws Exception {
 		System.out.println("\nAd click event of content");
-		//Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+//		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+//		Zee5ApplicasterMixPanelBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+//		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(usertype);
 		Zee5ApplicasterMixPanelBusinessLogic.AdClickEventOfcontentFromSearchPage(usertype, clipContent);
 	}
 
@@ -37,7 +39,9 @@ private Zee5ApplicasterMixPanelBusinessLogic Zee5ApplicasterMixPanelBusinessLogi
 	@Parameters({ "userType", "pTabName" })
 	public void AdClickEvent_Carousal(String usertype, String pTabName) throws Exception {
 		System.out.println("\nAd click event of content");
-		//Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(usertype);
 		Zee5ApplicasterMixPanelBusinessLogic.AdClickEventForCarouselContent(usertype, pTabName);
 	}
 	
@@ -45,7 +49,9 @@ private Zee5ApplicasterMixPanelBusinessLogic Zee5ApplicasterMixPanelBusinessLogi
 	@Parameters({ "userType", "clipContent", "clipID", "clipContentID" })
 	public void AdClickEvent_ConsumptionPageRail(String usertype, String clipContent, String clipID, String clipContentID) throws Exception {
 		System.out.println("\nAd click event of content");
-		//Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(usertype);
 		Zee5ApplicasterMixPanelBusinessLogic.AdClickEventOfContentFromConsumptionPageRail(usertype, clipContent, clipID, clipContentID);
 	}
 	
@@ -53,7 +59,9 @@ private Zee5ApplicasterMixPanelBusinessLogic Zee5ApplicasterMixPanelBusinessLogi
 	@Parameters({ "userType", "pTabName" })
 	public void AdClickEvent_ContinueWatchingRail(String usertype, String pTabName) throws Exception {
 		System.out.println("\nAd click event of content");
-		//Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(usertype);
 		Zee5ApplicasterMixPanelBusinessLogic.AdClickForContinueWatchingTray(usertype, pTabName);
 	}
 	

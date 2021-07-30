@@ -19,16 +19,16 @@ public class Android_SugarBox_OnboardingStream {
 		ZEE5ApplicasterBusinessLogic = new Zee5ApplicasterBusinessLogic("zee");
 	}
 	
-	@Test(priority = 0)		// Need to Pass the valid Phone Number to get OTP
-	@Parameters({"SugarBoxPhoneNum"})
-	public void OnboardingToSugarBoxNetwork(String PhoneNumber) throws Exception { 
-		ZEE5ApplicasterBusinessLogic.onboardingToSugarboxNetwork(PhoneNumber);
-	}
-
-	@Test(priority = 1)
+	@Test(priority = 0)
 	@Parameters({ "userType" })
 	public void LoginToApp(String pUserType) throws Exception { 
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(pUserType);
+	}
+	
+	@Test(priority = 1)		// Need to Pass the valid Phone Number to get OTP
+	@Parameters({"SugarBoxPhoneNum"})
+	public void OnboardingToSugarBoxNetwork(String PhoneNumber) throws Exception { 
+		ZEE5ApplicasterBusinessLogic.onboardingToSugarboxNetwork(PhoneNumber);
 	}
 	
 	@Test(priority = 2)
@@ -51,12 +51,12 @@ public class Android_SugarBox_OnboardingStream {
 	
 	@Test(priority = 5)
 	@Parameters({"pTabName","userType"})
-	public void XYZn(String pTabname, String pUserType) throws Exception {
+	public void PlayBackVerification(String pTabname, String pUserType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.PlaybackVerificationInSugarboxNetwork(pTabname,pUserType);
 	}
 	
 	@Test(priority = 6)
-	public void DiconnectFromSugarBoxNetwork() throws Exception { 
+	public void DiconnectionValidationFromSugarBoxNetwork() throws Exception { 
 		ZEE5ApplicasterBusinessLogic.SBDisconnectionValidation();
 	}
 	

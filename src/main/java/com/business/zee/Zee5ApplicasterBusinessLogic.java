@@ -33813,11 +33813,17 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	public void PlaybackVerificationInSugarboxNetwork(String pTabName,String pUsertype) throws Exception {
 		extent.HeaderChildNode("Content Playback Validation");
 		System.out.println("\nContent Playback Validation");
-
+		waitTime(8000);
+		
 		String railName = ResponseInstance.getFirstRailNameFromPage(pTabName, pUsertype);
 		System.out.println(railName);
+		
+		if(!pUsertype.equalsIgnoreCase("Guest")) {
+			SwipeUntilFindElement(AMDHomePage.objRailName(railName), "Up");
+		}
 
-		for (int i = 1; i <= 5; i++) {
+		boolean NonSbflag=false,Sbflag=false;
+		for (int i = 1; i <= 4; i++) {
 			click(AMDSugarbox.objContentCard(railName, i), "Content card");
 			
 			
@@ -33843,6 +33849,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					if(verifyElementDisplayed(AMDPlayerScreen.objPlayerScreen)) {
 						logger.info("Content is played with Mob data: " + getText(AMDPlayerScreen.objcontentTitleInconsumptionPage));
 						extent.extentLoggerPass("Content playback","Content is played with Mob data: " + getText(AMDPlayerScreen.objcontentTitleInconsumptionPage));
+						BackToLandingScreen();
+						NonSbflag=true;
 					}else {
 						logger.error("Content is not played with Mob data!");
 						extent.extentLoggerFail("Content playback","Content is not played with Mob data!");
@@ -33853,18 +33861,37 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					String getTitle = getText(AMDPlayerScreen.objcontentTitleInconsumptionPage);
 					logger.info("SugarBox Content is played: " + getTitle);
 					extent.extentLoggerPass("Content playback","SugarBox Content is played: " + getTitle);
-					
-					verifyElementPresentAndClick(AMDPlayerScreen.objDownloadIcon, "Download CTA");
-					verifyElementPresent(AMDLoginScreen.objLoginOrRegisterPageTitle, "Login/Registration screen");
-					if(verifyElementPresent(AMDLoginScreen.objLoginOrRegisterPageTitle, "Login/Registration screen")) {
-						logger.info("Login/Register screen is displayed");
-						extent.extentLoggerPass("Login/Register","Login/Register screen is displayed");
-						Back(1);
+		
+					if(verifyElementDisplayed(AMDConsumptionScreen.objDownloadbtn)) {
+						click(AMDConsumptionScreen.objDownloadbtn, "Download CTA");
+							
+						if(pUsertype.equalsIgnoreCase("Guest")) {
+							if(verifyElementPresent(AMDLoginScreen.objLoginOrRegisterPageTitle, "Login/Registration screen")) {
+								logger.info("Login/Register screen is displayed");
+								extent.extentLoggerPass("Login/Register","Login/Register screen is displayed");
+								hideKeyboard();
+								BackToLandingScreen();
+								Sbflag=true;
+							}else {
+								logger.error("Login/Register screen is not displayed");
+								extent.extentLoggerFail("Login/Register","Login/Register screen is not displayed");
+							}	
+							
+						}else {		
+							if(verifyElementPresent(AMDConsumptionScreen.objDownloadVideoQuality, "Download video quality")) {
+								extent.extentLoggerPass("", "Download video quality is displayed");
+								BackToLandingScreen();
+							}
+							
+						}				
 					}else {
-						logger.error("Login/Register screen is not displayed");
-						extent.extentLoggerFail("Login/Register","Login/Register screen is not displayed");
-					}	
+						logger.info("Downlaod CTA is not available for this content");
+						extent.extentLogger("Download CTAr","Downlaod CTA is not available for this content");
+					}
 				}	
+			}
+			if(NonSbflag==true && Sbflag==true) {
+				break;
 			}
 		}
 	}
@@ -33882,7 +33909,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			click(AMDSugarbox.objSugarboxLogo, "Logo");
 			verifyElementPresentAndClick(AMDGenericObjects.objText("Yes"), "Yes CTA");
 			TurnOFFWifi();
-			if (verifyElementDisplayed(AMDGenericObjects.objText("DONE"))) {
+			
+			if (verifyElementDisplayed(AMDGenericObjects.objText("DONE")) || verifyElementDisplayed(AMDGenericObjects.objText("Done"))) {
 				Back(1);
 //				Runtime.getRuntime().exec("adb shell monkey -p com.graymatrix.did -c android.intent.category.LAUNCHER 1");
 			}
@@ -34775,9 +34803,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 //		String pSubTitle = "Connect to SugarBox Wi-Fi and start watching ZEE5 Premium without using mobile data";
 		
 		String readNotification,readNotification2;
-		String notificationCommand = "adb shell dumpsys notification --noredact | grep SugarBox";
+		String notificationCommand = "adb shell dumpsys notification --noredact | grep Zone";
 		String notificationCommand2 = "adb shell dumpsys notification --noredact | grep ZEE5";
 
+		waitTime(12000);
 		Process process = Runtime.getRuntime().exec(notificationCommand);
 		BufferedReader Result = new BufferedReader(new InputStreamReader(process.getInputStream()));
 		
@@ -34802,7 +34831,12 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				logger.info("SugarBox Notification (SubTitle) is displayed: "+pSubTitle);
 				extent.extentLoggerPass("Notification","Notification (SubTitle) is displayed: "+pSubTitle);
 			}
+			
+			if(flagTitle==true && flagSubTitle==true) {
+				break;
+			}
 		}
+		
 		if(flagTitle==false || flagSubTitle==false) {
 			logger.info("SugarBox Notification is not displayed");
 			extent.extentLoggerFail("Notification","SugarBox Notification (SubTitle) is not displayed");

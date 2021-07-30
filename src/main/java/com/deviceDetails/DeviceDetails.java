@@ -57,6 +57,7 @@ public class DeviceDetails {
 			Process p = Runtime.getRuntime().exec(cmd);
 			BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
 			while ((DeviceModel = br.readLine()) != null) {
+				logger.info("Build Version : " + DeviceModel.trim());
 				return DeviceModel.trim();
 			}
 		} catch (Exception e) {
@@ -89,7 +90,7 @@ public class DeviceDetails {
 			Process p1 = Runtime.getRuntime().exec(cmd1);
 			BufferedReader br = new BufferedReader(new InputStreamReader(p1.getInputStream()));
 			while ((outputText1 = br.readLine()) != null) {
-				logger.info("Version :: " + outputText1.toString());
+				logger.info("OS Version :: " + outputText1.toString());
 				Thread.sleep(3000);
 				break;
 			}
@@ -167,6 +168,7 @@ public class DeviceDetails {
 		String getDeviceName = deviceNames();
 		String getOSName = deviceOS();
 		DeviceInfo = "Device Name - " + getDeviceName + " Version - " + getOSName;
+		logger.info("Device Name : "+getDeviceName+"\n"+"OS Version : "+getOSName);
 		return DeviceInfo;
 	}
 
@@ -196,5 +198,20 @@ public class DeviceDetails {
 	
 	public static void main(String[] args) {
 		getListOfDevicesConnected1();
+	}
+	
+	
+	public static void deviceDetails() {
+		String cmd3 = "adb shell getprop ro.product.manufacturer";
+		Process process;
+		try {
+			process = Runtime.getRuntime().exec(cmd3);
+			BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			String DeviceName = br.readLine();
+			logger.info("Device Name : "+DeviceName);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		getTheOSVersion();
 	}
 }

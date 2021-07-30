@@ -1025,6 +1025,16 @@ public class PWAHamburgerMenuPage {
 	public static By objTextBelowThePlayer = By.xpath("//*[contains(text(), 'Get Flat 50% Off on 1 Year Premium at ₹499')]");
 	
 	public static By objSubscriptionTeaserBanner = By.xpath("//div[@class='subscriptionBanner ']");
-
 	
+	public static By objupcomingTrailer=By.xpath("");
+	
+	public static By objWatchFilmsBeforeTheatre=By.xpath("//*[@class='plexBannerDescription']");
+	public static By objZeeplexSubscriptionText=By.xpath("//*[@class='plexZee5SubscriptionText']");
+	
+	public static By objNowShowingTray=By.xpath("//h2[text()='Now Showing']");
+	
+	public static By objSubscriptionCardTitle=By.xpath("//div[@class='subscriptionItem']//h2[@class='packName']");
+
+	public static By objZeeplexlogo=By.xpath("//img[@class='plexLandingPageLogo']");
+	public static By objRentAndWatch=By.xpath("//*[@class='planLandingPageHeader']");
 }

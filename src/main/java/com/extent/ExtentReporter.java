@@ -130,6 +130,7 @@ public class ExtentReporter implements ITestListener {
 		setPlatform(context.getSuite().getName());
 		userType = context.getCurrentXmlTest().getParameter("userType");
 		appVersion();
+		DeviceDetails.deviceDetails();
 		filePath = System.getProperty("user.dir") + "/Reports" + "/" + currentDate + "/" + getPlatform() + "/"
 				+ context.getCurrentXmlTest().getParameter("userType") + "/" + context.getName() + "/"
 				+ context.getCurrentXmlTest().getParameter("userType") + "_" + context.getName() + "_" + getAppVersion()

@@ -37,7 +37,9 @@ private Zee5ApplicasterMixPanelBusinessLogic Zee5ApplicasterMixPanelBusinessLogi
 	@Parameters({ "userType", "pTabName" })
 	public void AdViewEvent_Carousal(String usertype, String pTabName) throws Exception {
 		System.out.println("\nAd view event of content");
-		//Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(usertype);
 		Zee5ApplicasterMixPanelBusinessLogic.AdViewEventForCarouselContent(usertype, pTabName);
 	}
 	
@@ -45,7 +47,9 @@ private Zee5ApplicasterMixPanelBusinessLogic Zee5ApplicasterMixPanelBusinessLogi
 	@Parameters({ "userType", "clipContent", "clipID", "clipContentID" })
 	public void AdViewEvent_ConsumptionPageRail(String usertype, String clipContent, String clipID, String clipContentID) throws Exception {
 		System.out.println("\nAd view event of content");
-		//Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(usertype);
 		Zee5ApplicasterMixPanelBusinessLogic.AdViewEventOfContentFromConsumptionPageRail(usertype, clipContent, clipID, clipContentID);
 	}
 
@@ -53,7 +57,9 @@ private Zee5ApplicasterMixPanelBusinessLogic Zee5ApplicasterMixPanelBusinessLogi
 	@Parameters({ "userType", "pTabName" })
 	public void AdViewEvent_ContinueWatchingRail(String usertype, String pTabName) throws Exception {
 		System.out.println("\nAd view event of content");
-		//Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(usertype);
 		Zee5ApplicasterMixPanelBusinessLogic.AdViewEventForContinueWatchingTray(usertype, pTabName);
 	}
 	//###############-------END OF TEST-------###############

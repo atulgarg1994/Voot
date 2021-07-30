@@ -29,7 +29,9 @@ public class AndroidMixpanel_AdInitialized {
 	@Parameters({ "userType", "clipContent" })
 	public void AdInitializedEvent_Search(String usertype, String clipContent) throws Exception {
 		System.out.println("\nAd initialized event of content");
-		//Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+//		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+//		Zee5ApplicasterMixPanelBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+//		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(usertype);
 		Zee5ApplicasterMixPanelBusinessLogic.AdInitializedEventOfcontentFromSearchPage(usertype, clipContent);
 	}
 	
@@ -37,7 +39,9 @@ public class AndroidMixpanel_AdInitialized {
 	@Parameters({ "userType", "pTabName" })
 	public void AdInitializedEvent_Carousal(String usertype, String pTabName) throws Exception {
 		System.out.println("\nAd initialized event of content");
-		//Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(usertype);
 		Zee5ApplicasterMixPanelBusinessLogic.AdInitializedEventForCarouselContent(usertype, pTabName);
 	}
 	
@@ -45,7 +49,9 @@ public class AndroidMixpanel_AdInitialized {
 	@Parameters({ "userType", "clipContent", "clipID", "clipContentID" })
 	public void AdInitializedEvent_ConsumptionPageRail(String usertype, String clipContent, String clipID, String clipContentID) throws Exception {
 		System.out.println("\nAd initialized event of content");
-		//Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(usertype);
 		Zee5ApplicasterMixPanelBusinessLogic.AdInitializedEventOfcontentFromConsumptionPageRail(usertype, clipContent, clipID, clipContentID);
 	}
 	
@@ -53,7 +59,9 @@ public class AndroidMixpanel_AdInitialized {
 	@Parameters({ "userType", "pTabName" })
 	public void AdInitializedEvent_ContinueWatchingRail(String usertype, String pTabName) throws Exception {
 		System.out.println("\nAd Initialized event of content");
-		//Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(usertype);
 		Zee5ApplicasterMixPanelBusinessLogic.AdInitializedForContinueWatchingTray(usertype, pTabName);
 	}
 

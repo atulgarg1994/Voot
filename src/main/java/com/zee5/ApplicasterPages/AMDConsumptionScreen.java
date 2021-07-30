@@ -190,4 +190,5 @@ public class AMDConsumptionScreen {
     
     public static By objEnterYour4DigitPIN = By.xpath(""); 
     
+    public static By objDownloadVideoQuality = By.xpath("//*[@text='Download Video Quality']");
 }
