@@ -392,7 +392,7 @@ public class Zee5AppsFlyerBusinessLogic extends Utilities{
 					System.out.println("UpdateZee5 Not displayed");
 				}
 				Thread.sleep(10000);
-		if (verifyElementExist(AMDOnboardingScreen.objAllowLocationAccessPopup, "AllowPopup")) {
+		if (verifyIsElementDisplayed(AMDOnboardingScreen.objAllowLocationAccessPopup, "AllowPopup")) {
 			Wait(5000);
 
 			String str1 = getAttributValue("text", AMDOnboardingScreen.objFirstPermissionButton);
@@ -453,7 +453,15 @@ public class Zee5AppsFlyerBusinessLogic extends Utilities{
 	}
 	
 	
-	
+	public void selectCountry() throws Exception {
+		extent.HeaderChildNode("Select Country");
+		
+		waitForElementDisplayed(AMDOnboardingScreen.objContinueBtnInCountryPopUp, 15);
+		if (verifyIsElementDisplayed(AMDOnboardingScreen.objContinueBtnInCountryPopUp)) {
+			click(AMDOnboardingScreen.objContinueBtnInCountryPopUp, "Continuebutton(Country_Screen)");
+		}
+		
+	}
 	
 	
 	public void ZeeApplicasterLogin(String LoginMethod) throws Exception {
@@ -738,7 +746,7 @@ public class Zee5AppsFlyerBusinessLogic extends Utilities{
 		if(!userType.equals("SubscribedUser")){
 			//BackToHome();
 			
-			verifyElementPresentAndClick(AMDSubscibeScreen.objconsumptionBuyPlanButton, "Consumption BuyPlan Button");
+			verifyElementPresentAndClick(AMDSubscibeScreen.objconsumptionBuyPlanButton1, "Consumption BuyPlan Button");
 			waitTime(8000);
 			verifyElementPresentAndClick(AMDSubscibeScreen.objContinueButton, "Continue Button");
 			waitTime(10000);

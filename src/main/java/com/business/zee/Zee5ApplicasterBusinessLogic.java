@@ -33437,7 +33437,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Validation of Playback Ads");
 		verifyElementPresentAndClick(AMDHomePage.objHomeBottomBtn, "Home Button");
 		waitTime(5000);
-
+		
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad View event");
 			click(AMDSearchScreen.objSearchIcon, "Search icon");
@@ -33449,9 +33449,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			waitTime(4000);
 //			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
 			click(AMDSearchScreen.objSearchResultContainsText(SearchContent), "Search Result");
-
+			
 			// PRE-ROLL
-			waitTime(5000);
+			waitTime(10000);
+			waitTime(10000);
 			boolean adPreroll = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
 			if (adPreroll == true) {
 				logger.info("PreRoll Ad play in progress");
@@ -33472,21 +33473,28 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			}
 
 			System.out.println(userType);
-			if (userType.equalsIgnoreCase("Guest")) {
-				registerPopUpClose();
-			} else {
-
+			if(userType.equalsIgnoreCase("Guest")){
+				registerPopUpClose();		
+			}else{
+				
 			}
-
-			if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+			
+			if(userType.equalsIgnoreCase("NonSubscribedUser")){
 				completeProfilePopUpClose();
-			} else {
-
+			}else{
+				
 			}
-
-			waitTime(20000);
-			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
-			scrubProgressBarToMidDFP1(AMDPlayerScreen.objProgressBar);
+			
+			waitTime(10000);
+			waitTime(10000);
+			
+			if(verifyIsElementDisplayed(AMDPlayerScreen.objPause,"pause icon")) {
+				scrubProgressBarToMidDFP1(AMDPlayerScreen.objProgressBar);
+			}else {
+				click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+				scrubProgressBarToMidDFP1(AMDPlayerScreen.objProgressBar);
+			}
+		
 			waitTime(5000);
 //			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 			waitTime(2000);
@@ -33536,7 +33544,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLogger("Ad", "Post Roll Bumper Ad is not available for the content");
 			}
 		} else {
-
+			
 			extent.HeaderChildNode("Ad validation is not applicable for - " + userType);
 			click(AMDSearchScreen.objSearchIcon, "Search icon");
 			click(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -33547,7 +33555,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			waitTime(4000);
 //			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
 			click(AMDSearchScreen.objSearchResultContainsText(SearchContent), "Search Result");
-
+			
 			waitTime(8000);
 
 			boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
@@ -33558,6 +33566,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				logger.info("Ad is not available for Subscribed User");
 				extent.extentLoggerPass("Ad", "Ad is not available for Subscribed User");
 			}
+			
 
 		}
 	}
@@ -33893,6 +33902,70 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			if(NonSbflag==true && Sbflag==true) {
 				break;
 			}
+		}
+		//DOWNLOAD FUNCTIONALITY
+		
+		if(!pUsertype.equalsIgnoreCase("Guest")) {
+		
+		
+		BackToLandingScreen();
+		
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings CTA");
+		
+		if(verifyIsElementDisplayed(AMDSettingsScreen.objDownloadOverWifiOFF, "Download Over Wifi OFF")){
+			
+			verifyElementPresentAndClick(AMDSettingsScreen.objDownloadOverWifiOFF, "Download Over Wifi OFF");
+			
+		}else {
+			extent.extentLoggerPass("", "Download Over wifi is ON");
+		}
+		
+		BackToLandingScreen();
+		
+		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon2, "Search Icon");
+
+		waitTime(3000);
+		click(AMDSearchScreen.objSearchEditBox, "Search edit");
+		type(AMDSearchScreen.objSearchBoxBar, "Kanmani - DV | Akshatha.T | Vaishnavi Gopal"+ "\n", "Search Field");
+		waitTime(8000);
+		hideKeyboard();
+		waitTime(5000);
+		click(AMDSearchScreen.objSearchResultContainsText("Kanmani - DV | Akshatha.T | Vaishnavi Gopal"), "Searched Show");
+		waitTime(5000);
+		waitTime(5000);
+		verifyElementPresentAndClick(AMDDownloadPage.objDownloadIcon, "Download button");
+		//verifyElementExist(AMDDownloadPage.objDownloadVideoQualityPopup, "Download video quality Pop up");
+		//click(AMDDownloadPage.objStartDownloadCTA, "Start Download CTA");
+		waitTime(2000);
+		verifyElementPresent(AMDDownloadPage.objDownloadProgressIcon1, "Download progress icon");
+		waitTime(5000);
+		waitTime(5000);
+		waitForElementDisplayed(AMDDownloadPage.objDownloadedContentIcon, 50);
+		BackToLandingScreen();
+		click(AMDHomePage.objDownloadBtn, "Downloads tab");
+		waitTime(5000);
+		
+		if(verifyIsElementDisplayed(AMDHomePage.objContentDownloadedIcon, "Content Downloaded icon")) {
+			extent.extentLoggerPass("", "User is able to Download the content available on Sugar Box server");
+		}else {
+			extent.extentLoggerFail("", "User is not able to Download the content available on Sugar Box server");
+		}
+		
+		
+		if(verifyIsElementDisplayed(AMDHomePage.objSugarBoxIconOnThumbnail, "SugarBox Icon")) {
+			extent.extentLoggerPass("", "Sugar Box Icon is displayed on the thumbanil");
+		}else {
+			extent.extentLoggerFail("", "Sugar Box Icon is not displayed on the thumbanil");
+		}
+		
+		
+		verifyElementPresentAndClick(AMDHomePage.objContentDownloadedIcon, "Content Downloaded icon");
+		
+		waitTime(5000);
+		verifyElementPresentAndClick(AMDHomePage.objContentDownloadedDeleteIcon, "Content Downloaded Delete icon");
+		
+		BackToLandingScreen();
 		}
 	}
 	

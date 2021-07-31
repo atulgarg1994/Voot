@@ -209,8 +209,11 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 		if(userType.equals("NonSubscribedUser")) {
 		HeaderChildNode("Subscription Call Returned");
 		verifyElementPresentAndClick(AMDMySubscriptionPage.objEnterCardNumberBtn, "Enter Card Number");
+		waitTime(8000);
 		type(AMDMySubscriptionPage.objEnterCCTxt,"4012001037141112", "Card Number");
+		waitTime(5000);
 		type(AMDMySubscriptionPage.objExpiryCCTxt, "0525", "Expiry");
+		waitTime(5000);
 		type(AMDMySubscriptionPage.objCVVTxt, "124", "CVV");
 		verifyElementPresentAndClick(AMDMySubscriptionPage.objPayNow, "Pay Now button");
 		waitTime(180000);
@@ -391,6 +394,7 @@ public class Zee5ApplicasterCleverTapBusinessLogic extends Utilities{
 		extent.extentLogger("User Type", "UserType : " + userType);
 		logger.info("UserType : " + userType);
 		System.out.println("Access Device Location PopUp");
+		Thread.sleep(10000);
 		Thread.sleep(10000);
 		Thread.sleep(10000);
 				if(verifyIsElementDisplayed(AMDOnboardingScreen.objUpdateZee5PopUpNOTHANKSButton, "NO THANKS Button"))

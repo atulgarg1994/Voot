@@ -326,4 +326,9 @@ public class AMDHomePage {
 	
 	public static By objQuitYesCTA = By.id("accept");
 	public static By objQuitNoCTA = By.id("dismiss");	
+	
+	
+ 	public static By objContentDownloadedIcon = By.xpath("//*[@id='img_state']");
+ 	public static By objContentDownloadedDeleteIcon = By.xpath("//*[@id='tvDeleteDownload']");
+ 	public static By objSugarBoxIconOnThumbnail = By.xpath("//*[@id='img_sugarBox_violator']");
 }

@@ -97,4 +97,8 @@ public class AMDSettingsScreen {
 	
 	//Enter PIN Text Feiled 
 	public static By objEnterPINTextFeiled  = By.xpath("//*[@resource-id='com.graymatrix.did:id/editTextsLinearLayout']");
+	
+	public static By objDownloadOverWifiOFF = By.xpath("//*[@id='downloadOverWifiSwitch' and @text='OFF']");
+	
+	public static By objDownloadOverWifiON = By.xpath("//*[@id='downloadOverWifiSwitch' and @text='ON']");	
 }

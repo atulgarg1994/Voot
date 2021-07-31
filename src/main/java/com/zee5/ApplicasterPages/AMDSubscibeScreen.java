@@ -158,6 +158,8 @@ public class AMDSubscibeScreen {
 	 
 	public static By objconsumptionBuyPlanButton = By.xpath("(//*[@id='subscribeButton' and @text='Buy Plan'])[1]");
 	
+	public static By objconsumptionBuyPlanButton1 = By.xpath("((//*[@id='subscribeButton' and @text='Buy Plan'])[1]) | (//*[@text='BUY PLAN'])[1]");
+	
 	public static By objContinueButton  = By.xpath("//*[@id='continueButton']");
 	
 	public static By objBuyPlanButton  = By.xpath("//*[@id='home_toolbar_buy_plan']");

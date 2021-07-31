@@ -35,6 +35,7 @@ public class AppsflyerTest {
 		//Functionality
 		Zee5AppsFlyerBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		Zee5AppsFlyerBusinessLogic.DisplayAndContentLanguage(userType);
+		Zee5AppsFlyerBusinessLogic.selectCountry();
 		Zee5AppsFlyerBusinessLogic.ZeeApplicasterLogin(userType);
 
 		
@@ -64,6 +65,7 @@ public class AppsflyerTest {
 		//Functionality
 		Zee5AppsFlyerBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		Zee5AppsFlyerBusinessLogic.DisplayAndContentLanguage(userType);
+		Zee5AppsFlyerBusinessLogic.selectCountry();
 		Zee5AppsFlyerBusinessLogic.ZeeApplicasterLogin(userType);
 
 		//Consumption Functionality
@@ -95,6 +97,7 @@ public class AppsflyerTest {
 		//Functionality
 		Zee5AppsFlyerBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		Zee5AppsFlyerBusinessLogic.DisplayAndContentLanguage(userType);
+		Zee5AppsFlyerBusinessLogic.selectCountry();
 		Zee5AppsFlyerBusinessLogic.ZeeApplicasterLogin(userType);
 		
 		Zee5AppsFlyerBusinessLogic.RegisterAndLanguageFunctionality(userType);
