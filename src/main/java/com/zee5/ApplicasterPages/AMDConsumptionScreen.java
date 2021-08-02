@@ -188,7 +188,7 @@ public class AMDConsumptionScreen {
     
     public static By objBuyPlanRibbonCTA = By.xpath("(//*[@id='subscribeButton' and @text='Buy Plan'])");
     
-    public static By objEnterYour4DigitPIN = By.xpath(""); 
-    
     public static By objDownloadVideoQuality = By.xpath("//*[@text='Download Video Quality']");
+    
+    public static By objEnterYour4DigitPIN = By.xpath("//*[@resource-id='com.graymatrix.did:id/parentalFragmentTitleTextView']");
 }

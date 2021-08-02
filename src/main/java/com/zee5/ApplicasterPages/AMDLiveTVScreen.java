@@ -28,4 +28,5 @@ public class AMDLiveTVScreen {
 	
 	public static By objSubscribeIcon = By.xpath("//*[@id='home_subscribe_text_view'] | //*[@id='home_toolbar_buy_plan']");
 	
+	public static By objLiveTVFirstContentCard = By.xpath("(//*[@id='cell_center_container' and (./preceding-sibling::* | ./following-sibling::*)]//*[@class='android.widget.ImageView'])[1]");
 }

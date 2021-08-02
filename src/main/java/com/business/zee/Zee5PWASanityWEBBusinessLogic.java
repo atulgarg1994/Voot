@@ -14910,12 +14910,12 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		// extent.HeaderChildNode(" HLS_020 :User mouse hovered on any thumbnail/Content
 		// metadata is displayed");
 		waitTime(2000);
-		getWebDriver()
-				.findElement(By.xpath("(//a[contains(@class,'noSelect')][contains(text(),'" + tabName + "')])[1]"))
-				.click();
+//		getWebDriver()
+//				.findElement(By.xpath("(//a[contains(@class,'noSelect')][contains(text(),'" + tabName + "')])[1]"))
+//				.click();
 		// waitTime(7000);
-		// navigateToAnyScreenOnWeb(tab);
-		waitForElementDisplayed(PWAMusicPage.objPremiumTag, 30);
+		navigateToAnyScreenOnWeb(tabName);
+//		waitForElementDisplayed(PWAMusicPage.objPremiumTag, 30);
 		String languageSmallText = allSelectedLanguages();
 		System.out.println(languageSmallText);
 		Response resp = ResponseInstance.getResponseForPages(api, languageSmallText);
@@ -14984,7 +14984,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			logger.error("Content is not auto rotated");
 			extent.extentLoggerFail("Autorotating", "Content is not auto rotated");
 		}
-		extent.HeaderChildNode(" HLS_020 :User mouse hovered on any thumbnail/Content metadata is displayed");
+		extent.HeaderChildNode(" HLS_020 : User mouse hovered on any thumbnail/Content metadata is displayed");
 		trayTitleAndContentValidationWithApiDataHome(tabName, "home");
 
 		if (userType.equalsIgnoreCase("Guest")) {
@@ -15032,17 +15032,17 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.extentLogger("Tray is rotated", "Tray is rotated");
 		JSClick(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button");
 
-		extent.HeaderChildNode("HLS_015 : Verify View All button functionality");
-		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "View All Button")) {
-			JSClick(PWAPremiumPage.objViewAllBtn, "View All Button");
+		extent.HeaderChildNode("HLS_015 : Verify More button functionality");
+		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "More Button")) {
+			JSClick(PWAPremiumPage.objViewAllBtn, "More Button");
 			waitTime(5000);
-			if (checkElementDisplayed(PWAPremiumPage.objViewAllPage, "View All Page")) {
-				logger.info("Navigated to View All Page");
-				extent.extentLogger("View All", "Navigated to View All Page");
+			if (checkElementDisplayed(PWAPremiumPage.objViewAllPage, "More Page")) {
+				logger.info("Navigated to More Page");
+				extent.extentLogger("More", "Navigated to More Page");
 				Back(1);
 			} else {
-				logger.error("Not navigated to View All Page");
-				extent.extentLoggerFail("View All", "Not navigated to View All Page");
+				logger.error("Not navigated to More Page");
+				extent.extentLoggerFail("More", "Not navigated to More Page");
 			}
 		}
 
@@ -15061,23 +15061,27 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			}
 		}
 
-		extent.HeaderChildNode(" HLS_017 : Verify the premium tag for all premium content card");
-		waitTime(3000);
-		for (int i = 0; i < 10; i++) {
-			if (getWebDriver().findElements(PWAHamburgerMenuPage.objpremiumcard).size() > 0) {
-				logger.info("Premium tag is displayed");
-				extent.extentLogger("Tag", "Premium Tag is isplayed");
-				break;
-			} else {
-				scrollDownByY(300);
-				if (i == 4) {
-					logger.info("Premium tag is not displayed");
-					extent.extentLogger("Tag", "Premium Tag is not displayed");
+		if(userType.equalsIgnoreCase("Guest") || userType.equalsIgnoreCase("NonSubscribedUser")) {
+		
+			extent.HeaderChildNode(" HLS_017 : Verify the premium tag for all premium content card");
+			waitTime(3000);
+			for (int i = 0; i < 10; i++) {
+				if (getWebDriver().findElements(PWAHamburgerMenuPage.objpremiumcard).size() > 0) {
+					logger.info("Premium tag is displayed");
+					extent.extentLogger("Tag", "Premium Tag is isplayed");
+					break;
+				} else {
+					scrollDownByY(300);
+					if (i == 4) {
+						logger.info("Premium tag is not displayed");
+						extent.extentLogger("Tag", "Premium Tag is not displayed");
+					}
 				}
 			}
+			scrollToElement(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn);
+			verifyElementPresentAndClick(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn, "Back to Top");
 		}
-		click(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn, "Back to Top");
-
+		
 		extent.HeaderChildNode(" HLS_019 : Availability and functionality of play, Share icons");
 		Actions actions = new Actions(getWebDriver());
 		WebElement contentCard = getWebDriver()
@@ -15090,7 +15094,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitTime(1000);
 		checkElementDisplayed(PWAPremiumPage.objContentCardShareBtn, "Share Button");
 		JSClick(PWAPremiumPage.objContentCardShareBtn, "Share Button");
-		Back(1);
+//		Back(1);
 		waitTime(1000);
 //		verifyElementEnabled(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist Button");
 //		JSClick(PWAPremiumPage.objContentCardWatchlistBtn, "Add to Watchlist Button");
@@ -17475,7 +17479,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				}
 			}
 		}
-		click(PWAZee5OriginalPage.objNavigateToTop, "Back to Top Arrow");
+		scrollToElement(PWAZee5OriginalPage.objNavigateToTop);
+		verifyElementPresentAndClick(PWAZee5OriginalPage.objNavigateToTop, "Back to Top Arrow");
 	}
 
 	public void kaltura(String userType, String tabName) throws Exception {

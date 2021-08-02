@@ -33437,7 +33437,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Validation of Playback Ads");
 		verifyElementPresentAndClick(AMDHomePage.objHomeBottomBtn, "Home Button");
 		waitTime(5000);
-		
+
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			extent.HeaderChildNode("Verify Ad View event");
 			click(AMDSearchScreen.objSearchIcon, "Search icon");
@@ -33449,7 +33449,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			waitTime(4000);
 //			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
 			click(AMDSearchScreen.objSearchResultContainsText(SearchContent), "Search Result");
-			
+
 			// PRE-ROLL
 			waitTime(10000);
 			waitTime(10000);
@@ -33473,28 +33473,28 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			}
 
 			System.out.println(userType);
-			if(userType.equalsIgnoreCase("Guest")){
-				registerPopUpClose();		
-			}else{
-				
+			if (userType.equalsIgnoreCase("Guest")) {
+				registerPopUpClose();
+			} else {
+
 			}
-			
-			if(userType.equalsIgnoreCase("NonSubscribedUser")){
+
+			if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 				completeProfilePopUpClose();
-			}else{
-				
+			} else {
+
 			}
-			
+
 			waitTime(10000);
 			waitTime(10000);
-			
-			if(verifyIsElementDisplayed(AMDPlayerScreen.objPause,"pause icon")) {
+
+			if (verifyIsElementDisplayed(AMDPlayerScreen.objPause, "pause icon")) {
 				scrubProgressBarToMidDFP1(AMDPlayerScreen.objProgressBar);
-			}else {
+			} else {
 				click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 				scrubProgressBarToMidDFP1(AMDPlayerScreen.objProgressBar);
 			}
-		
+
 			waitTime(5000);
 //			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 			waitTime(2000);
@@ -33544,7 +33544,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLogger("Ad", "Post Roll Bumper Ad is not available for the content");
 			}
 		} else {
-			
+
 			extent.HeaderChildNode("Ad validation is not applicable for - " + userType);
 			click(AMDSearchScreen.objSearchIcon, "Search icon");
 			click(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -33555,7 +33555,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			waitTime(4000);
 //			click(AMDSearchScreen.objFirstContentInSearchResult, "Search result");
 			click(AMDSearchScreen.objSearchResultContainsText(SearchContent), "Search Result");
-			
+
 			waitTime(8000);
 
 			boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
@@ -33566,7 +33566,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				logger.info("Ad is not available for Subscribed User");
 				extent.extentLoggerPass("Ad", "Ad is not available for Subscribed User");
 			}
-			
 
 		}
 	}
@@ -33714,7 +33713,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			click(AMDSugarbox.objLocateBtn, "Locate btn");
 			verifyElementPresentAndClick(AMDSugarbox.objAllowLocationPopup, "Allow");
 			waitTime(3000);
-			
+
 			if (verifyElementIsNotDisplayed(AMDSugarbox.objConnectToSugarBox)) {
 				click(AMDHomePage.objZee5Logo, "Zee5Logo");
 				try {
@@ -33732,7 +33731,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					System.out.println("Sugarbox icon in landing screen is not present: " + e);
 					logger.info("Sugarbox icon in landing screen is not present: " + e);
 				}
-			}else if(verifyElementDisplayed(AMDSugarbox.objConnectToSugarBox)) {		
+			} else if (verifyElementDisplayed(AMDSugarbox.objConnectToSugarBox)) {
 				try {
 					verifyElementPresentAndClick(AMDSugarbox.objConnectToSugarBox, "ConnectToSugarBox CTA");
 					waitTime(3000);
@@ -33818,157 +33817,161 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			}
 		}
 	}
-	
-	public void PlaybackVerificationInSugarboxNetwork(String pTabName,String pUsertype) throws Exception {
+
+	public void PlaybackVerificationInSugarboxNetwork(String pTabName, String pUsertype) throws Exception {
 		extent.HeaderChildNode("Content Playback Validation");
 		System.out.println("\nContent Playback Validation");
 		waitTime(8000);
-		
+
 		String railName = ResponseInstance.getFirstRailNameFromPage(pTabName, pUsertype);
 		System.out.println(railName);
-		
-		if(!pUsertype.equalsIgnoreCase("Guest")) {
+
+		if (!pUsertype.equalsIgnoreCase("Guest")) {
 			SwipeUntilFindElement(AMDHomePage.objRailName(railName), "Up");
 		}
 
-		boolean NonSbflag=false,Sbflag=false;
+		boolean NonSbflag = false, Sbflag = false;
 		for (int i = 1; i <= 4; i++) {
 			click(AMDSugarbox.objContentCard(railName, i), "Content card");
-			
-			
+
 			if (verifyElementDisplayed(AMDSugarbox.objVideoNotAvailableContinue)) {
 				String getHeader = getText(AMDSugarbox.objHeadeTitle);
 				if (getHeader.contains("video is not available at this SugarBox")) {
-					logger.info("Popup with text: "+getHeader);
-					extent.extentLoggerPass("Pop Up","Popup with text: "+getHeader);
-					
-					//******Verifying the Popup screen CTA and title
+					logger.info("Popup with text: " + getHeader);
+					extent.extentLoggerPass("Pop Up", "Popup with text: " + getHeader);
+
+					// ******Verifying the Popup screen CTA and title
 					verifyElementPresent(AMDSugarbox.SBLogoPopup, "SugarBox Logo");
-					verifyElementPresent(AMDGenericObjects.objText("Continue to stream or download this video using your mobile data"), "Continue to stream or download this video using your mobile data");
+					verifyElementPresent(
+							AMDGenericObjects
+									.objText("Continue to stream or download this video using your mobile data"),
+							"Continue to stream or download this video using your mobile data");
 					verifyElementPresent(AMDSugarbox.objDontShowCheckBx, "Dont Show this again");
 					verifyElementPresent(AMDSugarbox.objVideoNotAvailableContinue, "Continue");
 					verifyElementPresentAndClick(AMDSugarbox.objCancelCTA, "Cancel CTA");
 					verifyElementPresent(AMDHomePage.objRailName(railName), railName);
-					
-					
-					//******Verify content can be played with Mobile Data
+
+					// ******Verify content can be played with Mobile Data
 					click(AMDSugarbox.objContentCard(railName, i), "Content card");
 					click(AMDSugarbox.objVideoNotAvailableContinue, "Continue CTA");
 					waitTime(7000);
-					if(verifyElementDisplayed(AMDPlayerScreen.objPlayerScreen)) {
-						logger.info("Content is played with Mob data: " + getText(AMDPlayerScreen.objcontentTitleInconsumptionPage));
-						extent.extentLoggerPass("Content playback","Content is played with Mob data: " + getText(AMDPlayerScreen.objcontentTitleInconsumptionPage));
+					if (verifyElementDisplayed(AMDPlayerScreen.objPlayerScreen)) {
+						logger.info("Content is played with Mob data: "
+								+ getText(AMDPlayerScreen.objcontentTitleInconsumptionPage));
+						extent.extentLoggerPass("Content playback", "Content is played with Mob data: "
+								+ getText(AMDPlayerScreen.objcontentTitleInconsumptionPage));
 						BackToLandingScreen();
-						NonSbflag=true;
-					}else {
+						NonSbflag = true;
+					} else {
 						logger.error("Content is not played with Mob data!");
-						extent.extentLoggerFail("Content playback","Content is not played with Mob data!");
+						extent.extentLoggerFail("Content playback", "Content is not played with Mob data!");
 					}
 				}
 			} else {
-				if(verifyElementPresent(AMDPlayerScreen.objPlayerScreen, "Player Screen")) {
+				if (verifyElementPresent(AMDPlayerScreen.objPlayerScreen, "Player Screen")) {
 					String getTitle = getText(AMDPlayerScreen.objcontentTitleInconsumptionPage);
 					logger.info("SugarBox Content is played: " + getTitle);
-					extent.extentLoggerPass("Content playback","SugarBox Content is played: " + getTitle);
-		
-					if(verifyElementDisplayed(AMDConsumptionScreen.objDownloadbtn)) {
+					extent.extentLoggerPass("Content playback", "SugarBox Content is played: " + getTitle);
+
+					if (verifyElementDisplayed(AMDConsumptionScreen.objDownloadbtn)) {
 						click(AMDConsumptionScreen.objDownloadbtn, "Download CTA");
-							
-						if(pUsertype.equalsIgnoreCase("Guest")) {
-							if(verifyElementPresent(AMDLoginScreen.objLoginOrRegisterPageTitle, "Login/Registration screen")) {
+
+						if (pUsertype.equalsIgnoreCase("Guest")) {
+							if (verifyElementPresent(AMDLoginScreen.objLoginOrRegisterPageTitle,
+									"Login/Registration screen")) {
 								logger.info("Login/Register screen is displayed");
-								extent.extentLoggerPass("Login/Register","Login/Register screen is displayed");
+								extent.extentLoggerPass("Login/Register", "Login/Register screen is displayed");
 								hideKeyboard();
 								BackToLandingScreen();
-								Sbflag=true;
-							}else {
+								Sbflag = true;
+							} else {
 								logger.error("Login/Register screen is not displayed");
-								extent.extentLoggerFail("Login/Register","Login/Register screen is not displayed");
-							}	
-							
-						}else {		
-							if(verifyElementPresent(AMDConsumptionScreen.objDownloadVideoQuality, "Download video quality")) {
+								extent.extentLoggerFail("Login/Register", "Login/Register screen is not displayed");
+							}
+
+						} else {
+							if (verifyElementPresent(AMDConsumptionScreen.objDownloadVideoQuality,
+									"Download video quality")) {
 								extent.extentLoggerPass("", "Download video quality is displayed");
 								BackToLandingScreen();
 							}
-							
-						}				
-					}else {
+
+						}
+					} else {
 						logger.info("Downlaod CTA is not available for this content");
-						extent.extentLogger("Download CTAr","Downlaod CTA is not available for this content");
+						extent.extentLogger("Download CTAr", "Downlaod CTA is not available for this content");
 					}
-				}	
+				}
 			}
-			if(NonSbflag==true && Sbflag==true) {
+			if (NonSbflag == true && Sbflag == true) {
 				break;
 			}
 		}
-		//DOWNLOAD FUNCTIONALITY
-		
-		if(!pUsertype.equalsIgnoreCase("Guest")) {
-		
-		
-		BackToLandingScreen();
-		
-		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
-		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings CTA");
-		
-		if(verifyIsElementDisplayed(AMDSettingsScreen.objDownloadOverWifiOFF, "Download Over Wifi OFF")){
-			
-			verifyElementPresentAndClick(AMDSettingsScreen.objDownloadOverWifiOFF, "Download Over Wifi OFF");
-			
-		}else {
-			extent.extentLoggerPass("", "Download Over wifi is ON");
-		}
-		
-		BackToLandingScreen();
-		
-		verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon2, "Search Icon");
+		// DOWNLOAD FUNCTIONALITY
 
-		waitTime(3000);
-		click(AMDSearchScreen.objSearchEditBox, "Search edit");
-		type(AMDSearchScreen.objSearchBoxBar, "Kanmani - DV | Akshatha.T | Vaishnavi Gopal"+ "\n", "Search Field");
-		waitTime(8000);
-		hideKeyboard();
-		waitTime(5000);
-		click(AMDSearchScreen.objSearchResultContainsText("Kanmani - DV | Akshatha.T | Vaishnavi Gopal"), "Searched Show");
-		waitTime(5000);
-		waitTime(5000);
-		verifyElementPresentAndClick(AMDDownloadPage.objDownloadIcon, "Download button");
-		//verifyElementExist(AMDDownloadPage.objDownloadVideoQualityPopup, "Download video quality Pop up");
-		//click(AMDDownloadPage.objStartDownloadCTA, "Start Download CTA");
-		waitTime(2000);
-		verifyElementPresent(AMDDownloadPage.objDownloadProgressIcon1, "Download progress icon");
-		waitTime(5000);
-		waitTime(5000);
-		waitForElementDisplayed(AMDDownloadPage.objDownloadedContentIcon, 50);
-		BackToLandingScreen();
-		click(AMDHomePage.objDownloadBtn, "Downloads tab");
-		waitTime(5000);
-		
-		if(verifyIsElementDisplayed(AMDHomePage.objContentDownloadedIcon, "Content Downloaded icon")) {
-			extent.extentLoggerPass("", "User is able to Download the content available on Sugar Box server");
-		}else {
-			extent.extentLoggerFail("", "User is not able to Download the content available on Sugar Box server");
-		}
-		
-		
-		if(verifyIsElementDisplayed(AMDHomePage.objSugarBoxIconOnThumbnail, "SugarBox Icon")) {
-			extent.extentLoggerPass("", "Sugar Box Icon is displayed on the thumbanil");
-		}else {
-			extent.extentLoggerFail("", "Sugar Box Icon is not displayed on the thumbanil");
-		}
-		
-		
-		verifyElementPresentAndClick(AMDHomePage.objContentDownloadedIcon, "Content Downloaded icon");
-		
-		waitTime(5000);
-		verifyElementPresentAndClick(AMDHomePage.objContentDownloadedDeleteIcon, "Content Downloaded Delete icon");
-		
-		BackToLandingScreen();
+		if (!pUsertype.equalsIgnoreCase("Guest")) {
+
+			BackToLandingScreen();
+
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings CTA");
+
+			if (verifyIsElementDisplayed(AMDSettingsScreen.objDownloadOverWifiOFF, "Download Over Wifi OFF")) {
+
+				verifyElementPresentAndClick(AMDSettingsScreen.objDownloadOverWifiOFF, "Download Over Wifi OFF");
+
+			} else {
+				extent.extentLoggerPass("", "Download Over wifi is ON");
+			}
+
+			BackToLandingScreen();
+
+			verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon2, "Search Icon");
+
+			waitTime(3000);
+			click(AMDSearchScreen.objSearchEditBox, "Search edit");
+			type(AMDSearchScreen.objSearchBoxBar, "Kanmani - DV | Akshatha.T | Vaishnavi Gopal" + "\n", "Search Field");
+			waitTime(8000);
+			hideKeyboard();
+			waitTime(5000);
+			click(AMDSearchScreen.objSearchResultContainsText("Kanmani - DV | Akshatha.T | Vaishnavi Gopal"),
+					"Searched Show");
+			waitTime(5000);
+			waitTime(5000);
+			verifyElementPresentAndClick(AMDDownloadPage.objDownloadIcon, "Download button");
+			// verifyElementExist(AMDDownloadPage.objDownloadVideoQualityPopup, "Download
+			// video quality Pop up");
+			// click(AMDDownloadPage.objStartDownloadCTA, "Start Download CTA");
+			waitTime(2000);
+			verifyElementPresent(AMDDownloadPage.objDownloadProgressIcon1, "Download progress icon");
+			waitTime(5000);
+			waitTime(5000);
+			waitForElementDisplayed(AMDDownloadPage.objDownloadedContentIcon, 50);
+			BackToLandingScreen();
+			click(AMDHomePage.objDownloadBtn, "Downloads tab");
+			waitTime(5000);
+
+			if (verifyIsElementDisplayed(AMDHomePage.objContentDownloadedIcon, "Content Downloaded icon")) {
+				extent.extentLoggerPass("", "User is able to Download the content available on Sugar Box server");
+			} else {
+				extent.extentLoggerFail("", "User is not able to Download the content available on Sugar Box server");
+			}
+
+			if (verifyIsElementDisplayed(AMDHomePage.objSugarBoxIconOnThumbnail, "SugarBox Icon")) {
+				extent.extentLoggerPass("", "Sugar Box Icon is displayed on the thumbanil");
+			} else {
+				extent.extentLoggerFail("", "Sugar Box Icon is not displayed on the thumbanil");
+			}
+
+			verifyElementPresentAndClick(AMDHomePage.objContentDownloadedIcon, "Content Downloaded icon");
+
+			waitTime(5000);
+			verifyElementPresentAndClick(AMDHomePage.objContentDownloadedDeleteIcon, "Content Downloaded Delete icon");
+
+			BackToLandingScreen();
 		}
 	}
-	
+
 	public void SBDisconnectionValidation() throws Exception {
 		extent.HeaderChildNode("SugarBox Disconnection Validation");
 		System.out.println("\nSugarBox Disconnection Validation");
@@ -33978,21 +33981,23 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		if (verifyElementDisplayed(AMDSugarbox.objExitSBNetwrkPopup)) {
 			verifyElementPresentAndClick(AMDGenericObjects.objText("No"), "No CTA");
 			verifyElementPresent(AMDHomePage.objHomeBottomBtn, "Home Screen");
-			
+
 			click(AMDSugarbox.objSugarboxLogo, "Logo");
 			verifyElementPresentAndClick(AMDGenericObjects.objText("Yes"), "Yes CTA");
 			TurnOFFWifi();
-			
-			if (verifyElementDisplayed(AMDGenericObjects.objText("DONE")) || verifyElementDisplayed(AMDGenericObjects.objText("Done"))) {
+
+			if (verifyElementDisplayed(AMDGenericObjects.objText("DONE"))
+					|| verifyElementDisplayed(AMDGenericObjects.objText("Done"))) {
 				Back(1);
 //				Runtime.getRuntime().exec("adb shell monkey -p com.graymatrix.did -c android.intent.category.LAUNCHER 1");
 			}
 			verifyElementPresent(AMDGenericObjects.objText("Disconnected"), "Disconnected");
-			verifyElementPresent(AMDGenericObjects.objText("Thank you for using SugarBox"), "Thank you for using SugarBox");
+			verifyElementPresent(AMDGenericObjects.objText("Thank you for using SugarBox"),
+					"Thank you for using SugarBox");
 			verifyElementPresent(AMDGenericObjects.objText("#SaveTheInternet"), "#SaveTheInternet");
 			verifyElementPresent(AMDSugarbox.objCloseImg, "X icon");
 			verifyElementPresentAndClick(AMDSugarbox.objLocateNearBySB, "Locate a Sugarbox Zone");
-			verifyElementPresent(AMDSugarbox.objListofZones, "List of Sugarbox Zones");	
+			verifyElementPresent(AMDSugarbox.objListofZones, "List of Sugarbox Zones");
 		}
 	}
 
@@ -34289,7 +34294,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			}
 		}
 	}
-	
+
 	public void deepLinkContentDecsriptor(String pDeeplink) {
 		extent.HeaderChildNode("DeepLink to Playback " + pDeeplink + " screen");
 		System.out.println("\n>>> DeepLink to Playback " + pDeeplink + " screen");
@@ -34673,187 +34678,218 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void parentalControlValidation(String userType) throws Exception {
-		extent.HeaderChildNode("Validate that Parental Control option is available in More Menu.(TC_01)");
-		System.out.println("\"Validate that Parental Control option is available in More Menu.(TC_01)\"");
-		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
-		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings");
-		verifyElementPresent(AMDSettingsScreen.objParentalControloption, "Parental Control option");
-		extent.HeaderChildNode("Validate that the below mentioned options are available for Parental control. (TC_02)");
-		System.out.println("Validate that the below mentioned options are available for Parental control. (TC_02)");
-		click(AMDSettingsScreen.objParentalControloption, "Parental Control option");
-		verifyElementPresent(AMDSettingsScreen.objNoRestrictions, "No Restrictions");
-		verifyElementPresent(AMDSettingsScreen.objRestrictA18Content, "Restrict A 18+ Content");
-		verifyElementPresent(AMDSettingsScreen.objRestrictUA16Content, "Restrict U/A 16+ Content ");
-		verifyElementPresent(AMDSettingsScreen.objRestrictUA13Content, "Restrict U/A 13+ Content");
-		verifyElementPresent(AMDSettingsScreen.objRestrictUA7Content, "objRestrictUA7Content");
-		verifyElementPresent(AMDSettingsScreen.objRestrictAllContent, "Restrict All Content");
-
-		extent.HeaderChildNode("Validate the UI of Parental Control screen.(TC_03)");
-		System.out.println("Validate the UI of Parental Control screen.(TC_03)");
-
-		verifyElementPresent(AMDSettingsScreen.objParentalControlTitleCentreOfTheHeader,
-				"Parental Control title in the centre of the Header");
-
-		verifyElementPresent(AMDSettingsScreen.objBackButton, "Back Button");
-
-		verifyElementPresent(AMDSettingsScreen.objSetAParentalLockToBlockYourChildFromAccessingCertainContent,
-				"Set a parental lock to block your child from accessing certain content");
-
-		verifyElementPresent(AMDSettingsScreen.objContinueCTA, "Continue CTA");
-
-		extent.HeaderChildNode("Validate that user is able to select options provided for parental control.(TC_04)");
-		System.out.println("Validate that user is able to select options provided for parental control.(TC_04)");
-
-		click(AMDSettingsScreen.objRestrictUA16Content, "Restrict U/A 16+ Content ");
-
-		if (verifyElementPresent(AMDSettingsScreen.objSelectOption, "Select Option")) {
-			logger.info("user is able to select Option ");
-			extent.extentLoggerPass("", "user is able to select Option");
-		} else {
-
-			logger.error("user is unable to select option ");
-			extent.extentLoggerFail("", "user is unable to select option ");
+		  extent.HeaderChildNode("Parental Control Validation");
+			if (!(userType.equalsIgnoreCase("Guest"))) {		
+			extent.HeaderChildNode("Validate that Parental Control option is available in More Menu.(TC_01)");
+			System.out.println("\"Validate that Parental Control option is available in More Menu.(TC_01)\"");
+			String Username = null;
+			String Password = null;
+			if (userType.contentEquals("NonSubscribedUser")) {
+				 Username = getParameterFromXML("NonsubscribedUserName");
+				 Password = getParameterFromXML("NonsubscribedPassword");
+			}
+			if (userType.contentEquals("SubscribedUser")) {
+				 Username = getParameterFromXML("SubscribedUserName");
+				 Password = getParameterFromXML("SubscribedPassword");	
+			}		
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenuBtn, "More Menu");
+			verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings");
+			verifyElementPresent(AMDSettingsScreen.objParentalControloption, "Parental Control option");
+			
+			extent.HeaderChildNode("Validate that the below mentioned options are available for Parental control. (TC_02)");
+			System.out.println("Validate that the below mentioned options are available for Parental control. (TC_02)");
+			click(AMDSettingsScreen.objParentalControloption, "Parental Control option");
+			verifyElementPresentAndClick(AMDSettingsScreen.objPasswordfield, "Password field");
+			waitTime(5000);
+			type(AMDSettingsScreen.objPasswordfield,Password, "Enter Password");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDSettingsScreen.objContinueCTAVerifyAccount,"Continue Button Set PIN page");	
+			verifyElementExist(AMDSettingsScreen.objNoRestrictions, "No Restrictions");
+			verifyElementExist(AMDSettingsScreen.objRestrictA18Content, "Restrict A 18+ Content");
+			verifyElementExist(AMDSettingsScreen.objRestrictUA16Content,"Restrict U/A 16+ Content ");
+			verifyElementExist(AMDSettingsScreen.objRestrictUA13Content, "Restrict U/A 13+ Content");
+			verifyElementExist(AMDSettingsScreen.objRestrictUA7Content, "objRestrictUA7Content");
+			verifyElementExist(AMDSettingsScreen.objRestrictAllContent, "Restrict All Content");	
+			
+			extent.HeaderChildNode("Validate the UI of Parental Control screen.(TC_03)");
+			System.out.println("Validate the UI of Parental Control screen.(TC_03)");	
+			verifyElementExist(AMDSettingsScreen.objParentalControlTitleCentreOfTheHeader, "Parental Control title in the centre of the Header");	
+			verifyElementExist(AMDSettingsScreen.objBackButton, "Back Button");	
+			verifyElementExist(AMDSettingsScreen.objSetAParentalLockToBlockYourChildFromAccessingCertainContent, "Set a parental lock to block your child from accessing certain content");	
+			verifyElementPresent(AMDSettingsScreen.objContinueCTA, "Continue CTA");	
+			
+			extent.HeaderChildNode("Validate that user is able to select options provided for parental control.(TC_04)");
+			System.out.println("Validate that user is able to select options provided for parental control.(TC_04)");	
+			click(AMDSettingsScreen.objRestrictUA16Content,"Restrict U/A 16+ Content ");	
+			if (verifyElementPresent(AMDSettingsScreen.objSelectOption, "Select Option")) {
+				logger.info("user is able to select Option ");
+				extent.extentLoggerPass("", "user is able to select Option");
+			} else {
+				
+				logger.error("user is unable to select option ");
+				extent.extentLoggerFail("","user is unable to select option ");
+			}
+			
+			extent.HeaderChildNode("Validate that user will be able to select any one option at a time.(TC_05)");
+			System.out.println("Validate that user will be able to select any one option at a time.(TC_05)");	
+			if (verifyElementPresent(AMDSettingsScreen.objSelectOption, "Select Option")) {	
+				logger.info("User is able to select only one option listed in Parental Control screen at a time.");
+				extent.extentLoggerPass("","User is able to select only one option listed in Parental Control screen at a time.");
+			} else {
+				logger.error("User not able to select only one option listed in Parental Control screen at a time.");
+				extent.extentLoggerFail("", "User not able to select only one option listed in Parental Control screen at a time.");
+			}	
+			
+			extent.HeaderChildNode("Valdiate that small tick mark is displayed at the right corner of the option, when user select any option.(TC_06)");
+			System.out.println("Valdiate that small tick mark is displayed at the right corner of the option, when user select any option.(TC_06)");	
+			verifyElementPresentAndClick(AMDSettingsScreen.objNoRestrictions, "No Restrictions");
+			verifyElementExist(AMDSettingsScreen.objSelectOption, "Tick mark for selected option");	
+			
+			extent.HeaderChildNode("Validate the functionality of \"Continue\" CTA.(TC_07)");
+			System.out.println("Validate the functionality of \"Continue\" CTA.(TC_07)");	
+			verifyElementPresentAndClick(AMDSettingsScreen.objContinueCTA, "Continue CTA");
+			if(verifyElementExist(AMDSettingsScreen.objSuccessPage, "Success! Page")) {
+				logger.info("Continue CTA is functional");
+				extent.extentLoggerPass("","Continue CTA is functional");
+			}else {
+				logger.error("Continue CTA is Not functional");
+				extent.extentLoggerFail("","Continue CTA is Not functional");
+			}
+			click(AMDSettingsScreen.objDoneButton, "Done Button");
+			
+			extent.HeaderChildNode("Validate the funcionality post tapping on \"Continue\" CTA for selecting \"No Restriction\" option.(TC_08)");
+			System.out.println("Validate the funcionality post tapping on \"Continue\" CTA for selecting \"No Restriction\" option.(TC_08)");
+			Swipe("UP",1);
+			click(AMDSettingsScreen.objParentalControloption, "Parental Control option");
+			verifyElementPresentAndClick(AMDSettingsScreen.objPasswordfield, "Password feald");
+			waitTime(5000);
+			type(AMDSettingsScreen.objPasswordfield,Password, "Enter Password");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDSettingsScreen.objContinueCTAVerifyAccount,"Continue Button Set PIN page");	
+			verifyElementPresentAndClick(AMDSettingsScreen.objNoRestrictions, "No Restrictions");
+			verifyElementPresentAndClick(AMDSettingsScreen.objContinueCTA, "Continue CTA");
+			if(verifyElementIsNotDisplayed(AMDSettingsScreen.objSetPIN)) {
+				logger.info("Continue CTA is functional for slecting 'No Restriction' option");
+				extent.extentLoggerPass("","Continue CTA is functional for slecting 'No Restriction' option");	
+			}else {
+				logger.error("Continue CTA is NOT functional for slecting 'No Restriction' option");
+				extent.extentLoggerFail("","Continue CTA is NOT functional for slecting 'No Restriction' option");
+			}
+			Back(1);
+				
+			extent.HeaderChildNode("Validate the Functionality of \"Done\" CTA(TC_09)");
+			System.out.println("Validate the Functionality of \"Done\" CTA(TC_09)");
+			verifyElementPresentAndClick(AMDSettingsScreen.objContinueCTA, "Continue CTA");
+			click(AMDSettingsScreen.objDoneButton, "Done Button");
+			if(verifyElementExist(AMDSettingsScreen.objSettingsScreenTitle, "Settings Screen Title")) {
+				logger.info("Done CTA is functional");
+				extent.extentLoggerPass("","Done CTA is functional");	
+			}else {
+				logger.error("Done CTA is NOT functional");
+				extent.extentLoggerFail("","Done CTA is NOT functional");
+			}
+			
+			extent.HeaderChildNode("Validate the functionality of \"Continue\" CTA post selecting any of the options except \"No Restriction\". CTA(TC_10)");
+			System.out.println("Validate the functionality of \"Continue\" CTA post selecting any of the options except \"No Restriction\". CTA(TC_10)");
+			Swipe("UP",1);
+			verifyElementPresentAndClick(AMDSettingsScreen.objParentalControloption, "Parental Control option");	
+			verifyElementPresentAndClick(AMDSettingsScreen.objPasswordfield, "Password field");
+			waitTime(5000);
+			type(AMDSettingsScreen.objPasswordfield,Password, "Enter Password");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDSettingsScreen.objContinueCTAVerifyAccount,"Continue Button Set PIN page");
+			waitTime(5000);
+			verifyElementPresentAndClick(AMDSettingsScreen.objRestrictAllContent, "Restrict All Content");	
+			verifyElementPresentAndClick(AMDSettingsScreen.objContinueCTA, "Continue CTA");
+			if(verifyElementExist(AMDSettingsScreen.objSetPIN, "Set PIN Popup")){
+				logger.info("Continue CTA is functional for slecting other option except 'No Restriction'");
+				extent.extentLoggerPass("","Continue CTA is functional for slecting other option except 'No Restriction'");	
+			}else {
+				logger.error("Continue CTA is functional for slecting other option except 'No Restriction'");
+				extent.extentLoggerFail("","Continue CTA is functional for slecting other option except 'No Restriction'");
+			}	
+			verifyElementExist(AMDSettingsScreen.objEnterNew4DigitPIN, "Enter new 4-digit PIN");	
+			hideKeyboard();	
+			verifyElementExist(AMDSettingsScreen.objShowPIN, "Show PIN");	
+			verifyElementExist(AMDSettingsScreen.objContinueButtonSetPINpage,"Continue Button Set PIN page");	
+			
+			extent.HeaderChildNode("Validate the functionality of \"Continue\" CTA post selecting any of the options except \"No Restriction\". (TC_11)");
+			System.out.println("Validate the functionality of \"Continue\" CTA post selecting any of the options except \"No Restriction\". (TC_11)");
+			verifyElementExist(AMDSettingsScreen.objSetPIN, "Set PIN Popup");
+			verifyElementPresentAndClick(AMDSettingsScreen.objEnterPINTextFeiled, "Enter PIN");
+			type(AMDSettingsScreen.objEnterPINTextFeiled,"1122", "Enter PIN");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDSettingsScreen.objContinueButtonSetPINpage,"Continue Button Set PIN page");
+			if(verifyElementExist(AMDSettingsScreen.objParentalControlSettingsAppliedSuccessfully, "Parental control settings applied successfully")) {
+				logger.info("Continue CTA is functional and user is able to set parental pin successfully");
+				extent.extentLoggerPass("","Continue CTA is functional and user is able to set parental pin successfully");	
+			}else {
+				logger.error("Continue CTA is NOT functional and user is Unable to set parental pin successfully");
+				extent.extentLoggerFail("","Continue CTA is NOT functional and user is Unable to set parental pin successfully");
+			}
+			verifyElementExist(AMDSettingsScreen.objDoneButton, "Done Button on Success page");	
+			
+			extent.HeaderChildNode("Validate the Functionality of \"Done\" CTA (TC_12)");
+			System.out.println("Validate the Functionality of \"Done\" CTA (TC_12)");	
+			click(AMDSettingsScreen.objDoneButton, "Done Button on Success page");	
+			if(verifyElementExist(AMDSettingsScreen.objSettingsScreenTitle, "Settings Screen Title")) {
+				logger.info("Done CTA on Success page is functional");
+				extent.extentLoggerPass("","Done CTA on Success page is functional");	
+			}else {
+				logger.error("Done CTA on Success page is NOT functional");
+				extent.extentLoggerFail("","Done CTA on Success page is NOT functional");
+			}	
+			
+			extent.HeaderChildNode("Validate that Parental control PIN dialog is displayed on consumption screen, if user set any of the below mentioned options.\r\n"
+					+ " (TC_13)");
+			System.out.println("Validate that Parental control PIN dialog is displayed on consumption screen, if user set any of the below mentioned options.\r\n"
+					+ " (TC_13)");	
+			verifyElementPresentAndClick(AMDSettingsScreen.objBackButton, "Back Button");	
+			verifyElementPresentAndClick(AMDHomePage.objHomeTab, "Home tab");	
+			verifyElementPresentAndClick(AMDHomePage.objPlayBtn, "Play Button on carousel");
+			if(checkElementExist(AMDConsumptionScreen.objEnterYour4DigitPIN)) {
+				logger.info("Enter your 4-digit PIN parental pop up is displayed on playing the content");
+				extent.extentLoggerPass("","Enter your 4-digit PIN parental pop up is displayed on playing the content");	
+			}else {
+				logger.error("Enter your 4-digit PIN parental pop up is NOT displayed on playing the content");
+				extent.extentLoggerFail("","Enter your 4-digit PIN parental pop up is NOT displayed on playing the content");
+			}
+			
+			extent.HeaderChildNode("Validate the functionality when user select \"No Restrictions\" option. (TC_14)");
+			System.out.println("Validate the functionality when user select \"No Restrictions\" option. (TC_14)");
+			Back(2);	
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenuBtn, "More Menu");
+			waitTime(4000);
+			verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings");
+			waitTime(4000);
+			Swipe("UP", 1);
+			verifyElementPresent(AMDSettingsScreen.objParentalControloption, "Parental Control option");	
+			click(AMDSettingsScreen.objParentalControloption, "Parental Control option");	
+			verifyElementPresentAndClick(AMDSettingsScreen.objPasswordfield, "Password field");
+			waitTime(5000);
+			type(AMDSettingsScreen.objPasswordfield,Password, "Enter Password");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDSettingsScreen.objContinueCTAVerifyAccount,"Continue Button Set PIN page");	
+			verifyElementPresentAndClick(AMDSettingsScreen.objNoRestrictions, "No Restrictions");	
+			verifyElementPresentAndClick(AMDSettingsScreen.objContinueCTA, "Continue CTA");	
+			verifyElementPresent(AMDSettingsScreen.objSuccessPage, "Success! Page");	
+			click(AMDSettingsScreen.objDoneButton, "Done Button");	
+			verifyElementPresent(AMDSettingsScreen.objSettingsScreenTitle, "Settings Screen Title");	
+			verifyElementPresentAndClick(AMDSettingsScreen.objBackButton, "Back Button");	
+			verifyElementPresentAndClick(AMDHomePage.objHomeTab, "Home tab");	
+			verifyElementPresentAndClick(AMDHomePage.objPlayBtn, "Play Button on carousel");	
+			if (verifyElementIsNotDisplayed(AMDConsumptionScreen.objEnterYour4DigitPIN)) {
+				logger.info("Parental Control PIN dialog is NOT displayed for content on selecting 'No Restriction option'");
+				extent.extentLoggerPass("","Parental Control PIN dialog is NOT displayed for content on selecting 'No Restriction option'");
+			} else {
+				logger.error("Parental Control PIN dialog is displayed for content on selecting 'No Restriction option'");
+				extent.extentLoggerFail("", "Parental Control PIN dialog is displayed for content on selecting 'No Restriction option'");
+			}
+		   }else {
+			   logger.info("Parental Control Validation is not Applicable for " + userType);
+		      extent.extentLogger("","Parental Control Validation is not Applicable for " + userType);
+		   }
 		}
-
-		extent.HeaderChildNode("Validate that user will be able to select any one option at a time.(TC_05)");
-		System.out.println("Validate that user will be able to select any one option at a time.(TC_05)");
-
-		if (verifyElementPresent(AMDSettingsScreen.objSelectOption, "Select Option")) {
-			logger.error("User is able to select only one option listed in Parental Control screen at a time.");
-			extent.extentLoggerPass("",
-					"User is able to select only one option listed in Parental Control screen at a time.");
-		} else {
-			logger.info("User not able to select only one option listed in Parental Control screen at a time.");
-			extent.extentLoggerFail("",
-					"User not able to select only one option listed in Parental Control screen at a time.");
-		}
-
-		extent.HeaderChildNode(
-				"Valdiate that small tick mark is displayed at the right corner of the option, when user select any option.(TC_06)");
-		System.out.println(
-				"Valdiate that small tick mark is displayed at the right corner of the option, when user select any option.(TC_06)");
-
-		verifyElementPresentAndClick(AMDSettingsScreen.objNoRestrictions, "No Restrictions");
-		verifyElementPresent(AMDSettingsScreen.objSelectOption, "Select Option");
-
-		extent.HeaderChildNode("Validate the functionality of \"Continue\" CTA.(TC_07)");
-		System.out.println("Validate the functionality of \"Continue\" CTA.(TC_07)");
-
-		verifyElementPresentAndClick(AMDSettingsScreen.objContinueCTA, "Continue CTA");
-
-		verifyElementPresent(AMDSettingsScreen.objSuccessPage, "Success! Page");
-
-		extent.HeaderChildNode(
-				"Validate the funcionality post tapping on \"Continue\" CTA for selecting \"No Restriction\" option.(TC_08)");
-		System.out.println(
-				"Validate the funcionality post tapping on \"Continue\" CTA for selecting \"No Restriction\" option.(TC_08)");
-
-		verifyElementPresent(AMDSettingsScreen.objParentalControlSettingsAppliedSuccessfully,
-				"Parental control settings applied successfully");
-
-		verifyElementPresent(AMDSettingsScreen.objDoneButton, "Done Button");
-
-		extent.HeaderChildNode("Validate the Functionality of \"Done\" CTA(TC_09)");
-		System.out.println("Validate the Functionality of \"Done\" CTA(TC_09)");
-
-		click(AMDSettingsScreen.objDoneButton, "Done Button");
-
-		verifyElementPresent(AMDSettingsScreen.objSettingsScreenTitle, "Settings Screen Title");
-
-		extent.HeaderChildNode("Validate the Functionality of \"Done\" CTA(TC_10)");
-		System.out.println("Validate the Functionality of \"Done\" CTA(TC_10)");
-
-		verifyElementPresent(AMDSettingsScreen.objParentalControloption, "Parental Control option");
-
-		verifyElementPresent(AMDSettingsScreen.objRestrictAllContent, "Restrict All Content");
-
-		verifyElementPresentAndClick(AMDSettingsScreen.objContinueCTA, "Continue CTA");
-
-		verifyElementPresent(AMDSettingsScreen.objSetPIN, "Set PIN");
-
-		verifyElementPresent(AMDSettingsScreen.objEnterNew4DigitPIN, "Enter new 4-digit PIN");
-
-		hideKeyboard();
-
-		verifyElementPresent(AMDSettingsScreen.objShowPIN, "Show PIN");
-
-		verifyElementPresent(AMDSettingsScreen.objContinueButtonSetPINpage, "Continue Button Set PIN page");
-
-		extent.HeaderChildNode(
-				"Validate the functionality of \"Continue\" CTA post selecting any of the options except \"No Restriction\". (TC_11)");
-		System.out.println(
-				"Validate the functionality of \"Continue\" CTA post selecting any of the options except \"No Restriction\". (TC_11)");
-
-		verifyElementPresentAndClick(AMDSettingsScreen.objEnterPINTextFeiled, "Enter PIN");
-		type(AMDSettingsScreen.objEnterPINTextFeiled, "1122", "Enter PIN");
-		hideKeyboard();
-		verifyElementPresentAndClick(AMDSettingsScreen.objContinueButtonSetPINpage, "Continue Button Set PIN page");
-
-		verifyElementPresent(AMDSettingsScreen.objParentalControlSettingsAppliedSuccessfully,
-				"Parental control settings applied successfully");
-
-		verifyElementPresent(AMDSettingsScreen.objDoneButton, "Done Button");
-
-		extent.HeaderChildNode("Validate the Functionality of \"Done\" CTA (TC_12)");
-		System.out.println("Validate the Functionality of \"Done\" CTA (TC_12)");
-
-		click(AMDSettingsScreen.objDoneButton, "Done Button");
-
-		verifyElementPresent(AMDSettingsScreen.objSettingsScreenTitle, "Settings Screen Title");
-
-		extent.HeaderChildNode(
-				"Validate that Parental control PIN dialog is displayed on consumption screen, if user set any of the below mentioned options.\r\n"
-						+ " (TC_13)");
-		System.out.println(
-				"Validate that Parental control PIN dialog is displayed on consumption screen, if user set any of the below mentioned options.\r\n"
-						+ " (TC_13)");
-
-		verifyElementPresent(AMDSettingsScreen.objBackButton, "Back Button");
-
-		verifyElementPresentAndClick(AMDHomePage.objHomeTab, "Home tab");
-
-		verifyElementPresentAndClick(AMDHomePage.objPlayBtn, "Play Button");
-
-		verifyElementPresent(AMDConsumptionScreen.objEnterYour4DigitPIN, "Enter Your 4-digit PIN");
-
-		extent.HeaderChildNode("Validate the functionality when user select \"No Restrictions\" option. (TC_14)");
-		System.out.println("Validate the functionality when user select \"No Restrictions\" option. (TC_14)");
-
-		Back(1);
-
-		verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
-		waitTime(4000);
-		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings");
-		waitTime(4000);
-		Swipe("UP", 1);
-		verifyElementPresent(AMDSettingsScreen.objParentalControloption, "Parental Control option");
-
-		click(AMDSettingsScreen.objParentalControloption, "Parental Control option");
-
-		verifyElementPresentAndClick(AMDSettingsScreen.objNoRestrictions, "No Restrictions");
-
-		verifyElementPresentAndClick(AMDSettingsScreen.objContinueCTA, "Continue CTA");
-
-		verifyElementPresent(AMDSettingsScreen.objSuccessPage, "Success! Page");
-
-		click(AMDSettingsScreen.objDoneButton, "Done Button");
-
-		verifyElementPresent(AMDSettingsScreen.objSettingsScreenTitle, "Settings Screen Title");
-
-		verifyElementPresentAndClick(AMDSettingsScreen.objBackButton, "Back Button");
-
-		verifyElementPresentAndClick(AMDHomePage.objHomeTab, "Home tab");
-
-		verifyElementPresentAndClick(AMDHomePage.objPlayBtn, "Play Button");
-
-		if (verifyElementPresent(AMDConsumptionScreen.objEnterYour4DigitPIN, "Enter Your 4-digit PIN")) {
-			logger.error("Parental Control PIN dialog is NOT be displayed for content Screen");
-			extent.extentLoggerFail("", "Parental Control PIN dialog is NOT be displayed for content Screen");
-		} else {
-			logger.info("Parental Control PIN dialog is displayed for content screen");
-			extent.extentLoggerPass("", "Parental Control PIN dialog is displayed for content screen");
-		}
-	}
 
 	public void Grievance_Redressal(String userType) throws Exception {
 		extent.HeaderChildNode("Validation of Grievance Redressal page");
@@ -34867,110 +34903,561 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extentLoggerFail("MoreMenu", "Grievance Redressal option is NOT displayed for " + userType);
 		}
 	}
-	
+
 	public void verifySugarBoxNotification(String pTitle, String pSubTitle) throws Exception {
 		extent.HeaderChildNode("SugarBox Notification Validation");
 		System.out.println("\nSugarBox Notification Validation");
-			
+
 //		String pTitle = "Welcome to the SugarBox Zone";
 //		String pSubTitle = "Connect to SugarBox Wi-Fi and start watching ZEE5 Premium without using mobile data";
-		
-		String readNotification,readNotification2;
+
+		String readNotification, readNotification2;
 		String notificationCommand = "adb shell dumpsys notification --noredact | grep Zone";
 		String notificationCommand2 = "adb shell dumpsys notification --noredact | grep ZEE5";
 
 		waitTime(12000);
 		Process process = Runtime.getRuntime().exec(notificationCommand);
 		BufferedReader Result = new BufferedReader(new InputStreamReader(process.getInputStream()));
-		
+
 		Process secProcess = Runtime.getRuntime().exec(notificationCommand2);
 		BufferedReader secResult = new BufferedReader(new InputStreamReader(secProcess.getInputStream()));
-		
-		boolean flagTitle=false,flagSubTitle=false;
-		for(int iCount=1 ;iCount < 15; iCount++) {
+
+		boolean flagTitle = false, flagSubTitle = false;
+		for (int iCount = 1; iCount < 15; iCount++) {
 			readNotification = Result.readLine();
 			readNotification2 = secResult.readLine();
-			if(readNotification.contains(pTitle) && flagTitle==false) {
-				flagTitle=true;
-				logger.info("SugarBox Notification (Title) is displayed: "+pTitle);
-				extent.extentLoggerPass("Notification","Notification (Title) is displayed: "+pTitle);
-			}	
-			if(readNotification.contains(pSubTitle)&& flagSubTitle==false) {
-				flagSubTitle=true;
-				logger.info("SugarBox Notification (SubTitle) is displayed: "+pSubTitle);
-				extent.extentLoggerPass("Notification","Notification (SubTitle) is displayed: "+pSubTitle);
-			}else if(readNotification2.contains(pSubTitle)&& flagSubTitle==false) {
-				flagSubTitle=true;
-				logger.info("SugarBox Notification (SubTitle) is displayed: "+pSubTitle);
-				extent.extentLoggerPass("Notification","Notification (SubTitle) is displayed: "+pSubTitle);
+			if (readNotification.contains(pTitle) && flagTitle == false) {
+				flagTitle = true;
+				logger.info("SugarBox Notification (Title) is displayed: " + pTitle);
+				extent.extentLoggerPass("Notification", "Notification (Title) is displayed: " + pTitle);
 			}
-			
-			if(flagTitle==true && flagSubTitle==true) {
+			if (readNotification.contains(pSubTitle) && flagSubTitle == false) {
+				flagSubTitle = true;
+				logger.info("SugarBox Notification (SubTitle) is displayed: " + pSubTitle);
+				extent.extentLoggerPass("Notification", "Notification (SubTitle) is displayed: " + pSubTitle);
+			} else if (readNotification2.contains(pSubTitle) && flagSubTitle == false) {
+				flagSubTitle = true;
+				logger.info("SugarBox Notification (SubTitle) is displayed: " + pSubTitle);
+				extent.extentLoggerPass("Notification", "Notification (SubTitle) is displayed: " + pSubTitle);
+			}
+
+			if (flagTitle == true && flagSubTitle == true) {
 				break;
 			}
 		}
-		
-		if(flagTitle==false || flagSubTitle==false) {
+
+		if (flagTitle == false || flagSubTitle == false) {
 			logger.info("SugarBox Notification is not displayed");
-			extent.extentLoggerFail("Notification","SugarBox Notification (SubTitle) is not displayed");
+			extent.extentLoggerFail("Notification", "SugarBox Notification (SubTitle) is not displayed");
 		}
 	}
-	
-	
+
 	public void VerifyWelcomeBackScreenInSugarboxNetwork(String pUsertype) throws Exception {
 		extent.HeaderChildNode("Welcome Back Screen");
 		System.out.println("\nWelcome Back Screen");
-		
+
 		verifyElementPresentAndClick(AMDHomePage.HomeIcon, "Landing screen");
 		Back(1);
-		if(verifyElementDisplayed(AMDGenericObjects.objText("Are you sure you want to exit ZEE5?"))) {
+		if (verifyElementDisplayed(AMDGenericObjects.objText("Are you sure you want to exit ZEE5?"))) {
 			click(AMDHomePage.objQuitYesCTA, "YES CTA");
 			logger.info("Quiting the ZEE5 App");
-			extent.extentLoggerPass("App Quit","Quiting the ZEE5 App");
+			extent.extentLoggerPass("App Quit", "Quiting the ZEE5 App");
 			waitTime(5000);
 		}
-		
-		//Re-launching the App to verify 'Welcome Back' Screen
+
+		// Re-launching the App to verify 'Welcome Back' Screen
 		relaunch(false);
 		waitTime(30000);
 		waitForElementDisplayed(AMDGenericObjects.objContainText("Welcome Back"), 60);
-		if(verifyElementDisplayed(AMDGenericObjects.objText("Welcome Back"))) {
+		if (verifyElementDisplayed(AMDGenericObjects.objText("Welcome Back"))) {
 			logger.info("Welcome Back screen is displayed");
-			extent.extentLoggerPass("Welcome Back","<b>Welcome Back</b> screen is displayed");
-		}else {
+			extent.extentLoggerPass("Welcome Back", "<b>Welcome Back</b> screen is displayed");
+		} else {
 			logger.error("Welcome Back screen is not displayed");
-			extent.extentLoggerFail("Welcome Back","<b>Welcome Back</b> screen is not displayed");
+			extent.extentLoggerFail("Welcome Back", "<b>Welcome Back</b> screen is not displayed");
 		}
-		
-		if(verifyElementDisplayed(AMDSugarbox.SBLogoWelcomeScreen)) {
+
+		if (verifyElementDisplayed(AMDSugarbox.SBLogoWelcomeScreen)) {
 			logger.info("SugarBox logo is displayed in Welcom Back screen");
-			extent.extentLoggerPass("Logo","<b>SugarBox logo</b> is displayed in Welcom Back screen");
-		}else {
+			extent.extentLoggerPass("Logo", "<b>SugarBox logo</b> is displayed in Welcom Back screen");
+		} else {
 			logger.error("SugarBox logo is not displayed");
-			extent.extentLoggerFail("Logo","<b>SugarBox logo</b> is not displayed");
+			extent.extentLoggerFail("Logo", "<b>SugarBox logo</b> is not displayed");
 		}
-		
-		if(verifyElementDisplayed(AMDGenericObjects.objText("Continue your ZEE5 experience at ZERO data cost with SugarBox"))) {
+
+		if (verifyElementDisplayed(
+				AMDGenericObjects.objText("Continue your ZEE5 experience at ZERO data cost with SugarBox"))) {
 			logger.info("Continue your ZEE5 experience at ZERO data cost with SugarBox is displayed");
-			extent.extentLoggerPass("Welcome Back","<b>Continue your ZEE5 experience at ZERO data cost with SugarBox</b> is displayed");
-		}else {
+			extent.extentLoggerPass("Welcome Back",
+					"<b>Continue your ZEE5 experience at ZERO data cost with SugarBox</b> is displayed");
+		} else {
 			logger.error("Continue your ZEE5 experience at ZERO data cost with SugarBox is not displayed");
-			extent.extentLoggerFail("Welcome Back","<b>Continue your ZEE5 experience at ZERO data cost with SugarBox</b> is not displayed");
+			extent.extentLoggerFail("Welcome Back",
+					"<b>Continue your ZEE5 experience at ZERO data cost with SugarBox</b> is not displayed");
 		}
-		
-		if(verifyElementDisplayed(AMDGenericObjects.objText("#SaveTheInternet"))) {
+
+		if (verifyElementDisplayed(AMDGenericObjects.objText("#SaveTheInternet"))) {
 			logger.info("#SaveTheInternet is displayed");
-			extent.extentLoggerPass("#SaveTheInternet","<b>#SaveTheInternet</b> is displayed");
-		}else {
+			extent.extentLoggerPass("#SaveTheInternet", "<b>#SaveTheInternet</b> is displayed");
+		} else {
 			logger.error("#SaveTheInternet is not displayed");
-			extent.extentLoggerFail("#SaveTheInternet","<b>#SaveTheInternet</b> is not displayed");
+			extent.extentLoggerFail("#SaveTheInternet", "<b>#SaveTheInternet</b> is not displayed");
 		}
 
 		verifyElementPresentAndClick(AMDSugarbox.objContinueToSugarBoxCTA, "ContinueToSugarBox CTA");
 		waitTime(3000);
 		verifyElementPresent(AMDHomePage.objHomeBottomBtn, "Home Page");
 	}
-	
 
+	public void ContentDescriptionValidation(String userType, String searchcontent, String contentType)
+			throws Exception {
+		extent.HeaderChildNode("Content Descriptor validation");
+		System.out.println("\nContent Descriptor validation");
+		verifyElementPresentAndClick(AMDHomePage.objHomeBottomBtn, "Home Button");
+		waitTime(5000);
+		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search Button");
+		waitTime(5000);
+		click(AMDSearchScreen.objSearchEditBox, "Search box");
+		type(AMDSearchScreen.objSearchBoxBar, searchcontent + "\n", "Search box");
+		hideKeyboard();
+		waitTime(6000);
+		click(AMDSearchScreen.objFirstSearchResult1(searchcontent), "Search result");
+		boolean value = verifyElementDisplayed(AMDPlayerScreen.objContentDescOnPlayer);
+		System.out.println(value);
+		if (value) {
+			logger.info("Content Descriptor is displayed for " + contentType + " " + searchcontent);
+			extentLoggerPass("", "Content Descriptor is displayed for " + contentType + " " + searchcontent);
+		} else {
+			logger.error("Content Descriptor is NOT displayed for " + contentType + " " + searchcontent);
+			extentLoggerFail("", "Content Descriptor is NOT displayed for " + contentType + " " + searchcontent);
+		}
+
+		Back(1);
+		click(AMDSearchScreen.objFirstSearchResult1(searchcontent), "Search result");
+
+		boolean AgeRatevalue = verifyElementDisplayed(AMDPlayerScreen.objAgeRatedOnPlayer);
+		System.out.println(AgeRatevalue);
+		if (AgeRatevalue == true) {
+			logger.info("Age Rated is displayed for " + contentType + " " + searchcontent);
+			extentLoggerPass("", "Age Rated is displayed for " + contentType + " " + searchcontent);
+		} else {
+			logger.error("Age Rated is NOT displayed for " + contentType + " " + searchcontent);
+			extentLoggerFail("", "Age Rated is NOT displayed for " + contentType + " " + searchcontent);
+		}
+		BackToLandingScreen();
+	}
+
+	public void ContentDescriptorForNewsAndLiveContent(String userType) throws Exception {
+		extent.HeaderChildNode("Verify Content Descriptor for News and Live content");
+		SelectTopNavigationTab("News");
+		waitTime(3000);
+		verifyElementPresentAndClick(AMDHomePage.objPlayBtn, "Play button");
+		boolean value = verifyElementIsNotDisplayed(AMDPlayerScreen.objContentDescOnPlayer);
+		if (value) {
+			logger.info("Content Descriptor is NOT displayed for News content - Expected Behaviour");
+			extentLoggerPass("", "Content Descriptor is NOT displayed for News content - Expected Behaviour");
+		} else {
+			logger.error("Content Descriptor is displayed for News content");
+			extentLoggerFail("", "Content Descriptor is displayed for News content");
+		}
+		waitTime(3000);
+		Back(1);
+		verifyElementPresentAndClick(AMDHomePage.objPlayBtn, "Play button");
+		boolean value1 = verifyElementIsNotDisplayed(AMDPlayerScreen.objAgeRatedOnPlayer);
+		if (value1) {
+			logger.info("Age Rating on Player is NOT displayed for News content - Expected Behaviour");
+			extentLoggerPass("", "Age Rating on Player is NOT displayed for News content - Expected Behaviour");
+		} else {
+			logger.error("Age Rating on Player is displayed for News content");
+			extentLoggerFail("", "Age Rating on Player is displayed for News content");
+		}
+		waitTime(3000);
+		Back(1);
+		click(AMDHomePage.objHomeBottomBtn, "Home icon");
+		SelectTopNavigationTab("Live TV");
+		click(AMDLiveTVScreen.objLiveTVFirstContentCard, "Live Tv content");
+		verifyElementExist(AMDLiveTVScreen.objLiveTV, "Live toggle on Player screen");
+		boolean value2 = verifyElementIsNotDisplayed(AMDPlayerScreen.objContentDescOnPlayer);
+		if (value2) {
+			logger.info("Content Descriptor is NOT displayed for Live content - Expected Behaviour");
+			extentLoggerPass("", "Content Descriptor is NOT displayed for Live content - Expected Behaviour");
+		} else {
+			logger.error("Content Descriptor is displayed for Live content");
+			extentLoggerFail("", "Content Descriptor is displayed for Live content");
+		}
+		waitTime(3000);
+		Back(1);
+		click(AMDLiveTVScreen.objLiveTVFirstContentCard, "Live Tv content");
+		verifyElementExist(AMDLiveTVScreen.objLiveTV, "Live toggle on Player screen");
+		boolean value3 = verifyElementIsNotDisplayed(AMDPlayerScreen.objAgeRatedOnPlayer);
+		if (value3) {
+			logger.info("Age Rating on Player is NOT displayed for Live content - Expected Behaviour");
+			extentLoggerPass("", "Age Rating on Player is NOT displayed for Live content - Expected Behaviour");
+		} else {
+			logger.error("Age Rating on Player is displayed for Live content");
+			extentLoggerFail("", "Age Rating on Player is displayed for Live content");
+		}
+	}
+
+	public void VerifyContentDescriptorForAds(String userType, String searchcontent) throws Exception {
+		extent.HeaderChildNode("Verify Content Descriptor for Ads");
+		if (!userType.equals("SubscribedUser")) {
+			verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search Button");
+			waitTime(5000);
+			click(AMDSearchScreen.objSearchEditBox, "Search box");
+			type(AMDSearchScreen.objSearchBoxBar, searchcontent + "\n", "Search box");
+			hideKeyboard();
+			waitTime(6000);
+			click(AMDSearchScreen.objFirstSearchResult1(searchcontent), "Search result");
+			if (verifyIsElementDisplayed(AMDPlayerScreen.objAd2)) {
+				logger.info("Ad is playing");
+				extentLogger("Ad", "Ad is playing");
+			}
+			if (verifyElementIsNotDisplayed(AMDPlayerScreen.objContentDescOnPlayer)) {
+				logger.info("Content Descriptor is NOT displayed for Ads - Expected Behaviour");
+				extentLoggerPass("", "Content Descriptor is NOT displayed for Ads - Expected Behaviour");
+			} else {
+				logger.error("Content Descriptor is displayed for Ads");
+				extentLoggerFail("", "Content Descriptor is displayed for Ads");
+			}
+		} else {
+			logger.info("This is not applicable for " + userType);
+			extent.extentLogger("", "This is not applicable for " + userType);
+		}
+	}
+
+	public void VerifyContentDescriptorAfterAdFinishes(String userType, String searchcontent) throws Exception {
+		extent.HeaderChildNode("Verify Content Descriptor After Ad completes");
+		if (!userType.equals("SubscribedUser")) {
+			verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search Button");
+			waitTime(5000);
+			click(AMDSearchScreen.objSearchEditBox, "Search box");
+			type(AMDSearchScreen.objSearchBoxBar, searchcontent + "\n", "Search box");
+			hideKeyboard();
+			waitTime(6000);
+			click(AMDSearchScreen.objMoviesTab, "Movies tab");
+			click(AMDSearchScreen.objFirstSearchResult1(searchcontent), "Search result");
+			if (verifyIsElementDisplayed(AMDPlayerScreen.objAd2)) {
+				logger.info("Ad is playing");
+				extentLogger("Ad", "Ad is playing");
+				verifyElementNotPresent(AMDPlayerScreen.objAd2, 300);
+			}
+//			else {
+//				logger.info("Ad is not played");
+//				extentLogger("Ad", "Ad is not played");
+//			}
+			boolean value = verifyElementDisplayed(AMDPlayerScreen.objContentDescOnPlayer);
+			System.out.println(value);
+			if (value) {
+				logger.info("Content Descriptor is displayed After Ad is completed");
+				extentLoggerPass("", "Content Descriptor is displayed After Ad is completed");
+			} else {
+				logger.error("Content Descriptor is NOT displayed After Ad is completed");
+				extentLoggerFail("", "Content Descriptor is NOT displayed After Ad is completed");
+			}
+
+		} else {
+			logger.info("This is not applicable for " + userType);
+			extent.extentLogger("", "This is not applicable for " + userType);
+		}
+	}
+
+	public void ContentDescriptorForDownloadedContent(String userType) throws Exception {
+		extent.HeaderChildNode("Verify Content Descriptor For Downloaded content");
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, "Bebaakee" + "\n", "Search bar");
+			waitTime(2000);
+			hideKeyboard();
+			click(AMDDownloadPage.objsearchresultFirst, "Searched Show");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDDownloadPage.objDownloadIcon, "Download button");
+			waitTime(2000);
+			DownloadVideoQualityPopUp("Better", true);
+			waitTime(3000);
+			Back(1);
+			click(AMDHomePage.objDownloadBtn, "Downloads tab");
+			click(AMDDownloadPage.objRightArrow, "Right arrow");
+			waitForElementAndClickIfPresent(AMDDownloadPage.objDownloadCompleteIcon, 8000, "downloadCompleteIcon");
+			verifyElementPresentAndClick(AMDDownloadPage.objPlayDownloadedContent, "Play Call-out");
+			boolean value = verifyElementDisplayed(AMDPlayerScreen.objContentDescOnPlayer);
+			System.out.println(value);
+			if (value) {
+				logger.info("Content Descriptor is displayed for Downloaded content");
+				extentLoggerPass("", "Content Descriptor is displayed for Downloaded content");
+			} else {
+				logger.error("Content Descriptor is NOT displayed for Downloaded content");
+				extentLoggerFail("", "Content Descriptor is NOT displayed for Downloaded content");
+			}
+			waitTime(4000);
+			Back(1);
+		} else {
+			logger.info("This is not applicable for " + userType);
+			extent.extentLogger("", "This is not applicable for " + userType);
+		}
+	}
+
+	public void ContentDescriptorForDownloadedContentInOffline(String userType) throws Exception {
+		extent.HeaderChildNode("Verify Content Descriptor for Downloaded content in OFFLINE");
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			click(AMDDownloadPage.objRightArrow, "Right arrow");
+			click(AMDDownloadPage.objDownloadedContent, "Downloaded content");
+			waitTime(2000);
+			TurnOFFWifi();
+			if (getOEMName.equalsIgnoreCase("Sony")) {
+				Wifi_TurnOFFnON();
+			}
+			waitTime(4000);
+			verifyElementPresentAndClick(AMDDownloadPage.objPlayDownloadedContent, "Play Call-out");
+			boolean value = verifyElementDisplayed(AMDPlayerScreen.objContentDescOnPlayer);
+			System.out.println(value);
+			if (value) {
+				logger.info("Content Descriptor is displayed for Downloaded content in OFFLINE");
+				extentLoggerPass("", "Content Descriptor is displayed for Downloaded content in OFFLINE");
+			} else {
+				logger.error("Content Descriptor is NOT displayed for Downloaded content in OFFLINE");
+				extentLoggerFail("", "Content Descriptor is NOT displayed for Downloaded content in OFFLINE");
+			}
+			TurnONWifi();
+			if (getOEMName.equalsIgnoreCase("Sony")) {
+				Wifi_TurnOFFnON();
+			}
+			waitTime(2000);
+		} else {
+			logger.info("This is not applicable for " + userType);
+			extent.extentLogger("", "This is not applicable for " + userType);
+		}
+
+	}
+
+	public void VerifyAgeRatedIfCDisEmpty(String userType) throws Exception {
+		extent.HeaderChildNode("Verify AGE RATED when Content Descriptor is Empty");
+		if ((userType.equalsIgnoreCase("Guest"))) {
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, "Sundari - Hebbuli" + "\n", "Search bar");
+			waitTime(2000);
+			hideKeyboard();
+			click(AMDDownloadPage.objsearchresultFirst, "Searched Show");
+			waitForElementDisplayed(AMDDownloadPage.objPauseIconOnPlayer, 10000);
+			if (verifyElementIsNotDisplayed(AMDPlayerScreen.objContentDescOnPlayer)) {
+				logger.info("Content Descriptor is Empty");
+				extentLoggerPass("", "Content Descriptor is Empty");
+				Back(1);
+				click(AMDDownloadPage.objsearchresultFirst, "Searched Show");
+				waitForElementDisplayed(AMDDownloadPage.objPauseIconOnPlayer, 10000);
+				boolean AgeRatevalue = verifyElementDisplayed(AMDPlayerScreen.objAgeRatedOnPlayer);
+				System.out.println(AgeRatevalue);
+				if (AgeRatevalue == true) {
+					logger.info("Age Rated is displayed if Content descriptor is empty");
+					extentLoggerPass("", "Age Rated is displayed if Content descriptor is empty");
+				} else {
+					logger.error("Age Rated is NOT displayed if Content descriptor is empty");
+					extentLoggerFail("", "Age Rated is NOT displayed if Content descriptor is empty");
+				}
+			}
+		} else {
+			logger.info("This is not applicable for " + userType);
+			extent.extentLogger("", "This is not applicable for " + userType);
+		}
+	}
+
+	public void verifyAgeRating_OnPlayer_And_BelowPlayer(String userType, String searchcontent) throws Exception {
+		extent.HeaderChildNode(
+				"Verify that Age rating mentioned in Content descriptor is same as Age rating mentioned in meta data below the player");
+		verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search Button");
+		waitTime(5000);
+		click(AMDSearchScreen.objSearchEditBox, "Search box");
+		type(AMDSearchScreen.objSearchBoxBar, searchcontent + "\n", "Search box");
+		hideKeyboard();
+		waitTime(6000);
+		// click(AMDSearchScreen.objMoviesTab,"Movies tab");
+		click(AMDSearchScreen.objFirstSearchResult1(searchcontent), "Search result");
+		verifyElementExist(AMDPlayerScreen.objAgeRatedOnPlayer, "Age Rating in Content Descriptor");
+		String Rating = findElement(AMDPlayerScreen.objAgeRatedOnPlayer).getText();
+		String Rate[] = Rating.split(" ");
+		String AgeRated = Rate[1].concat(" ");
+		String AGE = AgeRated.concat(Rate[2]);
+		logger.info("Age Rating in metadata below the player is: " + AGE);
+		extentLoggerPass("", "Age Rating in Content Descriptor is: " + AGE);
+		String metadata = findElement(AMDConsumptionScreen.objContentInfo).getText();
+		String[] arrSplit = metadata.split(" . ");
+		System.out.println(arrSplit.length);
+		for (int i = 0; i < arrSplit.length; i++) {
+			System.out.println("Value at " + i + ": " + arrSplit[i]);
+		}
+		String eGenre = arrSplit[arrSplit.length - 1];
+		String Rate1[] = eGenre.split(" ");
+		String AgeRated1 = Rate1[1].concat(" ");
+		String AGE1 = AgeRated1.concat(Rate1[2]);
+		logger.info("Age Rating in metadata below the player is: " + AGE1);
+		extentLoggerPass("", "Age Rating in metadata below the player is: " + AGE1);
+		if (AGE.contentEquals(AGE1)) {
+			logger.info(
+					"Age Rated in Content descriptor is SAME as Age rating displayed in meta data below the player");
+			extentLoggerPass("",
+					"Age Rated in Content descriptor is SAME as Age rating displayed in meta data below the player");
+		} else {
+			logger.error(
+					"Age Rated in Content descriptor is NOT same as Age rating displayed in meta data below the player");
+			extentLoggerFail("",
+					"Age Rated in Content descriptor is NOT same as Age rating displayed in meta data below the player");
+		}
+
+	}
+
+	public void VerifyContentDescriptor_AfterEntering_ParentalPIN(String userType, String searchcontent)
+			throws Exception {
+		extent.HeaderChildNode(
+				"Verify that After entering valid parental pin ,Playback will initiate i.e.Video start and User will get content descriptor as per CD logic");
+		if (!(userType.equalsIgnoreCase("Guest"))) {
+			click(AMDHomePage.MoreMenuIcon, "More Menu tab");
+			waitTime(1000);
+			PartialSwipe("UP", 1);
+			click(AMDMoreMenu.objSettings, "Settings option");
+			waitTime(1000);
+			SwipeUntilFindElement(AMDMoreMenu.objParentalControl, "UP");
+			click(AMDMoreMenu.objParentalControl, "Parental Control");
+			String password = "";
+			if (userType.equals("NonSubscribedUser")) {
+				password = getParameterFromXML("NonsubscribedPassword");
+			} else if (userType.equals("SubscribedUser")) {
+				password = getParameterFromXML("SubscribedPassword");
+			}
+			click(AMDMoreMenu.objPasswordField, "Password field");
+			getDriver().getKeyboard().sendKeys(password);
+			hideKeyboard();
+			if (getOEMName.contains("vivo")) {
+				hidePwdKeyboard();
+			}
+			click(AMDMoreMenu.objPasswordContinueBtn, "Continue button");
+			waitTime(2000);
+			click(AMDMoreMenu.objRestrictAllContent, "Restrict All Content option");
+			click(AMDMoreMenu.objContinueBtn, "Continue Button");
+			waitTime(4000);
+			verifyElementExist(AMDMoreMenu.objSetPin, "Set Pin");
+			if (verifyElementExist(AMDMoreMenu.objSetPin, "Set Pin")) {
+				logger.info("Setting Parental Pin for " + pUserType);
+				extentLoggerPass("Setting Parental Pin", "Setting Parental Pin for " + pUserType);
+				type(AMDMoreMenu.objParentalLockPin1, "1", "ParentalLockPin");
+				hideKeyboard();
+				type(AMDMoreMenu.objParentalLockPin2, "2", "ParentalLockPin");
+				hideKeyboard();
+				type(AMDMoreMenu.objParentalLockPin3, "3", "ParentalLockPin");
+				hideKeyboard();
+				type(AMDMoreMenu.objParentalLockPin4, "4", "ParentalLockPin");
+				hideKeyboard();
+				waitTime(4000);
+				click(AMDMoreMenu.objSetPinContinueBtn, "Continue Button");
+				waitTime(2000);
+				click(AMDMoreMenu.objParentalLockDone, "Done Button");
+				Back(1);
+				waitTime(3000);
+				Back(1);
+			} else {
+				logger.info("Parental Pin Popup not displayed");
+				extentLoggerFail("Parental Pin", "Parental Pin Popup not displayed");
+			}
+			verifyElementPresentAndClick(AMDHomePage.objSearchBtn, "Search Button");
+			waitTime(5000);
+			click(AMDSearchScreen.objSearchEditBox, "Search box");
+			type(AMDSearchScreen.objSearchBoxBar, searchcontent + "\n", "Search box");
+			hideKeyboard();
+			waitTime(6000);
+			click(AMDSearchScreen.objMoviesTab, "Movies tab");
+			click(AMDSearchScreen.objFirstSearchResult1(searchcontent), "Search result");
+			verifyElementExist(AMDConsumptionScreen.objEnterYour4DigitPIN, "Enter your 4 digit PIN popup");
+			type(AMDMoreMenu.objParentalLockPin1, "1", "ParentalLockPin");
+			hideKeyboard();
+			type(AMDMoreMenu.objParentalLockPin2, "2", "ParentalLockPin");
+			hideKeyboard();
+			type(AMDMoreMenu.objParentalLockPin3, "3", "ParentalLockPin");
+			hideKeyboard();
+			type(AMDMoreMenu.objParentalLockPin4, "4", "ParentalLockPin");
+			hideKeyboard();
+			waitTime(4000);
+			click(AMDMoreMenu.objSetPinContinueBtn, "Continue Button");
+			boolean value = verifyElementDisplayed(AMDPlayerScreen.objContentDescOnPlayer);
+			System.out.println(value);
+			if (value) {
+				logger.info("Content Descriptor is displayed after entering valid Parental PIN");
+				extentLoggerPass("", "Content Descriptor is displayed after entering valid Parental PIN");
+			} else {
+				logger.error("Content Descriptor is NOT displayed after entering valid Parental PIN");
+				extentLoggerFail("", "Content Descriptor is NOT displayed after entering valid Parental PIN");
+			}
+			waitTime(3000);
+			Back(1);
+			click(AMDHomePage.MoreMenuIcon, "More Menu tab");
+			waitTime(1000);
+			PartialSwipe("UP", 1);
+			click(AMDMoreMenu.objSettings, "Settings option");
+			waitTime(2000);
+			SwipeUntilFindElement(AMDMoreMenu.objParentalControl, "UP");
+			verifyElementPresentAndClick(AMDMoreMenu.objParentalControl, "Parental Control");
+			verifyElementExist(AMDMoreMenu.objPasswordField, "Password field");
+			if (userType.equals("NonSubscribedUser")) {
+				password = getParameterFromXML("NonsubscribedPassword");
+			} else if (userType.equals("SubscribedUser")) {
+				password = getParameterFromXML("SubscribedPassword");
+			}
+			click(AMDMoreMenu.objPasswordField, "Password field");
+			getDriver().getKeyboard().sendKeys(password);
+			hideKeyboard();
+			if (getOEMName.contains("vivo")) {
+				hidePwdKeyboard();
+			}
+			click(AMDMoreMenu.objPasswordContinueBtn, "Continue button");
+			waitTime(2000);
+			click(AMDMoreMenu.objNoRestriction, "No Restriction");
+			click(AMDMoreMenu.objContinueBtn, "Continue Button");
+			waitTime(2000);
+			click(AMDMoreMenu.objParentalLockDone, "Done Button");
+			Back(1);
+		} else {
+			logger.info("This is not applicable for " + userType);
+			extent.extentLogger("", "This is not applicable for " + userType);
+		}
+	}
 	
+	public void DeeplinkGrievanceRedressal(String pDeeplinkUrl, String pUserType) throws Exception {
+		extent.HeaderChildNode("Deeplink Grienance Redressal");
+		System.out.println("\nDeeplink Grienance Redressal");
+		Duration timeElapsed = null;
+		Instant startTime = Instant.now();
+		logger.info("Start time: " + startTime);
+			try {
+				waitTime(3000);
+				String cmd3 = "adb shell am start -W -a android.intent.action.VIEW -d  " + pDeeplinkUrl;
+				Process process = Runtime.getRuntime().exec(cmd3);
+				new BufferedReader(new InputStreamReader(process.getInputStream()));
+				waitTime(12000);
+				if (verifyIsElementDisplayed(AMDHomePage.objPopUpToOpenZeeApp)) {
+					click(AMDHomePage.objJustOnceOption, "Just once option");
+				}
+				waitTime(4000);
+				if (verifyIsElementDisplayed(AMDMoreMenu.GrievanceRedressalPage)) {
+					logger.info(
+							"User is navigated to Grievance Redressal screen post tapping on deeplinking URL");
+					extent.extentLoggerPass("",
+							"User is navigated to Grievance Redressal screen post tapping on deeplinking URL");
+				} else {
+					logger.error(
+							"User failed to navigate to Grievance Redressal screen post tapping on deeplinking URL");
+					extent.extentLoggerFail("",
+							"User failed to navigate to Grievance Redressal screen post tapping on deeplinking URL");
+				}
+				Instant endTime = Instant.now();
+				logger.info("End time: " + endTime);
+				timeElapsed = Duration.between(startTime, endTime);			
+                System.out.println("Time taken to open Grievance Redressal page on clicking deeplink url is " + timeElapsed.getSeconds()+ " seconds");
+                extentLogger("", "Time taken to open Grievance Redressal page on clicking deeplink url is " + timeElapsed.getSeconds()+ " seconds");				
+				
+			} catch (Exception e) {
+				System.out.println("URL is not triggered or accessible");
+			}		
+	}
+
 }

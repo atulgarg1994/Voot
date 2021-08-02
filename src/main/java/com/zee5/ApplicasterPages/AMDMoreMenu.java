@@ -2,8 +2,6 @@ package com.zee5.ApplicasterPages;
 
 import org.openqa.selenium.By;
 
-//-- Dev by Bindu
-
 public class AMDMoreMenu {
 
 	public static By objMoreMenu = By.xpath("//*[@id='bb_bottom_bar_icon']");
@@ -89,7 +87,6 @@ public class AMDMoreMenu {
 	public static By objClearSearchHistory = By.xpath("//*[@id='searchHistoryAction']");
 	public static By objResetDefault = By.xpath("//*[@id='resetSettingAction']");
 
-	public static By objSetPinContinueBtn = By.xpath("//*[@id='btn_set_pin_continue']");
 	public static By objNoRestriction = By.xpath("//*[@text='No Restriction']");
 	public static By objDownloadDoneIcon = By.xpath("//*[@id='img_state']");
 
@@ -320,5 +317,13 @@ public class AMDMoreMenu {
 	public static By Restrict18AboveContent = By.xpath("//*[@text='Restrict 18+ Content']");
 	public static By Restrict7AboveContent = By.xpath("");
 	public static By Restrict16AboveContent = By.xpath("");
-	public static By objGrievanceRedressalOption = By.xpath("");
+	public static By objSetPinContinueBtn = By.xpath("//*[@id='btn_set_pin_continue'] | //*[@id='parentalFragmentContinueButton']");
+	
+	public static By GrievanceRedressalPage = By.xpath("//*[@class='android.view.View']//*[@content-desc='GRIEVANCE REDRESSAL']");
+	public static By WasThisarticleHelpful = By.xpath("//*[@class='android.widget.TextView'][@text='Was this article helpful?']");
+	public static By WasThisarticleHelfulYesBtn = By.xpath("(//*[@id='articleReview']//*[@class='android.view.View']//child::*)[1]");
+	public static By WasThisarticleHelfulNoBtn = By.xpath("(//*[@id='articleReview']//*[@class='android.view.View']//child::*)[2]");
+	public static By GrievanceRedressalEmailId = By.xpath("((//*[@class='android.view.View' and ./*[@text]])[6]//child::*)[4] | //*[@content-desc='grievanceredressal@zee5.com ']");
+	public static By objGmailpage = By.xpath("//*[@class='android.widget.TextView'][@text='Compose']");
+	public static By objGrievanceRedressalOption = By.xpath("//*[@id='list_item'][@text='Grievance Redressal']");
 }

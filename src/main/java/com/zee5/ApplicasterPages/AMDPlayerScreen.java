@@ -223,4 +223,8 @@ public class AMDPlayerScreen {
 	public static By objcontentRating = By.xpath("");
 	public static By objPlayerStartTime = By.xpath("");
 	public static By objFirstContentCardTitleInUpNextRail = By.xpath("(//*[@text='Up Next']/parent::*/following-sibling::*/child::*/child::*/child::*/child::*[@id='cell_bottom_container']/child::*[@class='android.widget.TextView'])[1]");
-}
+
+	public static By objAgeRatedOnPlayer = By.xpath("//*[@id='ratedText']");
+	public static By objContentDescOnPlayer = By.xpath("//*[@id='contentDescriptorText']");
+	}
+
