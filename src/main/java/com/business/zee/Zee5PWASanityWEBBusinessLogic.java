@@ -34287,5 +34287,115 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			//add  Your are currently on <active plan name with validity>
 		}
 	}
+	
+	public void authenticationFunctionality1(String userType) throws Exception {
+		if(userType.equals("Guest")) {
+			extent.HeaderChildNode("PWA2-9106 Authenticate device revamp - Not Applicable for Guest");
+		}
+		else {
+			extent.HeaderChildNode("PWA2-9106 Authenticate device revamp");
+			navigateHome();
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			verifyElementPresent(PWAHamburgerMenuPage.objAuthenticationOption, "CTA to Authenticate Device");
+			String ctaText=getElementPropertyToString("innerText",PWAHamburgerMenuPage.objAuthenticationOption, "CTA Text");
+			if(ctaText.equals("Activate Device")) {
+				logger.info("Expected CTA text displayed "+ctaText);
+				extent.extentLoggerPass("", "Expected CTA text displayed "+ctaText);
+			}
+			else {
+				logger.info("'"+ctaText+"' CTA text is displayed instead of 'Activate Device'");
+				extent.extentLoggerFail("","'"+ctaText+"' CTA text is displayed instead of 'Activate Device'");
+			}
+			click(PWAHamburgerMenuPage.objAuthenticationOption, "CTA");
+			waitTime(3000);
+			String url=getWebDriver().getCurrentUrl();
+			String[] urlParts=url.split("/");
+			String urlEnd=urlParts[urlParts.length-1];
+			if(urlEnd.equals("device")) {
+				logger.info("Successfully navigated to Activation page");
+				extent.extentLogger("", "Successfully navigated to Activation page");
+				// Verify Page Heading
+				String pageHeading=getElementPropertyToString("innerText",PWAHamburgerMenuPage.objAuthenticationText, "Page Heading");
+				if(pageHeading.equals("Activate ZEE5 on your TV")) {
+					logger.info("Expected Page Heading displayed '"+pageHeading+"'");
+					extent.extentLoggerPass("", "Expected Page Heading displayed '"+pageHeading+"'");
+				}
+				else {
+					logger.info("'"+pageHeading+"' Page Heading is displayed instead of 'Activate ZEE5 on your TV'");
+					extent.extentLoggerFail("","'"+pageHeading+"' Page Heading is displayed instead of 'Activate ZEE5 on your TV'");
+				}
+				// Verify Page Description
+				String pageDesc=getElementPropertyToString("innerText",PWAHamburgerMenuPage.objAuthenticationTDesc, "Page Desc");
+				if(pageDesc.equals("Enter the Activation code displayed on your TV screen")) {
+					logger.info("Expected Page Description displayed '"+pageDesc+"'");
+					extent.extentLoggerPass("", "Expected Page Description displayed '"+pageDesc+"'");
+				}
+				else {
+					logger.info("'"+pageDesc+"' Page Description is displayed instead of 'Enter the Activation code displayed on your TV screen'");
+					extent.extentLoggerFail("","'"+pageDesc+"' Page Description is displayed instead of 'Enter the Activation code displayed on your TV screen'");
+				}
+				// Verify Activate Now Button Disabled
+				verifyElementPresent(PWAHamburgerMenuPage.objActivateNowButtonDisabled, "Disabled Button");
+				// Verify Activate Now Button
+				String button=getElementPropertyToString("innerText",PWAHamburgerMenuPage.objActivateNowButtonDisabled, "Button Text");
+				if(button.equals("Activate Now")) {
+					logger.info("Expected button displayed '"+button+"'");
+					extent.extentLoggerPass("", "Expected button displayed '"+button+"'");
+				}
+				else {
+					logger.info("'"+button+"' button is displayed instead of 'Activate Now' button");
+					extent.extentLoggerFail("","'"+button+"' button is displayed instead of 'Activate Now' button");
+				}
+				//Add less than 6 to verify button disabled state
+				for(int i=1;i<=5;i++) {
+					type(PWAHamburgerMenuPage.objAuthenticateCode(String.valueOf(i)), String.valueOf(i), "Authentication code "+i);
+					verifyElementPresent(PWAHamburgerMenuPage.objActivateNowButtonDisabled, "Disabled Button");
+				}
+				//Add 6th code to verify enabled button state
+				type(PWAHamburgerMenuPage.objAuthenticateCode("6"), "6", "Authentication code 6");
+				verifyElementPresent(PWAHamburgerMenuPage.objActivateNowButtonEnabled, "Enabled Button");
+				//Delete one code to verify disabled state
+				getWebDriver().findElement(PWAHamburgerMenuPage.objAuthenticateCode("6")).sendKeys(Keys.BACK_SPACE);
+				verifyElementPresent(PWAHamburgerMenuPage.objActivateNowButtonDisabled, "Disabled Button after clearing code");
+				//Click on Activate
+				type(PWAHamburgerMenuPage.objAuthenticateCode("6"), "6", "Authentication code 6");
+				click(PWAHamburgerMenuPage.objActivateNowButtonEnabled, "Enabled Button");
+				//Error message verification
+				verifyElementPresent(PWAHamburgerMenuPage.objActivateDeviceError, "Error Message");
+				//Button must be disabled upon Error message
+				verifyElementPresent(PWAHamburgerMenuPage.objActivateNowButtonDisabled, "Disabled Button");
+				//Error message should disappear upon clearing code
+				getWebDriver().findElement(PWAHamburgerMenuPage.objAuthenticateCode("6")).sendKeys(Keys.BACK_SPACE);
+				if(checkElementDisplayed(PWAHamburgerMenuPage.objActivateDeviceError, "On clearing code Error Message")){
+					logger.error("Error message is not cleared on clearing code");
+					extent.extentLoggerFail("", "Error message is not cleared on clearing code");
+				}	
+				//Check entry of special characters
+				type(PWAHamburgerMenuPage.objAuthenticateCode("6"), "&", "Authentication code &");
+				try {
+					String sixthChar=getElementPropertyToString("value",PWAHamburgerMenuPage.objAuthenticateCode("6"), "6th code");
+					if(sixthChar.equals("&")) {
+						logger.error("Special character & is allowed in Authentication code");
+						extent.extentLoggerFail("", "Special character & is allowed in Authentication code");
+					}
+					else {
+						logger.info("Verified that special characters are not allowed in Authentication code");
+						extent.extentLogger("", "Verified that special characters are not allowed in Authentication code");
+					}
+				}
+				catch(Exception e) {
+					if(verifyElementPresent(PWAHamburgerMenuPage.objActivateNowButtonDisabled, "Disabled Button")) {
+						logger.info("Verified that special characters are not allowed in Authentication code");
+						extent.extentLogger("", "Verified that special characters are not allowed in Authentication code");
+					}
+				}			
+			}
+			else {
+				logger.error("Failed to navigate to Activation page");
+				extent.extentLoggerFail("", "Failed to navigate to Activation page");
+			}
+		}
+	}
+	
 
 }

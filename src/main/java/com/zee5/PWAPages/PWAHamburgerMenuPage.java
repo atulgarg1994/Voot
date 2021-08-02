@@ -1037,4 +1037,14 @@ public class PWAHamburgerMenuPage {
 
 	public static By objZeeplexlogo=By.xpath("//img[@class='plexLandingPageLogo']");
 	public static By objRentAndWatch=By.xpath("//*[@class='planLandingPageHeader']");
+	
+	public static By objActivateNowButtonEnabled=By.xpath("//button[contains(@class,'noSelect buttonGradient')]//span");
+	public static By objActivateNowButtonDisabled=By.xpath("//button[@disabled]//span");
+	public static By objAuthenticateCode(String place) {
+		String name="otp"+place;
+		return By.xpath("//input[@name='"+name+"']");
+	}
+	public static By objActivateDeviceError=By.xpath("//span[@class='statusMessage errorMessage']");
+	
+	public static By objAuthenticationTDesc = By.xpath("//p[contains(@class,'pageDesc')]");
 }
