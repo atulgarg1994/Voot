@@ -146,6 +146,9 @@ public class ParameterInjector implements IAlterSuiteListener {
 //			params.put("ClubPassword", suite.getParameter("ClubPassword"));
 			params.put("RSVODUser499", suite.getParameter("RSVODUser499"));
 			params.put("RSVODUserPassword499", suite.getParameter("RSVODUserPassword499"));
+			// Premium user with 1 year(>499 plan price ) and 6 months Plan + Supermoon Active User Plan
+			params.put("1yearPremium6MSupermoonUser", suite.getParameter("1yearPremium6MSupermoonUser"));
+			params.put("1yearPremium6MSupermoonPassword", suite.getParameter("1yearPremium6MSupermoonPassword"));
 			
 		}
 		if (region.equals("MH")) {
@@ -233,6 +236,9 @@ public class ParameterInjector implements IAlterSuiteListener {
 				params.put("DeeplinkConsumption","https://www.zee5.com/movies/details/radhe-your-most-wanted-bhai/0-0-399328");
 				params.put("DeeplinkSubscription","https://www.zee5.com/myaccount/subscription");
 			}
+			// Premium user with 1 year(>499 plan price ) and 6 months Plan + Supermoon Active User Plan
+			params.put("1yearPremium6MSupermoonUser", suite.getParameter("1yearPremium6MSupermoonUser"));
+			params.put("1yearPremium6MSupermoonPassword", suite.getParameter("1yearPremium6MSupermoonPassword"));
 			
 		}
 		suite.setParameters(params);

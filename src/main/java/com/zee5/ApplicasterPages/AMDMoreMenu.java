@@ -315,8 +315,6 @@ public class AMDMoreMenu {
 	public static By objFacebookPost = By.xpath("//*[@text='POST' or @text='Post' or @text='Share' or @text='SHARE' or @contentDescription='POST' or @contentDescription='Post']");
 
 	public static By Restrict18AboveContent = By.xpath("//*[@text='Restrict 18+ Content']");
-	public static By Restrict7AboveContent = By.xpath("");
-	public static By Restrict16AboveContent = By.xpath("");
 	public static By objSetPinContinueBtn = By.xpath("//*[@id='btn_set_pin_continue'] | //*[@id='parentalFragmentContinueButton']");
 	
 	public static By GrievanceRedressalPage = By.xpath("//*[@class='android.view.View']//*[@content-desc='GRIEVANCE REDRESSAL']");
@@ -326,4 +324,7 @@ public class AMDMoreMenu {
 	public static By GrievanceRedressalEmailId = By.xpath("((//*[@class='android.view.View' and ./*[@text]])[6]//child::*)[4] | //*[@content-desc='grievanceredressal@zee5.com ']");
 	public static By objGmailpage = By.xpath("//*[@class='android.widget.TextView'][@text='Compose']");
 	public static By objGrievanceRedressalOption = By.xpath("//*[@id='list_item'][@text='Grievance Redressal']");
+	
+	public static By Restrict7AboveContent = By.xpath("//*[@text='Restrict U/A 7+ Content']");
+	public static By Restrict16AboveContent = By.xpath("//*[@text='Restrict U/A 16+ Content']");
 }

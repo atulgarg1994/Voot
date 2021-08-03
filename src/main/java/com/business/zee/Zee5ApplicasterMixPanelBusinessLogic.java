@@ -14395,5 +14395,151 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
+	public void verifySubscriptionPageViewedEvent_BuyPlan_Header(String userType) throws Exception {
+		extent.HeaderChildNode("Verify Subscription Page Viewed Event by clicking on Buy plan Header");
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			verifyElementPresentAndClick(AMDHomePage.objSubscribeTeaser, "Buy plan");
+
+			setFEProperty(userType);
+			setUserType_SubscriptionProperties(userType);
+			SetAppsflyerProperty();
+			
+			if (pUserType.equalsIgnoreCase("Guest")) {
+				mixpanel.FEProp.setProperty("User Type", "Guest");
+			}
+
+			mixpanel.FEProp.setProperty("Source", "Homepage");
+			mixpanel.FEProp.setProperty("Page Name", "Subscription");
+			mixpanel.FEProp.setProperty("manufacturer", DeviceDetails.OEM);
+			mixpanel.FEProp.setProperty("brand", DeviceDetails.OEM);
+
+			mixpanel.ValidateParameter("", "Subscription Page Viewed");
+		} else {
+			logger.info("Not applicable for this usertype");
+			extent.extentLoggerPass("", "Not applicable for this usertype");
+		}
+	}
+
+	public void verifySubscriptionPageViewedEvent_BuyPlan_MoreSection(String userType) throws Exception {
+		extent.HeaderChildNode("Verify Subscription Page Viewed Event by clicking on Buy plan in More section");
+		
+		click(AMDHomePage.MoreMenuIcon, "More menu icon");
+		verifyElementPresentAndClick(AMDMoreMenu.objBuySubscription, "Buy plan");
+		
+		setFEProperty(userType);
+		setUserType_SubscriptionProperties(userType);
+		SetAppsflyerProperty();
+		
+		if (pUserType.equalsIgnoreCase("Guest")) {
+			mixpanel.FEProp.setProperty("User Type", "Guest");
+		}
+
+		mixpanel.FEProp.setProperty("Source", "More");
+		mixpanel.FEProp.setProperty("Page Name", "Subscription");
+		mixpanel.FEProp.setProperty("manufacturer", DeviceDetails.OEM);
+		mixpanel.FEProp.setProperty("brand", DeviceDetails.OEM);
+
+		mixpanel.ValidateParameter("", "Subscription Page Viewed");
+		
+	}
+
+public void verifySubscriptionPageViewedEvent_BuyPlan_MySubscription(String userType) throws Exception {
+		extent.HeaderChildNode("Verify Subscription Page Viewed Event by clicking on Buy plan in My Subscription page");
+		if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+			click(AMDHomePage.MoreMenuIcon, "More menu icon");
+		    click(AMDMoreMenu.objMySubscription, "My Subscription");
+			verifyElementPresentAndClick(AMDMoreMenu.objSubNowCTA, "Buy Plan");
+
+			setFEProperty(userType);
+			setUserType_SubscriptionProperties(userType);
+			SetAppsflyerProperty();
+			
+			if (pUserType.equalsIgnoreCase("Guest")) {
+				mixpanel.FEProp.setProperty("User Type", "Guest");
+			}
+
+			mixpanel.FEProp.setProperty("Source", "More");
+			mixpanel.FEProp.setProperty("Page Name", "Subscription");
+			mixpanel.FEProp.setProperty("manufacturer", DeviceDetails.OEM);
+			mixpanel.FEProp.setProperty("brand", DeviceDetails.OEM);
+
+			mixpanel.ValidateParameter("", "Subscription Page Viewed");
+		} else {
+			logger.info("Not applicable for this usertype");
+			extent.extentLoggerPass("", "Not applicable for this usertype");
+		}
+	}
+
+public void verifySubscriptionPageViewedEvent_BuyPlan_BelowThePlayer(String userType, String keyword2) throws Exception {
+		extent.HeaderChildNode("Verify Subscription Page Viewed Event by clicking on Buy plan below the player");
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, keyword2 + "\n", "Search bar");
+			hideKeyboard();
+			waitTime(4000);
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			click(AMDSearchScreen.objSearchResultFirstContent, "Search result");
+			verifyElementPresentAndClick(AMDPlayerScreen.objBuyNowCTABelowThePlayer, "Buy plan CTA below the player");
+			
+			setFEProperty(userType);
+			setUserType_SubscriptionProperties(userType);
+			SetAppsflyerProperty();
+			
+			if (pUserType.equalsIgnoreCase("Guest")) {
+				mixpanel.FEProp.setProperty("User Type", "Guest");
+			}
+
+			mixpanel.FEProp.setProperty("Source", "ConsumptionPage");
+			mixpanel.FEProp.setProperty("Page Name", "Subscription");
+			mixpanel.FEProp.setProperty("manufacturer", DeviceDetails.OEM);
+			mixpanel.FEProp.setProperty("brand", DeviceDetails.OEM);
+
+			mixpanel.ValidateParameter("", "Subscription Page Viewed");
+		} else {
+			logger.info("Not applicable for this usertype");
+			extent.extentLoggerPass("", "Not applicable for this usertype");
+		}
+	}
+
+public void verifySubscriptionPageViewedEvent_BuyPlan_AfterCompletionOfTrailerOnThePlayer(String userType, String trailerContent) throws Exception {
+		extent.HeaderChildNode("Verify Subscription Page Viewed Event by clicking on Buy plan after completion of Trailer on the player");
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, trailerContent + "\n", "Search bar");
+			hideKeyboard();
+			waitTime(4000);
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			click(AMDSearchScreen.objSearchResultFirstContent, "Search result");
+			waitForAdToFinishInAmd();
+			registerPopUpClose();
+			completeProfilePopUpClose(userType);
+			if(!(verifyIsElementDisplayed(AMDPlayerScreen.objBuyPlanOnThePlayer))) {
+				click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+				scrubProgressBarTillEnd(AMDPlayerScreen.objProgressBar);
+			}
+			
+			verifyElementPresentAndClick(AMDPlayerScreen.objBuyPlanOnThePlayer, "Buy Plan on the player");
+			
+			setFEProperty(userType);
+			setUserType_SubscriptionProperties(userType);
+			SetAppsflyerProperty();
+			
+			if (pUserType.equalsIgnoreCase("Guest")) {
+				mixpanel.FEProp.setProperty("User Type", "Guest");
+			}
+
+			mixpanel.FEProp.setProperty("Source", "ConsumptionPage");
+			mixpanel.FEProp.setProperty("Page Name", "Subscription");
+			mixpanel.FEProp.setProperty("manufacturer", DeviceDetails.OEM);
+			mixpanel.FEProp.setProperty("brand", DeviceDetails.OEM);
+
+			mixpanel.ValidateParameter("", "Subscription Page Viewed");
+		} else {
+			logger.info("Not applicable for this usertype");
+			extent.extentLoggerPass("", "Not applicable for this usertype");
+		}
+	}
 	
 }

@@ -1,9 +1,9 @@
 package com.zee5.ApplicasterScripts;
 
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
 import com.business.zee.Zee5ApplicasterBusinessLogic;
 import com.utility.Utilities;
 
@@ -82,6 +82,161 @@ public class Android_AR33_ContentDescriptor {
 	public void VerifyContentDescriptor_AfterEntering_ParentalPIN(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.relaunch(false);
 		ZEE5ApplicasterBusinessLogic.VerifyContentDescriptor_AfterEntering_ParentalPIN(userType,"Dial 100");
+			}
+	
+	@Test(priority = 9)  //Bhavana
+	@Parameters({ "userType" })		
+	public void VerifyContentDescriptor_After_Interruption(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
+		ZEE5ApplicasterBusinessLogic.Verify_CD_Dismissal(userType,"Dial 100");
+	}
+	
+	@Test(priority = 10)  //Kartheek
+	@Parameters({ "userType" })		
+	public void VerifyContentDescriptorWithAgeRating(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
+		ZEE5ApplicasterBusinessLogic.ContentDescription_Validation(userType,"14 Phere","Movie");		
+	}
+	
+	
+	@Test(priority = 11)  //Kartheek
+	@Parameters({ "userType" })		
+	public void VerifyContentDescriptorInAutoPlay(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
+		ZEE5ApplicasterBusinessLogic.VerifyCD_in_AutoPlay(userType,"Rekke");		
+	}
+	
+	@Test(priority = 12)  //Kartheek
+	@Parameters({ "userType" })		
+	public void VerifyContentPlayability(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
+		ZEE5ApplicasterBusinessLogic.VerifyContentPlayability(userType,"Dial 100");		
+	}
+	
+	@Test(priority = 13)  //Kartheek
+	@Parameters({ "userType" })		
+	public void Verify_PlayerControls(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
+		ZEE5ApplicasterBusinessLogic.Verify_PlayerControls(userType,"Rekke");		
+	}
+	
+	@Test(priority = 14)  //Kartheek
+	@Parameters({ "userType" })		
+	public void VerifyContentDescriptorWhenVideoStarts(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
+		ZEE5ApplicasterBusinessLogic.contentDescriptorShouldBeDisplayedOnThePlayerWhenVideoStartingFromTheBeginning(userType);		
+	}
+	
+	@Test(priority = 15)  //Kartheek
+	@Parameters({ "userType" })		
+	public void VerifyContentDescriptor_For_ContinueWatching(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
+		ZEE5ApplicasterBusinessLogic.resumedFromContinueWatchingTray(userType);		
+	}
+	
+	@Test(priority = 16)  //Kartheek
+	@Parameters({ "userType" })		
+	public void Verify_CD_onClicking_NextIcon(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
+		ZEE5ApplicasterBusinessLogic.Verify_CD_onClicking_NextIcon(userType,"Bebaakee");		
+	}
+	
+
+	@Test(priority = 17) //Veena
+	@Parameters({ "userType" })		
+	public void ContentDescriptorVPlayerElements(String userType) throws Exception {
+
+		ZEE5ApplicasterBusinessLogic.ContentDescriptorVPlayerElements(userType);//TC_14
+
+	}
+	
+	@Test(priority = 18) //Veena
+	@Parameters({ "userType" })		
+	public void ContentDescriptorPlayerinterruption(String userType) throws Exception {
+
+		ZEE5ApplicasterBusinessLogic.ContentDescriptorPlayerinterruption(userType);//TC_17
+
+	}
+	
+	
+	@Test(priority = 19) //Veena
+	@Parameters({ "userType" })		
+	public void ContentDescriptorPostPlayerkill(String userType) throws Exception {
+
+		ZEE5ApplicasterBusinessLogic.ContentDescriptorPostPlayerkill(userType);//TC_19
+
+	}
+	
+	@Test(priority = 20) //Veena
+	@Parameters({ "userType" })		
+	public void ContentDescriptorPotraitOrientatonValidation(String userType) throws Exception {
+
+		ZEE5ApplicasterBusinessLogic.ContentDescriptorPotraitOrientatonValidation(userType);//TC_20
+
+	}
+	
+	
+	@Test(priority = 21) //Veena
+	@Parameters({ "userType" })		
+	public void ContentDescriptorLandscapeOrientatonValidation(String userType) throws Exception {
+
+		ZEE5ApplicasterBusinessLogic.ContentDescriptorLandscapeOrientatonValidation(userType);//TC_21
+
+	}
+	
+	@Test(priority = 22) //Veena
+	@Parameters({ "userType" })		
+	public void ContentDescriptorEpisodeValidation(String userType) throws Exception {
+
+		ZEE5ApplicasterBusinessLogic.ContentDescriptorEpisodeValidation(userType);//TC_22
+
+	}
+	
+	
+	@Test(priority = 23) //Veena
+	@Parameters({ "userType" })		
+	public void ContentDescriptorDisplayDurationValidation(String userType) throws Exception {
+	
+		ZEE5ApplicasterBusinessLogic.ContentDescriptorDisplayDurationValidation(userType);//TC_18
+
+	}
+	
+	
+	@Test(priority = 24) //Veena
+	@Parameters({ "userType" })		
+	public void ContentDescriptorDisplayValidation(String userType) throws Exception {
+	
+		ZEE5ApplicasterBusinessLogic.ContentDescriptorDisplayValidation(userType);//TC_16
+
+	}
+	
+	
+	@Test(priority = 25) //Veena
+	@Parameters({ "userType" })		
+	public void ContentDescriptor_TVODContentFromContinueWatching(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.ContentDescriptor_TVODContentFromContinueWatching(userType);//TC_34
+		}
+	
+	
+	@Test(priority = 26) //Veena
+	@Parameters({ "userType" })		
+	public void ContentDescriptor_TVODContentFromMyRentals(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.ContentDescriptor_TVODContentFromMyRentals(userType);//TC_35
+		}
+	
+	@Test(priority = 27) //Veena
+	@Parameters({ "userType" })		
+	public void ContentDescriptor_TVODContentForInterruption(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.ContentDescriptor_TVODContentForInterruption(userType);//TC_37
+		}
+	
+	@AfterTest
+	public void tearDownApp() {
+		System.out.println("Quit the App");
+		ZEE5ApplicasterBusinessLogic.tearDown();
 	}
 	
 }

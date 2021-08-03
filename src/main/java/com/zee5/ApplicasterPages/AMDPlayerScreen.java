@@ -221,10 +221,15 @@ public class AMDPlayerScreen {
 	public static By objtoastErrorMesssage = By.xpath("//*[text()='Incorrect pin entered. Please try again']");
 	public static By objcontentDescriptor = By.xpath("");
 	public static By objcontentRating = By.xpath("");
-	public static By objPlayerStartTime = By.xpath("");
 	public static By objFirstContentCardTitleInUpNextRail = By.xpath("(//*[@text='Up Next']/parent::*/following-sibling::*/child::*/child::*/child::*/child::*[@id='cell_bottom_container']/child::*[@class='android.widget.TextView'])[1]");
 
 	public static By objAgeRatedOnPlayer = By.xpath("//*[@id='ratedText']");
 	public static By objContentDescOnPlayer = By.xpath("//*[@id='contentDescriptorText']");
+	public static By objPlayerStartTime = By.xpath("//*[contains(@text,'00:0')]");
+	
+	public static By objErrorMessageOnPlayer = By.xpath("//*[@text='Please enter Parental Control PIN to watch video.']");
+
+	public static By objBuyPlanOnThePlayer = By.xpath("//*[@id='subscribeContainer']/child::*[@id='subscribeButton']");
+	
 	}
 

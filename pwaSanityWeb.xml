@@ -100,6 +100,9 @@
 	<!--  Subscribed User RSVOD 499 Plan--> 
 	<parameter name="RSVODUser499" value="juspayprod12@yopmail.com"/>
 	<parameter name="RSVODUserPassword499" value="qwerty"/>
+	<!--   Premium user with 1 year(>499 plan price ) and 6 months Plan + Supermoon Active User Plan--> 
+	<parameter name="1yearPremium6MSupermoonUser" value=""/>
+	<parameter name="1yearPremium6MSupermoonPassword" value=""/>
 
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
