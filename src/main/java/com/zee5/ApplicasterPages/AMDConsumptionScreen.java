@@ -191,4 +191,9 @@ public class AMDConsumptionScreen {
     public static By objDownloadVideoQuality = By.xpath("//*[@text='Download Video Quality']");
     
     public static By objEnterYour4DigitPIN = By.xpath("//*[@resource-id='com.graymatrix.did:id/parentalFragmentTitleTextView']");
+    
+    public static By objRailName(String railName) {
+		return By.xpath("//*[@text='More']//parent::*//parent::*//*[contains(text(),'"+railName+"')][1]");
+	}
+    
 }

@@ -33767,11 +33767,13 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 						waitTime(2000);
 						click(AMDSugarbox.objSubmitOTP, "Submit OTP");
 
-						verifyElementPresent(AMDSugarbox.objSkip, "Skip Button");
-						verifyElementPresentAndClick(AMDSugarbox.objContinueNext, "Continue");
-						verifyElementPresentAndClick(AMDSugarbox.objContinueNext, "Continue CTA");
-						verifyElementPresentAndClick(AMDSugarbox.objContinueNext, "Continue To Sugarbox");
-						verifyElementPresent(AMDSugarbox.objSugarboxLogo, "Sugarbox logo in Home Screen");
+						
+						if(verifyElementPresent(AMDSugarbox.objSkip, "Skip Button")) {
+							SugarBoxTutorialScreenValidation();
+						}else {
+							logger.info("Onboarding SugarBox Tutorial screen not displayed");
+							extent.extentLoggerWarning("Tutorial Screen", "Onboarding SugarBox Tutorial screen not displayed");
+						}
 					} else {
 						logger.info("OTP is not recieved after waiting for min");
 						extent.extentLoggerWarning("OTP", "OTP is not recieved after waiting for min");
@@ -33789,6 +33791,40 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLoggerWarning("SugarBox Zone", "Device is not in the SugarBox Zone");
 		}
 	}
+	
+	public void SugarBoxTutorialScreenValidation() throws Exception {
+		System.out.println("\nSugarBox Tutorial Screen Validation");
+		
+		String tutorialTitle1 = "Get the Best of ZEE5 experience";
+		String tutorialTitle2 = "Look for SugarBox icon on videos";
+		String tutorialTitle3 = "Manage your SugarBox experience";
+		
+		String tutorialDesc1 = "You can Watch or Download these videos at ZERO data cost";
+		String tutorialDesc2 = "Videos having SugarBox icon are available to stream or download at ZERO data cost";
+		String tutorialDesc3 = "Tap on the icon to connect or disconnect from SugarBox";
+		
+		String onboardingTxt1 = "Stream seamlessly";
+		String onboardingTxt2 = "Super fast downloads";
+		String onboardingTxt3 = "No usage limit";
+		
+		verifyElementPresent(AMDGenericObjects.objText(tutorialTitle1), tutorialTitle1);
+		verifyElementPresent(AMDGenericObjects.objText(tutorialDesc1), tutorialDesc1);
+		verifyElementPresent(AMDGenericObjects.objText(onboardingTxt1), onboardingTxt1);
+		verifyElementPresent(AMDGenericObjects.objText(onboardingTxt2), onboardingTxt2);
+		verifyElementPresent(AMDGenericObjects.objText(onboardingTxt3), onboardingTxt3);	
+		verifyElementPresentAndClick(AMDSugarbox.objContinueNext, "Continue");
+		
+		verifyElementPresent(AMDGenericObjects.objText(tutorialTitle2), tutorialTitle2);
+		verifyElementPresent(AMDGenericObjects.objText(tutorialDesc2), tutorialDesc2);
+		verifyElementPresentAndClick(AMDSugarbox.objContinueNext, "Continue CTA");
+		
+		verifyElementPresent(AMDGenericObjects.objText(tutorialTitle3), tutorialTitle3);
+		verifyElementPresent(AMDGenericObjects.objText(tutorialDesc3), tutorialDesc3);
+		verifyElementPresentAndClick(AMDSugarbox.objContinueNext, "Continue To Sugarbox");
+		
+		verifyElementPresent(AMDSugarbox.objSugarboxLogo, "Sugarbox logo in Home Screen");
+
+	}
 
 	public void ContentPlaybackVerificationInSugarboxNetwork(String pUsertype) throws Exception {
 		extent.HeaderChildNode("Content Playback in Sugarbox Network");
@@ -33797,6 +33833,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		String railName = ResponseInstance.getFirstRailNameFromPage("Home", pUsertype);
 		System.out.println(railName);
 
+		if (!pUsertype.equalsIgnoreCase("Guest")) {
+			SwipeUntilFindElement(AMDHomePage.objRailName(railName), "Up");
+		}
 		for (int i = 1; i <= 5; i++) {
 			click(AMDSugarbox.objContentCard(railName, i), "Content card");
 			if (verifyElementDisplayed(AMDSugarbox.objVideoNotAvailableContinue)) {
