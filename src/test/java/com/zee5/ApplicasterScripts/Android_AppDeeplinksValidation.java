@@ -43,7 +43,7 @@ public class Android_AppDeeplinksValidation {
 		ZEE5ApplicasterBusinessLogic.relaunch(false);
 		ZEE5ApplicasterBusinessLogic.quitZEE5App();
 		ZEE5ApplicasterBusinessLogic.executeDeeplink(pDeeplink);
-		ZEE5ApplicasterBusinessLogic.SubscriptionScreenViaDeeplink(pUserType);
+		ZEE5ApplicasterBusinessLogic.SubscriptionScreenViaDeeplink();
 	}
 	
 	@AfterTest

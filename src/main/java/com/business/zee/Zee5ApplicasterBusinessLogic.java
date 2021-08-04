@@ -36903,7 +36903,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 	}
 
-	public void SubscriptionScreenViaDeeplink(String pUserType) throws Exception {
+	public void SubscriptionScreenViaDeeplink() throws Exception {
 		extent.HeaderChildNode("Subscription Screen validation_Deeplink");		
 		System.out.println("\nSubscription Screen validation_Deeplink");
 			
