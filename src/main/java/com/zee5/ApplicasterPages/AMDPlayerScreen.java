@@ -220,7 +220,6 @@ public class AMDPlayerScreen {
 	public static By objForgotPin = By.xpath("//*[@id='parentalFragmentForgotPin']");
 	public static By objtoastErrorMesssage = By.xpath("//*[text()='Incorrect pin entered. Please try again']");
 	public static By objcontentDescriptor = By.xpath("");
-	public static By objcontentRating = By.xpath("");
 	public static By objFirstContentCardTitleInUpNextRail = By.xpath("(//*[@text='Up Next']/parent::*/following-sibling::*/child::*/child::*/child::*/child::*[@id='cell_bottom_container']/child::*[@class='android.widget.TextView'])[1]");
 
 	public static By objAgeRatedOnPlayer = By.xpath("//*[@id='ratedText']");
@@ -231,5 +230,8 @@ public class AMDPlayerScreen {
 
 	public static By objBuyPlanOnThePlayer = By.xpath("//*[@id='subscribeContainer']/child::*[@id='subscribeButton']");
 	
-	}
+	public static By objcontentRating = By.xpath("//*[@id='content_info']");
+	
+
+}
 

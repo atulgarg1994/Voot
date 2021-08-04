@@ -167,6 +167,7 @@ public class PWAPremiumPage {
 	public static By objViewAllBtn1(String trayTitle) {
 		return By.xpath("((//a[.='" + trayTitle + "']//parent::*//parent::*)//div[.='See All'])[1]");
 	}
-
+	
+	public static By objPreviousArrowMusicPageBtn = By.xpath("(//button[@class='slick-arrow slick-prev'])[1]");
 	
 }

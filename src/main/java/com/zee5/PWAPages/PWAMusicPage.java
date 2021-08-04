@@ -121,8 +121,6 @@ public class PWAMusicPage {
 	
 	public static By objclubTag = By.xpath("//*[@class='cardPremiumContent']");
 	
-	public static By objJoysticktag = By.xpath("//*[@class='cardJoystickContent cardPremiumContent']");
-	
 	public static By objRecommendedSongsVideosTray = By.xpath("//div[@class='recommendCol']//h2[.='Recommended Songs Videos']");
 	
 	public static By objArrowToNavigateTop = By.xpath("//div[contains(@class, 'ic_arrow_back')]");
@@ -145,4 +143,5 @@ public class PWAMusicPage {
 	
 	public static By objPremiumTag = By.xpath("//*[@class='cardPremiumContent sameEpisodeCardContent']");
 
+	public static By objJoysticktag = By.xpath("//*[@class='slick-slide slick-active']//*[@class='cardJoystickContent cardPremiumContent']");
 }

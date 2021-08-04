@@ -181,11 +181,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		case "Guest":
 			extent.HeaderChildNode("Guest User");
 			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
-			// allowPopUp();
+			waitTime(5000);
 			if (checkElementDisplayed(PWALoginPage.objCleverTapPopUp, "clever tap pop up")) {
 				WebElement popup = getWebDriver().findElement(PWALoginPage.objCleverTapPopUp);
 				popup.click();
-
 			}
 			break;
 
@@ -193,7 +192,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Login as NonSubscribed User");
 			String Username = getParameterFromXML("NonsubscribedUserName");
 			String Password = getParameterFromXML("NonsubscribedPassword");
-
+			waitTime(5000);
 			if (checkElementDisplayed(PWALoginPage.objCleverTapPopUp, "clever tap pop up")) {
 				WebElement popup = getWebDriver().findElement(PWALoginPage.objCleverTapPopUp);
 				popup.click();
@@ -217,7 +216,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Login as Subscribed User");
 			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
 			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
-
+			waitTime(5000);
 			if (checkElementDisplayed(PWALoginPage.objCleverTapPopUp, "clever tap pop up")) {
 				WebElement popup = getWebDriver().findElement(PWALoginPage.objCleverTapPopUp);
 				popup.click();
@@ -15176,29 +15175,30 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.HeaderChildNode(" HLS_024 : Verify the rails name and content are loaded for first 2 scroll");
 		pagesTrayValidation(tabName);
 
-		extent.HeaderChildNode("HLS_027 : Previous,Next utton verification");
+		extent.HeaderChildNode("HLS_027 : Previous, Next button verification");
 		verifyElementPresent(PWAPremiumPage.objNextArrowBtn, "Next Arrow Button");
 		JSClick(PWAPremiumPage.objNextArrowBtn, "Next Arrow Button");
+		waitTime(3000);
 		if (checkElementDisplayed(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button")) {
 			waitTime(3000);
 			logger.info("Tray is rotated");
 			extent.extentLogger("Tray is rotated", "Tray is rotated");
 		} else {
-			logger.info("Tray is not rotated");
-			extent.extentLogger("Tray is not rotated", "Tray is not rotated");
+			logger.error("Tray is not rotated");
+			extent.extentLoggerFail("Tray is not rotated", "Tray is not rotated");
 		}
 		JSClick(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button");
 
-		extent.HeaderChildNode(" HLS_025 : Verify On click View All");
+		extent.HeaderChildNode(" HLS_025 : Verify On click More/>");
 		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "More Button")) {
-			click(PWAPremiumPage.objViewAllBtn, "More Button");
+			JSClick(PWAPremiumPage.objViewAllBtn, "More Button");
 			waitTime(10000);
 			if (checkElementDisplayed(PWAPremiumPage.objViewAllPage, "More Page")) {
 				logger.info("Navigated to More Page");
 				extent.extentLogger("More", "Navigated to More Page");
 			} else {
-				logger.info("Not navigated to More Page");
-				extent.extentLogger("More", "Not navigated to More Page");
+				logger.error("Not navigated to More Page");
+				extent.extentLoggerFail("More", "Not navigated to More Page");
 			}
 		}
 		Back(1);
@@ -15302,6 +15302,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			}
 		}
 		Back(2);
+
 		extent.HeaderChildNode("HLS_034 :Verify the right side bottom arrow ");
 		scrollToBottomOfPageWEB();
 		if (checkElementDisplayed(PWAMusicPage.objArrowToNavigateTop, "Arrow icon")) {
@@ -15758,16 +15759,17 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 //			extent.extentLoggerWarning("Autoplay",
 //					"Player controls on Autoplaying carousel content could not be verified");
 //		}
-		extent.HeaderChildNode(" HLS_060 : Verify On click View All/> ");
+		extent.HeaderChildNode(" HLS_060 : Verify On click More/> ");
 
-		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "View All Button")) {
-			click(PWAPremiumPage.objViewAllBtn, "View All Button");
-			if (checkElementDisplayed(PWAPremiumPage.objViewAllPage, "View All Page")) {
-				logger.info("Navigated to View All Page");
-				extent.extentLogger("View All", "Navigated to View All Page");
+		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "More Button")) {
+			JSClick(PWAPremiumPage.objViewAllBtn, "More Button");
+			waitTime(10000);
+			if (checkElementDisplayed(PWAPremiumPage.objViewAllPage, "More Page")) {
+				logger.info("Navigated to More Page");
+				extent.extentLogger("More", "Navigated to More Page");
 			} else {
-				logger.info("Not navigated to View All Page");
-				extent.extentLogger("View All", "Not navigated to View All Page");
+				logger.error("Not navigated to More Page");
+				extent.extentLoggerFail("View All", "Not navigated to More Page");
 			}
 		}
 		Back(1);
@@ -15788,7 +15790,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitTime(2000);
 //		scrollDownByY(200);
 //		swipeTillTray(20, "Live Channel", "Live Channel tray");
-		swipeTillTrayAndClickFirstAsset(userType, 20, "Live Channel", "Live Channel tray", "News");
+		swipeTillTrayAndClickFirstAsset(userType, 90, "All Channel", "All Channel tray", "News");
 //		verifyElementPresent(PWALandingPages.trayCardImg("Live News"), "First Card under 'Live News' tray");
 //		JSClick(PWALandingPages.trayCardImg("Live News"), "First Card under 'Live News' tray");
 		String nextPageTitle = getElementPropertyToString("innerText", PWAPlayerPage.objContentTitleLiveTVname,
@@ -16100,17 +16102,18 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		scrollDownWEB();
 		verifyElementPresentAndClick(PWAPremiumPage.objNextArrowBtn, "Next Arrow Button");
 		waitTime(4000);
-		click(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button");
+		JSClick(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button");
 
-		extent.HeaderChildNode(" HLS_086 : Verify On click View All");
-		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "View All Button")) {
-			click(PWAPremiumPage.objViewAllBtn, "View All Button");
-			if (checkElementDisplayed(PWAPremiumPage.objViewAllPage, "View All Page")) {
-				logger.info("Navigated to View All Page");
-				extent.extentLogger("View All", "Navigated to View All Page");
+		extent.HeaderChildNode(" HLS_086 : Verify On click More/>");
+		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "More Button")) {
+			JSClick(PWAPremiumPage.objViewAllBtn, "More Button");
+			waitTime(10000);
+			if (checkElementDisplayed(PWAPremiumPage.objViewAllPage, "More Page")) {
+				logger.info("Navigated to More Page");
+				extent.extentLogger("More", "Navigated to More Page");
 			} else {
-				logger.info("Not navigated to View All Page");
-				extent.extentLogger("View All", "Not navigated to View All Page");
+				logger.error("Not navigated to More Page");
+				extent.extentLoggerFail("More", "Not navigated to More Page");
 			}
 		}
 		Back(1);
@@ -16158,7 +16161,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				extent.extentLogger("Consumption Page", "Content is not able to play");
 			}
 		}
-		click(PWASubscriptionPages.objZEE5Logo, "Zee5 Logo");
+		verifyElementPresentAndClick(PWASubscriptionPages.objZEE5Logo, "Zee5 Logo");
 		if (userType.equalsIgnoreCase("Guest") || userType.equalsIgnoreCase("NonSubscribedUser")) {
 			extent.HeaderChildNode(
 					"HLS_094 : Verify player Inline subscription link availability at the end of the play back");
@@ -16249,24 +16252,25 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.HeaderChildNode("HLS_126 : Verify Tray Rotation functionality");
 		scrollDownWEB();
 		verifyElementPresentAndClick(PWAPremiumPage.objNextArrowBtn, "Next Arrow Button");
-		if (checkElementDisplayed(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button")) {
+		waitTime(5000);
+		if (checkElementDisplayed(PWAPremiumPage.objPreviousArrowMusicPageBtn, "Previous Arrow Button")) {
 			logger.info("Tray is rotated");
 			extent.extentLogger("Tray is rotated", "Tray is rotated");
 		} else {
-			logger.info("Tray is not rotated");
-			extent.extentLogger("Tray is not rotated", "Tray is not rotated");
+			logger.error("Tray is not rotated");
+			extent.extentLoggerFail("Tray is not rotated", "Tray is not rotated");
 		}
-		click(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button");
-		extent.HeaderChildNode(" HLS_125: Verify On click View All ");
-		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "View All Button")) {
-			click(PWAPremiumPage.objViewAllBtn, "View All Button");
-			waitTime(5000);
-			if (checkElementDisplayed(PWAPremiumPage.objViewAllPage, "View All Page")) {
-				logger.info("Navigated to View All Page");
-				extent.extentLogger("View All", "Navigated to View All Page");
+		JSClick(PWAPremiumPage.objPreviousArrowMusicPageBtn, "Previous Arrow Button");
+		extent.HeaderChildNode(" HLS_125: Verify On click More/>");
+		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "More Button")) {
+			JSClick(PWAPremiumPage.objViewAllBtn, "More Button");
+			waitTime(10000);
+			if (checkElementDisplayed(PWAPremiumPage.objViewAllPage, "More Page")) {
+				logger.info("Navigated to More Page");
+				extent.extentLogger("More", "Navigated to More Page");
 			} else {
-				logger.info("Not navigated to View All Page");
-				extent.extentLogger("View All", "Not navigated to View All Page");
+				logger.error("Not navigated to More Page");
+				extent.extentLoggerFail("More", "Not navigated to More Page");
 			}
 		}
 		extent.HeaderChildNode(" HLS_129 : Verify user is navigate to consumption page ");
@@ -16281,7 +16285,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.extentLoggerFail("Consumption Page", "Not navigated to Consumption Page");
 		}
 		Back(1);
-		extent.HeaderChildNode("HLS_127 :Verify that Play, Share, Watchlist CTA");
+		extent.HeaderChildNode("HLS_127 :Verify that Play and Share CTA");
 		// validateTrayTitleAndTrayCards(tabName, "music");
 		scrollDownByY(150);
 		trayTitleAndContentValidationWithApiDataZeeoriginals(tabName, "music");
@@ -17161,10 +17165,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				checkElementDisplayed(PWAPremiumPage.objTrayTitle(i), "Tray");
 			}
 		}
-		extent.HeaderChildNode(" HLS_101 : Verify On click View All/> ");
+		extent.HeaderChildNode(" HLS_101 : Verify On click More/> ");
 
 		verifyElementPresent(PWAPremiumPage.objNextArrowBtn, "Next Arrow Button");
 		JSClick(PWAPremiumPage.objNextArrowBtn, "Next Arrow Button");
+		waitTime(5000);
 		if (checkElementDisplayed(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button")) {
 			waitTime(3000);
 			logger.info("Tray is rotated");
@@ -17174,15 +17179,15 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.extentLogger("Tray is not rotated", "Tray is not rotated");
 		}
 		JSClick(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button");
-		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "View All Button")) {
-			click(PWAPremiumPage.objViewAllBtn, "View All Button");
-			waitTime(5000);
-			if (checkElementDisplayed(PWAPremiumPage.objViewAllPage, "View All Page")) {
-				logger.info("Navigated to View All Page");
-				extent.extentLogger("View All", "Navigated to View All Page");
+		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "More Button")) {
+			JSClick(PWAPremiumPage.objViewAllBtn, "More Button");
+			waitTime(10000);
+			if (checkElementDisplayed(PWAPremiumPage.objViewAllPage, "More Page")) {
+				logger.info("Navigated to More Page");
+				extent.extentLogger("More", "Navigated to More Page");
 			} else {
-				logger.info("Not navigated to View All Page");
-				extent.extentLogger("View All", "Not navigated to View All Page");
+				logger.error("Not navigated to More Page");
+				extent.extentLoggerFail("More", "Not navigated to More Page");
 			}
 		}
 		Back(1);
@@ -17196,20 +17201,21 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitTime(5000);
 		if (checkElementDisplayed(PWAMusicPage.objArrowToNavigateTop, "Arrow icon")) {
 			waitTime(2000);
-			click(PWAMusicPage.objArrowToNavigateTop, "Arrow icon");
+			JSClick(PWAMusicPage.objArrowToNavigateTop, "Arrow icon");
 		}
+
 		waitTime(3000);
 		extent.HeaderChildNode("HLS_103 :Verify the Joystick icon is given on top left for all Play content card");
-
-		checkElementDisplayed(PWAMusicPage.objJoysticktag, "joystick icon");
+		partialScroll();
+		verifyElementPresent(PWAMusicPage.objJoysticktag, "joystick icon");
 
 		extent.HeaderChildNode("HLS_105 :Verify user is navigate to respective games screen");
 		if (checkElementDisplayed(PWAPremiumPage.objWEBMastheadCarousel, "Carousel")) {
-			JSClick(PWAPlayPage.objPlayNowButton, "Play Now button of Carousel");
+			verifyElementPresentAndClick(PWAPlayPage.objPlayNowButton, "Play Now button of Carousel");
 		}
 		switchToWindow(2);
 		waitTime(2500);
-//	
+
 		String currentUrl = getWebDriver().getCurrentUrl();
 		logger.info("Current URL: " + currentUrl);
 		extent.extentLogger("", "Current URL: " + currentUrl);
@@ -21871,7 +21877,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.HeaderChildNode("HLS_046,HLS_044 : Verify that user is able to rotate tray");
 		verifyElementPresent(PWAPremiumPage.objNextArrowBtn, "Next Arrow Button");
 		JSClick(PWAPremiumPage.objNextArrowBtn, "Next Arrow Button");
-		waitTime(2000);
+		waitTime(5000);
 		if (verifyElementPresent(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button")) {
 			waitTime(3000);
 			logger.info("Tray is rotated");
@@ -21882,7 +21888,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 		JSClick(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button");
 		if (verifyElementPresent(PWAPremiumPage.objViewAllBtn, "More Button")) {
-			click(PWAPremiumPage.objViewAllBtn, "More Button");
+			JSClick(PWAPremiumPage.objViewAllBtn, "More Button");
 			waitTime(10000);
 			if (checkElementDisplayed(PWAPremiumPage.objViewAllPage, "More Page")) {
 				logger.info("Navigated to More Page");
@@ -21965,7 +21971,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				"Second Episode set");
 		waitTime(2000);
 		verifyElementPresentAndClick(PWAShowsPage.objEpisodeCardTwo, "Second Episode Card");
-//	verifyElementPresentAndClick(PWAShowsPage.objEpisodeCard, "First Episode Card");
+		// verifyElementPresentAndClick(PWAShowsPage.objEpisodeCard, "First Episode
+		// Card");
 		waitForPlayerAdToComplete("Video Player");
 		pausePlayer();
 		verifyElementPresentAndClick(PWAHomePage.objZeeLogo, "Zee Logo");
@@ -21979,8 +21986,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		trayTitleAndContentValidationWithApiDataMovie(tabName, "tvshows");
 
 		extent.HeaderChildNode("HLS_052 :Verify the right side bottom arrow ");
-//	scrollToBottomOfPageWEB();
-//	logger.info("Scrolled Up the page");
+		// scrollToBottomOfPageWEB();
+		// logger.info("Scrolled Up the page");
 		scrollToElement(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn);
 		if (verifyElementPresent(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn, "Back to Top Arrow icon")) {
 			click(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn, "Back to Top Arrow icon");
@@ -22039,18 +22046,18 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			logger.info("Tray is rotated");
 			extent.extentLogger("Tray is rotated", "Tray is rotated");
 		} else {
-			logger.info("Tray is not rotated");
+			logger.error("Tray is not rotated");
 			extent.extentLoggerFail("Tray is not rotated", "Tray is not rotated");// update
 		}
-		click(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button");
+		JSClick(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button");
 		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "More Button")) {
-			click(PWAPremiumPage.objViewAllBtn, "More Button");
-			waitTime(5000);
+			JSClick(PWAPremiumPage.objViewAllBtn, "More Button");
+			waitTime(10000);
 			if (checkElementDisplayed(PWAPremiumPage.objViewAllPage, "More Page")) {
 				logger.info("Navigated to More Page");
 				extent.extentLogger("More", "Navigated to More Page");
 			} else {
-				logger.info("Not navigated to More Page");
+				logger.error("Not navigated to More Page");
 				extent.extentLoggerFail("More", "Not navigated to More Page");// update
 			}
 		}
@@ -34335,5 +34342,249 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.extentLoggerFail("", "Watch Now CTA is not Present in  ZeePlex Page,expected behaviour");
 		}
 	}
-	
+
+	public void deleteDevices() throws Exception {
+		String userType = getParameterFromXML("userType");
+//		if(!userType.equals("Guest")) ResponseInstance.deleteAddDevicesForTheUser();
+	}
+
+	public void ResumeCTAonZeePlexForSupermoonevent(String userType) throws Exception {
+		extent.HeaderChildNode(
+				"Verify that user is able to see Resume CTA in Zeeplex landing page for Rented Supermoon if user has started watching TVOD");
+		oneYearPremium6MSupermoonUser();
+		// alredy half watched creds required
+		waitTime(3500);
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+		waitTime(3500);
+		if (verifyElementDisplayed(PWAComboOfferPage.objResumeCTA)) {
+
+			logger.info("Resume CTA is Present in in ZeePlex Page");
+			extent.extentLoggerPass("", "Resume CTA is Present in ZeePlex Page,expected behaviour");
+
+		} else {
+			logger.error("Resume Now CTA is not Present in ZeePlex Page");
+			extent.extentLoggerFail("", "Resume Now CTA is not Present in  ZeePlex Page,expected behaviour");
+		}
+	}
+
+	public void NoComboOfferWidgetBelowThePlayer(String userType) throws Exception {
+		extent.HeaderChildNode("Verify that user is not able to see Combo offer widget below the player");
+		oneYearPremium6MSupermoonUser();
+		waitTime(3500);
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+		waitTime(3500);
+		if (!verifyElementPresent(PWAComboOfferPage.objComboOfferWidget, "Combo Offer Widget below the player")) {
+
+			logger.info("Combo Offer Widget below the player is not Present");
+			extent.extentLoggerPass("", "Combo Offer Widget below the player is not Present,expected behaviour");
+
+		} else {
+			logger.error("Combo Offer Widget below the player is Present");
+			extent.extentLoggerFail("", "Combo Offer Widget below the player is Present,expected behaviour");
+		}
+
+	}
+
+	public void ExpiresInHoursBelowThePlayer(String userType) throws Exception {
+		extent.HeaderChildNode(
+				"Verify that user is not able to see watch time validity (Expires in XX hours ) below the player in comsumption page");
+		oneYearPremium6MSupermoonUser();
+		waitTime(3500);
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+		waitTime(3500);
+		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		waitTime(3500);
+		if (!verifyElementPresent(PWAComboOfferPage.objExpiresinDaysTxtBelowThePlayer,
+				"watch time validity (Expires in XX hours ) below the player")) {
+
+			logger.info("watch time validity (Expires in XX hours ) below the player is not Present");
+			extent.extentLoggerPass("",
+					"watch time validity (Expires in XX hours ) below the player is not Present,expected behaviour");
+
+		} else {
+			logger.error("watch time validity (Expires in XX hours ) below the player is Present");
+			extent.extentLoggerFail("",
+					"watch time validity (Expires in XX hours ) below the player is Present,expected behaviour");
+		}
+
+	}
+
+	public void ExpiresInRentalAndWatchTime(String userType) throws Exception {
+
+		extent.HeaderChildNode(
+				"Verify that user is not able to see \"Expires in <rental duration>\" and \"Expires in <watchtime>\"  in My Rental page");
+		oneYearPremium6MSupermoonUser();
+		waitTime(3500);
+		click(PWALandingPages.objWebProfileIcon, "Profile Icon");
+		waitTime(3000);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objzeeplex, "ZEEPLEX Rentals");
+		Thread.sleep(3000);
+
+		if (!verifyElementPresent(PWAComboOfferPage.objRentalValidateTxt, "Rental duration")) {
+
+			logger.info("Expires in <Rental duration> is not Present");
+			extent.extentLoggerPass("", "Expires in <Rental duration> is not Present,expected behaviour");
+
+		} else {
+			logger.error("Expires in <Rental duration> is Present");
+			extent.extentLoggerFail("", "Expires in <Rental duration> is Present,expected behaviour");
+		}
+
+		if (!verifyElementPresent(PWAComboOfferPage.objWatchTimevalidateTxt, "Watch time")) {
+
+			logger.info("Expires in <Watch time> is not Present");
+			extent.extentLoggerPass("", "Expires in <Watch time> is not Present,expected behaviour");
+
+		} else {
+			logger.error("Expires in <Watch time> is Present");
+			extent.extentLoggerFail("", "Expires in <Watch time> is Present,expected behaviour");
+		}
+
+	}
+
+	public void componentsInRentalAndWatchTime(String userType) throws Exception {
+		extent.HeaderChildNode("Verify that below components are displayed in My Rentals");
+		oneYearPremium6MSupermoonUser();
+		waitTime(3500);
+		click(PWALandingPages.objWebProfileIcon, "Profile Icon");
+		waitTime(3000);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objzeeplex, "ZEEPLEX Rentals");
+		Thread.sleep(3000);
+		if (verifyElementPresent(PWAComboOfferPage.objMyRentalTitle, "Supermoon title in My rentals")) {
+
+			logger.info("Supermoon title in My rentals is  Present");
+			extent.extentLoggerPass("", "Supermoon title in My rentals is Present,expected behaviour");
+
+		} else {
+			logger.error("Supermoon title in My rentals is not Present");
+			extent.extentLoggerFail("", "Supermoon title in My rentals is not Present,expected behaviour");
+		}
+
+		if (verifyElementDisplayed(PWAComboOfferPage.objWatchNowCTA)) {
+
+			logger.info("Watch Now CTA is Present in My rentals Page");
+			extent.extentLoggerPass("", "Watch Now CTA is Present in My rentals Page,expected behaviour");
+
+		} else {
+			logger.error("Watch Now CTA is not Present in My rentals Page");
+			extent.extentLoggerFail("", "Watch Now CTA is not Present in My rentals Page,expected behaviour");
+
+		}
+		if (verifyElementDisplayed(PWAComboOfferPage.objExpiresDaysTxt)) {
+
+			logger.info("Expiry time mentioned in My rentals Page");
+			extent.extentLogger("", "Expiry time mentioned in My rentals Page,expected behaviour");
+
+		} else {
+			logger.info("Expiry time is not mentioned in My rentals Page");
+			extent.extentLogger("", "Expiry time is not mentioned in My rentals Page,expected behaviour");
+
+		}
+	}
+
+	public void activeAndExpiryInRentalAndWatchTime(String userType) throws Exception {
+		extent.HeaderChildNode(
+				"Validate that both active and expired Live TV TVOD or TVOD Videos contents are displayed in My rentals screen");
+		oneYearPremium6MSupermoonUser();
+		waitTime(3500);
+		click(PWALandingPages.objWebProfileIcon, "Profile Icon");
+		waitTime(3000);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objzeeplex, "ZEEPLEX Rentals");
+		Thread.sleep(3000);
+		if (verifyElementDisplayed(PWAComboOfferPage.objWatchNowCTA)) {
+
+			logger.info("Live TV TVOD is still active in My rentals Page");
+			extent.extentLogger("", "Live TV TVOD is still active in My rentals Page,expected behaviour");
+
+		} else {
+			logger.info("Live TV TVOD is not active in My rentals Page");
+			extent.extentLogger("", "Live TV TVOD is not active in My rentals Page,expected behaviour");
+
+		}
+		if (verifyElementDisplayed(PWAComboOfferPage.objResumeCTA)) {
+
+			logger.info("Live TV TVOD is still active in My rentals Page");
+			extent.extentLogger("", "Live TV TVOD is still active in My rentals Page,expected behaviour");
+
+		} else {
+			logger.info("Live TV TVOD is not active in My rentals Page");
+			extent.extentLogger("", "Live TV TVOD is not active in My rentals Page,expected behaviour");
+
+		}
+
+		if (verifyElementDisplayed(PWAComboOfferPage.objExpiredTxtInMyRental)) {
+
+			logger.info("Expired Live TV TVOD contents mentioned in My rentals Page");
+			extent.extentLogger("", "Expired Live TV TVOD contents mentioned in My rentals Page,expected behaviour");
+
+		} else {
+			logger.info("Expired Live TV TVOD contents is not mentioned in My rentals Page");
+			extent.extentLogger("",
+					"Expired Live TV TVOD contents is not mentioned in My rentals Page,expected behaviour");
+
+		}
+
+	}
+
+	public void NavigateToConsumptionScreenFromMyRental(String userType) throws Exception {
+		extent.HeaderChildNode(
+				"Validate User should be taken to respective content screen on tapping Live TV TVOD or TVOD Videos content in My rentals screen");
+		oneYearPremium6MSupermoonUser();
+		waitTime(3500);
+		click(PWALandingPages.objWebProfileIcon, "Profile Icon");
+		waitTime(3000);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objzeeplex, "ZEEPLEX Rentals");
+		Thread.sleep(3000);
+		if (verifyElementDisplayed(PWAComboOfferPage.objWatchNowCTA)) {
+			JSClick(PWAComboOfferPage.objWatchNowCTA, "Watch Now CTA");
+		} else {
+			JSClick(PWAComboOfferPage.objResumeCTA, "Resume CTA");
+		}
+		waitTime(4000);
+		if (checkElementDisplayed(PWAComboOfferPage.objTvodConsumptionPage, "Consumption Screen")) {
+			extent.extentLoggerPass("",
+					"User is able navigate to comsuption Screen after tapping on Supermoon content in My rental page");
+			logger.info(
+					"User is able navigate to comsuption Screen after tapping on Supermoon content in My rental page");
+		} else {
+			extent.extentLoggerFail("", "User is not able to navigate to the consumption screen");
+			logger.error("User is not able to navigate to the consumption screen");
+		}
+	}
+
+	public void noRentalTimeValidityInZeeplexPage(String userType) throws Exception {
+		extent.HeaderChildNode("Verify that user is not able to see Rental time validity in Rental popup");
+		oneYearPremium6MSupermoonUser();
+		waitTime(3500);
+
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+		waitTime(3500);
+		if (verifyElementDisplayed(PWAComboOfferPage.objExpiresDaysTxt)) {
+			extent.extentLoggerPass("", "user is not able to see Rental time validity in Rental popup");
+			logger.info("user is not able to see Rental time validity in Rental popup");
+		} else {
+			extent.extentLoggerFail("", "user is able to see Rental time validity in Rental popup");
+			logger.error("user is able to see Rental time validity in Rental popup");
+
+		}
+	}
+
+	public void HowItWorksInConsumptionPage(String userType) throws Exception {
+		extent.HeaderChildNode("Verify that \"How it works\" banner is not displayed in consumption page");
+		oneYearPremium6MSupermoonUser();
+		waitTime(3500);
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+		waitTime(3500);
+		JSClick(PWAComboOfferPage.objSupermoonThumbnail, "Supermoon");
+		waitTime(3000);
+		if (verifyElementDisplayed(PWAComboOfferPage.objHowItworksConsumption)) {
+			extent.extentLoggerPass("", "\"How it works\" banner is not displayed in consumption page");
+			logger.info("\"How it works\" banner is not displayed in consumption page");
+		} else {
+			extent.extentLoggerFail("", "\"How it works\" banner is displayed in consumption page");
+			logger.error("\"How it works\" banner is displayed in consumption page");
+
+		}
+
+	}
 }

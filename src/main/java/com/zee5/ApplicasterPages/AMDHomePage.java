@@ -301,10 +301,6 @@ public class AMDHomePage {
 	
 	public static By objSeeAllFirstRail = By.xpath("(//*[@text='See All'])[1]");
 	
-	public static By objRailName(String railName) {
-		return By.xpath("//*[@text='See All']//parent::*//parent::*//*[contains(text(),'"+railName+"')][1]");
-	}
-	
 	public static By objHomeTab1 = By.xpath("//*[@id='title' and @text='Home'] | //*[@text='Home']");
 	public static By objTvShowsTab = By.xpath("//*[@id='title' and @text='TV Shows'] | //*[@text='TV Shows']");
 
@@ -331,4 +327,8 @@ public class AMDHomePage {
  	public static By objContentDownloadedIcon = By.xpath("//*[@id='img_state']");
  	public static By objContentDownloadedDeleteIcon = By.xpath("//*[@id='tvDeleteDownload']");
  	public static By objSugarBoxIconOnThumbnail = By.xpath("//*[@id='img_sugarBox_violator']");
+ 	
+ 	public static By objRailName(String railName) {
+		return By.xpath("//*[@text='More']//parent::*//parent::*//*[contains(text(),'"+railName+"')][1]");
+	}
 }

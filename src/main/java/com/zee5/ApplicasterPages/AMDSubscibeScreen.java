@@ -174,4 +174,12 @@ public class AMDSubscibeScreen {
 	
 	public static By objApply = By.xpath("//*[@text='Apply']");
 	
+	public static By objPlanNameOfPlan(int i) {
+		return By.xpath("(//*[@id='planName'])["+i+"]");
+	}
+	
+	public static By objPlanDescriptionOfPlan(int i) {
+		return By.xpath("(//*[@id='planDescription'])["+i+"]");
+	}
+	
 }

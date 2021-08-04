@@ -177,7 +177,16 @@
 	
 	<parameter name="UpgradeSubscribedUserName" value="testbetabuild123@gmail.com" />
 	<parameter name="UpgradeSubscribedPassword" value="igs@123" />
-	
+	<!-- 	Deeplink URLs Parameters	 -->
+	<parameter name="DeeplinkToLoginScreenFrmEmail" value="https://www.zee5.com/signin/email" />
+	<parameter name="DeepLink_Settings" value="https://www.zee5.com/settings" />
+	<parameter name="DeepLink_SignIn" value="https://www.zee5.com/signin" />
+	<parameter name="DeepLink_Watchlist" value="https://www.zee5.com/myprofile/watchlist" />
+	<parameter name="DeepLink_Subscription" value="https://www.zee5.com/myaccount/subscription" />
+	<parameter name="DeepLink_Plans" value="https://www.zee5.com/myaccount/plans" />
+	<parameter name="DeepLink_Payments" value="https://www.zee5.com/myprofile/payments" />
+	<parameter name="DeepLink_Edit" value="https://www.zee5.com/myprofile/edit" />
+	<parameter name="DeeplinkToGrievanceRedressal" value=" https://www.zee5.com/content-grievance-redressal" />
 	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />

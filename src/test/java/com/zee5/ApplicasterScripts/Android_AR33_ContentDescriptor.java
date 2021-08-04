@@ -95,7 +95,7 @@ public class Android_AR33_ContentDescriptor {
 	@Parameters({ "userType" })		
 	public void VerifyContentDescriptorWithAgeRating(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.relaunch(false);
-		ZEE5ApplicasterBusinessLogic.ContentDescription_Validation(userType,"14 Phere","Movie");		
+		ZEE5ApplicasterBusinessLogic.ContentDescription_Validation(userType,"Rekke","Movie");		
 	}
 	
 	
@@ -103,7 +103,7 @@ public class Android_AR33_ContentDescriptor {
 	@Parameters({ "userType" })		
 	public void VerifyContentDescriptorInAutoPlay(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.relaunch(false);
-		ZEE5ApplicasterBusinessLogic.VerifyCD_in_AutoPlay(userType,"Rekke");		
+		ZEE5ApplicasterBusinessLogic.VerifyCD_in_AutoPlay(userType,"Socha Na Tha");		
 	}
 	
 	@Test(priority = 12)  //Kartheek
@@ -147,8 +147,9 @@ public class Android_AR33_ContentDescriptor {
 
 	@Test(priority = 17) //Veena
 	@Parameters({ "userType" })		
-	public void ContentDescriptorVPlayerElements(String userType) throws Exception {
-
+	public void ContentDescriptorVPlayerElements(String userType) throws Exception {//c
+		ZEE5ApplicasterBusinessLogic.ContentDescriptorDeeplinkValidation(userType);//TC_13
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
 		ZEE5ApplicasterBusinessLogic.ContentDescriptorVPlayerElements(userType);//TC_14
 
 	}
@@ -156,7 +157,7 @@ public class Android_AR33_ContentDescriptor {
 	@Test(priority = 18) //Veena
 	@Parameters({ "userType" })		
 	public void ContentDescriptorPlayerinterruption(String userType) throws Exception {
-
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
 		ZEE5ApplicasterBusinessLogic.ContentDescriptorPlayerinterruption(userType);//TC_17
 
 	}
@@ -165,7 +166,7 @@ public class Android_AR33_ContentDescriptor {
 	@Test(priority = 19) //Veena
 	@Parameters({ "userType" })		
 	public void ContentDescriptorPostPlayerkill(String userType) throws Exception {
-
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
 		ZEE5ApplicasterBusinessLogic.ContentDescriptorPostPlayerkill(userType);//TC_19
 
 	}
@@ -173,7 +174,7 @@ public class Android_AR33_ContentDescriptor {
 	@Test(priority = 20) //Veena
 	@Parameters({ "userType" })		
 	public void ContentDescriptorPotraitOrientatonValidation(String userType) throws Exception {
-
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
 		ZEE5ApplicasterBusinessLogic.ContentDescriptorPotraitOrientatonValidation(userType);//TC_20
 
 	}
@@ -182,33 +183,33 @@ public class Android_AR33_ContentDescriptor {
 	@Test(priority = 21) //Veena
 	@Parameters({ "userType" })		
 	public void ContentDescriptorLandscapeOrientatonValidation(String userType) throws Exception {
-
-		ZEE5ApplicasterBusinessLogic.ContentDescriptorLandscapeOrientatonValidation(userType);//TC_21
+		//ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.ContentDescriptorLandscapeOrientatonValidation(userType);//TC_21 ci
 
 	}
 	
 	@Test(priority = 22) //Veena
 	@Parameters({ "userType" })		
 	public void ContentDescriptorEpisodeValidation(String userType) throws Exception {
-
+		//ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.ContentDescriptorEpisodeValidation(userType);//TC_22
 
 	}
 	
 	
-	@Test(priority = 23) //Veena
+	//@Test(priority = 23) //Veena
 	@Parameters({ "userType" })		
 	public void ContentDescriptorDisplayDurationValidation(String userType) throws Exception {
-	
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
 		ZEE5ApplicasterBusinessLogic.ContentDescriptorDisplayDurationValidation(userType);//TC_18
 
 	}
 	
 	
-	@Test(priority = 24) //Veena
+	//@Test(priority = 24) //Veena
 	@Parameters({ "userType" })		
 	public void ContentDescriptorDisplayValidation(String userType) throws Exception {
-	
+		//ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.ContentDescriptorDisplayValidation(userType);//TC_16
 
 	}
@@ -217,6 +218,7 @@ public class Android_AR33_ContentDescriptor {
 	@Test(priority = 25) //Veena
 	@Parameters({ "userType" })		
 	public void ContentDescriptor_TVODContentFromContinueWatching(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
 		ZEE5ApplicasterBusinessLogic.ContentDescriptor_TVODContentFromContinueWatching(userType);//TC_34
 		}
 	
@@ -232,6 +234,7 @@ public class Android_AR33_ContentDescriptor {
 	public void ContentDescriptor_TVODContentForInterruption(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.ContentDescriptor_TVODContentForInterruption(userType);//TC_37
 		}
+	
 	
 	@AfterTest
 	public void tearDownApp() {

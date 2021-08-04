@@ -76,9 +76,9 @@
 	</listeners>
 
 	
-	<test name="Android_SugarBoxTest">
+	<test name="Android_SugarboxTest">
 		<classes>
-			<class name="com.zee5.AndroidSugarbox.Android_SugarBoxTest" />
+			<class name="com.zee5.AndroidSugarbox.Android_SugarboxTest" />
 		</classes>
 	</test>
 	
@@ -87,5 +87,5 @@
 			<class name="com.zee5.AndroidSugarbox.Android_SugarBox_OnboardingStream" />
 		</classes>
 	</test>
-	
+
 </suite>

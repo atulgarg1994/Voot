@@ -225,4 +225,8 @@ public class PWAComboOfferPage {
 	public static By objZeeplexTitle=By.xpath("");
 	public static By objPoster=By.xpath("");
 	public static By objBuySuperMoonComboBtn = By.xpath(".//*[@class='buttonContainer']//child::*[text()='Buy Supermoon Combo']");
+	
+	public static By objMyRentalTitle=By.xpath("");
+	public static By objExpiredTxtInMyRental=By.xpath("");
+	public static By objHowItworksConsumption=By.xpath("");
 }

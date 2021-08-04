@@ -327,4 +327,7 @@ public class AMDMoreMenu {
 	
 	public static By Restrict7AboveContent = By.xpath("//*[@text='Restrict U/A 7+ Content']");
 	public static By Restrict16AboveContent = By.xpath("//*[@text='Restrict U/A 16+ Content']");
+	
+	public static By Restrict18PlusAboveContent = By.xpath("//*[@text='Restrict U/A 18+ Content']");
+	public static By Restrict13PlusAboveContent = By.xpath("//*[@text='Restrict U/A 13+ Content']");
 }
