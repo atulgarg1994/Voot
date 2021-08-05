@@ -238,5 +238,6 @@ public class PWAComboOfferPage {
 	//genre
 	public static By objcontentGenre=By.xpath("//div[@class='consumptionMetaDiv']//div[@class='metaInfo lineHeightClass']//span[@class='showMetaClass']//a");
 
-	public static By objDescBelowShareBtn = By.xpath("");
+	public static By objDescBelowShareBtn=By.xpath("//p[@id='description']");
+
 }

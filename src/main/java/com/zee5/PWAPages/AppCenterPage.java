@@ -19,6 +19,8 @@ public class AppCenterPage {
 	
 	public static By objNoBtn = By.xpath(".//*[@id='idBtn_Back']");
 	
+	public static By objZee5AndroidHeader = By.xpath(".//*[@class='_7K7Xjw2Px']");
+	
 	public static By objExpandIcon = By.xpath("(.//*[@class='_1FqZrtOgx _6N07j8WWx _2CPSTw5ex _2tt1fylgx _6UYCKwXNx _1oz0dxenx _7mS0f4yVx'])[2]//parent::*//following-sibling::*[@class='_6lPyHfJGx']//*[@alt='Expand More']");
 	
 	public static By objDownloadBtn = By.xpath("(.//*[@class='_1FqZrtOgx _6N07j8WWx _2CPSTw5ex _2tt1fylgx _6UYCKwXNx _1oz0dxenx _7mS0f4yVx'])[2]//parent::*//following-sibling::*[@class='_6lPyHfJGx']//button");
