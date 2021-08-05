@@ -29,7 +29,7 @@ public class ParseCharlesLogs {
 	public static void readDocumnet()
 			throws ParserConfigurationException, SAXException, IOException, InterruptedException {
 		ArrayList<String> AllCalls = new ArrayList<String>();
-		File file = new File(System.getProperty("user.dir") + CharlesConfigure.charlesName);
+		File file = new File(System.getProperty("user.dir") +"//"+ CharlesConfigure.charlesName);
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		dbf.setValidating(false);
 		dbf.setNamespaceAware(true);

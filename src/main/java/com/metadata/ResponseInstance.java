@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 //import static com.jayway.restassured.RestAssured.given;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -5337,4 +5338,1468 @@ public class ResponseInstance {
 		respCW.print();
 		return respCW;
 	}
+	
+	
+//	Mixpanel
+	
+	public static ArrayList<String> getTrayValuesForCarousel (String userType,String tab,int assetType,String assetSubtype, String requiredType,String contentLanguages,int scenario,String guestToken,ArrayList<HashMap<Integer,String>> carouselValuesUI) throws Exception {		
+		ArrayList trayDetails=new ArrayList<>();
+		String businessType="",ageRating="";
+		String trayTitle="",sourceContentTitle="",contentTitle="",contentDataID="",contentID="",itemID="",channel="N/A",epNo="N/A",series="N/A",horizontalIndex="N/A",trayId="",contentSpec="N/A",previewStatus="N/A";
+		String assetSubtypeAPI="",contenturl="",tvShowAssetSubtype="",tvShowID="",tvShowIDToSend="",channelID="",genre="",isEduauraa="",isTvod="",contentBillingType="N/A",url="",seasonID="";
+		int cardNum=0;
+		boolean reqMatched=false,foundContent=false,evaluateTrailer=false,evaluateActualContent=false;
+		
+		Response tabResponse = ResponseInstance.getResponseForPages(tab.toLowerCase(), 0, contentLanguages);
+		trayTitle=tabResponse.jsonPath().get("buckets[0].title").toString();
+		System.out.println("tray title:"+trayTitle);
+		trayId=tabResponse.jsonPath().get("buckets[0].id").toString();
+		System.out.println("trayId : "+trayId);
+		for(int i=0;i<carouselValuesUI.size();i++) {
+			
+			sourceContentTitle=tabResponse.jsonPath().get("buckets[0].items["+i+"].title").toString().replace(",", "-");	
+			System.out.println("sourceContentTitle : "+sourceContentTitle);
+			reqMatched=false;
+			HashMap<Integer,String> mapCardUrl=carouselValuesUI.get(i);
+			cardNum=i;
+			System.out.println("cardNum"+cardNum);
+			url=mapCardUrl.get(i);
+			System.out.println("url"+url);
+			String[] splits=url.split("/");
+			contentDataID=splits[splits.length-1];
+			System.out.println("contentDataID"+contentDataID);
+			if(url.contains("movies/details") && (assetSubtype.equals("movie") || assetSubtype.equals("trailer"))) {
+				System.out.println("entered P");
+				tvShowID="";	
+				reqMatched=true;
+			}
+			else if(url.contains("tvshows/details") && assetSubtype.equals("episode")) {
+				System.out.println("entered Q");
+				tvShowID=url.split(".com")[1].split("/")[4];
+				if(contentDataID.equals("latest") || contentDataID.equals("latest1")) {
+					contentDataID=tvShowID;
+					tvShowIDToSend=tvShowID;
+					tvShowID="";
+				}
+				reqMatched=true;
+			}
+			else if(url.contains("kids-shows") && assetSubtype.equals("episode")) {
+				System.out.println("entered R");
+				tvShowID=url.split(".com")[1].split("/")[4];
+				if(contentDataID.equals("latest") || contentDataID.equals("latest1")) {
+					contentDataID=tvShowID;
+					tvShowIDToSend=tvShowID;
+					tvShowID="";
+				}
+				reqMatched=true;
+			}
+			else if(url.contains("music-videos") && assetSubtype.equals("video")) {
+				System.out.println("entered S");
+				tvShowID="";
+				reqMatched=true;
+			}
+			else if(url.contains("videos/details") && assetSubtype.equals("video")) {
+				System.out.println("entered T");
+				tvShowID="";
+				reqMatched=true;
+			}
+			else if(url.contains("zee5originals/details") && assetSubtype.equals("episode")) {
+				System.out.println("entered U");
+				tvShowID=url.split(".com")[1].split("/")[4];
+				if(contentDataID.equals("latest") || contentDataID.equals("latest1")) {
+					contentDataID=tvShowID;
+					tvShowIDToSend=tvShowID;
+					tvShowID="";
+				}
+				reqMatched=true;
+			}
+			else if(url.contains("channels/details")) {
+				System.out.println("entered V");
+				channelID=contentDataID;
+				reqMatched=true;
+			}
+			System.out.println("tvShowID"+tvShowID);
+			if(reqMatched==true) {
+				horizontalIndex=String.valueOf(i+1);
+				Response singlePlaybackResponse = ResponseInstance.getSinglePlayBackDetails(contentDataID,tvShowID,channelID,guestToken);
+				businessType=singlePlaybackResponse.jsonPath().get("assetDetails.business_type").toString();
+				System.out.println("businesssType"+businessType);
+				try {
+					ageRating=singlePlaybackResponse.jsonPath().get("assetDetails.age_rating");
+				}
+				catch(Exception e) {ageRating="";}
+				if(ageRating==null) ageRating="";
+				System.out.println("ageRating"+ageRating);
+				try {
+					seasonID=singlePlaybackResponse.jsonPath().get("assetDetails.season");
+					System.out.println("seasonID"+seasonID);
+				}catch(Exception e) {}
+			    if(requiredType.equals("free")) {
+			    	if(userType.equals("Guest") && !businessType.contains("premium") && !ageRating.equals("A") && !businessType.equals("tvod")) {
+						//fetch if free for guest user
+						System.out.println("entered c11");
+						evaluateActualContent=true;
+					}
+					if(!userType.equals("Guest") && !businessType.contains("premium") && !businessType.equals("tvod")) {
+						//fetch if free for non sub and sub user
+						System.out.println("entered c22");
+						evaluateActualContent=true;
+					}
+			    }
+			    if(requiredType.equals("premium")) {
+			    	if(!userType.equals("SubscribedUser") && (businessType.contains("premium") || businessType.equals("tvod"))) {
+						//fetch if premium for Guest/ Non sub user
+						System.out.println("entered c33");
+						evaluateTrailer=true;
+					}
+			    	if(userType.equals("SubscribedUser") && businessType.equals("tvod")) {
+						//fetch if premium for Sub user
+						System.out.println("entered c44");
+						evaluateTrailer=true;
+					}
+					if(userType.equals("SubscribedUser") && businessType.contains("premium")) {
+						//fetch if premium for Sub user
+						System.out.println("entered c44");
+						evaluateActualContent=true;
+					}
+			    }			
+				try {
+					if(evaluateActualContent==true) {
+						System.out.println("inside playlist actualContent");
+						try {
+							contentID=singlePlaybackResponse.jsonPath().get("assetDetails.id").toString();
+						}catch(Exception e) {}
+						System.out.println("contentID"+contentID);
+						contentTitle=singlePlaybackResponse.jsonPath().get("assetDetails.title").toString().replace(",","-");
+						System.out.println("contentTitle"+contentTitle);
+						assetSubtype=singlePlaybackResponse.jsonPath().get("assetDetails.asset_subtype");										
+						if(assetSubtype!=null) contentSpec=assetSubtype;
+						else assetSubtype="";
+						System.out.println("assetSubtype"+assetSubtype);
+						System.out.println("contentSpec"+contentSpec);
+						genre=singlePlaybackResponse.jsonPath().getList("assetDetails.genres.id").toString().replace(",","-");
+						System.out.println("genre"+genre);
+						try {
+							channel=singlePlaybackResponse.jsonPath().getList("assetDetails.channels.original_title").toString().replace(",","-");
+						}catch(Exception e) {}
+						System.out.println("channel"+channel);
+						try {
+							series=singlePlaybackResponse.jsonPath().get("assetDetails.tvshow_name").toString().replace(",","-");
+						}catch(Exception e) {
+							series=contentTitle;
+						}
+						System.out.println("series"+series);
+						try {
+							epNo=singlePlaybackResponse.jsonPath().get("assetDetails.orderid").toString();
+						}catch(Exception e) {}
+						System.out.println("epNo"+epNo);
+						if(epNo.equals("0")) epNo="N/A";
+						try {
+							contentBillingType=singlePlaybackResponse.jsonPath().get("assetDetails.billing_type").toString();
+						}catch(Exception e) {contentBillingType="N/A";}
+						if(contentBillingType.equals("")) contentBillingType="N/A";
+						System.out.println("contentBillingType"+contentBillingType);
+						
+						try {
+							tvShowAssetSubtype=singlePlaybackResponse.jsonPath().get("showDetails.asset_subtype").toString();
+						}catch(Exception e) {
+							tvShowAssetSubtype="";
+						}
+						System.out.println("tvShowAssetSubtype"+tvShowAssetSubtype);					
+						foundContent=true;
+					}
+					if(evaluateTrailer==true) {
+						System.out.println("inside playlist evaluateTrailer");
+						try {
+							contentID=singlePlaybackResponse.jsonPath().get("trailerDetails.id").toString();
+						}catch(Exception e) {}
+						System.out.println("contentID"+contentID);
+						contentTitle=singlePlaybackResponse.jsonPath().get("trailerDetails.title").toString().replace(",","-");
+						System.out.println("contentTitle"+contentTitle);
+						assetSubtype=singlePlaybackResponse.jsonPath().get("trailerDetails.asset_subtype");											
+						if(assetSubtype!=null) contentSpec=assetSubtype;
+						else contentSpec="";
+						System.out.println("assetSubtype"+assetSubtype);
+						System.out.println("contentSpec"+contentSpec);
+						genre=singlePlaybackResponse.jsonPath().getList("trailerDetails.genres.id").toString().replace(",","-");
+						System.out.println("genre"+genre);
+						try {
+							channel=singlePlaybackResponse.jsonPath().getList("trailerDetails.channels.original_title").toString().replace(",","-");
+						}catch(Exception e) {}
+						System.out.println("channel"+channel);
+						try {
+							series=singlePlaybackResponse.jsonPath().get("trailerDetails.tvshow_name").toString().replace(",","-");
+						}catch(Exception e) {
+							series=contentTitle;
+						}
+						System.out.println("series"+series);
+						try {
+							epNo=singlePlaybackResponse.jsonPath().get("trailerDetails.orderid").toString();
+						}catch(Exception e) {}
+						System.out.println("epNo"+epNo);
+						if(epNo.equals("0")) epNo="N/A";
+						try {
+							contentBillingType=singlePlaybackResponse.jsonPath().get("trailerDetails.billing_type").toString();
+						}catch(Exception e) {contentBillingType="N/A";}
+						if(contentBillingType.equals("")) contentBillingType="N/A";
+						System.out.println("contentBillingType"+contentBillingType);
+						
+						try {
+							tvShowAssetSubtype=singlePlaybackResponse.jsonPath().get("showDetails.asset_subtype").toString();
+						}catch(Exception e) {
+							tvShowAssetSubtype="";
+						}
+						System.out.println("tvShowAssetSubtype"+tvShowAssetSubtype);					
+						foundContent=true;
+					}
+					if(foundContent==true) break;
+				}
+				catch(Exception e) {}
+			}		
+		}
+		if(foundContent==true) {
+			String  topCategory=topCategoryForPlayer(assetType,assetSubtype,genre,tvShowAssetSubtype);
+			Mixpanel.FEProp.setProperty("Carousal Name", trayTitle.replace(",", "-"));
+			Mixpanel.FEProp.setProperty("Carousal ID", trayId);	
+			System.out.println("Carousel added");
+			Mixpanel.FEProp.setProperty("Channel Name", channel);
+			Mixpanel.FEProp.setProperty("Series", series);
+			if(assetSubtype.equals("episode")) {
+				Mixpanel.FEProp.setProperty("Episode No", epNo);
+			}
+			else {
+				Mixpanel.FEProp.setProperty("Episode No", "N/A");
+			}
+			Mixpanel.FEProp.setProperty("Horizontal Index", horizontalIndex);
+			Mixpanel.FEProp.setProperty("Top Category", topCategory);
+			Mixpanel.FEProp.setProperty("Content Specification", contentSpec);
+			Mixpanel.FEProp.setProperty("Content Billing Type", contentBillingType);
+			System.out.println("completed trays");
+		}
+		trayDetails.add(trayTitle);	
+		trayDetails.add(contentTitle);
+		trayDetails.add(contentDataID);
+		trayDetails.add(contentID);
+		trayDetails.add(cardNum);
+		trayDetails.add(url);
+		trayDetails.add(tvShowIDToSend);
+		trayDetails.add(channelID);
+		trayDetails.add(sourceContentTitle);
+		return trayDetails;
+	}
+	
+	
+	public static Response getSinglePlayBackDetails(String contentID,String tvShowID,String channelID,String guestToken) {
+		try {
+		String userType = "", username = "", password = "", url="";
+		userType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		//String xAccessToken = getXAccessToken();
+		String xAccessToken = getXAccessTokenFromgwapiPlatformToken();
+		System.out.println("xAccessToken"+xAccessToken);
+		System.out.println("guestToken"+guestToken);
+		String authorizationToken="";
+		
+		if (!userType.equalsIgnoreCase("Guest")) {
+			if (userType.equals("NonSubscribedUser")) {
+				username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonSubscribedUserName");
+				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedPassword");
+			}
+			if (userType.equals("SubscribedUser")) {
+				username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserName");
+				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedPassword");
+			}
+			authorizationToken=getAuthorization(username, password);
+		}	
+		System.out.println("authorizationToken:"+authorizationToken);
+		RequestSpecification RequestSinglePlayback = RestAssured.given();
+		RequestSinglePlayback.header("Content-Type", "application/json");
+		RequestSinglePlayback.header("accept", "application/json");
+		if(userType.equals("Guest"))		
+		RequestSinglePlayback.body("{\"x-access-token\": \""+xAccessToken+"\",\r\n"
+				+ "\"X-Z5-Guest-Token\": \""+guestToken+"\"}");	
+		else
+		RequestSinglePlayback.body("{\"Authorization\": \""+authorizationToken+"\",\r\n"
+					+ "\"x-access-token\": \""+xAccessToken+"\",\r\n"
+					+ "\"X-Z5-Guest-Token\": \"\"}");
+		
+		RequestSinglePlayback.config(io.restassured.RestAssured.config().encoderConfig(io.restassured.config.EncoderConfig.encoderConfig()
+				.appendDefaultContentCharsetToContentTypeIfUndefined(false)));
+		if(!channelID.equals(""))
+			url="https://spapi.zee5.com/singlePlayback/getDetails?channel_id="+channelID+"&device_id=WebBrowser&check_parental_control=false&platform_name=WebBrowser&country=IN";
+		else if(!tvShowID.equals(""))
+			url="https://spapi.zee5.com/singlePlayback/getDetails?content_id="+contentID+"&show_id="+tvShowID+"&device_id=WebBrowser&check_parental_control=false&platform_name=WebBrowser&country=IN";			
+		else
+			url="https://spapi.zee5.com/singlePlayback/getDetails?content_id="+contentID+"&device_id=WebBrowser&check_parental_control=false&platform_name=WebBrowser&country=IN&is_marketing=1";
+		System.out.println("singlePlayback url:"+url);
+		Response RequestSinglePlaybackResponse = RequestSinglePlayback.post(url);
+		//System.out.println(RequestSinglePlaybackResponse.getStatusCode());
+		//RequestSinglePlaybackResponse.prettyPrint();
+		return RequestSinglePlaybackResponse;
+		}
+		catch(Exception e) {
+			System.out.println(e);
+			return null;
+		}
+	}
+	
+	public static String getXAccessTokenFromgwapiPlatformToken() {
+		Response resp = null;
+		String xAccessToken = "";
+		String url = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("url");
+		resp = RestAssured.given().urlEncodingEnabled(false).when().get(url);
+		String respString = resp.getBody().asString();
+		respString = respString.replace("\"gwapiPlatformToken\":\"\"", "");
+		respString = respString.split("\"gwapiPlatformToken\":\"")[1];
+		xAccessToken = respString.split("\"")[0];
+		return xAccessToken;
+	}
+	
+	
+	public static String topCategoryForPlayer(int assetType,String assetSubtype,String genre,String tvshowAssetType) throws Exception {
+		String topCategory="";
+		if(assetType==0) {
+			if(assetSubtype.equals("movie")) topCategory="Movie";
+			else if(assetSubtype.equals("trailer")) topCategory="Movie";			
+			else if(assetSubtype.equals("video") && genre.contains("News")) topCategory="News";
+			else if(assetSubtype.equals("video") && genre.contains("Music")) topCategory="Music";
+			else topCategory="Video";
+		}
+		else if(assetType==1) {
+			if(tvshowAssetType.equals("original")) topCategory="Original";
+			else topCategory="Tv Show";
+		}
+		else if(assetType==6) {
+			topCategory=assetSubtype;
+		}
+		else {
+			topCategory="N/A";
+		}
+		System.out.println("topCategory:"+topCategory);
+		return topCategory;
+	}
+	
+	
+	public static ArrayList<String> getTrayValuesNew (String userType,String tab,int assetType,String assetSubtype, String requiredType,String contentLanguages,int scenario,String guestToken) throws Exception {		
+		ArrayList trayDetails=new ArrayList<>();
+		String trayTitle="",sourceContentTitle="",contentTitle="",contentDataID="",contentID="",itemID="",channel="N/A",epNo="N/A",series="N/A",horizontalIndex="N/A",trayId="",contentSpec="N/A",previewStatus="N/A";
+		String assetSubtypeAPI="",contenturl="",adProvider="",tvShowAssetSubtype="",tvShowID="",tvSeasonID="",channelID="",genre="",isEduauraa="",isTvod="",contentBillingType="N/A";
+		int cardNum=0;
+		boolean foundContent=false,evaluateTrailer=false,evaluateActualContent=false;
+		int startPage=1,endPage=20;
+		if(scenario==4) {startPage=0;endPage=1;}//for carousel one page is sufficient
+		main : for(int i=startPage;i<endPage;i++) {//Considering each tab may have upto 20 pages
+			System.out.println("i"+i);
+			Response respContent = ResponseInstance.getResponseForPages(tab.toLowerCase(), i, contentLanguages);
+			int bucketsSize=0;
+			try{ bucketsSize=respContent.jsonPath().get("buckets.size()"); }
+			catch(Exception e) {break;}
+			if(bucketsSize==0) break;
+			else {
+				int iter=0,j=0;
+				if(i==1) j=1;//In first page skip carousel
+				else j=0; 
+				if(scenario==4) bucketsSize=1;//for carousel first bucket evaluation is sufficient
+				submain:for(iter=j;iter<bucketsSize;iter++) {//iterate through trays
+					System.out.println("tray iter"+iter);
+					System.out.println("tray title:"+respContent.jsonPath().get("buckets["+iter+"].title").toString());
+					int noOfCardsToEvaluate=5;
+					if(scenario==4) noOfCardsToEvaluate=7;//for carousel 7 cards evaluation is required
+					for(int k=0;k<noOfCardsToEvaluate;k++) {
+						evaluateTrailer=false;
+						evaluateActualContent=false;
+						System.out.println("card iter"+k);//iterate through 4 cards of the tray
+						cardNum=k;
+						try {
+							int assetypeAPI=Integer.valueOf(respContent.jsonPath().get("buckets["+iter+"].items["+k+"].asset_type").toString());													
+							if(assetypeAPI==assetType) {
+								try {
+									assetSubtypeAPI=respContent.jsonPath().get("buckets["+iter+"].items["+k+"].asset_subtype").toString();
+									System.out.println("assetSubtypeAPI"+assetSubtypeAPI);
+								}catch(Exception e) {}
+								String businessType=respContent.jsonPath().get("buckets["+iter+"].items["+k+"].business_type").toString();
+								System.out.println("businesssType"+businessType);
+								String ageRating=respContent.jsonPath().get("buckets["+iter+"].items["+k+"].age_rating").toString();
+								System.out.println("ageRating"+ageRating);
+								String bucketTags=respContent.jsonPath().get("buckets["+iter+"].tags").toString();
+								System.out.println("bucketTags"+bucketTags);
+								if(assetSubtypeAPI.equals(assetSubtype) && !bucketTags.contains("plex_widget") && !bucketTags.contains("Eduauraa")) {
+									trayTitle=respContent.jsonPath().get("buckets["+iter+"].title").toString();
+									System.out.println("trayTitle : "+trayTitle);
+									trayId=respContent.jsonPath().get("buckets["+iter+"].id").toString();
+									System.out.println("trayId : "+trayId);
+									itemID=respContent.jsonPath().get("buckets["+iter+"].items["+k+"].id").toString();
+									System.out.println("itemID : "+itemID);
+									sourceContentTitle=respContent.jsonPath().get("buckets["+iter+"].items["+k+"].title").toString().replace(",", "-");	
+									System.out.println("sourceContentTitle : "+sourceContentTitle);
+									series=sourceContentTitle;
+									System.out.println("series : "+series);
+									contentDataID=respContent.jsonPath().get("buckets["+iter+"].items["+k+"].id").toString();
+									System.out.println("contentDataID : "+contentDataID);	
+									contentBillingType=respContent.jsonPath().get("buckets["+iter+"].items["+k+"].billing_type").toString();
+									if(contentBillingType.equals("")) contentBillingType="N/A";
+									System.out.println("contentBillingType : "+contentBillingType);
+									try {
+										tvShowID=respContent.jsonPath().getString("buckets["+iter+"].items["+k+"].tvshow_details.id").toString();
+									}
+									catch(Exception e) {
+										try {
+											tvShowID=respContent.jsonPath().getString("buckets["+iter+"].items["+k+"].tvshow.id").toString();
+										}
+										catch(Exception e1) {
+											tvShowID="";
+										}											
+									}
+									System.out.println("tvShowID : "+tvShowID);
+									if(assetType==9) {
+										channelID=itemID;
+									}	
+									System.out.println("channelID : "+channelID);
+									if(requiredType.equalsIgnoreCase("free") && businessType.equals("free")) {
+										System.out.println("entered 0000");
+										evaluateActualContent=true;
+									}
+									else if(userType.equals("Guest") && requiredType.equalsIgnoreCase("free") && !businessType.equals("premium_downloadable") && !ageRating.equals("A") && !businessType.equals("tvod")) {
+										System.out.println("entered 1111");
+										evaluateActualContent=true;
+									}
+									else if(!userType.equals("Guest") && requiredType.equalsIgnoreCase("free") && !businessType.equals("premium_downloadable") && !businessType.equals("tvod")) {
+										System.out.println("entered 2222");
+										evaluateActualContent=true;
+									}
+									else if(!userType.equals("SubscribedUser") && requiredType.equalsIgnoreCase("premium") && businessType.equals("premium_downloadable") && !businessType.equals("tvod")) {
+										System.out.println("entered 3333");
+										evaluateTrailer=true;
+									}
+									else if(userType.equals("SubscribedUser") && requiredType.equalsIgnoreCase("premium") && businessType.equals("premium_downloadable") && !businessType.equals("tvod")) {
+										System.out.println("entered 4444");
+										evaluateActualContent=true;
+									}
+									
+									Response singlePlaybackResponse=ResponseInstance.getSinglePlayBackDetails(contentDataID,tvShowID,channelID,guestToken);
+									try {
+										contenturl=singlePlaybackResponse.jsonPath().get("assetDetails.web_url").toString();
+									}catch(Exception e) {}
+									System.out.println("contenturl"+contenturl);
+									try {
+										adProvider=singlePlaybackResponse.jsonPath().get("adDetails.video_ads[0].type").toString();
+									}catch(Exception e) {}
+									System.out.println("adProvider"+adProvider);
+									try {
+										tvSeasonID=singlePlaybackResponse.jsonPath().get("assetDetails.season").toString();
+									}catch(Exception e) {
+										tvSeasonID="";
+									}
+									System.out.println("tvSeasonID"+tvSeasonID);
+									try {
+										if(evaluateActualContent) {
+											System.out.println("inside actualContent");
+											try {
+												contentID=singlePlaybackResponse.jsonPath().get("assetDetails.id").toString();
+											}catch(Exception e) {break;}
+											System.out.println("contentID"+contentID);
+											contentTitle=singlePlaybackResponse.jsonPath().get("assetDetails.title").toString();
+											System.out.println("contentTitle"+contentTitle);
+											//assetType=Integer.valueOf(singlePlaybackResponse.jsonPath().get("assetDetails.asset_type").toString());
+											//System.out.println("assetType"+assetType);
+											assetSubtype=singlePlaybackResponse.jsonPath().get("assetDetails.asset_subtype");										
+											if(assetSubtype!=null) contentSpec=assetSubtype;
+											else assetSubtype="";
+											System.out.println("assetSubtype"+assetSubtype);
+											genre=singlePlaybackResponse.jsonPath().getList("assetDetails.genres.id").toString().replace(",","-");
+											System.out.println("genre"+genre);
+											try {
+												channel=singlePlaybackResponse.jsonPath().getList("assetDetails.channels.original_title").toString().replace(",","-");
+											}catch(Exception e) {}
+											System.out.println("channel"+channel);
+											try {
+												series=singlePlaybackResponse.jsonPath().get("assetDetails.tvshow_name").toString().replace(",","-");
+											}catch(Exception e) {
+												series=contentTitle.replace(",","-");
+											}
+											System.out.println("series"+series);
+											try {
+												epNo=singlePlaybackResponse.jsonPath().get("assetDetails.orderid").toString();
+											}catch(Exception e) {}
+											System.out.println("epNo"+epNo);
+											if(epNo.equals("0")) epNo="N/A";
+											horizontalIndex=String.valueOf(k+1);
+											System.out.println("horizontalIndex"+horizontalIndex);
+											try {
+												tvShowAssetSubtype=singlePlaybackResponse.jsonPath().get("showDetails.asset_subtype").toString();
+											}catch(Exception e) {
+												tvShowAssetSubtype="";
+											}
+											System.out.println("tvShowAssetSubtype"+tvShowAssetSubtype);
+											foundContent=true;
+										
+										}
+										if(evaluateTrailer==true) {
+											System.out.println("inside evaluateTrailer");
+											try {
+												contentID=singlePlaybackResponse.jsonPath().get("trailerDetails.id").toString();
+											}catch(Exception e) {break;}
+											System.out.println("contentID"+contentID);
+											contentTitle=singlePlaybackResponse.jsonPath().get("trailerDetails.title").toString();
+											System.out.println("contentTitle"+contentTitle);
+											//assetType=Integer.valueOf(singlePlaybackResponse.jsonPath().get("trailerDetails.asset_type").toString());
+											//System.out.println("assetType"+assetType);
+											assetSubtype=singlePlaybackResponse.jsonPath().get("trailerDetails.asset_subtype");											
+											if(assetSubtype!=null) contentSpec=assetSubtype;
+											else assetSubtype="";
+											System.out.println("assetSubtype"+assetSubtype);
+											genre=singlePlaybackResponse.jsonPath().getList("trailerDetails.genres.id").toString().replace(",","-");
+											System.out.println("genre"+genre);
+											try {
+												channel=singlePlaybackResponse.jsonPath().getList("trailerDetails.channels.original_title").toString().replace(",","-");
+											}catch(Exception e) {}
+											System.out.println("channel"+channel);
+											try {
+												series=singlePlaybackResponse.jsonPath().get("trailerDetails.tvshow_name").toString().replace(",","-");
+											}catch(Exception e) {
+												series=contentTitle.replace(",","-");
+											}
+											System.out.println("series"+series);
+											try {
+												epNo=singlePlaybackResponse.jsonPath().get("trailerDetails.orderid").toString();
+											}catch(Exception e) {}
+											System.out.println("epNo"+epNo);
+											if(epNo.equals("0")) epNo="N/A";
+											horizontalIndex=String.valueOf(k+1);
+											System.out.println("horizontalIndex"+horizontalIndex);	
+											
+											try {
+												tvShowAssetSubtype=singlePlaybackResponse.jsonPath().get("showDetails.asset_subtype").toString();
+											}catch(Exception e) {
+												tvShowAssetSubtype="";
+											}
+											System.out.println("tvShowAssetSubtype"+tvShowAssetSubtype);
+											
+											foundContent=true;
+										}
+									}
+									catch(Exception e) {System.out.println("error in calculation card "+k);}
+									if(foundContent==true) break main;
+								}
+							}
+						}
+						catch(Exception e) {
+							System.out.println("Tab "+tab+", page number : "+i+", bucket : "+iter+", card "+k+" caused exception");
+						}
+					}
+				}
+			}						
+		}
+		if(assetType==9) channel=series;
+		String  topCategory=topCategoryForPlayer(assetType,assetSubtype,genre,tvShowAssetSubtype);
+		trayDetails.add(trayTitle);//0			
+		trayDetails.add(contentTitle);//1
+		trayDetails.add(contentDataID);//2
+		trayDetails.add(contentID);//3
+		trayDetails.add(cardNum);//4
+		trayDetails.add(contenturl);//5
+		trayDetails.add(tvShowID);//6
+		trayDetails.add(channelID);//7
+		trayDetails.add(sourceContentTitle);//8
+		trayDetails.add(adProvider);//9
+		trayDetails.add(tvSeasonID);//10
+		System.out.println("trayDetails added");
+		if(scenario==6) {
+			Mixpanel.FEProp.setProperty("Carousal Name", "N/A");
+			Mixpanel.FEProp.setProperty("Carousal ID", contentDataID);
+		}
+		else if(scenario==7 || scenario==9 || scenario==12) {
+			Mixpanel.FEProp.setProperty("Carousal Name", "N/A");
+			Mixpanel.FEProp.setProperty("Carousal ID", "N/A");
+		}
+		else {
+			Mixpanel.FEProp.setProperty("Carousal Name", trayTitle.replace(",", "-"));
+			Mixpanel.FEProp.setProperty("Carousal ID", trayId);
+		}		
+		System.out.println("Carousel added");
+		Mixpanel.FEProp.setProperty("Channel Name", channel);
+		Mixpanel.FEProp.setProperty("Series", series);
+		if(assetSubtype.equals("episode")) {
+			Mixpanel.FEProp.setProperty("Episode No", epNo);
+		}
+		else {
+			Mixpanel.FEProp.setProperty("Episode No", "N/A");
+		}
+		Mixpanel.FEProp.setProperty("Horizontal Index", horizontalIndex);
+		Mixpanel.FEProp.setProperty("Top Category", topCategory);
+		if(assetType==9) contentSpec="N/A";
+		Mixpanel.FEProp.setProperty("Content Specification", contentSpec);
+		Mixpanel.FEProp.setProperty("Content Billing Type", contentBillingType);
+		System.out.println("completed trays");
+		return trayDetails;
+	}
+	
+	
+	public static ArrayList getUpnextWhenNotPlayedFromPlaylist(String userType,String dataContentID,String webUrl,String guestToken) {
+		System.out.println("Entered getUpnextWhenNotPlayedFromPlaylist");
+		ArrayList<String> upnextDetails=new ArrayList<String>();
+		Response respp = null;
+		String url = "https://gwapi.zee5.com/content/player/"+dataContentID+"?user_type=guest&limit=25&translation=en&country=IN&languages=en%2Ckn%2Chi";
+		Response response = RestAssured.given().headers("X-ACCESS-TOKEN", getXAccessToken()).when().get(url);
+		System.out.println(response.getBody());
+		String contentID=response.jsonPath().get("items[0].id");
+		String contentTitle=response.jsonPath().get("items[0].title");	
+		
+		System.out.println("entered setUpnextCard");		
+		String upnextContentID="N/A",upnextDataContentID="N/A",upnextAssetType="N/A",upnextAssetSubtype="N/A",upnextbusinessType="N/A",upnextAgeRating="N/A",upnextplayerHeadPosition="N/A";
+		String upnextSeries="N/A",upnextChannel="N/A",upnextEpNo="N/A",upnextContentSpec="N/A",upnextHorizontalIndex="N/A",upnextImageUrl="N/A";
+		String upnextContenturl="N/A",upnextContentTitle="N/A",upnextTvShowAssetSubtype="N/A",upnextGenre="N/A",upnextSeasonID="N/A",upnextContentBillingType="N/A";
+		String upnexTVShowID="",upnextChannelID="";		
+		int upnextTrailerSize=0,upnextSeasonSize=0,upnextPreviewSize=0,upnextOrderID=0,upnextRelatedSize=0;
+		String upnextCarouselID="N/A",upnextCarouselName="N/A",upnextTalaClickID="N/A",upnextTalaModelName="N/A",upnextTalaOrigin="N/A",upnextIsTala="N/A";
+		upnextDataContentID=dataContentID;
+		if(webUrl.contains("kids-movies")) upnexTVShowID="";
+		if(webUrl.contains("movies/details")) upnexTVShowID="";
+		if(webUrl.contains("tvshows/details")) {
+			upnexTVShowID=webUrl.split(".com")[1].split("/")[4];			
+		}
+		if(webUrl.contains("kids-shows")) {
+			upnexTVShowID=webUrl.split(".com")[1].split("/")[4];			
+		}
+		if(webUrl.contains("music-videos")) upnexTVShowID="";		
+		if(webUrl.contains("zee5originals/details")) {
+			upnexTVShowID=webUrl.split(".com")[1].split("/")[4];			
+		}
+		if(webUrl.contains("videos/details")) upnexTVShowID="";
+		if(webUrl.contains("channels/details")) upnextChannelID=dataContentID;
+		
+		System.out.println("upnexChannelID:"+upnextChannelID);
+		System.out.println("upnexTVShowID:"+upnexTVShowID);
+		System.out.println("upnextDataContentIdUI:"+dataContentID);
+		Response upnextSinglePlaybackDetails=ResponseInstance.getSinglePlayBackDetails(dataContentID,upnexTVShowID,upnextChannelID,guestToken);
+		try {
+			String businessType=upnextSinglePlaybackDetails.jsonPath().get("assetDetails.business_type").toString();
+			System.out.println("businesssType"+businessType);
+			String ageRating=upnextSinglePlaybackDetails.jsonPath().get("assetDetails.age_rating").toString();
+			System.out.println("ageRating"+ageRating);
+			
+			try {
+				upnextSeasonID=upnextSinglePlaybackDetails.jsonPath().get("assetDetails.season").toString();
+				System.out.println("upnextSeasonID"+upnextSeasonID);
+			}catch(Exception e) {}
+			boolean evaluateTrailer=false,evaluateActualContent=false,foundSameDataIDContentID=false,foundDifferentDataIDContentID=false;
+			if(!businessType.equals("premium_downloadable")) {
+				System.out.println("Upnext is a free content");
+				if(userType.equals("Guest") && ageRating.equals("A")) {
+					System.out.println("Upnext content cannot played for Guest user since it is A content");				
+				}
+				else evaluateActualContent=true;
+			}
+			else {
+				System.out.println("Upnext is a premium content");
+				if(!userType.equals("SubscribedUser")) {
+					evaluateTrailer=true;
+				}
+				else evaluateActualContent=true;
+			}
+			if(evaluateActualContent) {
+				System.out.println("inside actualContent");
+				try {
+					upnextContentID=upnextSinglePlaybackDetails.jsonPath().get("assetDetails.id").toString();
+				}catch(Exception e) {upnextDetails.add("");return upnextDetails;}
+				System.out.println("upnextContentID"+upnextContentID);
+				upnextContentTitle=upnextSinglePlaybackDetails.jsonPath().get("assetDetails.title").toString().replace(",","-");
+				System.out.println("upnextContentTitle"+upnextContentTitle);
+				upnextAssetType=upnextSinglePlaybackDetails.jsonPath().get("assetDetails.asset_type").toString();
+				System.out.println("upnextAssetType"+upnextAssetType);
+				upnextAssetSubtype=upnextSinglePlaybackDetails.jsonPath().get("assetDetails.asset_subtype");
+				System.out.println("upnextAssetSubtype"+upnextAssetSubtype);
+				upnextContentSpec=upnextAssetSubtype;
+				upnextGenre=upnextSinglePlaybackDetails.jsonPath().getList("assetDetails.genres.id").toString().replace(",","-");
+				System.out.println("upnextGenre"+upnextGenre);
+				try {
+					upnextChannel=upnextSinglePlaybackDetails.jsonPath().getList("assetDetails.channels.original_title").toString().replace(",","-");
+				}catch(Exception e) {}
+				System.out.println("upnextChannel"+upnextChannel);
+				try {
+					upnextSeries=upnextSinglePlaybackDetails.jsonPath().get("assetDetails.tvshow_name").toString().replace(",","-");
+				}catch(Exception e) {
+					upnextSeries=upnextContentTitle;
+				}
+				System.out.println("upnextSeries"+upnextSeries);
+				try {
+					upnextEpNo=upnextSinglePlaybackDetails.jsonPath().get("assetDetails.orderid").toString();
+				}catch(Exception e) {}
+				System.out.println("upnextEpNo"+upnextEpNo);
+				if(upnextEpNo.equals("0")) upnextEpNo="N/A";
+				upnextHorizontalIndex="1";//First card is the upnext
+				System.out.println("upnextHorizontalIndex"+upnextHorizontalIndex);
+				try {
+					upnextContentBillingType=upnextSinglePlaybackDetails.jsonPath().get("assetDetails.billing_type").toString();
+				}catch(Exception e) {upnextContentBillingType="N/A";}
+				if(upnextContentBillingType.equals("")) upnextContentBillingType="N/A";
+				System.out.println("upnextContentBillingType"+upnextContentBillingType);
+				
+				try {
+					upnextTvShowAssetSubtype=upnextSinglePlaybackDetails.jsonPath().get("showDetails.asset_subtype").toString();
+				}catch(Exception e) {
+					upnextTvShowAssetSubtype="";
+				}
+				System.out.println("upnextTvShowAssetSubtype"+upnextTvShowAssetSubtype);
+			}
+			if(evaluateTrailer==true) {
+				System.out.println("inside evaluateTrailer");
+				try {
+					upnextContentID=upnextSinglePlaybackDetails.jsonPath().get("trailerDetails.id").toString();
+				}catch(Exception e) {upnextDetails.add("");return upnextDetails;}
+				System.out.println("upnextContentID"+upnextContentID);
+				upnextContentTitle=upnextSinglePlaybackDetails.jsonPath().get("trailerDetails.title").toString();
+				System.out.println("upnextContentTitle"+upnextContentTitle);
+				upnextAssetType=upnextSinglePlaybackDetails.jsonPath().get("trailerDetails.asset_type").toString();
+				System.out.println("upnextAssetType"+upnextAssetType);
+				upnextAssetSubtype=upnextSinglePlaybackDetails.jsonPath().get("trailerDetails.asset_subtype");
+				System.out.println("upnextAssetSubtype"+upnextAssetSubtype);
+				upnextContentSpec=upnextAssetSubtype;
+				upnextGenre=upnextSinglePlaybackDetails.jsonPath().getList("trailerDetails.genres.id").toString().replace(",","-");
+				System.out.println("upnextGenre"+upnextGenre);
+				try {
+					upnextChannel=upnextSinglePlaybackDetails.jsonPath().getList("trailerDetails.channels.original_title").toString().replace(",","-");
+				}catch(Exception e) {}
+				System.out.println("upnextChannel"+upnextChannel);
+				try {
+					upnextSeries=upnextSinglePlaybackDetails.jsonPath().get("trailerDetails.tvshow_name").toString().replace(",","-");
+				}catch(Exception e) {
+					upnextSeries=upnextContentTitle;
+				}
+				System.out.println("upnextSeries"+upnextSeries);
+				try {
+					upnextEpNo=upnextSinglePlaybackDetails.jsonPath().get("trailerDetails.orderid").toString();
+				}catch(Exception e) {}
+				System.out.println("upnextEpNo"+upnextEpNo);
+				if(upnextEpNo.equals("0")) upnextEpNo="N/A";
+				upnextHorizontalIndex="1";//First card is the upnext
+				System.out.println("upnextHorizontalIndex"+upnextHorizontalIndex);
+				try {
+					upnextContentBillingType=upnextSinglePlaybackDetails.jsonPath().get("trailerDetails.billing_type").toString();
+				}catch(Exception e) {upnextContentBillingType="N/A";}
+				if(upnextContentBillingType.equals("")) upnextContentBillingType="N/A";
+				System.out.println("upnextContentBillingType"+upnextContentBillingType);
+				
+				try {
+					upnextTvShowAssetSubtype=upnextSinglePlaybackDetails.jsonPath().get("showDetails.asset_subtype").toString();
+				}catch(Exception e) {
+					upnextTvShowAssetSubtype="";
+				}
+				System.out.println("upnextTvShowAssetSubtype"+upnextTvShowAssetSubtype);
+				
+			}			
+			if(evaluateTrailer==true || evaluateActualContent==true) {
+				Mixpanel.FEProp.setProperty("Channel Name", upnextChannel);
+				Mixpanel.FEProp.setProperty("Series", upnextSeries);
+				if(upnextAssetSubtype.equals("episode")) {
+					Mixpanel.FEProp.setProperty("Episode No", upnextEpNo);
+				}
+				else {
+					Mixpanel.FEProp.setProperty("Episode No", "N/A");
+				}
+				Mixpanel.FEProp.setProperty("Image URL", upnextImageUrl);
+				Mixpanel.FEProp.setProperty("Content Specification", upnextContentSpec);
+				Mixpanel.FEProp.setProperty("Content Billing Type", upnextContentBillingType);
+				String  topCategory=topCategoryForPlayer(Integer.valueOf(upnextAssetType),upnextAssetSubtype,upnextGenre,upnextTvShowAssetSubtype);
+				Mixpanel.FEProp.setProperty("Top Category", topCategory);
+				
+				upnextCarouselID="N/A";
+				upnextCarouselName="Up Next (Player)";
+				upnextTalaClickID=upnextTalaModelName=upnextTalaOrigin="N/A";
+				if(!upnextTalaOrigin.equals("N/A")) upnextIsTala="true";
+				else upnextIsTala="false";
+				Mixpanel.FEProp.setProperty("Carousal Name", "Up Next (Player)");
+				Mixpanel.FEProp.setProperty("Carousal ID", "N/A");
+				Mixpanel.FEProp.setProperty("Talamoos clickID", upnextTalaClickID);
+				Mixpanel.FEProp.setProperty("Talamoos modelName", upnextTalaModelName);
+				Mixpanel.FEProp.setProperty("Talamoos origin", upnextTalaOrigin);
+				Mixpanel.FEProp.setProperty("isTalamoos", upnextIsTala);
+				Mixpanel.FEProp.setProperty("Horizontal Index", upnextHorizontalIndex);				
+				upnextDetails.add(upnextContentID);
+				System.out.println(upnextDetails.get(0));
+				upnextDetails.add(upnextContentTitle);
+				System.out.println(upnextDetails.get(1));
+				upnextDetails.add(upnextTalaClickID);
+				System.out.println(upnextDetails.get(2));
+				upnextDetails.add(upnextAssetSubtype);
+				System.out.println(upnextDetails.get(3));
+			}
+			else upnextDetails.add("");
+		}
+		catch(Exception e) {upnextDetails.add("");}	
+		return upnextDetails;
+	}
+	
+	
+	public static ArrayList<String> setPlayListCard (String userType,String contentIDSourceContent,String playlistDataContentID,int assetType,String contLang,String playListTrayTitle,String guestToken,String tvShowID,String channelID) {
+		System.out.println("entered getPlaylist");
+		String businessType="",ageRating="";
+		String playlistContentID="N/A",playlistbusinessType="N/A",playlistAgeRating="N/A",playlistplayerHeadPosition="N/A";
+		String playlistSeries="N/A",playlistChannel="N/A",playlistEpNo="N/A",playlistContentSpec="N/A",playlistHorizontalIndex="N/A",playlistImageUrl="N/A",playlistAssetSubtype="N/A";
+		String playlistContenturl="N/A",playlistContentTitle="N/A",playlistTvShowAssetSubtype="",playlistGenre="N/A",playlistSeasonID="";
+		int playlistTrailerSize=0,playlistSeasonSize=0,playlistPreviewSize=0,playlistOrderID=0,playlistRelatedSize=0;
+		String playlistCarouselID="N/A",playlistCarouselName="N/A",playlistTalaClickID="N/A",playlistTalaModelName="N/A",playlistTalaOrigin="N/A",playlistIsTala="N/A",playlistContentBillingType="N/A";
+		ArrayList trayDetails=new ArrayList<>();
+		ArrayList playlistSpecificValues=new ArrayList<>();
+		
+		Response singlePlaybackResponse = ResponseInstance.getSinglePlayBackDetails(playlistDataContentID,tvShowID,channelID,guestToken);
+		try {
+			businessType=singlePlaybackResponse.jsonPath().get("assetDetails.business_type").toString();
+			System.out.println("businesssType"+businessType);
+			try {
+				ageRating=singlePlaybackResponse.jsonPath().get("assetDetails.age_rating");
+			}
+			catch(Exception e) {ageRating="";}
+			if(ageRating==null) ageRating="";
+			System.out.println("ageRating"+ageRating);
+			try {
+				playlistSeasonID=singlePlaybackResponse.jsonPath().get("assetDetails.season");
+				System.out.println("playlistSeasonID"+playlistSeasonID);
+			}catch(Exception e) {}
+			boolean evaluateActualContent=false,evaluateTrailer=false,foundContent=false;
+		
+			if(userType.equals("Guest") && !businessType.equals("premium_downloadable") && !ageRating.equals("A")) {
+				System.out.println("entered p11");
+				evaluateActualContent=true;
+			}
+			if(!userType.equals("Guest") && !businessType.equals("premium_downloadable")) {
+				System.out.println("entered p22");
+				evaluateActualContent=true;
+			}
+			if(!userType.equals("SubscribedUser") && businessType.equals("premium_downloadable")) {
+				System.out.println("entered p33");
+				evaluateTrailer=true;
+			}
+			if(userType.equals("SubscribedUser") && businessType.equals("premium_downloadable")) {
+				System.out.println("entered p44");
+				evaluateActualContent=true;
+			}
+			try {
+				if(evaluateActualContent==true) {
+					System.out.println("inside playlist actualContent");
+					try {
+						playlistContentID=singlePlaybackResponse.jsonPath().get("assetDetails.id").toString();
+					}catch(Exception e) {}
+					System.out.println("playlistContentID"+playlistContentID);
+					playlistContentTitle=singlePlaybackResponse.jsonPath().get("assetDetails.title").toString().replace(",","-");
+					System.out.println("playlistContentTitle"+playlistContentTitle);
+					playlistAssetSubtype=singlePlaybackResponse.jsonPath().get("assetDetails.asset_subtype");										
+					if(playlistAssetSubtype!=null) playlistContentSpec=playlistAssetSubtype;
+					else playlistContentSpec="";
+					System.out.println("playlistAssetSubtype"+playlistAssetSubtype);
+					playlistGenre=singlePlaybackResponse.jsonPath().getList("assetDetails.genres.id").toString().replace(",","-");
+					System.out.println("playlistGenre"+playlistGenre);
+					try {
+						playlistChannel=singlePlaybackResponse.jsonPath().getList("assetDetails.channels.original_title").toString().replace(",","-");
+					}catch(Exception e) {}
+					System.out.println("playlistChannel"+playlistChannel);
+					try {
+						playlistSeries=singlePlaybackResponse.jsonPath().get("assetDetails.tvshow_name").toString().replace(",","-");
+					}catch(Exception e) {
+						playlistSeries=playlistContentTitle;
+					}
+					System.out.println("playlistSeries"+playlistSeries);
+					try {
+						playlistEpNo=singlePlaybackResponse.jsonPath().get("assetDetails.orderid").toString();
+					}catch(Exception e) {}
+					System.out.println("playlistEpNo"+playlistEpNo);
+					if(playlistEpNo.equals("0")) playlistEpNo="N/A";
+					try {
+						playlistContentBillingType=singlePlaybackResponse.jsonPath().get("assetDetails.billing_type").toString();
+					}catch(Exception e) {playlistContentBillingType="N/A";}
+					if(playlistContentBillingType.equals("")) playlistContentBillingType="N/A";
+					System.out.println("playlistContentBillingType"+playlistContentBillingType);
+					
+					try {
+						playlistTvShowAssetSubtype=singlePlaybackResponse.jsonPath().get("showDetails.asset_subtype").toString();
+					}catch(Exception e) {
+						playlistTvShowAssetSubtype="";
+					}
+					System.out.println("playlistTvShowAssetSubtype"+playlistTvShowAssetSubtype);
+					
+					foundContent=true;
+				}
+				if(evaluateTrailer==true) {
+					System.out.println("inside playlist evaluateTrailer");
+					try {
+						playlistContentID=singlePlaybackResponse.jsonPath().get("trailerDetails.id").toString();
+					}catch(Exception e) {}
+					System.out.println("playlistContentID"+playlistContentID);
+					playlistContentTitle=singlePlaybackResponse.jsonPath().get("trailerDetails.title").toString().replace(",","-");
+					System.out.println("playlistContentTitle"+playlistContentTitle);
+					playlistAssetSubtype=singlePlaybackResponse.jsonPath().get("trailerDetails.asset_subtype");											
+					if(playlistAssetSubtype!=null) playlistContentSpec=playlistAssetSubtype;
+					else playlistAssetSubtype="";
+					System.out.println("playlistAssetSubtype"+playlistAssetSubtype);
+					playlistGenre=singlePlaybackResponse.jsonPath().getList("trailerDetails.genres.id").toString().replace(",","-");
+					System.out.println("playlistGenre"+playlistGenre);
+					try {
+						playlistChannel=singlePlaybackResponse.jsonPath().getList("trailerDetails.channels.original_title").toString().replace(",","-");
+					}catch(Exception e) {}
+					System.out.println("playlistChannel"+playlistChannel);
+					try {
+						playlistSeries=singlePlaybackResponse.jsonPath().get("trailerDetails.tvshow_name").toString().replace(",","-");
+					}catch(Exception e) {
+						playlistSeries=playlistContentTitle;
+					}
+					System.out.println("playlistSeries"+playlistSeries);
+					try {
+						playlistEpNo=singlePlaybackResponse.jsonPath().get("trailerDetails.orderid").toString();
+					}catch(Exception e) {}
+					System.out.println("playlistEpNo"+playlistEpNo);
+					if(playlistEpNo.equals("0")) playlistEpNo="N/A";
+					try {
+						playlistContentBillingType=singlePlaybackResponse.jsonPath().get("trailerDetails.billing_type").toString();
+					}catch(Exception e) {playlistContentBillingType="N/A";}
+					if(playlistContentBillingType.equals("")) playlistContentBillingType="N/A";
+					System.out.println("playlistContentBillingType"+playlistContentBillingType);
+					
+					try {
+						playlistTvShowAssetSubtype=singlePlaybackResponse.jsonPath().get("showDetails.asset_subtype").toString();
+					}catch(Exception e) {
+						playlistTvShowAssetSubtype="";
+					}
+					System.out.println("playlistTvShowAssetSubtype"+playlistTvShowAssetSubtype);
+					
+					foundContent=true;
+				}
+			}
+			catch(Exception e) {}
+			if(foundContent==true) {
+				Mixpanel.FEProp.setProperty("Channel Name", playlistChannel);
+				Mixpanel.FEProp.setProperty("Series", playlistSeries);
+				if(playlistContentSpec.equals("episode")) {
+					Mixpanel.FEProp.setProperty("Episode No", playlistEpNo);
+				}
+				else {
+					Mixpanel.FEProp.setProperty("Episode No", "N/A");
+				}
+				Mixpanel.FEProp.setProperty("Image URL", playlistImageUrl);
+				Mixpanel.FEProp.setProperty("Content Specification", playlistContentSpec);	
+				Mixpanel.FEProp.setProperty("Content Billing Type", playlistContentBillingType);
+				String  topCategory=topCategoryForPlayer(assetType,playlistAssetSubtype,playlistGenre,playlistTvShowAssetSubtype);
+				Mixpanel.FEProp.setProperty("Top Category", topCategory);
+				playlistSpecificValues=getPlayListSpecificValues(userType,contentIDSourceContent,playlistDataContentID,contLang,playListTrayTitle,playlistSeasonID,guestToken);
+				playlistCarouselID=playlistSpecificValues.get(0).toString();
+				playlistCarouselName=playlistSpecificValues.get(1).toString();
+				playlistTalaClickID=playlistSpecificValues.get(2).toString();
+				playlistTalaModelName=playlistSpecificValues.get(3).toString();
+				playlistTalaOrigin=playlistSpecificValues.get(4).toString();
+				playlistIsTala=playlistSpecificValues.get(5).toString();
+				
+				Mixpanel.FEProp.setProperty("Carousal Name", playlistCarouselName);
+				Mixpanel.FEProp.setProperty("Carousal ID", playlistCarouselID);
+				//Mixpanel.FEProp.setProperty("Talamoos clickID", playlistTalaClickID);
+				Mixpanel.FEProp.setProperty("Talamoos modelName", playlistTalaModelName);
+				Mixpanel.FEProp.setProperty("Talamoos origin", playlistTalaOrigin);
+				Mixpanel.FEProp.setProperty("isTalamoos", playlistIsTala);
+				trayDetails.add(playlistContentID);
+				trayDetails.add(playlistContentTitle);
+				trayDetails.add(playlistTalaClickID);
+				trayDetails.add(playlistAssetSubtype);
+			}
+			else trayDetails.add("");		
+		}
+		catch(Exception e) {trayDetails.add("");}	
+		return trayDetails;
+	}
+	
+	public static ArrayList<String> getPlayListSpecificValues (String userType,String contentIDSourceContent,String playlistDataContentID,String contentLang,String playListTrayTitle,String playlistSeasonID,String guestToken) {
+		System.out.println("entered getPlayListValues");
+		
+		String upNextcontentID="",upNextdataContentID="",upNextbusinessType="",upNextAgeRating="",upNextplayerHeadPosition="";
+		String upNextSeries="",upNextChannel="",upNextEpNo="",upNextcontentSpec="",upNextHorizontalIndex="",upNextimageUrl="";
+		String upNextcontenturl="",upNextcontentTitle="",upNextAudioLang="";
+		String tvShowID="";
+		
+		String carouselID="N/A",carouselName="N/A",talamoosClickId="N/A",talamoosModelName="N/A",talamoosOrigin="N/A",isTalamoos="false";
+
+		int trailerSize=0,seasonSize=0,previewSize=0,orderID=0;
+		ArrayList playListSpecificValues=new ArrayList<>();
+		if(playListTrayTitle.contains("Up Next")) {
+			System.out.println("entered upnext");
+			Response upnextPlaylistResponse=getUpNextContents(playlistSeasonID,contentIDSourceContent);
+			String upnextTrayTitle=upnextPlaylistResponse.jsonPath().get("title");
+			int upnextItems=upnextPlaylistResponse.jsonPath().get("items.size()");
+			boolean selectItem=false;
+			for(int upnextItem=0;upnextItem<upnextItems;upnextItem++) {
+				System.out.println("upnextItem"+upnextItem);
+				upNextdataContentID=upnextPlaylistResponse.jsonPath().get("items["+upnextItem+"].id");
+				System.out.println("upNextdataContentID"+upNextdataContentID);
+				System.out.println(upnextPlaylistResponse.jsonPath().get("items["+upnextItem+"].title").toString());
+				System.out.println("playlistDataContentID"+playlistDataContentID);
+				if(upNextdataContentID.trim().equals(playlistDataContentID.trim())) {
+					try {
+						carouselID=playlistDataContentID;
+						System.out.println("carouselID"+carouselID);
+						//carouselName=upnextPlaylistResponse.jsonPath().get("title");
+						//System.out.println("carouselName"+carouselName);
+						break;
+					}
+					catch(Exception e) {}
+				}
+			}
+		}
+		
+		if(playListTrayTitle.contains("Recommended") || playListTrayTitle.contains("Related")) {
+			System.out.println("entered reco");
+			Response recoPlayistResponse=ResponseInstance.getRecoDataForContent(userType,contentIDSourceContent,contentLang,guestToken);
+			int requiredRecoTraysCount=recoPlayistResponse.jsonPath().get("buckets.size()");
+			int requiredRecoTray=0;
+			String playListTrayTitleTemp=playListTrayTitle.split(" ")[0];
+			System.out.println("playListTrayTitleTemp"+playListTrayTitleTemp);
+			for(int i=0;i<requiredRecoTraysCount;i++) {
+				String tempTrayName=recoPlayistResponse.jsonPath().get("buckets["+i+"].title");
+				System.out.println("tempTrayName"+tempTrayName);
+				if(tempTrayName.contains(playListTrayTitleTemp)) {
+					requiredRecoTray=i;
+					break;
+				}
+			}
+			int recoItems=recoPlayistResponse.jsonPath().get("buckets["+requiredRecoTray+"].items.size()");
+			carouselID=recoPlayistResponse.jsonPath().get("buckets["+requiredRecoTray+"].id");
+			System.out.println("carouselID"+carouselID);
+			talamoosModelName=recoPlayistResponse.jsonPath().get("buckets["+requiredRecoTray+"].modelName");
+			System.out.println("talamoosModelName"+talamoosModelName);
+			talamoosOrigin=carouselID;
+			System.out.println("talamoosOrigin"+talamoosOrigin);
+			if(!talamoosOrigin.equals("N/A")) isTalamoos="true";
+			System.out.println("isTalamoos"+isTalamoos);
+			
+			for(int recoItem=0;recoItem<recoItems;recoItem++) {
+				System.out.println("recoItem"+recoItem);
+				upNextdataContentID=recoPlayistResponse.jsonPath().get("buckets["+requiredRecoTray+"].items["+recoItem+"].id");
+				System.out.println("upNextdataContentID"+upNextdataContentID);
+				System.out.println(recoPlayistResponse.jsonPath().get("buckets["+requiredRecoTray+"].items["+recoItem+"].title").toString());
+				System.out.println("playlistDataContentID"+playlistDataContentID);
+				if(upNextdataContentID.trim().equals(playlistDataContentID.trim())) {
+					try {						
+						talamoosClickId=recoPlayistResponse.jsonPath().get("buckets["+requiredRecoTray+"].items["+recoItem+"].clickID");
+						System.out.println("talamoosClickId"+talamoosClickId);												
+						break;
+					}
+					catch(Exception e) {}
+				}
+			}
+		}	
+		if(playListTrayTitle.contains("Similar")) {
+			carouselID=playlistDataContentID;
+			System.out.println("carouselID"+carouselID);
+			talamoosModelName="N/A";
+			System.out.println("talamoosModelName"+talamoosModelName);
+			talamoosOrigin="N/A";
+			System.out.println("talamoosOrigin"+talamoosOrigin);
+			if(!talamoosOrigin.equals("N/A")) isTalamoos="true";
+			System.out.println("isTalamoos"+isTalamoos);
+		}
+		carouselName=playListTrayTitle;
+		playListSpecificValues.add(carouselID);
+		playListSpecificValues.add(carouselName);
+		playListSpecificValues.add(talamoosClickId);
+		playListSpecificValues.add(talamoosModelName);
+		playListSpecificValues.add(talamoosOrigin);
+		playListSpecificValues.add(isTalamoos);
+		return playListSpecificValues;
+	}
+	
+	public static ArrayList<String> setUpnextCard (String userType,String contentIDSourceContent,String upnextDataContentIdUI,int assetType,String contLang,String upnextDataMinutelyUrlUI,String upnextTrayTitleUI,String seasonID,String guestToken) {
+		
+		System.out.println("entered setUpnextCard");
+		
+		String upnextContentID="N/A",upnextDataContentID="N/A",upnextAssetType="N/A",upnextAssetSubtype="N/A",upnextbusinessType="N/A",upnextAgeRating="N/A",upnextplayerHeadPosition="N/A";
+		String upnextSeries="N/A",upnextChannel="N/A",upnextEpNo="N/A",upnextContentSpec="N/A",upnextHorizontalIndex="N/A",upnextImageUrl="N/A";
+		String upnextContenturl="N/A",upnextContentTitle="N/A",upnextTvShowAssetSubtype="N/A",upnextGenre="N/A",upnextSeasonID="N/A",upnextContentBillingType="N/A";
+		String upnexTVShowID="",upnextChannelID="";		
+		int upnextTrailerSize=0,upnextSeasonSize=0,upnextPreviewSize=0,upnextOrderID=0,upnextRelatedSize=0;
+		String upnextCarouselID="N/A",upnextCarouselName="N/A",upnextTalaClickID="N/A",upnextTalaModelName="N/A",upnextTalaOrigin="N/A",upnextIsTala="N/A";
+		ArrayList trayDetails=new ArrayList<>();
+		ArrayList upnextSpecificValues=new ArrayList<>();
+		upnextDataContentID=upnextDataContentIdUI;
+		if(upnextDataMinutelyUrlUI.contains("movies/details")) upnexTVShowID="";
+		if(upnextDataMinutelyUrlUI.contains("tvshows/details")) {
+			upnexTVShowID=upnextDataMinutelyUrlUI.split(".com")[1].split("/")[4];			
+		}
+		if(upnextDataMinutelyUrlUI.contains("kids-shows")) {
+			upnexTVShowID=upnextDataMinutelyUrlUI.split(".com")[1].split("/")[4];			
+		}
+		if(upnextDataMinutelyUrlUI.contains("music-videos")) upnexTVShowID="";		
+		if(upnextDataMinutelyUrlUI.contains("zee5originals/details")) {
+			upnexTVShowID=upnextDataMinutelyUrlUI.split(".com")[1].split("/")[4];			
+		}
+		if(upnextDataMinutelyUrlUI.contains("videos/details")) upnexTVShowID="";
+		if(upnextDataMinutelyUrlUI.contains("channels/details")) upnextChannelID=upnextDataContentIdUI;
+		
+		System.out.println("upnexChannelID:"+upnextChannelID);
+		System.out.println("upnexTVShowID:"+upnexTVShowID);
+		System.out.println("upnextDataContentIdUI:"+upnextDataContentIdUI);
+		Response upnextSinglePlaybackDetails=ResponseInstance.getSinglePlayBackDetails(upnextDataContentIdUI,upnexTVShowID,upnextChannelID,guestToken);
+		try {
+			String businessType=upnextSinglePlaybackDetails.jsonPath().get("assetDetails.business_type").toString();
+			System.out.println("businesssType"+businessType);
+			String ageRating=upnextSinglePlaybackDetails.jsonPath().get("assetDetails.age_rating").toString();
+			System.out.println("ageRating"+ageRating);
+			
+			try {
+				upnextSeasonID=seasonID;
+				System.out.println("upnextSeasonID"+upnextSeasonID);
+			}catch(Exception e) {}
+			boolean evaluateTrailer=false,evaluateActualContent=false,foundSameDataIDContentID=false,foundDifferentDataIDContentID=false;
+			if(!businessType.equals("premium_downloadable")) {
+				System.out.println("Upnext is a free content");
+				if(userType.equals("Guest") && ageRating.equals("A")) {
+					System.out.println("Upnext content cannot played for Guest user since it is A content");	
+					trayDetails.add("error");
+				}
+				else evaluateActualContent=true;
+			}
+			else {
+				System.out.println("Upnext is a premium content");
+				if(!userType.equals("SubscribedUser")) {
+					evaluateTrailer=true;
+				}
+				else evaluateActualContent=true;
+			}
+			if(evaluateActualContent) {
+				System.out.println("inside actualContent");
+				try {
+					upnextContentID=upnextSinglePlaybackDetails.jsonPath().get("assetDetails.id").toString();
+				}catch(Exception e) {trayDetails.add("");return trayDetails;}
+				System.out.println("upnextContentID"+upnextContentID);
+				upnextContentTitle=upnextSinglePlaybackDetails.jsonPath().get("assetDetails.title").toString().replace(",","-");
+				System.out.println("upnextContentTitle"+upnextContentTitle);
+				upnextAssetType=upnextSinglePlaybackDetails.jsonPath().get("assetDetails.asset_type").toString();
+				System.out.println("upnextAssetType"+upnextAssetType);
+				upnextAssetSubtype=upnextSinglePlaybackDetails.jsonPath().get("assetDetails.asset_subtype");
+				System.out.println("upnextAssetSubtype"+upnextAssetSubtype);
+				upnextContentSpec=upnextAssetSubtype;
+				upnextGenre=upnextSinglePlaybackDetails.jsonPath().getList("assetDetails.genres.id").toString().replace(",","-");
+				System.out.println("upnextGenre"+upnextGenre);
+				try {
+					upnextChannel=upnextSinglePlaybackDetails.jsonPath().getList("assetDetails.channels.original_title").toString().replace(",","-");
+				}catch(Exception e) {}
+				System.out.println("upnextChannel"+upnextChannel);
+				try {
+					upnextSeries=upnextSinglePlaybackDetails.jsonPath().get("assetDetails.tvshow_name").toString().replace(",","-");
+				}catch(Exception e) {
+					upnextSeries=upnextContentTitle;
+				}
+				System.out.println("upnextSeries"+upnextSeries);
+				try {
+					upnextEpNo=upnextSinglePlaybackDetails.jsonPath().get("assetDetails.orderid").toString();
+				}catch(Exception e) {}
+				System.out.println("upnextEpNo"+upnextEpNo);
+				if(upnextEpNo.equals("0")) upnextEpNo="N/A";
+				upnextHorizontalIndex="1";//First card is the upnext
+				System.out.println("upnextHorizontalIndex"+upnextHorizontalIndex);
+				try {
+					upnextContentBillingType=upnextSinglePlaybackDetails.jsonPath().get("assetDetails.billing_type").toString();
+				}catch(Exception e) {upnextContentBillingType="N/A";}
+				if(upnextContentBillingType.equals("")) upnextContentBillingType="N/A";
+				System.out.println("upnextContentBillingType"+upnextContentBillingType);
+				
+				try {
+					upnextTvShowAssetSubtype=upnextSinglePlaybackDetails.jsonPath().get("showDetails.asset_subtype").toString();
+				}catch(Exception e) {
+					upnextTvShowAssetSubtype="";
+				}
+				System.out.println("upnextTvShowAssetSubtype"+upnextTvShowAssetSubtype);
+			}
+			if(evaluateTrailer==true) {
+				System.out.println("inside evaluateTrailer");
+				try {
+					upnextContentID=upnextSinglePlaybackDetails.jsonPath().get("trailerDetails.id").toString();
+				}catch(Exception e) {trayDetails.add("");return trayDetails;}
+				System.out.println("upnextContentID"+upnextContentID);
+				upnextContentTitle=upnextSinglePlaybackDetails.jsonPath().get("trailerDetails.title").toString();
+				System.out.println("upnextContentTitle"+upnextContentTitle);
+				upnextAssetType=upnextSinglePlaybackDetails.jsonPath().get("trailerDetails.asset_type").toString();
+				System.out.println("upnextAssetType"+upnextAssetType);
+				upnextAssetSubtype=upnextSinglePlaybackDetails.jsonPath().get("trailerDetails.asset_subtype");
+				System.out.println("upnextAssetSubtype"+upnextAssetSubtype);
+				upnextContentSpec=upnextAssetSubtype;
+				upnextGenre=upnextSinglePlaybackDetails.jsonPath().getList("trailerDetails.genres.id").toString().replace(",","-");
+				System.out.println("upnextGenre"+upnextGenre);
+				try {
+					upnextChannel=upnextSinglePlaybackDetails.jsonPath().getList("trailerDetails.channels.original_title").toString().replace(",","-");
+				}catch(Exception e) {}
+				System.out.println("upnextChannel"+upnextChannel);
+				try {
+					upnextSeries=upnextSinglePlaybackDetails.jsonPath().get("trailerDetails.tvshow_name").toString().replace(",","-");
+				}catch(Exception e) {
+					upnextSeries=upnextContentTitle;
+				}
+				System.out.println("upnextSeries"+upnextSeries);
+				try {
+					upnextEpNo=upnextSinglePlaybackDetails.jsonPath().get("trailerDetails.orderid").toString();
+				}catch(Exception e) {}
+				System.out.println("upnextEpNo"+upnextEpNo);
+				if(upnextEpNo.equals("0")) upnextEpNo="N/A";
+				upnextHorizontalIndex="1";//First card is the upnext
+				System.out.println("upnextHorizontalIndex"+upnextHorizontalIndex);
+				try {
+					upnextContentBillingType=upnextSinglePlaybackDetails.jsonPath().get("trailerDetails.billing_type").toString();
+				}catch(Exception e) {upnextContentBillingType="N/A";}
+				if(upnextContentBillingType.equals("")) upnextContentBillingType="N/A";
+				System.out.println("upnextContentBillingType"+upnextContentBillingType);
+				
+				try {
+					upnextTvShowAssetSubtype=upnextSinglePlaybackDetails.jsonPath().get("showDetails.asset_subtype").toString();
+				}catch(Exception e) {
+					upnextTvShowAssetSubtype="";
+				}
+				System.out.println("upnextTvShowAssetSubtype"+upnextTvShowAssetSubtype);
+				
+			}			
+			if(evaluateTrailer==true || evaluateActualContent==true) {
+				Mixpanel.FEProp.setProperty("Channel Name", upnextChannel);
+				Mixpanel.FEProp.setProperty("Series", upnextSeries);
+				if(upnextAssetSubtype.equals("episode")) {
+					Mixpanel.FEProp.setProperty("Episode No", upnextEpNo);
+				}
+				else {
+					Mixpanel.FEProp.setProperty("Episode No", "N/A");
+				}
+				Mixpanel.FEProp.setProperty("Image URL", upnextImageUrl);
+				Mixpanel.FEProp.setProperty("Content Specification", upnextContentSpec);
+				Mixpanel.FEProp.setProperty("Content Billing Type", upnextContentBillingType);
+				String  topCategory=topCategoryForPlayer(assetType,upnextAssetSubtype,upnextGenre,upnextTvShowAssetSubtype);
+				Mixpanel.FEProp.setProperty("Top Category", topCategory);
+				upnextSpecificValues=getPlayListSpecificValues(userType,contentIDSourceContent,upnextDataContentID,contLang,upnextTrayTitleUI,upnextSeasonID,guestToken);
+				upnextCarouselID=upnextSpecificValues.get(0).toString();
+				System.out.println("upnextCarouselID"+upnextCarouselID);
+				upnextCarouselName=upnextSpecificValues.get(1).toString();
+				System.out.println("upnextCarouselName"+upnextCarouselName);
+				upnextTalaClickID=upnextSpecificValues.get(2).toString();
+				System.out.println("upnextTalaClickID"+upnextTalaClickID);
+				upnextTalaModelName=upnextSpecificValues.get(3).toString();
+				System.out.println("upnextTalaModelName"+upnextTalaModelName);
+				upnextTalaOrigin=upnextSpecificValues.get(4).toString();
+				System.out.println("upnextTalaOrigin"+upnextTalaOrigin);
+				upnextIsTala=upnextSpecificValues.get(5).toString();
+				System.out.println("upnextIsTala"+upnextIsTala);
+				
+				Mixpanel.FEProp.setProperty("Carousal Name", "Up Next (Player)");
+				Mixpanel.FEProp.setProperty("Carousal ID", "N/A");
+				//Mixpanel.FEProp.setProperty("Talamoos clickID", upnextTalaClickID);
+				Mixpanel.FEProp.setProperty("Talamoos modelName", upnextTalaModelName);
+				Mixpanel.FEProp.setProperty("Talamoos origin", upnextTalaOrigin);
+				Mixpanel.FEProp.setProperty("isTalamoos", upnextIsTala);
+				Mixpanel.FEProp.setProperty("isTalamoos", upnextIsTala);
+				Mixpanel.FEProp.setProperty("Horizontal Index", upnextHorizontalIndex);
+				
+				trayDetails.add(upnextContentID);
+				trayDetails.add(upnextContentTitle);
+				trayDetails.add(upnextTalaClickID);
+				trayDetails.add(upnextAssetSubtype);
+			}
+			else trayDetails.add("");
+		}
+		catch(Exception e) {trayDetails.add("");}	
+		return trayDetails;
+	}
+	
+	
+	public static Response getRecoDataForContent(String userType, String dataContentID, String contentLanguages,String guestToken) {
+		Response respReco = null;
+		String username="",password="",Uri="";
+		Response regionResponse = RestAssured.given().urlEncodingEnabled(false).when().get("https://xtra.zee5.com/country");
+		String region = regionResponse.getBody().jsonPath().getString("state_code");
+		
+		String xAccessToken = getXAccessToken();
+		if (userType.equalsIgnoreCase("Guest")) {
+			Uri="https://gwapi.zee5.com/content/reco?asset_id="+dataContentID+"&country=IN&translation=en&languages="+contentLanguages+"&version=9&region=KA";
+			respReco = RestAssured.given().headers("x-access-token", xAccessToken).header("x-z5-guest-token", guestToken).when().get(Uri);
+		} 		
+		if (!userType.equalsIgnoreCase("Guest")) {
+			if (userType.equals("NonSubscribedUser")) {
+				username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonSubscribedUserName");
+				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonSubscribedUserPassword");
+			}
+			if (userType.equals("SubscribedUser")) {
+				username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserName");
+				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedPassword");
+			}
+			Response userDetails = getUserSettingDetails(username, password);
+			int keyCount = userDetails.jsonPath().get("key.size()");
+			for (int i = 0; i < keyCount; i++) {
+				if (userDetails.jsonPath().get("key[" + i + "]").toString().equals("content_language")) {
+					contentLanguages = userDetails.jsonPath().get("value[" + i + "]").toString();
+					break;
+				}
+			}
+			String bearerToken = getBearerToken(username, password);
+			Uri="https://gwapi.zee5.com/content/reco?asset_id="+dataContentID+"&country=IN&translation=en&languages="+contentLanguages+"&version=9&region=KA";
+			respReco = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(Uri);
+		}	
+		System.out.println(Uri);
+		//respReco.getBody().prettyPrint();
+		return respReco;
+	}
+	
+	public static Response getUpNextContents(String season,String dataContentID) {
+		String upNextURL="https://gwapi.zee5.com/content/season/next_previous/"+season+"?episode_id="+dataContentID+"&type=next&limit=25&translation=en&country=IN&page=1";
+		System.out.println("upNextURL:"+upNextURL);
+		Response upNextResponse = RestAssured.given().urlEncodingEnabled(false).when().get(upNextURL);
+		return upNextResponse;
+	}
+	
+	
+	public static ArrayList<String> getContentDetailsForPlayer(String userType,String contentID,String asset_subtype,String tvShowID,String channelID,String guestToken) {
+		ArrayList<String> returnList=new ArrayList<String>();
+		String publishDate="N/A",contentName="N/A",contentType="N/A",contentDuration="N/A",contentId="N/A";
+		String characters="N/A",subtitleLang="N/A",subtitles="N/A",contentOriLang="N/A",drm="N/A",audioLang="N/A",genre="N/A";	
+		String isEduauraa="N/A",isRental="N/A",imageUrl="N/A",playerHeadPosition="0";
+			
+		Response respContent = ResponseInstance.getSinglePlayBackDetails(contentID,tvShowID,channelID,guestToken);
+		
+		try {
+			imageUrl=respContent.jsonPath().getString("assetDetails.image_url").replace(",", "-");
+			if(imageUrl.equals("null")) imageUrl="N/A";
+		}catch(Exception e) {imageUrl="N/A";}
+		Mixpanel.FEProp.setProperty("Image URL", imageUrl);
+		System.out.println("Image URL : "+imageUrl);
+		
+		try {
+			publishDate=respContent.jsonPath().getString("assetDetails.release_date").split("T")[0];
+			SimpleDateFormat requiredFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+			//java.text.DateFormat actualFormat = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+			java.text.DateFormat actualFormat = new java.text.SimpleDateFormat("yyyy-MM-dd");
+			actualFormat.setTimeZone(java.util.TimeZone.getTimeZone("GMT"));
+			java.util.Date pubDate = actualFormat.parse(publishDate);
+			publishDate=requiredFormat.format(pubDate).toString();
+			if(publishDate.equals("null")) publishDate="N/A";
+		}catch(Exception e) { publishDate="N/A";}
+		System.out.println("Publishing Date: "+publishDate);
+		Mixpanel.FEProp.setProperty("Publishing Date", publishDate);
+		
+		try {
+			contentName=respContent.jsonPath().getString("assetDetails.original_title").replace(",", "-");
+			if(contentName.equals("null")) contentName="N/A";
+		}catch(Exception e) {contentName="N/A";}
+		Mixpanel.FEProp.setProperty("Content Name", contentName);
+		System.out.println("content name : "+contentName);
+		
+		try {
+			contentType=respContent.jsonPath().getString("assetDetails.business_type").toString();
+			if(contentType.equals("null")) contentType="N/A";
+		}catch(Exception e) {contentType="N/A";}
+		Mixpanel.FEProp.setProperty("Content Type",contentType);
+		System.out.println("content type : "+contentType);
+		
+		try {
+			contentDuration=respContent.jsonPath().getString("assetDetails.duration").toString();
+			if(contentDuration.equals("null")) contentDuration="N/A";
+		}catch(Exception e) {contentDuration="N/A";}
+		Mixpanel.FEProp.setProperty("Content Duration", contentDuration);
+		System.out.println("duration : "+contentDuration);
+		
+		try {
+			contentId=respContent.jsonPath().getString("assetDetails.id").toString();
+			if(contentId.equals("null")) contentId="N/A";
+		}catch(Exception e) {contentId="N/A";}
+		Mixpanel.FEProp.setProperty("Content ID", contentId);
+		System.out.println("id : "+contentId);
+		
+		try {
+			characters=respContent.jsonPath().getList("assetDetails.actors").toString().replaceAll(",","-").replaceAll("\\s", "");
+			if(characters.equals("null") || characters.equals("[]")) characters="N/A";
+		}catch(Exception e) {characters="N/A";}
+		Mixpanel.FEProp.setProperty("Characters",characters);
+		System.out.println("characters : "+characters);
+		
+		try {
+			subtitleLang=respContent.jsonPath().getString("assetDetails.subtitle_languages").toString();
+			if(subtitleLang.equals("null") || subtitleLang.equals("[]")) subtitleLang="N/A";
+		}catch(Exception e) {subtitleLang="N/A";}
+		subtitleLang=subtitleLang.replace(",", "-");
+		Mixpanel.FEProp.setProperty("Subtitle Language", subtitleLang);
+		System.out.println("subtitle lang : "+subtitleLang);
+		if(subtitleLang.equals("N/A")) subtitles="false";
+		else subtitles="true";
+		Mixpanel.FEProp.setProperty("Subtitles", subtitles);
+		
+		try {
+			genre=respContent.jsonPath().getList("assetDetails.genres.id").toString().replaceAll(",","-").replaceAll("\\s", "");
+			if(genre.equals("null") || genre.equals("[]")) genre="N/A";
+		}catch(Exception e) {genre="N/A";}
+		Mixpanel.FEProp.setProperty("Genre",genre);
+		System.out.println("genre : "+genre);
+		
+		try {
+			//contentOriLang=respContent.jsonPath().getString("assetDetails.languages").replace("[", "").replace("]", "");
+			List contentOriLangs=respContent.jsonPath().getList("assetDetails.languages");
+			System.out.println("contentOriLangs: "+contentOriLangs);
+			contentOriLang=contentOriLangs.get(0).toString();
+			if(contentOriLang.equals("null") || contentOriLang.equals("[]")) contentOriLang="N/A";
+		}catch(Exception e) {contentOriLang="N/A";}
+		Mixpanel.FEProp.setProperty("Content Original Language",contentOriLang);
+		System.out.println("content ori lang: "+contentOriLang);
+		
+		try {
+			drm=respContent.jsonPath().getString("assetDetails.is_drm");
+			if(drm.equals("1")) drm="true";
+			else drm="false";
+		}catch(Exception e) {drm="N/A";}
+		Mixpanel.FEProp.setProperty("DRM Video",drm);
+		System.out.println("DRM Video: "+drm);
+		
+		try {
+			//audioLang=respContent.jsonPath().getList("assetDetails.audio_languages").toString().replace("[", "").replace("]", "");
+			List audioLangs=respContent.jsonPath().getList("assetDetails.audio_languages");
+			System.out.println("audio langs: "+audioLangs);
+			audioLang=audioLangs.get(0).toString();
+		}catch(Exception e) {audioLang="N/A";}
+		Mixpanel.FEProp.setProperty("Audio Language", audioLang);
+		System.out.println("Audio Language: "+audioLang);		
+		
+		try {
+			isEduauraa=respContent.jsonPath().getString("assetDetails.tags");
+			if(isEduauraa.contains("Eduauraa")) isEduauraa="true";
+			else isEduauraa="false";
+		}catch(Exception e) {isEduauraa="false";}
+		Mixpanel.FEProp.setProperty("isEduauraa",isEduauraa);
+		System.out.println("isEduauraa: "+isEduauraa);
+			
+		try {
+			isRental=respContent.jsonPath().getString("entitlement.isTVOD");
+			if(isRental.equals("1")) drm="true";
+			else isRental="false";
+		}catch(Exception e) {isRental="false";}
+		Mixpanel.FEProp.setProperty("isRental",isRental);
+		System.out.println("isRental: "+isRental);
+		
+		try {
+			playerHeadPosition=respContent.jsonPath().get("watchHistoryDetails.played_duration").toString();
+		}catch(Exception e) {playerHeadPosition="0";}
+		System.out.println("Player Head Position: "+playerHeadPosition);
+		returnList.add(playerHeadPosition);
+		
+		return returnList;
+		
+	}
+	
+	public static void deleteAddDevicesForTheUser() throws Exception {
+		System.out.println("Entered deleteAddDevicesForTheUser ...");
+		String userType = "", username = "", password = "", url="",authorizationToken="";
+		userType=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		Response deletDeviceResponse=null;
+		if (userType.equals("NonSubscribedUser")) {
+			username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonSubscribedUserName");
+			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedPassword");
+		}
+		if (userType.equals("SubscribedUser")) {
+			username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserName");
+			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedPassword");
+		}
+		authorizationToken=getAuthorization(username, password);
+		RequestSpecification deleteDevicesRequestSpecification = RestAssured.given();
+		deleteDevicesRequestSpecification.header("Authorization", "Bearer "+authorizationToken);			
+		deleteDevicesRequestSpecification.config(io.restassured.RestAssured.config().encoderConfig(io.restassured.config.EncoderConfig.encoderConfig()
+				.appendDefaultContentCharsetToContentTypeIfUndefined(false)));
+		url="https://subscriptionapi.zee5.com/v1/device";
+		deletDeviceResponse = deleteDevicesRequestSpecification.delete(url);
+		//System.out.println(deletDeviceResponse.getStatusCode());
+		//deletDeviceResponse.prettyPrint();		
+	}
+	
+
 }

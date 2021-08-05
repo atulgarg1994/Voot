@@ -10,6 +10,7 @@ import com.utility.Utilities;
 public class Android_AR33_ContentDescriptor {
 	private Zee5ApplicasterBusinessLogic ZEE5ApplicasterBusinessLogic;
 
+
 	@BeforeTest
 	public void AppLaunch() throws InterruptedException {
 		System.out.println("Launching Android App");
@@ -147,13 +148,13 @@ public class Android_AR33_ContentDescriptor {
 
 	@Test(priority = 17) //Veena
 	@Parameters({ "userType" })		
-	public void ContentDescriptorVPlayerElements(String userType) throws Exception {//c
+	public void ContentDescriptorVPlayerElements(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.ContentDescriptorDeeplinkValidation(userType);//TC_13
 		ZEE5ApplicasterBusinessLogic.relaunch(false);
 		ZEE5ApplicasterBusinessLogic.ContentDescriptorVPlayerElements(userType);//TC_14
 
 	}
-	
+		
 	@Test(priority = 18) //Veena
 	@Parameters({ "userType" })		
 	public void ContentDescriptorPlayerinterruption(String userType) throws Exception {
@@ -183,15 +184,15 @@ public class Android_AR33_ContentDescriptor {
 	@Test(priority = 21) //Veena
 	@Parameters({ "userType" })		
 	public void ContentDescriptorLandscapeOrientatonValidation(String userType) throws Exception {
-		//ZEE5ApplicasterBusinessLogic.relaunch(true);
-		ZEE5ApplicasterBusinessLogic.ContentDescriptorLandscapeOrientatonValidation(userType);//TC_21 ci
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
+		ZEE5ApplicasterBusinessLogic.ContentDescriptorLandscapeOrientatonValidation(userType);//TC_21 
 
 	}
 	
 	@Test(priority = 22) //Veena
 	@Parameters({ "userType" })		
 	public void ContentDescriptorEpisodeValidation(String userType) throws Exception {
-		//ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
 		ZEE5ApplicasterBusinessLogic.ContentDescriptorEpisodeValidation(userType);//TC_22
 
 	}
@@ -209,7 +210,7 @@ public class Android_AR33_ContentDescriptor {
 	//@Test(priority = 24) //Veena
 	@Parameters({ "userType" })		
 	public void ContentDescriptorDisplayValidation(String userType) throws Exception {
-		//ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
 		ZEE5ApplicasterBusinessLogic.ContentDescriptorDisplayValidation(userType);//TC_16
 
 	}

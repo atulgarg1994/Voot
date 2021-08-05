@@ -167,9 +167,6 @@
 	
 	<parameter name="ExpiredCode" value="pnb20" />
 	
-	<!-- 	Deeplink URLs Parameters	 -->
-	<parameter name="DeeplinkToLoginScreenFrmEmail" value="https://www.zee5.com/signin/email" />
-	
 	<parameter name="WhatsappOptInDeeplinkUrl" value="" />
 	
 	<parameter name="UpgradeNonsubscribedUserName" value="testupgrade123@gmail.com" />
@@ -177,8 +174,12 @@
 	
 	<parameter name="UpgradeSubscribedUserName" value="testbetabuild123@gmail.com" />
 	<parameter name="UpgradeSubscribedPassword" value="igs@123" />
+
+	
 	<!-- 	Deeplink URLs Parameters	 -->
+	
 	<parameter name="DeeplinkToLoginScreenFrmEmail" value="https://www.zee5.com/signin/email" />
+	<parameter name="DeepLink_Home" value="https://www.zee5.com" />
 	<parameter name="DeepLink_Settings" value="https://www.zee5.com/settings" />
 	<parameter name="DeepLink_SignIn" value="https://www.zee5.com/signin" />
 	<parameter name="DeepLink_Watchlist" value="https://www.zee5.com/myprofile/watchlist" />
@@ -364,22 +365,6 @@
 	</test>		
 -->
 	
-<!--	
-	>>  Not valid test	<<
-  	<test name="DeepLinkValidation">
-		<classes>
-			<class name="com.zee5.ApplicasterScripts.DeepLinkValidation" />
-		</classes>
-	</test>
-	
-	>>	Club pack feature has been removed hence this test is obsolete	<<
-	<test name="Android_ClubPack">
-		<classes>
-			<class name="com.zee5.ApplicasterScripts.Android_ClubPack" />
-		</classes>
-	</test>
-	
--->
 	<test name="Android_Conviva">
 		<classes>
 			<class

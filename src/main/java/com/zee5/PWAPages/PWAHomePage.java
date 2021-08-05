@@ -689,4 +689,7 @@ public class PWAHomePage {
 	
 	public static By objRentNowIncarousel=By.xpath("//div[contains(@class,'slick-slide slick-active slick-center slick-current')]//div//span[contains(text(),'Rent Now')]");
 
+	public static By objTrayListingButton=By.xpath("(//*[@class='arrow iconInitialLoad-ic_viewall noSelect']//div)[1] | //*[@class='viewAllLink']");
+	public static By objxDefault=By.xpath("//*[text()='x-default']//following-sibling::*//following-sibling::*");	
+	
 }

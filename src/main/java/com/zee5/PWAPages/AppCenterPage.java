@@ -13,7 +13,7 @@ public class AppCenterPage {
 	
 	public static By objSignIn = By.xpath(".//input[@type='submit']");
 	
-	public static By objMoreInformationRequiredPopUp = By.xpath(".//*[text()='More information required']");
+	public static By objMoreInformationRequiredPopUp = By.xpath(".//*[@id='SsprProofupPage_MainHeader']");
 	
 	public static By objCancelBtn = By.xpath(".//*[@id='CancelLinkButton']");
 	

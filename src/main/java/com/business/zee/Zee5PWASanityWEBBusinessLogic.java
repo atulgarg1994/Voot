@@ -34585,6 +34585,654 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			logger.error("\"How it works\" banner is displayed in consumption page");
 
 		}
+	}
+
+	public void supermoonInContinueWatchingTray(String userType) throws Exception {
+		extent.HeaderChildNode("Verify that post watching LiveTV content is not added to \"Continue watching\" tray");
+		oneYearPremium6MSupermoonUser();
+		waitTime(3500);
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+		waitTime(3500);
+		JSClick(PWAHomePage.objPlaybackMovieTitle("Supermoon"), "supermoon");
+		if (checkElementDisplayed(PWAComboOfferPage.objWatchNowCTA, "Watch Now")) {
+			JSClick(PWAComboOfferPage.objWatchNowCTA, "Watch Now CTA");
+		} else {
+			JSClick(PWAComboOfferPage.objResumeCTA, "Resume CTA");
+			waitTime(3500);
+			if (checkElementDisplayed(PWAPlayerPage.objPlayerAdPresent, "Wait till ad to complete")) {
+				// objPlayerAdPresent
+				waitForPlayerAdToComplete2("Live show");
+			}
+			waitTime(10000);
+			navigateToAnyScreenOnWeb("Home");
+			waitTime(2000);
+			if (checkElementDisplayed(PWAHomePage.objContinueWatchingTray, "Coninue Watching tray") == true) {
+				ArrayList<String> ContinueWatching = new ArrayList<String>();
+
+				for (int i = 1; i < 4; i++) {
+					String updatedContent = getElementPropertyToString("innerText",
+							PWAContinueWatchingTrayPage.objCardTitle(i), "Content");
+					ContinueWatching.add(updatedContent);
+				}
+				logger.info(ContinueWatching);
+				if (ContinueWatching.contains("Supermoon")) {
+					logger.error("Supermoon is present in Continue watching tray");
+					extent.extentLoggerFail("", "Supermoon is present in Continue watching tray");
+				} else {
+					logger.info("Supermoon is not present in Continue watching tray");
+					extent.extentLoggerPass("", "Supermoon is not present in Continue watching tray");
+				}
+			}
+		}
+	}
+
+	public void shareFunctionalitySupermoon(String userType) throws Exception {
+		extent.HeaderChildNode("Verify that user is able to share the LiveTV content as existing ");
+		oneYearPremium6MSupermoonUser();
+		waitTime(3500);
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+		JSClick(PWAHomePage.objPlaybackMovieTitle("Supermoon"), "supermoon");
+		waitTime(3500);
+		if (checkElementDisplayed(PWAComboOfferPage.objWatchNowCTA, "Watch Now")) {
+			JSClick(PWAComboOfferPage.objWatchNowCTA, "Watch Now CTA");
+		} else {
+			JSClick(PWAComboOfferPage.objResumeCTA, "Resume CTA");
+		}
+		waitTime(3500);
+
+		ScrollToTheElementWEB(PWAComboOfferPage.objSharebelowPlayer);
+		waitTime(2500);
+		JSClick(PWAComboOfferPage.objSharebelowPlayer, "Share option");
+		waitTime(2500);
+		click(PWAPlayerPage.facebookShareBtn, "Facebook share option");
+		waitTime(2500);
+
+		// Switch to window
+		verifyAlert();
+		switchToWindow(2);
+		Thread.sleep(2000);
+		// Verify user is navigate to Facebook page
+		if (checkElementDisplayed(PWALiveTVPage.objFacebookEmailField, "Facebook Email field")) {
+			verifyElementPresentAndClick(PWALiveTVPage.objFacebookEmailField, "Facebook Email field");
+
+			getWebDriver().findElement(PWALiveTVPage.objFacebookEmailField).sendKeys("helloigs6@gmail.com");
+
+			verifyElementPresentAndClick(PWALiveTVPage.objFacebookPasswordField, "Facebook Password field");
+			getWebDriver().findElement(PWALiveTVPage.objFacebookPasswordField).sendKeys("hello@12345");
+
+			verifyElementPresentAndClick(PWALiveTVPage.objFacebookLoginBtn, "Facebook Login button");
+			waitTime(2000);
+			logger.info("user able to share the share the LiveTV content as existing");
+			extent.extentLoggerPass("", "user able to share the share the LiveTV content as existing");
+		} else {
+			logger.info("user not able to share the share the LiveTV content as existing");
+			extent.extentLoggerFail("", "user not able to share the share the LiveTV content as existing");
+		}
+		verifyAlert();
+		waitTime(2000);
+		verifyElementPresentAndClick(PWALiveTVPage.objPostToFacebookBtn, "Post to Facebook");
+		waitTime(3000);
+		verifyAlert();
+		switchToWindow(1);
+		waitTime(3000);
 
 	}
+
+	public void watchlistFunctionalitySupermoon(String userType) throws Exception {
+		extent.HeaderChildNode("Verify that for live channel watchlist option is not displayed");
+		oneYearPremium6MSupermoonUser();
+		waitTime(3500);
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+		waitTime(3500);
+		JSClick(PWAHomePage.objPlaybackMovieTitle("Supermoon"), "supermoon");
+		waitTime(2500);
+		if (checkElementDisplayed(PWAComboOfferPage.objWatchNowCTA, "Watch Now")) {
+			JSClick(PWAComboOfferPage.objWatchNowCTA, "Watch Now CTA");
+		} else {
+			JSClick(PWAComboOfferPage.objResumeCTA, "Resume CTA");
+		}
+		waitTime(3500);
+		ScrollToTheElementWEB(PWAComboOfferPage.objSharebelowPlayer);
+		waitTime(2500);
+		if (verifyElementPresent(PWAPlayerPage.watchListBtn, "WatchList icon")) {
+			logger.info("For live channel watchlist option is not displayed");
+			extent.extentLoggerPass("", "For live channel watchlist option is not displayed");
+		} else {
+			logger.info("For live channel watchlist option is displayed");
+			extent.extentLoggerFail("", "For live channel watchlist option is displayed");
+
+		}
+
+	}
+
+	public void titleBelowThePlayerSupermoon(String userType) throws Exception {
+		extent.HeaderChildNode("Verify that user is able to see the title of the LiveTV content i.e event name)");
+		oneYearPremium6MSupermoonUser();
+		waitTime(3500);
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+
+		// objContentTitleLiveTVname
+		waitTime(3500);
+		JSClick(PWAHomePage.objPlaybackMovieTitle("Supermoon"), "supermoon");
+		waitTime(2500);
+		if (checkElementDisplayed(PWAComboOfferPage.objWatchNowCTA, "Watch Now")) {
+			JSClick(PWAComboOfferPage.objWatchNowCTA, "Watch Now CTA");
+		} else {
+			JSClick(PWAComboOfferPage.objResumeCTA, "Resume CTA");
+		}
+		if (verifyElementDisplayed(PWAPlayerPage.objContentTitleLiveTVname)) {
+			logger.info("user is able to see the title of the LiveTV content i.e Supermoon");
+			extent.extentLoggerPass("", "user is able to see the title of the LiveTV content i.e Supermoon");
+		} else {
+			logger.info("user not able to see the title of the LiveTV content i.e Supermoon");
+			extent.extentLoggerFail("", "user not able to see the title of the LiveTV content i.e Supermoon");
+		}
+
+	}
+
+	public void descriptionBelowShareBtn(String userType) throws Exception {
+		extent.HeaderChildNode("Verify that short description of the Live TV content is displayed below Share ");
+		oneYearPremium6MSupermoonUser();
+		waitTime(3500);
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+
+		waitTime(3500);
+		JSClick(PWAHomePage.objPlaybackMovieTitle("Supermoon"), "supermoon");
+		waitTime(2500);
+		if (checkElementDisplayed(PWAComboOfferPage.objWatchNowCTA, "Watch Now")) {
+			JSClick(PWAComboOfferPage.objWatchNowCTA, "Watch Now CTA");
+		} else {
+			JSClick(PWAComboOfferPage.objResumeCTA, "Resume CTA");
+		}
+		waitTime(2500);
+		if (checkElementDisplayed(PWAComboOfferPage.objDescBelowShareBtn, "Description below share icon")) {
+			String Desc = getWebDriver().findElement(PWAComboOfferPage.objDescBelowShareBtn).getText();
+			logger.info(Desc);
+			logger.info("user is able to see short description of the Live TV content is displayed below Share icon");
+			extent.extentLoggerPass("",
+					"user is able to see short description of the Live TV content is displayed below Share icon");
+		} else {
+			logger.info(
+					"user is not able to see short description of the Live TV content is displayed below Share icon");
+			extent.extentLoggerFail("",
+					"user is not able to see short description of the Live TV content is displayed below Share icon");
+		}
+
+	}
+
+	public void zeeplexLogoInLiveTVODConsumption(String userType) throws Exception {
+//All type of user without active supermoon
+		extent.HeaderChildNode("Verify that ZEEPLEX unit(logo) is not displayed on live tv TVOD consumption page");
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+		waitTime(3000);
+
+		ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
+		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		waitTime(3500);
+		if (checkElementDisplayed(PWAComboOfferPage.objZeePlexLogo, "ZeePlex Logo in consumption page")) {
+			logger.info("ZeePlex Logo in live tv TVOD consumption page is not displayed");
+			extent.extentLoggerPass("", "ZeePlex Logo in live tv TVOD consumption page is not displayed");
+		} else {
+			logger.info("ZeePlex Logo in live tv TVOD consumption page is displayed");
+			extent.extentLoggerFail("", "ZeePlex Logo in live tv TVOD consumption page is displayed");
+		}
+	}
+
+	public void zeeplexLogoInVideoTVODConsumption(String userType, String videoname) throws Exception {
+		extent.HeaderChildNode("Verify that ZEEPLEX unit(logo) is not displayed on Video TVOD consumption page");
+		// All type of user without active supermoon
+		click(PWAHomePage.objSearchBtn, "Seach button");
+		waitTime(2000);
+		type(PWASearchPage.objSearchEditBox, videoname, "Search Field");
+		waitTime(2000);
+
+		JSClick(PWASearchPage.objFirstAssetImgSearchNavigationTab, videoname);
+
+		waitTime(3500);
+		if (checkElementDisplayed(PWAComboOfferPage.objZeePlexLogo, "ZeePlex Logo in consumption page")) {
+			logger.info("ZeePlex Logo in Video TVOD consumption page is not displayed ");
+			extent.extentLoggerPass("", "ZeePlex Logo in Video TVOD consumption page is not displayed ");
+		} else {
+			logger.info("ZeePlex Logo in Video TVOD consumption page is displayed");
+			extent.extentLoggerFail("", "ZeePlex Logo in Video TVOD consumption page is displayed");
+		}
+	}
+
+	public void metaInfoForVideoTVODConsumption(String userType, String videoname) throws Exception {
+		extent.HeaderChildNode(
+				"Verify that user is able to see the following meta information for Video TVOD Content:");
+		oneYearPremium6MSupermoonUser();
+		waitTime(3500);
+		click(PWAHomePage.objSearchBtn, "Seach button");
+		waitTime(2000);
+		type(PWASearchPage.objSearchEditBox, videoname, "Search Field");
+		waitTime(2000);
+		JSClick(PWASearchPage.objFirstAssetImgSearchNavigationTab, videoname);
+
+		waitTime(4500);
+		// title of the content
+		if (verifyElementDisplayed(PWAPlayerPage.objContentName)) {
+			String contentname = getWebDriver().findElement(PWAPlayerPage.objContentName).getText();
+			logger.info(contentname);
+			extent.extentLogger("", contentname);
+			logger.info("user is able to see the title of the Video TVOD content");
+			extent.extentLoggerPass("", "user is able to see the title of the Video TVOD content");
+		} else {
+			logger.info("user not able to see the title of the Video TVOD content");
+			extent.extentLoggerFail("", "user not able to see the title of the Video TVOD content");
+		}
+		// date:-objContentMetaDate
+		if (verifyElementDisplayed(PWAPlayerPage.objContentMetaDate)) {
+			String ContentMetaDate = getWebDriver().findElement(PWAPlayerPage.objContentMetaDate).getText();
+			logger.info(ContentMetaDate);
+			extent.extentLogger("", ContentMetaDate);
+			logger.info("user is able to see the Date of the Video TVOD content");
+			extent.extentLoggerPass("", "user is able to see the Date of the Video TVOD content");
+		} else {
+			logger.info("user not able to see the Date of the Video TVOD content");
+			extent.extentLoggerFail("", "user not able to see the Date of the Video TVOD content");
+		}
+		// objcontentDuration
+		if (verifyElementDisplayed(PWAComboOfferPage.objcontentDuration)) {
+			String ContentDuration = getWebDriver().findElement(PWAComboOfferPage.objcontentDuration).getText();
+			logger.info(ContentDuration);
+			extent.extentLogger("", ContentDuration);
+			logger.info("user is able to see the Duration of the Video TVOD content");
+			extent.extentLoggerPass("", "user is able to see the Date of the Video TVOD content");
+		} else {
+			logger.info("user not able to see the Duration of the Video TVOD content");
+			extent.extentLoggerFail("", "user not able to see the Date of the Video TVOD content");
+		}
+
+		// Certification
+		if (verifyElementDisplayed(PWAPlayerPage.objContentMetaGenre)) {
+			String ContentMetaCertificate = getWebDriver().findElement(PWAPlayerPage.objContentMetaGenre).getText();
+			logger.info(ContentMetaCertificate);
+			extent.extentLogger("", ContentMetaCertificate);
+			logger.info("user is able to see the Certification of the Video TVOD content");
+			extent.extentLoggerPass("", "user is able to see the Certification of the Video TVOD content");
+		} else {
+			logger.info("user is not able to see the Certification of the Video TVOD content");
+			extent.extentLoggerFail("", "user is not able to see the Certification of the Video TVOD content");
+		}
+
+		// objcontentGenre
+		if (verifyElementDisplayed(PWAComboOfferPage.objcontentGenre)) {
+			String ContentMetaGenr = getWebDriver().findElement(PWAComboOfferPage.objcontentGenre).getText();
+			logger.info(ContentMetaGenr);
+			extent.extentLogger("", ContentMetaGenr);
+			logger.info("user is able to see the GENRE of the Video TVOD content");
+			extent.extentLoggerPass("", "user is able to see the GENRE of the Video TVOD content");
+		} else {
+			logger.info("user is not able to see the GENRE of the Video TVOD content");
+			extent.extentLoggerFail("", "user is not able to see the GENRE of the Video TVOD content");
+		}
+		// Watchlist
+		if (!verifyElementPresent(PWAPlayerPage.watchListBtn, "WatchList icon")) {
+			logger.info("For Video TVOD watchlist option is not displayed");
+			extent.extentLoggerFail("", "For Video TVOD watchlist option is not displayed");
+		} else {
+			logger.info("For Video TVOD watchlist option is displayed");
+			extent.extentLoggerPass("", "For Video TVOD watchlist option is displayed");
+
+		}
+
+		// Share
+		if (verifyElementDisplayed(PWAComboOfferPage.objSharebelowPlayer)) {
+			logger.info("user is able to see the GENRE of the Video TVOD content");
+			extent.extentLoggerPass("", "user is able to see the GENRE of the Video TVOD content");
+		} else {
+			logger.info("user is not able to see the GENRE of the Video TVOD content");
+			extent.extentLoggerFail("", "user is not able to see the GENRE of the Video TVOD content");
+		}
+
+		// description
+		if (checkElementDisplayed(PWAComboOfferPage.objDescBelowShareBtn, "Description below share icon")) {
+			String Desc = getWebDriver().findElement(PWAComboOfferPage.objDescBelowShareBtn).getText();
+			logger.info(Desc);
+			extent.extentLogger("", Desc);
+			logger.info(
+					"user is able to see short description of the video TVOD content is displayed below Share icon");
+			extent.extentLoggerPass("",
+					"user is able to see short description of the video TVOD content is displayed below Share icon");
+		} else {
+			logger.info(
+					"user is not able to see short description of the video TVOD content is displayed below Share icon");
+			extent.extentLoggerFail("",
+					"user is not able to see short description of the video TVOD content is displayed below Share icon");
+		}
+
+		// "Subtitle button"
+
+		if (checkElementDisplayed(PWAHomePage.objSubtitleButton, "Subtitle button")) {
+
+			logger.info("user is able to see Subtitle button of the video TVOD content is displayed");
+			extent.extentLoggerPass("", "user is able to see Subtitle button of the video TVOD content is displayed");
+		} else {
+			logger.info("user is not able to see Subtitle button of the video TVOD content is displayed");
+			extent.extentLoggerFail("",
+					"user is not able to see Subtitle button of the video TVOD content is displayed");
+		}
+	}
+	
+	public void xdefaultUrlVerification(String userType) throws Exception {
+		extent.HeaderChildNode("PWA2-8657 Change the \"x-default\" URL in hreflang tag across all the zee5 pages.");		
+		//Home page
+		extent.extentLogger("", "---------- Home page ----------");
+		navigateHome();
+		verifyXDefaultHref("Home page");
+		//Home page tray collection
+		extent.extentLogger("", "---------- Home page tray collection ----------");
+		JSClick(PWAHomePage.objTrayListingButton,"More button of tray");
+		verifyXDefaultHref("Tray listing from Home page");
+		//TV Shows
+		extent.extentLogger("", "---------- TV Shows page ----------");
+		navigateToAnyScreenOnWeb("TV Shows");
+		verifyXDefaultHref("TV Shows page");
+		//TV Shows page tray collection
+		extent.extentLogger("", "---------- TV Shows page tray collection ----------");
+		JSClick(PWAHomePage.objTrayListingButton,"More button of tray");
+		verifyXDefaultHref("Tray listing from TV Shows page");
+		//Movies page
+		extent.extentLogger("", "---------- Movies page ----------");
+		navigateToAnyScreenOnWeb("Movies");
+		verifyXDefaultHref("Movies page");
+		//Movies page tray collection
+		extent.extentLogger("", "---------- Movies page tray collection ----------");
+		JSClick(PWAHomePage.objTrayListingButton,"More button of tray");
+		verifyXDefaultHref("Tray listing from Movies page");
+		//Web Series
+		extent.extentLogger("", "---------- Web Series page ----------");
+		navigateToAnyScreenOnWeb("Web Series");
+		verifyXDefaultHref("Web Series page");
+		//Web Series page tray collection
+		extent.extentLogger("", "---------- Web Series page tray collection ----------");
+		JSClick(PWAHomePage.objTrayListingButton,"More button of tray");
+		verifyXDefaultHref("Tray listing from Web Series page");
+		//News
+		extent.extentLogger("", "---------- News page ----------");
+		navigateToAnyScreenOnWeb("News");
+		verifyXDefaultHref("News page");
+		//News tray collection
+		extent.extentLogger("", "---------- News page tray collection ----------");
+		JSClick(PWAHomePage.objTrayListingButton,"More button of tray");
+		verifyXDefaultHref("Tray listing from News page");
+		//Premium
+		extent.extentLogger("", "---------- Premium page ----------");
+		navigateToAnyScreenOnWeb("Premium");
+		verifyXDefaultHref("Premium page");
+		//Premium tray collection
+		extent.extentLogger("", "---------- Premium page tray collection ----------");
+		JSClick(PWAHomePage.objTrayListingButton,"More button of tray");
+		verifyXDefaultHref("Tray listing from Premium page");
+		//Live TV
+		extent.extentLogger("", "---------- Live TV page ----------");
+		navigateToAnyScreenOnWeb("Live TV");
+		verifyXDefaultHref("Live TV page");
+		//Channel Guide
+		extent.extentLogger("", "---------- Channel Guide page ----------");
+		navigateToAnyScreenOnWeb("Live TV");
+		click(PWALiveTVPage.objChannelGuideToggle,"Channel Guide");
+		verifyXDefaultHref("Channel Guide page");
+		//Zeeplex
+		extent.extentLogger("", "---------- ZEEPLEX page ----------");
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+		verifyXDefaultHref("ZEEPLEX page");
+		//Play
+		extent.extentLogger("", "---------- Play page ----------");
+		navigateToAnyScreenOnWeb("Play");
+		verifyXDefaultHref("Play page");
+		//Play tray collection
+		extent.extentLogger("", "---------- Play page tray collection ----------");
+		JSClick(PWAHomePage.objTrayListingButton,"More button of tray");
+		verifyXDefaultHref("Tray listing from Play page");
+		//Web Stories
+		extent.extentLogger("", "---------- Web Stories page ----------");
+		navigateToAnyScreenOnWeb("Web Stories");
+		verifyXDefaultHref("Web Stories page");
+		//Web Stories tray collection
+		extent.extentLogger("", "---------- Web Stories page tray collection ----------");
+		JSClick(PWAHomePage.objTrayListingButton,"More button of tray");
+		verifyXDefaultHref("Tray listing from Web Stories page");
+		navigateToHome();
+		//Kids
+		extent.extentLogger("", "---------- Kids page ----------");
+		navigateToAnyScreenOnWeb("Kids");
+		verifyXDefaultHref("Kids page");
+		//Kids tray collection
+		extent.extentLogger("", "---------- Kids page tray collection ----------");
+		JSClick(PWAHomePage.objTrayListingButton,"More button of tray");
+		verifyXDefaultHref("Tray listing from Kids page");
+		//Videos
+		extent.extentLogger("", "---------- Videos page ----------");
+		navigateToAnyScreenOnWeb("Videos");
+		verifyXDefaultHref("Videos page");
+		//Videos tray collection
+		extent.extentLogger("", "---------- Videos page tray collection ----------");
+		JSClick(PWAHomePage.objTrayListingButton,"More button of tray");
+		verifyXDefaultHref("Tray listing from Videos page");
+		//Music
+		extent.extentLogger("", "---------- Music page ----------");
+		navigateToAnyScreenOnWeb("Music");
+		verifyXDefaultHref("Music page");
+		//Music tray collection
+		extent.extentLogger("", "---------- Music page tray collection ----------");
+		JSClick(PWAHomePage.objTrayListingButton,"More button of tray");
+		verifyXDefaultHref("Tray listing from Music page");
+		//Stories
+		extent.extentLogger("", "---------- Stories page ----------");
+		navigateToAnyScreenOnWeb("Stories");
+		verifyXDefaultHref("Stories page");
+		navigateToHome();
+		//Channels
+		extent.extentLogger("", "---------- Channels page ----------");
+		navigateToAnyScreenOnWeb("Channels");
+		verifyXDefaultHref("Channels page");
+		//Movies Consumption
+		extent.extentLogger("", "---------- Movies Consumption page ----------");
+		navigateToHome();
+		String movie = "Robin Hood And The Invincible Knight";
+		click(PWAHomePage.objSearchBtn, "Search icon");
+		type(PWASearchPage.objSearchEditBox, movie, "Search Field");
+		click(PWASearchPage.objSearchMoviesTab, "Movies tab");
+		mandatoryRegistrationPopUp(userType);
+		click(PWASearchPage.objSearchResult(movie), "Searched content");
+		verifyXDefaultHref("Movies Consumption page");
+		//Episodes Consumption
+		extent.extentLogger("", "---------- Episodes Consumption page ----------");
+		navigateToHome();
+		String episode = "The mysterious camera";
+		click(PWAHomePage.objSearchBtn, "Search icon");
+		type(PWASearchPage.objSearchEditBox, episode, "Search Field");
+		click(PWASearchPage.objSearchEpisodesTab, "Episodes tab");
+		mandatoryRegistrationPopUp(userType);
+		click(PWASearchPage.objSearchResult(episode), "Searched content");
+		verifyXDefaultHref("Episodes Consumption page");
+		//Originals Consumption
+		extent.extentLogger("", "---------- Originals Consumption page ----------");
+		navigateToHome();
+		String original = "A Personal Reason";
+		click(PWAHomePage.objSearchBtn, "Search icon");
+		type(PWASearchPage.objSearchEditBox, original, "Search Field");
+		click(PWASearchPage.objSearchEpisodesTab, "Episodes tab");
+		mandatoryRegistrationPopUp(userType);
+		click(PWASearchPage.objSearchResult(original), "Searched content");
+		verifyXDefaultHref("Originals Consumption page");
+		//Trailer Consumption
+		extent.extentLogger("", "---------- Trailers Consumption page ----------");
+		navigateToHome();
+		String trailer = "Trailer";
+		click(PWAHomePage.objSearchBtn, "Search icon");
+		type(PWASearchPage.objSearchEditBox, trailer, "Search Field");
+		mandatoryRegistrationPopUp(userType);
+		click(PWASearchPage.objSearchResult(trailer), "Searched content");
+		verifyXDefaultHref("Trailers Consumption page");
+		//Webisodes Consumption
+		extent.extentLogger("", "---------- Webisodes Consumption page ----------");
+		navigateToHome();
+		String webisode = "Weekly Webisode";
+		click(PWAHomePage.objSearchBtn, "Search icon");
+		type(PWASearchPage.objSearchEditBox, webisode, "Search Field");
+		mandatoryRegistrationPopUp(userType);
+		click(PWASearchPage.objSearchResult(webisode), "Searched content");
+		verifyXDefaultHref("Webisodes Consumption page");		
+		//Promos Consumptions
+		extent.extentLogger("", "---------- Promos Consumption page ----------");
+		navigateToHome();
+		String promo = "Promo";
+		click(PWAHomePage.objSearchBtn, "Search icon");
+		type(PWASearchPage.objSearchEditBox, promo, "Search Field");
+		mandatoryRegistrationPopUp(userType);
+		click(PWASearchPage.objSearchResult(promo), "Searched content");
+		verifyXDefaultHref("Promos Consumption page");	
+		//Music Consumption
+		extent.extentLogger("", "---------- Music Consumption page ----------");
+		navigateToHome();
+		String music = "Mujhe Ishq Mein Rang De Mahi";
+		click(PWAHomePage.objSearchBtn, "Search icon");
+		type(PWASearchPage.objSearchEditBox, music, "Search Field");
+		mandatoryRegistrationPopUp(userType);
+		click(PWASearchPage.objSearchResult(music), "Searched content");
+		verifyXDefaultHref("Music Consumption page");			
+		//Videos Consumption
+		extent.extentLogger("", "---------- Videos Consumption page ----------");
+		navigateToHome();
+		String video = "Multiway Kurtas";
+		click(PWAHomePage.objSearchBtn, "Search icon");
+		type(PWASearchPage.objSearchEditBox, video, "Search Field");
+		mandatoryRegistrationPopUp(userType);
+		click(PWASearchPage.objSearchResult(video), "Searched content");
+		verifyXDefaultHref("Video Consumption page");
+		//VOD News Consumption
+		extent.extentLogger("", "---------- VOD News Consumption page ----------");
+		navigateToHome();
+		String vodnews = "Mumbai People Reaction On Ease From Covid Lockdown Ristrictions";
+		click(PWAHomePage.objSearchBtn, "Search icon");
+		type(PWASearchPage.objSearchEditBox, vodnews, "Search Field");
+		mandatoryRegistrationPopUp(userType);
+		click(PWASearchPage.objSearchResult(vodnews), "Searched content");
+		verifyXDefaultHref("Video Consumption page");
+		//Live News Consumption
+		extent.extentLogger("", "---------- Live News Consumption page ----------");
+		navigateToHome();
+		String livenews = "Zee News";
+		click(PWAHomePage.objSearchBtn, "Search icon");
+		type(PWASearchPage.objSearchEditBox, livenews, "Search Field");
+		mandatoryRegistrationPopUp(userType);
+		click(PWASearchPage.objSearchResult(livenews), "Searched content");
+		verifyXDefaultHref("Live News Consumption page");
+		//TV Show Details
+		extent.extentLogger("", "---------- TV Show Details page ----------");
+		navigateToHome();
+		String tvshow = "Kundali Bhagya";
+		click(PWAHomePage.objSearchBtn, "Search icon");
+		type(PWASearchPage.objSearchEditBox, tvshow, "Search Field");
+		click(PWASearchPage.objSearchShowsTab, "TV Shows tab");		
+		mandatoryRegistrationPopUp(userType);
+		click(PWASearchPage.objSearchResult(tvshow), "Searched content");
+		verifyXDefaultHref("TV Show Details page");
+		//Web Series Details
+		extent.extentLogger("", "---------- Web Series Details page ----------");
+		navigateToHome();
+		String webseries = "Sunflower";
+		click(PWAHomePage.objSearchBtn, "Search icon");
+		type(PWASearchPage.objSearchEditBox, webseries, "Search Field");
+		click(PWASearchPage.objSearchShowsTab, "TV Shows tab");		
+		mandatoryRegistrationPopUp(userType);
+		click(PWASearchPage.objSearchResult(webseries), "Searched content");
+		verifyXDefaultHref("Web Series Details page");
+		
+	}
+	
+	public void verifyXDefaultHref(String page) throws Exception {
+		String currentUrl = getWebDriver().getCurrentUrl();
+		currentUrl = "view-source:" + currentUrl;
+		getWebDriver().get(currentUrl);
+		String expectedHref="https://www.zee5.com";
+		currentUrl=currentUrl.split("zee5.com")[1];
+		try {
+			expectedHref=expectedHref+currentUrl;
+		}
+		catch(Exception e) {
+			expectedHref=expectedHref+"/";
+		}
+		String actualHref=getElementPropertyToString("href",PWAHomePage.objxDefault,"Actual href for xdefault tag");
+		if(actualHref==null) {
+			waitTime(10000);
+			actualHref=getElementPropertyToString("href",PWAHomePage.objxDefault,"Actual href for xdefault tag");
+		}
+		logger.info("Expected x-default url: "+expectedHref);
+		extent.extentLogger("", "Expected x-default url: "+expectedHref);
+		logger.info("Actual x-default url: "+actualHref);
+		extent.extentLogger("", "Actual x-default url: "+actualHref);
+		if(expectedHref.equals(actualHref)) {
+			logger.info("x-default url verified for "+page);
+			extent.extentLogger("", "x-default url verified for "+page);
+		}
+		else {
+			logger.error("x-default url verification failed for "+page);
+			extent.extentLoggerFail("", "x-default url verification failed for "+page);
+		}
+		Back(1);
+	}
+	
+	public void redirectUserVerification(String userType) throws Exception {
+		extent.HeaderChildNode("PWA2-9343 Redirect user to the correct asset page");
+		extent.extentLogger("", "--------------- Verify India content Search results ---------------");
+		navigateToHome();
+		String contentIndia = "Begusari - test India";
+		click(PWAHomePage.objSearchBtn, "Search icon");
+		type(PWASearchPage.objSearchEditBox, contentIndia, "Search Field");
+		mandatoryRegistrationPopUp(userType);
+		waitTime(4000);
+		if(checkElementDisplayed(PWASearchPage.objSearchResultTxt(contentIndia), contentIndia+" search result")) {
+			logger.info("India content is displayed in Search Results of India region, expected behavior");
+			extent.extentLogger("", "India content is displayed in Search Results of India region, expected behavior\"");
+			extent.extentLogger("", "--------------- Verify India content Consumption ---------------");
+			click(PWASearchPage.objSearchResultTxt(contentIndia), "Searched content");
+			String titleIndia=getElementPropertyToString("innerText",PWAPlayerPage.objContentNameMetaInfo,"Content title");
+			if(titleIndia.equalsIgnoreCase(contentIndia)) {
+				logger.info("User navigated to Consumption page for India content");
+				extent.extentLogger("", "User navigated to Consumption page for India content");
+			}
+			else {
+				logger.error("User failed to navigate to Consumption page for India content");
+				extent.extentLoggerFail("", "User failed to navigate to Consumption page for India content");
+			}
+		
+		}
+		else {
+			logger.error("India content is not displayed in Search Results of India region");
+			extent.extentLoggerFail("", "India content is not displayed in Search Results of India region");
+		}
+		extent.extentLogger("", "--------------- Verify Global content Search results ---------------");
+		navigateToHome();
+		String contentGlobal = "Begusari - test Global";
+		click(PWAHomePage.objSearchBtn, "Search icon");
+		type(PWASearchPage.objSearchEditBox, contentGlobal, "Search Field");
+		waitTime(4000);
+		if(checkElementDisplayed(PWASearchPage.objSearchResultTxt(contentGlobal),contentGlobal+" search result")) {
+			logger.error("Global content should not be displayed in Search Results of India region");
+			extent.extentLoggerFail("", "Global content should not be displayed in Search Results of India region");
+		}
+		else {
+			logger.info("Global content is not displayed in Search Results of India region, expected behavior");
+			extent.extentLogger("", "Global content is not displayed in Search Results of India region, expected behavior");
+		}
+		extent.extentLogger("", "--------------- Verify Global content Consumption ---------------");
+		String url="https://www.zee5.com/tvshows/details/begusarai/0-6-372/begusari-test-global/0-1-534121";
+		getWebDriver().get(url);
+		logger.info("Navigated to Global content url");
+		extent.extentLogger("", "Navigated to Global content url");
+		if (checkElementDisplayed(PWAHomePage.objOopsNoInfo, "Oops! No Information available")) {
+			logger.info("Global content not displayed in India region, expected behavior");
+			extent.extentLogger("", "Global content not displayed in India region, expected behavior");
+		} 
+		else {
+			logger.error("Oops! No Information available is not displayed for Global content in India region");
+			extent.extentLoggerFail("", "Oops! No Information available is not displayed for Global content in India region");
+		}
+		mandatoryRegistrationPopUp(userType);
+	}
+
 }

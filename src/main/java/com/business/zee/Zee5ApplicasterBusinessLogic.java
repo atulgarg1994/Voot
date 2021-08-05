@@ -3643,7 +3643,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void LoginWithEmailID(String pEmailId, String pPassword) throws Exception {
-//		extent.HeaderChildNode("Log into ZEE5 with registered Email account");
+		extent.HeaderChildNode("Log into ZEE5 with registered Email account");
 
 		click(AMDHomePage.MoreMenuIcon, "More Menu");
 		click(AMDLoginScreen.objProfileIcon, "Profile icon");
@@ -33111,7 +33111,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	public void Zee5AppLoginDFP(String LoginMethod) throws Exception {
 		extent.HeaderChildNode("Login Functionality");
-
+		waitTime(8000);
 		String UserType = getParameterFromXML("userType");
 		if (UserType.equals("Guest")) {
 			extent.extentLogger("userType", "UserType : Guest");
@@ -33124,10 +33124,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		case "Guest":
 			extent.HeaderChildNode("Guest User");
 			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
-			waitTime(1000);
-			// hideKeyboard();
-			// verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
-			waitTime(3000);
+			waitTime(5000);
+//			hideKeyboard();
+//			verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
+
+			waitTime(8000);
 			break;
 
 		case "NonSubscribedUser":
@@ -33135,7 +33136,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			String Username = getParameterFromXML("NonsubscribedUserName");
 			String Password = getParameterFromXML("NonsubscribedPassword");
-			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+
+			verifyElementPresentAndClick(AMDOnboardingScreen.objZeeMoreButton, "More button");
+
+			verifyElementPresentAndClick(AMDOnboardingScreen.objZeeLoginRegisterLink, "Login/Register Link");
+
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
@@ -33151,7 +33156,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
 			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
-			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
+
+			verifyElementPresentAndClick(AMDOnboardingScreen.objZeeMoreButton, "More button");
+
+			verifyElementPresentAndClick(AMDOnboardingScreen.objZeeLoginRegisterLink, "Login/Register Link");
+
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, SubscribedUsername, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
@@ -33161,7 +33170,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
 			waitTime(3000);
 			break;
-
 		}
 	}
 
@@ -33870,6 +33878,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		System.out.println("\nContent Playback Validation");
 		waitTime(8000);
 
+		// Required Parameters
+		String setDwnContentName = "Kanmani - DV | Akshatha.T | Vaishnavi Gopal";
+		String setWatchContentName1 = "Dream Girl";
+		String setWatchContentName2 = "Kailasapura";
+
 		String railName = ResponseInstance.getFirstRailNameFromPage(pTabName, pUsertype);
 		System.out.println(railName);
 
@@ -33954,41 +33967,34 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				break;
 			}
 		}
-		// DOWNLOAD FUNCTIONALITY
 
+		// DOWNLOAD FUNCTIONALITY
 		if (!pUsertype.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Content Download Validation");
+			System.out.println("\nContent Download Validation");
 
 			BackToLandingScreen();
-
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
 			verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings CTA");
 
 			if (verifyIsElementDisplayed(AMDSettingsScreen.objDownloadOverWifiOFF, "Download Over Wifi OFF")) {
-
 				verifyElementPresentAndClick(AMDSettingsScreen.objDownloadOverWifiOFF, "Download Over Wifi OFF");
-
 			} else {
 				extent.extentLoggerPass("", "Download Over wifi is ON");
 			}
 
 			BackToLandingScreen();
-
 			verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon2, "Search Icon");
-
 			waitTime(3000);
 			click(AMDSearchScreen.objSearchEditBox, "Search edit");
-			type(AMDSearchScreen.objSearchBoxBar, "Kanmani - DV | Akshatha.T | Vaishnavi Gopal" + "\n", "Search Field");
+			type(AMDSearchScreen.objSearchBoxBar, setDwnContentName + "\n", "Search Field");
 			waitTime(8000);
 			hideKeyboard();
 			waitTime(5000);
-			click(AMDSearchScreen.objSearchResultContainsText("Kanmani - DV | Akshatha.T | Vaishnavi Gopal"),
-					"Searched Show");
+			click(AMDSearchScreen.objSearchResultContainsText(setDwnContentName), "Searched Show");
 			waitTime(5000);
 			waitTime(5000);
 			verifyElementPresentAndClick(AMDDownloadPage.objDownloadIcon, "Download button");
-			// verifyElementExist(AMDDownloadPage.objDownloadVideoQualityPopup, "Download
-			// video quality Pop up");
-			// click(AMDDownloadPage.objStartDownloadCTA, "Start Download CTA");
 			waitTime(2000);
 			verifyElementPresent(AMDDownloadPage.objDownloadProgressIcon1, "Download progress icon");
 			waitTime(5000);
@@ -34011,10 +34017,170 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			}
 
 			verifyElementPresentAndClick(AMDHomePage.objContentDownloadedIcon, "Content Downloaded icon");
-
 			waitTime(5000);
 			verifyElementPresentAndClick(AMDHomePage.objContentDownloadedDeleteIcon, "Content Downloaded Delete icon");
+			BackToLandingScreen();
+		}
 
+		// MY Watchlist
+		if (!pUsertype.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode("Add to Watchlist Validation ");
+			System.out.println("\nAdd to Watchlist Validation");
+
+			BackToLandingScreen();
+
+			// --Add Music to Watchlist
+			verifyElementPresentAndClick(AMDSearchScreen.objSearchIcon2, "Search Icon");
+			waitTime(3000);
+			click(AMDSearchScreen.objSearchEditBox, "Search edit");
+			type(AMDSearchScreen.objSearchBoxBar, setDwnContentName + "\n", "Search Field");
+			waitTime(8000);
+			hideKeyboard();
+			waitTime(5000);
+			click(AMDSearchScreen.objSearchResultContainsText(setDwnContentName), "Searched Show");
+			waitTime(5000);
+			waitTime(5000);
+			verifyElementPresentAndClick(AMDDownloadPage.objWatchlistIcon, "Watchlist button");
+
+			waitTime(2000);
+			Back(1);
+			waitTime(2000);
+
+			clearField(AMDSearchScreen.objSearchEditBox, "Search edit");
+			waitTime(8000);
+			click(AMDSearchScreen.objSearchEditBox, "Search edit");
+			waitTime(8000);
+			type(AMDSearchScreen.objSearchBoxBar, setWatchContentName1 + "\n", "Search Field");
+			waitTime(8000);
+			hideKeyboard();
+			waitTime(5000);
+			click(AMDSearchScreen.objSearchResultContainsText(setWatchContentName1), "Searched Show");
+			waitTime(5000);
+			waitTime(5000);
+			verifyElementPresentAndClick(AMDDownloadPage.objWatchlistIcon, "Watchlist button");
+
+			waitTime(2000);
+			Back(1);
+			waitTime(2000);
+
+			clearField(AMDSearchScreen.objSearchEditBox, "Search edit");
+			waitTime(8000);
+			click(AMDSearchScreen.objSearchEditBox, "Search edit");
+			waitTime(8000);
+			type(AMDSearchScreen.objSearchBoxBar, setWatchContentName2 + "\n", "Search Field");
+			waitTime(8000);
+			hideKeyboard();
+			waitTime(5000);
+			click(AMDSearchScreen.objSearchResultContainsText(setWatchContentName2), "Searched Show");
+			waitTime(5000);
+			waitTime(5000);
+			verifyElementPresentAndClick(AMDDownloadPage.objWatchlistIcon, "Watchlist button");
+
+			waitTime(2000);
+			Back(1);
+			waitTime(2000);
+
+			waitTime(5000);
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			verifyElementPresentAndClick(AMDMoreMenu.objWatchlist, "Watchlist CTA");
+			waitTime(5000);
+
+			// --Shows
+			if (verifyIsElementDisplayed(AMDMoreMenu.objWatchlistShowsSelected, "Shows Tab")) {
+				System.out.println("Shows tab is selected");
+			} else {
+				click(AMDMoreMenu.objWatchlistShowsTab, "Shows Tab");
+				waitTime(5000);
+			}
+
+			waitTime(5000);
+			if (verifyIsElementDisplayed(AMDHomePage.objSugarBoxIconOnThumbnail, "SugarBox Icon")) {
+				extent.extentLoggerPass("", "Sugar Box Icon is displayed on the thumbanil");
+			} else {
+				extent.extentLoggerFail("", "Sugar Box Icon is not displayed on the thumbanil");
+			}
+
+			verifyElementPresentAndClick(AMDMoreMenu.objWatchlistContent(setWatchContentName2), "Show content");
+			waitTime(5000);
+			verifyElementPresentAndClick(AMDMoreMenu.objShowFirstContent, "First content");
+			waitTime(5000);
+
+			if (verifyElementPresent(AMDPlayerScreen.objPlayerScreen, "Player Screen")) {
+				String getTitle = getText(AMDPlayerScreen.objcontentTitleInconsumptionPage);
+				logger.info("SugarBox Content is played: " + getTitle);
+				extent.extentLoggerPass("Content playback", "SugarBox Content is played");
+				waitTime(5000);
+				verifyElementPresentAndClick(AMDDownloadPage.objWatchlistedIcon, "Watchlisted button");
+			} else {
+				extent.extentLoggerFail("Content playback", "SugarBox Content is not played ");
+			}
+
+			Back(1);
+			waitTime(5000);
+			Back(1);
+			waitTime(5000);
+
+			// --Movies
+			if (verifyIsElementDisplayed(AMDMoreMenu.objWatchlistMoviesSelected, "Movies Tab")) {
+				System.out.println("Movies tab is selected");
+			} else {
+				click(AMDMoreMenu.objWatchlistMoviesTab, "Movies Tab");
+				waitTime(5000);
+			}
+
+			waitTime(5000);
+			if (verifyIsElementDisplayed(AMDHomePage.objSugarBoxIconOnThumbnail, "SugarBox Icon")) {
+				extent.extentLoggerPass("", "Sugar Box Icon is displayed on the thumbanil");
+			} else {
+				extent.extentLoggerFail("", "Sugar Box Icon is not displayed on the thumbanil");
+			}
+
+			verifyElementPresentAndClick(AMDMoreMenu.objWatchlistContent(setWatchContentName1), "Movie content");
+			waitTime(5000);
+
+			if (verifyElementPresent(AMDPlayerScreen.objPlayerScreen, "Player Screen")) {
+				String getTitle = getText(AMDPlayerScreen.objcontentTitleInconsumptionPage);
+				logger.info("SugarBox Content is played: " + getTitle);
+				extent.extentLoggerPass("Content playback", "SugarBox Content is played");
+				waitTime(5000);
+				verifyElementPresentAndClick(AMDDownloadPage.objWatchlistedIcon, "Watchlisted button");
+			} else {
+				extent.extentLoggerFail("Content playback", "SugarBox Content is not played ");
+			}
+
+			Back(1);
+			waitTime(5000);
+
+			// Videos
+			if (verifyIsElementDisplayed(AMDMoreMenu.objWatchlistVideosSelected, "Videos Tab")) {
+				System.out.println("Movies tab is selected");
+			} else {
+				click(AMDMoreMenu.objWatchlistVideosTab, "Videos Tab");
+				waitTime(5000);
+			}
+
+			waitTime(5000);
+			if (verifyIsElementDisplayed(AMDHomePage.objSugarBoxIconOnThumbnail, "SugarBox Icon")) {
+				extent.extentLoggerPass("", "Sugar Box Icon is displayed on the thumbanil");
+			} else {
+				extent.extentLoggerFail("", "Sugar Box Icon is not displayed on the thumbanil");
+			}
+
+			verifyElementPresentAndClick(AMDMoreMenu.objWatchlistContent(setDwnContentName), "Videos content");
+			waitTime(5000);
+
+			if (verifyElementPresent(AMDPlayerScreen.objPlayerScreen, "Player Screen")) {
+				String getTitle = getText(AMDPlayerScreen.objcontentTitleInconsumptionPage);
+				logger.info("SugarBox Content is played: " + getTitle);
+				extent.extentLoggerPass("Content playback", "SugarBox Content is played");
+				waitTime(5000);
+				verifyElementPresentAndClick(AMDDownloadPage.objWatchlistedIcon, "Watchlisted button");
+			} else {
+				extent.extentLoggerFail("Content playback", "SugarBox Content is not played ");
+			}
+
+			Back(1);
+			waitTime(5000);
 			BackToLandingScreen();
 		}
 	}
@@ -34304,10 +34470,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				if (!checkElementDisplayed(PWALoginPage.objLoginBtn, "Login Button")) {
 					click(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
 				}
-				waitTime(3000);
+				waitTime(5000);
 				click(PWALoginPage.objLoginBtn, "Login button");
 				click(PWALoginPage.objEmailField, "Email field");
-				waitTime(2000);
+				waitTime(5000);
 				type(PWALoginPage.objEmailField, Username, "Email Field");
 				hideKeyboard();
 				waitTime(3000);
@@ -34333,33 +34499,33 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				if (!checkElementDisplayed(PWALoginPage.objLoginBtn, "Login Button")) {
 					click(PWAHomePage.objHamburgerMenu, "Hamburger Menu");
 				}
-				waitTime(3000);
+				waitTime(5000);
 				click(PWALoginPage.objLoginBtn, "Login button");
 				click(PWALoginPage.objEmailField, "Email field");
-				waitTime(2000);
+				waitTime(5000);
 				type(PWALoginPage.objEmailField, SubscribedUsername, "Email Field");
 				hideKeyboard();
-				waitTime(3000);
+				waitTime(5000);
 				// dismissSystemPopUp();
 				click(PWALoginPage.objPasswordField, "Password Field");
 				type(PWALoginPage.objPasswordField, SubscribedPassword + "\n", "Password field");
 				hideKeyboard();
 				waitTime(5000);
-				waitTime(5000);
-//			click(PWALoginPage.objWebLoginButton, "Login Button");
-				waitTime(3000);
-
 			}
-			waitTime(5000);
-			waitTime(2000);
 			// navigateToHome();
 			String keyword = "Black Widows";
+			waitTime(5000);
 			click(PWAHomePage.objSearchBtn, "Search icon");
-			type(PWAHomePage.objSearchField, keyword + "\n", "Search");
+			waitTime(5000);
+			click(PWAHomePage.objSearchField, "Search icon");
+			waitTime(5000);
+			type(PWAHomePage.objSearchField, keyword + "\n", "Search field");
 			// click(PWASearchPage.objSearchMoviesTab, "Movies tab");
+			waitTime(10000);
 			click(PWASearchPage.objSearchedResult(keyword), "Search Result");
+			waitTime(10000);
 			click(PWAShowsPage.objFirstAssetEpisodeFirstRail, "First Episode");
-			waitTime(4000);
+			waitTime(5000);
 			verifyElementPresent(PWAHamburgerMenuPage.objParentalLockPopUpInPlayer, "Set Lock Field");
 		}
 	}
@@ -34490,11 +34656,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 //			NewAgeRatingValidation("Saand Ki Aankh", "U/A 7+");
 
 			// Verify "U/A 7+" rated content
-//			extent.HeaderChildNode(
-//					"TC_32 : Validate that new age rating is displayed as part of metadata below the player in Consumption screen for 'U/A 13+' rated content.");
-//			System.out.println(
-//					"TC_32 : Validate that new age rating is displayed as part of metadata below the player in Consumption screen for 'U/A 13+' rated content.");
-//			NewAgeRatingValidation("The Sholay Girl", "U/A 13+");
+			extent.HeaderChildNode(
+					"TC_32 : Validate that new age rating is displayed as part of metadata below the player in Consumption screen for 'U/A 13+' rated content.");
+			System.out.println(
+					"TC_32 : Validate that new age rating is displayed as part of metadata below the player in Consumption screen for 'U/A 13+' rated content.");
+			NewAgeRatingValidation("Dhoop Ki Deewar", "U/A 13+");
 
 //			// Verify "U" rated content
 //			extent.HeaderChildNode(
@@ -34509,7 +34675,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			System.out.println(
 					"TC_34 : Validate that new age rating is displayed as part of metadata below the player in Consumption screen for 'A' rated content.");
 			NewAgeRatingValidation("Cabaret", "A");
-
 		}
 	}
 
@@ -35807,6 +35972,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 //			waitForAdToFinishInAmd();
 //			}
 			// waitForElementDisplayed(AMDPlayerScreen.objPauseIcon,5);
+			click(AMDPlayerScreen.objPlayer, "Content descriptor");
+
 			boolean value = verifyElementPresent(AMDPlayerScreen.objPauseIcon, "Player control");
 			if (value == true) {
 				boolean value1 = verifyElementDisplayed(AMDPlayerScreen.objContentDescOnPlayer);
@@ -35912,7 +36079,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			boolean value = verifyElementDisplayed(AMDPlayerScreen.objContentDescOnPlayer);
 			if (value == true) {
 				System.out.println("1");
-				click(AMDPlayerScreen.objContentDescOnPlayer, "Content descriptor");
+				click(AMDPlayerScreen.objPlayer, "Player");
 //				tapPlayerToGetControls("Potrait");
 				verifyElementPresent(AMDPlayerScreen.objPauseIcon, "Pause Icon");
 				// verifyElementPresent(AMDPlayerScreen.objNextIcon,"Next Icon");
@@ -36129,6 +36296,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 //			waitForAdToFinishInAmd();
 //			}
 			try {
+				click(AMDPlayerScreen.objContentDescOnPlayer, "Content descriptor");
 				click(AMDPlayerScreen.objFullscreenIcon, "Maximize Icon");
 			} catch (Exception e) {
 				tapPlayerToGetControls("Potrait");
@@ -36375,6 +36543,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					extentLoggerFail("Parental Pin Popup", "Parental Pin Popup is NOT displayed in Landscape mode");
 				}
 				waitTime(2000);
+				click(AMDPlayerScreen.objPlayer, "Player");
+
 				verifyElementPresent(AMDPlayerScreen.objPlayerStartTime, "Timer is started on entering parental pin");
 				if (verifyElementPresent(AMDPlayerScreen.objPlayer, "Consumption sreen")) {
 					logger.info("Post Parental Pin Popup content player is displayed");
@@ -36397,8 +36567,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		if (userType.equalsIgnoreCase("SubscribedUser") || userType.equalsIgnoreCase("NonSubscribedUser")) {
 			verifyElementPresent(AMDPlayerScreen.objPlayer, "Consumption sreen");
 			tapPlayerToGetControls("Potrait");
-			verifyElementPresent(AMDPlayerScreen.objPauseIcon, "Content player is");
-
+			verifyElementPresent(AMDPlayerScreen.objPauseIcon, "Content player");
+			waitTime(5000);
 		}
 	}
 
@@ -36904,23 +37074,23 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void SubscriptionScreenViaDeeplink() throws Exception {
-		extent.HeaderChildNode("Subscription Screen validation_Deeplink");		
-		System.out.println("\nSubscription Screen validation_Deeplink");
-			
+		extent.HeaderChildNode("Subscription Screen validation via Deeplink");
+		System.out.println("\nSubscription Screen validation via Deeplink");
+
 		waitTime(4000);
-		if(verifyElementDisplayed(AMDGenericObjects.objText("ZEE5"))) {
+		if (verifyElementDisplayed(AMDGenericObjects.objText("ZEE5"))) {
 			click(AMDGenericObjects.objContainText("ZEE5"), "Open With Zee5");
 			waitTime(7000);
-			if(verifyElementDisplayed(AMDSubscibeScreen.objNewSubscribePopup)) {
+			if (verifyElementDisplayed(AMDSubscibeScreen.objNewSubscribePopup)) {
 				logger.info("Subscription popup screen is displayed through deeplink");
 				extent.extentLoggerPass("Subscription", "Subscription popup screen is displayed through deeplink");
-			}else {
+			} else {
 				logger.error("Subscription popup screen is not displayed through deeplink");
 				extent.extentLoggerFail("Subscription", "Subscription popup screen is not displayed through deeplink");
 			}
-		}	
+		}
 	}
-	
+
 	public void NewAgeRatingValidationBelowPlayer(String usertype, String Keyword) throws Exception {
 		extent.HeaderChildNode("Verify New Age Rating below player");
 
@@ -36964,4 +37134,443 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 	}
 
+	public void AppCenter() throws Exception {
+		HeaderChildNode("App Center");
+		verifyElementPresentAndClick(AppCenterPage.objMicrosoft, "Microsoft");
+		type(AppCenterPage.objEmail, "hitesh.c@igsindia.net", "Email Field");
+		verifyElementPresentAndClick(AppCenterPage.objSignIn, "Next Icon");
+		waitTime(4000);
+		type(AppCenterPage.objPassword, "hiti.igs@123", "Password Field");
+		verifyElementPresentAndClick(AppCenterPage.objSignIn, "Next Icon");
+		if (verifyElementPresent(AppCenterPage.objSignIn, "Next Icon")) {
+			verifyElementPresentAndClick(AppCenterPage.objSignIn, "Next Icon");
+		}
+		waitTime(4000);
+		if (verifyElementPresent(AppCenterPage.objMoreInformationRequiredPopUp, "More Information")) {
+			click(AppCenterPage.objCancelBtn, "Cancel");
+		}
+		waitTime(4000);
+		if (verifyElementPresent(AppCenterPage.objNoBtn, "No Icon")) {
+			click(AppCenterPage.objNoBtn, "No Icon");
+		}
+	}
+
+	public void HomeScreenViaDeeplink() throws Exception {
+		extent.HeaderChildNode("Home Screen validation via Deeplink");
+		System.out.println("\nHome Screen validation via Deeplink");
+
+		waitTime(4000);
+		if (verifyElementDisplayed(AMDGenericObjects.objText("ZEE5"))) {
+			click(AMDGenericObjects.objContainText("ZEE5"), "Open With Zee5");
+			waitTime(6000);
+			if (verifyElementDisplayed(AMDHomePage.objHighlightedTab("Home"))) {
+				logger.info("Home screen is displayed through deeplink");
+				extent.extentLoggerPass("Home", "Home screen is displayed through deeplink");
+			} else {
+				logger.error("Home screen is not displayed through deeplink");
+				extent.extentLoggerFail("Home", "Home screen is not displayed through deeplink");
+			}
+		}
+	}
+
+	public void MySubscriptionScreenViaDeeplink(String pUserType) throws Exception {
+		extent.HeaderChildNode("My Subscriptions Screen validation via Deeplink");
+		System.out.println("\nMy Subscriptions Screen validation via Deeplink");
+
+		waitTime(4000);
+		if (verifyElementDisplayed(AMDGenericObjects.objText("ZEE5"))) {
+			click(AMDGenericObjects.objContainText("ZEE5"), "Open With Zee5");
+			waitTime(6000);
+			if (pUserType.equalsIgnoreCase("Guest")) {
+				if (verifyElementDisplayed(AMDLoginScreen.objLoginText)) {
+					logger.info("Login/Register screen is displayed through deeplink for " + pUserType);
+					extent.extentLoggerPass("Login/Register",
+							"Login/Register screen is displayed through deeplink for " + pUserType);
+				} else {
+					logger.error("Login/Register screen is not displayed through deeplink for " + pUserType);
+					extent.extentLoggerFail("Login/Register",
+							"Login/Register screen is not displayed through deeplink for " + pUserType);
+				}
+			} else {
+				if (verifyElementDisplayed(AMDMoreMenu.objMySubscriptionsHeader)) {
+					logger.info("My Subscriptions screen is displayed through deeplink");
+					extent.extentLoggerPass("My Subscriptions",
+							"My Subscriptions screen is displayed through deeplink");
+				} else {
+					logger.error("My Subscriptions screen is not displayed through deeplink");
+					extent.extentLoggerFail("My Subscriptions",
+							"My Subscriptions screen is not displayed through deeplink");
+				}
+			}
+		}
+	}
+
+	public void MyTransactionsScreenViaDeeplink(String pUserType) throws Exception {
+		extent.HeaderChildNode("My Transactions Screen validation via Deeplink");
+		System.out.println("\nMy Transactions Screen validation via Deeplink");
+
+		waitTime(4000);
+		if (verifyElementDisplayed(AMDGenericObjects.objText("ZEE5"))) {
+			click(AMDGenericObjects.objContainText("ZEE5"), "Open With Zee5");
+			waitTime(6000);
+			if (pUserType.equalsIgnoreCase("Guest")) {
+				if (verifyElementDisplayed(AMDLoginScreen.objLoginText)) {
+					logger.info("Login/Register screen is displayed through deeplink for " + pUserType);
+					extent.extentLoggerPass("Login/Register",
+							"Login/Register screen is displayed through deeplink for " + pUserType);
+				} else {
+					logger.error("Login/Register screen is not displayed through deeplink for " + pUserType);
+					extent.extentLoggerFail("Login/Register",
+							"Login/Register screen is not displayed through deeplink for " + pUserType);
+				}
+			} else {
+				if (verifyElementDisplayed(AMDMoreMenu.objMyTransactionsHeader)) {
+					logger.info("My Transactions screen is displayed through deeplink");
+					extent.extentLoggerPass("My Transactions", "My Transactions screen is displayed through deeplink");
+				} else {
+					logger.error("My Transactions screen is not displayed through deeplink");
+					extent.extentLoggerFail("My Transactions",
+							"My Transactions screen is not displayed through deeplink");
+				}
+			}
+		}
+	}
+
+	public void EditProfilePageViaDeeplink(String pUserType) throws Exception {
+		extent.HeaderChildNode("Edit Profile Screen validation via Deeplink");
+		System.out.println("\nEdit Profile Screen validation via Deeplink");
+
+		waitTime(4000);
+		if (verifyElementDisplayed(AMDGenericObjects.objText("ZEE5"))) {
+			click(AMDGenericObjects.objContainText("ZEE5"), "Open With Zee5");
+			waitTime(6000);
+			if (pUserType.equalsIgnoreCase("Guest")) {
+				if (verifyElementDisplayed(AMDLoginScreen.objLoginText)) {
+					logger.info("Login/Register screen is displayed through deeplink for " + pUserType);
+					extent.extentLoggerPass("Login/Register",
+							"Login/Register screen is displayed through deeplink for " + pUserType);
+				} else {
+					logger.error("Login/Register screen is not displayed through deeplink for " + pUserType);
+					extent.extentLoggerFail("Login/Register",
+							"Login/Register screen is not displayed through deeplink for " + pUserType);
+				}
+			} else {
+				if (verifyElementDisplayed(AMDMyProfileScreen.objEditProfileHeader)) {
+					logger.info("Edit Profile screen is displayed via deeplink");
+					extent.extentLoggerPass("Edit Profile", "Edit Profile screen is displayed via deeplink");
+				} else {
+					logger.error("Edit Profile screen is not displayed through deeplink");
+					extent.extentLoggerFail("Edit Profile", "Edit Profile screen is not displayed through deeplink");
+				}
+			}
+		}
+	}
+
+	public void SocialLogin(String userType) throws Exception {
+
+		extent.HeaderChildNode("Social Login Validation");
+		if (userType.equalsIgnoreCase("Guest")) {
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDHomePage.objHomeBtn, "Home tab");
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			verifyElementPresent(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
+			// Verify user is navigated to Login/Register screen post tapping Login/Register
+			// link
+			click(AMDMoreMenu.objLoginRegisterText, "Login/Registet link");
+			// Gmail Login
+			verifyElementPresentAndClick(AMDLoginScreen.objGoogleBtn, "Gmail icon");
+			if (checkElementExist(AMDLoginScreen.objGmailSignIn, "Gmail Sign In")) {
+				verifyElementPresentAndClick(AMDLoginScreen.objGmailEmailField, "Email Field");
+				type(AMDLoginScreen.objGmailEmailField, "zeetest55@gmail.com", "Email Field");
+				verifyElementPresentAndClick(AMDLoginScreen.objGmailNextBtn, "Next Button");
+				verifyElementPresentAndClick(AMDLoginScreen.objGmailPasswordField, "Password Field");
+				type(AMDLoginScreen.objGmailPasswordField, "zeetest123", "Password Field");
+				verifyElementPresentAndClick(AMDLoginScreen.objGmailNextBtn, "Next Button");
+
+				if (checkElementExist(AMDLoginScreen.objGmailAddPhoneNumber, "Add Phone Number")) {
+					verifyElementPresentAndClick(AMDLoginScreen.objSkipBtn, "Skip Button");
+				}
+				if (checkElementExist(AMDLoginScreen.objAgreeBtn, "Agree Button")) {
+					click(AMDLoginScreen.objAgreeBtn, "Agree Button");
+				}
+
+				if (checkElementExist(AMDLoginScreen.objAcceptBtn, "Accept Button")) {
+					click(AMDLoginScreen.objAcceptBtn, "Accept Button");
+				}
+			}
+
+			if (checkElementExist(AMDLoginScreen.objGmailAccount, "Gmail Account")) {
+				click(AMDLoginScreen.objGmailAccount, "Gmail Account");
+				waitTime(5000);
+			}
+			if (checkElementExist(AMDOnboardingScreen.objTellUsMore, "More info Screen")) {
+				if (checkElementExist(AMDLoginScreen.objEmailIdField, "Email Id field")) {
+					type(AMDLoginScreen.objEmailIdField, "zeetest@gmail.com", "Email Id field");
+				}
+				verifyElementPresentAndClick(AMDLoginScreen.objDOB, "Date of Birth");
+				verifyElementPresentAndClick(AMDLoginScreen.objDate, "Date");
+				verifyElementPresentAndClick(AMDLoginScreen.objDateOK, "OK button");
+				verifyElementPresentAndClick(AMDLoginScreen.objGender, "Gender Field");
+				verifyElementPresentAndClick(AMDLoginScreen.objGenderMale, "Male");
+				verifyElementExist(AMDLoginScreen.objSubmitButton, "Submit Button");
+				Back(1);
+			}
+
+			if (checkElementExist(AMDHomePage.objHome, "Home Tab")) {
+				logger.info("Google login is successfull");
+				extent.extentLoggerPass("Login", "Google login is successfull");
+
+				verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+				SwipeUntilFindElement(AMDMoreMenu.objLogout, "UP");
+				verifyElementPresentAndClick(AMDMoreMenu.objLogout, "Logout");
+				verifyElementPresentAndClick(AMDMoreMenu.objLogoutBtn, "Logout Button");
+				waitTime(5000);
+				Swipe("DOWN", 2);
+				verifyElementPresentAndClick(AMDMoreMenu.objProfile, "Login/Register");
+
+			} else {
+				logger.info("Pre conditions not met, Account is not logged In");
+				extentLogger("Gmail", "Pre conditions not met, Account is not logged In");
+				for (int i = 0; i < 5; i++) {
+					if (verifyIsElementDisplayed(AMDLoginScreen.objtwitterBtn)) {
+						break;
+					} else {
+						Back(1);
+					}
+				}
+
+			}
+
+			// Facebook Login
+
+			clearField(AMDLoginScreen.objEmailIdField, "Email Id");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDLoginScreen.objfbBtn, "Facebook icon");
+			waitTime(5000);
+			if (checkElementExist(AMDHomePage.objHome, "Home Tab")) {
+				logger.info("Facebook Login is Successfull");
+				extent.extentLoggerPass("Login", "Facebook Login is Successfull");
+				verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+				waitTime(4000);
+				Swipe("UP", 1);
+
+				verifyElementPresentAndClick(AMDMoreMenu.objLogout, "Logout");
+				verifyElementPresentAndClick(AMDMoreMenu.objLogoutBtn, "Logout Button");
+				waitTime(5000);
+				Swipe("Down", 2);
+				verifyElementPresentAndClick(AMDMoreMenu.objProfile, "Login/Register");
+			} else {
+				logger.info("Pre conditions not met, Social Account is not logged In");
+				extentLoggerWarning("Facebook", "Pre conditions not met, Social Account is not logged In");
+				if (checkElementExist(AMDLoginScreen.objFBEmail, "Email Id field")) {
+					logger.info("Facebook login screen is displayed");
+					extentLoggerPass("Facebook login page", "Facebook login screen is displayed");
+				} else {
+					logger.info("Facebook login screen is not displayed");
+					extentLogger("Facebook login page", "Facebook login screen is not displayed");
+				}
+				Back(1);
+			}
+
+			// Twitter login
+
+			verifyElementPresentAndClick(AMDLoginScreen.objtwitterBtn, "Twitter icon");
+			waitTime(5000);
+
+			if (checkElementExist(AMDLoginScreen.objTwitterAutorizeAllowBtn, "Authorize app")) {
+				logger.info("twitter Page is displayed");
+				extent.extentLoggerPass("twitter", "twitter Page is displayed");
+				click(AMDLoginScreen.objTwitterAutorizeAllowBtn, "Authorize app");
+				waitTime(5000);
+			}
+
+			if (checkElementExist(AMDHomePage.objHome, "Home Tab")) {
+				logger.info("Twitter Login is Successfull");
+				extent.extentLoggerPass("Login", "Twitter Login is Successfull");
+				verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+				Swipe("UP", 2);
+				verifyElementPresentAndClick(AMDMoreMenu.objLogout, "Logout");
+				verifyElementPresentAndClick(AMDMoreMenu.objLogoutBtn, "Logout Button");
+
+			} else {
+				logger.info("Pre conditions not met, Account is not logged In");
+				extentLogger("Twitter", "Pre conditions not met, Account is not logged In");
+				for (int i = 0; i < 5; i++) {
+					if (verifyIsElementDisplayed(AMDLoginScreen.objtwitterBtn)) {
+						break;
+					} else {
+						Back(1);
+					}
+				}
+			}
+		} else {
+			logger.info("Social Login is NOT Applicable for Registered Users");
+			extentLogger("Registered User", "Social Login is NOT Applicable for Registered Users");
+		}
+	}
+
+	public void railsVerificationAccordingToContentLanguage(String userType, String contentLanguage) throws Exception {
+		extent.HeaderChildNode("Verification of Rails based on Content Language");
+		selectContentLang_MoreMenu_ByDeselectingEnglishKannada(contentLanguage);
+		SelectTopNavigationTab("Home");
+
+		boolean flag = false;
+		if (contentLanguage.equalsIgnoreCase("Bengali")) {
+			flag = SwipeUntilFindElement(AMDHomePage.objRailName("Bangla"), "UP");
+		} else {
+			flag = SwipeUntilFindElement(AMDHomePage.objRailName(contentLanguage), "UP");
+		}
+
+		if (flag == true) {
+			logger.info("Relevent rail is displayed");
+			extent.extentLoggerPass("rails", "Relevent rail is displayed");
+		} else {
+			logger.info("Relevent rail is not displayed");
+			extent.extentLoggerPass("rails", "Relevent rail is not displayed");
+		}
+		waitTime(3000);
+		deselectContentLang_MoreMenuAndSelectEnglishKannada(contentLanguage);
+
+	}
+
+	public void selectContentLang_MoreMenu_ByDeselectingEnglishKannada(String planguage) throws Exception {
+
+		click(AMDHomePage.HomeIcon, "Home button");
+		click(AMDHomePage.MoreMenuIcon, "More Menu");
+		Swipe("UP", 1);
+		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings CTA");
+		verifyElementPresent(AMDGenericObjects.objScreenTitleName("Settings"), "Settings Screen");
+		Swipe("UP", 1);
+		SwipeUntilFindElement(AMDMoreMenu.objContentLang, "UP");
+		verifyElementPresentAndClick(AMDMoreMenu.objContentLang, "Content language");
+		verifyElementPresent(AMDGenericObjects.objScreenTitleName("Content Language"), "Content language screen");
+
+		// ***** UnSelecting default content languages *****
+		click(AMDOnboardingScreen.objSelectContentLang("English"), "English");
+		PartialSwipe("UP", 2);
+		waitTime(1000);
+		click(AMDOnboardingScreen.objSelectContentLang("Kannada"), "Kannada");
+		Swipe("DOWN", 1);
+
+		// ***** Selecting required language *****
+		if (planguage.contains(",")) {
+			Swipe("DOWN", 1);
+			String[] pLanguages = planguage.split(",");
+			int n = pLanguages.length;
+			for (int i = 0; i < n; i++) {
+
+				for (int j = 0; j < 5; j++) {
+					if (getDriver().findElements(AMDOnboardingScreen.objSelectContentLang(pLanguages[i])).size() == 0) {
+						PartialSwipe("UP", 1);
+					} else {
+						verifyElementPresentAndClick(AMDOnboardingScreen.objSelectContentLang(pLanguages[i]),
+								pLanguages[i]);
+						break;
+					}
+				}
+			}
+		} else {
+			outerLoop: for (int i = 1; i <= 4; i++) {
+				int totalLanguages = getCount(AMDOnboardingScreen.objContentLangBtns);
+				for (int j = 1; j <= totalLanguages; j++) {
+					String visibleLang = getText(AMDOnboardingScreen.objgetContentLangName(j));
+					if (planguage.equalsIgnoreCase(visibleLang)) {
+						verifyElementPresentAndClick(AMDOnboardingScreen.objSelectContentLang(planguage), planguage);
+						break outerLoop;
+					}
+				}
+				PartialSwipe("UP", 1);
+			}
+		}
+		waitTime(1000);
+		verifyElementPresentAndClick(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button");
+		waitTime(1000);
+		Back(1);
+		click(AMDHomePage.HomeIcon, "Home button");
+	}
+
+	public void deselectContentLang_MoreMenuAndSelectEnglishKannada(String planguage) throws Exception {
+
+		click(AMDHomePage.HomeIcon, "Home button");
+		click(AMDHomePage.MoreMenuIcon, "More Menu");
+		Swipe("UP", 1);
+		click(AMDMoreMenu.objSettings, "Settings CTA");
+		verifyElementDisplayed(AMDGenericObjects.objScreenTitleName("Settings"));
+		Swipe("UP", 1);
+		click(AMDMoreMenu.objContentLang, "Content language");
+		verifyElementDisplayed(AMDGenericObjects.objScreenTitleName("Content Language"));
+
+		// ***** deSelecting selected language *****
+		if (planguage.contains(",")) {
+			Swipe("DOWN", 1);
+			String[] pLanguages = planguage.split(",");
+			int n = pLanguages.length;
+			System.out.println(n);
+			for (int i = 0; i < n; i++) {
+				int totalLanguages = getCount(AMDOnboardingScreen.objContentLangBtns);
+				for (int j = 1; j <= totalLanguages; j++) {
+					String visibleLang = getText(AMDOnboardingScreen.objgetContentLangName(j));
+					if (pLanguages[i].equalsIgnoreCase(visibleLang)) {
+						click(AMDOnboardingScreen.objSelectContentLang(pLanguages[i]), pLanguages[i]);
+					}
+				}
+				PartialSwipe("UP", 3);
+			}
+		} else {
+			outerLoop: for (int i = 1; i <= 4; i++) {
+				int totalLanguages = getCount(AMDOnboardingScreen.objContentLangBtns);
+				for (int j = 1; j <= totalLanguages; j++) {
+					String visibleLang = getText(AMDOnboardingScreen.objgetContentLangName(j));
+					if (planguage.equalsIgnoreCase(visibleLang)) {
+						click(AMDOnboardingScreen.objSelectContentLang(planguage), planguage);
+						break outerLoop;
+					}
+				}
+				PartialSwipe("UP", 1);
+			}
+		}
+
+		// ***** Selecting default content languages *****
+		Swipe("DOWN", 4);
+		click(AMDOnboardingScreen.objSelectContentLang("English"), "English");
+		PartialSwipe("UP", 2);
+		waitTime(1000);
+		click(AMDOnboardingScreen.objSelectContentLang("Kannada"), "Kannada");
+		Swipe("DOWN", 1);
+		waitTime(1000);
+		click(AMDOnboardingScreen.objContent_ContinueBtn, "Continue button");
+		waitTime(1000);
+//	click(AMDGenericObjects.objBackBtn, "Back button");
+		Back(1);
+		click(AMDHomePage.HomeIcon, "Home button");
+	}
+
+	public void verifyRailsInLangingScreen(String userType, String tabName) throws Exception {
+		extent.HeaderChildNode("Verification of Rails in Landing screen: " + tabName);
+		SelectTopNavigationTab(tabName);
+
+		String pContentLang = ResponseInstance.getContentLanguageForAppMixpanel(userType);
+		System.out.println("CONTENT LANG: " + pContentLang);
+
+		Response pageResp = ResponseInstance.getResponseForAppPages(tabName, pContentLang, userType);
+		pageResp.print();
+
+		ArrayList<String> railNames = new ArrayList<String>();
+		for (int i = 2; i < 5; i++) {
+			String title = pageResp.jsonPath().getString("buckets[" + i + "].title");
+			railNames.add(title);
+		}
+		System.out.println(railNames);
+
+		findingTrayInscreen(10, AMDHomePage.objTrayTitle(railNames.get(0)), AMDHomePage.objCarouselDots,
+				railNames.get(0), "MastheadCarousel", userType, tabName);
+		findingTrayInscreen(10, AMDHomePage.objTrayTitle(railNames.get(1)), AMDHomePage.objCarouselDots,
+				railNames.get(1), "MastheadCarousel", userType, tabName);
+		findingTrayInscreen(10, AMDHomePage.objTrayTitle(railNames.get(2)), AMDHomePage.objCarouselDots,
+				railNames.get(2), "MastheadCarousel", userType, tabName);
+
+	}
+	
+	
+	
 }

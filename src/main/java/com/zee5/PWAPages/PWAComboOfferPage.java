@@ -229,4 +229,14 @@ public class PWAComboOfferPage {
 	public static By objMyRentalTitle=By.xpath("");
 	public static By objExpiredTxtInMyRental=By.xpath("");
 	public static By objHowItworksConsumption=By.xpath("");
+	
+	public static By objSharebelowPlayer=By.xpath("//div[@class=\"channelConsumptionMetaDiv\" ]/child::*/child::*//*[@title='Share']");
+	public static By objZeePlexLogo = By.xpath("(//img[@alt='plex_logo'])[1]");
+	//duration
+	public static By objcontentDuration=By.xpath("(//div[@class='consumptionMetaDiv']//span[@class='showMetaClass']//p[2])[1]");
+
+	//genre
+	public static By objcontentGenre=By.xpath("//div[@class='consumptionMetaDiv']//div[@class='metaInfo lineHeightClass']//span[@class='showMetaClass']//a");
+
+	public static By objDescBelowShareBtn = By.xpath("");
 }

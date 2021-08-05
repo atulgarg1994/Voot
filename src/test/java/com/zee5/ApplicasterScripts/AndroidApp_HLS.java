@@ -18,7 +18,7 @@ public class AndroidApp_HLS {
 		ZEE5ApplicasterBusinessLogic = new Zee5ApplicasterBusinessLogic("zee");
 	}
 
-//	@Test(priority = 0)
+	@Test(priority = 0)
 	@Parameters({ "userType" })
 	public void ApplicasterLogin(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
@@ -30,6 +30,7 @@ public class AndroidApp_HLS {
 	public void OnboardLoginScreenVerification(String userType, String RegisteredEmail) throws Exception {
 		System.out.println("\n---Onboarding Login screen verification ---\n");
 		ZEE5ApplicasterBusinessLogic.IntroScreenAndLoginScreenValidation(userType, RegisteredEmail);
+		
 	}
 	
 	@Test(priority = 2) // Manasa
@@ -128,6 +129,62 @@ public class AndroidApp_HLS {
 		ZEE5ApplicasterBusinessLogic.DownloadsContentPlayBackValidation(userType,"Better",true);
 	}
 
+	@Test(priority = 12) 
+	@Parameters({ "userType"})
+	public void SocialLoginValidation(String userType) throws Exception {
+		System.out.println("\n--- Social Login Validation ---\n");
+		ZEE5ApplicasterBusinessLogic.SocialLogin(userType);
+	}
+	
+	@Test(priority = 13) 
+	@Parameters({ "userType", "FirstName", "LastName", "loginThrough"  })
+	public void NewRegistrationValidation(String userType, String FirstName, String lastName, String loginThrough) throws Exception {
+		if(userType.equalsIgnoreCase("Guest")) {
+		System.out.println("\n--- New Registration Validation ---\n");
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
+		ZEE5ApplicasterBusinessLogic.navigateToRegisterScreen(loginThrough);
+		ZEE5ApplicasterBusinessLogic.validateRegister(FirstName, lastName);
+		ZEE5ApplicasterBusinessLogic.relaunch(false);
+		ZEE5ApplicasterBusinessLogic.navigateToRegisterScreen(loginThrough);
+		ZEE5ApplicasterBusinessLogic.registerForFreeScreen("Email");
+		}else {
+			ZEE5ApplicasterBusinessLogic.loggerForNonGuestUserTypes("Validate ZEE5 Registration");
+		}
+	}
+	
+	
+	@Test(priority = 14) 
+	@Parameters({"userType", "SettingsNonsubscribedUserName", "SettingsNonsubscribedPassword", "499PremiumPackEmail", "CommomPassword","contentLanguage"})
+	public void VerifyRails_AccordingToContentLanguage(String userType, String NonSubEmail, String NonSubPassword, String SubEmail, String SubPassword, String contentLanguage) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+	    if(userType.equalsIgnoreCase("Guest")) {
+	    	ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
+	    }else if(userType.equalsIgnoreCase("NonSubscribedUser")) {
+			ZEE5ApplicasterBusinessLogic.LoginWithEmailID(NonSubEmail, NonSubPassword);
+		}else {
+			ZEE5ApplicasterBusinessLogic.LoginWithEmailID(SubEmail, SubPassword);
+		}
+		
+		ZEE5ApplicasterBusinessLogic.railsVerificationAccordingToContentLanguage(userType, contentLanguage);
+	}
+	
+	@Test(priority = 15) 
+	@Parameters({"userType", "tabName1"})
+	public void VerifyRails_LandingScreens(String userType, String tabName) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
+		ZEE5ApplicasterBusinessLogic.verifyRailsInLangingScreen(userType, tabName);
+		
+	}
+	
+	
 	@AfterTest
 	public void tearDownApp() {
 		System.out.println("\nExecution Complete - Closing the App");

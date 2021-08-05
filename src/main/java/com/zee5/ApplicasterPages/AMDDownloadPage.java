@@ -167,4 +167,8 @@ public class AMDDownloadPage {
 	public static By objDownloadProgressIcon1 = By.xpath("//*[@id='content_download_progress']");
 	
 	public static By objDownloadedContentIcon = By.xpath("//*[@id='content_downloaded_image']");
+	
+	public static By objWatchlistIcon = By.xpath("//*[@id='metaInfoActionButtonIconView' and @text='a']");
+	public static By objWatchlistedIcon = By.xpath("//*[@id='metaInfoActionButtonIconView' and @text='A']");
+	
 }

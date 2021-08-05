@@ -116,4 +116,18 @@
 			<class name="com.zee5.PWASanityScripts.WebPWASanityScript" />
 		</classes>
 	</test> 
+	
+	<test name="WebPWASanityScript">
+	<!--  	<groups>
+            <run>
+            	<include name = "required_setup"></include>
+              	<include name = "sprint73"></include>
+            </run>
+        </groups>  -->
+		<classes>
+			<class name="com.zee5.PWASanityScripts.WebPWASanityScript" />
+		</classes>
+	</test> 
+	
+	
 </suite>

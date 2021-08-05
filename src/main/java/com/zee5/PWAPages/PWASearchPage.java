@@ -372,4 +372,12 @@ public class PWASearchPage {
 	public static By objSpecificFirstSearch(String str) {
 		return By.xpath("//div[@class='clickWrapper']//img[@title='"+str+"']");
 	}
+	
+	public static By objSearchResultDataContentID(String dataContentId) {
+		return By.xpath("//div[@data-contentid=\""+dataContentId+"\"]//img");
+	}
+	public static By objSearchItemsCount=By.xpath("//div[@class='listingGrid']");
+	public static By objSearchItemsCount(int i,String dataContentID) {
+		return By.xpath("(//div[@class='listingGrid'])["+i+"]//div[@data-contentid='"+dataContentID+"']//img");
+	}
 }

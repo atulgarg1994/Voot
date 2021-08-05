@@ -27,6 +27,15 @@ public class AndroidMixpanel_LoginScreenDisplay {
 	}
 	
 	
+	@Test(priority = 2)
+	@Parameters({"userType","keyword2"})
+	public void verifyLoginScreenDisplayEvent_LoginLinkOnPlayer(String userType,String keyword2) throws Exception {
+		Utilities.relaunch = true;
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
+		Zee5ApplicasterMixPanelBusinessLogic.verifyLoginScreenDisplayEvent_LoginLinkOnPlayer(userType,"emailLogin",keyword2);
+	}
+	
 	@AfterTest
 	public void tearDownApp() {
 		System.out.println("Quit the App");

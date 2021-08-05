@@ -330,4 +330,19 @@ public class AMDMoreMenu {
 	
 	public static By Restrict18PlusAboveContent = By.xpath("//*[@text='Restrict U/A 18+ Content']");
 	public static By Restrict13PlusAboveContent = By.xpath("//*[@text='Restrict U/A 13+ Content']");
+	
+	public static By objWatchlistShowsSelected = By.xpath("//*[@contentDescription='Shows' and @selected='true']");
+	public static By objWatchlistShowsTab = By.xpath("//*[@contentDescription='Shows' and @selected='false']");
+	
+	public static By objWatchlistMoviesSelected = By.xpath("//*[@contentDescription='Movies' and @selected='true']");
+	public static By objWatchlistMoviesTab = By.xpath("//*[@contentDescription='Movies' and @selected='false']");
+	
+	public static By objWatchlistVideosSelected = By.xpath("//*[@contentDescription='Videos' and @selected='true']");
+	public static By objWatchlistVideosTab = By.xpath("//*[@contentDescription='Videos' and @selected='false']");
+
+	public static By objWatchlistContent(String title) {
+		return By.xpath("//*[@id='txt_reminder_item_title' and @text='"+title+"']");
+	}
+	
+	public static  By objShowFirstContent = By.xpath("(//*[@id='txt_reminder_item_title'])[1]");
 }

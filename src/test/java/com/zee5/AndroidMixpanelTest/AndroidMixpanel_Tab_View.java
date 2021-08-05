@@ -26,10 +26,10 @@ private Zee5ApplicasterMixPanelBusinessLogic Zee5ApplicasterMixPanelBusinessLogi
 	}
 	
 	@Test(priority = 2)
-	@Parameters({ "userType"})
-	public void Tab_ViewEventValidation(String usertype) throws Exception {
+	@Parameters({ "userType", "tabName"})
+	public void Tab_ViewEventValidation(String usertype,String tabName) throws Exception {
 		System.out.println("\nTab View event");
-		Zee5ApplicasterMixPanelBusinessLogic.Tab_ViewEventValidation(usertype,"Movies");
+		Zee5ApplicasterMixPanelBusinessLogic.Tab_ViewEventValidation(usertype,tabName);
 	}	
 	
 	@AfterTest

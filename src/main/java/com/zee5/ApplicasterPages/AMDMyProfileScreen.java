@@ -16,5 +16,6 @@ public class AMDMyProfileScreen {
 	public static By objPackStatus =By.xpath("//*[@resource-id='com.graymatrix.did:id/txt_pack_status']");
 	public static By objDetailsCTA = By.xpath("//*[@resource-id='com.graymatrix.did:id/txt_pack_details']");
 		
+	public static By objEditProfileHeader = By.xpath("//*[@id='screen_title' and @text='Edit Profile']");
 			 
 }

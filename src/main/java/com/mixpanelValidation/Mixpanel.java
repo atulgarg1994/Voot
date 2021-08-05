@@ -15,8 +15,11 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
@@ -565,15 +568,11 @@ public class Mixpanel extends ExtentReporter {
 		if (!UserType.equals("Guest")) {
 			if (!fetchUserdata) {
 				if(UserType.equals("NonSubscribedUser")) {
-				 pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("NonSubscribedUserName");
-				pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("NonSubscribedUserPassword");
+				pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonSubscribedUserName");
+				pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedPassword");
 				}else if(UserType.equals("SubscribedUser")) {
-					pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-							.getParameter("SubscribedUserName");
-					pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-							.getParameter("SubscribedUserPassword");
+					pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserName");
+					pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedPassword");
 				}
 				ResponseInstance.getUserData(pUsername, pPassword);
 				ResponseInstance.getUserSettingsValues(pUsername, pPassword);
@@ -813,6 +812,490 @@ public class Mixpanel extends ExtentReporter {
 		}
 	}
 	
+	
+	public static void ValidateParameterForPlayer(String[] mpresponse, int slno,String distinctID, String eventName, String contentLang,ArrayList<HashMap<String,String>> valuesPendingValidation,String contentID) throws JsonParseException, JsonMappingException, IOException, InterruptedException, ParseException {
+		System.out.println("Parameter Validation for " + eventName+" : "+distinctID);
+		Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
+		booleanParameters = Prop.getproperty("Boolean");
+		integerParameters = Prop.getproperty("Integer");
+		fileName = ReportName;
+		String eventForFileName=eventName.replace("/", "_");
+		makeDirectory(System.getProperty("user.dir"), "mp_excel_reports");
+		xlpath = System.getProperty("user.dir") + "\\mp_excel_reports"+ "\\" +fileName +"_"+eventForFileName+".xlsx";
+		System.out.println("Distinct ID:"+distinctID);
+		StaticValuesFromAPI(distinctID);
+		userType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");		
+		if(userType.equals("Guest")) {
+			Mixpanel.FEProp.setProperty("New App Language", "en");
+			Mixpanel.FEProp.setProperty("New Content Language", "["+contentLang.replace(",", "-")+"]");
+		}
+		getParameterValue();
+		fetchEventWithNoWait(mpresponse,slno,distinctID, eventName,valuesPendingValidation,contentID);
+	}
+	
+	
+	
+	public static void fetchEventWithNoWait(String[] mpresponse,int slno,String distinct_id, String eventName,ArrayList<HashMap<String,String>> valuesPendingValidation,String contentID) throws JsonParseException, JsonMappingException, IOException, InterruptedException {
+		System.out.println("inside fetchEventWithNoWait");
+		sheet = eventName.trim().replace(" ", "").replace("/", "");
+		ArrayList eventresponse= new ArrayList<String>();
+		int eventresponseLength=0;
+		for(int i=0;i<(mpresponse.length);i++) {
+			if(mpresponse[i].toString().contains("\"event\":\""+eventName+"\"")){			
+				eventresponse.add(mpresponse[i]);
+				eventresponseLength++;
+			}
+		}
+		int totalEventEntries=eventresponse.size();
+		System.out.println("Total Event Entries for :"+eventName+" : "+totalEventEntries);
+		extent.extentLogger("", "Total Event Entries for :"+eventName+" : "+totalEventEntries);
+		if(totalEventEntries!=0) {
+			String str =eventresponse.get(totalEventEntries-1).toString();
+			System.out.println(str);
+			JsonObject obj = new JsonParser().parse(str).getAsJsonObject();
+			String properties=obj.get("properties").toString();
+			JsonObject objprop = new JsonParser().parse(properties).getAsJsonObject();			
+			ArrayList<String> mpparameters=new ArrayList<String>();
+			objprop.keySet().forEach(keyStr ->{
+				 Object keyvalue = objprop.get(keyStr);
+				 System.out.println("key: "+ keyStr + " value: " + keyvalue);
+				        mpparameters.add(keyStr.replace("\"", "").replace("$", "")+"keyvalue"+keyvalue.toString().replace("\"", "").replace("$", "").replace(",", "-"));	        
+			});
+			System.out.println(mpparameters);
+			parseResponseWithHandleEmptyValues(mpparameters);
+			validation(slno,eventName);
+			DisplayMPValue("Conviva Session ID");
+			DisplayMPValue("Talamoos clickID");
+			DisplayPartialValues(valuesPendingValidation);
+		}		
+	}
+	
+	public static void parseResponseWithHandleEmptyValues(ArrayList<String> response) {
+		deleteAndCreatExcel();
+		String key="",value="";
+		System.out.println("Excel created");
+		for (int i = 1; i < response.size(); i++) {
+			try {
+				key=response.get(i).split("keyvalue")[0];
+				try {
+					value=response.get(i).split("keyvalue")[1];
+					write(i, key, value);
+				}
+				catch(Exception e) {}
+			}
+			catch(Exception e) {}	
+		}
+	}
+	
+
+	public static void validation(int slno,String event) {
+		int NumberOfRows = getRowCount();
+		System.out.println(NumberOfRows);
+		extent.HeaderChildNode(slno+": "+"Parameter Validation ->"+event);
+		if(NumberOfRows != 0) {
+		for (rownumber = 1; rownumber < NumberOfRows; rownumber++) {
+			try {
+				XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlpath));
+				XSSFSheet myExcelSheet = myExcelBook.getSheet(sheet);
+				value = myExcelSheet.getRow(rownumber).getCell(1).toString();
+				key = myExcelSheet.getRow(rownumber).getCell(0).toString();
+				if (value.trim().isEmpty()) {
+					System.out.println("Paramter is empty :- Key:" + key + " - value" + value);
+					extentReportFail("Empty parameter","Paramter is empty :- <b>Key : " + key + " \n value : " + value + "</b>");
+					fillCellColor();
+				} else {
+					if (isContain(booleanParameters, key)) {
+						validateBoolean(value);
+					} else if (isContain(integerParameters, key)) {
+						validateInteger(value);
+					}else if (isContain(integerParameters, key)) {
+						validateFloat(value);
+					}
+					validateParameterValuePWA(key, value);
+					//extentInfo();
+				}
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
+		}else {
+			System.out.println("Event not triggered");
+			extentReportFail("Event not triggered", "Event not triggered");
+		}
+		//FEProp.clear();
+	}
+	
+	public static void validateParameterValuePWA(String key, String value) {
+		try {
+			propValue = FEProp.getProperty(key);
+			System.out.println("key0"+key+"00propValue-----"+propValue);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (propValue != null) {
+			if (propValue.equals("[]")) {
+				propValue = "N/A";
+			}
+			if (!propValue.replaceAll("\\s", "").equalsIgnoreCase(value.replaceAll("\\s", ""))) {
+				fillCellColor();
+				extentReportFail("Parameter", "Parameter : <b>Key : " + key + " <br/> value : " + value + "<br/>Expected Value : "+propValue+"</b>");
+			}else {
+				extentReportInfo("Parameter", "Parameter : <b>Key : " + key + " <br/> value : " + value + "<br/>Expected Value : "+propValue+"</b>");
+			}
+		}
+	}
+
+
+	
+	public static void makeDirectory(String path,String directoryName) {
+		try {
+			path=path+"/"+directoryName;
+			File file = new File(path);
+			if (!file.exists()){
+				file.mkdirs();
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+	
+	public static void StaticValuesFromAPI(String UniqueID) throws ParseException {
+		platform = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getSuite().getName();
+		if (platform.equals("Mpwa")) {
+			FEProp.setProperty("Platform Name", "Web");
+			FEProp.setProperty("os", "Android");
+		} else if (platform.equals("Android")) {
+			FEProp.setProperty("Platform Name", platform);
+			FEProp.setProperty("os", "Android");
+		} else if (platform.equals("Web")) {
+			FEProp.setProperty("Platform Name", platform);
+			FEProp.setProperty("os", System.getProperty("os.name").split(" ")[0]);
+		}
+		Mixpanel.FEProp.setProperty("Landing Page Name", "home");
+		Mixpanel.FEProp.setProperty("Unique ID", UniqueID);
+		
+		userType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		
+		if(userType.equals("Guest")) {
+				Mixpanel.FEProp.setProperty("Gender", "N/A");
+				Mixpanel.FEProp.setProperty("Age", "N/A");
+				Mixpanel.FEProp.setProperty("Free Trial Expiry Date", "N/A");
+				Mixpanel.FEProp.setProperty("Free Trial Package", "N/A");
+				Mixpanel.FEProp.setProperty("Latest Subscription Pack", "N/A");
+				Mixpanel.FEProp.setProperty("Latest Subscription Pack Expiry", "N/A");
+				Mixpanel.FEProp.setProperty("Next Expiring Pack", "N/A");
+				Mixpanel.FEProp.setProperty("Next Pack Expiry Date", "N/A");
+				Mixpanel.FEProp.setProperty("Pack Duration", "N/A");
+				Mixpanel.FEProp.setProperty("Parent Control Setting", "N/A");
+				Mixpanel.FEProp.setProperty("User Type", "guest");
+				Mixpanel.FEProp.setProperty("Partner Name", "N/A");
+				Mixpanel.FEProp.setProperty("HasRental", "false");
+				Mixpanel.FEProp.setProperty("hasEduauraa", "false");
+		}
+		else SubscriptionDetailsFromAPI();
+	}
+	
+	
+	public static void SubscriptionDetailsFromAPI() throws ParseException {
+		System.out.println("Entered SubscriptionDetailsFromAPI ...");
+		String UserType;
+		UserType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		String username = null,password = null;
+		if(UserType.equals("NonSubscribedUser")) {
+			username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonSubscribedUserName");
+			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedPassword");
+		}
+		if(UserType.equals("SubscribedUser")) {
+			username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserName");
+			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedPassword");
+		}
+		Response subscriptionResp=ResponseInstance.getSubscriptionDetails(username, password);
+		//System.out.println(subscriptionResp.prettyPrint());
+		int subscriptionItems=0;
+		String id="",subscription_plan_type="",title="",packExpiry="",HasRental="",hasEduauraa="",key="",parentalControl="";
+		String Latest_Subscription_Pack="N/A",Latest_Subscription_Pack_Expiry="N/A",Next_Expiring_Pack="N/A",Next_Pack_Expiry_Date="N/A",billing_frequency="N/A";
+		try{subscriptionItems=subscriptionResp.jsonPath().get("subscription_plan.size()");}catch(Exception e) {}
+		if(subscriptionItems!=0) {
+			id=subscriptionResp.jsonPath().get("subscription_plan["+(subscriptionItems-1)+"].id").toString();
+			System.out.println("sub plan id"+id);
+			subscription_plan_type=subscriptionResp.jsonPath().get("subscription_plan["+(subscriptionItems-1)+"].subscription_plan_type").toString();
+			System.out.println("sub plan type"+subscription_plan_type);
+			title=subscriptionResp.jsonPath().getString("subscription_plan["+(subscriptionItems-1)+"].original_title");
+			System.out.println("sub plan title"+title);
+			Latest_Subscription_Pack=id+"_"+title+"_"+subscription_plan_type;
+			System.out.println("Latest_Subscription_Pack"+Latest_Subscription_Pack);
+			packExpiry=subscriptionResp.jsonPath().get("subscription_end["+(subscriptionItems-1)+"]").toString();
+			System.out.println("packExpiry"+packExpiry);
+			SimpleDateFormat requiredFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+			java.text.DateFormat actualFormat = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+			actualFormat.setTimeZone(java.util.TimeZone.getTimeZone("GMT"));
+			java.util.Date packExpiryDate = actualFormat.parse(packExpiry);
+			Latest_Subscription_Pack_Expiry=requiredFormat.format(packExpiryDate).toString();
+			System.out.println("Latest_Subscription_Pack_Expiry"+Latest_Subscription_Pack_Expiry);
+			Next_Expiring_Pack="["+Latest_Subscription_Pack+"]";
+			System.out.println("Next_Expiring_Pack"+Next_Expiring_Pack);
+			Next_Pack_Expiry_Date=Latest_Subscription_Pack_Expiry;
+			System.out.println("Next_Pack_Expiry_Date"+Next_Pack_Expiry_Date);
+			billing_frequency=subscriptionResp.jsonPath().get("subscription_plan["+(subscriptionItems-1)+"].billing_frequency").toString();	
+			System.out.println("billing_frequency"+billing_frequency);
+		}	
+		Response tvodResp=ResponseInstance.getTVODDetails(username, password);
+		int tvodItems=tvodResp.jsonPath().get("playback_state.size()");
+		try {			
+			if(tvodResp.jsonPath().get("playback_state["+(tvodItems-1)+"]").toString().equalsIgnoreCase("purchased")) HasRental="true";
+			else HasRental="false";
+		}catch(Exception e) {HasRental="false";}
+		System.out.println("HasRental"+HasRental);
+		Response settingsResp=ResponseInstance.getSettingsDetails(username, password);
+		int pairs=settingsResp.jsonPath().get("key.size()");
+		for (int i=0;i<pairs;i++) {
+			key=settingsResp.jsonPath().get("key["+i+"]").toString();
+			if(key.equals("eduauraaClaimed")) { 			
+				hasEduauraa=settingsResp.jsonPath().get("value["+i+"]").toString();
+				if(hasEduauraa.equals("")) hasEduauraa="false";
+				break;
+			}
+		}
+		System.out.println("hasEduauraa"+hasEduauraa);
+		for (int i=0;i<pairs;i++) {
+			key=settingsResp.jsonPath().get("key["+i+"]").toString();
+			if(key.equals("parental_control")) { 			
+				parentalControl=settingsResp.jsonPath().get("value["+i+"]").toString();
+				if(parentalControl.equals("") || parentalControl.equals("{}")) parentalControl="N/A";
+				else parentalControl="true";
+				break;
+			}
+		}
+		System.out.println("parentalControl"+parentalControl);
+		
+		Mixpanel.FEProp.setProperty("Free Trial Expiry Date", "N/A");
+		Mixpanel.FEProp.setProperty("Free Trial Package", "N/A");		
+		Mixpanel.FEProp.setProperty("Latest Subscription Pack", Latest_Subscription_Pack);
+		Mixpanel.FEProp.setProperty("Latest Subscription Pack Expiry", Latest_Subscription_Pack_Expiry);
+		Mixpanel.FEProp.setProperty("Next Expiring Pack", Next_Expiring_Pack);
+		Mixpanel.FEProp.setProperty("Next Pack Expiry Date", Next_Pack_Expiry_Date);
+		Mixpanel.FEProp.setProperty("Pack Duration", billing_frequency);
+		Mixpanel.FEProp.setProperty("HasRental", HasRental);
+		Mixpanel.FEProp.setProperty("hasEduauraa", hasEduauraa);
+		Mixpanel.FEProp.setProperty("Parent Control Setting", parentalControl);
+	}
+	
+	
+	public static void DisplayMPValue(String property) {
+		int NumberOfRows = getRowCount();
+		System.out.println(NumberOfRows);
+		if(NumberOfRows != 0) {
+			for (rownumber = 1; rownumber < NumberOfRows; rownumber++) {
+				try {
+					XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlpath));
+					XSSFSheet myExcelSheet = myExcelBook.getSheet(sheet);
+					value = myExcelSheet.getRow(rownumber).getCell(1).toString();
+					key = myExcelSheet.getRow(rownumber).getCell(0).toString();
+					if(key.equals(property)) {
+						System.out.println("MP Property Key: <b>"+key+"</b> has value: <b>"+value+"</b>");
+						if(!value.equals("")) {							
+							extent.extentLogger("", "MP Property Key:<b>"+key+"</b> has value: <b>"+value+"</b>");					
+						}
+						else {
+							extent.extentLoggerFail("", "MP Property Key:<b>"+key+"</b> has value: <b>"+value+"</b>");
+						}
+						break;
+					}
+				} catch (Exception e) {
+					System.out.println(e);
+				}
+			}
+		}
+	}	
+	
+	public static void DisplayPartialValues(ArrayList<HashMap<String,String>> valuesToCompare) {
+		String expectedProperty="",expectedValue="";
+		boolean foundKey=false,foundAdKey=false;
+		try {
+			int NumberOfRows = getRowCount();
+			if(NumberOfRows != 0) {
+				System.out.println(NumberOfRows);
+				for(int i=0;i<valuesToCompare.size();i++) {
+					HashMap<String,String> valuesToCompareMap=valuesToCompare.get(i);
+					Set keys = valuesToCompareMap.keySet();
+					Iterator it = keys.iterator();
+					while (it.hasNext()) {
+						foundKey=false;
+						expectedProperty=it.next().toString();
+						expectedValue=valuesToCompareMap.get(expectedProperty);
+						System.out.println("expectedProperty==="+expectedProperty);
+						System.out.println("expectedValue==="+expectedValue);
+						for (rownumber = 1; rownumber < NumberOfRows; rownumber++) {
+							try {
+								XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlpath));
+								XSSFSheet myExcelSheet = myExcelBook.getSheet(sheet);
+								value = myExcelSheet.getRow(rownumber).getCell(1).toString();
+								key = myExcelSheet.getRow(rownumber).getCell(0).toString();
+								if(key.equals(expectedProperty) && key.equals("Ad Destination URL")) {	
+									foundAdKey=true;
+									break;
+								}
+								if(key.equals(expectedProperty)) {	
+									foundKey=true;
+									break;
+								}
+							} catch (Exception e) {
+								System.out.println(e);
+							}
+						}
+						if(foundKey==true) {
+							int intValue=0,intcalculatedValue=0;
+							intValue=Integer.valueOf(value);
+							intcalculatedValue=Integer.valueOf(expectedValue);
+							if(intValue-intcalculatedValue>=-5 && intValue-intcalculatedValue<=5) 
+								extentReportInfo("Parameter", "Parameter : <b>Key : " + key + " <br/> value : " + value + "<br/>Expected Value : "+intcalculatedValue+"</b>"+"<br/>Difference of +/-5 is maintained");
+							else
+								extentReportFail("Parameter", "Parameter : <b>Key : " + key + " <br/> value : " + value + "<br/>Expected Value : "+intcalculatedValue+"</b>"+"<br/>Difference of +/-5 is not maintained");
+						}	
+						if(foundAdKey==true) {
+							value=value.split("signatur")[0];
+							value=value.replace(",", "-");
+							value=value+"signature";
+							if(value.equalsIgnoreCase(expectedValue)) {
+								extentReportInfo("Parameter", "Parameter : <b>Key : " + key + " <br/> value : " + value + "</b><br/>contains Expected Value : <br/><b>"+expectedValue+"</b>");
+							}else {								
+								extentReportFail("Parameter", "Parameter : <b>Key : " + key + " <br/> value : " + value + "</b><br/>does not contains Expected Value : <br/><b>"+expectedValue+"</b>");
+							}
+						}
+					}					
+				}
+			}
+		}catch(Exception e) {}
+	}
+	
+	public static void DisplayPlayHeadPositionValue(String calculatedValue) {
+		try {
+			int NumberOfRows = getRowCount();
+			System.out.println(NumberOfRows);
+			if(NumberOfRows != 0) {
+				for (rownumber = 1; rownumber < NumberOfRows; rownumber++) {
+					try {
+						XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlpath));
+						XSSFSheet myExcelSheet = myExcelBook.getSheet(sheet);
+						value = myExcelSheet.getRow(rownumber).getCell(1).toString();
+						key = myExcelSheet.getRow(rownumber).getCell(0).toString();
+						if(key.equals("Player Head Position")) {							
+							break;
+						}
+					} catch (Exception e) {
+						System.out.println(e);
+					}
+				}
+				int intValue=0,intcalculatedValue=0;
+				intValue=Integer.valueOf(value);
+				intcalculatedValue=Integer.valueOf(calculatedValue);
+				if(intValue-intcalculatedValue>=-5 && intValue-intcalculatedValue<=5) 
+					extentReportInfo("Parameter", "Parameter : <b>Key : " + key + " <br/> value : " + value + "<br/>Expected Value : "+calculatedValue+"</b>"+"<br/>Difference of +/-5 is maintained");
+				else
+					extentReportFail("Parameter", "Parameter : <b>Key : " + key + " <br/> value : " + value + "<br/>Expected Value : "+calculatedValue+"</b>"+"<br/>Difference of +/-5 is not maintained");
+			}
+		}catch(Exception e) {}
+	}
+	
+	public static void DisplayWatchDurationValue(String calculatedValue) {
+		int NumberOfRows = getRowCount();
+		System.out.println(NumberOfRows);
+		if(NumberOfRows != 0) {
+			for (rownumber = 1; rownumber < NumberOfRows; rownumber++) {
+				try {
+					XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlpath));
+					XSSFSheet myExcelSheet = myExcelBook.getSheet(sheet);
+					value = myExcelSheet.getRow(rownumber).getCell(1).toString();
+					key = myExcelSheet.getRow(rownumber).getCell(0).toString();
+					if(key.equals("Watch Duration")) {							
+						break;
+					}
+				} catch (Exception e) {
+					System.out.println(e);
+				}
+			}
+			int intValue=0,intcalculatedValue=0;
+			intValue=Integer.valueOf(value);
+			intcalculatedValue=Integer.valueOf(calculatedValue);
+			if(intValue-intcalculatedValue>=-5 && intValue-intcalculatedValue<=5) 
+				extentReportInfo("Parameter", "Parameter : <b>Key : " + key + " <br/> value : " + value + "<br/>Expected Value : "+calculatedValue+"</b>"+"<br/>Difference of +/-5 is maintained");
+			else
+				extentReportFail("Parameter", "Parameter : <b>Key : " + key + " <br/> value : " + value + "<br/>Expected Value : "+calculatedValue+"</b>"+"<br/>Difference of +/-5 is not maintained");
+		}
+	}
+	
+	
+	public static void deleteAndCreatExcel() {
+		try {
+			File file = new File(xlpath);
+			if (file.exists()) {
+				
+				file.delete();
+				System.out.println("deleted file");
+			}
+			if (!file.exists()) {
+				XSSFWorkbook workbook = new XSSFWorkbook();
+				workbook.createSheet(sheet); // Create sheet
+				FileOutputStream fos = new FileOutputStream(new File(xlpath));
+				workbook.write(fos);
+				workbook.close();
+				System.out.println("created file");
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+	
+	
+	public static String[] fetchMPResponse(String distinct_id, String[] eventNames) throws Exception {
+		String[] mpRespString= {};
+		String eventNamesString="";
+		for(int i=0;i<eventNames.length;i++) {
+			eventNamesString=eventNamesString.concat("\""+eventNames[i]+"\"");
+			if(i!=(eventNames.length-1)) eventNamesString=eventNamesString.concat(",");			
+		}	
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDateTime now = LocalDateTime.now();
+		String currentDate = dtf.format(now); // Get current date in formate yyyy-MM-dd
+		System.out.println("Current Date : " + currentDate);		
+		if (platform.equalsIgnoreCase("Web") || platform.equalsIgnoreCase("MPWA")){
+			APIKey = "58baafb02e6e8ce03d9e8adb9d3534a6";
+			if (distinct_id.contains("-")) {
+				UserID = "Unique ID";
+				UserType = "Login";
+			}
+		}
+		
+		Response mpresponse=null;
+		for(int trial=0;trial<5;trial++) {
+			System.out.println("MP trial : "+trial);
+			try {
+				mpresponse = RestAssured.given().auth().preemptive().basic(APIKey, "")
+					.config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig()))
+					.contentType("application/x-www-form-urlencoded; charset=UTF-8").formParam("from_date", currentDate)
+					.formParam("to_date", currentDate).formParam("event", "["+eventNamesString+"]")
+					.formParam("limit", 10)
+					.formParam("where", "properties[\"" + UserID + "\"]==\"" + distinct_id + "\"")
+					.post("https://data.mixpanel.com/api/2.0/export/");
+				if(mpresponse.toString() != null && !mpresponse.toString().equals("")) {
+					System.out.println("MP For loop out in trial : "+trial);
+					break;
+				}
+			}
+			catch(Exception e) {}
+			Thread.sleep(10000);
+		}	
+		if(mpresponse.toString() == null || mpresponse.asString().equals("")) extent.extentLoggerFail("", "MP Response not recieved");
+		else {
+			mpresponse.prettyPrint();
+			String response = mpresponse.asString();
+			mpRespString = response.split("\n");
+		}
+		return mpRespString;
+	}
+	
+
+
 }
 
 

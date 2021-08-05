@@ -36,16 +36,20 @@ public class Android_AR33_ParentalControl {
 	@Test(priority = 2) //Veena
 	@Parameters({ "userType" })
 	public void ParentalControl18Plus(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
 		ZEE5ApplicasterBusinessLogic.ParentalControl18Plus(userType);//TC_15
 	}
 	
-	@Test(priority = 3) //Veena
+	//@Test(priority = 3) //Veena
 	@Parameters({ "userType" })
 	public void ParentalControl16Plus(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.ParentalControl16Plus(userType);//TC_16
 	}
 	
-	@Test(priority = 4)//Veena
+	//@Test(priority = 4)//Veena
 	@Parameters({ "userType" })
 	public void ParentalControl7Plus(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.ParentalControl7Plus(userType);//TC_18
@@ -62,56 +66,27 @@ public class Android_AR33_ParentalControl {
 		ZEE5ApplicasterBusinessLogic.ParentalControlRestrictAll(userType);//TC_19
 	}
 	
+	
 	@Test(priority = 7)//Veena
 	@Parameters({ "userType" })
 	public void ParentalPinValidation(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
 		ZEE5ApplicasterBusinessLogic.ParentalPinValidation(userType);//TC_35,36
-
-
 	}
+	
 	@Test(priority = 8)//Veena
 	@Parameters({ "userType" })
 	public void NewAge_U_RatingValidationBelowPlayer(String userType) throws Exception {
-		ZEE5ApplicasterBusinessLogic.NewAge_U_RatingValidationBelowPlayer(userType);//TC_30
-
-
+		ZEE5ApplicasterBusinessLogic.NewAgeRatingValidationBelowPlayer(userType);//TC_30
 	}
-	
-	@Test(priority = 9) //Veena
-	@Parameters({ "userType" })
-	public void NewAge_U_A_7Plus_RatingValidationBelowPlayer(String userType) throws Exception {
-		ZEE5ApplicasterBusinessLogic.NewAge_U_A_7Plus_RatingValidationBelowPlayer(userType);//TC_31
-
-
-	}
-	
-	@Test(priority = 10) //Veena
-	@Parameters({ "userType" })
-	public void NewAge_U_A_13Plus_RatingValidationBelowPlayer(String userType) throws Exception {
-		ZEE5ApplicasterBusinessLogic.NewAge_U_A_13Plus_RatingValidationBelowPlayer(userType);//TC_32
-
-	}
-	
-	@Test(priority = 11) //Veena
-	@Parameters({ "userType" })
-	public void NewAge_U_A_16Plus_RatingValidationBelowPlayer(String userType) throws Exception {
-		ZEE5ApplicasterBusinessLogic.NewAge_U_A_16Plus_RatingValidationBelowPlayer(userType);//TC_33
-
-
-	}
-	
-	@Test(priority = 12) //Veena
-	@Parameters({ "userType" })
-	public void NewAgeARatingValidationBelowPlayer(String userType) throws Exception {
-		ZEE5ApplicasterBusinessLogic.NewAgeARatingValidationBelowPlayer(userType);//TC_34
-
-
-	}
-	
 	
 	@Test(priority = 13) //Veena
 	@Parameters({ "userType" })
 	public void VerifyContentPlayPostSettingParentalControl(String userType) throws Exception {
+		//ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.VerifyContentPlayPostSettingParentalControl(userType);//TC_42
 	}
 	
@@ -142,23 +117,24 @@ public class Android_AR33_ParentalControl {
 	
 	@Test(priority = 17) //Veena
 	@Parameters({ "userType" })
+	public void VerifyParentalPinResetPin(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.VerifyParentalPinResetPin(userType);//TC_68
+	}
+	
+	
+	@Test(priority = 18) //Veena
+	@Parameters({ "userType" })
 	public void VerifyParentalPinJourneyviaDeeplink(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.VerifyParentalPinJourneyPostviaDeeplink(userType);//_48
 }
 	
-	@Test(priority = 18) //Veena
-	@Parameters({ "userType" })
-	public void VerifyParentalPinResetPin(String userType) throws Exception {
-		ZEE5ApplicasterBusinessLogic.VerifyParentalPinResetPin(userType);//TC_68
-
-
-	}
-	
+		
 	@Test(priority = 19) //Veena
 	@Parameters({ "userType" })
 	public void ParentalControlPlatformValidation(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.ParentalPinPlatformValidation(userType);//TC_38
 }
+
 
 	
 	@AfterTest

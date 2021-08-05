@@ -17,33 +17,66 @@ public class Android_AppDeeplinksValidation {
 		ZEE5ApplicasterBusinessLogic = new Zee5ApplicasterBusinessLogic("zee");
 	}
 	
+	@Test(priority=0)
+	@Parameters({"userType"})
+	public void LoginToApp(String pUserType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(pUserType);
+	}
 	
 	@Test(priority=1)
-	@Parameters({"userType","DeepLink_Settings"})
-	public void DeeplinkToSettings(String pUserType, String pDeeplink) throws Exception {
-		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(pUserType);
+	@Parameters({"DeepLink_Home"})
+	public void DeeplinkToHomePage(String pDeeplink) throws Exception {
+		ZEE5ApplicasterBusinessLogic.quitZEE5App();
+		ZEE5ApplicasterBusinessLogic.executeDeeplink(pDeeplink);
+		ZEE5ApplicasterBusinessLogic.HomeScreenViaDeeplink();
+	}
+	
+	@Test(priority=2)
+	@Parameters({"DeepLink_Settings"})
+	public void DeeplinkToSettings(String pDeeplink) throws Exception {
 		ZEE5ApplicasterBusinessLogic.quitZEE5App();
 		ZEE5ApplicasterBusinessLogic.executeDeeplink(pDeeplink);
 		ZEE5ApplicasterBusinessLogic.SettingsScreenViaDeeplink();
 	}
 	
-	@Test(priority=2)
+	@Test(priority=3)
 	@Parameters({"userType","DeepLink_Watchlist"})
 	public void DeeplinkToWatchlistScreen(String pUserType, String pDeeplink) throws Exception {
-		ZEE5ApplicasterBusinessLogic.relaunch(false);
 		ZEE5ApplicasterBusinessLogic.quitZEE5App();
 		ZEE5ApplicasterBusinessLogic.executeDeeplink(pDeeplink);
 		ZEE5ApplicasterBusinessLogic.WatchlistScreenViaDeeplink(pUserType);
 	}
 	
-	
-	@Test(priority=3)
-	@Parameters({"userType","DeepLink_Subscription"})
-	public void DeeplinkToSubscriptionScreen(String pUserType, String pDeeplink) throws Exception {
-		ZEE5ApplicasterBusinessLogic.relaunch(false);
+	@Test(priority=4)
+	@Parameters({"DeepLink_Subscription"})
+	public void DeeplinkToSubscriptionScreen(String pDeeplink) throws Exception {
 		ZEE5ApplicasterBusinessLogic.quitZEE5App();
 		ZEE5ApplicasterBusinessLogic.executeDeeplink(pDeeplink);
 		ZEE5ApplicasterBusinessLogic.SubscriptionScreenViaDeeplink();
+	}
+	
+	@Test(priority=5)
+	@Parameters({"userType","DeepLink_Plans"})
+	public void DeeplinkToMySubscriptionScreen(String pUserType, String pDeeplink) throws Exception {
+		ZEE5ApplicasterBusinessLogic.quitZEE5App();
+		ZEE5ApplicasterBusinessLogic.executeDeeplink(pDeeplink);
+		ZEE5ApplicasterBusinessLogic.MySubscriptionScreenViaDeeplink(pUserType);
+	}
+	
+	@Test(priority=6)
+	@Parameters({"userType","DeepLink_Payments"})
+	public void DeeplinkToMyTransactionsScreen(String pUserType, String pDeeplink) throws Exception {
+		ZEE5ApplicasterBusinessLogic.quitZEE5App();
+		ZEE5ApplicasterBusinessLogic.executeDeeplink(pDeeplink);
+		ZEE5ApplicasterBusinessLogic.MyTransactionsScreenViaDeeplink(pUserType);
+	}
+	
+	@Test(priority=7)
+	@Parameters({"userType","DeepLink_Edit"})
+	public void DeeplinkToEditProfileScreen(String pUserType, String pDeeplink) throws Exception {
+		ZEE5ApplicasterBusinessLogic.quitZEE5App();
+		ZEE5ApplicasterBusinessLogic.executeDeeplink(pDeeplink);
+		ZEE5ApplicasterBusinessLogic.EditProfilePageViaDeeplink(pUserType);
 	}
 	
 	@AfterTest

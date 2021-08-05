@@ -2,6 +2,7 @@ package com.business.zee;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
@@ -14,6 +15,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.html5.LocalStorage;
+import org.openqa.selenium.html5.SessionStorage;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -73,6 +75,8 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 
 	String Username;
 	String Password;
+	
+	SessionStorage session = null;
 
 	public void init() {
 
@@ -87,67 +91,90 @@ public class Zee5PWAWEBMixPanelBusinessLogic extends Utilities {
 		String userType = getParameterFromXML("userType");
 		switch (userType) {
 		case "Guest":
-			System.out.println("HeaderChildNode");
 			extent.HeaderChildNode("Guest User");
-			System.out.println("HeaderChildNode");
 			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
-//			dismissDisplayContentLanguagePopUp();
-			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
-			System.out.println("HeaderChildNode");
-			waitTime(3000);
+			// allowPopUp();
+			if (checkElementDisplayed(PWALoginPage.objCleverTapPopUp, "clever tap pop up")) {
+				WebElement popup = getWebDriver().findElement(PWALoginPage.objCleverTapPopUp);
+				popup.click();
+			}
 			break;
 
 		case "NonSubscribedUser":
 			extent.HeaderChildNode("Login as NonSubscribed User");
-			Username = getParameterFromXML("NonSubscribedUserName");
-			Password = getParameterFromXML("NonSubscribedUserPassword");
-			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
-			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
+			String Username = getParameterFromXML("NonsubscribedUserName");
+			String Password = getParameterFromXML("NonsubscribedPassword");
+
+			if (checkElementDisplayed(PWALoginPage.objCleverTapPopUp, "clever tap pop up")) {
+				WebElement popup = getWebDriver().findElement(PWALoginPage.objCleverTapPopUp);
+				popup.click();
+			}
+			verifyElementPresent(PWALoginPage.objWebLoginBtn, "Login button");
+			JSClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
-			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+			verifyElementPresent(PWALoginPage.objEmailField, "Email field");
+			JSClick(PWALoginPage.objEmailField, "Email field");
 			type(PWALoginPage.objEmailField, Username, "Email Field");
 			waitTime(3000);
-			verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+			verifyElementPresent(PWALoginPage.objPasswordField, "Password Field");
+			JSClick(PWALoginPage.objPasswordField, "Password Field");
 			type(PWALoginPage.objPasswordField, Password, "Password field");
 			waitTime(5000);
 			click(PWALoginPage.objWebLoginButton, "Login Button");
-			waitTime(3000);
+			waitTime(5000);
 			break;
 
 		case "SubscribedUser":
 			extent.HeaderChildNode("Login as Subscribed User");
-			Username = getParameterFromXML("SubscribedUserName");
-			Password = getParameterFromXML("SubscribedPassword");
-			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
-			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
+			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
+			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
+
+			if (checkElementDisplayed(PWALoginPage.objCleverTapPopUp, "clever tap pop up")) {
+				WebElement popup = getWebDriver().findElement(PWALoginPage.objCleverTapPopUp);
+				popup.click();
+			}
+			verifyElementPresent(PWALoginPage.objWebLoginBtn, "Login button");
+			JSClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
-			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
-			type(PWALoginPage.objEmailField, Username, "Email Field");
+			verifyElementPresent(PWALoginPage.objEmailField, "Email field");
+			JSClick(PWALoginPage.objEmailField, "Email field");
+			type(PWALoginPage.objEmailField, SubscribedUsername, "Email Field");
 			waitTime(3000);
-			verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
-			type(PWALoginPage.objPasswordField, Password, "Password field");
+			verifyElementPresent(PWALoginPage.objPasswordField, "Password Field");
+			JSClick(PWALoginPage.objPasswordField, "Password Field");
+			type(PWALoginPage.objPasswordField, SubscribedPassword, "Password field");
 			waitTime(5000);
 			click(PWALoginPage.objWebLoginButton, "Login Button");
 			waitTime(3000);
 			break;
 
 		case "ClubUser":
-			extent.HeaderChildNode("Login as Club User");
-			String ClubUsername = getParameterFromXML("ClubSubscribedUserName");
-			String ClubPassword = getParameterFromXML("ClubSubscribedPassword");
-			waitForElementAndClickIfPresent(PWAHomePage.objNotNow, 30, "Notification popup");
+			extent.HeaderChildNode("Login as Subscribed User");
+			String clubUserName = getParameterFromXML("ClubUserName");
+			String clubPassword = getParameterFromXML("ClubPassword");
+			// allowPopUp();
+			getWebDriver().findElement(By.xpath("//button[@id='wzrk-cancel']")).click();
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
-			type(PWALoginPage.objEmailField, ClubUsername, "Email Field");
+			type(PWALoginPage.objEmailField, clubUserName, "Email Field");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
-			type(PWALoginPage.objPasswordField, ClubPassword, "Password field");
+			type(PWALoginPage.objPasswordField, clubPassword, "Password field");
 			waitTime(5000);
 			click(PWALoginPage.objWebLoginButton, "Login Button");
 			waitTime(3000);
 			break;
 		}
+		waitTime(4000);
+		selectLanguages();
+		verifyElementPresent(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+		JSClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+		extent.version = getText(By.xpath(".//*[@class='versionText']"));
+		String ver = getText(By.xpath(".//*[@class='versionText']"));
+		extent.extentLogger("", ver);
+		verifyElementPresent(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger Menu");
+		JSClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
 	}
 
 	public void ZeeWEBPWAMixPanelLoginForParentalControl(String LoginMethod) throws Exception {
@@ -13950,4 +13977,930 @@ public void verifyVideoExitEventForContentFromSharedLink(String freeContentURL) 
 			}
 		}
 	}
+	
+	
+
+	public void ExecuteEvent_Set1(int slno,String userType,String tab,int assetType,String assetSubtype,String[] events,int scenario,String requiredBusiness) throws Exception {
+		extent.HeaderChildNode(slno+" : "+tab+" Tab :"+requiredBusiness+" content, assetType:"+assetType+", assetSubtype:"+assetSubtype+" -> "+Scenario(scenario));
+		System.out.println(slno+" : "+tab+" Tab :"+requiredBusiness+" content, assetType:"+assetType+", assetSubtype:"+assetSubtype+" -> "+Scenario(scenario));	
+		video_ViewExit(slno,userType,tab,assetType,assetSubtype,events,scenario,requiredBusiness);
+	}
+	
+	public String Scenario (int scenario) {
+		if(scenario==1) {
+			return ": Click free content";
+		}
+		else if(scenario==2) {
+			return ": Click premium content";
+		}
+		else if(scenario==3) {
+			return ": Click trailer content";
+		}
+		else if(scenario==4) {
+			return ": Click carousel content";
+		}
+		else if(scenario==5) {
+			return ": Click tray content";
+		}
+		else if(scenario==6) {
+			return ": Click searched content";
+		}
+		else if(scenario==7) {
+			return ": Click from Watchlist";
+		}
+		else if(scenario==8) {
+			return ": Upnext play";
+		}
+		else if(scenario==9) {
+			return ": Shared url";
+		}
+		else if(scenario==10) {
+			return ": Click from Playlist";
+		}
+		else if(scenario==11) {
+			return ": Click from Megamenu";
+		}
+		else if(scenario==12) {
+			return ": Refresh url";
+		}
+		else return "";
+	}
+	
+	
+	public void video_ViewExit(int slno,String userType,String tab,int assetType,String assetSubtype,String[] events,int scenario,String requiredBusiness) throws Exception {
+		
+		String contentID="",dataContentID="",source="",page="",verticalIndex="1",sessionID="",preview="N/A",topCategory="",contentDuration="",tvShowID="",channelID="";
+		String parentContentID="",horizontalIndex="",playListTrayTitle="",shareUrl="",weburl="";
+		boolean evaluateMP=false,fromCollections=false;
+		String mainUrl = getParameterFromXML("url");
+		String playerHeadPositionVideoView="0",playerHeadPositionVideoExit="0";
+		
+		ArrayList<HashMap<String,String>> valuesPendingValidation = new ArrayList<HashMap<String,String>>();
+		HashMap<String,String> valuesPendingValidationMap = new HashMap<String,String>();
+		
+		if(scenario==7 && userType.equalsIgnoreCase("Guest")) {
+			extent.extentLoggerWarning("", "Play from Watchlist is not applicable to Guest user");	
+			logger.info("Play from Watchlist is not applicable to Guest user");
+		}
+		else if(!userType.equals("SubscribedUser") && scenario==8 && requiredBusiness.equals("premium")) {
+			extent.extentLoggerWarning("", "Upnext cannot be verified for "+userType+" user, premium content");
+			logger.info("Upnext cannot be verified for "+userType+" user, premium content");
+		}
+		else if(!userType.equals("SubscribedUser") && scenario==8 && assetSubtype.equals("trailer")) {
+			extent.extentLoggerWarning("", "Upnext cannot be verified for "+userType+" user, trailer content");
+			logger.info("Upnext cannot be verified for "+userType+" user, trailer content");
+		}
+		else {
+			try {
+				navigateToHome();
+				selectLanguages();
+				if(!userType.equalsIgnoreCase("Guest")) {
+					clearContinueWatchingTray();
+					waitTime(7000);
+				}	
+				navigateToAnyScreenOnWeb(tab);
+				mandatoryRegistrationPopUp(UserType);
+				waitTime(5000);					
+				String zeeTab = getWebDriver().getWindowHandle();
+				Set<String> handlesBeforeClick = getWebDriver().getWindowHandles();
+				local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+				fetchUserType(local);
+				String contentLang=fetchContentLanguage(local);	
+				String guestToken=fetchGuestTokenLanguage(local);			
+				ArrayList trayValues=new ArrayList();
+				if(scenario==4) {
+					ArrayList<HashMap<Integer,String>> carouselValuesUI=returnCarouselValuesFromUI();
+					trayValues=ResponseInstance.getTrayValuesForCarousel(userType,tab,assetType,assetSubtype,requiredBusiness,contentLang,scenario,local.getItem("guestToken"),carouselValuesUI);
+				}
+				else {
+					trayValues=ResponseInstance.getTrayValuesNew(userType,tab,assetType,assetSubtype,requiredBusiness,contentLang,scenario,local.getItem("guestToken"));
+				}
+				contentID=trayValues.get(3).toString();			
+				if(contentID.equals("")) { 	    
+					extent.extentLoggerWarning("", "Content not available in API");	
+					logger.info("Content not available in API");
+				}
+				else {
+					String trayTitle=trayValues.get(0).toString();
+					extent.extentLogger("", "Tray title fetched from API : "+trayTitle);
+					logger.info("Tray title fetched from API : "+trayTitle);
+					String sourceContentTitle=trayValues.get(8).toString();
+					extent.extentLogger("", "Tray content fetched from API : "+sourceContentTitle);
+					logger.info("Tray content fetched from API : "+sourceContentTitle);
+					String contentTitle=trayValues.get(1).toString();
+					extent.extentLogger("", "Playing Content-> Title: "+contentTitle);
+					logger.info("Playing Content->Title: "+contentTitle);
+					dataContentID=trayValues.get(2).toString();				
+					extent.extentLogger("", "Playing Content-> Data Content ID: "+dataContentID);
+					logger.info("Playing Content-> Data Content ID: "+dataContentID);
+					extent.extentLogger("", "Playing Content-> Content ID: "+contentID);	
+					logger.info("Playing Content-> Content ID: "+contentID);
+					tvShowID=trayValues.get(6).toString();
+					if(!tvShowID.equals("")) {
+						extent.extentLogger("", "Playing Content-> TV Show ID: "+tvShowID);
+						logger.info("Playing Content-> TV Show ID: "+tvShowID);
+					}
+					channelID=trayValues.get(7).toString();
+					if(!channelID.equals("")) {
+						extent.extentLogger("", "Playing Content-> Channel ID: "+channelID);
+						logger.info("Playing Content-> Channel ID: "+channelID);
+					}
+					int cardNo=Integer.valueOf(trayValues.get(4).toString());
+					System.out.println("card no :"+cardNo);			
+					if(scenario==1||scenario==2||scenario==3||scenario==5||scenario==7||scenario==8||scenario==9||scenario==10||scenario==12) {	
+						if(tab.equalsIgnoreCase("music")) {
+							//String tabnameurl=getWebDriver().getCurrentUrl();
+							///getWebDriver().get(tabnameurl);
+							navigateToAnyScreenOnWeb("Home");
+							scrollDownWEB();
+							scrollDownWEB();
+							scrollDownWEB();
+							navigateToAnyScreenOnWeb(tab);
+							//		
+							//click(PWALandingPages.obj_Pwa_Back_to_Top_Arrow_btn, "Back to Top");
+						}
+						clickWithNoWait(PWAHomePage.objNotNow);
+						String title=swipeTillTray(300, trayTitle, "\"" + trayTitle + "\" tray");				
+						verticalIndex=findVerticalIndex(trayTitle);
+						System.out.println("verticalIndex: "+verticalIndex);
+						WebElement element = getWebDriver().findElement(PWALandingPages.objTrayWithTitle(title));
+						((JavascriptExecutor) getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
+						scrollDownByY(-100);
+						waitTime(2000);
+						moveToElementAboveCenter(title,dataContentID);
+						waitTime(7000);	//for minutely video to load
+						if(scenario==7) {	
+							String link=trayValues.get(5).toString();
+							link=mainUrl+link;
+							getWebDriver().get(link);
+							extent.extentLogger("", "URL opened: " + link);
+							logger.info("URL opened: " + link);
+							JSClick(PWAPlayerPage.watchListBtnNotAdded,"Add to Watchlist button");
+							navigateToHome();
+							//JSClick(PWALandingPages.objAssetInTrayWatchlist(title,dataContentID),"Watchlist button of Content card under tray "+title);
+							click(PWALandingPages.objOpenProfileMenu, "Profile icon");
+							click(PWAAddToWatchListPage.objMyWatchList, "My Watchlist option");
+							waitTime(4000);
+							if(assetSubtype.equals("episode")) tab="episodes";
+							else if(assetSubtype.equals("movie")) tab="movies";
+							else tab="videos";
+							click(PWALandingPages.objWatchListTab(tab),tab+" tab");
+							waitTime(5000);
+							preview=findPreviewWatchlist(dataContentID);
+							horizontalIndex=findWatchlistHorizontalIndex(dataContentID);
+							Mixpanel.FEProp.setProperty("Horizontal Index", horizontalIndex);
+							JSClick(PWALandingPages.objWatchListItem(dataContentID),"Watchlisted Content card");
+							verticalIndex="N/A";
+							click(PWAPlayerPage.objPlaybackRemoveFromWatchlist,"Remove from Watchlist button");
+							scrollDownByY(-300);
+							evaluateMP=true;
+						}
+						else if(scenario==9) {	
+							try {
+								shareUrl=getElementPropertyToString("data-minutelyurl",PWALandingPages.objCardForSharedUrl(dataContentID,contentID),"");
+								logger.info("Shared URL fetched : "+shareUrl);
+								extent.extentLogger("", "Shared URL fetched : "+shareUrl);
+							}catch(Exception e) {}
+							if(!shareUrl.equals("")) {
+								if(shareUrl.contains("www.zee5.com")) {
+									System.out.println("inside shared");
+									shareUrl=shareUrl.replace("www.zee5.com", "newpwa.zee5.com");
+								}
+								extent.extentLogger("", "Edited Shared URL : " + shareUrl);
+								logger.info("Edited Shared URL : "+shareUrl);
+								getWebDriver().get(shareUrl);
+								extent.extentLogger("", "Shared URL opened: " + shareUrl);
+								logger.info("Shared URL opened : "+shareUrl);
+								tab="N/A";
+								verticalIndex="N/A";
+								horizontalIndex="N/A";
+								evaluateMP=true;
+							}
+						}
+						else if(scenario==8 ||scenario==10 || scenario==12) {					
+							String link=trayValues.get(5).toString();
+							link=mainUrl+link;
+							getWebDriver().get(link);
+							extent.extentLogger("", "URL opened: " + link);
+							logger.info("URL opened: " + link);
+							tab="N/A";
+							waitTime(2000);
+							if(scenario==10) {
+								source=pageNameForPlayer(assetSubtype);
+								parentContentID=contentID;
+								waitTime(8000);
+								for(int i=0;i<=3;i++) {
+									playListTrayTitle=getElementPropertyToString("innerText",PWALandingPages.objPlaylistTrayTitle,"");
+									if(!playListTrayTitle.equals("null")) {
+										extent.extentLogger("", "Playlist tray title: "+playListTrayTitle);
+										logger.info("Playlist tray title: "+playListTrayTitle);
+										break;
+									}
+									else waitTime(5000);
+								}						
+								String contentIDSourceContent=dataContentID;
+								List<WebElement> playlistCards=findElements(PWALandingPages.objPlaylistCard);
+								int playlistCardsSize=playlistCards.size();
+								if(playlistCards.size()>6) playlistCardsSize=6;
+								String playListDataContIdUI="";
+								int playlistCardHorIndex=0;
+								System.out.println("playlistCardsSize"+playlistCardsSize);
+								ArrayList playlistCardDetails=new ArrayList<String>();
+								for(int i=0;i<playlistCardsSize;i++) {					
+									playListDataContIdUI=getElementPropertyToString("data-contentid",PWALandingPages.objPlaylistCard(i+1),"");
+									playlistCardDetails=ResponseInstance.setPlayListCard(userType,contentIDSourceContent,playListDataContIdUI,assetType,contentLang,playListTrayTitle,guestToken,tvShowID,channelID);
+									System.out.println("playlistCardDetails"+playlistCardDetails);
+									if(!playlistCardDetails.get(0).equals("")) {
+										playlistCardHorIndex=i+1;
+										dataContentID=playListDataContIdUI;
+										break;								
+									}
+								}							
+								mixpanel.FEProp.setProperty("Horizontal Index", String.valueOf(playlistCardHorIndex));
+								contentID=playlistCardDetails.get(0).toString();
+								logger.info("Playlist card content ID: "+contentID);
+								extent.extentLogger("","Playlist card content ID: "+contentID);
+								contentTitle=playlistCardDetails.get(1).toString();
+								logger.info("Playlist card content Title: "+contentTitle);
+								extent.extentLogger("","Playlist card content Title: "+contentTitle);
+								assetSubtype=playlistCardDetails.get(3).toString();
+								logger.info("Playlist card asset subtype: "+assetSubtype);
+								extent.extentLogger("","Playlist card asset subtype: "+assetSubtype);
+								preview=findPreviewPlaylist(playListTrayTitle,dataContentID);
+								waitTime(3000);
+								if(!parentContentID.equals("")) ResponseInstance.updateWatchHistory(parentContentID,1,local.getItem("guestToken"));	
+								JSClick(PWALandingPages.objAssetInPlaylist(contentID,dataContentID),"Content card in Playlist: "+contentTitle);
+								verticalIndex="N/A";
+								mixpanel.FEProp.setProperty("Tab Name", "N/A");
+								System.out.println("Assigned");
+								evaluateMP=true;
+							}
+							if(scenario==8) {
+								parentContentID=contentID;
+								waitTime(10000);
+								String playlistTrayTitleUI="",playlistDataContIdUI="",playlistMinutelyUrl="";
+								int upnextCardHorIndex=0;
+								ArrayList upnextCardDetails=new ArrayList<String>();
+								for(int i=0;i<=3;i++) {
+									playlistTrayTitleUI=getElementPropertyToString("innerText",PWALandingPages.objPlaylistTrayTitle,"");
+									if(!playListTrayTitle.equals(null)) {
+										extent.extentLogger("", "Playlist tray title: "+playlistTrayTitleUI);
+										logger.info("Playlist tray title: "+playlistTrayTitleUI);
+										break;
+									}
+									else waitTime(5000);
+								}	
+								String contentIDSourceContent=dataContentID;		
+								playlistDataContIdUI=getElementPropertyToString("data-contentid",PWALandingPages.objPlaylistCard(1),"");
+								System.out.println("playlistDataContIdUI"+playlistDataContIdUI);
+								playlistMinutelyUrl=getElementPropertyToString("data-minutelyurl",PWALandingPages.objPlaylistCard(1),"");
+								System.out.println("playlistMinutelyUrl"+playlistMinutelyUrl);
+								String playlistImageTitle=getElementPropertyToString("data-minutelytitle",PWALandingPages.objPlaylistCardMinutelyTitle(1),"");
+								System.out.println("playlistImageTitle"+playlistImageTitle);
+								String seasonID=trayValues.get(10).toString();
+								System.out.println("seasonID"+seasonID);
+								upnextCardDetails=ResponseInstance.setUpnextCard(userType,contentIDSourceContent,playlistDataContIdUI,assetType,contentLang,playlistMinutelyUrl,playlistTrayTitleUI,seasonID,guestToken);					
+								contentID=upnextCardDetails.get(0).toString();
+								String temp=upnextCardDetails.get(1).toString();
+								if(!userType.equals("SubscribedUser")) waitForPlayerAdToComplete("Video PLayer");
+								preview="N/A";
+								ScrubToPlayerEnd();
+								playerHeadPositionVideoView=waitUntilUpNextCardPlays(dataContentID);
+								source=pageNameForPlayer(assetSubtype);//from parent
+								assetSubtype=upnextCardDetails.get(3).toString();
+								System.out.println("upNextassetSubtype"+assetSubtype);
+								String playerUrl=getWebDriver().getCurrentUrl();
+								if(playerUrl.contains(playlistDataContIdUI)) {
+									if(!userType.equals("SubscribedUser")) waitForPlayerAdToComplete("Video PLayer");
+								}
+								else {
+									System.out.println("Content not played from playlist");
+									extent.extentLogger("", "Content not played from playlist");
+									String webURL = getWebDriver().getCurrentUrl();
+									String[] abc = webURL.split("/");
+									dataContentID = abc[abc.length - 1];
+									extent.extentLogger("", "Data Content ID fetched from URL: " + dataContentID);
+									logger.info("Data Content ID fetched from URL: " + dataContentID);
+									ArrayList<String> upnextDetails=ResponseInstance.getUpnextWhenNotPlayedFromPlaylist(userType,dataContentID,webURL,guestToken);	
+									System.out.println("into main after upnextDetails");
+									contentID=upnextDetails.get(0).toString();
+									System.out.println("into main after upnextDetails added contentid");
+									assetSubtype=upnextDetails.get(3).toString();
+									System.out.println("upNextassetSubtype"+assetSubtype);								
+								}
+								if(!parentContentID.equals("")) ResponseInstance.updateWatchHistory(parentContentID,1,local.getItem("guestToken"));									
+								verticalIndex="N/A";
+								evaluateMP=true;	
+							}
+							if(scenario==12) {
+								getWebDriver().navigate().refresh();
+								logger.info("Refreshed the page");
+								extent.extentLogger("", "Refreshed the page");
+								mixpanel.FEProp.setProperty("Tab Name", findTabName(tab.toLowerCase()));
+								evaluateMP=true;
+							}							
+						}
+						else {
+							preview=findPreview(trayTitle,dataContentID);
+							JSClick(PWALandingPages.objAssetInTray(title,dataContentID),"Content card under tray "+title);
+							source=findSource(tab);
+							mixpanel.FEProp.setProperty("Tab Name", findTabName(tab.toLowerCase()));
+							evaluateMP=true;
+						}					
+					}
+					if(scenario==4) {
+						String zee_Tab=getWebDriver().getWindowHandle();
+						click(PWAHomePage.objPromotionalBannerCarouselDots(cardNo + 1), "Carousel Dot");
+						JSClick(PWAHomePage.objCarouselCardForClick(cardNo),"Carousel Card");
+						Mixpanel.FEProp.setProperty("Horizontal Index", String.valueOf(cardNo + 1));
+						source=findSource(tab);
+						mixpanel.FEProp.setProperty("Tab Name", findTabName(tab.toLowerCase()));						
+						evaluateMP=true;
+					}
+					if(scenario==6) {
+						click(PWAHomePage.objSearchBtn, "Search icon");
+						type(PWASearchPage.objSearchEditBox, sourceContentTitle + "\n", "Search Edit box: " + sourceContentTitle);
+						if(assetSubtype.equals("episode")) {
+							click(PWASearchPage.objSearchNavigationTab("Episodes"), "Episodes tab");
+							mixpanel.FEProp.setProperty("Tab Name", "episodes");
+						}
+						else if(assetSubtype.equals("movie")) {
+							click(PWASearchPage.objSearchNavigationTab("Movies"), "Movies tab");	
+							mixpanel.FEProp.setProperty("Tab Name", "movies");
+						}
+						else if(assetSubtype.equals("video")) {
+							click(PWASearchPage.objSearchNavigationTab("Videos"), "Videos tab");	
+							mixpanel.FEProp.setProperty("Tab Name", "videos");
+						}
+						else mixpanel.FEProp.setProperty("Tab Name", "all");
+						waitForElement(PWASearchPage.objSearchResultDataContentID(dataContentID), 30, "Search Result");
+						horizontalIndex=findHorizontalIndexForSearch(dataContentID);
+						preview=findPreviewWatchlist(dataContentID);//preview finding same as search
+						JSClick(PWASearchPage.objSearchResultDataContentID(dataContentID), "Search Result");
+						source="search";
+						Mixpanel.FEProp.setProperty("Horizontal Index", horizontalIndex);
+						evaluateMP=true;
+					}
+					
+					if(evaluateMP==true) {
+						waitTime(2000);
+						Set<String> handlesAfterClick = getWebDriver().getWindowHandles();
+						String externalTab = "";
+						boolean externalOpened=false;
+						if(handlesAfterClick.size()>handlesBeforeClick.size()) {
+							logger.info("New tab has been opened");
+							extent.extentLogger("", "New tab has been opened");							
+							for (String winHandle : getWebDriver().getWindowHandles()) {
+								System.out.println(winHandle);
+								if (!winHandle.equals(zeeTab)) {
+									externalTab = winHandle;
+									getWebDriver().switchTo().window(externalTab);
+									logger.info("Switched to External Tab");
+									extent.extentLogger("", "Switched to External Tab");
+									externalOpened=true;
+									break;
+								}
+							}
+						}
+						if(userType.equals("Guest") && scenario!=8) clickWithNoWait(PWAPlayerPage.objWEBCloseBtnLoginPopup);
+						//if(scenario==8) waitTime(2000);
+						if(scenario!=8)playerHeadPositionVideoView=getPlayerHeadPosition();
+						page=pageNameForPlayer(assetSubtype);
+						local = ((ChromeDriver) getWebDriver()).getLocalStorage();
+						session = ((ChromeDriver) getWebDriver()).getSessionStorage();
+						sessionID=String.valueOf(fetchSessionIDFromSessionStorage(session));
+						System.out.println(sessionID);
+						waitTime(2000);
+						if(clickWithNoWait(PWAPlayerPage.objLiveFromCollectionPage)) { 
+							waitForPlayerAdToComplete("Video PLayer");
+							fromCollections=true;
+							String collectionUrl=getWebDriver().getCurrentUrl();
+							String[] splits=collectionUrl.split("/");
+							String carouselId=splits[splits.length-1];
+							String carouselName=splits[splits.length-2];
+							mixpanel.FEProp.setProperty("Carousal ID", carouselId);
+							mixpanel.FEProp.setProperty("Carousal Name", carouselName);
+							source="tv_channel_detail";
+							verticalIndex="N/A";
+							mixpanel.FEProp.setProperty("Tab Name", "N/A");
+							waitTime(2000);
+						}
+						else {
+							if(scenario==9 || scenario==12) source="N/A";
+						}
+						JSClick(PWAPlayerPage.objPlayerPause,"Player Pause");
+						waitTime(2000);
+						JSClick(PWAPlayerPage.objPlayerPlay,"Player Play");
+						if(assetType!=9) playerHeadPositionVideoExit=getPlayerHeadPosition();
+						String url=getWebDriver().getCurrentUrl();
+						if(url.contains("kids-movies")) mixpanel.FEProp.setProperty("Top Category", "Kids Movies");
+						if(url.contains("zee5originals")) mixpanel.FEProp.setProperty("Top Category", "Original");
+						if(url.contains("kids-music")) mixpanel.FEProp.setProperty("Top Category", "Kids Music");
+						if(url.contains("kids-shows")) mixpanel.FEProp.setProperty("Top Category", "Kids Tv Show");
+						if(url.contains("kids-videos")) mixpanel.FEProp.setProperty("Top Category", "Kids Video");
+						if(externalOpened==true) {
+							getWebDriver().switchTo().window(externalTab).close();
+							getWebDriver().switchTo().window(zeeTab);
+						}
+						navigateToHome();
+						extent.extentLogger("", "Navigated to Home tab");
+						String watchedDuration=getWatchHistoryDuration(playerHeadPositionVideoView,playerHeadPositionVideoExit);
+						System.out.println("watchedDuration"+watchedDuration);
+						mixpanel.FEProp.setProperty("Page Name",page);
+						mixpanel.FEProp.setProperty("Source", source);
+						if(scenario==7) mixpanel.FEProp.setProperty("Source", "my_profile_watchlist");						
+						mixpanel.FEProp.setProperty("Player Name", "kaltura-player-js");
+						mixpanel.FEProp.setProperty("dekey", "N/A");					
+						mixpanel.FEProp.setProperty("Partner Name", "N/A");
+						mixpanel.FEProp.setProperty("Player Version", "1.3.0");
+						mixpanel.FEProp.setProperty("Video View", "1");
+						mixpanel.FEProp.setProperty("Vertical Index", verticalIndex);
+						mixpanel.FEProp.setProperty("New Quality", "Auto");
+						if(!(scenario==8 || scenario==10)) {						
+							mixpanel.FEProp.setProperty("Talamoos modelName", "N/A");
+							mixpanel.FEProp.setProperty("Talamoos origin", "N/A");
+							mixpanel.FEProp.setProperty("isTalamoos", "false");
+						}
+						if(scenario==8) mixpanel.FEProp.setProperty("Video Autoplay", "true");
+						else mixpanel.FEProp.setProperty("Video Autoplay", "false");
+						mixpanel.FEProp.setProperty("Session ID", sessionID);
+						mixpanel.FEProp.setProperty("Preview status", preview);
+						String link=trayValues.get(5).toString();
+						System.out.println("link"+link);
+						String[] splits=link.split("/");
+						String lastTerm=splits[splits.length-1];
+						if(lastTerm.contains("latest")) {
+							contentID=dataContentID;
+							tvShowID="";
+							channelID="";
+						}
+						ArrayList<String> contentDetailsReturnValues=ResponseInstance.getContentDetailsForPlayer(userType,contentID,assetSubtype,tvShowID,channelID,guestToken);															
+						LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();		
+						
+						try { Thread.sleep(60000);} catch (Exception e) {}
+						/*
+						try {//Wait before fetching MP
+							Thread.sleep(180000);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}*/
+						if (userType.equals("Guest")) {
+							String[] mpResponse=mixpanel.fetchMPResponse(local.getItem("guestToken"),events);
+							if(Arrays.asList(events).contains("Video View")){
+								//Video View								
+								valuesPendingValidation=new ArrayList<HashMap<String,String>>();
+								valuesPendingValidationMap = new HashMap<String,String>();
+								valuesPendingValidationMap.put("Player Head Position", playerHeadPositionVideoView);
+								valuesPendingValidation.add(valuesPendingValidationMap);
+								mixpanel.ValidateParameterForPlayer(mpResponse,slno,local.getItem("guestToken"), "Video View",contentLang,valuesPendingValidation,contentID);
+							}
+							if(Arrays.asList(events).contains("Video Exit")){
+								//Video Exit
+								valuesPendingValidation=new ArrayList<HashMap<String,String>>();
+								valuesPendingValidationMap = new HashMap<String,String>();
+								valuesPendingValidationMap.put("Player Head Position", playerHeadPositionVideoExit);								
+								valuesPendingValidation.add(valuesPendingValidationMap);
+								mixpanel.ValidateParameterForPlayer(mpResponse,slno,local.getItem("guestToken"), "Video Exit",contentLang,valuesPendingValidation,contentID);
+							}
+							if(Arrays.asList(events).contains("Video Watch Duration")) {
+								//Video Watch Duration
+								valuesPendingValidation=new ArrayList<HashMap<String,String>>();
+								valuesPendingValidationMap = new HashMap<String,String>();
+								valuesPendingValidationMap.put("Player Head Position", playerHeadPositionVideoExit);	
+								valuesPendingValidationMap.put("Watch Duration", watchedDuration);
+								valuesPendingValidation.add(valuesPendingValidationMap);
+								mixpanel.ValidateParameterForPlayer(mpResponse,slno,local.getItem("guestToken"), "Video Watch Duration",contentLang,valuesPendingValidation,contentID);
+								
+							}
+							if(Arrays.asList(events).contains("Pause")) {
+								//Pause
+								mixpanel.FEProp.setProperty("Button Type", "Player");
+								mixpanel.FEProp.setProperty("Element", "Pause");
+								valuesPendingValidation=new ArrayList<HashMap<String,String>>();
+								valuesPendingValidationMap = new HashMap<String,String>();
+								valuesPendingValidationMap.put("Player Head Position", playerHeadPositionVideoExit);	
+								valuesPendingValidation.add(valuesPendingValidationMap);
+								mixpanel.ValidateParameterForPlayer(mpResponse,slno,local.getItem("guestToken"), "Pause",contentLang,valuesPendingValidation,contentID);
+								
+							}
+							if(Arrays.asList(events).contains("Resume")) {
+								//Resume
+								mixpanel.FEProp.setProperty("Button Type", "Player");
+								mixpanel.FEProp.setProperty("Element", "Resume");
+								valuesPendingValidation=new ArrayList<HashMap<String,String>>();
+								valuesPendingValidationMap = new HashMap<String,String>();
+								valuesPendingValidationMap.put("Player Head Position", playerHeadPositionVideoExit);	
+								valuesPendingValidation.add(valuesPendingValidationMap);	
+								mixpanel.ValidateParameterForPlayer(mpResponse,slno,local.getItem("guestToken"), "Resume",contentLang,valuesPendingValidation,contentID);							
+							}
+						} else {
+							String[] mpResponse=mixpanel.fetchMPResponse(local.getItem("ID"),events);
+							if(Arrays.asList(events).contains("Video View")){
+								//Video View
+								valuesPendingValidation=new ArrayList<HashMap<String,String>>();
+								valuesPendingValidationMap = new HashMap<String,String>();
+								valuesPendingValidationMap.put("Player Head Position", playerHeadPositionVideoView);
+								valuesPendingValidation.add(valuesPendingValidationMap);
+								mixpanel.ValidateParameterForPlayer(mpResponse,slno,local.getItem("ID"), "Video View",contentLang,valuesPendingValidation,contentID);
+								
+							}
+							if(Arrays.asList(events).contains("Video Exit")){
+								//Video Exit
+								valuesPendingValidation=new ArrayList<HashMap<String,String>>();
+								valuesPendingValidationMap = new HashMap<String,String>();
+								valuesPendingValidationMap.put("Player Head Position", playerHeadPositionVideoExit);								
+								valuesPendingValidation.add(valuesPendingValidationMap);						
+								mixpanel.ValidateParameterForPlayer(mpResponse,slno,local.getItem("ID"), "Video Exit",contentLang,valuesPendingValidation,contentID);
+								
+							}
+							if(Arrays.asList(events).contains("Video Watch Duration")) {
+								//Video Watch Duration
+								valuesPendingValidation=new ArrayList<HashMap<String,String>>();
+								valuesPendingValidationMap = new HashMap<String,String>();
+								valuesPendingValidationMap.put("Player Head Position", playerHeadPositionVideoExit);	
+								valuesPendingValidationMap.put("Watch Duration", watchedDuration);
+								valuesPendingValidation.add(valuesPendingValidationMap);
+								mixpanel.ValidateParameterForPlayer(mpResponse,slno,local.getItem("ID"), "Video Watch Duration",contentLang,valuesPendingValidation,contentID);
+								
+							}
+							if(Arrays.asList(events).contains("Pause")) {
+								//Pause
+								mixpanel.FEProp.setProperty("Button Type", "Player");
+								mixpanel.FEProp.setProperty("Element", "Pause");
+								valuesPendingValidation=new ArrayList<HashMap<String,String>>();
+								valuesPendingValidationMap = new HashMap<String,String>();
+								valuesPendingValidationMap.put("Player Head Position", playerHeadPositionVideoExit);	
+								valuesPendingValidation.add(valuesPendingValidationMap);	
+								mixpanel.ValidateParameterForPlayer(mpResponse,slno,local.getItem("ID"), "Pause",contentLang,valuesPendingValidation,contentID);
+								
+							}
+							if(Arrays.asList(events).contains("Resume")) {
+								//Resume
+								mixpanel.FEProp.setProperty("Button Type", "Player");
+								mixpanel.FEProp.setProperty("Element", "Resume");
+								valuesPendingValidation=new ArrayList<HashMap<String,String>>();
+								valuesPendingValidationMap = new HashMap<String,String>();
+								valuesPendingValidationMap.put("Player Head Position", playerHeadPositionVideoExit);	
+								valuesPendingValidation.add(valuesPendingValidationMap);	
+								mixpanel.ValidateParameterForPlayer(mpResponse,slno,local.getItem("ID"), "Resume",contentLang,valuesPendingValidation,contentID);
+								
+							}
+						}
+						mandatoryRegistrationPopUp(userType);
+					}			
+				}		
+			}
+			catch(Exception e) {
+				extent.extentLoggerFail("", "Failed : "+userType+"-"+tab+"-"+assetType+"-"+assetSubtype);
+				logger.error("Failed : "+userType+" - "+tab+" - "+assetType+" - "+assetSubtype);
+			}
+			if(!contentID.equals(""))				
+			ResponseInstance.updateWatchHistory(contentID,1,local.getItem("guestToken"));
+			if(!userType.equals("Guest")) ResponseInstance.deleteAddDevicesForTheUser();
+		}
+		mixpanel.FEProp.clear();
+	}
+	
+	public void clearContinueWatchingTray() {
+		System.out.println("inside clearContinueWatchingTray");
+		Actions actions = new Actions(getWebDriver());
+		int items=0;
+		List<WebElement> removeBtns=findElements(PWALandingPages.objContinueWatchingRemove);
+		if (removeBtns.size()>0) scrollDownByY(300);
+		while(removeBtns.size()!=0) {			
+			for(int i=0;i<removeBtns.size();i++) {
+				WebElement contentCard = getWebDriver().findElement(PWALandingPages.objContinueWatchingCard(1));
+				actions.moveToElement(contentCard).build().perform();
+				JSClick(PWALandingPages.objContinueWatchingRemove(1),"Remove button in Continue watching card");
+				waitTime(2000);
+			}
+			removeBtns=findElements(PWALandingPages.objContinueWatchingRemove);
+		}
+		
+	}
+	
+	public String fetchGuestTokenLanguage(LocalStorage local) {
+		String guestToken="";
+		try {
+			Properties KEYVALUE = new Properties();
+			for (String key : local.keySet()) {
+				KEYVALUE.setProperty(key, local.getItem(key));
+			}
+			Set<String> keys = KEYVALUE.stringPropertyNames();
+			for (String key : keys) {
+				if (key.contains("guestToken")) {
+					guestToken = KEYVALUE.getProperty(key);
+					System.out.println("guestToken:"+guestToken);
+					break;
+				}
+			}
+		} catch (Exception e) {}
+		return guestToken;
+	}
+	
+	
+	public boolean clickWithNoWait(By xpath) {
+		getWebDriver().manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+		try {
+			getWebDriver().findElement(xpath).click();
+			return true;
+		}
+		catch(Exception e) { return false;}
+	}
+	
+	public String findVerticalIndex(String title) {
+		List<WebElement> trays=findElements(PWALandingPages.objTraysWithAd);
+		getWebDriver().manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+		System.out.println("trays"+trays.size());
+		for(int i=1;i<=trays.size();i++) {
+			try {
+				//System.out.println(i);
+				getWebDriver().findElement(PWALandingPages.objTraysWithAdAndTitle(i,title));
+				return String.valueOf(i+1);
+			}
+			catch(Exception e) {}
+		}		
+		return "";	
+	}
+	
+	public ArrayList<HashMap<Integer,String>> returnCarouselValuesFromUI() throws Exception {
+		ArrayList<HashMap<Integer,String>> carouselValues=new ArrayList<HashMap<Integer,String>>();
+		HashMap<Integer,String> carouselValuesMap=new HashMap<Integer,String>();
+		for(int i=0;i<7;i++) {
+			try {
+				WebElement carouselElement=getWebDriver().findElement(PWALandingPages.objCarouselElement(i));
+				String url=carouselElement.getAttribute("data-minutelyurl");
+				int cardNumber=i;
+				carouselValuesMap.put(cardNumber, url);
+				carouselValues.add(carouselValuesMap);
+			}
+			catch(Exception e) {}
+		}
+		return carouselValues;
+	}
+	
+	public String findPreviewWatchlist(String dataContentID) {
+		try {
+			getWebDriver().findElement(PWALandingPages.objMinutelyWatchlist(dataContentID));
+			return "Minutely";
+		}
+		catch(Exception e) {
+			return "N/A";
+		}
+	}
+	
+	public String findWatchlistHorizontalIndex(String dataContentID) {
+		String horizontalIndex="";
+		List<WebElement> watchlistedElements=getWebDriver().findElements(PWALandingPages.objWatchlistedElements);
+		for(int i=0;i<watchlistedElements.size();i++) {
+			try {
+				String uiDataContentID=watchlistedElements.get(i).getAttribute("data-contentid");
+				if(uiDataContentID.equals(dataContentID)) {
+					horizontalIndex=String.valueOf(i+1);
+					System.out.println("findWatchlistHorizontalIndex horizontal index : "+horizontalIndex);
+					break;
+				}
+			}catch(Exception e) {}
+		}
+		return horizontalIndex;
+	}
+	
+	public void moveToElementAboveCenter(String trayTitle,String cardDataContentID) throws Exception {
+		boolean foundCard=false;
+		Actions actions=new Actions(getWebDriver());
+		WebElement ele=null;
+		try {
+			ele=getWebDriver().findElement(PWALandingPages.objAssetInTray(trayTitle,cardDataContentID));
+			foundCard=true;
+		}
+		catch(Exception e) {
+			click(PWALandingPages.objNextButtonInTray(trayTitle),"Next arrow");
+			try {
+				ele=getWebDriver().findElement(PWALandingPages.objAssetInTray(trayTitle,cardDataContentID));
+				foundCard=true;
+			}
+			catch(Exception e1) {}
+		}
+		try {
+			if(foundCard) {
+				System.out.println("found the element");
+				int x=ele.getLocation().getX();
+				int y=ele.getLocation().getY();
+				int width=ele.getSize().getWidth();
+				int height=ele.getSize().getHeight();
+				int requiredX=x+width/2;
+				int requiredY=y+height/5;
+				System.out.println("requiredx"+requiredX);
+				System.out.println("requiredy"+requiredY);
+				actions.moveToElement(ele, requiredX, requiredY).build().perform();
+				System.out.println("moved moved");
+			}
+		}
+		catch(Exception e) {}
+	}
+	
+	public String getPlayerHeadPosition() throws Exception {
+		String playerHeadPosition="0";
+		waitTime(2000);
+		for(int i=0;i<200;i++) {
+			try {
+				playerHeadPosition=getWebDriver().findElement(PWAPlayerPage.objPlaykitSeekBar).getAttribute("aria-valuenow");
+				System.out.println("playerHeadPosition:"+playerHeadPosition);
+				extent.extentLogger("", "Player Head Position :"+playerHeadPosition);
+				break;
+			}catch(Exception e) {
+				try {
+					getWebDriver().findElement(PWAPlayerPage.objLivePlayerLiveTag);
+					System.out.println("Live player is displayed");
+					extent.extentLogger("", "Live player is displayed");
+					break;
+				}
+				catch(Exception e2) {
+					try {
+						getWebDriver().findElement(PWAPlayerPage.objAdLayer);
+						if (i == 0) {
+							logger.info("Ad play in progress");
+							extent.extentLogger("AdPlayInProgress", "Ad play in progress");
+						}
+					}
+					catch(Exception e1) {}
+				}
+			}	
+		}
+		System.out.println("out of getplayerhead");
+		return playerHeadPosition;		
+	}
+	
+	
+	public String findHorizontalIndexForSearch(String dataContentID) {
+		String horizontalIndex="0";
+		try {
+			int searchItems=findElements(PWASearchPage.objSearchItemsCount).size();
+			for(int i=1;i<=searchItems;i++) {
+				try {
+					getWebDriver().findElement(PWASearchPage.objSearchItemsCount(i,dataContentID));
+					horizontalIndex=String.valueOf(i);
+					break;
+				}
+				catch(Exception e) {}			
+			}
+		}catch(Exception e1) {}
+		return horizontalIndex;
+	}
+	
+	
+	public String getWatchHistoryDuration(String getPlayerHeaderPositionStart,String getPlayerHeaderPositionEnd) {
+		int start=Integer.valueOf(getPlayerHeaderPositionStart);
+		int end=Integer.valueOf(getPlayerHeaderPositionEnd);
+		int duration=end-start;
+		return String.valueOf(duration);
+	}
+	
+	
+	public String findSource(String tabName) throws Exception{
+		if(tabName.equalsIgnoreCase("Home")) return "home";
+		else if(tabName.equalsIgnoreCase("TV Shows")) return "tv_shows_view_all";	
+		else if(tabName.equalsIgnoreCase("Movies")) return "movie_landing";
+		else if(tabName.equalsIgnoreCase("Premium")) return "premium";
+		else if(tabName.equalsIgnoreCase("Music")) return "music_videos_landing";
+		else if(tabName.equalsIgnoreCase("Kids")) return "kids_landing";
+		return "";
+	}
+	
+	public String findTabName(String tabName) throws Exception{
+		if(tabName.equalsIgnoreCase("Home")) return "home";
+		else if(tabName.equalsIgnoreCase("TV Shows")) return "N/A";	
+		else if(tabName.equalsIgnoreCase("Movies")) return "movie_landing";
+		else if(tabName.equalsIgnoreCase("Premium")) return "premium";
+		else if(tabName.equalsIgnoreCase("Music")) return "music_videos_landing";
+		else if(tabName.equalsIgnoreCase("Kids")) return "kids_landing";
+		return "N/A";
+	}
+	
+	
+	public void ScrubToPlayerEnd() throws Exception {
+		Actions act = new Actions(getWebDriver());
+		WebElement overlay=findElement(PWAPlayerPage.objSubTitleOverlay);
+		int overlayX=overlay.getLocation().getX();
+		int overlayY=overlay.getLocation().getY();
+		act.moveToElement(overlay, (overlayX+10), (overlayY+10)).build().perform();
+		/////////////////////////////////////////////////////
+		WebElement progressBar = findElement(PWAPlayerPage.progressBar);
+		int progressBarWidth = progressBar.getSize().getWidth();
+		System.out.println(progressBarWidth);
+		int progressBarX = progressBar.getLocation().getX();
+		System.out.println(progressBarX);
+		int progressBarEndX = progressBarX + progressBarWidth;
+		System.out.println(progressBarEndX);
+		WebElement scrubber = findElement(PWAPlayerPage.objPlayerScrubber);
+		int scrubberX = scrubber.getLocation().getX();
+		System.out.println(scrubberX);
+		int offsetForEnd = progressBarEndX - scrubberX - 10;
+		System.out.println(offsetForEnd);
+		/////////////////////////////////////		
+		act.moveToElement(scrubber, offsetForEnd, 0).click().build().perform();
+		waitTime(2000);
+		mandatoryRegistrationPopUp(userType);
+		extent.extentLogger("", "Scrubbed to end of the player");
+		logger.info("Scrubbed to end of the player");
+		mandatoryRegistrationPopUp(userType);
+	}
+	
+	public void ScrubPlayer(int offsetX) throws Exception {
+		Actions act = new Actions(getWebDriver());
+		WebElement overlay=findElement(PWAPlayerPage.objSubTitleOverlay);
+		int overlayX=overlay.getLocation().getX();
+		int overlayY=overlay.getLocation().getY();
+		act.moveToElement(overlay, (overlayX+10), (overlayY+10)).build().perform();
+		/////////////////////////////////////////////////////
+		WebElement scrubber = findElement(PWAPlayerPage.objPlayerScrubber);
+		int scrubberX = scrubber.getLocation().getX();
+		System.out.println(scrubberX);
+		int scrubberY = scrubber.getLocation().getY();
+		System.out.println(scrubberY);
+		int offsetForX = scrubberX + offsetX;
+		System.out.println(offsetForX);
+		/////////////////////////////////////	
+		act.dragAndDropBy(scrubber, -10, 0).build().perform();
+		waitTime(2000);
+		extent.extentLogger("", "Scrubbed the player by "+offsetX);
+		logger.info("Scrubbed the player by "+offsetX);
+		mandatoryRegistrationPopUp(userType);
+	}
+	
+	
+	public String findPreview(String trayTitle,String dataContentID) {
+		try {
+			getWebDriver().findElement(PWALandingPages.objMinutely(trayTitle, dataContentID));
+			return "Minutely";
+		}
+		catch(Exception e) {
+			return "N/A";
+		}
+	}
+	
+	public String findPreviewPlaylist(String trayTitle,String dataContentID) {
+		try {
+			getWebDriver().findElement(PWALandingPages.objMinutelyPlaylist(trayTitle, dataContentID));
+			return "Minutely";
+		}
+		catch(Exception e) {
+			return "N/A";
+		}
+	}
+	
+	
+	public String fetchSessionIDFromSessionStorage(SessionStorage session) {
+		String sessionID="";
+		try {
+			Properties KEYVALUE = new Properties();
+			for (String key : session.keySet()) {
+				KEYVALUE.setProperty(key, session.getItem(key));
+			}
+			Set<String> keys = KEYVALUE.stringPropertyNames();
+			for (String key : keys) {
+				if (key.contains("sessionID")) {
+					sessionID = KEYVALUE.getProperty(key);
+					break;
+				}
+			}
+		} catch (Exception e) {}
+		return sessionID;
+	}
+	
+	
+	public String waitUntilUpNextCardPlays(String playingCardDataContIdUI) throws Exception {
+		getWebDriver().manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+		main:for(int trial=0;trial<480;trial++) {
+			for(int sec=0;sec<60;sec++) {
+				//check for Ad Play After Scrub
+				try {
+					getWebDriver().findElement(PWAPlayerPage.objAd);
+					if (trial== 0 && sec==5) {
+						logger.info("Ad play in progress");
+						extent.extentLogger("AdPlayInProgress", "Ad play in progress");
+					}
+				}
+				catch(Exception e) {
+					//No Ad
+					try {
+						String playerWebUrl=getWebDriver().getCurrentUrl();	
+						if(!playerWebUrl.contains(playingCardDataContIdUI)) {
+							logger.info("Upnext Card is playing :"+playerWebUrl);
+							extent.extentLogger("", "Upnext Card is playing :"+playerWebUrl);
+							return getPlayerHeadPosition();
+						}					
+					}
+					catch(Exception e1) {}
+				}				
+			}
+			if(Math.floorMod(trial, 60)==0) {
+				logger.info("Waiting for Upnext content to play");
+				extent.extentLogger("", "Waiting for Upnext content to play");
+			}
+		}
+		return "";
+	}
+	
+
 }

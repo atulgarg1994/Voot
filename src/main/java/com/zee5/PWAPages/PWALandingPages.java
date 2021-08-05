@@ -177,4 +177,65 @@ public class PWALandingPages {
 		return By.xpath("//h2[contains(text(),\"" + trayTitleUI
 				+ "\")]//parent::div//following-sibling::div//div[contains(@class,'slick-track')]//div[@data-index='0']//a[@data-minutelytitle]");
 	}
+	
+	public static By objContinueWatchingRemove=By.xpath("//*[contains(@class,'popupRemoveBtn') and .='Remove']");
+	public static By objContinueWatchingRemove (int i) {
+		return By.xpath("(//*[contains(@class,'popupRemoveBtn') and .='Remove'])["+i+"]//span");
+	}
+	public static By objTraysWithAd = By.xpath("//div[@class='page-container']/div[contains(@class,'adContainer') or contains(@class,'tray-container')]");
+	public static By objTraysWithAdAndTitle (int i, String title) {
+		return By.xpath("(//div[@class='page-container']/div[contains(@class,'tray-container')])["+i+"]//*[@class='trayHeader']//a[contains(text(),\""+title+"\")] | //h2[contains(text(),\""+title+"\")]");
+	}
+	public static By objOpenProfileMenu = By.xpath("//div[contains(@class,'profileMenuBtn')]//following-sibling::button[.='Open Menu']");
+	public static By objPlaylistTrayTitle = By.xpath("//div[@class='similarDiv' or @class='upNextColumn' or @class='recommendCol' or @class='relatedNewsCol']//h2");
+	public static By objCarouselElement (int cardNumber) {
+		return By.xpath("//div[@data-index='"+cardNumber+"']//div[@class='carouselMain']");
+	}
+	public static By objWatchListTab (String tab) {
+		return By.xpath("//*[@id='"+tab+"']");
+	}
+	public static By objWatchListItem (String dataContentID) {
+		return By.xpath("//div[@data-contentid=\""+dataContentID+"\"]//img");
+	}
+	public static By objPlaylistCard=By.xpath("//div[@class='playWrap']//div[@data-contentid]");
+	public static By objPlaylistCard(int i) {
+		return By.xpath("(//div[@class='playWrap']//div[@data-contentid])["+i+"]");
+	}
+	public static By objPlaylistCardMinutelyTitle(int i) {
+		return By.xpath("(//div[@class='playWrap']//div[@data-minutelytitle] | //a[@data-minutelytitle])["+i+"]");
+	}
+	public static By objPlayerTitle(String title) {
+		String xpath="(//div[@class='consumptionMetaDiv']//h1[contains(text(),\""+title+"\")]) | (//div[@class='consumptionMetaDiv']//h2[contains(text(),\""+title+"\")])";
+		System.out.println(xpath);
+		return By.xpath(xpath);
+	}
+	public static By objWatchlistedElements= By.xpath("//div[@data-contentid]");
+	public static By objMinutely (String trayTitle,String dataContentId) {
+		String xpath="//*[text()=\""+trayTitle+"\"]//ancestor::*[@class='trayHeader']//parent::*//div[@data-contentid=\""+dataContentId+"\"]//video";
+		System.out.println(xpath);
+		return By.xpath(xpath);
+	}
+	
+	public static By objMinutelyPlaylist (String trayTitle,String dataContentId) {
+		return By.xpath("//*[text()=\""+trayTitle+"\"]//ancestor::*[@class='playWrap']//parent::*//div[@data-contentid=\""+dataContentId+"\"]//video");
+	}
+	
+	public static By objMinutelyWatchlist (String dataContentId) {
+		return By.xpath("//div[@data-contentid=\""+dataContentId+"\"]//video");
+	}
+	public static By objCardForSharedUrl (String dataContentId,String contentID) {
+		return By.xpath("//div[@data-contentid=\""+dataContentId+"\" or @data-contentid=\""+contentID+"\"]");
+	}	
+	public static By objAssetInPlaylist(String contentID,String dataContentID) {
+		return By.xpath("(//*[@class='playWrap']//div[@data-contentid=\""+contentID+"\" or @data-contentid=\""+dataContentID+"\"]//figure//a) | (//*[@class='playWrap']//div[@data-contentid=\""+contentID+"\" or @data-contentid=\""+dataContentID+"\"]/a)");
+	}
+	public static By objNextButtonInTray(String apiTrayTitle) {
+		String xpath="//*[contains(text(),\""+apiTrayTitle+"\")]//ancestor::div[@class='trayHeader']//following-sibling::div//button[@class='slick-arrow slick-next']";
+		System.out.println(xpath);
+		return By.xpath(xpath);
+	}
+	
+	public static By objContinueWatchingCard (int i) {
+		return By.xpath("(//*[contains(@class,'removeBtn iconInitialLoad-ic_close')])["+i+"]//parent::*//a");
+	}
 }

@@ -513,4 +513,10 @@ public class PWAPlayerPage {
 	
 	public static By objUpNextContentName=By.xpath("(//div[@class='metadataContainer' ]//div[@class='upNextTitle'])[1]");
 
+	public static By objContentNameMetaInfo = By.xpath("//div[@class='consumptionMetaDiv']//h2");
+	
+	public static By objLiveFromCollectionPage = By.xpath("//div[@class='liveLogo']");
+	public static By objAdCover = By.xpath("//div[@class='kaltura-player-container']");
+	public static By objAdLayer = By.xpath("//div[contains(@id,'player_ads') and @class='active'] | //div[@class='AdscurrentDuration']");
+	public static By objPlaykitSeekBar = By.xpath("//ancestor::div[@aria-label='Video Player' and not (.//div[contains(@id,'player_ads') and @class='active'] | //div[@class='AdscurrentDuration']) ]//*[@class='playkit-seek-bar']");
 }
