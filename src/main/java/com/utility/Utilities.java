@@ -605,7 +605,6 @@ public class Utilities extends ExtentReporter {
 	}
 
 	public void waitTime(int x) {
-
 		try {
 			Thread.sleep(x);
 		} catch (Exception e) {
@@ -618,7 +617,6 @@ public class Utilities extends ExtentReporter {
 	 * 
 	 */
 	public void adbKeyevents(int keyevent) {
-
 		try {
 			String cmd = "adb shell input keyevent" + " " + keyevent;
 			Runtime.getRuntime().exec(cmd);
@@ -627,7 +625,6 @@ public class Utilities extends ExtentReporter {
 		} catch (Exception e) {
 			logger.error(e);
 		}
-
 	}
 
 	/**

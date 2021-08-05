@@ -7,7 +7,7 @@
 		<parameter name="runMode" value="${runMode}"/>
 		<parameter name="runModule" value="${runModule}"/> -->
 
-	<parameter name="userType" value="SubscribedUser" />  <!-- Guest/NonSubscribedUser/SubscribedUser -->
+	<parameter name="userType" value="Guest" />  <!-- Guest/NonSubscribedUser/SubscribedUser -->
 	<parameter name="runModule" value="Suite" />
 	<parameter name="runMode" value="Suites" />
 
@@ -65,17 +65,17 @@
 	<parameter name="ExistingUserNotificationTitle"  value="Welcome back to the SugarBox Zone" />
     <parameter name="ExistingUserNotificationSubTitle"  value="Logon to ZEE5 to binge-watch the latest originals, TV shows" />
     
-	<parameter name="SugarBoxPhoneNum" value="9620001535" />
-
+	<parameter name="SugarBoxPhoneNum" value="9620001535" /> <!-- SimNumbers: 9620001535|9620001566|9620001529 -->
+	
+	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
-
 	 
-	<test name="Android_SugarboxTest">
+	<test name="Android_SugarboxTest_HLS">
 		<classes>
-			<class name="com.zee5.AndroidSugarbox.Android_SugarboxTest" />
+			<class name="com.zee5.AndroidSugarbox.Android_SugarboxTest_HLS" />
 		</classes>
 	</test>
 	
@@ -90,5 +90,5 @@
 			<class name="com.zee5.AndroidSugarbox.Android_SugarBox_PlaybackTest" />
 		</classes>
 	</test>
-
+ 
 </suite>
