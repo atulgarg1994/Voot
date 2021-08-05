@@ -35235,4 +35235,258 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 	}
 
+	
+	public void clickOnWatchListForVideoTVODConsumption(String userType,String videoname) throws Exception {
+		extent.HeaderChildNode("Verify that user is able to add the Exclusive video content in Mywatchlist page ");
+		oneYearPremium6MSupermoonUser();
+		waitTime(3500);
+		click(PWAHomePage.objSearchBtn,"Seach button");
+		waitTime(2000);
+		type(PWASearchPage.objSearchEditBox, videoname, "Search Field");
+		waitTime(3000);
+		JSClick(PWASearchPage.objFirstAssetImgSearchNavigationTab, videoname);
+		
+		waitTime(3500);
+		scrollToTheElementWEB(PWAPlayerPage.watchListBtn);
+		waitTime(2000);
+		if(verifyElementPresent(PWAPlayerPage.watchListBtn, "WatchList icon")) {
+			JSClick(PWAPlayerPage.watchListBtn, "WatchList icon");
+			try {
+				Boolean AddedtoWatchlistToastMessage = getWebDriver().getPageSource().contains("//*[@class='toastMessage']");
+				if (AddedtoWatchlistToastMessage == true) {
+					
+					extent.extentLogger("Toast", "Added to Watchlist Toast Message displayed");
+					logger.info("Added to Watchlist Toast Message displayed");
+				} else {
+					extent.extentLogger("Toast", "Added to Watchlist Toast Message is not displayed");
+					logger.info("Added to Watchlist Toast Message is not displayed");
+				}
+			} catch (Exception e) {
+				System.out.println("Toast message is not displayed");
+			}
+			logger.info("user is able to add the Exclusive video content in Mywatchlist");
+			extent.extentLoggerPass("", "user is able to add the Exclusive video content in Mywatchlist");
+		}else {
+			logger.info("user is not able to add the Exclusive video content in Mywatchlist");
+			extent.extentLoggerFail("", "user is not able to add the Exclusive video content in Mywatchlist");
+		
+		}
+		JSClick(PWAPlayerPage.watchListBtn, "WatchList icon");
+	
+	}
+
+	public void VerifyInWatchListForVideoTVODConsumption(String userType,String videoname) throws Exception {
+		extent.HeaderChildNode("Verify Exclusive video content present under Videos tab in Mywatchlist  page");
+		oneYearPremium6MSupermoonUser();
+		waitTime(3500);
+		click(PWAHomePage.objSearchBtn,"Seach button");
+		waitTime(2000);
+		type(PWASearchPage.objSearchEditBox, videoname, "Search Field");
+		waitTime(3000);
+		JSClick(PWASearchPage.objFirstAssetImgSearchNavigationTab, videoname);
+		
+		waitTime(3500);
+		scrollToTheElementWEB(PWAPlayerPage.watchListBtn);
+		waitTime(2000);
+		if(verifyElementPresent(PWAPlayerPage.watchListBtn, "WatchList icon")) {
+			JSClick(PWAPlayerPage.watchListBtn, "WatchList icon");
+			waitTime(555);
+			try {
+				Boolean AddedtoWatchlistToastMessage = getWebDriver().getPageSource().contains("//*[@class='toastMessage']");
+				if (AddedtoWatchlistToastMessage == true) {
+					
+					extent.extentLogger("Toast", "Added to Watchlist Toast Message displayed");
+					logger.info("Added to Watchlist Toast Message displayed");
+				} else {
+					extent.extentLogger("Toast", "Added to Watchlist Toast Message is not displayed");
+					logger.info("Added to Watchlist Toast Message is not displayed");
+				}
+			} catch (Exception e) {
+				System.out.println("Toast message is not displayed");
+			}
+		}
+		click(PWAHomePage.objProfileMenu, "Profile Menu");
+		waitTime(2000);
+		JSClick(PWAAddToWatchListPage.objMyWatchList, "WatchList in Hamberger menu");
+		waitTime(2000);
+		click(PWAAddToWatchListPage.objVideoTab, "video tab");
+		waitTime(2000);
+		if(checkElementDisplayed(PWAAddToWatchListPage.objWatchlistedItem(videoname), videoname)) {
+			logger.info("user is able to see the Exclusive video content present in Mywatchlist's videos tab");
+			extent.extentLoggerPass("", "user is able to see the Exclusive video content present in Mywatchlist's videos tab");
+		}else {
+			logger.info("user is able to see the Exclusive video content not present in Mywatchlist's videos tab");
+			extent.extentLoggerFail("", "user is able to see the Exclusive video content not present in Mywatchlist's videos tab");
+		
+		}
+		JSClick(PWAAddToWatchListPage.objRemoveContentsInWatchList, " Remove all in WatchList");
+	}
+
+public void VerifyPreRollAdForLiveTVODContent(String userType,String LiveTvTVODContent) throws Exception {
+		extent.HeaderChildNode("Verify whether pre-roll ads are played for LiveTV content");
+		oneYearPremium6MSupermoonUser();
+		waitTime(3500);
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+		waitTime(2500);
+		scrollToTheElementWEB(PWAComboOfferPage.objLiveTVTVODItem(LiveTvTVODContent));
+		waitTime(1500);
+		JSClick(PWAComboOfferPage.objLiveTVTVODItem(LiveTvTVODContent), LiveTvTVODContent);
+		waitTime(2500);
+		if(checkElementDisplayed(PWAPlayerPage.objPlayerAdPresent, "Pre-roll Ad")){
+			
+			logger.info("user is able to see pre-roll ads are played for LiveTV content :"+LiveTvTVODContent);
+			extent.extentLoggerPass("", "user is able to see pre-roll ads are played for LiveTV content :"+LiveTvTVODContent);
+		}else {
+			logger.info("user is not able to see pre-roll ads are played for LiveTV content :"+LiveTvTVODContent);
+			extent.extentLoggerFail("", "user is not able to see pre-roll ads are played for LiveTV content :"+LiveTvTVODContent);
+		
+		}
+	
+	}
+
+public void PreAndMidRollAdsForExclusiveVODContent(String userType,String ExclusiveVODContent) throws Exception {
+		extent.HeaderChildNode("Verify whether pre-roll and mid-roll ads are played for Exclusive VOD content");
+		oneYearPremium6MSupermoonUser();
+		waitTime(3500);
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+		waitTime(2500);
+		scrollToTheElementWEB(PWAComboOfferPage.objLiveTVTVODItem(ExclusiveVODContent));
+		waitTime(1500);
+		JSClick(PWAComboOfferPage.objLiveTVTVODItem(ExclusiveVODContent), ExclusiveVODContent);
+		waitTime(2500);
+		
+		// PRE-ROLL
+		if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
+			logger.info("user is able to see pre-roll ads are played for Exclusive VOD Content: "+ ExclusiveVODContent);
+			extent.extentLoggerPass("Ad", "user is able to see pre-roll ads are played for Exclusive VOD Content: "+ ExclusiveVODContent);
+			waitTime(5000);
+			waitForPlayerAdToComplete("Video Player");
+		} else {
+			logger.info("user is not able to see pre-roll ads are played for Exclusive VOD Content: "+ExclusiveVODContent);
+			extent.extentLoggerFail("Ad", "user is not able to see pre-roll ads are played for Exclusive VOD Content: "+ExclusiveVODContent);
+		}
+
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		playerScrubTillMidWeb();
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+		waitTime(2000);
+		// MID-ROLL
+		if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
+			logger.info("user is able to see mid-roll ads are played for Exclusive VOD Content: "+ ExclusiveVODContent);
+			extent.extentLoggerPass("Ad", "user is able to see mid-roll ads are played for Exclusive VOD Content: "+ ExclusiveVODContent);
+			waitTime(5000);
+			waitForPlayerAdToComplete("Video Player");
+		} else {
+			logger.info("user not able to see mid-roll ads are played for Exclusive VOD Content: "+ ExclusiveVODContent);
+			extent.extentLoggerFail("Ad", "user not able to see mid-roll ads are played for Exclusive VOD Content: "+ ExclusiveVODContent);
+			
+		}
+		
+	}
+
+	public void PostRollAdsForExclusiveVODContent(String userType,String ExclusiveVODContent) throws Exception {
+		extent.HeaderChildNode("Verify whether post-roll ads are not played for Exclusive VOD content");
+		oneYearPremium6MSupermoonUser();
+		waitTime(3500);
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+		waitTime(2500);
+		scrollToTheElementWEB(PWAComboOfferPage.objLiveTVTVODItem(ExclusiveVODContent));
+		waitTime(1500);
+		JSClick(PWAComboOfferPage.objLiveTVTVODItem(ExclusiveVODContent), ExclusiveVODContent);
+		waitTime(2500);
+		if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
+			
+			waitForPlayerAdToComplete("Video Player");
+		}
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		playerScrubTillLastWeb();
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+
+		// POST-ROLL
+		if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
+			logger.info("user is able to see post-roll ads are played for Exclusive VOD Content: "+ ExclusiveVODContent);
+			extent.extentLoggerFail("Ad", "user is able to see post-roll ads are played for Exclusive VOD Content: "+ ExclusiveVODContent);
+			waitTime(5000);
+			waitForPlayerAdToComplete("Video Player");
+		} else {
+			logger.info("user not able to see post-roll ads are played for Exclusive VOD Content: "+ ExclusiveVODContent);
+			extent.extentLoggerPass("Ad", "user not able to see post-roll ads are played for Exclusive VOD Content: "+ ExclusiveVODContent);
+			
+		}
+	}
+
+
+public void noAdsForSubscribedUser(String userType) throws Exception {
+		//usertype should be SubscribedUser
+		if(userType.equals("SubscribedUser")) {
+		extent.HeaderChildNode("Verify ads are not played for other SVOD(premium) contents except Live TV TVOD Content");
+		//Natasaarvabhowma
+		click(PWAHomePage.objSearchBtn,"Seach button");
+		waitTime(2000);
+		type(PWASearchPage.objSearchEditBox, "Natasaarvabhowma", "Search Field");
+		waitTime(3000);
+		JSClick(PWASearchPage.objFirstAssetImgSearchNavigationTab, "Natasaarvabhowma");
+		
+		waitTime(3500);
+		if (!checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
+			logger.info("user not able to see ads are played for Premium Content at begining");
+			extent.extentLoggerPass("Ad", "user not able to see ads are played for Premium Content at begining");
+		}
+		//mid-roll
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		playerScrubTillMidWeb();
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+		waitTime(2000);
+		if (!checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
+			logger.info("user not able to see ads are played for Premium Content at middle ");
+			extent.extentLoggerPass("Ad", "user not able to see ads are played for Premium Content at middle ");
+		}
+		//post-roll
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		playerScrubTillLastWeb();
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+		waitTime(1000);
+		if (!checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
+			logger.info("user not able to see ads are played for Premium Content at Last ");
+			extent.extentLoggerPass("Ad", "user not able to see ads are played for Premium Content at Last ");
+		}
+		}
+	}
+
+public void playAndPauseForLiveTvTVODContent(String userType,String LiveTvTVODContent) throws Exception {
+		extent.HeaderChildNode("Verify Whether Play/Pause is displayed on player screen for LiveTV TVOD content");
+		oneYearPremium6MSupermoonUser();
+		waitTime(3500);
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+		waitTime(2500);
+		scrollToTheElementWEB(PWAComboOfferPage.objLiveTVTVODItem(LiveTvTVODContent));
+		waitTime(1500);
+		JSClick(PWAComboOfferPage.objLiveTVTVODItem(LiveTvTVODContent), LiveTvTVODContent);
+		waitTime(2500);
+		mouseHover();
+	
+		if(checkElementDisplayed(PWAPlayerPage.pauseBtn, "Pause icon")) {
+			waitTime(500);
+			
+			logger.info("user able to see Pause icon on player screen ");
+			extent.extentLoggerPass("", "user able to see Pause icon on player screen ");
+			
+			JSClick(PWAPlayerPage.pauseBtn, "Pause icon");
+		}
+		if(checkElementDisplayed(PWAPlayerPage.playBtn, "Play icon")) {
+			waitTime(500);
+			
+			logger.info("user able to see Play icon on player screen ");
+			extent.extentLoggerPass("", "user able to see Play icon on player screen ");
+			
+			JSClick(PWAPlayerPage.playBtn, "Play icon");
+		}
+			
+	}
+
+
 }

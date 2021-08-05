@@ -8970,8 +8970,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		setFEProperty(userType);
 		setUserType_SubscriptionProperties(userType);
 		SetAppsflyerProperty();
-		waitTime(200000);
-		MixpanelAndroid.FEProp.setProperty("Page Name", "HomePage");
+		waitTime(10000);
 		MixpanelAndroid.ValidateParameter("", "Carousal Banner Swipe");
 	}
 
@@ -11171,23 +11170,23 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		String contentName = ResponseInstance.getCarouselContentFromAPI2(usertype, tabName);
 		System.out.println(contentName);
 		waitForElementAndClickIfPresent(AMDHomePage.objContentTitle(contentName), 7, "carousal content");
-		String pPage = "ConsumptionPage";
-		String pSource = getSource(tabName);
+		
 		String pManufacturer = DeviceDetails.OEM;
 		setFEProperty(usertype);
 		setUserType_SubscriptionProperties(usertype);
 		SetAppsflyerProperty();
-		mixpanel.FEProp.setProperty("Source", pSource);
-		mixpanel.FEProp.setProperty("Page Name", pPage);
+		
+		
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 		mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
 		mixpanel.FEProp.setProperty("brand", pManufacturer);
-		mixpanel.FEProp.setProperty("Carousal Name", "N/A");
+		
 		if (tabName.equalsIgnoreCase("TV Shows") || tabName.equalsIgnoreCase("Web Series")) {
 			mixpanel.FEProp.setProperty("Series", contentName);
 		}
 		mixpanel.ValidateParameter("", "Carousal Banner Click");
 	}
+
 
 	public void SubscriptionJourneyEventValidation(String userType) throws Exception {
 		HeaderChildNode("Subscription Events Journey");

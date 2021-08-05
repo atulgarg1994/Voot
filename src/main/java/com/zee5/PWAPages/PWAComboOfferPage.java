@@ -240,4 +240,7 @@ public class PWAComboOfferPage {
 
 	public static By objDescBelowShareBtn=By.xpath("//p[@id='description']");
 
+	public static By objLiveTVTVODItem(String title) {
+		return By.xpath("//*[contains(@class,'cardTitle')]//*[text()=" + title + "]/parent::*/parent::*//a");
+	}
 }

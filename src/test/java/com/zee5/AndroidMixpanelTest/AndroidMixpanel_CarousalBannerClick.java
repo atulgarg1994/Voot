@@ -19,11 +19,11 @@ public class AndroidMixpanel_CarousalBannerClick {
 	}
 
 	@Test(priority = 1)
-	@Parameters({"userType"})
-	public void AndroidMixPanel_CarouselBannerClickEventValidation(String userType) throws Exception {
+	@Parameters({"userType","tabName"})
+	public void AndroidMixPanel_CarouselBannerClickEventValidation(String userType,String pTabName) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
-		Zee5ApplicasterMixPanelBusinessLogic.verifyCarousalBannerClickEvent(userType,"Home");
+		Zee5ApplicasterMixPanelBusinessLogic.verifyCarousalBannerClickEvent(userType,pTabName);
 	}
 	
 	

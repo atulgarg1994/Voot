@@ -328,7 +328,10 @@ public class AMDHomePage {
  	public static By objContentDownloadedDeleteIcon = By.xpath("//*[@id='tvDeleteDownload']");
  	public static By objSugarBoxIconOnThumbnail = By.xpath("//*[@id='img_sugarBox_violator']");
  	
+
  	public static By objRailName(String railName) {
 		return By.xpath("//*[@text='More']//parent::*//parent::*//*[contains(text(),'"+railName+"')][1]");
 	}
+ 	
+ 	
 }

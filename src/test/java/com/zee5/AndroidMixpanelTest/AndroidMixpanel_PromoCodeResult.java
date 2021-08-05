@@ -30,7 +30,7 @@ public class AndroidMixpanel_PromoCodeResult {
 	@Test(priority = 2)
 	@Parameters({"userType"})
 	public void verifyPromoCodeResultEvent_MoreSection(String userType) throws Exception {
-		Utilities.relaunch = true;
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyPromoCodeResultEvent_MoreSection(userType);
@@ -39,7 +39,7 @@ public class AndroidMixpanel_PromoCodeResult {
 	@Test(priority = 3)
 	@Parameters({"userType"})
 	public void verifyPromoCodeResultEvent_MySubscription(String userType) throws Exception {
-		Utilities.relaunch = true;
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyPromoCodeResultEvent_MySubscription(userType);
@@ -48,7 +48,7 @@ public class AndroidMixpanel_PromoCodeResult {
 	@Test(priority = 4)
 	@Parameters({"userType"})
 	public void verifyPromoCodeResultEvent_MyTransaction(String userType) throws Exception {
-		Utilities.relaunch = true;
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyPromoCodeResultEvent_MyTransaction(userType);
@@ -57,7 +57,7 @@ public class AndroidMixpanel_PromoCodeResult {
 	@Test(priority = 5)
 	@Parameters({"userType","keyword3"})
 	public void verifyPromoCodeResultEvent_BelowPlayer(String userType,String keyword3) throws Exception {
-		Utilities.relaunch = true;
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyPromoCodeResultEvent_BelowPlayer(userType,keyword3);
@@ -66,7 +66,7 @@ public class AndroidMixpanel_PromoCodeResult {
 	@Test(priority = 6)
 	@Parameters({"userType","trailerContent"})
 	public void verifyPromoCodeResultEvent_Trailer(String userType,String trailerContent) throws Exception {
-		Utilities.relaunch = true;
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyPromoCodeResultEvent_Trailer(userType,trailerContent);

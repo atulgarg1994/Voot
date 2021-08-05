@@ -29,7 +29,7 @@ public class AndroidMixpanel_SubscriptionSelected {
 	@Test(priority = 2)
 	@Parameters({"userType"})
 	public void AndroidMixPanel_SubscriptionSelectedEvent_MoreSection(String userType) throws Exception {
-		Utilities.relaunch = true;
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
 		Zee5ApplicasterMixPanelBusinessLogic.verifySubscriptionSelectedEvent_MoreSection(userType);
@@ -38,7 +38,7 @@ public class AndroidMixpanel_SubscriptionSelected {
 	@Test(priority = 3)
 	@Parameters({"userType"})
 	public void AndroidMixPanel_SubscriptionSelectedEvent_MySubscription(String userType) throws Exception {
-		Utilities.relaunch = true;
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
 		Zee5ApplicasterMixPanelBusinessLogic.verifySubscriptionSelectedEvent_MySubscription(userType);
@@ -47,7 +47,7 @@ public class AndroidMixpanel_SubscriptionSelected {
 	@Test(priority = 4)
 	@Parameters({"userType"})
 	public void AndroidMixPanel_SubscriptionSelectedEvent_MyTransaction(String userType) throws Exception {
-		Utilities.relaunch = true;
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
 		Zee5ApplicasterMixPanelBusinessLogic.verifySubscriptionSelectedEvent_MyTransaction(userType);
@@ -56,7 +56,7 @@ public class AndroidMixpanel_SubscriptionSelected {
 	@Test(priority = 5)
 	@Parameters({"userType","keyword3"})
 	public void AndroidMixPanel_SubscriptionSelectedEvent_BelowPlayer(String userType,String keyword3) throws Exception {
-		Utilities.relaunch = true;
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
 		Zee5ApplicasterMixPanelBusinessLogic.verifySubscriptionSelectedEvent_BelowPlayer(userType,keyword3);
@@ -65,7 +65,7 @@ public class AndroidMixpanel_SubscriptionSelected {
 	@Test(priority = 6)
 	@Parameters({"userType","trailerContent"})
 	public void AndroidMixPanel_SubscriptionSelectedEvent_Trailer(String userType,String trailerContent) throws Exception {
-		Utilities.relaunch = true;
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
 		Zee5ApplicasterMixPanelBusinessLogic.verifySubscriptionSelectedEvent_Trailer(userType,trailerContent);

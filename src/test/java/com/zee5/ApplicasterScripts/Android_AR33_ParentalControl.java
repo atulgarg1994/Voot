@@ -40,16 +40,16 @@ public class Android_AR33_ParentalControl {
 		ZEE5ApplicasterBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
 		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
-		ZEE5ApplicasterBusinessLogic.ParentalControl18Plus(userType);//TC_15
+		ZEE5ApplicasterBusinessLogic.ParentalControl18Plus(userType);//TC_15		
 	}
 	
-	//@Test(priority = 3) //Veena
+	@Test(priority = 3) //Veena
 	@Parameters({ "userType" })
 	public void ParentalControl16Plus(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.ParentalControl16Plus(userType);//TC_16
 	}
 	
-	//@Test(priority = 4)//Veena
+	@Test(priority = 4)//Veena
 	@Parameters({ "userType" })
 	public void ParentalControl7Plus(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.ParentalControl7Plus(userType);//TC_18
@@ -60,13 +60,13 @@ public class Android_AR33_ParentalControl {
 	public void ParentalControl13Plus(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.ParentalControl13Plus(userType);//TC_17
 	}
+	
 	@Test(priority = 6) //Veena
 	@Parameters({ "userType" })
 	public void ParentalControlRestrictAll(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.ParentalControlRestrictAll(userType);//TC_19
 	}
-	
-	
+		
 	@Test(priority = 7)//Veena
 	@Parameters({ "userType" })
 	public void ParentalPinValidation(String userType) throws Exception {
@@ -75,7 +75,7 @@ public class Android_AR33_ParentalControl {
 		ZEE5ApplicasterBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 		ZEE5ApplicasterBusinessLogic.ZeeApplicasterLogin(userType);
 		ZEE5ApplicasterBusinessLogic.ParentalPinValidation(userType);//TC_35,36
-	}
+	}	
 	
 	@Test(priority = 8)//Veena
 	@Parameters({ "userType" })
@@ -83,64 +83,52 @@ public class Android_AR33_ParentalControl {
 		ZEE5ApplicasterBusinessLogic.NewAgeRatingValidationBelowPlayer(userType);//TC_30
 	}
 	
-	@Test(priority = 13) //Veena
+	@Test(priority = 9) //Veena
 	@Parameters({ "userType" })
 	public void VerifyContentPlayPostSettingParentalControl(String userType) throws Exception {
 		//ZEE5ApplicasterBusinessLogic.relaunch(true);
 		ZEE5ApplicasterBusinessLogic.VerifyContentPlayPostSettingParentalControl(userType);//TC_42
-	}
+	}	
 	
-	
-	@Test(priority = 14) //Veena
+	@Test(priority = 10) //Veena
 	@Parameters({ "userType" })
 	public void VerifyContentPlayContentPostSettingParentalControl(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.VerifyContentPlayContentPostSettingParentalControl(userType);//TC_43,44
-
-
 	}
 	
-	@Test(priority = 15) //Veena
+	@Test(priority = 11) //Veena
 	@Parameters({ "userType" })
 	public void VerifyContentErrorMessagePostSettingParentalControl(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.VerifyContentErrorMessagePostSettingParentalControl(userType);//TC45
-	}
+	}	
 	
-	
-	
-	@Test(priority = 16) //Veena
+	@Test(priority = 12) //Veena
 	@Parameters({ "userType" })
 	public void VerifyLiveTVContentPostSettingParentalControl(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.VerifyLiveTVContentPostSettingParentalControl(userType);//TC_46
-
-
 	}	
 	
-	@Test(priority = 17) //Veena
+	@Test(priority = 13) //Veena
 	@Parameters({ "userType" })
 	public void VerifyParentalPinResetPin(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.VerifyParentalPinResetPin(userType);//TC_68
 	}
-	
-	
-	@Test(priority = 18) //Veena
+		
+	@Test(priority = 14) //Veena
 	@Parameters({ "userType" })
 	public void VerifyParentalPinJourneyviaDeeplink(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.VerifyParentalPinJourneyPostviaDeeplink(userType);//_48
 }
-	
-		
-	@Test(priority = 19) //Veena
+			
+	@Test(priority = 15) //Veena
 	@Parameters({ "userType" })
 	public void ParentalControlPlatformValidation(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.ParentalPinPlatformValidation(userType);//TC_38
 }
 
-
-	
 	@AfterTest
 	public void tearDownApp() {
 		System.out.println("Quit the App");
 		ZEE5ApplicasterBusinessLogic.tearDown();
 	}
-	
 }

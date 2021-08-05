@@ -34552,16 +34552,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 		if (userType.equalsIgnoreCase("SubscribedUser") | userType.equalsIgnoreCase("NonSubscribedUser")) {
 			verifyElementPresent(AMDMoreMenu.objParentalControl, "Parental control option");
-
 			// Verify "U" rated content
 			extent.HeaderChildNode(
 					"TC_36 : Validate that is Parental control reflected when user login with same account in same device.");
 			System.out.println(
 					"TC_36 : Validate that is Parental control reflected when user login with same account in same device.");
-//			navigateBackToHomeLandingScreen();
-//			click(AMDHomePage.MoreMenuIcon, "More Menu tab");
-//			waitTime(1000);
-//			click(AMDMoreMenu.objSettings, "Settings option");
 			waitTime(5000);
 			Swipe("UP", 1);
 			verifyElementPresentAndClick(AMDMoreMenu.objParentalControl, "Parental Control");
@@ -34613,7 +34608,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				logger.info("Parental Pin Popup is NOT displayed");
 				extent.extentLoggerFail("Parental Pin", "Parental Pin Popup is NOT displayed");
 			}
-			navigateBackToHomeLandingScreen();
+			BackToLandingScreen();
 			waitTime(5000);
 			click(AMDHomePage.objSearchBtn, "Search button");
 			waitTime(5000);
@@ -34623,8 +34618,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			waitTime(6000);
 			click(AMDSearchScreen.objFirstSearchResult, "Search result");
 			waitTime(6000);
-			boolean checkParentalPopUp = verifyElementPresent(AMDPlayerScreen.objParentalPinPopUp,
-					"Parental Pin Popup");
+			boolean checkParentalPopUp = verifyElementDisplayed(AMDPlayerScreen.objParentalPinPopUp);
 			if (checkParentalPopUp) {
 				logger.info("Parental Pin Popup is displayed");
 				extentLoggerPass("Parental Pin Popup", "Parental Pin Popup is displayed in Landscape mode");
@@ -34638,46 +34632,87 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	public void NewAgeRatingValidationBelowPlayer(String usertype) throws Exception {
 		extent.HeaderChildNode("Verify New Age Rating below player");
-
-		if (userType.equalsIgnoreCase("SubscribedUser") || userType.equalsIgnoreCase("NonSubscribedUser")
-				|| userType.equalsIgnoreCase("Guest")) {
+		if (userType.equalsIgnoreCase("SubscribedUser") | userType.equalsIgnoreCase("NonSubscribedUser")
+				| userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode(
 					"TC_30 : Validate that new age rating is displayed as part of metadata below the player in Consumption screen for \"U\" rated content.");
 			System.out.println(
 					"TC_30 : Validate that new age rating is displayed as part of metadata below the player in Consumption screen for \"U\" rated content.");
 			// Verify "U" rated content
-			NewAgeRatingValidation("Saand Ki Aankh", "U");
-
-//			// Verify "U/A 7+" rated content
-//			extent.HeaderChildNode(
-//					"TC_31 : Validate that new age rating is displayed as part of metadata below the player in Consumption screen for 'U/A 7+' rated content.");
-//			System.out.println(
-//					"TC_31 : Validate that new age rating is displayed as part of metadata below the player in Consumption screen for 'U/A 7+' rated content.");
-//			NewAgeRatingValidation("Saand Ki Aankh", "U/A 7+");
-
+			NewAgeRatingValidation("Saand Ki Aankh", "","U");
+			//relaunch(false);
+			// Verify "U/A 7+" rated content
+			extent.HeaderChildNode(
+					"TC_31 : Validate that new age rating is displayed as part of metadata below the player in Consumption screen for 'U/A 7+' rated content.");
+			System.out.println(
+					"TC_31 : Validate that new age rating is displayed as part of metadata below the player in Consumption screen for 'U/A 7+' rated content.");
+			NewAgeRatingValidation("Hero No. 1", "U/A ","7+");
+			//relaunch(false);
 			// Verify "U/A 7+" rated content
 			extent.HeaderChildNode(
 					"TC_32 : Validate that new age rating is displayed as part of metadata below the player in Consumption screen for 'U/A 13+' rated content.");
 			System.out.println(
 					"TC_32 : Validate that new age rating is displayed as part of metadata below the player in Consumption screen for 'U/A 13+' rated content.");
-			NewAgeRatingValidation("Dhoop Ki Deewar", "U/A 13+");
-
-//			// Verify "U" rated content
-//			extent.HeaderChildNode(
-//					"TC_33 : Validate that new age rating is displayed as part of metadata below the player in Consumption screen for 'U/A 16+' rated content.");
-//			System.out.println(
-//					"TC_33 : Validate that new age rating is displayed as part of metadata below the player in Consumption screen for 'U/A 16+' rated content.");
-//			NewAgeRatingValidation("Saand Ki Aankh", "U/A 16+");
-
+			NewAgeRatingValidation("Dhoop Ki Deewar", "U/A ","13+");
+			//relaunch(false);
+			// Verify "U" rated content
+			extent.HeaderChildNode(
+					"TC_33 : Validate that new age rating is displayed as part of metadata below the player in Consumption screen for 'U/A 16+' rated content.");
+			System.out.println(
+					"TC_33 : Validate that new age rating is displayed as part of metadata below the player in Consumption screen for 'U/A 16+' rated content.");
+			NewAgeRatingValidation("Bebaakee", "U/A ","16+");
+			//relaunch(false);
 			// Verify "U/A 7+" rated content
 			extent.HeaderChildNode(
 					"TC_34 : Validate that new age rating is displayed as part of metadata below the player in Consumption screen for 'A' rated content.");
 			System.out.println(
 					"TC_34 : Validate that new age rating is displayed as part of metadata below the player in Consumption screen for 'A' rated content.");
-			NewAgeRatingValidation("Cabaret", "A");
+			NewAgeRatingValidation("Cabaret", "","A");
 		}
 	}
 
+	public void NewAgeRatingValidation(String Keyword,String Rating, String AgeRating) throws Exception {
+		navigateBackToHomeLandingScreen();
+		click(AMDHomePage.objSearchBtn, "Search button");
+		waitTime(5000);
+		click(AMDSearchScreen.objSearchEditBox, "Search box");
+		type(AMDSearchScreen.objSearchBoxBar, Keyword, "Search box");
+		hideKeyboard();
+		waitTime(6000);
+		click(AMDSearchScreen.objFirstSearchResult, "Search result");
+		waitTime(6000);
+		boolean checkParentalPopUp = verifyElementDisplayed(AMDPlayerScreen.objParentalPinPopUp);
+		if (checkParentalPopUp) {
+			Back(1);
+		}
+		if (verifyElementDisplayed(AMDPlayerScreen.objcontentRating)) {
+			String text = getText(AMDPlayerScreen.objcontentRating);
+
+			System.out.println("Content rating " + text);
+			String text1=Rating+AgeRating;
+			String text2 = "•  " + text1;
+			System.out.println(text1);
+			System.out.println(text2);
+			if (text.contains(text2)&&text.contains(AgeRating)) {
+				logger.info("Content Rating  " + text + " is displayed below the player");
+				extentLoggerPass("Myprofile", "Content Rating  " + text + " is displayed below the player");
+			} else {
+				if (text.contains("7+")) {
+					logger.error("[AMA2-17861] [AMD] - \"U/A 7+\" rating is not displayed for all the kids contents instead it is displayed as \"U\"");
+					extent.extentLoggerFail("","[AMA2-17861] [AMD] - \\\"U/A 7+\\\" rating is not displayed for all the kids contents instead it is displayed as \\\"U\\\"");
+				}else {
+				logger.error("Content age Rating " + AgeRating + " does not match below the player");
+				extentLoggerFail("Rating", "Content age Rating " + AgeRating + " does not match below the player");
+				}
+			}
+		} else {
+			logger.error("Content age Rating " + AgeRating + " is not displayed below the player");
+			extentLoggerFail("Rating", "Content age Rating " + AgeRating + " is not displayed below the player");
+		}
+		waitTime(6000);
+	}
+	
+	
 	public void NewAgeRatingValidation(String Keyword, String AgeRating) throws Exception {
 		navigateBackToHomeLandingScreen();
 		click(AMDHomePage.objSearchBtn, "Search button");
@@ -36483,13 +36518,13 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	public void ParentalControl16Plus(String userType) throws Exception {
 		extent.HeaderChildNode("Parental Control");
 		// TC_15,16,17,18,19
-		ParentalControlPopupPin16PlusValidation("");
+		ParentalControlPopupPin16PlusValidation("Bebaakee");
 	}
 
 	public void ParentalControl7Plus(String userType) throws Exception {
 		extent.HeaderChildNode("Parental Control");
 		// TC_15,16,17,18,19
-		ParentalControlPopupPin7PlusValidation("");
+		ParentalControlPopupPin7PlusValidation("Hero No. 1");
 	}
 
 	public void ParentalControl13Plus(String userType) throws Exception {
@@ -37418,24 +37453,22 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verification of Rails based on Content Language");
 		selectContentLang_MoreMenu_ByDeselectingEnglishKannada(contentLanguage);
 		SelectTopNavigationTab("Home");
-
-		boolean flag = false;
-		if (contentLanguage.equalsIgnoreCase("Bengali")) {
+		
+		boolean flag=false;
+		if(contentLanguage.equalsIgnoreCase("Bengali")) {
 			flag = SwipeUntilFindElement(AMDHomePage.objRailName("Bangla"), "UP");
-		} else {
+		}else {
 			flag = SwipeUntilFindElement(AMDHomePage.objRailName(contentLanguage), "UP");
 		}
-
-		if (flag == true) {
+		if(flag==true) {
 			logger.info("Relevent rail is displayed");
 			extent.extentLoggerPass("rails", "Relevent rail is displayed");
-		} else {
-			logger.info("Relevent rail is not displayed");
-			extent.extentLoggerPass("rails", "Relevent rail is not displayed");
+		}else {
+			logger.error("Relevent rail is not displayed");
+			extent.extentLoggerFail("rails", "Relevent rail is not displayed");
 		}
 		waitTime(3000);
 		deselectContentLang_MoreMenuAndSelectEnglishKannada(contentLanguage);
-
 	}
 
 	public void selectContentLang_MoreMenu_ByDeselectingEnglishKannada(String planguage) throws Exception {
@@ -37551,29 +37584,45 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void verifyRailsInLangingScreen(String userType, String tabName) throws Exception {
-		extent.HeaderChildNode("Verification of Rails in Landing screen: " + tabName);
+		extent.HeaderChildNode("Verification of Rails in Landing screen: "+tabName);
 		SelectTopNavigationTab(tabName);
-
+		
 		String pContentLang = ResponseInstance.getContentLanguageForAppMixpanel(userType);
 		System.out.println("CONTENT LANG: " + pContentLang);
 
 		Response pageResp = ResponseInstance.getResponseForAppPages(tabName, pContentLang, userType);
 		pageResp.print();
-
+		
 		ArrayList<String> railNames = new ArrayList<String>();
-		for (int i = 2; i < 5; i++) {
-			String title = pageResp.jsonPath().getString("buckets[" + i + "].title");
-			railNames.add(title);
+		
+		if(tabName.equalsIgnoreCase("Live TV")) {
+			for(int i=0; i< 20; i++) {
+				List trayItems = pageResp.jsonPath().getList("items["+i+"].items");
+				System.out.println(trayItems.size());
+				if(trayItems.size()>0) {
+					String title = pageResp.jsonPath().getString("items["+i+"].title");
+					railNames.add(title);
+				}
+				if(railNames.size()==3) {
+					break;
+				}
+			}
+			System.out.println(railNames);
+			
+			findingTrayInscreen(20, AMDHomePage.objTrayTitle(railNames.get(0)), AMDHomePage.objTrayTitle(railNames.get(0)), railNames.get(0), "First rail", userType, tabName);
+			findingTrayInscreen(20, AMDHomePage.objTrayTitle(railNames.get(1)), AMDHomePage.objTrayTitle(railNames.get(0)), railNames.get(1), "First rail", userType, tabName);
+			findingTrayInscreen(20, AMDHomePage.objTrayTitle(railNames.get(2)), AMDHomePage.objTrayTitle(railNames.get(0)), railNames.get(2), "First rail", userType, tabName);
+		}else {
+			for(int i=2; i<5;i++) {
+				String title = pageResp.jsonPath().getString("buckets["+i+"].title");
+				railNames.add(title);
+			}
+			System.out.println(railNames);
+			
+		findingTrayInscreen(20, AMDHomePage.objTrayTitle(railNames.get(0)), AMDHomePage.objCarouselDots, railNames.get(0), "MastheadCarousel", userType, tabName);
+		findingTrayInscreen(20, AMDHomePage.objTrayTitle(railNames.get(1)), AMDHomePage.objCarouselDots, railNames.get(1), "MastheadCarousel", userType, tabName);
+		findingTrayInscreen(20, AMDHomePage.objTrayTitle(railNames.get(2)), AMDHomePage.objCarouselDots, railNames.get(2), "MastheadCarousel", userType, tabName);
 		}
-		System.out.println(railNames);
-
-		findingTrayInscreen(10, AMDHomePage.objTrayTitle(railNames.get(0)), AMDHomePage.objCarouselDots,
-				railNames.get(0), "MastheadCarousel", userType, tabName);
-		findingTrayInscreen(10, AMDHomePage.objTrayTitle(railNames.get(1)), AMDHomePage.objCarouselDots,
-				railNames.get(1), "MastheadCarousel", userType, tabName);
-		findingTrayInscreen(10, AMDHomePage.objTrayTitle(railNames.get(2)), AMDHomePage.objCarouselDots,
-				railNames.get(2), "MastheadCarousel", userType, tabName);
-
 	}
 	
 	

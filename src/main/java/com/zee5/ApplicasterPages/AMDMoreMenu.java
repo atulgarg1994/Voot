@@ -327,8 +327,6 @@ public class AMDMoreMenu {
 	
 	public static By Restrict7AboveContent = By.xpath("//*[@text='Restrict U/A 7+ Content']");
 	public static By Restrict16AboveContent = By.xpath("//*[@text='Restrict U/A 16+ Content']");
-	
-	public static By Restrict18PlusAboveContent = By.xpath("//*[@text='Restrict U/A 18+ Content']");
 	public static By Restrict13PlusAboveContent = By.xpath("//*[@text='Restrict U/A 13+ Content']");
 	
 	public static By objWatchlistShowsSelected = By.xpath("//*[@contentDescription='Shows' and @selected='true']");
@@ -345,4 +343,6 @@ public class AMDMoreMenu {
 	}
 	
 	public static  By objShowFirstContent = By.xpath("(//*[@id='txt_reminder_item_title'])[1]");
+	
+	public static By Restrict18PlusAboveContent = By.xpath("//*[@text='Restrict A 18+ Content']");
 }

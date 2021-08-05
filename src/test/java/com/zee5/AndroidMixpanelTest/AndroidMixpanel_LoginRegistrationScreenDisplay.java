@@ -18,7 +18,7 @@ public class AndroidMixpanel_LoginRegistrationScreenDisplay {
 		Zee5ApplicasterMixPanelBusinessLogic = new Zee5ApplicasterMixPanelBusinessLogic("zee");
 	}
 
-//	@Test(priority = 1)
+	@Test(priority = 1)
 	@Parameters({"userType"})
 	public void AndroidMixPanel_LoginRegistrationScreenDisplayEventValidation(String userType) throws Exception {
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
@@ -30,7 +30,7 @@ public class AndroidMixpanel_LoginRegistrationScreenDisplay {
 	@Test(priority = 2)
 	@Parameters({"userType"})
 	public void verifyLoginRegistrationScreenDisplayEvent(String userType) throws Exception {
-	//	Utilities.relaunch = true;
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyLoginRegistrationScreenDisplayEvent(userType);

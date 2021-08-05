@@ -28,7 +28,7 @@ public class AndroidMixpanel_CTAs {
 	@Test(priority = 2)
 	@Parameters({"userType"})
 	public void verifyCTAsEventForSettingsInMore(String pUserType) throws Exception {
-		Utilities.relaunch = true;
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(pUserType);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyCTAsEventForSettingsInMore(pUserType);
@@ -37,7 +37,7 @@ public class AndroidMixpanel_CTAs {
 	@Test(priority = 3)
 	@Parameters({"userType"})
 	public void verifyCTAsEventForMySubscriptionInMore(String pUserType) throws Exception {
-		Utilities.relaunch = true;
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(pUserType);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyCTAsEventForMySubscriptionInMore(pUserType);
@@ -46,7 +46,7 @@ public class AndroidMixpanel_CTAs {
 	@Test(priority = 4)
 	@Parameters({"userType"})
 	public void verifyCTAsEventForMyTransactionInMore(String pUserType) throws Exception {
-		Utilities.relaunch = true;
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(pUserType);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyCTAsEventForMyTransactionInMore(pUserType);
@@ -55,7 +55,7 @@ public class AndroidMixpanel_CTAs {
 	@Test(priority = 5)
 	@Parameters({"userType"})
 	public void verifyCTAsEventForContinueBtn(String pUserType) throws Exception {
-		Utilities.relaunch = true;
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(pUserType);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyCTAsEventForContinueBtn(pUserType);
@@ -64,7 +64,7 @@ public class AndroidMixpanel_CTAs {
 	@Test(priority = 6)
 	@Parameters({"userType"})
 	public void verifyCTAsEventForMyProfile(String pUserType) throws Exception {
-		Utilities.relaunch = true;
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(pUserType);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyCTAsEventForMyProfile(pUserType);

@@ -29,7 +29,7 @@ public class AndroidMixpanel_LoginResult {
 	@Test(priority = 2)
 	@Parameters({"userType"})
 	public void verifyLoginResultEventViaBuyPlanHeader(String userType) throws Exception {
-		Utilities.relaunch = true;
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyLoginResultEventViaBuyPlanHeader(userType);
@@ -38,7 +38,7 @@ public class AndroidMixpanel_LoginResult {
 	@Test(priority = 3)
 	@Parameters({"userType"})
 	public void verifyLoginResultEventViaBuyPlanMoreSection(String userType) throws Exception {
-		Utilities.relaunch = true;
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyLoginResultEventViaBuyPlanMoreSection(userType);
@@ -47,7 +47,7 @@ public class AndroidMixpanel_LoginResult {
 	@Test(priority = 4)
 	@Parameters({"userType"})
 	public void verifyLoginResultEventViaBuyPlanMySubscription(String userType) throws Exception {
-		Utilities.relaunch = true;
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyLoginResultEventViaBuyPlanMySubscription(userType);
@@ -56,7 +56,7 @@ public class AndroidMixpanel_LoginResult {
 	@Test(priority = 5)
 	@Parameters({"userType"})
 	public void verifyLoginResultEventViaBuyPlanMyTransactions(String userType) throws Exception {
-		Utilities.relaunch = true;
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyLoginResultEventViaBuyPlanMyTransactions(userType);
@@ -65,7 +65,7 @@ public class AndroidMixpanel_LoginResult {
 	@Test(priority = 6)
 	@Parameters({"userType", "keyword3"})
 	public void verifyLoginResultEventViaBuyPlanBelowPlayer(String userType,String keyword3) throws Exception {
-		Utilities.relaunch = true;
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyLoginResultEventViaBuyPlanBelowPlayer(userType,keyword3);
@@ -74,7 +74,7 @@ public class AndroidMixpanel_LoginResult {
 	@Test(priority = 7)
 	@Parameters({"userType", "trailerContent"})
 	public void verifyLoginResultEventViaBuyPlan_Trailer(String userType,String trailerContent) throws Exception {
-		Utilities.relaunch = true;
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
 		Zee5ApplicasterMixPanelBusinessLogic.verifyLoginResultEventViaBuyPlan_Trailer(userType,trailerContent);
