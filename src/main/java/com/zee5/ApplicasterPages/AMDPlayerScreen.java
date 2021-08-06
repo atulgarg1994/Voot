@@ -41,9 +41,6 @@ public class AMDPlayerScreen {
 	public static By objfbLoginPage = By.xpath(
 			"//*[@content-desc='Create New Facebook Account'] | //*[@content-desc='Log In'] | //*[@text='Log In'] | //*[@text='Create New Facebook Account']");
 
-	public static By objAd = By.xpath(
-			"(//*[contains(text(),'Ad :')]) | (//*[contains(text(),'Ad 1 of 2 :')]) | (//*[contains(text(),'Ad 2 of 2 :')])");
-
 	public static By objAd1 = By.xpath("(//*[contains(text(),'Ad 2 of 2 :')])");
 	
 	public static By objAd2 = By
@@ -231,6 +228,8 @@ public class AMDPlayerScreen {
 	public static By objBuyPlanOnThePlayer = By.xpath("//*[@id='subscribeContainer']/child::*[@id='subscribeButton']");
 	
 	public static By objcontentRating = By.xpath("//*[@id='content_info']");
+	
+	public static By objAd = By.xpath("(//*[contains(text(),'Ad :')]) | (//*[contains(text(),'Ad 1 of 2 :')]) | (//*[contains(text(),'Ad 2 of 2 :')])  | //*[@content-desc='Learn More']");
 	
 
 }

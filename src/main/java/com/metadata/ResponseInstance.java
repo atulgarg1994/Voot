@@ -2306,9 +2306,9 @@ public class ResponseInstance {
 					.header("authorization", bearerToken).when().get(Uri);
 		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
 			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("NonSubscribedUserName");
+					.getParameter("NonsubscribedUserName");
 			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-					.getParameter("NonSubscribedUserPassword");
+					.getParameter("NonsubscribedPassword");
 			String bearerToken = getBearerToken(email, password);
 			respCarousel = RestAssured.given().headers("x-access-token", xAccessToken)
 					.header("authorization", bearerToken).when().get(Uri);
@@ -2713,7 +2713,7 @@ public class ResponseInstance {
 			setContentType = "8";
 		} else if (tabName.equalsIgnoreCase("Live TV") || tabName.equalsIgnoreCase("livetv")) {
 			setContentType = "9";
-		} else if (tabName.equalsIgnoreCase("ZEE5 Originals") || tabName.equalsIgnoreCase("ZEEOriginals")) {
+		} else if (tabName.equalsIgnoreCase("Web Series")) {
 			setContentType = "6";
 		}
 
@@ -2735,8 +2735,7 @@ public class ResponseInstance {
 					}
 				}
 			}
-		} else if (tabName.equalsIgnoreCase("premium") || tabName.equalsIgnoreCase("ZEE5 Originals")
-				|| tabName.equalsIgnoreCase("ZEEOriginals")) {
+		} else if (tabName.equalsIgnoreCase("premium") || tabName.equalsIgnoreCase("Web Series")) {
 			for (int i = 1; i < 5; i++) {
 				if (tabName.equalsIgnoreCase("premium")) {
 					assettype = resp.jsonPath().get("buckets[" + i + "].asset_type").toString();
@@ -2744,21 +2743,26 @@ public class ResponseInstance {
 					assettype = resp.jsonPath().get("buckets[" + i + "].items[0].asset_type").toString();
 				}
 				pTrayName = resp.jsonPath().get("buckets[" + i + "].title").toString();
+				String assetSubType = null;
 				if (assettype.equals(setContentType)) {
 					pContentID = resp.jsonPath().get("buckets[" + i + "].items[0].id").toString();
 					contentName = resp.jsonPath().get("buckets[" + i + "].items[0].title").toString();
-
+					assetSubType = resp.jsonPath().get("buckets[" + i + "].items[0].asset_subtype").toString();
 					System.out.println("\nTrayName: " + pTrayName);
 					System.out.println("ContentID: " + pContentID);
 					System.out.println("ContentName: " + contentName);
 					break;
 				}
 			}
-			Response contentResp = getContentDetails(pContentID, "original");
-			int seasonCount = contentResp.jsonPath().getList("seasons").size();
-
-			if (pUserType.equalsIgnoreCase("guest") && tabName.equalsIgnoreCase("ZEE5 Originals")
-					&& (seasonCount > 1)) {
+			
+			Response contentResp = null;
+			int seasonCount= 0;
+			if(assetSubType.equalsIgnoreCase("original")){
+				contentResp = getContentDetails(pContentID, "original");
+				seasonCount = contentResp.jsonPath().getList("seasons").size();
+			}
+			
+			if (pUserType.equalsIgnoreCase("guest") && tabName.equalsIgnoreCase("Web Series") && (seasonCount > 1)) {
 				pContentID = contentResp.jsonPath().get("seasons[0].episodes[0].id");
 			} else if (pUserType.equalsIgnoreCase("guest") && (seasonCount > 1)) {
 				pContentID = contentResp.jsonPath().get("seasons[0].trailers[0].id");
@@ -2883,6 +2887,7 @@ public class ResponseInstance {
 		String pContentSpecification = contentResp.jsonPath().get("asset_subtype");
 		int episode = contentResp.jsonPath().get("episode_number");
 		String pEpisodeNum = Integer.toString(episode);
+		pEpisodeNum = "Episode "+pEpisodeNum;
 		if (pEpisodeNum.equalsIgnoreCase("0")) {
 			pEpisodeNum = "N/A";
 		}
@@ -3007,6 +3012,7 @@ public class ResponseInstance {
 		MixpanelAndroid.FEProp.setProperty("Publishing Date", pPublishedDate);
 		MixpanelAndroid.FEProp.setProperty("Subtitle Language", pSubTitleLangguage);
 	}
+
 
 	public static void setFEPropertyOfLIVETVCardDetails(String pTrayName, String pContentID) {
 
@@ -3418,9 +3424,9 @@ public class ResponseInstance {
 		if (!userType.equalsIgnoreCase("Guest")) {
 			if (userType.equals("NonSubscribedUser")) {
 				username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("NonSubscribedUserName");
+						.getParameter("NonsubscribedUserName");
 				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("NonSubscribedUserPassword");
+						.getParameter("NonsubscribedPassword");
 			}
 			if (userType.equals("SubscribedUser")) {
 				username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
@@ -3623,9 +3629,9 @@ public class ResponseInstance {
 		if (!userType.equalsIgnoreCase("Guest")) {
 			if (userType.equals("NonSubscribedUser")) {
 				username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("NonSubscribedUserName");
+						.getParameter("NonsubscribedUserName");
 				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("NonSubscribedUserPassword");
+						.getParameter("NonsubscribedPassword");
 			}
 			if (userType.equals("SubscribedUser")) {
 				username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
@@ -4256,9 +4262,9 @@ public class ResponseInstance {
 		if (!userType.equalsIgnoreCase("Guest")) {
 			if (userType.equals("NonSubscribedUser")) {
 				username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("NonSubscribedUserName");
+						.getParameter("NonsubscribedUserName");
 				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("NonSubscribedUserPassword");
+						.getParameter("NonsubscribedPassword");
 			}
 			if (userType.equals("SubscribedUser")) {
 				username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
@@ -5328,8 +5334,8 @@ public class ResponseInstance {
 			String bearerToken = getBearerToken(email, password);
 			respCW = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(Uri);
 		} else if (userType.equalsIgnoreCase("NonSubscribedUser")) {
-			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonSubscribedUserName");
-			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonSubscribedUserPassword");
+			String email = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedUserName");
+			String password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedPassword");
 			String bearerToken = getBearerToken(email, password);
 			respCW = RestAssured.given().headers("x-access-token", xAccessToken).header("authorization", bearerToken).when().get(Uri);
 		} else {
@@ -5601,7 +5607,7 @@ public class ResponseInstance {
 		
 		if (!userType.equalsIgnoreCase("Guest")) {
 			if (userType.equals("NonSubscribedUser")) {
-				username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonSubscribedUserName");
+				username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedUserName");
 				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedPassword");
 			}
 			if (userType.equals("SubscribedUser")) {
@@ -6611,8 +6617,8 @@ public class ResponseInstance {
 		} 		
 		if (!userType.equalsIgnoreCase("Guest")) {
 			if (userType.equals("NonSubscribedUser")) {
-				username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonSubscribedUserName");
-				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonSubscribedUserPassword");
+				username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedUserName");
+				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedPassword");
 			}
 			if (userType.equals("SubscribedUser")) {
 				username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("SubscribedUserName");
@@ -6783,7 +6789,7 @@ public class ResponseInstance {
 		userType=Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
 		Response deletDeviceResponse=null;
 		if (userType.equals("NonSubscribedUser")) {
-			username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonSubscribedUserName");
+			username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedUserName");
 			password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedPassword");
 		}
 		if (userType.equals("SubscribedUser")) {

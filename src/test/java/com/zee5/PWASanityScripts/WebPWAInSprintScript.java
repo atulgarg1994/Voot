@@ -757,6 +757,50 @@ public class WebPWAInSprintScript {
 		Zee5WEBPWASanityBusinessLogic.HowItWorksInConsumptionPage(userType);
 	}
 	
+	@Test(priority=122)
+	@Parameters({ "userType" })
+	public void SixPopularBanks(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.SixPopularBanks(userType);
+	}
+	
+	
+	@Test(priority=123)
+	@Parameters({ "userType" })
+	public void UPISelectionForNonRecuring(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.UPISelectionForNonRecuring(userType);
+	}
+	
+	@Test(priority=124)
+	@Parameters({ "userType" })
+	public void UPIPaymentScreenValidation(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.UPIPaymentScreenValidation(userType);;
+	}
+	
+	@Test(priority=125)
+	@Parameters({ "userType" })
+	public void UPICountDownTimer(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.UPICountDownTimer(userType);;
+	}
+	
+	@Test(priority=126)
+	@Parameters({ "userType" })
+	public void PlanSelectionPageUsingBackButtonInUPI(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.PlanSelectionPageUsingBackButtonInUPI(userType);
+	}
+	
+	@Test(priority=127)
+	@Parameters({ "userType" })
+	public void EnterUPIID(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.EnterUPIID(userType);
+	}
+	
+	
+	@Test(priority=128)
+	@Parameters({ "userType" })
+	public void GenerateORPageUsingBackArrowInUPI(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.GenerateORPageUsingBackArrowInUPI(userType);
+	}
+	
 	
 	@AfterClass
 	public void tearDown() {

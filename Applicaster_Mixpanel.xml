@@ -6,8 +6,8 @@
 	<parameter name="runModule" value="Suite" />
 	<parameter name="runMode" value="Suites" /> 
 	
-	<parameter name="NonSubscribedUserName" value="amdnonmixpanel@yopmail.com" />
-	<parameter name="NonSubscribedUserPassword" value="123456" />
+	<parameter name="NonsubscribedUserName" value="amdnonmixpanel@yopmail.com" />
+	<parameter name="NonsubscribedPassword" value="123456" />
 	
 	<parameter name="SubscribedUserName" value="499subnoradhe@gmail.com" />
 	<parameter name="SubscribedPassword" value="123456" />
@@ -62,6 +62,9 @@
 	<parameter name="zeeplexContent" value="TVOD Test movie 2"/>
 	<parameter name="zeeplexContentID" value="0-0-425002"/>
 	<parameter name="clipID" value="0-6-1179" />
+	
+	<parameter name="BottomNavigation" value="Downloads" />
+	<parameter name="MoreMenuOptions" value="Settings" />
 	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />

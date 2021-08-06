@@ -583,9 +583,9 @@ public class MixpanelAndroid extends ExtentReporter {
 			if (!fetchUserdata) {
 				if(UserType.equals("NonSubscribedUser")) {
 				 pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("NonSubscribedUserName");
+						.getParameter("NonsubscribedUserName");
 				pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("NonSubscribedUserPassword");
+						.getParameter("NonsubscribedPassword");
 				}else if(UserType.equals("SubscribedUser")) {
 					pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 							.getParameter("SubscribedUserName");
@@ -718,7 +718,7 @@ public class MixpanelAndroid extends ExtentReporter {
 		if (!UserType.equals("Guest")) {
 			if (!fetchUserdata) {
 				String pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("SettingsNonSubscribedUserName");
+						.getParameter("SettingsNonsubscribedUserName");
 				String pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
 						.getParameter("SettingsNonSubscribedPassword");
 				ResponseInstance.getUserData(pUsername, pPassword);

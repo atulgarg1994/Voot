@@ -222,8 +222,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		case "NonSubscribedUser":
 			extent.HeaderChildNode("Login as NonSubscribed User");
 
-			Username = getParameterFromXML("NonSubscribedUserName");
-			Password = getParameterFromXML("NonSubscribedUserPassword");
+			Username = getParameterFromXML("NonsubscribedUserName");
+			Password = getParameterFromXML("NonsubscribedPassword");
 
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
 			verifyElementPresentAndClick(AMDMoreMenu.objLoginRegisterText, "Login/Register for best experience text");
@@ -364,7 +364,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			if (verifyIsElementDisplayed(AMDPlayerScreen.objRegisterPopUp, "Register popUp")) {
 				verifyElementPresentAndClick(AMDPlayerScreen.objLoginButtonInRegisterPopUp, "Login link");
 				verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
-				String Username = getParameterFromXML("NonSubscribedUserName");
+				String Username = getParameterFromXML("NonsubscribedUserName");
 				type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
 				verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
 				waitTime(3000);
@@ -760,8 +760,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		String Username = "";
 		String Password = "";
 		if (userType.equals("NonSubscribedUser")) {
-			Username = getParameterFromXML("NonSubscribedUserName");
-			Password = getParameterFromXML("NonSubscribedUserPassword");
+			Username = getParameterFromXML("NonsubscribedUserName");
+			Password = getParameterFromXML("NonsubscribedPassword");
 		} else {
 			Username = getParameterFromXML("SubscribedUserName");
 			Password = getParameterFromXML("SubscribedPassword");
@@ -881,8 +881,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					Username = getParameterFromXML("SubscribedUserName");
 					Password = getParameterFromXML("SubscribedPassword");
 				} else if (pUserType.equalsIgnoreCase("NonSubscribedUser")) {
-					Username = getParameterFromXML("NonSubscribedUserName");
-					Password = getParameterFromXML("NonSubscribedUserPassword");
+					Username = getParameterFromXML("NonsubscribedUserName");
+					Password = getParameterFromXML("NonsubscribedPassword");
 				}
 				mixpanel.FEProp.setProperty("Old App Language",
 						ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("display_language"));
@@ -2019,8 +2019,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				Username = getParameterFromXML("SubscribedUserName");
 				Password = getParameterFromXML("SubscribedPassword");
 			} else if (pUserType.equalsIgnoreCase("NonSubscribedUser")) {
-				Username = getParameterFromXML("NonSubscribedUserName");
-				Password = getParameterFromXML("NonSubscribedUserPassword");
+				Username = getParameterFromXML("NonsubscribedUserName");
+				Password = getParameterFromXML("NonsubscribedPassword");
 			}
 			mixpanel.FEProp.setProperty("Old Download Quality Setting",
 					ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("download_quality"));
@@ -3627,8 +3627,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			String pUsername = null, pPwd = null;
 			switch (userType) {
 			case "NonSubscribedUser":
-				pUsername = getParameterFromXML("NonSubscribedUserName");
-				pPwd = getParameterFromXML("NonSubscribedUserPassword");
+				pUsername = getParameterFromXML("NonsubscribedUserName");
+				pPwd = getParameterFromXML("NonsubscribedPassword");
 				break;
 
 			case "SubscribedUser":
@@ -4941,7 +4941,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 			verifyElementPresentAndClick(AMDOnboardingScreen.objBrowseForFreeBtn, "Browse for Free");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
-			String Username = getParameterFromXML("NonSubscribedUserName");
+			String Username = getParameterFromXML("NonsubscribedUserName");
 			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
 
@@ -4974,7 +4974,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 			verifyElementPresentAndClick(AMDOnboardingScreen.objLoginLnk, "Login link");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
-			String Username = getParameterFromXML("NonSubscribedUserName");
+			String Username = getParameterFromXML("NonsubscribedUserName");
 			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
 			waitTime(3000);
@@ -4994,7 +4994,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More menu");
 			verifyElementPresentAndClick(AMDMoreMenu.objProfile, "My account");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
-			String Username = getParameterFromXML("NonSubscribedUserName");
+			String Username = getParameterFromXML("NonsubscribedUserName");
 			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
 			waitTime(3000);
@@ -5023,7 +5023,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			Swipe("Up", 1);
 			verifyElementPresentAndClick(AMDPlayerScreen.objLoginCTA, "Login CTA");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
-			String Username = getParameterFromXML("NonSubscribedUserName");
+			String Username = getParameterFromXML("NonsubscribedUserName");
 			type(AMDLoginScreen.objEmailIdField, Username, "Email Field");
 			verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
 			waitTime(3000);
@@ -8831,8 +8831,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				Username = getParameterFromXML("SubscribedUserName");
 				Password = getParameterFromXML("SubscribedPassword");
 			} else if (pUserType.equalsIgnoreCase("NonSubscribedUser")) {
-				Username = getParameterFromXML("NonSubscribedUserName");
-				Password = getParameterFromXML("NonSubscribedUserPassword");
+				Username = getParameterFromXML("NonsubscribedUserName");
+				Password = getParameterFromXML("NonsubscribedPassword");
 			}
 
 			Properties pro = new Properties();
@@ -8907,8 +8907,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	public void verifyLoginPasswordEnteredEvent() throws Exception {
 		HeaderChildNode("Login Password Entered event");
 
-		String userName = getParameterFromXML("NonSubscribedUserName");
-		String Password = getParameterFromXML("NonSubscribedUserPassword");
+		String userName = getParameterFromXML("NonsubscribedUserName");
+		String Password = getParameterFromXML("NonsubscribedPassword");
 		verifyElementPresentAndClick(AMDLoginScreen.objBrowseForFreeBtn, "Browse for Free CTA");
 		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 		type(AMDLoginScreen.objEmailIdField, userName, "Email Field");
@@ -8930,7 +8930,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		if (userType.equalsIgnoreCase("Guest")) {
 			HeaderChildNode("User Name Entered event");
 
-			String userName = getParameterFromXML("NonSubscribedUserName");
+			String userName = getParameterFromXML("NonsubscribedUserName");
 			verifyElementPresentAndClick(AMDLoginScreen.objBrowseForFreeBtn, "Browse for Free CTA");
 			verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
 			type(AMDLoginScreen.objEmailIdField, userName, "Email Field");
@@ -9451,8 +9451,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				ResponseInstance.setSubscriptionDetails_NativeAndroid();
 				mixpanel.FEProp.setProperty("User Type", "Premium");
 			} else {
-				pUsername = getParameterFromXML("NonSubscribedUserName");
-				pPassword = getParameterFromXML("NonSubscribedUserPassword");
+				pUsername = getParameterFromXML("NonsubscribedUserName");
+				pPassword = getParameterFromXML("NonsubscribedPassword");
 				mixpanel.FEProp.setProperty("User Type", "registered");
 				MixpanelAndroid.FEProp.setProperty("Pack Duration", "N/A");
 				ResponseInstance.getRegionDetails();
@@ -9843,8 +9843,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				Username = getParameterFromXML("SubscribedUserName");
 				Password = getParameterFromXML("SubscribedPassword");
 			} else if (pUserType.equalsIgnoreCase("NonSubscribedUser")) {
-				Username = getParameterFromXML("NonSubscribedUserName");
-				Password = getParameterFromXML("NonSubscribedUserPassword");
+				Username = getParameterFromXML("NonsubscribedUserName");
+				Password = getParameterFromXML("NonsubscribedPassword");
 			}
 			mixpanel.FEProp.setProperty("Old Video Streaming Quality Setting",
 					ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("streaming_quality"));
@@ -10165,8 +10165,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				Username = getParameterFromXML("SubscribedUserName");
 				Password = getParameterFromXML("SubscribedPassword");
 			} else if (pUserType.equalsIgnoreCase("NonSubscribedUser")) {
-				Username = getParameterFromXML("NonSubscribedUserName");
-				Password = getParameterFromXML("NonSubscribedUserPassword");
+				Username = getParameterFromXML("NonsubscribedUserName");
+				Password = getParameterFromXML("NonsubscribedPassword");
 			}
 			mixpanel.FEProp.setProperty("Old Stream Over Wifi Setting",
 					ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("stream_over_wifi"));
@@ -10204,8 +10204,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				Username = getParameterFromXML("SubscribedUserName");
 				Password = getParameterFromXML("SubscribedPassword");
 			} else if (pUserType.equalsIgnoreCase("NonSubscribedUser")) {
-				Username = getParameterFromXML("NonSubscribedUserName");
-				Password = getParameterFromXML("NonSubscribedUserPassword");
+				Username = getParameterFromXML("NonsubscribedUserName");
+				Password = getParameterFromXML("NonsubscribedPassword");
 			}
 			mixpanel.FEProp.setProperty("Old Autoplay Setting",
 					ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("auto_play"));
@@ -10245,8 +10245,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				Username = getParameterFromXML("SubscribedUserName");
 				Password = getParameterFromXML("SubscribedPassword");
 			} else if (pUserType.equalsIgnoreCase("NonSubscribedUser")) {
-				Username = getParameterFromXML("NonSubscribedUserName");
-				Password = getParameterFromXML("NonSubscribedUserPassword");
+				Username = getParameterFromXML("NonsubscribedUserName");
+				Password = getParameterFromXML("NonsubscribedPassword");
 			}
 			mixpanel.FEProp.setProperty("Old Download Over Wifi Setting",
 					ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("download_over_wifi"));
@@ -10466,8 +10466,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				Username = getParameterFromXML("SubscribedUserName");
 				Password = getParameterFromXML("SubscribedPassword");
 			} else if (pUserType.equalsIgnoreCase("NonSubscribedUser")) {
-				Username = getParameterFromXML("NonSubscribedUserName");
-				Password = getParameterFromXML("NonSubscribedUserPassword");
+				Username = getParameterFromXML("NonsubscribedUserName");
+				Password = getParameterFromXML("NonsubscribedPassword");
 			}
 			mixpanel.FEProp.setProperty("Old App Language",
 					ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("display_language"));
@@ -10504,8 +10504,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 					Username = getParameterFromXML("SubscribedUserName");
 					Password = getParameterFromXML("SubscribedPassword");
 				} else if (pUserType.equalsIgnoreCase("NonSubscribedUser")) {
-					Username = getParameterFromXML("NonSubscribedUserName");
-					Password = getParameterFromXML("NonSubscribedUserPassword");
+					Username = getParameterFromXML("NonsubscribedUserName");
+					Password = getParameterFromXML("NonsubscribedPassword");
 				}
 				mixpanel.FEProp.setProperty("New App Language",
 						ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("display_language"));
@@ -10680,8 +10680,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				Username = getParameterFromXML("SubscribedUserName");
 				Password = getParameterFromXML("SubscribedPassword");
 			} else if (pUserType.equalsIgnoreCase("NonSubscribedUser")) {
-				Username = getParameterFromXML("NonSubscribedUserName");
-				Password = getParameterFromXML("NonSubscribedUserPassword");
+				Username = getParameterFromXML("NonsubscribedUserName");
+				Password = getParameterFromXML("NonsubscribedPassword");
 			}
 			mixpanel.FEProp.setProperty("Old App Language",
 					ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("display_language"));
@@ -10739,8 +10739,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				Username = getParameterFromXML("SubscribedUserName");
 				Password = getParameterFromXML("SubscribedPassword");
 			} else if (pUserType.equalsIgnoreCase("NonSubscribedUser")) {
-				Username = getParameterFromXML("NonSubscribedUserName");
-				Password = getParameterFromXML("NonSubscribedUserPassword");
+				Username = getParameterFromXML("NonsubscribedUserName");
+				Password = getParameterFromXML("NonsubscribedPassword");
 			}
 			mixpanel.FEProp.setProperty("Old App Language",
 					ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("display_language"));
@@ -10948,7 +10948,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				break;
 
 			case "emailLogin":
-				String Username = getParameterFromXML("NonSubscribedUserName");
+				String Username = getParameterFromXML("NonsubscribedUserName");
 				String Password = "abcdefg";
 
 				verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
@@ -11006,7 +11006,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				break;
 
 			case "emailLogin":
-				String Username = getParameterFromXML("NonSubscribedUserName");
+				String Username = getParameterFromXML("NonsubscribedUserName");
 				String Password = "abcdefg";
 
 				verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
@@ -11063,7 +11063,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				break;
 
 			case "emailLogin":
-				String Username = getParameterFromXML("NonSubscribedUserName");
+				String Username = getParameterFromXML("NonsubscribedUserName");
 				String Password = "abcdefg";
 
 				verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
@@ -11199,16 +11199,16 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		String nCC = "5318 3123 4521 9856";
 		String expiryDate = "0325";
 		String nCVV = "321";
-		String getEmail = getParameterFromXML("NonSubscribedUserName");
-		String getPwd = getParameterFromXML("NonSubscribedUserPassword");
+		String getEmail = getParameterFromXML("NonsubscribedUserName");
+		String getPwd = getParameterFromXML("NonsubscribedPassword");
 
 		if (!(pUserType.equalsIgnoreCase("Guest"))) {
 			if (pUserType.equalsIgnoreCase("SubscribedUser")) {
 				Username = getParameterFromXML("SubscribedUserName");
 				Password = getParameterFromXML("SubscribedPassword");
 			} else if (pUserType.equalsIgnoreCase("NonSubscribedUser")) {
-				Username = getParameterFromXML("NonSubscribedUserName");
-				Password = getParameterFromXML("NonSubscribedUserPassword");
+				Username = getParameterFromXML("NonsubscribedUserName");
+				Password = getParameterFromXML("NonsubscribedPassword");
 			}
 			mixpanel.FEProp.setProperty("Old App Language",
 					ResponseInstance.getUserSettingsDetails(Username, Password).getProperty("display_language"));
@@ -11430,7 +11430,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				break;
 
 			case "emailLogin":
-				String Username = getParameterFromXML("NonSubscribedUserName");
+				String Username = getParameterFromXML("NonsubscribedUserName");
 				String Password = "abcdefg";
 
 				verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
@@ -11727,7 +11727,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 	public void UpcomingSection_visitedEvent(String usertype) throws Exception {
 
-		extent.HeaderChildNode("More section visited event");
+		extent.HeaderChildNode("Upcoming section visited event");
 		waitTime(5000);
 		verifyElementPresentAndClick(AMDHomePage.objBottomUpcomingBtn, "Upcoming");
 		String pManufacturer = DeviceDetails.OEM;
@@ -13059,8 +13059,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			String expiryDate = "0325";
 			String nCVV = "321";
 
-			String Username = getParameterFromXML("NonSubscribedUserName");
-			String Password = getParameterFromXML("NonSubscribedUserPassword");
+			String Username = getParameterFromXML("NonsubscribedUserName");
+			String Password = getParameterFromXML("NonsubscribedPassword");
 
 			click(AMDSearchScreen.objSearchIcon, "Search icon");
 			click(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -13132,8 +13132,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			String expiryDate = "0325";
 			String nCVV = "321";
 
-			String Username = getParameterFromXML("NonSubscribedUserName");
-			String Password = getParameterFromXML("NonSubscribedUserPassword");
+			String Username = getParameterFromXML("NonsubscribedUserName");
+			String Password = getParameterFromXML("NonsubscribedPassword");
 
 			click(AMDSearchScreen.objSearchIcon, "Search icon");
 			click(AMDSearchScreen.objSearchEditBox, "Search Box");
@@ -13642,8 +13642,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	public void verifyLoginInitiatedEventViaBuyPlanHeader(String userType) throws Exception {
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode("Verify Login Initiated Event - Buy Plan Header");
-			String getEmail = getParameterFromXML("NonSubscribedUserName");
-			String getPwd = getParameterFromXML("NonSubscribedUserPassword");
+			String getEmail = getParameterFromXML("NonsubscribedUserName");
+			String getPwd = getParameterFromXML("NonsubscribedPassword");
 
 			verifyElementPresentAndClick(AMDHomePage.objSubscribeIcon, "Subscribe button");
 			waitTime(3000);
@@ -13673,8 +13673,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	public void verifyLoginInitiatedEventViaBuyPlanMoreSection(String userType) throws Exception {
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode("Verify Login Initiated Event - Buy Plan More Section");
-			String getEmail = getParameterFromXML("NonSubscribedUserName");
-			String getPwd = getParameterFromXML("NonSubscribedUserPassword");
+			String getEmail = getParameterFromXML("NonsubscribedUserName");
+			String getPwd = getParameterFromXML("NonsubscribedPassword");
 
 			waitTime(3000);
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
@@ -13706,8 +13706,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	public void verifyLoginInitiatedEventViaBuyPlanMySubscription(String userType) throws Exception {
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode("Verify Login Initiated Event - Buy Plan My Subscription");
-			String getEmail = getParameterFromXML("NonSubscribedUserName");
-			String getPwd = getParameterFromXML("NonSubscribedUserPassword");
+			String getEmail = getParameterFromXML("NonsubscribedUserName");
+			String getPwd = getParameterFromXML("NonsubscribedPassword");
 
 			waitTime(3000);
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
@@ -13739,8 +13739,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	public void verifyLoginInitiatedEventViaBuyPlanMyTransactions(String userType) throws Exception {
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode("Verify Login Initiated Event - Buy Plan My Transaction");
-			String getEmail = getParameterFromXML("NonSubscribedUserName");
-			String getPwd = getParameterFromXML("NonSubscribedUserPassword");
+			String getEmail = getParameterFromXML("NonsubscribedUserName");
+			String getPwd = getParameterFromXML("NonsubscribedPassword");
 
 			waitTime(3000);
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
@@ -13772,8 +13772,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	public void verifyLoginInitiatedEventViaBuyPlanBelowPlayer(String userType, String keyword3) throws Exception {
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode("Verify Login Initiated Event - Buy Plan below player");
-			String getEmail = getParameterFromXML("NonSubscribedUserName");
-			String getPwd = getParameterFromXML("NonSubscribedUserPassword");
+			String getEmail = getParameterFromXML("NonsubscribedUserName");
+			String getPwd = getParameterFromXML("NonsubscribedPassword");
 
 			waitTime(3000);
 			click(AMDSearchScreen.objSearchIcon, "Search icon");
@@ -13817,8 +13817,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode(
 					"Verify Login Initiated Event - Buy Plan on player post completion of trailer playback");
-			String getEmail = getParameterFromXML("NonSubscribedUserName");
-			String getPwd = getParameterFromXML("NonSubscribedUserPassword");
+			String getEmail = getParameterFromXML("NonsubscribedUserName");
+			String getPwd = getParameterFromXML("NonsubscribedPassword");
 
 			waitTime(3000);
 			click(AMDSearchScreen.objSearchIcon, "Search icon");
@@ -13862,8 +13862,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	public void verifyLoginResultEventViaBuyPlanHeader(String userType) throws Exception {
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode("Verify Login Result Event - Buy Plan Header");
-			String getEmail = getParameterFromXML("NonSubscribedUserName");
-			String getPwd = getParameterFromXML("NonSubscribedUserPassword");
+			String getEmail = getParameterFromXML("NonsubscribedUserName");
+			String getPwd = getParameterFromXML("NonsubscribedPassword");
 
 			verifyElementPresentAndClick(AMDHomePage.objSubscribeIcon, "Subscribe button");
 			waitTime(3000);
@@ -13893,8 +13893,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	public void verifyLoginResultEventViaBuyPlanMoreSection(String userType) throws Exception {
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode("Verify Login Result Event - Buy Plan More Section");
-			String getEmail = getParameterFromXML("NonSubscribedUserName");
-			String getPwd = getParameterFromXML("NonSubscribedUserPassword");
+			String getEmail = getParameterFromXML("NonsubscribedUserName");
+			String getPwd = getParameterFromXML("NonsubscribedPassword");
 
 			waitTime(3000);
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
@@ -13926,8 +13926,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	public void verifyLoginResultEventViaBuyPlanMySubscription(String userType) throws Exception {
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode("Verify Login Result Event - Buy Plan My Subscription");
-			String getEmail = getParameterFromXML("NonSubscribedUserName");
-			String getPwd = getParameterFromXML("NonSubscribedUserPassword");
+			String getEmail = getParameterFromXML("NonsubscribedUserName");
+			String getPwd = getParameterFromXML("NonsubscribedPassword");
 
 			waitTime(3000);
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
@@ -13959,8 +13959,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	public void verifyLoginResultEventViaBuyPlanMyTransactions(String userType) throws Exception {
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode("Verify Login Result Event - Buy Plan My Transaction");
-			String getEmail = getParameterFromXML("NonSubscribedUserName");
-			String getPwd = getParameterFromXML("NonSubscribedUserPassword");
+			String getEmail = getParameterFromXML("NonsubscribedUserName");
+			String getPwd = getParameterFromXML("NonsubscribedPassword");
 
 			waitTime(3000);
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
@@ -13992,8 +13992,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	public void verifyLoginResultEventViaBuyPlanBelowPlayer(String userType, String keyword3) throws Exception {
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode("Verify Login Result Event - Buy Plan below player");
-			String getEmail = getParameterFromXML("NonSubscribedUserName");
-			String getPwd = getParameterFromXML("NonSubscribedUserPassword");
+			String getEmail = getParameterFromXML("NonsubscribedUserName");
+			String getPwd = getParameterFromXML("NonsubscribedPassword");
 
 			waitTime(3000);
 			click(AMDSearchScreen.objSearchIcon, "Search icon");
@@ -14037,8 +14037,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode(
 					"Verify Login Result Event - Buy Plan on player post completion of trailer playback");
-			String getEmail = getParameterFromXML("NonSubscribedUserName");
-			String getPwd = getParameterFromXML("NonSubscribedUserPassword");
+			String getEmail = getParameterFromXML("NonsubscribedUserName");
+			String getPwd = getParameterFromXML("NonsubscribedPassword");
 
 			waitTime(3000);
 			click(AMDSearchScreen.objSearchIcon, "Search icon");
@@ -14902,7 +14902,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 				break;
 
 			case "emailLogin":
-				String Username = getParameterFromXML("NonSubscribedUserName");
+				String Username = getParameterFromXML("NonsubscribedUserName");
 				String Password = "abcdefg";
 
 				verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
@@ -14935,8 +14935,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	public void verifyLoginRegistrationScreenDisplayEvent(String userType) throws Exception {
 		if (userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode("Verify Login Registration Screen Display Event");
-			String getEmail = getParameterFromXML("NonSubscribedUserName");
-			String getPwd = getParameterFromXML("NonSubscribedUserPassword");
+			String getEmail = getParameterFromXML("NonsubscribedUserName");
+			String getPwd = getParameterFromXML("NonsubscribedPassword");
 
 			verifyElementPresentAndClick(AMDHomePage.objSubscribeIcon, "Subscribe button");
 			waitTime(3000);
@@ -14963,6 +14963,63 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
+	public void AdViewEventForTrayNavigation(String usertype, String tabName)throws Exception  {
+		extent.HeaderChildNode("Ad View event through Landing screen Tray navigation");
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitTime(10000);
+			SelectTopNavigationTab(tabName);
+			waitTime(10000);
+			
+			String contentLang = ResponseInstance.getContentLanguageForAppMixpanel(usertype);
+			System.out.println(contentLang);
+			String trayName = ResponseInstance.getRailNameFromPage(tabName, usertype);
+
+			if (tabName.equalsIgnoreCase("Live TV") || tabName.equalsIgnoreCase("News")) {
+				waitTime(5000);
+				waitForElementDisplayed(AMDGenericObjects.objTrayTitle, 30);
+			}
+			SwipeUntilFindElement(AMDHomePage.objRailName(trayName), "UP");
+			waitTime(3000);
+			if(!(verifyIsElementDisplayed(AMDGenericObjects.objSelectFirstCardFromRailName(trayName)))) {
+				PartialSwipe("Up", 1);
+			}
+			
+			waitTime(3000);
+			click(AMDGenericObjects.objSelectFirstCardFromRailName(trayName), "Content Card");
+			
+			waitTime(20000);
+			boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
+			if (ad == true) {
+				logger.info("Ad is displayed");
+				extent.extentLogger("Ad", "Ad is displayed");
+				waitTime(2000);
+				Back(1);
+				
+				String pManufacturer = DeviceDetails.OEM;
+
+				setFEProperty(usertype);
+				setUserType_SubscriptionProperties(usertype);
+				SetAppsflyerProperty();
+
+				if(usertype.equalsIgnoreCase("Guest")) {
+					mixpanel.FEProp.setProperty("User Type", "Guest");
+				}
+				
+				mixpanel.FEProp.setProperty("Source", "Homepage");
+				mixpanel.FEProp.setProperty("Page Name", "ConsumptionPage");
+				mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+				mixpanel.FEProp.setProperty("brand", pManufacturer);
+				
+				mixpanel.ValidateParameter("", "Ad view");
+			} else {
+				logger.info("Ad is not displayed");
+				extentLoggerPass("Ad", "Ad is not displayed");
+			}
+		}else {
+			logger.info("Not Applicable for this usertype");
+			extent.extentLoggerPass("", "Not Applicable for this usertype");
+		}	
+	}
 	
 	
 }

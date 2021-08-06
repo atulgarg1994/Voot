@@ -62,6 +62,16 @@ private Zee5ApplicasterMixPanelBusinessLogic Zee5ApplicasterMixPanelBusinessLogi
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(usertype);
 		Zee5ApplicasterMixPanelBusinessLogic.AdViewEventForContinueWatchingTray(usertype, pTabName);
 	}
+	
+	@Test(priority = 6)
+	@Parameters({ "userType", "pTabName" })
+	public void AdViewEvent_TrayNavigation(String usertype, String pTabName) throws Exception {
+		System.out.println("\nAd view event of content");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(usertype);
+		Zee5ApplicasterMixPanelBusinessLogic.AdViewEventForTrayNavigation(usertype, pTabName);
+	}
 	//###############-------END OF TEST-------###############
 	
 	@AfterTest

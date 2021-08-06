@@ -103,6 +103,9 @@
 	<!--   Premium user with 1 year(>499 plan price ) and 6 months Plan + Supermoon Active User Plan--> 
 	<parameter name="1yearPremium6MSupermoonUser" value=""/>
 	<parameter name="1yearPremium6MSupermoonPassword" value=""/>
+	<!-- Logged in Non subscribed , Premium user , Regional User with Plan Price less than Combo offer with active -->  
+	<parameter name="anyPackLessThen499withSupermoonUser" value=""/>
+	<parameter name="anyPackLessThen499withSupermoonPassword" value=""/>
 
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
