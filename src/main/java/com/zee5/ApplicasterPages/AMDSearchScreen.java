@@ -249,6 +249,36 @@ public class AMDSearchScreen {
 		 return By.xpath("//*[@class='android.widget.TextView' and @text='"+text+"']");
 	 }
 	
+	// chromecast
+
+	public static By objchromecasticon = By.xpath("//*[@id='contentMetaInfo']//*[@text='c']");
+
+	public static By objchooseDeviceChromeCastPopup = By.xpath("//*[@id='mr_chooser_title']");
+
+	public static By objplayercontentTitle = By.xpath("//*[@id='content_title']");
+
+	public static By objDeviceList = By.xpath(" (//*[@id='mr_chooser_route_name'])[1]");
+
+	public static By objPostChromecastIcon = By.xpath("//*[@id='contentMetaInfo']//*[@text='b']");
+
+	public static By objCastedDeviceName = By.xpath("//*[@id='mr_name']");
+
+	public static By objExpandControllerPlayIcon = By.xpath("//*[@content-desc='Play']");
+
+	public static By objExpandControllerPauseIcon = By.xpath("//*[@content-desc='Pause']");
+
+	public static By objExpandControllerStopCastButton = By.xpath("//*[@id='button1' and @text='STOP CASTING']");
+
+	public static By objExpandControllerCloseIcon = By.xpath("//*[@id='mr_close']");
+
+	public static By objExpandControllerVolumeController = By.xpath("//*[@id='mr_volume_control']");
+
+	public static By objContentTitleInTV = By.xpath("//*[contains(text(),'Queue')]//preceding-sibling::*");
+
+	public static By objPlayIconInTV = By.xpath("//*[@text='Loading...']");
+	public static By objQueueInTV = By.xpath("//*[contains(text(),'Queue')]//preceding-sibling::*");
 	
-	
+	public static By objcastsearchresult = By.xpath(
+			"	//*[@text='Bablu Dablu - Robo Rumble']//parent::*//parent::*//child::*[@class='android.widget.ImageView']");
+
 }
