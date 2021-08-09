@@ -61,9 +61,7 @@ public class AMDSettingsScreen {
 
 	// No Restrictions
 	public static By objNoRestrictions = By.xpath("//*[@id='agelimit_text' and @text='No Restriction']");
-	// Restrict A 18+ Content
-	public static By objRestrictA18Content = By
-			.xpath("//*[@resource-id='com.graymatrix.did:id/agelimit_text' and @text='Restrict U/A 18+ Content']");
+	
 	// Restrict U/A 16+ Content
 	public static By objRestrictUA16Content = By
 			.xpath("//*[@resource-id='com.graymatrix.did:id/agelimit_text' and @text='Restrict U/A 16+ Content']");
@@ -122,4 +120,7 @@ public class AMDSettingsScreen {
 			.xpath("//*[@resource-id='com.graymatrix.did:id/editTextsLinearLayout']");
 
 	public static By objPasswordfield = By.xpath("//*[@resource-id='com.graymatrix.did:id/txtET_password_input']");
+	
+	public static By objRestrictA18Content = By
+			.xpath("//*[@resource-id='com.graymatrix.did:id/agelimit_text' and @text='Restrict A 18+ Content']");
 }

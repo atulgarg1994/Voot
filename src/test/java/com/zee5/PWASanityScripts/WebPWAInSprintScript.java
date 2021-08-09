@@ -801,6 +801,79 @@ public class WebPWAInSprintScript {
 		Zee5WEBPWASanityBusinessLogic.GenerateORPageUsingBackArrowInUPI(userType);
 	}
 	
+	@Test(priority=129)
+	@Parameters({ "userType" })
+	public void vpahandle(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.vpahandle(userType);;
+	}
+	
+	@Test(priority=130)
+	@Parameters({ "userType" })
+	public void VerifyAmazonPageValidation(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.VerifyAmazonPageValidation(userType);;
+	}
+	
+	@Test(priority=131)
+	@Parameters({ "userType" })
+	public void AmazonPayLogoLoginMobileNumber(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.AmazonPayLogoLoginMobileNumber(userType);
+	}
+	
+	@Test(priority=132)
+	@Parameters({ "userType" })
+	public void MobikvikOTPValidation(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.MobikvikOTPValidation(userType);
+	}
+	
+	
+	@Test(priority=133)
+	@Parameters({ "userType" })
+	public void ValidateAmazonPage(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.ValidateAmazonPage(userType);
+	}
+	
+	@Test(priority=134)
+	@Parameters({ "userType" })
+	public void MobikvikPayLogoLoginMobileNumber(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.MobikvikPayLogoLoginMobileNumber(userType);;
+	}
+	
+	@Test(priority=135)
+	@Parameters({ "userType" })
+	public void SentOTPButtonEnabled(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.SentOTPButtonEnabled(userType);;
+	}
+	
+	@Test(priority=136)
+	@Parameters({ "userType" })
+	public void MobikvikOTPPage(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.MobikvikOTPPage(userType);
+	}
+	
+	@Test(priority=137)
+	@Parameters({ "userType" })
+	public void MobikvikOTPPageValidation(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.MobikvikOTPPageValidation(userType);
+	}
+	
+	
+	@Test(priority=138)
+	@Parameters({ "userType" })
+	public void ListOfPaymentOption(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.ListOfPaymentOption(userType);
+	}
+	
+	@Test(priority=139)
+	@Parameters({ "userType" })
+	public void ValidateLinkPaytmText(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.ValidateLinkPaytmText(userType);;
+	}
+	
+	@Test(priority=140)
+	@Parameters({ "userType" })
+	public void ValidateLinksWallets(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.ValidateLinksWallets(userType);;
+	}	
 	
 	@AfterClass
 	public void tearDown() {

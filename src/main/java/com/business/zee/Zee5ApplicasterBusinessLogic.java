@@ -33722,7 +33722,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		if (notificationFlag) {
 			click(AMDSugarbox.objLocateBtn, "Locate btn");
 			verifyElementPresentAndClick(AMDSugarbox.objAllowLocationPopup, "Allow");
-			waitTime(3000);
+			waitTime(10000);
 
 			if (verifyElementIsNotDisplayed(AMDSugarbox.objConnectToSugarBox)) {
 				click(AMDHomePage.objZee5Logo, "Zee5Logo");
@@ -33730,17 +33730,20 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					waitForElementDisplayed(AMDSugarbox.objSugarboxLogo, 30);
 					click(AMDHomePage.objZee5Logo, "Zee5Logo");
 					waitTime(2000);
-					verifyElementPresentAndClick(AMDSugarbox.objSugarboxLogo, "Logo");
-					verifyElementPresentAndClick(AMDSugarbox.objConnectToSugarBox, "ConnectToSugarBox CTA");
-					waitTime(3000);
-					TurnONWifi();
-//					verifyElementPresentAndClick(AMDSugarbox.objSugrBoxWifi, "Sugarbox wifi");
-
+					if (verifyElementIsNotDisplayed(AMDSugarbox.objSugarboxLogo)) {
+						TurnONWifi();
+					}else {
+						verifyElementPresentAndClick(AMDSugarbox.objSugarboxLogo, "Logo");
+						verifyElementPresentAndClick(AMDSugarbox.objConnectToSugarBox, "ConnectToSugarBox CTA");
+						waitTime(3000);
+						TurnONWifi();
+					}
 				} catch (Exception e) {
 					// TODO: handle exception
 					System.out.println("Sugarbox icon in landing screen is not present: " + e);
 					logger.info("Sugarbox icon in landing screen is not present: " + e);
 				}
+				waitTime(3000);
 			} else if (verifyElementDisplayed(AMDSugarbox.objConnectToSugarBox)) {
 				try {
 					verifyElementPresentAndClick(AMDSugarbox.objConnectToSugarBox, "ConnectToSugarBox CTA");
@@ -34370,8 +34373,14 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		waitTime(2000);
 //			click(AMDMoreMenu.objPasswordContinueBtn, "Continue button");
 //			waitTime(2000);
-
+		boolean value = verifyElementDisplayed(loc);
+		if (value == true) {
 		click(loc, text);
+		}else
+		{
+				logger.error("[AMA2-17876] [AMD] - Device Specific - \"Restrict U/A 18+ Content\" is displayed instead of \"Restrict A 18+ Content\" option in Parental control screen");
+				extent.extentLoggerFail("","[AMA2-17876] [AMD] - Device Specific - \"Restrict U/A 18+ Content\" is displayed instead of \"Restrict A 18+ Content\" option in Parental control screen");
+		}
 		click(AMDMoreMenu.objContinueBtn, "Continue Button");
 		waitTime(5000);
 		if (text.contains("No Restrict Content")) {
@@ -34393,14 +34402,12 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				waitTime(4000);
 				click(AMDMoreMenu.objSetPinContinueBtn, "Continue Button");
 				waitTime(2000);
-
 				click(AMDMoreMenu.objParentalLockDone, "Done Button");
 			} else {
 				logger.info("Parental Pin Popup is NOT displayed");
 				extent.extentLoggerFail("Parental Pin", "Parental Pin Popup is NOT displayed");
 			}
-
-			navigateBackToHomeLandingScreen();
+			BackToLandingScreen();
 			click(AMDHomePage.objSearchBtn, "Search button");
 			waitTime(5000);
 			click(AMDSearchScreen.objSearchEditBox, "Search box");
@@ -34410,27 +34417,31 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			click(AMDSearchScreen.objFirstSearchResult, "Search result");
 			// waitTime(6000);
 			// click(AMDShowsScreen.objFirstCard, "Search result");
-
-			boolean checkParentalPopUp = verifyElementPresent(AMDPlayerScreen.objParentalPinPopUp,
-					"Parental Pin Popup");
+			boolean checkParentalPopUp = verifyElementDisplayed(AMDPlayerScreen.objParentalPinPopUp);
 			if (checkParentalPopUp) {
 				logger.info("Parental Pin Popup is displayed");
 				extentLoggerPass("Parental Pin Popup", "Parental Pin Popup is displayed");
 				Back(2);
 				waitTime(5000);
 			} else {
-				logger.info("Parental Pin Popup is NOT displayed");
-				extentLoggerFail("Parental Pin Popup", "Parental Pin Popup is NOT displayed");
+				
+				if (text.contains("Restrict A 7+ Content")) {
+					logger.error("[AMA2-17867] [AMD] - Parental Control popup fails to display on consumption screen upon playing U/A 7+ contents post Restricting U/A 7+ in parental control screen");
+					extent.extentLoggerFail("","[AMA2-17867] [AMD] - Parental Control popup fails to display on consumption screen upon playing U/A 7+ contents post Restricting U/A 7+ in parental control screen");
+				}else {
+				logger.error("Parental Pin Popup is NOT displayed for "+text);
+				extentLoggerFail("Parental Pin Popup", "Parental Pin Popup is NOT displayed for "+text);
+				}
 			}
 		}
+		
 		if (text.contains("No Restrict Content")) {
-			boolean checkParentalPopUp = verifyElementPresent(AMDPlayerScreen.objParentalPinPopUp,
-					"Parental Pin Popup");
+			boolean checkParentalPopUp = verifyElementDisplayed(AMDPlayerScreen.objParentalPinPopUp);
 			if (checkParentalPopUp) {
 				logger.info("Parental Pin Popup is displayed");
-				extentLoggerFail("Parental Pin Popup",
+				extentLoggerPass("Parental Pin Popup",
 						"Parental Pin Popup is displayed post selecting No Restriction option");
-				Back(2);
+				BackToLandingScreen();
 				waitTime(5000);
 			} else {
 				logger.info("Parental Pin Popup is NOT displayed");
@@ -35689,6 +35700,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		waitTime(6000);
 		click(AMDSearchScreen.objFirstSearchResult1(searchcontent), "Search result");
 		waitTime(5000);
+		click(AMDPlayerScreen.objPlayerScreen,"Player Screen");
 		scrubProgressBarTillEnd(AMDPlayerScreen.objProgressBar);
 		if (verifyElementDisplayed(AMDPlayerScreen.objAgeRatedOnPlayer)) {
 			boolean value = verifyElementDisplayed(AMDPlayerScreen.objContentDescOnPlayer);
@@ -35754,7 +35766,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.info("Content Descriptor is displayed");
 			extentLoggerPass("", "Content Descriptor is displayed");
 		}
-		waitTime(8000);
+		waitTime(10000);
 		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		click(AMDPlayerScreen.objPause, "Pause icon");
 		if (verifyElementDisplayed(AMDPlayerScreen.objPlayIcon)) {
@@ -35765,7 +35777,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLoggerFail("", "Pause icon is NOT Functional");
 		}
 		click(AMDPlayerScreen.objPlayIcon, "Play icon");
-		waitTime(6000);
+		waitTime(15000);
 		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		if (verifyElementDisplayed(AMDPlayerScreen.objPause)) {
 			logger.info("Play icon is Functional");
@@ -35809,15 +35821,18 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.error("Next icon is NOT Functional");
 			extent.extentLoggerFail("", "Next icon is NOT Functional");
 		}
+		waitTime(5000);
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		click(AMDPlayerScreen.objPreviousIcon, "Previous icon");
 		if (verifyElementDisplayed(AMDPlayerScreen.objNextIcon)) {
 			logger.info("Previous Icon is Functional");
 			extent.extentLoggerPass("", "Previous Icon is Functional");
 		} else {
-			logger.error("Previous Icon is Functional");
-			extent.extentLoggerFail("", "Previous Icon is Functional");
+			logger.error("Previous Icon is NOT Functional");
+			extent.extentLoggerFail("", "Previous Icon is NOT Functional");
 		}
 	}
+
 
 	public void contentDescriptorShouldBeDisplayedOnThePlayerWhenVideoStartingFromTheBeginning(String userType)
 			throws Exception {
@@ -35854,6 +35869,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				waitTime(3000);
 				verifyElementPresentAndClick(AMDHomePage.objFirstContentCardOfTray("Continue"),
 						"Continue watching tray first Content");
+				if(verifyElementExist(AMDPlayerScreen.objAgeRatedOnPlayer, "Age Rating on Player")) {
 				boolean value = verifyElementDisplayed(AMDPlayerScreen.objContentDescOnPlayer);
 				System.out.println(value);
 				if (value) {
@@ -35861,12 +35877,12 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					extentLoggerPass("",
 							"Content Descriptor is displayed after resuming the video from Continue watching tray");
 				} else {
-					logger.error(
-							"Content Descriptor is NOT displayed after resuming the video from Continue watching tray");
-					extentLoggerFail("",
-							"Content Descriptor is NOT displayed after resuming the video from Continue watching tray");
+					logger.info(
+							"Content Descriptor is Empty");
+					extentLoggerWarning("","Content Descriptor is Empty");
 				}
-			} else {
+			} 
+			}else {
 				logger.error("Continue watching tray is NOT displayed in Landing screen");
 				extent.extentLoggerFail("Continue watching",
 						"Continue watching tray is NOT displayed in Landing screen");
@@ -36344,8 +36360,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				logger.info("Content Description is displayed in Landscape mode");
 				extentLoggerPass("Content Descriptor ", "Content Description is displayed in Landscape mode");
 			} else {
-				logger.error("Content Description is not displayed in Landscape mode");
-				extentLoggerFail("Content Descriptor ", "Content Description is not displayed in Landscape mode");
+				logger.error("[AMA2-17870] Content Description is not displayed in Landscape mode");
+				extentLoggerFail("Content Descriptor ", "[AMA2-17870] Content Description is not displayed in Landscape mode");
 			}
 			waitTime(3000);
 			Back(2);

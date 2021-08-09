@@ -34537,7 +34537,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 	}
 
-	public void supermoonInContinueWatchingTray(String userType,String LiveTvContent) throws Exception {
+	public void supermoonInContinueWatchingTray(String userType, String LiveTvContent) throws Exception {
 		extent.HeaderChildNode("Verify that post watching LiveTV content is not added to \"Continue watching\" tray");
 		oneYearPremium6MSupermoonUser();
 		waitTime(3500);
@@ -34546,36 +34546,36 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		JSClick(PWAHomePage.objPlaybackMovieTitle(LiveTvContent), LiveTvContent);
 		if (checkElementDisplayed(PWAComboOfferPage.objWatchNowCTA, "Watch Now")) {
 			JSClick(PWAComboOfferPage.objWatchNowCTA, "Watch Now CTA");
-		} 
-		if(checkElementDisplayed(PWAComboOfferPage.objResumeCTA, "Resume CTA")) {
+		}
+		if (checkElementDisplayed(PWAComboOfferPage.objResumeCTA, "Resume CTA")) {
 			JSClick(PWAComboOfferPage.objResumeCTA, "Resume CTA");
 			waitTime(3500);
 		}
-			if (checkElementDisplayed(PWAPlayerPage.objPlayerAdPresent, "Wait till ad to complete")) {
-				// objPlayerAdPresent
-				waitForPlayerAdToComplete2("Live show");
-			}
-			waitTime(10000);
-			navigateToAnyScreenOnWeb("Home");
-			waitTime(2000);
-			if (checkElementDisplayed(PWAHomePage.objContinueWatchingTray, "Coninue Watching tray") == true) {
-				ArrayList<String> ContinueWatching = new ArrayList<String>();
+		if (checkElementDisplayed(PWAPlayerPage.objPlayerAdPresent, "Wait till ad to complete")) {
+			// objPlayerAdPresent
+			waitForPlayerAdToComplete2("Live show");
+		}
+		waitTime(10000);
+		navigateToAnyScreenOnWeb("Home");
+		waitTime(2000);
+		if (checkElementDisplayed(PWAHomePage.objContinueWatchingTray, "Coninue Watching tray") == true) {
+			ArrayList<String> ContinueWatching = new ArrayList<String>();
 
-				for (int i = 1; i < 4; i++) {
-					String updatedContent = getElementPropertyToString("innerText",
-							PWAContinueWatchingTrayPage.objCardTitle(i), "Content");
-					ContinueWatching.add(updatedContent);
-				}
-				logger.info(ContinueWatching);
-				if (ContinueWatching.contains(LiveTvContent)) {
-					logger.error(LiveTvContent + " is present in Continue watching tray");
-					extent.extentLoggerFail("", LiveTvContent + " is present in Continue watching tray");
-				} else {
-					logger.info( LiveTvContent + " is not present in Continue watching tray");
-					extent.extentLoggerPass("",  LiveTvContent + " is not present in Continue watching tray");
-				}
+			for (int i = 1; i < 4; i++) {
+				String updatedContent = getElementPropertyToString("innerText",
+						PWAContinueWatchingTrayPage.objCardTitle(i), "Content");
+				ContinueWatching.add(updatedContent);
+			}
+			logger.info(ContinueWatching);
+			if (ContinueWatching.contains(LiveTvContent)) {
+				logger.error(LiveTvContent + " is present in Continue watching tray");
+				extent.extentLoggerFail("", LiveTvContent + " is present in Continue watching tray");
+			} else {
+				logger.info(LiveTvContent + " is not present in Continue watching tray");
+				extent.extentLoggerPass("", LiveTvContent + " is not present in Continue watching tray");
 			}
 		}
+	}
 
 	public void shareFunctionalitySupermoon(String userType) throws Exception {
 		extent.HeaderChildNode("Verify that user is able to share the LiveTV content as existing ");
@@ -35941,7 +35941,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 					"The Countdown is not get started as soon as the QR Code is displayed on the screen of website");
 			extent.extentLoggerFail(" ",
 					"The Countdown is started as soon as the QR Code is displayed on the screen of website");
-
 		}
 	}
 
@@ -36002,7 +36001,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		} else {
 			logger.info("User not redirected to previous page i.e UPI payment page");
 			extent.extentLoggerFail(" ", "User not redirected to previous page i.e UPI payment page");
-
 		}
 	}
 
@@ -36421,4 +36419,269 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		click(PWALoginPage.objWebLoginButton, "Login Button");
 		waitTime(5000);
 	}
+
+	public void vpahandle(String userType) throws Exception {
+		extent.HeaderChildNode("Verify that user is able to enter VPA/handle to initiate UPI payment");
+		navigateHome();
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+		waitTime(3500);
+		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		waitTime(5000);
+		verifyElementPresent(PWAComboOfferPage.objRentNowBelowPlayer, "Below Player");
+		click(PWAComboOfferPage.objRentNowBelowPlayer, "Below Player");
+		verifyElementPresent(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
+		click(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
+		waitTime(5000);
+
+		PWAIframe();
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objPaymentoption("UPI"), "UPI option");
+		waitTime(3000);
+		checkElementDisplayed(PWAHamburgerMenuPage.objenterupiid, "Enter upi Details");
+		click(PWAHamburgerMenuPage.objenterupiid, "Enter VPA Details");
+		type(PWAHamburgerMenuPage.objenterupiid, "866@upi", "Email Field");
+		String upiid = findElement(PWAHamburgerMenuPage.objenterupiid).getAttribute("value");
+		System.out.println(upiid);
+		if (upiid.contains("866@upi")) {
+			logger.info(
+					"User should be able to enter the VPA/handle in the UPI ID section to initiate UPI payment, expected behaviour");
+			extent.extentLogger("",
+					"User should be able to enter the VPA/handle in the UPI ID section to initiate UPI payment, expected behaviour");
+		} else {
+			logger.info("User not able to enter the VPA/handle in the UPI ID section to initiate UPI payment");
+			extent.extentLoggerFail("",
+					"User not able to enter the VPA/handle in the UPI ID section to initiate UPI payment");
+		}
+
+	}
+
+	public void VerifyAmazonPageValidation(String userType) throws Exception {
+		extent.HeaderChildNode("Verify that user redirect to Amazon pay page on clicking proceed "
+				+ "after selecting Amazon Pay wallet optionA");
+		navigateHome();
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+		waitTime(3500);
+		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		waitTime(5000);
+		verifyElementPresent(PWAComboOfferPage.objRentNowBelowPlayer, "Below Player");
+		click(PWAComboOfferPage.objRentNowBelowPlayer, "Below Player");
+		verifyElementPresent(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
+		click(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
+		waitTime(5000);
+
+		PWAIframe();
+
+		verifyElementPresentAndClick(PWASubscriptionPages.objWallets, "Wallets");
+		verifyElementPresentAndClick(PWASubscriptionPages.objAmazonPay, "Amazonpay");
+		verifyElementPresentAndClick(PWASubscriptionPages.objAmazonPayProceedToPay, "Proceed to pay");
+		waitTime(5000);
+		if (verifyElementPresentAndClick(PWASubscriptionPages.objamazonpaypage, "Amazon pay page")) {
+			logger.info("User should be redirected to Amazon pay page,expected behaviour.");
+			extent.extentLoggerPass("", "User should be redirected to Amazon pay page, expected behaviour.");
+		} else {
+			logger.info("User is not redirected to Amazon pay page.");
+			extent.extentLoggerFail(" ", "User is not redirected to Amazon pay page.");
+
+		}
+	}
+
+	public void AmazonPayLogoLoginMobileNumber(String userType) throws Exception {
+		extent.HeaderChildNode("Verify that Amazon Pay page consist: Amazon Pay Logo ,Login ,"
+				+ "Enter Mobile number or Email field ,Sign-In CTA");
+		waitTime(5000);
+		navigateHome();
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+		waitTime(3500);
+		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		waitTime(5000);
+		verifyElementPresent(PWAComboOfferPage.objRentNowBelowPlayer, "Below Player");
+		click(PWAComboOfferPage.objRentNowBelowPlayer, "Below Player");
+		verifyElementPresent(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
+		click(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
+		waitTime(5000);
+
+		PWAIframe();
+		verifyElementPresentAndClick(PWASubscriptionPages.objWallets, "Wallets");
+		verifyElementPresentAndClick(PWASubscriptionPages.objAmazonPay, "Amazonpay");
+		verifyElementPresentAndClick(PWASubscriptionPages.objAmazonPayProceedToPay, "Amazonpay Proceed to pay");
+		verifyElementPresent(PWAHamburgerMenuPage.objamazonpaylogo, "Amazon pay logo");
+		verifyElementPresent(PWAHamburgerMenuPage.objamazonlogintext, "Amazon Login");
+		verifyElementPresent(PWAHamburgerMenuPage.objamazonemailandphnofield, "Amazon email field");
+		verifyElementPresent(PWAHamburgerMenuPage.objamazonsignincta, "Amazon sign in CTA");
+	}
+
+	public void MobikvikOTPValidation(String userType) throws Exception {
+		extent.HeaderChildNode(
+				"Verify that on clicking send OTP after entering mobile number user is redirecting to enter OTP page");
+		navigateHome();
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+		waitTime(3500);
+		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		waitTime(5000);
+		verifyElementPresent(PWAComboOfferPage.objRentNowBelowPlayer, "Below Player");
+		click(PWAComboOfferPage.objRentNowBelowPlayer, "Below Player");
+		verifyElementPresent(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
+		click(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
+		waitTime(5000);
+		PWAIframe();
+		verifyElementPresentAndClick(PWASubscriptionPages.objWallets, "Wallets");
+		verifyElementPresentAndClick(PWASubscriptionPages.objMobikwik, "Mobikvik");
+		verifyElementPresentAndClick(PWASubscriptionPages.objMobikwikProceedToPay, "Proceed to pay");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objentermobilenumber, "Enter mobile number");
+		type(PWAHamburgerMenuPage.objentermobilenumber, "9000000000", "Enter mobile number");
+		click(PWAHamburgerMenuPage.objmobikviksendotpcta, "mobikvik send otp CTA");
+		if (verifyElementPresent(PWAHamburgerMenuPage.objenterotppage, "mobikvik enter otp CTA")) {
+			logger.info(
+					"user should redirect to enter OTP page on clicking send OTP in mobikwik page,expected behaviour.");
+			extent.extentLoggerPass("",
+					"user should redirect to enter OTP page on clicking send OTP in mobikwik page, expected behaviour.");
+		} else {
+			logger.info("user not redirect to enter OTP page on clicking send OTP in mobikwik page");
+			extent.extentLoggerFail(" ", "user not redirect to enter OTP page on clicking send OTP in mobikwik page");
+
+		}
+	}
+
+	public void ValidateAmazonPage(String userType) throws Exception {
+		extent.HeaderChildNode("Verify that user redirect to Mobikvikpay page on clicking proceed "
+				+ "after selecting Amazon Pay wallet optionA");
+		navigateHome();
+		logout();
+		verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
+		waitTime(3000);
+		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+		type(PWALoginPage.objEmailField, "ravikumarapp10@gmail.com", "Email Field");
+		waitTime(3000);
+		verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+		type(PWALoginPage.objPasswordField, "123456", "Password field");
+		waitTime(5000);
+		click(PWALoginPage.objWebLoginButton, "Login Button");
+		waitTime(5000);
+		navigateHome();
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+		waitTime(3500);
+		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		waitTime(5000);
+		verifyElementPresent(PWAComboOfferPage.objRentNowBelowPlayer, "Below Player");
+		click(PWAComboOfferPage.objRentNowBelowPlayer, "Below Player");
+		verifyElementPresent(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
+		click(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
+		waitTime(5000);
+
+		PWAIframe();
+		verifyElementPresentAndClick(PWASubscriptionPages.objWallets, "Wallets");
+		if (verifyElementPresent(PWASubscriptionPages.objMobileLinkPaytmOption, "Link Wallets")) {
+			logger.info("User should be able to see the link CTA for paytm wallets,expected behaviour.");
+			extent.extentLoggerPass("",
+					"User should be able to see the link CTA for paytm wallets, expected behaviour.");
+		} else {
+			logger.info("User is not able to see the link CTA for paytm wallets");
+			extent.extentLoggerFail(" ", "User is not able to see the link CTA for paytm wallets");
+
+		}
+
+	}
+
+	public void MobikvikPayLogoLoginMobileNumber(String userType) throws Exception {
+		extent.HeaderChildNode("Verify that Mobikvik Pay page consist: Mobikvik Pay Logo ,Login , "
+				+ "Enter Mobile number or Email field ,Sign-In CTA");
+		navigateHome();
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+		waitTime(3500);
+		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		waitTime(5000);
+		verifyElementPresent(PWAComboOfferPage.objRentNowBelowPlayer, "Below Player");
+		click(PWAComboOfferPage.objRentNowBelowPlayer, "Below Player");
+		verifyElementPresent(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
+		click(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
+		waitTime(5000);
+		PWAIframe();
+		verifyElementPresentAndClick(PWASubscriptionPages.objWallets, "Wallets");
+		verifyElementPresentAndClick(PWASubscriptionPages.objMobikwik, "Mobikvik");
+		verifyElementPresentAndClick(PWASubscriptionPages.objMobikwikProceedToPay, "Proceed to pay");
+		verifyElementPresent(PWAHamburgerMenuPage.objmobikviklogo, "mobikvik pay logo");
+		verifyElementPresent(PWAHamburgerMenuPage.objmobikviklogintext, "mobikvik Login");
+		verifyElementPresent(PWAHamburgerMenuPage.objmobikvikemailandphnofield, "mobikvik email field");
+		verifyElementPresent(PWAHamburgerMenuPage.objmobikviksendotpcta, "mobikvik send otp CTA");
+
+	}
+
+	public void SentOTPButtonEnabled(String userType) throws Exception {
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objentermobilenumber, "Enter mobile number");
+		type(PWAHamburgerMenuPage.objentermobilenumber, "9000000000", "Enter mobile number");
+		verifyElementPresent(PWAHamburgerMenuPage.objmobikviksendotpcta, "mobikvik send otp CTA");
+		if (getWebDriver().findElement(PWAHamburgerMenuPage.objmobikviksendotpcta).isEnabled() == true) {
+			logger.info(
+					"Send OTP CTA should get enabled when user enters the 10 digits mobile number,expected behaviour.");
+			extent.extentLoggerPass("",
+					"Send OTP CTA should get enabled when user enters the 10 digits mobile number, expected behaviour.");
+		} else {
+			logger.info("Send OTP CTA id disabled when user enters the 10 digits mobile number");
+			extent.extentLoggerFail(" ", "Send OTP CTA id disabled when user enters the 10 digits mobile number");
+
+		}
+	}
+
+	public void MobikvikOTPPage(String userType) throws Exception {
+		extent.HeaderChildNode(
+				"Verify that on clicking send OTP after entering mobile number user is redirecting to enter OTP page");
+		click(PWAHamburgerMenuPage.objmobikviksendotpcta, "mobikvik send otp CTA");
+		if (verifyElementPresent(PWAHamburgerMenuPage.objenterotppage, "mobikvik enter otp CTA")) {
+			logger.info(
+					"user should redirect to enter OTP page on clicking send OTP in mobikwik page,expected behaviour.");
+			extent.extentLoggerPass("",
+					"user should redirect to enter OTP page on clicking send OTP in mobikwik page, expected behaviour.");
+		} else {
+			logger.info("user not redirect to enter OTP page on clicking send OTP in mobikwik page");
+			extent.extentLoggerFail(" ", "user not redirect to enter OTP page on clicking send OTP in mobikwik page");
+
+		}
+	}
+
+	public void MobikvikOTPPageValidation(String userType) throws Exception {
+		extent.HeaderChildNode(
+				"Verify that enter otp mobikwik page consists OTP has been sent successfully , Change CTA ,"
+						+ " Enter OTP field , Resend OTP , Submit ");
+		verifyElementPresent(PWAHamburgerMenuPage.objotpsentsuccessfully, "OTP sent successfully");
+		verifyElementPresent(PWAHamburgerMenuPage.objmobikvikemailandphnofield, "Enter mobile number");
+		verifyElementPresent(PWAHamburgerMenuPage.objchangecta, "Change CTA");
+		verifyElementPresent(PWAHamburgerMenuPage.objmobikvikresendotp, "resend CTA");
+		verifyElementPresent(PWAHamburgerMenuPage.objsubmitmobikvik, "submit CTA");
+		Back(1);
+		Back(1);
+	}
+
+	public void ListOfPaymentOption(String userType) throws Exception {
+		extent.HeaderChildNode("Verify that user is able to list of applicable wallets (Amazon pay, Mobikwik, Paytm )");
+
+		PWAIframe();
+		verifyElementPresentAndClick(PWASubscriptionPages.objWallets, "Wallets");
+		verifyElementPresentAndClick(PWASubscriptionPages.objAmazonPay, "Amazonpay");
+		verifyElementPresentAndClick(PWASubscriptionPages.objMobikwik, "Mobikvik");
+	}
+
+	public void ValidateLinkPaytmText(String userType) throws Exception {
+		extent.HeaderChildNode("Verify that user is able to see Link PAYTM Wallet text "
+				+ "with logo and Enter mobile number field along with Send OTP CTA");
+		PWAIframe();
+		verifyElementPresentAndClick(PWASubscriptionPages.objWallets, "Wallets");
+		click(PWASubscriptionPages.objMobileLinkPaytmOption, "Link Wallets");
+		verifyElementPresent(PWASubscriptionPages.objLinkPaytm, "Link paytm wallet");
+		verifyElementPresent(PWASubscriptionPages.objpaytmentermobileno, "Enter mobile number");
+		verifyElementPresent(PWAHamburgerMenuPage.objmobikviksendotpcta, "Paytm send otp CTA");
+
+	}
+
+	public void ValidateLinksWallets(String userType) throws Exception {
+		extent.HeaderChildNode("Verify that user is able to see the link CTA on Paytm wallets");
+		verifyElementPresentAndClick(PWASubscriptionPages.objWallets, "Wallets");
+		if (verifyElementPresent(PWASubscriptionPages.objMobileLinkPaytmOption, "Link Wallets")) {
+			logger.info("User should be able to see the link CTA for paytm wallets,expected behaviour.");
+			extent.extentLoggerPass("",
+					"User should be able to see the link CTA for paytm wallets, expected behaviour.");
+		} else {
+			logger.info("User is not able to see the link CTA for paytm wallets");
+			extent.extentLoggerFail(" ", "User is not able to see the link CTA for paytm wallets");
+		}
+	}
+
 }

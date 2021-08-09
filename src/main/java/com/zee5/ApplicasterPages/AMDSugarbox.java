@@ -10,13 +10,9 @@ public class AMDSugarbox {
 	
 	public static By objLocateBtn =  By.id("btn_sugar_box_locate");
 	
-	public static By objAllowLocationPopup =  By.id("permission_allow_foreground_only_button");
-	
 	public static By objDenyLocationPopup =  By.id("permission_deny_button");
 	
 	public static By objSugarboxLogo =  By.id("home_sugarBox_toggle_icon");
-	
-	public static By objConnectToSugarBox =  By.id("connectToSugarBox");
 	
 	public static By objLearnMore =  By.xpath("//*[@id='connectToSugarBox']/following::*[@text='Learn More']");
 	
@@ -79,5 +75,7 @@ public class AMDSugarbox {
 	public static By SBLogoPopup = By.id("img_sugarBox_logo");
 	
 	public static By objContinueToSugarBoxCTA = By.xpath("//*[@id='button_continue' and @text='Continue to SugarBox']");
-	
+
+	public static By objAllowLocationPopup =  By.xpath("//*[@id='permission_allow_button']| //*[@id='permission_allow_foreground_only_button']");
+	public static By objConnectToSugarBox =  By.xpath("//*[@id='connectToSugarBox']");
 }
