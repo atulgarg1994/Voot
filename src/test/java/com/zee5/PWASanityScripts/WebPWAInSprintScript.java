@@ -929,7 +929,7 @@ public class WebPWAInSprintScript {
 	@Test(priority=149)
 	@Parameters({ "userType" })
 	public void supermoonInContinueWatchingTray(String userType) throws Exception {
-//		Zee5WEBPWASanityBusinessLogic.supermoonInContinueWatchingTray(userType);
+		Zee5WEBPWASanityBusinessLogic.supermoonInContinueWatchingTray(userType);
 	}
 	
 	@Test(priority=150)
@@ -985,7 +985,7 @@ public class WebPWAInSprintScript {
 	@Test(priority=158)
 	@Parameters({ "userType" })
 	public void VerifyInWatchListForVideoTVODConsumption(String userType) throws Exception {
-//		Zee5WEBPWASanityBusinessLogic.VerifyInWatchListForVideoTVODConsumption(userType);;
+		Zee5WEBPWASanityBusinessLogic.VerifyInWatchListForVideoTVODConsumption(userType ,"videoname");;
 	}
 	
 	@Test(priority=159)

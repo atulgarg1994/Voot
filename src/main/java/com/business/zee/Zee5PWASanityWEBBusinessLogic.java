@@ -37185,9 +37185,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 		JSClick(PWAAddToWatchListPage.objRemoveContentsInWatchList, " Remove all in WatchList");
 	}
-	
-	public void ZEE5LogoInPaymentPage(String userType) throws Exception
-	{
+
+	public void ZEE5LogoInPaymentPage(String userType) throws Exception {
 		extent.HeaderChildNode(
 				"Verify that user is able to see zee5 logo in payment gateway screen for respective wallet");
 		navigateHome();
@@ -37201,102 +37200,93 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		click(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
 		waitTime(5000);
 		PWAIframe();
-		
+
 		checkElementDisplayed(PWAHomePage.objZeeLogo, "Zee logo");
 	}
 
+	public void CreditAndDebitCardOption(String userType) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode(
+					"Verify that user is able to see Credit and Debit card options in payment gateway for respective wallet");
+			navigateHome();
+			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
+			waitTime(3000);
+			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+			type(PWALoginPage.objEmailField, "luckyigscon0074@gmail.com", "Email Field");
+			waitTime(3000);
+			verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+			type(PWALoginPage.objPasswordField, "vasilucky@123", "Password field");
+			waitTime(5000);
+			click(PWALoginPage.objWebLoginButton, "Login Button");
+			waitTime(3000);
 
-	public void CreditAndDebitCardOption(String userType) throws Exception
-	{
-		if(userType.equalsIgnoreCase("Guest"))
-		{
-		extent.HeaderChildNode(
-				"Verify that user is able to see Credit and Debit card options in payment gateway for respective wallet");
-		navigateHome();
-		verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
-		waitTime(3000);
-		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
-		type(PWALoginPage.objEmailField, "luckyigscon0074@gmail.com", "Email Field");
-		waitTime(3000);
-		verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
-		type(PWALoginPage.objPasswordField, "vasilucky@123", "Password field");
-		waitTime(5000);
-		click(PWALoginPage.objWebLoginButton, "Login Button");
-		waitTime(3000);
-		
-		navigateToAnyScreenOnWeb("ZEEPLEX");
-		waitTime(3500);
-		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
-		waitTime(5000);
-		verifyElementPresent(PWAComboOfferPage.objRentNowBelowPlayer, "Below Player");
-		click(PWAComboOfferPage.objRentNowBelowPlayer, "Below Player");
-		verifyElementPresent(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
-		click(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
-		
+			navigateToAnyScreenOnWeb("ZEEPLEX");
+			waitTime(3500);
+			JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+			waitTime(5000);
+			verifyElementPresent(PWAComboOfferPage.objRentNowBelowPlayer, "Below Player");
+			click(PWAComboOfferPage.objRentNowBelowPlayer, "Below Player");
+			verifyElementPresent(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
+			click(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
 
-		PWAIframe();
-		verifyElementPresentAndClick(PWASubscriptionPages.objWallets, "Wallets");
-		verifyElementPresentAndClick(PWASubscriptionPages.objPaytmWallet, "Paytm");
-		// verifyElementPresentAndClick(PWASubscriptionPages.objpaytmlink, "Paytm
-		// link");
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objPaytmProceedToPay, "Procced to pay");
-		waitTime(5000);
-		if (verifyElementPresent(PWAHamburgerMenuPage.objcardsinpaytm, "Cards in paytm")) {
-			logger.info(
-					"User should be able to see Credit and Debit card options in payment gateway for respective wallet, expected behaviour");
-			extent.extentLogger("",
-					"User should be able to see Credit and Debit card options in payment gateway for respective wallet, expected behaviour");
-		} else {
-			logger.info(
-					"User not able to see Credit and Debit card options in payment gateway for respective wallet");
-			extent.extentLoggerFail("",
-					"User not able to see Credit and Debit card options in payment gateway for respective wallet");
-		}
+			PWAIframe();
+			verifyElementPresentAndClick(PWASubscriptionPages.objWallets, "Wallets");
+			verifyElementPresentAndClick(PWASubscriptionPages.objPaytmWallet, "Paytm");
+			// verifyElementPresentAndClick(PWASubscriptionPages.objpaytmlink, "Paytm
+			// link");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objPaytmProceedToPay, "Procced to pay");
+			waitTime(5000);
+			if (verifyElementPresent(PWAHamburgerMenuPage.objcardsinpaytm, "Cards in paytm")) {
+				logger.info(
+						"User should be able to see Credit and Debit card options in payment gateway for respective wallet, expected behaviour");
+				extent.extentLogger("",
+						"User should be able to see Credit and Debit card options in payment gateway for respective wallet, expected behaviour");
+			} else {
+				logger.info(
+						"User not able to see Credit and Debit card options in payment gateway for respective wallet");
+				extent.extentLoggerFail("",
+						"User not able to see Credit and Debit card options in payment gateway for respective wallet");
+			}
 		}
 	}
 
-	public void PaymentFailurePopupAfterClickingOnBackButton(String userType) throws Exception
-	{
-		if(userType.equalsIgnoreCase("Guest"))
-		{
-		extent.HeaderChildNode("Verify that on clicking back on payment gateway screen of respective wallets User redirect to Account info screen with intent popup");
-		navigateHome();
-		navigateToAnyScreenOnWeb("ZEEPLEX");
-		waitTime(3500);
-		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
-		waitTime(5000);
-		verifyElementPresent(PWAComboOfferPage.objRentNowBelowPlayer, "Below Player");
-		click(PWAComboOfferPage.objRentNowBelowPlayer, "Below Player");
-		verifyElementPresent(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
-		click(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
-		
+	public void PaymentFailurePopupAfterClickingOnBackButton(String userType) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode(
+					"Verify that on clicking back on payment gateway screen of respective wallets User redirect to Account info screen with intent popup");
+			navigateHome();
+			navigateToAnyScreenOnWeb("ZEEPLEX");
+			waitTime(3500);
+			JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+			waitTime(5000);
+			verifyElementPresent(PWAComboOfferPage.objRentNowBelowPlayer, "Below Player");
+			click(PWAComboOfferPage.objRentNowBelowPlayer, "Below Player");
+			verifyElementPresent(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
+			click(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
 
-		PWAIframe();
-		verifyElementPresentAndClick(PWASubscriptionPages.objWallets, "Wallets");
-		verifyElementPresentAndClick(PWASubscriptionPages.objPaytmWallet, "Paytm");
-		verifyElementPresentAndClick(PWAHamburgerMenuPage.objPaytmProceedToPay, "Procced to pay");
-		click(PWAHamburgerMenuPage.objgobackinpaytm, "Go back");
-		waitTime(5000);
-		if (verifyElementPresent(PWAHamburgerMenuPage.objcancelpaymentyes, "Cancel payment")) {
-			click(PWAHamburgerMenuPage.objcancelpaymentyes, "Cancel payment");
+			PWAIframe();
+			verifyElementPresentAndClick(PWASubscriptionPages.objWallets, "Wallets");
+			verifyElementPresentAndClick(PWASubscriptionPages.objPaytmWallet, "Paytm");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objPaytmProceedToPay, "Procced to pay");
+			click(PWAHamburgerMenuPage.objgobackinpaytm, "Go back");
+			waitTime(5000);
+			if (verifyElementPresent(PWAHamburgerMenuPage.objcancelpaymentyes, "Cancel payment")) {
+				click(PWAHamburgerMenuPage.objcancelpaymentyes, "Cancel payment");
 
-		}
-		waitTime(5000);
-		if (verifyElementPresent(PWAHamburgerMenuPage.objpaymentfailurepopup, "Payment failure popup")) {
-			logger.info("payment failure popup is displayed, expected behaviour");
-			extent.extentLogger("", "Payment failure popup is displayed, expected behaviour");
-		} else {
-			logger.info("payment failure popup is not displayed");
-			extent.extentLoggerFail("", "payment failure popup is not displayed");
-		}
+			}
+			waitTime(5000);
+			if (verifyElementPresent(PWAHamburgerMenuPage.objpaymentfailurepopup, "Payment failure popup")) {
+				logger.info("payment failure popup is displayed, expected behaviour");
+				extent.extentLogger("", "Payment failure popup is displayed, expected behaviour");
+			} else {
+				logger.info("payment failure popup is not displayed");
+				extent.extentLoggerFail("", "payment failure popup is not displayed");
+			}
 		}
 	}
 
-
-	public void PaymentFailurePopupAfterClickingOnBrowserBackButton(String userType) throws Exception
-	{
-		if(userType.equalsIgnoreCase("Guest"))
-		{
+	public void PaymentFailurePopupAfterClickingOnBrowserBackButton(String userType) throws Exception {
+		if (userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode("Verify that on clicking browser back button on payment gateway "
 					+ "screen of respective wallets User redirect to Account info screen with intent popup");
 			navigateHome();
@@ -37308,7 +37298,6 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			click(PWAComboOfferPage.objRentNowBelowPlayer, "Below Player");
 			verifyElementPresent(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
 			click(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
-			
 
 			PWAIframe();
 			Back(1);
@@ -37322,9 +37311,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 	}
 
-	public void HaveAGiftCardOption(String userType) throws Exception
-	{
-		extent.HeaderChildNode("Verify that user is able to see see gift card option at the bottom of the payment screen.");
+	public void HaveAGiftCardOption(String userType) throws Exception {
+		extent.HeaderChildNode(
+				"Verify that user is able to see see gift card option at the bottom of the payment screen.");
 		navigateHome();
 		navigateToAnyScreenOnWeb("ZEEPLEX");
 		waitTime(3500);
@@ -37348,9 +37337,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 	}
 
-
-	public void CardNumberPINPayValidation(String userType) throws Exception
-	{
+	public void CardNumberPINPayValidation(String userType) throws Exception {
 		extent.HeaderChildNode("Verify that on clicking Gift card option consist cardnumber, pin, pay");
 		verifyElementPresent(PWAHamburgerMenuPage.objhaveagiftcard, "Have a gift card");
 		JSClick(PWAHamburgerMenuPage.objhaveagiftcard, "Have a gift card");
@@ -37364,9 +37351,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		verifyElementPresent(PWAHamburgerMenuPage.objPay, "PAY");
 	}
 
-
-	public void CardNumberAndPinNumberDigitValidation(String userTye) throws Exception
-	{
+	public void CardNumberAndPinNumberDigitValidation(String userTye) throws Exception {
 		extent.HeaderChildNode("Verify that Card number will take only 16 digits and Pin will take 6 digits");
 		verifyElementPresent(PWAHamburgerMenuPage.objentercarddetailstohaveagiftcard, "Enter card details");
 		JSClick(PWAHamburgerMenuPage.objentercarddetailstohaveagiftcard, "Enter card details");
@@ -37402,9 +37387,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 //		{
 //			logger.info("Card number taking more or less than 16 digits");
 //			extent.extentLoggerFail(" ", "Card number taking more or less than 16 digits");
-	//	
+		//
 //		}
-	//	
+		//
 		verifyElementPresent(PWAHamburgerMenuPage.objenterpintohaveagiftcard, "PIN details");
 
 		type(PWAHamburgerMenuPage.objinputpincard, "1234567", "PIN  number");
@@ -37423,8 +37408,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 	}
 
-	public void ErrorMessageValidation(String userType) throws Exception
-	{
+	public void ErrorMessageValidation(String userType) throws Exception {
 		extent.HeaderChildNode("Verify error message ");
 		click(PWAHamburgerMenuPage.objPay, "Pay cta");
 		if (verifyElementPresent(PWAHamburgerMenuPage.objtoarstmessage, "Error message")) {
@@ -37439,5 +37423,44 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 	}
 
+	public void supermoonInContinueWatchingTray(String userType) throws Exception {
+		extent.HeaderChildNode("Verify that post watching LiveTV content is not added to \"Continue watching\" tray");
+		oneYearPremium6MSupermoonUser();
+		waitTime(3500);
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+		waitTime(3500);
+		JSClick(PWAHomePage.objPlaybackMovieTitle("Supermoon"), "supermoon");
+		if (checkElementDisplayed(PWAComboOfferPage.objWatchNowCTA, "Watch Now")) {
+			JSClick(PWAComboOfferPage.objWatchNowCTA, "Watch Now CTA");
+		} else {
+			JSClick(PWAComboOfferPage.objResumeCTA, "Resume CTA");
+			waitTime(3500);
+			if (checkElementDisplayed(PWAPlayerPage.objPlayerAdPresent, "Wait till ad to complete")) {
+				// objPlayerAdPresent
+				waitForPlayerAdToComplete2("Live show");
+			}
+			waitTime(10000);
+			navigateToAnyScreenOnWeb("Home");
+			waitTime(2000);
+			if (checkElementDisplayed(PWAHomePage.objContinueWatchingTray, "Coninue Watching tray") == true) {
+				ArrayList<String> ContinueWatching = new ArrayList<String>();
 
+				for (int i = 1; i < 4; i++) {
+					String updatedContent = getElementPropertyToString("innerText",
+							PWAContinueWatchingTrayPage.objCardTitle(i), "Content");
+					ContinueWatching.add(updatedContent);
+				}
+				logger.info(ContinueWatching);
+				if (ContinueWatching.contains("Supermoon")) {
+					logger.error("Supermoon is present in Continue watching tray");
+					extent.extentLoggerFail("", "Supermoon is present in Continue watching tray");
+				} else {
+					logger.info("Supermoon is not present in Continue watching tray");
+					extent.extentLoggerPass("", "Supermoon is not present in Continue watching tray");
+				}
+			}
+		}
+	}
+	
+	
 }
