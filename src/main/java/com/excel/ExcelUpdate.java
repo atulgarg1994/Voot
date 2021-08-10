@@ -2,12 +2,13 @@ package com.excel;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
-import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -20,35 +21,46 @@ import com.extent.ExtentReporter;
 
 public class ExcelUpdate {
 
-	static String xlpath = System.getProperty("user.dir") + "\\Analysed_Reports\\Analysed_Reports.xlsx";
-	static String sheet = "Analysed_Reports";
-	static String sheet1 = "Module Result";
-	public static String UserType = "NA";
+	public static String xlpath;
+	public static String xlFileName;
+	static String sheet = "Analysed_Reports"; 
+	public static String UserType = "NA"; 
 	public static String ModuleName = "NA";
-	static int row = (getRowCount() + 1);
+	static int row = (getRowCount()+1);
 	static int counter = 0;
 	public static int passCounter = 0;
 	public static int failCounter = 0;
 	public static int warningCounter = 0;
+	static String sheet1 = "Module Result";
 
-	public static void creatExcel() {
+	public static void creatExcel() { 
 		try {
-			File dir = new File(System.getProperty("user.dir") + "\\Analysed_Reports");
-			if (!dir.isDirectory()) {
+			String currentDate = getDate();
+			xlpath = System.getProperty("user.dir") + "\\Analysed_Reports\\Analysed_Reports_"+currentDate+".xlsx";
+			xlFileName = "Analysed_Reports_"+currentDate+".xlsx";
+			File dir = new File(System.getProperty("user.dir")+"\\Analysed_Reports");
+			if(!dir.isDirectory()) {
 				dir.mkdir();
 			}
 			File file = new File(xlpath);
 			if (!file.exists()) {
 				XSSFWorkbook workbook = new XSSFWorkbook();
 				workbook.createSheet(sheet);
-				workbook.createSheet(sheet1);
-				FileOutputStream fos = new FileOutputStream(new File(xlpath));
+				FileOutputStream fos = new FileOutputStream(
+						new File(xlpath));
 				workbook.write(fos);
 				workbook.close();
 			}
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+	}
+	
+	public static String getDate() {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
+		String name = dateFormat.format(date).toString().replaceFirst(" ", "_").replaceAll("/", "_").replaceAll(":","_");
+		return name;
 	}
 
 	public static void writeData(String Validation, String result, String error) {
@@ -62,7 +74,7 @@ public class ExcelUpdate {
 				xrow = myExcelSheet.createRow(row);
 			}
 			Cell cell = null;
-			if (counter == 0) {
+			if(counter == 0) {
 				xrow = myExcelSheet.getRow(0);
 				if (xrow == null) {
 					xrow = myExcelSheet.createRow(0);
@@ -216,7 +228,8 @@ public class ExcelUpdate {
 	public static void updateResult() {
 		if (ExtentReporter.mailBodyPart.size() > 0) {
 			for (int i = 0; i < ExtentReporter.mailBodyPart.size(); i++) {
-				String result[] = ExtentReporter.mailBodyPart.get(i).toString().split(",");				
+				String result[] = ExtentReporter.mailBodyPart.get(i).toString().split(",");
+//				System.out.println(result[0]+result[1]+result[2]);
 				try {
 					XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlpath));
 					FileOutputStream output = new FileOutputStream(xlpath);
@@ -274,27 +287,7 @@ public class ExcelUpdate {
 //		System.out.println((getRowCount()+1));
 //		row = (getRowCount()+1);
 //		writeData("ABC","Fail","Error");
-//		creatExcel();
-//		AddFormulaToCell();
-//		getCellValue("C:\\Users\\IGS0026\\Documents\\Performance_1.xlsx","Sheet1",73,2);
-//		creatExcelPerformance();
 		
-		System.out.println("Done");
 	}
-	
-	
 
-	// Generic method to return the column values in the sheet.
-	public static String getCellValue(String xlPath, String sheet, int row, int col) {
-		String data = "";
-		try {
-			XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlPath));
-			XSSFSheet myExcelSheet = myExcelBook.getSheet(sheet);
-			data = myExcelSheet.getRow(row).getCell(col).getRawValue().toString();
-			System.out.println(data);
-		} catch (Exception e) {
-		}
-		return data;
-	}
-	
 }

@@ -8,6 +8,7 @@ import com.business.zee.Zee5ApplicasterBusinessLogic;
 import com.utility.Utilities;
 
 public class Android_AR33_ContentDescriptor {
+	
 	private Zee5ApplicasterBusinessLogic ZEE5ApplicasterBusinessLogic;
 
 
@@ -224,7 +225,7 @@ public class Android_AR33_ContentDescriptor {
 		}
 	
 	
-	@Test(priority = 26) //Veena
+	//@Test(priority = 26) //Veena  //No rented content is available
 	@Parameters({ "userType" })		
 	public void ContentDescriptor_TVODContentFromMyRentals(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.ContentDescriptor_TVODContentFromMyRentals(userType);//TC_35

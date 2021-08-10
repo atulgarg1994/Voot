@@ -8880,7 +8880,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("New Download Quality Setting", "Ask Each Time");
 			mixpanel.FEProp.setProperty("New Download Over Wifi Setting", "false");
 			mixpanel.FEProp.setProperty("New App Language", "en");
-			mixpanel.FEProp.setProperty("New Content Language", "en,kn");
+			mixpanel.FEProp.setProperty("New Content Language", "hi,en,kn");
 		}
 	}
 
@@ -11167,7 +11167,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		SelectTopNavigationTab(tabName);
 		boolean flagBox = verifyIsElementDisplayed(AMDHomePage.objSboxIcon);
 		String pSugarBox = String.valueOf(flagBox);
-		String contentName = ResponseInstance.getCarouselContentFromAPI2(usertype, tabName);
+		String contentName = ResponseInstance.getCarouselContentFromAPI3(usertype, tabName);
 		System.out.println(contentName);
 		waitForElementAndClickIfPresent(AMDHomePage.objContentTitle(contentName), 7, "carousal content");
 		
@@ -11180,6 +11180,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 		mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
 		mixpanel.FEProp.setProperty("brand", pManufacturer);
+		mixpanel.FEProp.setProperty("Content Duration", "N/A");
 		
 		if (tabName.equalsIgnoreCase("TV Shows") || tabName.equalsIgnoreCase("Web Series")) {
 			mixpanel.FEProp.setProperty("Series", contentName);
@@ -12096,7 +12097,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			extent.HeaderChildNode("Verify Carousal Banner CTAs event");
 			waitTime(5000);
 			SelectTopNavigationTab(tabName);
-			String contentName = ResponseInstance.getCarouselContentFromAPI(usertype, tabName);
+			String contentName = ResponseInstance.getCarouselContentFromAPI3(usertype, tabName);
 			System.out.println(contentName);
 			waitForElementAndClickIfPresent(AMDHomePage.objBuyNowCTAForContentOnCarousal(contentName), 7,
 					"Buy Plan CTA on carousel");
@@ -12108,9 +12109,12 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			mixpanel.FEProp.setProperty("brand", pManufacturer);
 			mixpanel.FEProp.setProperty("Element", "Get Premium");
 			mixpanel.FEProp.setProperty("Button Type", "Banner");
+			mixpanel.FEProp.setProperty("Content Duration", "N/A");
+			
 			mixpanel.ValidateParameter("", "Carousal Banner CTAs");
 		}
 	}
+
 
 	@SuppressWarnings("deprecation")
 	public void verifySettingChangedEvent(String userType, String restriction) throws Exception {
@@ -12510,7 +12514,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 	public void af_preroll_adview(String usertype, String keyword) throws Exception {
 		extent.HeaderChildNode("af_preroll_adview Event of content from search page");
-		if (!(usertype.equalsIgnoreCase("SubscribedUserName"))) {
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
 			click(AMDSearchScreen.objSearchIcon, "Search icon");
 			click(AMDSearchScreen.objSearchEditBox, "Search Box");
 			type(AMDSearchScreen.objSearchBoxBar, keyword + "\n", "Search bar");
@@ -12552,7 +12556,6 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			logger.info("This is not applicable for " + usertype);
 			extentLogger("Guest User", "This is not applicable for " + usertype);
 		}
-
 	}
 
 	public void videos_content_PlayEventOfContentFromSearchPage(String usertype, String keyword) throws Exception {
@@ -13714,6 +13717,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			waitTime(3000);
 			verifyElementPresentAndClick(AMDMoreMenu.objMySubscription, "My Subscription");
 			waitTime(3000);
+			verifyElementPresentAndClick(AMDHomePage.objBuyPlanCTAMoreSection, "Buy Plan CTA");
+			waitTime(3000);
 			verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Button");
 			waitTime(2000);
 			click(AMDSubscibeScreen.objEmailID, "EmailId Field");
@@ -13735,6 +13740,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
+
 	@SuppressWarnings("static-access")
 	public void verifyLoginInitiatedEventViaBuyPlanMyTransactions(String userType) throws Exception {
 		if (userType.equalsIgnoreCase("Guest")) {
@@ -13746,6 +13752,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
 			waitTime(3000);
 			verifyElementPresentAndClick(AMDMoreMenu.objMyTransactions, "My Transactions");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDHomePage.objBuyPlanCTAMoreSection, "Buy Plan CTA");
 			waitTime(3000);
 			verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Button");
 			waitTime(2000);
@@ -13934,6 +13942,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			waitTime(3000);
 			verifyElementPresentAndClick(AMDMoreMenu.objMySubscription, "My Subscription");
 			waitTime(3000);
+			verifyElementPresentAndClick(AMDHomePage.objBuyPlanCTAMoreSection, "Buy Plan CTA");
+			waitTime(3000);
 			verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Button");
 			waitTime(2000);
 			click(AMDSubscibeScreen.objEmailID, "EmailId Field");
@@ -13966,6 +13976,8 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
 			waitTime(3000);
 			verifyElementPresentAndClick(AMDMoreMenu.objMyTransactions, "My Transactions");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDHomePage.objBuyPlanCTAMoreSection, "Buy Plan CTA");
 			waitTime(3000);
 			verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Button");
 			waitTime(2000);
@@ -15020,6 +15032,122 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			extent.extentLoggerPass("", "Not Applicable for this usertype");
 		}	
 	}
+	
+	public void AdInitializedEventForTrayNavigation(String usertype, String tabName) throws Exception {
+		extent.HeaderChildNode("Ad Initialized event through Landing screen Tray navigation");
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitTime(10000);
+			SelectTopNavigationTab(tabName);
+			waitTime(10000);
+			
+			String contentLang = ResponseInstance.getContentLanguageForAppMixpanel(usertype);
+			System.out.println(contentLang);
+			String trayName = ResponseInstance.getRailNameFromPage(tabName, usertype);
+
+			if (tabName.equalsIgnoreCase("Live TV") || tabName.equalsIgnoreCase("News")) {
+				waitTime(5000);
+				waitForElementDisplayed(AMDGenericObjects.objTrayTitle, 30);
+			}
+			SwipeUntilFindElement(AMDHomePage.objRailName(trayName), "UP");
+			waitTime(3000);
+			if(!(verifyIsElementDisplayed(AMDGenericObjects.objSelectFirstCardFromRailName(trayName)))) {
+				PartialSwipe("Up", 1);
+			}
+			
+			waitTime(3000);
+			click(AMDGenericObjects.objSelectFirstCardFromRailName(trayName), "Content Card");
+			
+			waitTime(20000);
+			boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
+			if (ad == true) {
+				logger.info("Ad is displayed");
+				extent.extentLogger("Ad", "Ad is displayed");
+				waitTime(2000);
+				Back(1);
+				
+				String pManufacturer = DeviceDetails.OEM;
+
+				setFEProperty(usertype);
+				setUserType_SubscriptionProperties(usertype);
+				SetAppsflyerProperty();
+
+				if(usertype.equalsIgnoreCase("Guest")) {
+					mixpanel.FEProp.setProperty("User Type", "Guest");
+				}
+				
+				mixpanel.FEProp.setProperty("Source", "Homepage");
+				mixpanel.FEProp.setProperty("Page Name", "ConsumptionPage");
+				mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+				mixpanel.FEProp.setProperty("brand", pManufacturer);
+				
+				mixpanel.ValidateParameter("", "Ad Initialized");
+			} else {
+				logger.info("Ad is not displayed");
+				extentLoggerPass("Ad", "Ad is not displayed");
+			}
+		}else {
+			logger.info("Not Applicable for this usertype");
+			extent.extentLoggerPass("", "Not Applicable for this usertype");
+		}	
+	}
+	
+	public void AdClickEventForTrayNavigation(String usertype, String tabName) throws Exception{
+		extent.HeaderChildNode("Ad Click event through Landing screen Tray navigation");
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitTime(10000);
+			SelectTopNavigationTab(tabName);
+			waitTime(10000);
+			
+			String contentLang = ResponseInstance.getContentLanguageForAppMixpanel(usertype);
+			System.out.println(contentLang);
+			String trayName = ResponseInstance.getRailNameFromPage(tabName, usertype);
+
+			if (tabName.equalsIgnoreCase("Live TV") || tabName.equalsIgnoreCase("News")) {
+				waitTime(5000);
+				waitForElementDisplayed(AMDGenericObjects.objTrayTitle, 30);
+			}
+			SwipeUntilFindElement(AMDHomePage.objRailName(trayName), "UP");
+			waitTime(3000);
+			if(!(verifyIsElementDisplayed(AMDGenericObjects.objSelectFirstCardFromRailName(trayName)))) {
+				PartialSwipe("Up", 1);
+			}
+			
+			waitTime(3000);
+			click(AMDGenericObjects.objSelectFirstCardFromRailName(trayName), "Content Card");
+			
+			waitTime(20000);
+			boolean ad = verifyIsElementDisplayed(AMDPlayerScreen.objAd);
+			if (ad == true) {
+				logger.info("Ad is displayed");
+				extent.extentLogger("Ad", "Ad is displayed");
+				verifyElementPresentAndClick(AMDPlayerScreen.objLearnMoreTextOnAdPlayBack, "Learn More");
+				
+				String pManufacturer = DeviceDetails.OEM;
+
+				setFEProperty(usertype);
+				setUserType_SubscriptionProperties(usertype);
+				SetAppsflyerProperty();
+
+				if(usertype.equalsIgnoreCase("Guest")) {
+					mixpanel.FEProp.setProperty("User Type", "Guest");
+				}
+				
+				mixpanel.FEProp.setProperty("Source", "Homepage");
+				mixpanel.FEProp.setProperty("Page Name", "ConsumptionPage");
+				mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+				mixpanel.FEProp.setProperty("brand", pManufacturer);
+				
+				mixpanel.ValidateParameter("", "Ad click");
+			} else {
+				logger.info("Ad is not displayed");
+				extentLoggerPass("Ad", "Ad is not displayed");
+			}
+		}else {
+			logger.info("Not Applicable for this usertype");
+			extent.extentLoggerPass("", "Not Applicable for this usertype");
+		}	
+	}
+	
 	
 	
 }

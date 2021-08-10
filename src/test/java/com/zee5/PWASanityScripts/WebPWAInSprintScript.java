@@ -873,7 +873,302 @@ public class WebPWAInSprintScript {
 	@Parameters({ "userType" })
 	public void ValidateLinksWallets(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.ValidateLinksWallets(userType);;
-	}	
+	}
+	
+	@Test(priority=141)
+	@Parameters({ "userType" })
+	public void ZEE5LogoInPaymentPage(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.ZEE5LogoInPaymentPage(userType);
+	}
+	
+	@Test(priority=142)
+	@Parameters({ "userType" })
+	public void CreditAndDebitCardOption(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.CreditAndDebitCardOption(userType);;
+	}
+	
+	@Test(priority=143)
+	@Parameters({ "userType" })
+	public void PaymentFailurePopupAfterClickingOnBackButton(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.PaymentFailurePopupAfterClickingOnBackButton(userType);;
+	}
+	
+	@Test(priority=144)
+	@Parameters({ "userType" })
+	public void PaymentFailurePopupAfterClickingOnBrowserBackButton(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.PaymentFailurePopupAfterClickingOnBrowserBackButton(userType);
+	}
+	
+	@Test(priority=145)
+	@Parameters({ "userType" })
+	public void HaveAGiftCardOption(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.HaveAGiftCardOption(userType);
+	}
+	
+	
+	@Test(priority=146)
+	@Parameters({ "userType" })
+	public void CardNumberPINPayValidation(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.CardNumberPINPayValidation(userType);
+	}
+	
+	@Test(priority=147)
+	@Parameters({ "userType" })
+	public void CardNumberAndPinNumberDigitValidation(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.CardNumberAndPinNumberDigitValidation(userType);;
+	}
+	
+	@Test(priority=148)
+	@Parameters({ "userType" })
+	public void ErrorMessageValidation(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.ErrorMessageValidation(userType);;
+	}
+	
+	
+	
+	@Test(priority=149)
+	@Parameters({ "userType" })
+	public void supermoonInContinueWatchingTray(String userType) throws Exception {
+//		Zee5WEBPWASanityBusinessLogic.supermoonInContinueWatchingTray(userType);
+	}
+	
+	@Test(priority=150)
+	@Parameters({ "userType" })
+	public void shareFunctionalitySupermoon(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.shareFunctionalitySupermoon(userType);;
+	}
+	
+	@Test(priority=151)
+	@Parameters({ "userType" })
+	public void watchlistFunctionalitySupermoon(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.watchlistFunctionalitySupermoon(userType);;
+	}
+	
+	@Test(priority=152)
+	@Parameters({ "userType" })
+	public void titleBelowThePlayerSupermoon(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.titleBelowThePlayerSupermoon(userType);
+	}
+	
+	@Test(priority=153)
+	@Parameters({ "userType" })
+	public void descriptionBelowShareBtn(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.descriptionBelowShareBtn(userType);
+	}
+	
+	
+	@Test(priority=154)
+	@Parameters({ "userType" })
+	public void zeeplexLogoInLiveTVODConsumption(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.zeeplexLogoInLiveTVODConsumption(userType);
+	}
+	
+	@Test(priority=155)
+	@Parameters({ "userType" })
+	public void zeeplexLogoInVideoTVODConsumption(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.zeeplexLogoInVideoTVODConsumption(userType , "videoname");;
+	}
+	
+	@Test(priority=156)
+	@Parameters({ "userType" })
+	public void metaInfoForVideoTVODConsumption(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.metaInfoForVideoTVODConsumption(userType , "videoname");;
+	}
+	
+	
+	@Test(priority=157)
+	@Parameters({ "userType" })
+	public void clickOnWatchListForVideoTVODConsumption(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.clickOnWatchListForVideoTVODConsumption(userType, "videoname");
+	}
+	
+	@Test(priority=158)
+	@Parameters({ "userType" })
+	public void VerifyInWatchListForVideoTVODConsumption(String userType) throws Exception {
+//		Zee5WEBPWASanityBusinessLogic.VerifyInWatchListForVideoTVODConsumption(userType);;
+	}
+	
+	@Test(priority=159)
+	@Parameters({ "userType" })
+	public void VerifyPreRollAdForLiveTVODContent(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.VerifyPreRollAdForLiveTVODContent(userType, "LiveTvodcontent");;
+	}
+	
+	@Test(priority=160)
+	@Parameters({ "userType" })
+	public void PreAndMidRollAdsForExclusiveVODContent(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.PreAndMidRollAdsForExclusiveVODContent(userType ,  "ExclusiveTvodcontent");
+	}
+	
+	@Test(priority=161)
+	@Parameters({ "userType" })
+	public void PostRollAdsForExclusiveVODContent(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.PostRollAdsForExclusiveVODContent(userType , "ExclusiveTvodcontent");
+	}
+	
+	
+	@Test(priority=162)
+	@Parameters({ "userType" })
+	public void playAndPauseForLiveTvTVODContent(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.playAndPauseForLiveTvTVODContent(userType,  "LiveTvodcontent");
+	}
+	
+	@Test(priority=163)
+	@Parameters({ "userType" })
+	public void noPlayerFunctionalityForLiveTVContent(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.noPlayerFunctionalityForLiveTVContent(userType ,"LiveTvodcontent" );;
+	}
+	
+	@Test(priority=164)
+	@Parameters({ "userType" })
+	public void verifyLiveTvTagForLiveTVContent(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.verifyLiveTvTagForLiveTVContent(userType , "LiveTvodcontent");;
+	}
+	
+	
+	@Test(priority=165)
+	@Parameters({ "userType" })
+	public void VerifyPlayerControlsForVideoTVODConsumption(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.VerifyPlayerControlsForVideoTVODConsumption(userType , "videoname");
+	}
+	
+	@Test(priority=166)
+	@Parameters({ "userType" })
+	public void VerifyParentalPinForVideoTVODConsumption(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.VerifyParentalPinForVideoTVODConsumption(userType , "videoname");;
+	}
+	
+	@Test(priority=167)
+	@Parameters({ "userType" })
+	public void watchCTAonCarousalForSupermoonCarousal(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.watchCTAonCarousalForSupermoonCarousal(userType , "ZEEPLEX");;
+	}
+	
+	@Test(priority=168)
+	@Parameters({ "userType" })
+	public void ResumeCTAonCarousalForAnypacklessThan499withSupermoonActiveUser(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.ResumeCTAonCarousalForAnypacklessThan499withSupermoonActiveUser(userType, "ZEEPLEX");
+	}
+	
+	@Test(priority=170)
+	@Parameters({ "userType" })
+	public void watchCTAonZeePlexForAnypacklessThan499withSupermoonActiveUser(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.watchCTAonZeePlexForAnypacklessThan499withSupermoonActiveUser(userType);
+	}
+	
+	
+	@Test(priority=171)
+	@Parameters({ "userType" })
+	public void ResumeCTAonZeePlexForAnypacklessThan499withSupermoonActiveUser(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.ResumeCTAonZeePlexForAnypacklessThan499withSupermoonActiveUser(userType);
+	}
+	
+	@Test(priority=172)
+	@Parameters({ "userType" })
+	public void ExpiresInHoursBelowThePlayerForAnypacklessThan499withSupermoonActiveUse(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.ExpiresInHoursBelowThePlayerForAnypacklessThan499withSupermoonActiveUse(userType);;
+	}
+	
+	@Test(priority=173)
+	@Parameters({ "userType" })
+	public void ExpiresInRentalAndWatchTimeForAnypacklessThan499withSupermoonActiveUse(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.ExpiresInRentalAndWatchTimeForAnypacklessThan499withSupermoonActiveUse(userType);;
+	}
+	
+	
+	@Test(priority=174)
+	@Parameters({ "userType" })
+	public void noRentalTimeValidityInZeeplexPageForAnypacklessThan499withSupermoonActiveUse(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.noRentalTimeValidityInZeeplexPageForAnypacklessThan499withSupermoonActiveUse(userType);
+	}
+	
+	@Test(priority=175)
+	@Parameters({ "userType" })
+	public void HowItWorksInConsumptionPageForAnypacklessThan499withSupermoonActiveUse(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.HowItWorksInConsumptionPageForAnypacklessThan499withSupermoonActiveUse(userType);;
+	}
+	
+	@Test(priority=176)
+	@Parameters({ "userType" })
+	public void supermoonInContinueWatchingTrayForAnypacklessThan499withSupermoonActiveUse(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.supermoonInContinueWatchingTrayForAnypacklessThan499withSupermoonActiveUse(userType ,"Livetvodcontent");;
+	}
+	
+	@Test(priority=177)
+	@Parameters({ "userType" })
+	public void componentsInRentalAndWatchTimeForAnypacklessThan499withSupermoonActiveUser(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.componentsInRentalAndWatchTimeForAnypacklessThan499withSupermoonActiveUser(userType);
+	}
+	
+	@Test(priority=178)
+	@Parameters({ "userType" })
+	public void activeAndExpiryInRentalAndWatchTimeForAnypacklessThan499withSupermoonActiveUser(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.activeAndExpiryInRentalAndWatchTimeForAnypacklessThan499withSupermoonActiveUser(userType);
+	}
+	
+	
+	@Test(priority=179)
+	@Parameters({ "userType" })
+	public void VideoTVODContentInContinueWatchingTrayForAnypacklessThan499withSupermoonActiveUser(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.VideoTVODContentInContinueWatchingTrayForAnypacklessThan499withSupermoonActiveUser(userType , "Videocontent");
+	}
+	
+	@Test(priority=180)
+	@Parameters({ "userType" })
+	public void shareFunctionalitySupermoonForAnypacklessThan499withSupermoonActiveUser(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.shareFunctionalitySupermoonForAnypacklessThan499withSupermoonActiveUser(userType, "Livecontent");;
+	}
+	
+	@Test(priority=181)
+	@Parameters({ "userType" })
+	public void watchlistFunctionalityForAnypacklessThan499withSupermoonActiveUser(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.watchlistFunctionalityForAnypacklessThan499withSupermoonActiveUser(userType , "Livecontent");;
+	}
+	
+	
+	@Test(priority=182)
+	@Parameters({ "userType" })
+	public void VeerifyEPGSectionForAnypacklessThan499withSupermoonActiveUser(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.VeerifyEPGSectionForAnypacklessThan499withSupermoonActiveUser(userType);
+	}
+	
+	@Test(priority=183)
+	@Parameters({ "userType" })
+	public void VeerifyEPGSectionForoneYearPremium6MSupermoonUser(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.VeerifyEPGSectionForoneYearPremium6MSupermoonUser(userType);;
+	}
+	
+	@Test(priority=184)
+	@Parameters({ "userType" })
+	public void titleBelowThePlayerSupermoonForAnypacklessThan499withSupermoonActive(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.titleBelowThePlayerSupermoonForAnypacklessThan499withSupermoonActive(userType);;
+	}
+	
+	@Test(priority=185)
+	@Parameters({ "userType" })
+	public void descriptionBelowShareBtnForAnypacklessThan499withSupermoonActive(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.descriptionBelowShareBtnForAnypacklessThan499withSupermoonActive(userType);
+	}
+	
+	@Test(priority=186)
+	@Parameters({ "userType" })
+	public void metaInfoForVideoTVODConsumptionForAnypacklessThan499withSupermoonActive(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.metaInfoForVideoTVODConsumptionForAnypacklessThan499withSupermoonActive(userType , "Videoname");
+	}
+	
+	
+	@Test(priority=187)
+	@Parameters({ "userType" })
+	public void clickOnWatchListForVideoTVODConsumptionForAnypacklessThan499withSupermoonActive(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.clickOnWatchListForVideoTVODConsumptionForAnypacklessThan499withSupermoonActive(userType , "Videoname");
+	}
+	
+	@Test(priority=189)
+	@Parameters({ "userType" })
+	public void VerifyInWatchListForVideoTVODConsumptionAnypacklessThan499withSupermoonActive(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.VerifyInWatchListForVideoTVODConsumptionAnypacklessThan499withSupermoonActive(userType , "Videoname");;
+	}
+	
 	
 	@AfterClass
 	public void tearDown() {

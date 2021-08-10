@@ -112,7 +112,7 @@
 	<parameter name="SettingsNonsubscribedUserName" value="gdm@mailnesia.com" />
 	<parameter name="SettingsNonsubscribedPassword" value="654321" />
 
-	<parameter name="SettingsSubscribedUserName" value="zeein7@mailnesia.com" />
+	<parameter name="SettingsSubscribedUserName" value="dc1cl@mailnesia.com" />
 	<parameter name="SettingsSubscribedPassword" value="123456" />
 	
 	<parameter name="ClubUserName" value="clubpacktesting1@gmail.com" />
@@ -371,5 +371,26 @@
 				name="com.zee5.ApplicasterScripts.Android_Conviva" />
 		</classes>
 	</test> 
+	
+	<test name="Android_AR33_GrievanceRedressal">
+		<classes>
+			<class
+				name="com.zee5.ApplicasterScripts.Android_AR33_GrievanceRedressal" />
+		</classes>
+	</test>
+	
+	<test name="Android_AR33_ParentalControl">
+		<classes>
+			<class
+				name="com.zee5.ApplicasterScripts.Android_AR33_ParentalControl" />
+		</classes>
+	</test>
+	
+	<test name="Android_AR33_ContentDescriptor">
+		<classes>
+			<class
+				name="com.zee5.ApplicasterScripts.Android_AR33_ContentDescriptor" />
+		</classes>
+	</test>
 	
 </suite>

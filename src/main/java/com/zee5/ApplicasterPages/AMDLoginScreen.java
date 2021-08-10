@@ -194,4 +194,7 @@ public class AMDLoginScreen {
 	public static By objContentLanguageEnglish = By.xpath("//*[@id='btn_content_lang' and @text='English']");
 
 	public static By objContentLanguageContinueButton = By.xpath("//*[@id='btn_content_language_selection' and @text='Continue']");
+	
+	public static By objEmailSelect = By.xpath("//*[@id='title_default']");
+	public static By objSelectGmail = By.xpath("//*[@text='Gmail']");
 }

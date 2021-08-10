@@ -35048,10 +35048,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerFail("HyperLink", "On clicking the email id, " + str1
 						+ " User is unable to navigate to the respective page of email id");
 			} else {
-				if (checkElementExist(AMDLoginScreen.objGmailAccount, "Gmail Account")) {
+				if (checkElementExist(AMDLoginScreen.objEmailSelect, "Email select popup")) {
 					logger.info("On clicking email id, email account pop up is displayed");
 					extentLogger("MoreMenu", "On clicking email id, email account pop up is displayed");
-					click(AMDLoginScreen.objGmailAccount, "Gmail Account");
+					click(AMDLoginScreen.objSelectGmail, "Gmail Account");
 					waitTime(5000);
 					hideKeyboard();
 					if (checkElementExist(AMDMoreMenu.objGmailpage, "Email page")) {
@@ -35255,7 +35255,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		click(AMDHomePage.objHomeBottomBtn, "Home icon");
 		SelectTopNavigationTab("Live TV");
 		click(AMDLiveTVScreen.objLiveTVFirstContentCard, "Live Tv content");
-		verifyElementExist(AMDLiveTVScreen.objLiveTV, "Live toggle on Player screen");
+	//	verifyElementExist(AMDLiveTVScreen.objLiveTV, "Live toggle on Player screen");
 		boolean value2 = verifyElementIsNotDisplayed(AMDPlayerScreen.objContentDescOnPlayer);
 		if (value2) {
 			logger.info("Content Descriptor is NOT displayed for Live content - Expected Behaviour");
@@ -35267,7 +35267,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		waitTime(3000);
 		Back(1);
 		click(AMDLiveTVScreen.objLiveTVFirstContentCard, "Live Tv content");
-		verifyElementExist(AMDLiveTVScreen.objLiveTV, "Live toggle on Player screen");
+	//	verifyElementExist(AMDLiveTVScreen.objLiveTV, "Live toggle on Player screen");
 		boolean value3 = verifyElementIsNotDisplayed(AMDPlayerScreen.objAgeRatedOnPlayer);
 		if (value3) {
 			logger.info("Age Rating on Player is NOT displayed for Live content - Expected Behaviour");
@@ -35325,6 +35325,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 //				logger.info("Ad is not played");
 //				extentLogger("Ad", "Ad is not played");
 //			}
+			waitTime(5000);
 			boolean value = verifyElementDisplayed(AMDPlayerScreen.objContentDescOnPlayer);
 			System.out.println(value);
 			if (value) {
@@ -35334,7 +35335,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				logger.error("Content Descriptor is NOT displayed After Ad is completed");
 				extentLoggerFail("", "Content Descriptor is NOT displayed After Ad is completed");
 			}
-
 		} else {
 			logger.info("This is not applicable for " + userType);
 			extent.extentLogger("", "This is not applicable for " + userType);
@@ -35420,13 +35420,13 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			waitTime(2000);
 			hideKeyboard();
 			click(AMDDownloadPage.objsearchresultFirst, "Searched Show");
+			click(AMDPlayerScreen.objPlayerScreen,"Player screen");
 			waitForElementDisplayed(AMDDownloadPage.objPauseIconOnPlayer, 10000);
 			if (verifyElementIsNotDisplayed(AMDPlayerScreen.objContentDescOnPlayer)) {
 				logger.info("Content Descriptor is Empty");
 				extentLoggerPass("", "Content Descriptor is Empty");
 				Back(1);
 				click(AMDDownloadPage.objsearchresultFirst, "Searched Show");
-				waitForElementDisplayed(AMDDownloadPage.objPauseIconOnPlayer, 10000);
 				boolean AgeRatevalue = verifyElementDisplayed(AMDPlayerScreen.objAgeRatedOnPlayer);
 				System.out.println(AgeRatevalue);
 				if (AgeRatevalue == true) {
@@ -35702,6 +35702,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		waitTime(5000);
 		click(AMDPlayerScreen.objPlayerScreen,"Player Screen");
 		scrubProgressBarTillEnd(AMDPlayerScreen.objProgressBar);
+		waitTime(6000);
 		if (verifyElementDisplayed(AMDPlayerScreen.objAgeRatedOnPlayer)) {
 			boolean value = verifyElementDisplayed(AMDPlayerScreen.objContentDescOnPlayer);
 			if (value == true) {
@@ -35777,7 +35778,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLoggerFail("", "Pause icon is NOT Functional");
 		}
 		click(AMDPlayerScreen.objPlayIcon, "Play icon");
-		waitTime(15000);
+		waitTime(18000);
 		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		if (verifyElementDisplayed(AMDPlayerScreen.objPause)) {
 			logger.info("Play icon is Functional");
@@ -35824,6 +35825,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		waitTime(5000);
 		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		click(AMDPlayerScreen.objPreviousIcon, "Previous icon");
+		waitTime(5000);
+		click(AMDPlayerScreen.objPlayerScreen,"Player screen");
 		if (verifyElementDisplayed(AMDPlayerScreen.objNextIcon)) {
 			logger.info("Previous Icon is Functional");
 			extent.extentLoggerPass("", "Previous Icon is Functional");

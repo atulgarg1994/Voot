@@ -65,6 +65,16 @@ private Zee5ApplicasterMixPanelBusinessLogic Zee5ApplicasterMixPanelBusinessLogi
 		Zee5ApplicasterMixPanelBusinessLogic.AdClickForContinueWatchingTray(usertype, pTabName);
 	}
 	
+	@Test(priority = 6)
+	@Parameters({ "userType", "pTabName" })
+	public void AdClickEvent_TrayNavigation(String usertype, String pTabName) throws Exception {
+		System.out.println("\nAd Click event of content");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(usertype);
+		Zee5ApplicasterMixPanelBusinessLogic.AdClickEventForTrayNavigation(usertype, pTabName);
+	}
+	
 	//###############-------END OF TEST-------###############
 	
 	@AfterTest

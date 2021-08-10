@@ -36684,4 +36684,760 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 	}
 
+	public void componentsInRentalAndWatchTimeForAnypacklessThan499withSupermoonActiveUser(String userType)
+			throws Exception {
+		extent.HeaderChildNode("Verify that below components are displayed in My Rentals");
+		AnypacklessThan499withSupermoonActive();
+		waitTime(3500);
+		click(PWALandingPages.objWebProfileIcon, "Profile Icon");
+		waitTime(3000);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objzeeplex, "ZEEPLEX Rentals");
+		Thread.sleep(3000);
+		if (verifyElementPresent(PWAComboOfferPage.objMyRentalTitle, "Supermoon title in My rentals")) {
+
+			logger.info("Supermoon title in My rentals is  Present");
+			extent.extentLoggerPass("", "Supermoon title in My rentals is Present,expected behaviour");
+
+		} else {
+			logger.error("Supermoon title in My rentals is not Present");
+			extent.extentLoggerFail("", "Supermoon title in My rentals is not Present,expected behaviour");
+		}
+
+		if (verifyElementDisplayed(PWAComboOfferPage.objWatchNowCTA)) {
+
+			logger.info("Watch Now CTA is Present in My rentals Page");
+			extent.extentLoggerPass("", "Watch Now CTA is Present in My rentals Page,expected behaviour");
+
+		} else {
+			logger.error("Watch Now CTA is not Present in My rentals Page");
+			extent.extentLoggerFail("", "Watch Now CTA is not Present in My rentals Page,expected behaviour");
+
+		}
+		if (verifyElementDisplayed(PWAComboOfferPage.objExpiresDaysTxt)) {
+
+			logger.info("Expiry time mentioned in My rentals Page");
+			extent.extentLogger("", "Expiry time mentioned in My rentals Page,expected behaviour");
+
+		} else {
+			logger.info("Expiry time is not mentioned in My rentals Page");
+			extent.extentLogger("", "Expiry time is not mentioned in My rentals Page,expected behaviour");
+		}
+	}
+
+	public void activeAndExpiryInRentalAndWatchTimeForAnypacklessThan499withSupermoonActiveUser(String userType)
+			throws Exception {
+		extent.HeaderChildNode(
+				"Validate that both active and expired Live TV TVOD or TVOD Videos contents are displayed in My rentals screen");
+		AnypacklessThan499withSupermoonActive();
+		waitTime(3500);
+		click(PWALandingPages.objWebProfileIcon, "Profile Icon");
+		waitTime(3000);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objzeeplex, "ZEEPLEX Rentals");
+		Thread.sleep(3000);
+		if (verifyElementDisplayed(PWAComboOfferPage.objWatchNowCTA)) {
+
+			logger.info("Live TV TVOD is still active in My rentals Page");
+			extent.extentLogger("", "Live TV TVOD is still active in My rentals Page,expected behaviour");
+
+		} else {
+			logger.info("Live TV TVOD is not active in My rentals Page");
+			extent.extentLogger("", "Live TV TVOD is not active in My rentals Page,expected behaviour");
+
+		}
+		if (verifyElementDisplayed(PWAComboOfferPage.objResumeCTA)) {
+
+			logger.info("Live TV TVOD is still active in My rentals Page");
+			extent.extentLogger("", "Live TV TVOD is still active in My rentals Page,expected behaviour");
+
+		} else {
+			logger.info("Live TV TVOD is not active in My rentals Page");
+			extent.extentLogger("", "Live TV TVOD is not active in My rentals Page,expected behaviour");
+
+		}
+
+		if (verifyElementDisplayed(PWAComboOfferPage.objExpiredTxtInMyRental)) {
+
+			logger.info("Expired Live TV TVOD contents mentioned in My rentals Page");
+			extent.extentLogger("", "Expired Live TV TVOD contents mentioned in My rentals Page,expected behaviour");
+
+		} else {
+			logger.info("Expired Live TV TVOD contents is not mentioned in My rentals Page");
+			extent.extentLogger("",
+					"Expired Live TV TVOD contents is not mentioned in My rentals Page,expected behaviour");
+
+		}
+	}
+
+	public void VideoTVODContentInContinueWatchingTrayForAnypacklessThan499withSupermoonActiveUser(String userType,
+			String VideoTVODContent) throws Exception {
+		extent.HeaderChildNode("Verify that post watching Video content is added to \"Continue watching\" tray");
+		AnypacklessThan499withSupermoonActive();
+		waitTime(3500);
+		click(PWAHomePage.objSearchBtn, "Seach button");
+		waitTime(2000);
+		type(PWASearchPage.objSearchEditBox, VideoTVODContent, "Search Field");
+		waitTime(3000);
+		JSClick(PWASearchPage.objFirstAssetImgSearchNavigationTab, VideoTVODContent);
+		waitTime(3500);
+
+		waitTime(3500);
+		JSClick(PWAHomePage.objPlaybackMovieTitle(VideoTVODContent), VideoTVODContent);
+		if (checkElementDisplayed(PWAComboOfferPage.objWatchNowCTA, "Watch Now")) {
+			JSClick(PWAComboOfferPage.objWatchNowCTA, "Watch Now CTA");
+		}
+		if (checkElementDisplayed(PWAComboOfferPage.objResumeCTA, "Resume CTA")) {
+			JSClick(PWAComboOfferPage.objResumeCTA, "Resume CTA");
+			waitTime(3500);
+		}
+		if (checkElementDisplayed(PWAPlayerPage.objPlayerAdPresent, "Wait till ad to complete")) {
+			// objPlayerAdPresent
+			waitForPlayerAdToComplete2("Live show");
+		}
+		waitTime(10000);
+		navigateToAnyScreenOnWeb("Home");
+		waitTime(2000);
+		if (checkElementDisplayed(PWAHomePage.objContinueWatchingTray, "Coninue Watching tray") == true) {
+			ArrayList<String> ContinueWatching = new ArrayList<String>();
+
+			for (int i = 1; i < 4; i++) {
+				String updatedContent = getElementPropertyToString("innerText",
+						PWAContinueWatchingTrayPage.objCardTitle(i), "Content");
+				ContinueWatching.add(updatedContent);
+			}
+			logger.info(ContinueWatching);
+			if (ContinueWatching.contains(VideoTVODContent)) {
+				logger.error(VideoTVODContent + " is present in Continue watching tray");
+				extent.extentLoggerFail("", VideoTVODContent + " is present in Continue watching tray");
+			} else {
+				logger.info(VideoTVODContent + " is not present in Continue watching tray");
+				extent.extentLoggerPass("", VideoTVODContent + " is not present in Continue watching tray");
+			}
+
+		}
+	}
+
+	public void shareFunctionalitySupermoonForAnypacklessThan499withSupermoonActiveUser(String userType,
+			String LiveTvContent) throws Exception {
+		extent.HeaderChildNode("Verify that user is able to share the LiveTV content as existing ");
+		AnypacklessThan499withSupermoonActive();
+		waitTime(3500);
+		click(PWAHomePage.objSearchBtn, "Seach button");
+		waitTime(2000);
+		type(PWASearchPage.objSearchEditBox, LiveTvContent, "Search Field");
+		waitTime(3000);
+		JSClick(PWASearchPage.objFirstAssetImgSearchNavigationTab, LiveTvContent);
+		waitTime(3500);
+
+		ScrollToTheElementWEB(PWAComboOfferPage.objSharebelowPlayer);
+		waitTime(2500);
+		JSClick(PWAComboOfferPage.objSharebelowPlayer, "Share option");
+		waitTime(2500);
+		click(PWAPlayerPage.facebookShareBtn, "Facebook share option");
+		waitTime(2500);
+
+		// Switch to window
+		verifyAlert();
+		switchToWindow(2);
+		Thread.sleep(2000);
+		// Verify user is navigate to Facebook page
+		if (checkElementDisplayed(PWALiveTVPage.objFacebookEmailField, "Facebook Email field")) {
+			verifyElementPresentAndClick(PWALiveTVPage.objFacebookEmailField, "Facebook Email field");
+
+			getWebDriver().findElement(PWALiveTVPage.objFacebookEmailField).sendKeys("helloigs6@gmail.com");
+
+			verifyElementPresentAndClick(PWALiveTVPage.objFacebookPasswordField, "Facebook Password field");
+			getWebDriver().findElement(PWALiveTVPage.objFacebookPasswordField).sendKeys("hello@12345");
+
+			verifyElementPresentAndClick(PWALiveTVPage.objFacebookLoginBtn, "Facebook Login button");
+			waitTime(2000);
+			logger.info("user able to share the share the LiveTV content as existing");
+			extent.extentLoggerPass("", "user able to share the share the LiveTV content as existing");
+		} else {
+			logger.info("user not able to share the share the LiveTV content as existing");
+			extent.extentLoggerFail("", "user not able to share the share the LiveTV content as existing");
+		}
+		verifyAlert();
+		waitTime(2000);
+		verifyElementPresentAndClick(PWALiveTVPage.objPostToFacebookBtn, "Post to Facebook");
+		waitTime(3000);
+		verifyAlert();
+		switchToWindow(1);
+		waitTime(3000);
+
+	}
+
+	public void watchlistFunctionalityForAnypacklessThan499withSupermoonActiveUser(String userType,
+			String LiveTvContent) throws Exception {
+		extent.HeaderChildNode("Verify that for live channel watchlist option is not displayed");
+		AnypacklessThan499withSupermoonActive();
+		click(PWAHomePage.objSearchBtn, "Seach button");
+		waitTime(2000);
+		type(PWASearchPage.objSearchEditBox, LiveTvContent, "Search Field");
+		waitTime(3000);
+		JSClick(PWASearchPage.objFirstAssetImgSearchNavigationTab, LiveTvContent);
+		waitTime(3500);
+
+		ScrollToTheElementWEB(PWAComboOfferPage.objSharebelowPlayer);
+		waitTime(2500);
+		if (verifyElementPresent(PWAPlayerPage.watchListBtn, "WatchList icon")) {
+			logger.info("For live channel watchlist option is not displayed");
+			extent.extentLoggerPass("", "For live channel watchlist option is not displayed");
+		} else {
+			logger.info("For live channel watchlist option is displayed");
+			extent.extentLoggerFail("", "For live channel watchlist option is displayed");
+
+		}
+
+	}
+
+	public void VeerifyEPGSectionForAnypacklessThan499withSupermoonActiveUser(String userType) throws Exception {
+		extent.HeaderChildNode("Verify that EPG section is remain as is on live tv consumption page");
+		AnypacklessThan499withSupermoonActive();
+		waitTime(2500);
+		navigateToAnyScreenOnWeb("Live TV");
+		waitTime(3000);
+		click(PWALiveTVPage.objChannelGuideToggle, "Channel Guide");
+		if (findElement(PWALiveTVPage.objChannelGuideToggle).getAttribute("class").contains("active")) {
+			extent.extentLoggerPass("EPG Section", " EPG section is remain as is on live tv consumption page");
+			logger.info(" EPG section is remain as is on live tv consumption page");
+		} else {
+			extent.extentLoggerFail("EPG Section", " EPG section is not remained as is on live tv consumption page");
+			logger.info(" EPG section is not remained as is on live tv consumption page");
+		}
+	}
+
+	public void VeerifyEPGSectionForoneYearPremium6MSupermoonUser(String userType) throws Exception {
+		extent.HeaderChildNode("Verify that EPG section is remain as is on live tv consumption page");
+		oneYearPremium6MSupermoonUser();
+		waitTime(2500);
+		navigateToAnyScreenOnWeb("Live TV");
+		waitTime(3000);
+		click(PWALiveTVPage.objChannelGuideToggle, "Channel Guide");
+		if (findElement(PWALiveTVPage.objChannelGuideToggle).getAttribute("class").contains("active")) {
+			extent.extentLoggerPass("EPG Section", " EPG section is remain as is on live tv consumption page");
+			logger.info(" EPG section is remain as is on live tv consumption page");
+		} else {
+			extent.extentLoggerFail("EPG Section", " EPG section is not remained as is on live tv consumption page");
+			logger.info(" EPG section is not remained as is on live tv consumption page");
+		}
+	}
+
+	public void titleBelowThePlayerSupermoonForAnypacklessThan499withSupermoonActive(String userType) throws Exception {
+		extent.HeaderChildNode("Verify that user is able to see the title of the LiveTV content i.e event name)");
+		AnypacklessThan499withSupermoonActive();
+		waitTime(3500);
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+
+		// objContentTitleLiveTVname
+		waitTime(3500);
+		JSClick(PWAHomePage.objPlaybackMovieTitle("Supermoon"), "supermoon");
+		waitTime(2500);
+		if (checkElementDisplayed(PWAComboOfferPage.objWatchNowCTA, "Watch Now")) {
+			JSClick(PWAComboOfferPage.objWatchNowCTA, "Watch Now CTA");
+		} else {
+			JSClick(PWAComboOfferPage.objResumeCTA, "Resume CTA");
+		}
+		if (verifyElementDisplayed(PWAPlayerPage.objContentTitleLiveTVname)) {
+			logger.info("user is able to see the title of the LiveTV content i.e Supermoon");
+			extent.extentLoggerPass("", "user is able to see the title of the LiveTV content i.e Supermoon");
+		} else {
+			logger.info("user not able to see the title of the LiveTV content i.e Supermoon");
+			extent.extentLoggerFail("", "user not able to see the title of the LiveTV content i.e Supermoon");
+		}
+
+	}
+
+	public void descriptionBelowShareBtnForAnypacklessThan499withSupermoonActive(String userType) throws Exception {
+		extent.HeaderChildNode("Verify that short description of the Live TV content is displayed below Share ");
+		AnypacklessThan499withSupermoonActive();
+		waitTime(3500);
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+
+		waitTime(3500);
+		JSClick(PWAHomePage.objPlaybackMovieTitle("Supermoon"), "supermoon");
+		waitTime(2500);
+		if (checkElementDisplayed(PWAComboOfferPage.objWatchNowCTA, "Watch Now")) {
+			JSClick(PWAComboOfferPage.objWatchNowCTA, "Watch Now CTA");
+		} else {
+			JSClick(PWAComboOfferPage.objResumeCTA, "Resume CTA");
+		}
+		waitTime(2500);
+		if (checkElementDisplayed(PWAComboOfferPage.objDescBelowShareBtn, "Description below share icon")) {
+			String Desc = getWebDriver().findElement(PWAComboOfferPage.objDescBelowShareBtn).getText();
+			logger.info(Desc);
+			logger.info("user is able to see short description of the Live TV content is displayed below Share icon");
+			extent.extentLoggerPass("",
+					"user is able to see short description of the Live TV content is displayed below Share icon");
+		} else {
+			logger.info(
+					"user is not able to see short description of the Live TV content is displayed below Share icon");
+			extent.extentLoggerFail("",
+					"user is not able to see short description of the Live TV content is displayed below Share icon");
+		}
+
+	}
+
+	public void metaInfoForVideoTVODConsumptionForAnypacklessThan499withSupermoonActive(String userType,
+			String videoname) throws Exception {
+		extent.HeaderChildNode(
+				"Verify that user is able to see the following meta information for Video TVOD Content:");
+		AnypacklessThan499withSupermoonActive();
+		waitTime(3500);
+		click(PWAHomePage.objSearchBtn, "Seach button");
+		waitTime(2000);
+		type(PWASearchPage.objSearchEditBox, videoname, "Search Field");
+		waitTime(2000);
+		JSClick(PWASearchPage.objFirstAssetImgSearchNavigationTab, videoname);
+
+		waitTime(4500);
+		// title of the content
+		if (verifyElementDisplayed(PWAPlayerPage.objContentName)) {
+			String contentname = getWebDriver().findElement(PWAPlayerPage.objContentName).getText();
+			logger.info(contentname);
+			extent.extentLogger("", contentname);
+			logger.info("user is able to see the title of the Video TVOD content");
+			extent.extentLoggerPass("", "user is able to see the title of the Video TVOD content");
+		} else {
+			logger.info("user not able to see the title of the Video TVOD content");
+			extent.extentLoggerFail("", "user not able to see the title of the Video TVOD content");
+		}
+		// date:-objContentMetaDate
+		if (verifyElementDisplayed(PWAPlayerPage.objContentMetaDate)) {
+			String ContentMetaDate = getWebDriver().findElement(PWAPlayerPage.objContentMetaDate).getText();
+			logger.info(ContentMetaDate);
+			extent.extentLogger("", ContentMetaDate);
+			logger.info("user is able to see the Date of the Video TVOD content");
+			extent.extentLoggerPass("", "user is able to see the Date of the Video TVOD content");
+		} else {
+			logger.info("user not able to see the Date of the Video TVOD content");
+			extent.extentLoggerFail("", "user not able to see the Date of the Video TVOD content");
+		}
+		// objcontentDuration
+		if (verifyElementDisplayed(PWAComboOfferPage.objcontentDuration)) {
+			String ContentDuration = getWebDriver().findElement(PWAComboOfferPage.objcontentDuration).getText();
+			logger.info(ContentDuration);
+			extent.extentLogger("", ContentDuration);
+			logger.info("user is able to see the Duration of the Video TVOD content");
+			extent.extentLoggerPass("", "user is able to see the Date of the Video TVOD content");
+		} else {
+			logger.info("user not able to see the Duration of the Video TVOD content");
+			extent.extentLoggerFail("", "user not able to see the Date of the Video TVOD content");
+		}
+
+		// Certification
+		if (verifyElementDisplayed(PWAPlayerPage.objContentMetaGenre)) {
+			String ContentMetaCertificate = getWebDriver().findElement(PWAPlayerPage.objContentMetaGenre).getText();
+			logger.info(ContentMetaCertificate);
+			extent.extentLogger("", ContentMetaCertificate);
+			logger.info("user is able to see the Certification of the Video TVOD content");
+			extent.extentLoggerPass("", "user is able to see the Certification of the Video TVOD content");
+		} else {
+			logger.info("user is not able to see the Certification of the Video TVOD content");
+			extent.extentLoggerFail("", "user is not able to see the Certification of the Video TVOD content");
+		}
+
+		// objcontentGenre
+		if (verifyElementDisplayed(PWAComboOfferPage.objcontentGenre)) {
+			String ContentMetaGenr = getWebDriver().findElement(PWAComboOfferPage.objcontentGenre).getText();
+			logger.info(ContentMetaGenr);
+			extent.extentLogger("", ContentMetaGenr);
+			logger.info("user is able to see the GENRE of the Video TVOD content");
+			extent.extentLoggerPass("", "user is able to see the GENRE of the Video TVOD content");
+		} else {
+			logger.info("user is not able to see the GENRE of the Video TVOD content");
+			extent.extentLoggerFail("", "user is not able to see the GENRE of the Video TVOD content");
+		}
+		// Watchlist
+		if (!verifyElementPresent(PWAPlayerPage.watchListBtn, "WatchList icon")) {
+			logger.info("For Video TVOD watchlist option is not displayed");
+			extent.extentLoggerFail("", "For Video TVOD watchlist option is not displayed");
+		} else {
+			logger.info("For Video TVOD watchlist option is displayed");
+			extent.extentLoggerPass("", "For Video TVOD watchlist option is displayed");
+
+		}
+
+		// Share
+		if (verifyElementDisplayed(PWAComboOfferPage.objSharebelowPlayer)) {
+			logger.info("user is able to see the GENRE of the Video TVOD content");
+			extent.extentLoggerPass("", "user is able to see the GENRE of the Video TVOD content");
+		} else {
+			logger.info("user is not able to see the GENRE of the Video TVOD content");
+			extent.extentLoggerFail("", "user is not able to see the GENRE of the Video TVOD content");
+		}
+
+		// description
+		if (checkElementDisplayed(PWAComboOfferPage.objDescBelowShareBtn, "Description below share icon")) {
+			String Desc = getWebDriver().findElement(PWAComboOfferPage.objDescBelowShareBtn).getText();
+			logger.info(Desc);
+			extent.extentLogger("", Desc);
+			logger.info(
+					"user is able to see short description of the video TVOD content is displayed below Share icon");
+			extent.extentLoggerPass("",
+					"user is able to see short description of the video TVOD content is displayed below Share icon");
+		} else {
+			logger.info(
+					"user is not able to see short description of the video TVOD content is displayed below Share icon");
+			extent.extentLoggerFail("",
+					"user is not able to see short description of the video TVOD content is displayed below Share icon");
+		}
+
+		// "Subtitle button"
+
+		if (checkElementDisplayed(PWAHomePage.objSubtitleButton, "Subtitle button")) {
+
+			logger.info("user is able to see Subtitle button of the video TVOD content is displayed");
+			extent.extentLoggerPass("", "user is able to see Subtitle button of the video TVOD content is displayed");
+		} else {
+			logger.info("user is not able to see Subtitle button of the video TVOD content is displayed");
+			extent.extentLoggerFail("",
+					"user is not able to see Subtitle button of the video TVOD content is displayed");
+		}
+	}
+
+	public void clickOnWatchListForVideoTVODConsumptionForAnypacklessThan499withSupermoonActive(String userType,
+			String videoname) throws Exception {
+		extent.HeaderChildNode("Verify that user is able to add the Exclusive video content in Mywatchlist page ");
+		AnypacklessThan499withSupermoonActive();
+		waitTime(3500);
+		click(PWAHomePage.objSearchBtn, "Seach button");
+		waitTime(2000);
+		type(PWASearchPage.objSearchEditBox, videoname, "Search Field");
+		waitTime(3000);
+		JSClick(PWASearchPage.objFirstAssetImgSearchNavigationTab, videoname);
+
+		waitTime(3500);
+		scrollToTheElementWEB(PWAPlayerPage.watchListBtn);
+		waitTime(2000);
+		if (verifyElementPresent(PWAPlayerPage.watchListBtn, "WatchList icon")) {
+			JSClick(PWAPlayerPage.watchListBtn, "WatchList icon");
+			try {
+				Boolean AddedtoWatchlistToastMessage = getWebDriver().getPageSource()
+						.contains("//*[@class='toastMessage']");
+				if (AddedtoWatchlistToastMessage == true) {
+
+					extent.extentLogger("Toast", "Added to Watchlist Toast Message displayed");
+					logger.info("Added to Watchlist Toast Message displayed");
+				} else {
+					extent.extentLogger("Toast", "Added to Watchlist Toast Message is not displayed");
+					logger.info("Added to Watchlist Toast Message is not displayed");
+				}
+			} catch (Exception e) {
+				System.out.println("Toast message is not displayed");
+			}
+			logger.info("user is able to add the Exclusive video content in Mywatchlist");
+			extent.extentLoggerPass("", "user is able to add the Exclusive video content in Mywatchlist");
+		} else {
+			logger.info("user is not able to add the Exclusive video content in Mywatchlist");
+			extent.extentLoggerFail("", "user is not able to add the Exclusive video content in Mywatchlist");
+
+		}
+		JSClick(PWAPlayerPage.watchListBtn, "WatchList icon");
+	}
+
+	public void VerifyInWatchListForVideoTVODConsumptionAnypacklessThan499withSupermoonActive(String userType,
+			String videoname) throws Exception {
+		extent.HeaderChildNode("Verify Exclusive video content present under Videos tab in Mywatchlist  page");
+		AnypacklessThan499withSupermoonActive();
+		waitTime(3500);
+		click(PWAHomePage.objSearchBtn, "Seach button");
+		waitTime(2000);
+		type(PWASearchPage.objSearchEditBox, videoname, "Search Field");
+		waitTime(3000);
+		JSClick(PWASearchPage.objFirstAssetImgSearchNavigationTab, videoname);
+
+		waitTime(3500);
+		scrollToTheElementWEB(PWAPlayerPage.watchListBtn);
+		waitTime(2000);
+		if (verifyElementPresent(PWAPlayerPage.watchListBtn, "WatchList icon")) {
+			JSClick(PWAPlayerPage.watchListBtn, "WatchList icon");
+			waitTime(555);
+			try {
+				Boolean AddedtoWatchlistToastMessage = getWebDriver().getPageSource()
+						.contains("//*[@class='toastMessage']");
+				if (AddedtoWatchlistToastMessage == true) {
+
+					extent.extentLogger("Toast", "Added to Watchlist Toast Message displayed");
+					logger.info("Added to Watchlist Toast Message displayed");
+				} else {
+					extent.extentLogger("Toast", "Added to Watchlist Toast Message is not displayed");
+					logger.info("Added to Watchlist Toast Message is not displayed");
+				}
+			} catch (Exception e) {
+				System.out.println("Toast message is not displayed");
+			}
+		}
+		click(PWAHomePage.objProfileMenu, "Profile Menu");
+		waitTime(2000);
+		JSClick(PWAAddToWatchListPage.objMyWatchList, "WatchList in Hamberger menu");
+		waitTime(2000);
+		click(PWAAddToWatchListPage.objVideoTab, "video tab");
+		waitTime(2000);
+		if (checkElementDisplayed(PWAAddToWatchListPage.objWatchlistedItem(videoname), videoname)) {
+			logger.info("user is able to see the Exclusive video content present in Mywatchlist's videos tab");
+			extent.extentLoggerPass("",
+					"user is able to see the Exclusive video content present in Mywatchlist's videos tab");
+		} else {
+			logger.info("user is able to see the Exclusive video content not present in Mywatchlist's videos tab");
+			extent.extentLoggerFail("",
+					"user is able to see the Exclusive video content not present in Mywatchlist's videos tab");
+
+		}
+		JSClick(PWAAddToWatchListPage.objRemoveContentsInWatchList, " Remove all in WatchList");
+	}
+	
+	public void ZEE5LogoInPaymentPage(String userType) throws Exception
+	{
+		extent.HeaderChildNode(
+				"Verify that user is able to see zee5 logo in payment gateway screen for respective wallet");
+		navigateHome();
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+		waitTime(3500);
+		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		waitTime(5000);
+		verifyElementPresent(PWAComboOfferPage.objRentNowBelowPlayer, "Below Player");
+		click(PWAComboOfferPage.objRentNowBelowPlayer, "Below Player");
+		verifyElementPresent(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
+		click(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
+		waitTime(5000);
+		PWAIframe();
+		
+		checkElementDisplayed(PWAHomePage.objZeeLogo, "Zee logo");
+	}
+
+
+	public void CreditAndDebitCardOption(String userType) throws Exception
+	{
+		if(userType.equalsIgnoreCase("Guest"))
+		{
+		extent.HeaderChildNode(
+				"Verify that user is able to see Credit and Debit card options in payment gateway for respective wallet");
+		navigateHome();
+		verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
+		waitTime(3000);
+		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+		type(PWALoginPage.objEmailField, "luckyigscon0074@gmail.com", "Email Field");
+		waitTime(3000);
+		verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+		type(PWALoginPage.objPasswordField, "vasilucky@123", "Password field");
+		waitTime(5000);
+		click(PWALoginPage.objWebLoginButton, "Login Button");
+		waitTime(3000);
+		
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+		waitTime(3500);
+		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		waitTime(5000);
+		verifyElementPresent(PWAComboOfferPage.objRentNowBelowPlayer, "Below Player");
+		click(PWAComboOfferPage.objRentNowBelowPlayer, "Below Player");
+		verifyElementPresent(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
+		click(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
+		
+
+		PWAIframe();
+		verifyElementPresentAndClick(PWASubscriptionPages.objWallets, "Wallets");
+		verifyElementPresentAndClick(PWASubscriptionPages.objPaytmWallet, "Paytm");
+		// verifyElementPresentAndClick(PWASubscriptionPages.objpaytmlink, "Paytm
+		// link");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objPaytmProceedToPay, "Procced to pay");
+		waitTime(5000);
+		if (verifyElementPresent(PWAHamburgerMenuPage.objcardsinpaytm, "Cards in paytm")) {
+			logger.info(
+					"User should be able to see Credit and Debit card options in payment gateway for respective wallet, expected behaviour");
+			extent.extentLogger("",
+					"User should be able to see Credit and Debit card options in payment gateway for respective wallet, expected behaviour");
+		} else {
+			logger.info(
+					"User not able to see Credit and Debit card options in payment gateway for respective wallet");
+			extent.extentLoggerFail("",
+					"User not able to see Credit and Debit card options in payment gateway for respective wallet");
+		}
+		}
+	}
+
+	public void PaymentFailurePopupAfterClickingOnBackButton(String userType) throws Exception
+	{
+		if(userType.equalsIgnoreCase("Guest"))
+		{
+		extent.HeaderChildNode("Verify that on clicking back on payment gateway screen of respective wallets User redirect to Account info screen with intent popup");
+		navigateHome();
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+		waitTime(3500);
+		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		waitTime(5000);
+		verifyElementPresent(PWAComboOfferPage.objRentNowBelowPlayer, "Below Player");
+		click(PWAComboOfferPage.objRentNowBelowPlayer, "Below Player");
+		verifyElementPresent(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
+		click(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
+		
+
+		PWAIframe();
+		verifyElementPresentAndClick(PWASubscriptionPages.objWallets, "Wallets");
+		verifyElementPresentAndClick(PWASubscriptionPages.objPaytmWallet, "Paytm");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objPaytmProceedToPay, "Procced to pay");
+		click(PWAHamburgerMenuPage.objgobackinpaytm, "Go back");
+		waitTime(5000);
+		if (verifyElementPresent(PWAHamburgerMenuPage.objcancelpaymentyes, "Cancel payment")) {
+			click(PWAHamburgerMenuPage.objcancelpaymentyes, "Cancel payment");
+
+		}
+		waitTime(5000);
+		if (verifyElementPresent(PWAHamburgerMenuPage.objpaymentfailurepopup, "Payment failure popup")) {
+			logger.info("payment failure popup is displayed, expected behaviour");
+			extent.extentLogger("", "Payment failure popup is displayed, expected behaviour");
+		} else {
+			logger.info("payment failure popup is not displayed");
+			extent.extentLoggerFail("", "payment failure popup is not displayed");
+		}
+		}
+	}
+
+
+	public void PaymentFailurePopupAfterClickingOnBrowserBackButton(String userType) throws Exception
+	{
+		if(userType.equalsIgnoreCase("Guest"))
+		{
+			extent.HeaderChildNode("Verify that on clicking browser back button on payment gateway "
+					+ "screen of respective wallets User redirect to Account info screen with intent popup");
+			navigateHome();
+			navigateToAnyScreenOnWeb("ZEEPLEX");
+			waitTime(3500);
+			JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+			waitTime(5000);
+			verifyElementPresent(PWAComboOfferPage.objRentNowBelowPlayer, "Below Player");
+			click(PWAComboOfferPage.objRentNowBelowPlayer, "Below Player");
+			verifyElementPresent(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
+			click(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
+			
+
+			PWAIframe();
+			Back(1);
+			if (checkElementDisplayed(PWAHamburgerMenuPage.objgobackinpaytm, "Go back")) {
+				logger.info("User should redirect to payment page  , expected behaviour");
+				extent.extentLogger("", "User should redirect to payment page , expected behaviour");
+			} else {
+				logger.info("User is not redirect to payment page ");
+				extent.extentLoggerFail("", "User is not redirect to payment page");
+			}
+		}
+	}
+
+	public void HaveAGiftCardOption(String userType) throws Exception
+	{
+		extent.HeaderChildNode("Verify that user is able to see see gift card option at the bottom of the payment screen.");
+		navigateHome();
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+		waitTime(3500);
+		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		waitTime(5000);
+		verifyElementPresent(PWAComboOfferPage.objRentNowBelowPlayer, "Below Player");
+		click(PWAComboOfferPage.objRentNowBelowPlayer, "Below Player");
+		verifyElementPresent(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
+		click(PWAComboOfferPage.objBuyCombobutton, "Buy Combo");
+		PWAIframe();
+		if (verifyElementPresent(PWAHamburgerMenuPage.objhaveagiftcard, "Have a gift card")) {
+			logger.info(
+					"User should be able to see see gift card option at the bottom of the payment screen.,expected behaviour.");
+			extent.extentLoggerPass("",
+					"User should be able to see see gift card option at the bottom of the payment screen., expected behaviour.");
+		} else {
+			logger.info("User not able to see see gift card option at the bottom of the payment screen.");
+			extent.extentLoggerFail(" ",
+					"User not able to see see gift card option at the bottom of the payment screen.");
+
+		}
+	}
+
+
+	public void CardNumberPINPayValidation(String userType) throws Exception
+	{
+		extent.HeaderChildNode("Verify that on clicking Gift card option consist cardnumber, pin, pay");
+		verifyElementPresent(PWAHamburgerMenuPage.objhaveagiftcard, "Have a gift card");
+		JSClick(PWAHamburgerMenuPage.objhaveagiftcard, "Have a gift card");
+		waitTime(5000);
+		verifyElementPresent(PWAHamburgerMenuPage.objentercarddetailstohaveagiftcard, "Enter card details");
+		JSClick(PWAHamburgerMenuPage.objentercarddetailstohaveagiftcard, "Enter card details");
+		waitTime(5000);
+		verifyElementPresent(PWAHamburgerMenuPage.objenterpintohaveagiftcard, "PIN details");
+		JSClick(PWAHamburgerMenuPage.objenterpintohaveagiftcard, "PIN details");
+		waitTime(5000);
+		verifyElementPresent(PWAHamburgerMenuPage.objPay, "PAY");
+	}
+
+
+	public void CardNumberAndPinNumberDigitValidation(String userTye) throws Exception
+	{
+		extent.HeaderChildNode("Verify that Card number will take only 16 digits and Pin will take 6 digits");
+		verifyElementPresent(PWAHamburgerMenuPage.objentercarddetailstohaveagiftcard, "Enter card details");
+		JSClick(PWAHamburgerMenuPage.objentercarddetailstohaveagiftcard, "Enter card details");
+		type(PWAHamburgerMenuPage.objinputnumbercard, "12345678912345678", "card number");
+		String cardnumber = findElement(PWAHamburgerMenuPage.objgiftcardnumber).getAttribute("value");
+		System.out.println(cardnumber);
+		try {
+			int a = Integer.parseInt(cardnumber);
+			System.out.println(a);
+			extent.extentLogger("", " cardnumber  : " + a);
+			if (a == 16) {
+				logger.info("Card number should take only 16 digits.,expected behaviour.");
+				extent.extentLoggerPass("", "Card number should take only 16 digits., expected behaviour.");
+			} else {
+				logger.info("Card number taking more or less than 16 digits");
+				extent.extentLoggerFail(" ", "Card number taking more or less than 16 digits");
+
+			}
+		} catch (NumberFormatException ex) {
+
+		}
+
+//		int a = Integer.valueOf(cardnumber);
+//		System.out.println(a);
+//		getCountweb(a);
+//		extent.extentLogger("", " cardnumber  : " + a);
+//		if(a==16)
+//		{
+//			logger.info("Card number should take only 16 digits.,expected behaviour.");
+//			extent.extentLoggerPass("", "Card number should take only 16 digits., expected behaviour.");
+//		}
+//		else 
+//		{
+//			logger.info("Card number taking more or less than 16 digits");
+//			extent.extentLoggerFail(" ", "Card number taking more or less than 16 digits");
+	//	
+//		}
+	//	
+		verifyElementPresent(PWAHamburgerMenuPage.objenterpintohaveagiftcard, "PIN details");
+
+		type(PWAHamburgerMenuPage.objinputpincard, "1234567", "PIN  number");
+		String pinnumber = findElement(PWAHamburgerMenuPage.objpinnumber).getAttribute("value");
+		int pinnumber1 = Integer.parseInt(pinnumber);
+
+		System.out.println(pinnumber1);
+		extent.extentLogger("", " pinnumber  : " + pinnumber1);
+		if (pinnumber1 == 6) {
+			logger.info("Pin number should take only 6 digits.,expected behaviour.");
+			extent.extentLoggerPass("", "Pin number should take only 6 digits., expected behaviour.");
+		} else {
+			logger.info("Pin number taking more or less than 6 digits");
+			extent.extentLoggerFail(" ", "Pin number taking more or less than 6 digits");
+
+		}
+	}
+
+	public void ErrorMessageValidation(String userType) throws Exception
+	{
+		extent.HeaderChildNode("Verify error message ");
+		click(PWAHamburgerMenuPage.objPay, "Pay cta");
+		if (verifyElementPresent(PWAHamburgerMenuPage.objtoarstmessage, "Error message")) {
+			logger.info(
+					"User should get error text message if card number and pin combination is not correct,expected behaviour.");
+			extent.extentLoggerPass("",
+					"User should get error text message if card number and pin combination is not correct, expected behaviour.");
+		} else {
+			logger.info("User not getting error text message if card number and pin combination is not correct");
+			extent.extentLoggerFail(" ",
+					"User not getting error text message if card number and pin combination is not correct");
+		}
+	}
+
+
 }

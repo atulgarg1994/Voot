@@ -684,10 +684,7 @@ public class PWAHamburgerMenuPage {
 	public static By objPlayBtn = By.xpath("//a[@class='playIcon']");
 	public static By objLanguageBtnWeb = By.xpath("//*[@id='languageBtn']");
 	public static By objWouldYouLikeWatchMorePopup = By.xpath("//div[contains(text(),'Would you like to watch more')]");
-	public static By objWouldYouLikeWatchMoreCloseButton  = By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
-
-	public static By objzeeplex=By.xpath("//*[.='ZEEPLEX Rentals']");
-	
+	public static By objWouldYouLikeWatchMoreCloseButton  = By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");	
 	public static By objzeeplexbanner=By.xpath("//*[@class='plexLandingPageBanner']");
 	public static By objzeeplexHowitWorks=By.xpath("//span[.='How it Works ?']");
 	public static By objzeeplexHowitWorkspopup=By.xpath("//div[@class='popupContent']");
@@ -1047,4 +1044,6 @@ public class PWAHamburgerMenuPage {
 	public static By objActivateDeviceError=By.xpath("//span[@class='statusMessage errorMessage']");
 	
 	public static By objAuthenticationTDesc = By.xpath("//p[contains(@class,'pageDesc')]");
+	
+	public static By objzeeplex=By.xpath("//*[.='My Rentals']");
 }

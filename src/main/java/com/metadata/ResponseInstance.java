@@ -1830,7 +1830,7 @@ public class ResponseInstance {
 	public static String getContentLanguageForAppMixpanel(String userType) {
 		String language = null;
 		if (userType.equalsIgnoreCase("Guest")) {
-			language = "en,kn";
+			language = "hi,en,kn";
 		} else {
 			Response resplanguage = getUserinfoforNonSubORSubForAppMixpanel(userType);
 
@@ -2736,6 +2736,7 @@ public class ResponseInstance {
 				}
 			}
 		} else if (tabName.equalsIgnoreCase("premium") || tabName.equalsIgnoreCase("Web Series")) {
+			String assetsubType = null;
 			for (int i = 1; i < 5; i++) {
 				if (tabName.equalsIgnoreCase("premium")) {
 					assettype = resp.jsonPath().get("buckets[" + i + "].asset_type").toString();
@@ -2743,11 +2744,12 @@ public class ResponseInstance {
 					assettype = resp.jsonPath().get("buckets[" + i + "].items[0].asset_type").toString();
 				}
 				pTrayName = resp.jsonPath().get("buckets[" + i + "].title").toString();
-				String assetSubType = null;
+				
 				if (assettype.equals(setContentType)) {
 					pContentID = resp.jsonPath().get("buckets[" + i + "].items[0].id").toString();
 					contentName = resp.jsonPath().get("buckets[" + i + "].items[0].title").toString();
-					assetSubType = resp.jsonPath().get("buckets[" + i + "].items[0].asset_subtype").toString();
+					assetsubType = resp.jsonPath().get("buckets[" + i + "].items[0].asset_subtype").toString();
+					System.out.println(assetSubType);
 					System.out.println("\nTrayName: " + pTrayName);
 					System.out.println("ContentID: " + pContentID);
 					System.out.println("ContentName: " + contentName);
@@ -2757,9 +2759,10 @@ public class ResponseInstance {
 			
 			Response contentResp = null;
 			int seasonCount= 0;
-			if(assetSubType.equalsIgnoreCase("original")){
+			if(assetsubType.equalsIgnoreCase("original")){
 				contentResp = getContentDetails(pContentID, "original");
 				seasonCount = contentResp.jsonPath().getList("seasons").size();
+				System.out.println("seasonCount: "+seasonCount);
 			}
 			
 			if (pUserType.equalsIgnoreCase("guest") && tabName.equalsIgnoreCase("Web Series") && (seasonCount > 1)) {
@@ -2867,6 +2870,7 @@ public class ResponseInstance {
 		}
 		return pTrayName;
 	}
+
 
 	public static void setFEPropertyOfContentCardDetails(String pTrayName, String pContentID) {
 
@@ -6807,5 +6811,131 @@ public class ResponseInstance {
 		//deletDeviceResponse.prettyPrint();		
 	}
 	
+	public static String getCarouselContentFromAPI3(String usertype, String tabName) {
 
+		String pContentLang = ResponseInstance.getContentLanguageForAppMixpanel(usertype);
+		System.out.println("CONTENT LANG: " + pContentLang);
+
+		Response pageResp = ResponseInstance.getResponseForAppPages(tabName, pContentLang, usertype);
+		pageResp.print();
+
+		String contentName = null;
+
+		String asset_subtype = null;
+		for (int i = 0; i < 5; i++) {
+			String carousalName = pageResp.jsonPath().get("buckets[0].title");
+			MixpanelAndroid.FEProp.setProperty("Carousal Name", carousalName);
+			String businessType = pageResp.jsonPath().get("buckets[0].items[" + i + "].business_type");
+			
+			boolean asset = pageResp.jsonPath().get("buckets[0].items[" + i + "].asset_subtype")!=null;
+			if(asset== false) {
+				asset_subtype = "Invalid";
+			}else {
+				asset_subtype = pageResp.jsonPath().get("buckets[0].items[" + i + "].asset_subtype");
+
+			}
+			
+			contentName = pageResp.jsonPath().get("buckets[0].items[" + i + "].title");
+			System.out.println("asset_subtype: " + asset_subtype);
+			String contentID1 = null;
+			Response ContentResp1 = null;
+			String ContentId2 = null;
+			Response ContentResp2 = null;
+			boolean flag = false;
+			String var = null;
+			if (tabName.equalsIgnoreCase("TV Shows") || tabName.contentEquals("News")) {
+				if (asset_subtype.equalsIgnoreCase("external_link")) {
+					var = asset_subtype;
+				} else {
+					var = "Invalid";
+				}
+			} else if (tabName.equalsIgnoreCase("Home") || tabName.equalsIgnoreCase("Premium")
+					|| tabName.equalsIgnoreCase("Club") || tabName.equalsIgnoreCase("Movies")) {
+				if (asset_subtype.equalsIgnoreCase("movie")) {
+					var = asset_subtype;
+				} else if (asset_subtype.equalsIgnoreCase("original")) {
+					var = asset_subtype;
+				} else {
+					var = "Invalid";
+				}
+
+			} else if (tabName.equalsIgnoreCase("Music")) {
+					if (asset_subtype.equalsIgnoreCase("video")) {
+						var = asset_subtype;
+					} else {
+						var = "Invalid";
+					}
+				
+			}else {
+				var = asset_subtype;
+			}
+
+			contentID1 = pageResp.jsonPath().get("buckets[0].items[" + i + "].id");
+			ContentResp1 = getResponseDetails(contentID1);
+
+			switch (var) {
+			case "movie":
+				contentID1 = pageResp.jsonPath().get("buckets[0].items[" + i + "].id");
+				ContentResp1 = getResponseDetails(contentID1);
+//				int relatedNodelength = ContentResp1.jsonPath().getList("related").size();
+//				if (relatedNodelength >= 1 && (!(usertype.equalsIgnoreCase("SubscribedUser")))) {
+//					ContentId2 = ContentResp1.jsonPath().get("related[0].id");
+//					ContentResp2 = getResponseDetails(ContentId2);
+//					setFEPropertyOfContentFromAPI2(ContentId2, ContentResp2, tabName);
+//				} else {
+					setFEPropertyOfContentFromAPI2(contentID1, ContentResp1, tabName);
+	//			}
+				flag = true;
+				break;
+			case "original":
+				contentID1 = pageResp.jsonPath().get("buckets[0].items[" + i + "].id");
+				ContentResp1 = getContentDetails(contentID1, "original");
+//				ContentId2 = ContentResp1.jsonPath().getString("seasons[0].episodes[0].id");
+//				ContentResp2 = getContentDetails(ContentId2, "original");
+				setFEPropertyOfContentFromAPI2(contentID1, ContentResp1, tabName);
+				flag = true;
+				break;
+
+			case "external_link":
+				contentID1 = pageResp.jsonPath().get("buckets[0].items[" + i + "].slug");
+				String value = fetchContentIDFromUrl(contentID1);
+				System.out.println(value);
+				ContentResp1 = ResponseInstance.getContentDetails(value, "original");
+				if (!(tabName.equalsIgnoreCase("News") || tabName.equalsIgnoreCase("Eduauraa"))) {
+					List<String> noOfEpisodes = ContentResp1.jsonPath().getList("seasons[0].episodes");
+					for (int n = 0; n < noOfEpisodes.size(); n++) {
+						String contenttype = ContentResp1.jsonPath()
+								.getString("seasons[0].episodes[" + n + "].business_type");
+						if (contenttype.equalsIgnoreCase("advertisement_downloadable")) {
+							ContentId2 = ContentResp1.jsonPath().getString("seasons[0].episodes[" + n + "].id");
+							break;
+						}
+					}
+					ContentResp2 = getContentDetails(ContentId2, "original");
+					setFEPropertyOfContentFromAPI2(ContentId2, ContentResp2, tabName);
+				} else {
+					setFEPropertyOfContentFromAPI2(value, ContentResp1, tabName);
+				}
+				flag = true;
+				break;
+
+			case "video":
+				contentID1 = pageResp.jsonPath().get("buckets[0].items[" + i + "].id");
+				ContentResp1 = getResponseDetails(contentID1);
+				setFEPropertyOfContentFromAPI2(contentID1, ContentResp1, tabName);
+				flag = true;
+				break;
+
+			default:
+				System.out.println("not a required asset_subtype");
+			}
+
+			if (flag == true) {
+				break;
+			}
+		}
+		return contentName;
+	}
+
+	
 }

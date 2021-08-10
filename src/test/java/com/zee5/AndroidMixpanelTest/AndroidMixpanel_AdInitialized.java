@@ -64,6 +64,16 @@ public class AndroidMixpanel_AdInitialized {
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(usertype);
 		Zee5ApplicasterMixPanelBusinessLogic.AdInitializedForContinueWatchingTray(usertype, pTabName);
 	}
+	
+	@Test(priority = 6)
+	@Parameters({ "userType", "pTabName" })
+	public void AdInitializedEvent_TrayNavigation(String usertype, String pTabName) throws Exception {
+		System.out.println("\nAd Initialized event of content");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(usertype);
+		Zee5ApplicasterMixPanelBusinessLogic.AdInitializedEventForTrayNavigation(usertype, pTabName);
+	}
 
 	//###############-------END OF TEST-------###############
 	

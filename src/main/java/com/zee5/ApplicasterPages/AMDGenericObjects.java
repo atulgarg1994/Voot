@@ -115,10 +115,11 @@ public class AMDGenericObjects {
 	public static By objFirstTrayTitle = By.xpath("((//*[@id='cell_top_container'][1])[2]//*[@class='android.widget.TextView'])[1] | (//*[@id='header_primary_text'])[1] | (//*[@id='cell_top_container']/following::*[@text='a']//preceding-sibling::*)");
 
 	public static By objConsumptionScreenFirstRail = By.xpath("((//*[@id='belowPlayerContentRecyclerView']//*[@id='cell_top_container'])[1]//child::*//preceding-sibling::*)[1] | (//*[@id='cell_top_container']//following::*[@text='a'])[1]//preceding-sibling::*");
-	
-	public static By objSelectFirstCardFromRailName(String RailName) {
-		return By.xpath("//*[@text='See All']//parent::*//parent::*//*[contains(text(),'"+RailName+"')]//following::*[@class='android.widget.ImageView'][1]");
-	}
+
 	public static By objOTPField = By.xpath("//*[@text='Enter OTP']");
 	public static By objSubmitAndPay = By.xpath("//*[@text='SUBMIT OTP & PAY']");
+	public static By objSelectFirstCardFromRailName(String RailName) {
+		return By.xpath("//*[@text='More']//parent::*//parent::*//*[contains(text(),'"+RailName+"')]//following::*[@class='android.widget.ImageView'][1]");
+	}
+
 }
