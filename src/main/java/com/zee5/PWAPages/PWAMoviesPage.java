@@ -63,8 +63,6 @@ public class PWAMoviesPage {
 	public static By objContentCard(int index) {
 		return By.xpath("(//div[contains(@class,'trayHeader')]/following-sibling::*//div[contains(@class,'content')])[" + index + "]");
 	}
-	public static By objFreeContentCardFromTray =By.xpath("//div[@class='page-container']//div[contains(@class,'portraitSmall-tray-wrap') or contains(@class,'differentepisodelist-tray-wrap')]//div[@class='slick-list']//div[@data-minutelyurl and not(.//div[@class='cardPremiumContent' or contains(@class,'clubPackContent')])]");
-	
 	public static By objPremiumContentCardFromTray = By.xpath("//div[@class='page-container']//div[contains(@class,'portraitSmall-tray-wrap') or contains(@class,'differentepisodelist-tray-wrap')]//div[@class='slick-list']//div[@data-minutelyurl and (.//div[@class='cardPremiumContent'])]");
 
 	public static By objNowShowingText = By.xpath("//*[@class='plexTrayHeader' and text()='Now Showing']");
@@ -79,4 +77,6 @@ public class PWAMoviesPage {
 	
 	//click on one of video 
 	public static By objOneOfVideo = By.xpath("((//*[@class='trayContentWrap'])//*[contains(@class,'movieCard')])[1]");
+	
+	public static By objFreeContentCardFromTray =By.xpath("//div[@class='page-container']//div[contains(@class,'portraitSmall-tray-wrap')]//div[@class='slick-list']//div[@data-minutelyurl and not(.//div[@class='cardPremiumContent' or contains(@class,'clubPackContent')])]");
 }

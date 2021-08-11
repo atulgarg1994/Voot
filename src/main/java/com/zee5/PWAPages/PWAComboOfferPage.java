@@ -243,4 +243,6 @@ public class PWAComboOfferPage {
 	public static By objLiveTVTVODItem(String title) {
 		return By.xpath("//*[contains(@class,'cardTitle')]//*[text()=" + title + "]/parent::*/parent::*//a");
 	}
+	
+	public static By objLiveTVTvodAd=By.xpath("");
 }

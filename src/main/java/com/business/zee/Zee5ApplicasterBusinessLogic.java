@@ -20279,6 +20279,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			// click(AMDDownloadPage.objDownloadedContent,"Downloaded content");
 			// verifyElementPresentAndClick(AMDDownloadPage.objPlayDownloadedContent, "Play
 			// Call-out");
+			if (verifyElementIsNotDisplayed(AMDPlayerScreen.objNextIcon)) {
+				click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			}
 			verifyElementPresentAndClick(AMDDownloadPage.objPauseIconOnPlayer, "Pause Icon");
 			verifyElementExist(AMDDownloadPage.objBackinPlayer, "Back icon");
 			verifyElementExist(AMDPlayerScreen.objThreeDotsOnPlayer,
@@ -20313,7 +20316,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 //			click(AMDDownloadPage.objDeleteDownloadCTA, "Delete Download");
 //			waitTime(2000);
 //			Back(1);
-
 		} else {
 			logger.info("Downloads Content Playback is not applicable for " + userType);
 			extent.extentLogger("Downloads", "Downloads Content Playback is not applicable for " + userType);
@@ -29188,8 +29190,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			}
 			click(AMDDownloadPage.objvideostab, "Videos tab in Downloads landing screen");
 			if (verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
-				logger.info("There are no contents in Videos tab");
-				extent.extentLogger("", "There are no contents in Vidoes tab");
+				logger.error("AMA2-17966 : Downloads are not retained, There are no contents in Videos tab");
+				extentLoggerFail("","AMA2-17966 : Downloads are not retained, There are no contents in Videos tab");
+				
 			} else {
 				verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
 				String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent)
@@ -29225,6 +29228,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLogger("", "This is not applicable for " + userType);
 		}
 	}
+
 
 	public void RecentSearchedForMarketBuild(String userType) throws Exception {
 		extent.HeaderChildNode("Capture Recent search history for Market build");
@@ -37209,7 +37213,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 		
 		if(verifyElementPresent(AppCenterPage.objZee5AndroidHeader, "ZEE5 Android Header")) {
-			
+			click(AppCenterPage.objDownloadLatestReleaseBtn, "Dwonload button");
 		}
 		
 	}

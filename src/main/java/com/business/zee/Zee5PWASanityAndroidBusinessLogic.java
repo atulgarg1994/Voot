@@ -2297,6 +2297,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 	}
 
 	public void premiumPopUp() throws Exception {
+		if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
 		extent.HeaderChildNode(
 				"Verifing that Subscribe now or Login pop is displayed when user click on premium content");
 		for (int scroll = 0; scroll <= 8; scroll++) {
@@ -2311,19 +2312,17 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		}
 		// click(PWALiveTVPage.objFirstPremiumCardinTray, "Premium Content");
 		waitTime(5000);
-		// waitForElementDisplayed(PWASubscriptionPages.objSubscribePopupTitle, 5);
+	//	waitForElementDisplayed(PWASubscriptionPages.objSubscribePopupTitle, 5);
 		waitForElementDisplayed(PWAPlayerPage.objGetPremiumInline, 5);
-		// if (verifyIsElementDisplayed(PWASubscriptionPages.objSubscribePopupTitle,
-		// "Subscribe Pop Up")) {
-		if (verifyIsElementDisplayed(PWAPlayerPage.objGetPremiumInline, "Get Premium IN Line")) {
-			// verifyElementPresentAndClick(PWAPremiumPage.objClosePremiumPopup, "Subscribe
-			// Pop Up Close icon");
+	//	if (verifyIsElementDisplayed(PWASubscriptionPages.objSubscribePopupTitle, "Subscribe Pop Up")) {
+			if (verifyIsElementDisplayed(PWAPlayerPage.objGetPremiumInline, "Get Premium IN Line")){
+	//		verifyElementPresentAndClick(PWAPremiumPage.objClosePremiumPopup, "Subscribe Pop Up Close icon");
 			click(PWAPlayerPage.objGetPremiumInline, "Get Premium IN Line");
 			Back(1);
 			extent.HeaderChildNode("Verifing that premium content videos in landscape mode");
-			// if (verifyIsElementDisplayed(PWALiveTVPage.objPlayerInlineSubscriptionLink,
-			// "Player inline Subscribtion link")) {
-			if (verifyIsElementDisplayed(PWAPlayerPage.objGetPremiumInline, "Get Premium IN Line")) {
+	//		if (verifyIsElementDisplayed(PWALiveTVPage.objPlayerInlineSubscriptionLink,
+	//				"Player inline Subscribtion link")) {
+				if (verifyIsElementDisplayed(PWAPlayerPage.objGetPremiumInline, "Get Premium IN Line")){
 				logger.info(
 						"Maximize icon is not displayed since user is getting Player inline Subscription link on Player screen");
 				extent.extentLogger("Maximize icon",
@@ -2343,12 +2342,18 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				}
 			}
 		}
+		}
 		Back(1);
 		waitTime(5000);
+		
+	//	if (userType.equals("Guest") || userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
 		if (verifyIsElementDisplayed(PWAHomePage.objBackToTopArrow, "Back to Top arrow")) {
 			click(PWAHomePage.objBackToTopArrow, "Back to Top arrow");
 		}
 		extent.HeaderChildNode("Verifing that user is able to watch the free Content");
+		if (userType.equals("Guest") || userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
+			navigateToAnyScreen("Live TV");
+			waitforLiveTabToLoad();
 		if (waitforLiveTabToLoad()) {
 			verifyElementPresentAndClick(PWALiveTVPage.objFilterOption("FREE Channels"), "Free Channels filter");
 			waitForElementDisplayed(PWALiveTVPage.objFirstfreeContentCard, 5);
@@ -2376,6 +2381,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			Back(1);
 		}
 	}
+}
+
 
 	public boolean navigateToAnyScreen(String screen) throws Exception {
 		for (int i = 0; i < 3; i++) {
@@ -14633,7 +14640,8 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 		pagesTrayValidation(Tabname);
 		extent.HeaderChildNode("HLS_112 : Verify whether \"Play text\" CTA is displaying on Kids feature carousel");
 		System.out.println("HLS_112 : Verify whether \"Play text\" CTA is displaying on Kids feature carousel");
-		verifyElementPresent(PWAKidsPage.objPlayButton, "Play text on Carousel card");
+//		verifyElementPresent(PWAKidsPage.objPlayButton, "Play text on Carousel card");
+		verifyElementPresent(PWAKidsPage.objWatchButton, "Watch text on Carousel card");
 		extent.HeaderChildNode("HLS_115 : Verify whether user can play any Kids content from the Kids Landing Page");
 		System.out.println("HLS_115 : Verify whether user can play any Kids content from the Kids Landing Page");
 		swipeTillTrayAndClickContentCard("Top 10 Movies For Your Kids");
@@ -15828,16 +15836,16 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			extent.extentLoggerFail("", "Maximize button is not available for News");
 		}
 		click(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
-
+		
 		extent.HeaderChildNode("HLS_197 : Validate the availability and functionality of the Play/Pause button");
 		System.out.println("HLS_197 : Validate the availability and functionality of the Play/Pause button");
 		// handle mandatory pop up
 		mandatoryRegistrationPopUp(userType);
-
+		
 		String keyword = "Rani Gets Angry with Veer";
 		String keywordContentID = "0-1-manual-5q8kbv9us400";
-
-		String guesttoken = js.executeScript("return window.localStorage.getItem('guestToken')").toString();
+		
+		String guesttoken=js.executeScript("return window.localStorage.getItem('guestToken')").toString();
 		click(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWAHomePage.objSearchField, keyword + "\n", "Search");
 		waitTime(5000);
@@ -15939,7 +15947,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			logger.error("Maximize button is not available for VOD");
 			extent.extentLoggerFail("", "Maximize button is not available for VOD");
 		}
-
+		
 		extent.HeaderChildNode(
 				"HLS_205 : Validate the availability and functionality of maximizing and minimize icons.");
 		System.out.println("HLS_205 : Validate the availability and functionality of maximizing and minimize icons.");
@@ -15949,7 +15957,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				"HLS_204 : Verify Caption/Subtitle icon is displaying next to the Settings button in the Player section");
 		System.out.println(
 				"HLS_204 : Verify Caption/Subtitle icon is displaying next to the Settings button in the Player section");
-
+		
 		if (!verifyIsElementDisplayed(PWAPlayerPage.objSubtitleIcon, "Subtitle icon")) {
 			logger.error("Subtitle icon is not available for VOD");
 			extent.extentLoggerFail("", "Subtitle icon is not available for VOD");
@@ -15974,7 +15982,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			click(PWAPlayerPage.objSubtitleIcon, "Subtitle icon");
 			verifyElementPresent(PWAPlayerPage.objPlayerUnSelectedAudioTrack("Off"), "Off Subtitle");
 			click(PWAPlayerPage.objPlayerUnSelectedAudioTrack("Off"), "Subtitle Off");
-
+			
 			if (verifyIsElementDisplayed(PWAPlayerPage.objPlayerUnSelectedAudioTrack("English"), "Subtitle English")) {
 				logger.error("English Subtitle is displayed even though setting is switched is OFF");
 				extent.extentLoggerFail("", "English Subtitle is displayed even though setting is switched is OFF");
@@ -16142,15 +16150,13 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				extent.extentLogger("quality", "Quality selection successful");
 			}
 		}
-		ResponseInstance.updateWatchHistory(keywordContentID, 1, guesttoken); // required to clear watch history
-		extent.HeaderChildNode(
-				"HLS_203 : Validate the availability and functionality of the Audio track option under settings");
-		System.out.println(
-				"HLS_203 : Validate the availability and functionality of the Audio track option under settings");
-
+		ResponseInstance.updateWatchHistory(keywordContentID,1,guesttoken); //required to clear watch history
+		extent.HeaderChildNode("HLS_203 : Validate the availability and functionality of the Audio track option under settings");
+		System.out.println("HLS_203 : Validate the availability and functionality of the Audio track option under settings");		
+		
 		String keywordauContentID = "0-1-agentragh_1895058002-agentragh_1804723548-episode_1532299445";
 		String keywordau = "Episode 13 - Agent Raghav";
-
+		
 		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWAHomePage.objSearchField, keywordau, "Search");
 		waitTime(5000);
@@ -16210,8 +16216,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 				}
 			}
 		}
-		extent.HeaderChildNode(
-				"HLS_206 : Verify whether a player stays on top when user scrolls the page on playback.");
+		extent.HeaderChildNode("HLS_206 : Verify whether a player stays on top when user scrolls the page on playback.");
 		System.out.println("HLS_206 : Verify whether a player stays on top when user scrolls the page on playback.");
 		Swipe("UP", 4);
 		playerTap();
@@ -16222,7 +16227,7 @@ public class Zee5PWASanityAndroidBusinessLogic extends Utilities {
 			logger.error("Player section has not remained stagnant on swiping contents up");
 			extent.extentLoggerFail("quality", "Player section has not remained stagnant on swiping contents up");
 		}
-		ResponseInstance.updateWatchHistory(keywordauContentID, 1, guesttoken); // required to clear watch history
+		ResponseInstance.updateWatchHistory(keywordauContentID,1,guesttoken); //required to clear watch history
 		// handle mandatory pop up
 		mandatoryRegistrationPopUp(userType);
 	}

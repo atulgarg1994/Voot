@@ -16099,7 +16099,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		pagesTrayValidation(tabName);
 
 		extent.HeaderChildNode("HLS_087 : Next-Prvious functionality");
-		scrollDownWEB();
+		//scrollDownWEB();
 		verifyElementPresentAndClick(PWAPremiumPage.objNextArrowBtn, "Next Arrow Button");
 		waitTime(4000);
 		JSClick(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button");
@@ -16675,9 +16675,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.HeaderChildNode(" HLS_150 : Verify the rails name and content are loaded for first 2 scroll");
 		pagesTrayValidation(tabName);
 
-		extent.HeaderChildNode(" HLS_151 : Verify On click View All/> ");
-		scrollDownWEB();
-		verifyElementPresentAndClick(PWAPremiumPage.objNextArrowBtn, "Next Arrow Button");
+		extent.HeaderChildNode(" HLS_152 : Verify Next-Previous functionality");
+		JSClick(PWAPremiumPage.objNextArrowBtn, "Next Arrow Button");
+		waitTime(5000);
 		if (checkElementDisplayed(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button")) {
 			logger.info("Tray is rotated");
 			extent.extentLogger("Tray is rotated", "Tray is rotated");
@@ -16685,15 +16685,18 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			logger.error("Tray is not rotated");
 			extent.extentLoggerFail("Tray is not rotated", "Tray is not rotated");
 		}
-		click(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button");
-		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "View All Button")) {
-			click(PWAPremiumPage.objViewAllBtn, "View All Button");
-			if (checkElementDisplayed(PWAPremiumPage.objViewAllPage, "View All Page")) {
-				logger.info("Navigated to View All Page");
-				extent.extentLogger("View All", "Navigated to View All Page");
+		JSClick(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button");
+		
+		extent.HeaderChildNode(" HLS_151 : Verify on click More/> ");
+		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "More Button")) {
+			JSClick(PWAPremiumPage.objViewAllBtn, "More Button");
+			waitTime(10000);
+			if (checkElementDisplayed(PWAPremiumPage.objViewAllPage, "More Page")) {
+				logger.info("Navigated to More Page");
+				extent.extentLogger("More", "Navigated to More Page");
 			} else {
-				logger.info("Not navigated to View All Page");
-				extent.extentLogger("View All", "Not navigated to View All Page");
+				logger.error("Not navigated to More Page");
+				extent.extentLoggerFail("More", "Not navigated to More Page");
 			}
 		}
 
@@ -16725,31 +16728,39 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			click(PWAMusicPage.objArrowToNavigateTop, "Arrow icon");
 		}
 
-		extent.HeaderChildNode("HLS_156 : Verify that Recommended Videos are displayed right side of the player");
-
-//	Actions actions = new Actions(getWebDriver());
-//	WebElement player = getWebDriver().findElement(PWAPlayerPage.objPlaybackVideoOverlay);
-		if (checkElementDisplayed(PWAPremiumPage.objWEBMastheadCarousel, "Carousel")) {
-			click(PWAPremiumPage.objWEBMastheadCarousel, "Carousel");
-			mandatoryRegistrationPopUp(userType);
-
-			// actions.moveToElement(player).build().perform();
-			// click(PWAPlayerPage.maximizeBtn, "Maximize button");
-			// waitTime(1000);
-			// click(PWAPlayerPage.minimizeBtn, "Minimize button");
-			waitTime(1000);
-
-			if (checkElementDisplayed(PWAMusicPage.objRecommendedVideos, "Recommended tray")) {
-				logger.info("Recommended videos is displayed in consumption page");
-				extent.extentLogger("Recommended tray", "Recommended videos is displayed in consumption page");
-			} else {
-				logger.info("Recommended videos  is not displayed in consumption page");
-				extent.extentLogger("Recommended tray", "Recommended videos is not displayed in consumption page");
-			}
-			Back(1);
-
+		extent.HeaderChildNode("HLS_156 : Verify that Recommended Songs Videos are displayed right side of the player");
+		swipeTillTrayAndClickFirstAsset(userType, 20, "ZEE5 Top 20", "ZEE5 Top 20 tray", tabName);
+		mandatoryRegistrationPopUp(userType);
+		waitForPlayerAdToComplete2("Video Player");
+		waitTime(5000);
+		if (checkElementDisplayed(PWAMusicPage.objRecommendedVideos, "Recommended tray")) {
+			logger.info("Recommended songs videos is displayed in consumption page");
+			extent.extentLogger("Recommended tray", "Recommended songs videos is displayed in consumption page");
+		} else {
+			logger.error("Recommended songs videos is not displayed in consumption page");
+			extent.extentLoggerFail("Recommended tray", "Recommended songs videos is not displayed in consumption page");
 		}
-
+		Back(1);
+		//Actions actions = new Actions(getWebDriver());
+		//WebElement player = getWebDriver().findElement(PWAPlayerPage.objPlaybackVideoOverlay);
+//		if (checkElementDisplayed(PWAPremiumPage.objWEBMastheadCarousel, "Carousel")) {
+//			JSClick(PWAPremiumPage.objWEBMastheadCarousel, "Carousel");
+//			
+//			// actions.moveToElement(player).build().perform();
+//			// click(PWAPlayerPage.maximizeBtn, "Maximize button");
+//			// waitTime(1000);
+//			// click(PWAPlayerPage.minimizeBtn, "Minimize button");
+//			waitTime(1000);
+//
+//			if (checkElementDisplayed(PWAMusicPage.objRecommendedVideos, "Recommended tray")) {
+//				logger.info("Recommended songs videos is displayed in consumption page");
+//				extent.extentLogger("Recommended tray", "Recommended songs videos is displayed in consumption page");
+//			} else {
+//				logger.error("Recommended songs videos is not displayed in consumption page");
+//				extent.extentLoggerFail("Recommended tray", "Recommended songs videos is not displayed in consumption page");
+//			}
+//			Back(1);
+//		}
 	}
 
 	public void Zee5OriginalsValidation(String userType, String tabName) throws Exception {
@@ -17165,13 +17176,12 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				checkElementDisplayed(PWAPremiumPage.objTrayTitle(i), "Tray");
 			}
 		}
-		extent.HeaderChildNode(" HLS_101 : Verify On click More/> ");
-
+		
+		extent.HeaderChildNode(" HLS_102 : Verify Next-Previous Functionality");
 		verifyElementPresent(PWAPremiumPage.objNextArrowBtn, "Next Arrow Button");
 		JSClick(PWAPremiumPage.objNextArrowBtn, "Next Arrow Button");
 		waitTime(5000);
 		if (checkElementDisplayed(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button")) {
-			waitTime(3000);
 			logger.info("Tray is rotated");
 			extent.extentLogger("Tray is rotated", "Tray is rotated");
 		} else {
@@ -17179,6 +17189,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.extentLogger("Tray is not rotated", "Tray is not rotated");
 		}
 		JSClick(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button");
+		waitTime(3000);
+		
+		extent.HeaderChildNode(" HLS_101 : Verify On click More/>");
 		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "More Button")) {
 			JSClick(PWAPremiumPage.objViewAllBtn, "More Button");
 			waitTime(10000);
@@ -17193,8 +17206,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		Back(1);
 		waitTime(2000);
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
-
 		waitTime(3000);
+		
 		extent.HeaderChildNode("HLS_103 :Verify the Joystick icon is given on top left for all Play content card");
 		navigateToAnyScreenOnWeb("Play");
 		partialScroll();
@@ -17208,14 +17221,15 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			waitTime(2000);
 			JSClick(PWAMusicPage.objArrowToNavigateTop, "Arrow icon");
 		}
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
 
 		extent.HeaderChildNode("HLS_105 :Verify user is navigate to respective games screen");
+		navigateToAnyScreenOnWeb(tabName);
 		if (checkElementDisplayed(PWAPremiumPage.objWEBMastheadCarousel, "Carousel")) {
 			verifyElementPresentAndClick(PWAPlayPage.objPlayNowButton, "Play Now button of Carousel");
 		}
 		switchToWindow(2);
-		waitTime(2500);
-
+		waitTime(5000);
 		String currentUrl = getWebDriver().getCurrentUrl();
 		logger.info("Current URL: " + currentUrl);
 		extent.extentLogger("", "Current URL: " + currentUrl);
@@ -17225,13 +17239,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		} else {
 			logger.info("Failed to navigate to Games screen");
 			extent.extentLoggerFail("", "Failed to navigate to Games screen");
-		}
-//		
+		}		
 		getWebDriver().close();
 		switchToParentWindow();
 
 		extent.HeaderChildNode("HLS_107 :Verify the Joystick icon is given on top left for all Play content card");
-
 		verifyElementPresentAndClick(PWASearchPage.objSearchBtn, "Search button");
 		waitTime(2000);
 		type(PWASearchPage.objSearchEditBox, "Danger Dash ", "Search Field");
@@ -17246,12 +17258,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		if (aludigamesURL.contains("ludigames")) {
 			logger.info("Game screen is opened in webview");
 			extent.extentLoggerPass("Game", "Game screen is opened in webview");
-
 		} else {
 			logger.info(" Game screen is not opened in webview");
 			extent.extentLoggerFail("Game", "Game screen is not opened in webview");
 		}
-//		Back(1);
 		getWebDriver().close();
 		switchToParentWindow();
 	}
@@ -22039,9 +22049,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.HeaderChildNode(" HLS_158 : Verify the rails name and content are loaded for first 2 scroll");
 		pagesTrayValidation(tabName);// update
 
-		extent.HeaderChildNode(" HLS_159 : Verify On click More/> ");
-		scrollDownWEB();
-		verifyElementPresentAndClick(PWAPremiumPage.objNextArrowBtn, "Next Arrow Button");
+		extent.HeaderChildNode(" HLS_160 : Verify Next-Previous functionality");
+		//scrollDownWEB();
+		JSClick(PWAPremiumPage.objNextArrowBtn, "Next Arrow Button");
+		waitTime(5000);
 		if (checkElementDisplayed(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button")) {
 			logger.info("Tray is rotated");
 			extent.extentLogger("Tray is rotated", "Tray is rotated");
@@ -22050,6 +22061,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.extentLoggerFail("Tray is not rotated", "Tray is not rotated");// update
 		}
 		JSClick(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button");
+		
+		extent.HeaderChildNode(" HLS_159 : Verify On click More/> ");
 		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "More Button")) {
 			JSClick(PWAPremiumPage.objViewAllBtn, "More Button");
 			waitTime(10000);
@@ -37461,6 +37474,274 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			}
 		}
 	}
-	
-	
+
+	public void VerifyPreRollAdForLiveTVODContentAnypacklessThan499withSupermoonActive(String userType,
+			String LiveTvTVODContent) throws Exception {
+		extent.HeaderChildNode("Verify whether pre-roll ads are played for LiveTV content");
+		AnypacklessThan499withSupermoonActive();
+		waitTime(3500);
+		click(PWAHomePage.objSearchBtn, "Seach button");
+		waitTime(2000);
+		type(PWASearchPage.objSearchEditBox, LiveTvTVODContent, "Search Field");
+		waitTime(3000);
+		JSClick(PWASearchPage.objFirstAssetImgSearchNavigationTab, LiveTvTVODContent);
+
+		waitTime(2500);
+		if (checkElementDisplayed(PWAPlayerPage.objPlayerAdPresent, "Pre-roll Ad")) {
+
+			logger.info("user is able to see pre-roll ads are played for LiveTV content :" + LiveTvTVODContent);
+			extent.extentLoggerPass("",
+					"user is able to see pre-roll ads are played for LiveTV content :" + LiveTvTVODContent);
+		} else {
+			logger.info("user is not able to see pre-roll ads are played for LiveTV content :" + LiveTvTVODContent);
+			extent.extentLoggerFail("",
+					"user is not able to see pre-roll ads are played for LiveTV content :" + LiveTvTVODContent);
+
+		}
+
+	}
+
+	public void NoComboOfferWidgetBelowThePlayerAnypacklessThan499withSupermoonActive(String userType)
+			throws Exception {
+		extent.HeaderChildNode("Verify that user is not able to see Combo offer widget below the player");
+		AnypacklessThan499withSupermoonActive();
+		waitTime(3500);
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+		waitTime(3500);
+		if (!verifyElementPresent(PWAComboOfferPage.objComboOfferWidget, "Combo Offer Widget below the player")) {
+
+			logger.info("Combo Offer Widget below the player is not Present");
+			extent.extentLoggerPass("", "Combo Offer Widget below the player is not Present,expected behaviour");
+
+		} else {
+			logger.error("Combo Offer Widget below the player is Present");
+			extent.extentLoggerFail("", "Combo Offer Widget below the player is Present,expected behaviour");
+		}
+	}
+
+	public void PreAndMidRollAdsForExclusiveVODContentAnypacklessThan499withSupermoonActive(String userType,
+			String VideoVODContent) throws Exception {
+		extent.HeaderChildNode("Verify whether pre-roll and mid-roll ads are played for Video VOD as TVOD content");
+		AnypacklessThan499withSupermoonActive();
+		waitTime(3500);
+		click(PWAHomePage.objSearchBtn, "Seach button");
+		waitTime(2000);
+		type(PWASearchPage.objSearchEditBox, VideoVODContent, "Search Field");
+		waitTime(3000);
+		JSClick(PWASearchPage.objFirstAssetImgSearchNavigationTab, VideoVODContent);
+
+		waitTime(2500);
+
+		// PRE-ROLL
+		if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
+			logger.info("user is able to see pre-roll ads are played for Exclusive VOD Content: " + VideoVODContent);
+			extent.extentLoggerPass("Ad",
+					"user is able to see pre-roll ads are played for Exclusive VOD Content: " + VideoVODContent);
+			waitTime(5000);
+			waitForPlayerAdToComplete("Video Player");
+		} else {
+			logger.info(
+					"user is not able to see pre-roll ads are played for Exclusive VOD Content: " + VideoVODContent);
+			extent.extentLoggerFail("Ad",
+					"user is not able to see pre-roll ads are played for Exclusive VOD Content: " + VideoVODContent);
+		}
+
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		playerScrubTillMidWeb();
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+		waitTime(2000);
+		// MID-ROLL
+		if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
+			logger.info("user is able to see mid-roll ads are played for Exclusive VOD Content: " + VideoVODContent);
+			extent.extentLoggerPass("Ad",
+					"user is able to see mid-roll ads are played for Exclusive VOD Content: " + VideoVODContent);
+			waitTime(5000);
+			waitForPlayerAdToComplete("Video Player");
+		} else {
+			logger.info("user not able to see mid-roll ads are played for Exclusive VOD Content: " + VideoVODContent);
+			extent.extentLoggerFail("Ad",
+					"user not able to see mid-roll ads are played for Exclusive VOD Content: " + VideoVODContent);
+
+		}
+
+	}
+
+	public void PostRollAdsForExclusiveVODContentAnypacklessThan499withSupermoonActive(String userType,
+			String VideoVODContent) throws Exception {
+		extent.HeaderChildNode("Verify whether post-roll ads are not played for Video VOD as TVOD content");
+		AnypacklessThan499withSupermoonActive();
+		waitTime(3500);
+		click(PWAHomePage.objSearchBtn, "Seach button");
+		waitTime(2000);
+		type(PWASearchPage.objSearchEditBox, VideoVODContent, "Search Field");
+		waitTime(3000);
+		JSClick(PWASearchPage.objFirstAssetImgSearchNavigationTab, VideoVODContent);
+
+		waitTime(2500);
+		if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
+
+			waitForPlayerAdToComplete("Video Player");
+		}
+		waitTime(6000);
+		click(PWAPlayerPage.objPlaybackVideoOverlay, "Player");
+		playerScrubTillLastWeb();
+		click(PWAPlayerPage.objPlayerPlay, "Play Icon");
+
+		// POST-ROLL
+		if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
+			logger.info("user is able to see post-roll ads are played for Exclusive VOD Content: " + VideoVODContent);
+			extent.extentLoggerFail("Ad",
+					"user is able to see post-roll ads are played for Exclusive VOD Content: " + VideoVODContent);
+			waitTime(5000);
+			waitForPlayerAdToComplete("Video Player");
+		} else {
+			logger.info("user not able to see post-roll ads are played for Exclusive VOD Content: " + VideoVODContent);
+			extent.extentLoggerPass("Ad",
+					"user not able to see post-roll ads are played for Exclusive VOD Content: " + VideoVODContent);
+
+		}
+	}
+
+	public void noAdsForSVODContentExceptLiveTVODContent(String userType, String SVODContent, String LiveTVContent)
+			throws Exception {
+
+		extent.HeaderChildNode("Verify ads are not played for other SVOD contents except Live TV TVOD Content");
+		click(PWAHomePage.objSearchBtn, "Seach button");
+		waitTime(2000);
+		type(PWASearchPage.objSearchEditBox, SVODContent, "Search Field");
+		waitTime(3000);
+		JSClick(PWASearchPage.objFirstAssetImgSearchNavigationTab, SVODContent);
+
+		waitTime(5500);
+		if (!checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
+			logger.info("user not able to see ads for SVOD Content: " + SVODContent);
+			extent.extentLoggerPass("Ad", "user not able to see ads for SVOD Content: " + SVODContent);
+		} else {
+			logger.info("user able to see ads for SVOD Content: " + SVODContent);
+			extent.extentLoggerFail("Ad", "user able to see ads for SVOD Content: " + SVODContent);
+		}
+		waitTime(3500);
+		click(PWAHomePage.objSearchBtn, "Seach button");
+		waitTime(2000);
+		type(PWASearchPage.objSearchEditBox, LiveTVContent, "Search Field");
+		waitTime(3000);
+		JSClick(PWASearchPage.objFirstAssetImgSearchNavigationTab, LiveTVContent);
+
+		waitTime(3500);
+		if (checkElementDisplayed(PWAComboOfferPage.objLiveTVTvodAd, "Ad")) {
+			logger.info("user able to see ads for Live TV Content: " + LiveTVContent);
+			extent.extentLoggerPass("Ad", "user able to see ads for Live TV Content: " + LiveTVContent);
+		} else {
+			logger.info("user not able to see ads for Live TV Content: " + LiveTVContent);
+			extent.extentLoggerFail("Ad", "user not able to see ads for Live TV Content: " + LiveTVContent);
+		}
+
+	}
+
+	public void noAdsForSVODContentExceptVideoTVODContent(String userType, String SVODContent, String VideoTVODContent)
+			throws Exception {
+
+		extent.HeaderChildNode("Verify ads are not played for other SVOD contents except Live TV TVOD Content");
+		click(PWAHomePage.objSearchBtn, "Seach button");
+		waitTime(2000);
+		type(PWASearchPage.objSearchEditBox, SVODContent, "Search Field");
+		waitTime(3000);
+		JSClick(PWASearchPage.objFirstAssetImgSearchNavigationTab, SVODContent);
+
+		waitTime(5500);
+		if (!checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
+			logger.info("user not able to see ads for SVOD Content: " + SVODContent);
+			extent.extentLoggerPass("Ad", "user not able to see ads for SVOD Content: " + SVODContent);
+		} else {
+			logger.info("user able to see ads for SVOD Content: " + SVODContent);
+			extent.extentLoggerFail("Ad", "user able to see ads for SVOD Content: " + SVODContent);
+		}
+		waitTime(3500);
+		click(PWAHomePage.objSearchBtn, "Seach button");
+		waitTime(2000);
+		type(PWASearchPage.objSearchEditBox, VideoTVODContent, "Search Field");
+		waitTime(3000);
+		JSClick(PWASearchPage.objFirstAssetImgSearchNavigationTab, VideoTVODContent);
+
+		waitTime(3500);
+		if (checkElementDisplayed(PWAComboOfferPage.objLiveTVTvodAd, "Ad")) {
+			logger.info("user able to see ads for Live TV Content: " + VideoTVODContent);
+			extent.extentLoggerPass("Ad", "user able to see ads for Live TV Content: " + VideoTVODContent);
+		} else {
+			logger.info("user not able to see ads for Live TV Content: " + VideoTVODContent);
+			extent.extentLoggerFail("Ad", "user not able to see ads for Live TV Content: " + VideoTVODContent);
+		}
+
+	}
+
+	public void playAndPauseForLiveTvTVODContentAnypacklessThan499withSupermoonActive(String userType,
+			String LiveTvTVODContent) throws Exception {
+		extent.HeaderChildNode("Verify Whether Play/Pause is displayed on player screen for LiveTV TVOD content");
+		AnypacklessThan499withSupermoonActive();
+		waitTime(2500);
+		click(PWAHomePage.objSearchBtn, "Seach button");
+		waitTime(2000);
+		type(PWASearchPage.objSearchEditBox, LiveTvTVODContent, "Search Field");
+		waitTime(3000);
+		JSClick(PWASearchPage.objFirstAssetImgSearchNavigationTab, LiveTvTVODContent);
+
+		waitTime(2500);
+		mouseHover();
+
+		if (checkElementDisplayed(PWAPlayerPage.pauseBtn, "Pause icon")) {
+			waitTime(500);
+
+			logger.info("user able to see Pause icon on player screen ");
+			extent.extentLoggerPass("", "user able to see Pause icon on player screen ");
+
+			JSClick(PWAPlayerPage.pauseBtn, "Pause icon");
+		}
+		if (checkElementDisplayed(PWAPlayerPage.playBtn, "Play icon")) {
+			waitTime(500);
+
+			logger.info("user able to see Play icon on player screen ");
+			extent.extentLoggerPass("", "user able to see Play icon on player screen ");
+
+			JSClick(PWAPlayerPage.playBtn, "Play icon");
+		}
+	}
+
+	public void noPlayerFunctionalityForLiveTVContentAnypacklessThan499withSupermoonActive(String userType,
+			String LiveTvTVODContent) throws Exception {
+		extent.HeaderChildNode(
+				"Verify Whether Seek bar,Forward,Rewind button is not displayed on player screen for LiveTV content");
+		AnypacklessThan499withSupermoonActive();
+		waitTime(3500);
+		click(PWAHomePage.objSearchBtn, "Seach button");
+		waitTime(2000);
+		type(PWASearchPage.objSearchEditBox, LiveTvTVODContent, "Search Field");
+		waitTime(3000);
+		JSClick(PWASearchPage.objFirstAssetImgSearchNavigationTab, LiveTvTVODContent);
+
+		waitTime(2500);
+		if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
+
+			waitForPlayerAdToComplete("Video Player");
+		}
+		waitTime(6000);
+		mouseHover();
+
+		if (!checkElementDisplayed(PWAPlayerPage.objPlaykitSeekBar, "Seek Bar")) {
+			logger.info("Seek bar is not displayed for Live TV TVOD content: " + LiveTvTVODContent);
+			extent.extentLoggerPass("", "Seek bar is not displayed for Live TV TVOD content: " + LiveTvTVODContent);
+		}
+		if (!checkElementDisplayed(PWAPlayerPage.rewind10SecBtn, "Rewind 10 Seconds icon")) {
+			logger.info("Rewind 10 Seconds icon is not displayed for Live TV TVOD content: " + LiveTvTVODContent);
+			extent.extentLoggerPass("",
+					"Rewind 10 Seconds icon is not displayed for Live TV TVOD content: " + LiveTvTVODContent);
+		}
+		if (!checkElementDisplayed(PWAPlayerPage.forward10SecBtn, "Forward 10 Seconds icon")) {
+			logger.info("Forward 10 Seconds icon is not displayed for Live TV TVOD content: " + LiveTvTVODContent);
+			extent.extentLoggerPass("",
+					"Forward 10 Seconds icon is not displayed for Live TV TVOD content: " + LiveTvTVODContent);
+		}
+
+	}
+
 }

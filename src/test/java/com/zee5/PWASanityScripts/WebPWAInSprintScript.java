@@ -975,7 +975,6 @@ public class WebPWAInSprintScript {
 		Zee5WEBPWASanityBusinessLogic.metaInfoForVideoTVODConsumption(userType , "videoname");;
 	}
 	
-	
 	@Test(priority=157)
 	@Parameters({ "userType" })
 	public void clickOnWatchListForVideoTVODConsumption(String userType) throws Exception {

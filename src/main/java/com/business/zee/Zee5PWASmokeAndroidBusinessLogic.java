@@ -5702,10 +5702,17 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		}
 		waitTime(3000);
 		getDriver().context("CHROMIUM");
+	/*	
 		if (verifyElementPresent(PWAHomePage.objHelpScreen, "Help Center screen")) {
 			logger.info("User is navigated to Help Center Screen");
 		}
+	*/	
 		AndroidSwitchToParentWindow();
+	/*	
+		if (verifyElementPresent(PWAHomePage.objHelpScreen, "Help Center screen")) {
+			logger.info("User is navigated to Help Center Screen");
+		}
+	*/	
 		// Terms of Use
 		HeaderChildNode("Terms of Use screen");
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
@@ -5739,7 +5746,6 @@ public class Zee5PWASmokeAndroidBusinessLogic extends Utilities {
 		extent.extentLogger("version", "Build version is : " + version);
 //				System.out.println("Build version is " + version);
 		click(PWAHamburgerMenuPage.objCloseHamburger, "Hamburger close button");
-
 	}
 
 	public void navigationsFromPlanSection() throws Exception {

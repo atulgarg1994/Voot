@@ -25,6 +25,6 @@ public class AppCenterPage {
 	
 	public static By objDownloadBtn = By.xpath("(.//*[@class='_1FqZrtOgx _6N07j8WWx _2CPSTw5ex _2tt1fylgx _6UYCKwXNx _1oz0dxenx _7mS0f4yVx'])[2]//parent::*//following-sibling::*[@class='_6lPyHfJGx']//button");
 	
-	
+	public static By objDownloadLatestReleaseBtn = By.xpath(".//*[text()='Download']");
 	
 }

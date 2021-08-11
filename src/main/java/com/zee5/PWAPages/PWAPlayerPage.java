@@ -307,9 +307,6 @@ public class PWAPlayerPage {
 	public static By watchListLoginPopupCloseButton = By
 			.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
 
-	public static By objFirstCardFreeChnnelName = By.xpath(
-			"(((((((//div[@class='trayContentWrap']//div[@class='trayHeader']//h2[.='FREE Channels']))//parent::*//parent::*)//child::*[2])//child::*//div[@class='slick-track'])//child::*//div[@class='clickWrapper']//figure//a[@class='noSelect content']//img)[1])");
-
 //	 Total Duration time
 	public static By totalDurationTime = By.xpath("//*[@class='totalDuration']//*[@class='playkit-time-display']//*");
 //	 Current duration time
@@ -519,4 +516,8 @@ public class PWAPlayerPage {
 	public static By objAdCover = By.xpath("//div[@class='kaltura-player-container']");
 	public static By objAdLayer = By.xpath("//div[contains(@id,'player_ads') and @class='active'] | //div[@class='AdscurrentDuration']");
 	public static By objPlaykitSeekBar = By.xpath("//ancestor::div[@aria-label='Video Player' and not (.//div[contains(@id,'player_ads') and @class='active'] | //div[@class='AdscurrentDuration']) ]//*[@class='playkit-seek-bar']");
+	
+	public static By objFirstCardFreeChnnelName = By.xpath(
+			"(((((((//div[@class='trayContentWrap']//div[@class='trayHeader']//h2[.='FREE Channels']))//parent::*//parent::*)//child::*[2])//child::*//div[@class='slick-track'])//child::*//div[@class='clickWrapper']//figure//a[@class='noSelect content ']//img)[1])");
+
 }

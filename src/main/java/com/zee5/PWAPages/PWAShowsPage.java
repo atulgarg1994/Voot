@@ -75,11 +75,6 @@ public class PWAShowsPage {
 				"((((//div[@class='AllEpisodesListDiv']//div[@class='allEpisodeSelect']//div)[6])[@aria-expanded='true']//div)//span[@aria-selected='false'])["
 						+ i + "]");
 	}
-	
-	
-	// First asset image from second content rail
-	public static By objSecondAssetImageFirstRail = By.xpath("(//div[@class='slick-list'])[1]//div[@data-index='1']");
-
 	public static By objShowsTitle = By.xpath("//*[contains(@class,'bannerTitle')]//h1");
 
 	public static By objWatchLatestCTA = By.xpath("//*[@class='playWrap']//following-sibling::p");
@@ -166,5 +161,8 @@ public class PWAShowsPage {
 	public static By objFirstAssetEpisodeFirstRail = By.xpath("(//div[@data-index='0']//div[@class='showDuration']//span)[1]");
 	
 	public static By objShowsBannerTitle = By.xpath("//*[contains(@class,'bannerTitle hidden')]//h1");
+	
+	public static By objSecondAssetImageFirstRail = By.xpath("(//a[@class='noSelect content'])[2]//img[1]");
+
 	
 	}

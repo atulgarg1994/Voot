@@ -140,8 +140,8 @@ public class PWAMusicPage {
 	public static By objJoystickCornerTag=By.xpath("//*[contains(@class,'tray-container')]//*[contains(@class,'cardJoystickContent')]");
 	
 	public static By objDescription=By.xpath("//div[@class='description']");
-	
-	public static By objPremiumTag = By.xpath("//*[@class='cardPremiumContent sameEpisodeCardContent']");
 
 	public static By objJoysticktag = By.xpath("//*[@class='slick-slide slick-active']//*[@class='cardJoystickContent cardPremiumContent']");
+	
+	public static By objPremiumTag = By.xpath("//*[@class='noSelect clickWrapper']//*[@class='cardPremiumContent']");
 }

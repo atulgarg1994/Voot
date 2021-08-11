@@ -118,8 +118,6 @@ public class PWALiveTVPage {
 
 	public static By objUpcomingLiveProgramClose = By.xpath("//div[contains(@class,'closePupup')]");
 
-	public static By objUpcomingLiveProgramShareBtn = By.xpath("(//div[@class=\"shareContainer noSelect\"])");
-
 	public static By objSortByPopularity = By.xpath("(//div[@class='sortleft'])[1]");
 
 	public static By objFacebookShare = By.xpath("//*[@text='Post' or @text='Facebook' or @text='News Feed']");
@@ -154,8 +152,6 @@ public class PWALiveTVPage {
 						+ tabName + "']");
 	}
 
-	public static By objFirstfreeContentCard = By.xpath("(//a[@class='noSelect content'])[1]");
-
 	public static By objBackToTopArrow = By.xpath("//div[@class='iconNavi-ic_arrow_back']");
 
 	public static By objHighlightedChannelGuideToggle = By
@@ -174,8 +170,6 @@ public class PWALiveTVPage {
 	public static By objPremiumPopUp = By.xpath("//h2[contains(@class,'popupTitle') and text()='Get premium']");
 
 	public static By objClosePremiumPopup = By.xpath("//div[@class='noSelect closePupup iconInitialLoad-ic_close']");
-//		SUSHMA
-	public static By objLiveChannelCard = By.xpath("(//*[@class=\"noSelect content\"])[1]");
 
 	public static By objLiveChannelnameaboveCard = By.xpath("(//div[@class='cardAboveMeta'])[1]");
 
@@ -381,4 +375,11 @@ public class PWALiveTVPage {
 			"(//*[@title='Zee Kannada']//parent::*//parent::*//following-sibling::*//div[@class='noSelect programOuter']/child::*/child::*/child::div[contains(text(),'07:30 PM')])[2]");
 	
 	public static By objparticularShowTime = By.xpath("//div[@class='timeSlot']/child::div[text()='7:30 PM']");
+	
+	public static By objUpcomingLiveProgramShareBtn = By.xpath("//div[@class=\"shareContainer noSelect \"]");
+
+	public static By objFirstfreeContentCard = By.xpath("(//a[@class='noSelect content '])[1]");
+	
+	public static By objLiveChannelCard = By.xpath("(//a[@class='noSelect content '])[1]");
+
 }
