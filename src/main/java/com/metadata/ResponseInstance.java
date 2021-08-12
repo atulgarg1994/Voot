@@ -5611,7 +5611,7 @@ public class ResponseInstance {
 		
 		if (!userType.equalsIgnoreCase("Guest")) {
 			if (userType.equals("NonSubscribedUser")) {
-				username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedUserName");
+				username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonSubscribedUserName");
 				password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("NonsubscribedPassword");
 			}
 			if (userType.equals("SubscribedUser")) {
@@ -5635,15 +5635,15 @@ public class ResponseInstance {
 		RequestSinglePlayback.config(io.restassured.RestAssured.config().encoderConfig(io.restassured.config.EncoderConfig.encoderConfig()
 				.appendDefaultContentCharsetToContentTypeIfUndefined(false)));
 		if(!channelID.equals(""))
-			url="https://spapi.zee5.com/singlePlayback/getDetails?channel_id="+channelID+"&device_id=WebBrowser&check_parental_control=false&platform_name=WebBrowser&country=IN";
+			url="https://spapi.zee5.com/singlePlayback/getDetails?channel_id="+channelID+"&device_id=WebBrowser&check_parental_control=false&platform_name=WebBrowser&country=IN&version=12";
 		else if(!tvShowID.equals(""))
-			url="https://spapi.zee5.com/singlePlayback/getDetails?content_id="+contentID+"&show_id="+tvShowID+"&device_id=WebBrowser&check_parental_control=false&platform_name=WebBrowser&country=IN";			
+			url="https://spapi.zee5.com/singlePlayback/getDetails?content_id="+contentID+"&show_id="+tvShowID+"&device_id=WebBrowser&check_parental_control=false&platform_name=WebBrowser&country=IN&version=12";			
 		else
-			url="https://spapi.zee5.com/singlePlayback/getDetails?content_id="+contentID+"&device_id=WebBrowser&check_parental_control=false&platform_name=WebBrowser&country=IN&is_marketing=1";
+			url="https://spapi.zee5.com/singlePlayback/getDetails?content_id="+contentID+"&device_id=WebBrowser&check_parental_control=false&platform_name=WebBrowser&country=IN&is_marketing=1&version=12";
 		System.out.println("singlePlayback url:"+url);
 		Response RequestSinglePlaybackResponse = RequestSinglePlayback.post(url);
-		//System.out.println(RequestSinglePlaybackResponse.getStatusCode());
-		//RequestSinglePlaybackResponse.prettyPrint();
+		System.out.println(RequestSinglePlaybackResponse.getStatusCode());
+		System.out.println(RequestSinglePlaybackResponse.getBody().asString());
 		return RequestSinglePlaybackResponse;
 		}
 		catch(Exception e) {

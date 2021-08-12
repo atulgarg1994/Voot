@@ -520,4 +520,12 @@ public class PWAPlayerPage {
 	public static By objFirstCardFreeChnnelName = By.xpath(
 			"(((((((//div[@class='trayContentWrap']//div[@class='trayHeader']//h2[.='FREE Channels']))//parent::*//parent::*)//child::*[2])//child::*//div[@class='slick-track'])//child::*//div[@class='clickWrapper']//figure//a[@class='noSelect content ']//img)[1])");
 
+	public static By objContentDescriptor = By.xpath("//div[@class='info-container']//div[@class='rating']");
+	public static By objContentDescriptor(String rating) {
+		return By.xpath("//div[@class='info-container']//div[@class='rating' and text()=\""+rating+"\"]");
+	}
+	public static By objContentDescriptor(String rating,String description) {
+		return By.xpath("//div[@class='info-container']//div[@class='rating' and text()=\""+rating+"\"]//following-sibling::p[@class='description' and text()=\""+description+"\"]");
+	}
+	public static By objNonSelectedPlayerQuality = By.xpath("//div[@class='subMenuWrapper']//div[@class='subMenu']");
 }

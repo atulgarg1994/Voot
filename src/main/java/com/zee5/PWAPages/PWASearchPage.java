@@ -380,4 +380,8 @@ public class PWASearchPage {
 	public static By objSearchItemsCount(int i,String dataContentID) {
 		return By.xpath("(//div[@class='listingGrid'])["+i+"]//div[@data-contentid='"+dataContentID+"']//img");
 	}
+	
+	public static By objSearchResultTxt(String title,String meta){
+		return By.xpath("(//*[\""+meta+"\"]//parent::div[contains(@class,'dateTime ')]//preceding-sibling::div[@class='metaData']//*[\""+title+"\"]//ancestor::div[@class='listingGrid']//div[@class='btnText'])[1]");
+	}
 }

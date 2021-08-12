@@ -39,10 +39,6 @@ public class PWALanguageSettingsPage {
 	//Language pop up overlay
 	public static By objLanguagePopupOverlay = By.xpath("//div[contains(@class,'contentWrapouter')]");
 	public static By objLanguagePopupOverlay1 = By.xpath("//div[contains(@class,'contentWrapouter')]");
-
-	public static By objNonSelectedEng = By.xpath("//div[@class='checkboxText']//span[@class='commonName' and .='English']");
-	public static By objNonSelectedHin = By.xpath("//div[@class='checkboxText']//span[@class='commonName' and .='Hindi']");
-	public static By objNonSelectedKan = By.xpath("//div[@class='checkboxText']//span[@class='commonName' and .='Kannada']");
 	
 	public static By objLanguageSetting(String text) {
 		return By.xpath("//span[@class='nativeName'][contains(text(),'"+text+"')]");
@@ -51,4 +47,8 @@ public class PWALanguageSettingsPage {
 	public static By objFirstLanguage = By.xpath("(//*[@class='nativeName'])[1]");
 	
 	public static By objSecondLanguage = By.xpath("(//*[@class='nativeName'])[2]");
+	
+	public static By objNonSelectedEng = By.xpath("//div[@class='checkboxText']//span[@class='nativeName' and .='English']");
+	public static By objNonSelectedHin = By.xpath("//div[@class='checkboxText']//span[@class='nativeName' and .='Hindi']");
+	public static By objNonSelectedKan = By.xpath("//div[@class='checkboxText']//span[@class='nativeName' and .='Kannada']");
 }
