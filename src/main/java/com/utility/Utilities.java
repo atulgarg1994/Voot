@@ -1987,7 +1987,7 @@ public class Utilities extends ExtentReporter {
 	 */
 	public void mandatoryRegistrationPopUp(String userType) {
 		if (userType.contains("Guest")) {
-			js.executeScript("window.localStorage.setItem('mandatoryRegistrationPopupCount','1')");
+			js.executeScript("window.localStorage.setItem('mandatoryRegistrationVideoCount','1')");
 		}
 	}
 

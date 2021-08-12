@@ -20,42 +20,44 @@ public class AndroidMixpanel_VideoView {
 	@Test(priority = 1)
 	@Parameters({ "userType" })
 	public void AndroidAppMixPanelLogin(String userType) throws Exception {
-//		Zee5ApplicasterMixPanelBusinessLogic.accessDeviceLocationPopUp("Allow", userType);
+		System.out.println("\nLogin");
 		Zee5ApplicasterMixPanelBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
 	}
 
 	@Test(priority = 2)
-	@Parameters({ "userType","pTabName"})
-	public void VideoViewEvent_TopNavigation(String userType,String pTabName) throws Exception {
-		System.out.println("\nVideo View event validation from "+pTabName+" tab navigation");
-		Zee5ApplicasterMixPanelBusinessLogic.videoViewEventFromTopNavigationPage(userType, pTabName);
+	@Parameters({ "userType", "pTabName"})
+	public void VideoViewEvent_TrayNavigation(String userType,String pTabName) throws Exception {
+		System.out.println("\nVideo View event of content");
+//		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+//		Zee5ApplicasterMixPanelBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+//		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
+		Zee5ApplicasterMixPanelBusinessLogic.videoViewEventFromTrayNavigationPage(userType, pTabName);
 	}
 	
-//	@Test(priority = 3)		//###########  VIDEO VIEW EVENT FROM SEARCH TAB  ###########
-	@Parameters({ "userType","freeContentID","freeContent"})
-	public void VideoViewEventForFreeContentFromSearchPage(String userType,String freeContentID,String freeContent) throws Exception {
-		System.out.println("\nVideo View event for Free content");
+
+	@Test(priority = 3)	
+	@Parameters({ "userType","clipContent"})
+	public void VideoViewEvent_Search(String userType,String clipContent) throws Exception {
+		System.out.println("\nVideo View event of content");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.VideoViewEventFromSearchTab(userType,"Free",freeContentID,freeContent);
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
+		Zee5ApplicasterMixPanelBusinessLogic.VideoViewEventOfcontentFromSearchPage(userType, clipContent);
 	}
 	
-//	@Test(priority = 4)
-	@Parameters({ "userType","trailerContentID","trailerContent"})
-	public void VideoViewEventForTrailerContentFromSearchPage(String userType,String trailerContentID,String trailerContent) throws Exception {
-		System.out.println("\nVideo View event for Trailer content");
+	@Test(priority = 4)
+	@Parameters({ "userType", "pTabName" })
+	public void VideoViewEvent_Carousal1(String usertype, String pTabName) throws Exception {
+		System.out.println("\nVideo view event of content");
 		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.VideoViewEventFromSearchTab(userType,"Trailer",trailerContentID,trailerContent);
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(usertype);
+		Zee5ApplicasterMixPanelBusinessLogic.videoViewEventForCarousalContent(usertype, pTabName);
 	}
 	
-//	@Test(priority = 5)
-	@Parameters({ "userType","premiumContentID","premiumContent"})
-	public void VideoViewEventForPremiumContentFromSearchPage(String userType,String premiumContentID,String premiumContent) throws Exception {
-		System.out.println("\nVideo View event for Premium content");
-		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-		Zee5ApplicasterMixPanelBusinessLogic.VideoViewEventFromSearchTab(userType,"Premium",premiumContentID,premiumContent);
-	}
 	
+
 	@AfterTest
 	public void tearDownApp() {
 		System.out.println("\nExecution Complete");

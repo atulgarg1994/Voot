@@ -671,11 +671,6 @@ public class PWAHomePage {
 	
 	public static By objzeeplexHowitWorks=By.xpath("//*[@class='plexLearnMoreLink']");
 	
-	public static By objEduauraaCardCarousel = By.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'legendTitle')][contains(text(),'Eduauraa')]");
-	
-	public static By objContTitleOnCarousel = By
-			.xpath("//div[@class='slick-slide slick-active slick-center slick-current']//*[contains(@class,'legendTitle')]");
-	
 	public static By objPremiumTag = By.xpath("//*[@class='cardPremiumContent sameEpisodeCardContent']");
 
 	public static By objKalturaGetPremium = By.xpath("//div[@class='cardPremiumContent']");
@@ -692,4 +687,9 @@ public class PWAHomePage {
 	public static By objTrayListingButton=By.xpath("(//*[@class='arrow iconInitialLoad-ic_viewall noSelect']//div)[1] | //*[@class='viewAllLink']");
 	public static By objxDefault=By.xpath("//*[text()='x-default']//following-sibling::*//following-sibling::*");	
 	
+	public static By objContTitleOnCarousel = By
+			.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle')]");
+
+
+ 	public static By objEduauraaCardCarousel = By.xpath("//div[@class='slick-slide slick-active slick-current']//*[contains(@class,'legendTitle')][contains(text(),'Eduauraa')]");
 }

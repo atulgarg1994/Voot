@@ -37741,7 +37741,179 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.extentLoggerPass("",
 					"Forward 10 Seconds icon is not displayed for Live TV TVOD content: " + LiveTvTVODContent);
 		}
+	}
+	
+	public void verifyLiveTvTagForLiveTVContentAnypacklessThan499withSupermoonActive(String userType,String  LiveTvTVODContent) throws Exception {
+		extent.HeaderChildNode("Verify Whether Live Tag  is displayed on player screen for LiveTV content");
+		AnypacklessThan499withSupermoonActive();
+		waitTime(3500);
+		navigateToAnyScreenOnWeb("ZEEPLEX");
+		waitTime(2500);
+		scrollToTheElementWEB(PWAComboOfferPage.objLiveTVTVODItem(LiveTvTVODContent));
+		waitTime(1500);
+		JSClick(PWAComboOfferPage.objLiveTVTVODItem(LiveTvTVODContent), LiveTvTVODContent);
+		waitTime(2500);
+		if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
+			
+			waitForPlayerAdToComplete("Video Player");
+		}
+		waitTime(5000);
+		
+		if (verifyElementPresent(PWAPlayerPage.objLivePlayerLiveTag, " Live Tag")) {
+			logger.info(" Live Tag  is displayed on player screen for LiveTV content, expected behaviour");
+			extent.extentLoggerPass("",
+					" Live Tag  is displayed on player screen for LiveTV content, expected behaviour");
+		} else {
+			logger.info(" Live Tag is not displayed on player screen for LiveTV content");
+			extent.extentLoggerFail(" ", " Live Tag is not displayed on player screen for LiveTV content");
 
+		}
+	}
+	
+	public void VerifyPlayerControlsForVideoTVODConsumptionAnypacklessThan499withSupermoonActive(String userType,String videoname) throws Exception {
+		extent.HeaderChildNode("Verify Whether Player controls is displayed on player screen for Video content");
+		AnypacklessThan499withSupermoonActive();
+		waitTime(3500);
+		click(PWAHomePage.objSearchBtn,"Seach button");
+		waitTime(2000);
+		type(PWASearchPage.objSearchEditBox, videoname, "Search Field");
+		waitTime(3000);
+		JSClick(PWASearchPage.objFirstAssetImgSearchNavigationTab, videoname);
+		waitTime(3500);
+		if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
+			
+			waitForPlayerAdToComplete("Video Player");
+		}
+		waitTime(5000);
+		Actions actions = new Actions(getWebDriver());
+		WebElement ele = getWebDriver().findElement(PWAPlayerPage.objPlaybackVideoOverlay);
+		actions.moveToElement(ele).perform();
+		if(ele.isDisplayed()) {
+		verifyElementPresent(PWAPlayerPage.pauseBtn, "Pause button");
+		verifyElementPresent(PWAPlayerPage.rewind10SecBtn, "Rewind 10 Seconds icon");
+		actions.moveToElement(ele).perform();
+
+		verifyElementPresent(PWAPlayerPage.playBtn, "Play icon");
+		actions.moveToElement(ele).perform();
+
+		verifyElementPresent(PWAPlayerPage.forward10SecBtn, "Forward 10 Seconds icon");
+		actions.moveToElement(ele).perform();
+
+		verifyElementPresent(PWAPlayerPage.progressBar, "Progress bar");
+		actions.moveToElement(ele).perform();
+
+		verifyElementPresent(PWAPlayerPage.audioBtn, "Audio icon");
+		actions.moveToElement(ele).perform();
+
+		verifyElementPresent(PWAPlayerPage.totalDurationTime, "Total duration time");
+		actions.moveToElement(ele).perform();
+
+		verifyElementPresent(PWAPlayerPage.settingsBtn, "Settings icon");
+		actions.moveToElement(ele).perform();
+
+		verifyElementPresent(PWAPlayerPage.maximizeBtn, "Maximize window icon");
+		actions.moveToElement(ele).perform();
+
+		verifyElementPresent(PWAPlayerPage.totalDurationTime, "Total time");
+		actions.moveToElement(ele).perform();
+
+		verifyElementPresentAndClick(PWAPlayerPage.settingsBtn, "Setting button");
+		verifyElementPresentAndClick(PWAPlayerPage.objPlayerQualityButton, "Quality Button");
+		JSClick(PWAPlayerPage.objBestQualityOption, "Best quality");
+		verifyElementPresentAndClick(PWAPlayerPage.settingsBtn, "Setting button");
+		verifyElementPresentAndClick(PWAPlayerPage.objPlayerQualityButton, "Quality Button");
+		String SelectedOption = getText(PWAPlayerPage.objPlayerSelectedQuality);
+		if (SelectedOption.contains("Best")) {
+			logger.info("Best option is selected");
+			extent.extentLogger("Quality", "Best option is selected");
+		}
+		JSClick(PWAPlayerPage.objBetterQualityOption, "Better quality");
+		verifyElementPresentAndClick(PWAPlayerPage.settingsBtn, "Setting button");
+		verifyElementPresentAndClick(PWAPlayerPage.objPlayerQualityButton, "Quality Button");
+		String SelectedOption2 = getText(PWAPlayerPage.objPlayerSelectedQuality);
+
+		if (SelectedOption2.contains("Better")) {
+			logger.info("Better option is selected");
+			extent.extentLogger("Quality", "Better option is selected");
+		}
+		verifyElementPresentAndClick(PWAPlayerPage.settingsBtn, "Setting button");
+		waitTime(1000);
+		verifyElementPresentAndClick(PWAPlayerPage.maximizeBtn, "Maximize window icon");
+		waitTime(1000);
+		
+		JSClick(PWAPlayerPage.minimizeBtn, "Minimize button");
+	 
+		logger.info(" Player controls is displayed on player screen for Video content, expected behaviour");
+		extent.extentLoggerPass("",
+				" Player controls is displayed on player screen for Video content, expected behaviour");
+	} else {
+		logger.info("Player controls are not displayed on player screen for Video content");
+		extent.extentLoggerFail(" ", "Player controls are not displayed on player screen for Video content");
+
+	}
+		
+	}
+	
+	public void noAdsForSubscribedUsersForPremiumContents(String userType,String PremiumContent) throws Exception {
+		if(userType.equals("SubscribedUser")) {
+		extent.HeaderChildNode("Verify that ads are not displayed for subscribed users");
+		click(PWAHomePage.objSearchBtn, "Seach button");
+		waitTime(2000);
+		type(PWASearchPage.objSearchEditBox, PremiumContent, "Search Field");
+		waitTime(3000);
+		JSClick(PWASearchPage.objFirstAssetImgSearchNavigationTab, PremiumContent);
+
+		waitTime(5500);
+		if (!checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
+			logger.info(
+					"user not able to see ads for Subscribed content: " + PremiumContent);
+			extent.extentLoggerPass("Ad",
+					"user not able to see ads for Subscribed content: " + PremiumContent);	
+		}else {
+			logger.info(
+					"user able to see ads for Subscribed content: " + PremiumContent);
+			extent.extentLoggerFail("Ad",
+					"user able to see ads for Subscribed content: " + PremiumContent);	
+		}
+	}
+	}
+
+	public void VerifyChromeCastForVideoTVODorLiveTv(String userType,String TVODvideoname) throws Exception {
+		extent.HeaderChildNode("Verify if cast option is displaying on the TVOD content player on right top corner");
+
+		waitTime(3500);
+		click(PWAHomePage.objSearchBtn,"Seach button");
+		waitTime(2000);
+		type(PWASearchPage.objSearchEditBox, TVODvideoname, "Search Field");
+		waitTime(3000);
+		JSClick(PWASearchPage.objFirstAssetImgSearchNavigationTab, TVODvideoname);
+		waitTime(3500);
+	//objChromeCast
+		if(verifyElementDisplayed(PWAHamburgerMenuPage.objChromeCast)) {
+			logger.info("user able to see the chromecast option displaying on the TVOD content player on right top corner");
+			extent.extentLoggerPass("", "user able to see the chromecast option displaying on the TVOD content player on right top corner");
+		}else {
+			logger.info("user not able to see the chromecast option displaying on the TVOD content player on right top corner");
+		extent.extentLoggerFail("", "user not able to see the chromecast option displaying on the TVOD content player on right top corner");
+	}
+	}
+
+	public void noAutoRenewalStatusForSupermoonConentTVODLogin(String userType) throws Exception {
+		extent.HeaderChildNode("Verify that user is able to see Auto renewal status as NO for rented supermoon content");
+		TVODLogin();
+		waitTime(2500);
+		click(PWAHomePage.objProfileMenu, "Profile Menu");
+		waitTime(2000);
+		JSClick(PWAHamburgerMenuPage.objMyTransactions, "My transaction in Hamberger menu");
+		waitTime(2000);
+		String status=getWebDriver().findElement(PWAHamburgerMenuPage.objMyTransactionAutoRenewalStatus).getText();
+		if(status.contains("No")) {
+			logger.info("user is able to see Auto renewal status as NO for rented supermoon content");
+			extent.extentLoggerPass("Auto renewal status", "user is able to see Auto renewal status as NO for rented supermoon content");
+		}else {
+			logger.info("user is not able to see Auto renewal status as NO for rented supermoon content");
+		extent.extentLoggerFail("Auto renewal status", "user is not able to see Auto renewal status as NO for rented supermoon content");
+	}
 	}
 
 }

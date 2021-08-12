@@ -2923,6 +2923,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		String beforeSeek = findElement(AMDPlayerScreen.objTimer).getText();
 		logger.info("Current time before seeking : " + timeToSec(beforeSeek));
 		extent.extentLogger("Seek", "Current time before seeking in seconds: " + timeToSec(beforeSeek));
+		waitTime(5000);
 		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		click(AMDPlayerScreen.objPauseIcon, "Pause");
 		WebElement element = getDriver().findElement(byLocator1);
@@ -11122,7 +11123,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		type(AMDSearchScreen.objSearchBoxBar, keyword1 + "\n", "Search bar");
 		hideKeyboard();
 		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
-		click(AMDSearchScreen.objFirstSearchResult(keyword1), "Search result");
+		click(AMDSearchScreen.objSearchResultFirstContent, "Search result");
 		waitForAdToFinishInAmd();
 		waitTime(5000);
 		if (verifyIsElementDisplayed(AMDPlayerScreen.objRegisterPopUp, "Register popUp")) {
@@ -11131,7 +11132,11 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		setFEProperty(userType);
 		setUserType_SubscriptionProperties(userType);
 		SetAppsflyerProperty();
-		waitTime(100000);
+		
+		if (userType.equalsIgnoreCase("Guest")) {
+			mixpanel.FEProp.setProperty("User Type", "Guest");
+		}
+		
 		MixpanelAndroid.FEProp.setProperty("Content ID", "0-1-247366");
 		MixpanelAndroid.FEProp.setProperty("Content Name", "The Hunter's Scent");
 		MixpanelAndroid.ValidateParameter("", "af_svod_first_episode_free");
@@ -15148,6 +15153,361 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}	
 	}
 	
+	public void videoViewEventFromTrayNavigationPage(String usertype, String tabName) throws Exception {
+		extent.HeaderChildNode("Video View event through Landing screen Tray navigation");
+		
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
+		
+		String contentLang = ResponseInstance.getContentLanguageForAppMixpanel(usertype);
+		System.out.println(contentLang);
+		String trayName = ResponseInstance.getRailNameFromPage(tabName, usertype);
+
+		if (tabName.equalsIgnoreCase("Live TV") || tabName.equalsIgnoreCase("News")) {
+			waitTime(5000);
+			waitForElementDisplayed(AMDGenericObjects.objTrayTitle, 30);
+		}
+		SwipeUntilFindElement(AMDHomePage.objRailName(trayName), "UP");
+		waitTime(3000);
+		if(!(verifyIsElementDisplayed(AMDGenericObjects.objSelectFirstCardFromRailName(trayName)))) {
+			PartialSwipe("Up", 1);
+		}
+		
+		click(AMDGenericObjects.objSelectFirstCardFromRailName(trayName), "Content Card");
+		
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		if (usertype.equalsIgnoreCase("Guest")) {
+			registerPopUpClose();
+		}
+		completeProfilePopUpClose(usertype);
+
+		boolean inlineLink = verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer);
+		boolean adulterrormsg = verifyIsElementDisplayed(AMDPlayerScreen.objAdultErrorMessage);
+		if (inlineLink == true) {
+			logger.info("Player inline subscription link is displayed");
+			extentLogger("Player screen", "Player inline subscription link is displayed");
+		} else if (adulterrormsg == true) {
+			logger.info("error message saying 'This content is for Adult view only' is displayed");
+			extentLogger("Player screen", "error message saying 'This content is for Adult view only' is displayed");
+		} else {
+			waitTime(5000);
+			if (!(verifyIsElementDisplayed(AMDPlayerScreen.objFullscreenIcon))) {
+				click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			}
+			boolean eventFlag = true;
+			click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+			
+			setFEProperty(usertype);
+			setUserType_SubscriptionProperties(usertype);
+			SetAppsflyerProperty();
+
+			if (usertype.equalsIgnoreCase("Guest")) {
+				mixpanel.FEProp.setProperty("User Type", "Guest");
+			}
+			
+			String pPage = "ConsumptionPage";
+			String pSource = "Homepage";
+			String pManufacturer = DeviceDetails.OEM;
+
+			mixpanel.FEProp.setProperty("Source", "Homepage");
+			mixpanel.FEProp.setProperty("Page Name", "ConsumptionPage");
+			mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+			mixpanel.FEProp.setProperty("brand", pManufacturer);
+			
+			mixpanel.ValidateParameter("", "Video View");	
+		}
+	}
 	
+	public void videoWatchDurationOfContentFromSearchPage(String usertype, String keyword4)throws Exception {
+		extent.HeaderChildNode("Video watch duration Event of content from search page");
+
+		click(AMDHomePage.MoreMenuIcon, "More menu icon");
+		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
+        waitTime(5000);
+		String var = getText(AMDMoreMenu.objVideo_Autoply);
+		if(!(var.equalsIgnoreCase("ON"))) {
+			click(AMDMoreMenu.objVideo_Autoply, "Auto play");
+			waitTime(5000);
+		}
+		Back(2);
+		
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objSearchResultFirstContent, "Search result");
+		
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		if (usertype.equalsIgnoreCase("Guest")) {
+			registerPopUpClose();
+		}
+		completeProfilePopUpClose(usertype);
+		
+		waitTime(5000);
+		if (!(verifyIsElementDisplayed(AMDPlayerScreen.objFullscreenIcon))) {
+			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		}
+		scrubProgressBarTillEnd(AMDPlayerScreen.objProgressBar);
+		waitTime(5000);
+		Back(1);
+		
+		String contentID = getParameterFromXML("clipContentID");
+		Response ContentResp = ResponseInstance.getResponseDetails(contentID);
+		ResponseInstance.setFEPropertyOfContentFromAPI2(contentID, ContentResp, "Home");
+		
+		setFEProperty(usertype);
+		setUserType_SubscriptionProperties(usertype);
+		SetAppsflyerProperty();
+
+		String pManufacturer = DeviceDetails.OEM;
+		
+		if (usertype.equalsIgnoreCase("Guest")) {
+			mixpanel.FEProp.setProperty("User Type", "Guest");
+		}
+
+		mixpanel.FEProp.setProperty("Source", "SearchPage");
+		mixpanel.FEProp.setProperty("Page Name", "ConsumptionPage");
+		mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+		mixpanel.FEProp.setProperty("brand", pManufacturer);
+		
+		mixpanel.ValidateParameter("", "Video Watch Duration");
+	}
+
+public void afSvodFirstEpisodeFreeForTrayNavigation(String usertype, String tabName)throws Exception  {
+		extent.HeaderChildNode("Verify af_svod_first_episode_free event for Tray navigation entry point");
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
+		
+		String contentLang = ResponseInstance.getContentLanguageForAppMixpanel(usertype);
+		System.out.println(contentLang);
+		String trayName = ResponseInstance.getRailNameFromPage(tabName, usertype);
+
+		if (tabName.equalsIgnoreCase("Live TV") || tabName.equalsIgnoreCase("News")) {
+			waitTime(5000);
+			waitForElementDisplayed(AMDGenericObjects.objTrayTitle, 30);
+		}
+		SwipeUntilFindElement(AMDHomePage.objRailName(trayName), "UP");
+		waitTime(3000);
+		if(!(verifyIsElementDisplayed(AMDGenericObjects.objSelectFirstCardFromRailName(trayName)))) {
+			PartialSwipe("Up", 1);
+		}
+		
+		click(AMDGenericObjects.objSelectFirstCardFromRailName(trayName), "Content Card");
+	
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		if (usertype.equalsIgnoreCase("Guest")) {
+			registerPopUpClose();
+		}
+		completeProfilePopUpClose(usertype);
+
+		boolean inlineLink = verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer);
+		boolean adulterrormsg = verifyIsElementDisplayed(AMDPlayerScreen.objAdultErrorMessage);
+		if (inlineLink == true) {
+			logger.info("Player inline subscription link is displayed");
+			extentLogger("Player screen", "Player inline subscription link is displayed");
+		} else if (adulterrormsg == true) {
+			logger.info("error message saying 'This content is for Adult view only' is displayed");
+			extentLogger("Player screen", "error message saying 'This content is for Adult view only' is displayed");
+		} else {
+			waitTime(5000);
+			if (!(verifyIsElementDisplayed(AMDPlayerScreen.objFullscreenIcon))) {
+				click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			}
+			click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+			
+			setFEProperty(usertype);
+			setUserType_SubscriptionProperties(usertype);
+			SetAppsflyerProperty();
+			
+			if (usertype.equalsIgnoreCase("Guest")) {
+				mixpanel.FEProp.setProperty("User Type", "Guest");
+			}
+			
+			String pManufacturer = DeviceDetails.OEM;
+
+			mixpanel.FEProp.setProperty("Source", "Homepage");
+			mixpanel.FEProp.setProperty("Page Name", "ConsumptionPage");
+			mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+			mixpanel.FEProp.setProperty("brand", pManufacturer);
+			
+			MixpanelAndroid.ValidateParameter("", "af_svod_first_episode_free");
+		}
+	}
+
+public void afSvodFirstEpisodeFreeForCarousalContent(String usertype)throws Exception  {
+		extent.HeaderChildNode("Verify af_svod_first_episode_free event for Carousal entry point");
+		waitTime(10000);
+		SelectTopNavigationTab("Web Series");
+
+		String contentName = ResponseInstance.getCarouselContentFromAPI2(usertype, "Web Series");
+		System.out.println(contentName);
+
+		waitForElementAndClickIfPresent(AMDHomePage.objContentTitle(contentName), 7, "carousal content");
+		
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		if (usertype.equalsIgnoreCase("Guest")) {
+			registerPopUpClose();
+		}
+		completeProfilePopUpClose(usertype);
+
+		boolean inlineLink = verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer);
+		boolean adulterrormsg = verifyIsElementDisplayed(AMDPlayerScreen.objAdultErrorMessage);
+		if (inlineLink == true) {
+			logger.info("Player inline subscription link is displayed");
+			extentLogger("Player screen", "Player inline subscription link is displayed");
+		} else if (adulterrormsg == true) {
+			logger.info("error message saying 'This content is for Adult view only' is displayed");
+			extentLogger("Player screen", "error message saying 'This content is for Adult view only' is displayed");
+		} else {
+			waitTime(5000);
+			if (!(verifyIsElementDisplayed(AMDPlayerScreen.objFullscreenIcon))) {
+				click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			}
+			click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+			
+			setFEProperty(usertype);
+			setUserType_SubscriptionProperties(usertype);
+			SetAppsflyerProperty();
+			
+			if (usertype.equalsIgnoreCase("Guest")) {
+				mixpanel.FEProp.setProperty("User Type", "Guest");
+			}
+			
+			String pManufacturer = DeviceDetails.OEM;
+
+			mixpanel.FEProp.setProperty("Source", "Homepage");
+			mixpanel.FEProp.setProperty("Page Name", "ConsumptionPage");
+			mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+			mixpanel.FEProp.setProperty("brand", pManufacturer);
+			
+			MixpanelAndroid.ValidateParameter("", "af_svod_first_episode_free");
+		}
+		
+	}
+
+
+public void VideoViewEventOfcontentFromSearchPage(String usertype, String keyword4)throws Exception {
+			extent.HeaderChildNode("Video view Event of content from search page");
+
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, keyword4 + "\n", "Search bar");
+			hideKeyboard();
+			waitTime(4000);
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			click(AMDSearchScreen.objSearchResultFirstContent, "Search result");
+			
+			if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+				waitForAdToFinishInAmd();
+			}
+			if (usertype.equalsIgnoreCase("Guest")) {
+				registerPopUpClose();
+			}
+			completeProfilePopUpClose(usertype);
+
+			boolean inlineLink = verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer);
+			boolean adulterrormsg = verifyIsElementDisplayed(AMDPlayerScreen.objAdultErrorMessage);
+			if (inlineLink == true) {
+				logger.info("Player inline subscription link is displayed");
+				extentLogger("Player screen", "Player inline subscription link is displayed");
+			} else if (adulterrormsg == true) {
+				logger.info("error message saying 'This content is for Adult view only' is displayed");
+				extentLogger("Player screen", "error message saying 'This content is for Adult view only' is displayed");
+			} else {
+				waitTime(5000);
+				if (!(verifyIsElementDisplayed(AMDPlayerScreen.objFullscreenIcon))) {
+					click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+				}
+				boolean eventFlag = true;
+				click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+				
+				String contentID = getParameterFromXML("clipContentID");
+				Response ContentResp = ResponseInstance.getResponseDetails(contentID);
+				ResponseInstance.setFEPropertyOfContentFromAPI2(contentID, ContentResp, "Home");
+				
+				setFEProperty(usertype);
+				setUserType_SubscriptionProperties(usertype);
+				SetAppsflyerProperty();
+
+				String pManufacturer = DeviceDetails.OEM;
+				
+				if (usertype.equalsIgnoreCase("Guest")) {
+					mixpanel.FEProp.setProperty("User Type", "Guest");
+				}
+
+				mixpanel.FEProp.setProperty("Source", "SearchPage");
+				mixpanel.FEProp.setProperty("Page Name", "ConsumptionPage");
+				mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+				mixpanel.FEProp.setProperty("brand", pManufacturer);
+				
+				mixpanel.ValidateParameter("", "Video View");	
+			}
+		
+	}
+
+
+public void videoViewEventForCarousalContent(String usertype, String tabName) throws Exception {
+		extent.HeaderChildNode("Video View Event for carousel content");
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
+
+		String contentName = ResponseInstance.getCarouselContentFromAPI2(usertype, tabName);
+		System.out.println(contentName);
+
+		waitForElementAndClickIfPresent(AMDHomePage.objContentTitle(contentName), 7, "carousal content");
+		
+		if (!(usertype.equalsIgnoreCase("SubscribedUser"))) {
+			waitForAdToFinishInAmd();
+		}
+		if (usertype.equalsIgnoreCase("Guest")) {
+			registerPopUpClose();
+		}
+		completeProfilePopUpClose(usertype);
+
+		boolean inlineLink = verifyIsElementDisplayed(AMDPlayerScreen.objPremiumTextOnPlayer);
+		boolean adulterrormsg = verifyIsElementDisplayed(AMDPlayerScreen.objAdultErrorMessage);
+		if (inlineLink == true) {
+			logger.info("Player inline subscription link is displayed");
+			extentLogger("Player screen", "Player inline subscription link is displayed");
+		} else if (adulterrormsg == true) {
+			logger.info("error message saying 'This content is for Adult view only' is displayed");
+			extentLogger("Player screen", "error message saying 'This content is for Adult view only' is displayed");
+		} else {
+			waitTime(5000);
+			if (!(verifyIsElementDisplayed(AMDPlayerScreen.objFullscreenIcon))) {
+				click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+			}
+			boolean eventFlag = true;
+			click(AMDPlayerScreen.objPauseIcon, "Pause icon");
+			
+			setFEProperty(usertype);
+			setUserType_SubscriptionProperties(usertype);
+			SetAppsflyerProperty();
+			
+			if (usertype.equalsIgnoreCase("Guest")) {
+				mixpanel.FEProp.setProperty("User Type", "Guest");
+			}
+			
+			String pManufacturer = DeviceDetails.OEM;
+
+			mixpanel.FEProp.setProperty("Source", "Homepage");
+			mixpanel.FEProp.setProperty("Page Name", "ConsumptionPage");
+			mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+			mixpanel.FEProp.setProperty("brand", pManufacturer);
+			
+			mixpanel.ValidateParameter("", "Video View");	
+		}
+	
+	}
 	
 }
