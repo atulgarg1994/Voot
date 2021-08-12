@@ -1774,6 +1774,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	/**
 	 * Search For Content And Click On First Result
 	 */
+	@SuppressWarnings("unused")
 	public void zeeSearchForContentAndClickOnFirstResult(String contentName) throws Exception {
 		// handle mandatory pop up
 		String user = getParameterFromXML("userType");
@@ -2927,6 +2928,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		ResponseInstance.updateWatchHistory(sourceContentID, 1, local.getItem("guestToken"));
 	}
 
+	@SuppressWarnings("unused")
 	public String waitUntilUpNextCardPlays(String sourceCardTitle) throws Exception {
 		System.out.println("sourceCardTitle:" + sourceCardTitle);
 		getWebDriver().manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
@@ -34318,6 +34320,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	public void deleteDevices() throws Exception {
 		String userType = getParameterFromXML("userType");
 //		if(!userType.equals("Guest")) ResponseInstance.deleteAddDevicesForTheUser();
@@ -37924,6 +37927,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 	
 
 	
+	@SuppressWarnings("unused")
 	public void contentDiscriptorVerification(String userType) throws Exception {
 		extent.HeaderChildNode("PWA2-8755: 1. Content Descriptors to be displayed on Player");
 		extent.extentLogger("", "Verification of <b>TC 1. A small visual overlay needs to be displayed on the Player with age rating information about the content being played<b>");
@@ -38662,6 +38666,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	public void verifyContentDescriptorRatingAndDesc(ArrayList<String> contentDetails) throws Exception {
 		String mainurl=getParameterFromXML("url");
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();

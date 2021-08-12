@@ -48,7 +48,7 @@ public class PWALanguageSettingsPage {
 	
 	public static By objSecondLanguage = By.xpath("(//*[@class='nativeName'])[2]");
 	
-	public static By objNonSelectedEng = By.xpath("//div[@class='checkboxText']//span[@class='nativeName' and .='English']");
-	public static By objNonSelectedHin = By.xpath("//div[@class='checkboxText']//span[@class='nativeName' and .='Hindi']");
-	public static By objNonSelectedKan = By.xpath("//div[@class='checkboxText']//span[@class='nativeName' and .='Kannada']");
+	public static By objNonSelectedEng = By.xpath("//div[@class='checkboxText']//span[.='English']");
+	public static By objNonSelectedHin = By.xpath("//div[@class='checkboxText']//span[.='Hindi']");
+	public static By objNonSelectedKan = By.xpath("//div[@class='checkboxText']//span[.='Kannada']");
 }

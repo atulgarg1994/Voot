@@ -17,10 +17,9 @@ public class Android_AppCenter {
 		ZEE5ApplicasterBusinessLogic = new Zee5ApplicasterBusinessLogic("zee");
 	}
 	
-	
 	@Test(priority=0)
 	public void AppCenter() throws Exception {
-		ZEE5ApplicasterBusinessLogic.AppCenter();
+		ZEE5ApplicasterBusinessLogic.AppCenter("latest");
 	}
 	
 	@AfterTest

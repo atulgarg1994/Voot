@@ -37192,7 +37192,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 	}
 
-	public void AppCenter() throws Exception {
+	public void AppCenter(String build) throws Exception {
 		HeaderChildNode("App Center");
 		verifyElementPresentAndClick(AppCenterPage.objMicrosoft, "Microsoft");
 		type(AppCenterPage.objEmail, "hitesh.c@igsindia.net", "Email Field");
@@ -37213,7 +37213,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 		
 		if(verifyElementPresent(AppCenterPage.objZee5AndroidHeader, "ZEE5 Android Header")) {
+			if(build.equals("latest")) {
 			click(AppCenterPage.objDownloadLatestReleaseBtn, "Dwonload button");
+			}
 		}
 		
 	}
