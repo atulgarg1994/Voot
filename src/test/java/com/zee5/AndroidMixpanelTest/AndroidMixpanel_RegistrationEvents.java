@@ -24,60 +24,61 @@ public class AndroidMixpanel_RegistrationEvents {
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(pUserType);
 		Zee5ApplicasterMixPanelBusinessLogic.RegistrationEventValidation(pUserType);
 	}
+
 	
-//	@Test(priority = 2)
-//	@Parameters({"userType"})
-//	public void RegistrationEventValidationViaBuyPlan(String pUserType) throws Exception {
-//		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-//		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
-//		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(pUserType);
-//		Zee5ApplicasterMixPanelBusinessLogic.RegistrationEventValidationViaBuyPlan(pUserType);
-//	}
-//	
-//	@Test(priority = 3)
-//	@Parameters({"userType"})
-//	public void RegistrationEventValidationViaBuyPlanMoreSection(String userType) throws Exception {
-//		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-//		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
-//		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
-//		Zee5ApplicasterMixPanelBusinessLogic.RegistrationEventValidationViaBuyPlanMoreSection(userType);
-//	}
-//	
-//	@Test(priority = 4)
-//	@Parameters({"userType"})
-//	public void RegistrationEventValidationViaBuyPlanMySubscription(String userType) throws Exception {
-//		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-//		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
-//		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
-//		Zee5ApplicasterMixPanelBusinessLogic.RegistrationEventValidationViaBuyPlanMySubscription(userType);
-//	}
-//	
-//	@Test(priority = 5)
-//	@Parameters({"userType"})
-//	public void RegistrationEventValidationViaBuyPlanMyTransaction(String userType) throws Exception {
-//		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-//		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
-//		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
-//		Zee5ApplicasterMixPanelBusinessLogic.RegistrationEventValidationViaBuyPlanMyTransaction(userType);
-//	}
-//	
-//	@Test(priority = 6)
-//	@Parameters({"userType", "keyword3"})
-//	public void RegistrationEventValidationViaBuyPlanBelowPlayer(String userType,String keyword3) throws Exception {
-//		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-//		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
-//		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
-//		Zee5ApplicasterMixPanelBusinessLogic.RegistrationEventValidationViaBuyPlanBelowPlayer(userType,keyword3);
-//	}
-//	
-//	@Test(priority = 7)
-//	@Parameters({"userType", "trailerContent"})
-//	public void RegistrationEventValidationViaBuyPlanAfterTrailer(String userType,String trailerContent) throws Exception {
-//		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
-//		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
-//		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
-//		Zee5ApplicasterMixPanelBusinessLogic.RegistrationEventValidationViaBuyPlanAfterTrailer(userType,trailerContent);
-//	}
+	@Test(priority = 2)
+	@Parameters({"userType"})
+	public void RegistrationEventValidationViaBuyPlan(String pUserType) throws Exception {
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(pUserType);
+		Zee5ApplicasterMixPanelBusinessLogic.RegistrationEventValidationViaBuyPlan(pUserType);
+	}
+	
+	@Test(priority = 3)
+	@Parameters({"userType"})
+	public void RegistrationEventValidationViaBuyPlanMoreSection(String userType) throws Exception {
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
+		Zee5ApplicasterMixPanelBusinessLogic.RegistrationEventValidationViaBuyPlanMoreSection(userType);
+	}
+	
+	@Test(priority = 4)
+	@Parameters({"userType"})
+	public void RegistrationEventValidationViaBuyPlanMySubscription(String userType) throws Exception {
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
+		Zee5ApplicasterMixPanelBusinessLogic.RegistrationEventValidationViaBuyPlanMySubscription(userType);
+	}
+	
+	@Test(priority = 5)
+	@Parameters({"userType"})
+	public void RegistrationEventValidationViaBuyPlanMyTransaction(String userType) throws Exception {
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
+		Zee5ApplicasterMixPanelBusinessLogic.RegistrationEventValidationViaBuyPlanMyTransaction(userType);
+	}
+	
+	@Test(priority = 6)
+	@Parameters({"userType", "keyword3"})
+	public void RegistrationEventValidationViaBuyPlanBelowPlayer(String userType,String keyword3) throws Exception {
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
+		Zee5ApplicasterMixPanelBusinessLogic.RegistrationEventValidationViaBuyPlanBelowPlayer(userType,keyword3);
+	}
+	
+	@Test(priority = 7)
+	@Parameters({"userType", "trailerContent"})
+	public void RegistrationEventValidationViaBuyPlanAfterTrailer(String userType,String trailerContent) throws Exception {
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
+		Zee5ApplicasterMixPanelBusinessLogic.RegistrationEventValidationViaBuyPlanAfterTrailer(userType,trailerContent);
+	}
 	
 	@AfterTest
 	public void tearDownApp() {

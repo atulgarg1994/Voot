@@ -2965,10 +2965,10 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 	public void ScrubToPlayerEnd() throws Exception {
 		Actions act = new Actions(getWebDriver());
-		WebElement overlay=findElement(PWAPlayerPage.objSubTitleOverlay);
-		int overlayX=overlay.getLocation().getX();
-		int overlayY=overlay.getLocation().getY();
-		act.moveToElement(overlay, (overlayX+10), (overlayY+10)).build().perform();
+		WebElement overlay = findElement(PWAPlayerPage.objSubTitleOverlay);
+		int overlayX = overlay.getLocation().getX();
+		int overlayY = overlay.getLocation().getY();
+		act.moveToElement(overlay, (overlayX + 10), (overlayY + 10)).build().perform();
 		WebElement progressBar = findElement(PWAPlayerPage.progressBar);
 		int progressBarWidth = progressBar.getSize().getWidth();
 		System.out.println(progressBarWidth);
@@ -2980,7 +2980,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		int scrubberX = scrubber.getLocation().getX();
 		System.out.println(scrubberX);
 		int offsetForEnd = progressBarEndX - scrubberX - 10;
-		System.out.println(offsetForEnd);	
+		System.out.println(offsetForEnd);
 		act.moveToElement(scrubber, offsetForEnd, 0).click().release().build().perform();
 		waitTime(2000);
 		mandatoryRegistrationPopUp(userType);
@@ -16107,7 +16107,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		pagesTrayValidation(tabName);
 
 		extent.HeaderChildNode("HLS_087 : Next-Prvious functionality");
-		//scrollDownWEB();
+		// scrollDownWEB();
 		verifyElementPresentAndClick(PWAPremiumPage.objNextArrowBtn, "Next Arrow Button");
 		waitTime(4000);
 		JSClick(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button");
@@ -16308,7 +16308,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			waitTime(2000);
 			click(PWAMusicPage.objArrowToNavigateTop, "Arrow icon");
 		}
-		extent.HeaderChildNode("HLS_130 : Verify that Recommended Videos are displayed right side of the player");
+		extent.HeaderChildNode("HLS_130 : Verify that Recommended Songs Videos are displayed right side of the player");
 		mandatoryRegistrationPopUp(userType);
 		if (checkElementDisplayed(PWAPremiumPage.objWEBMastheadCarousel, "Carousel card")) {
 			click(PWAHomePage.objContTitleOnCarousel, "Carousel card");
@@ -16694,7 +16694,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.extentLoggerFail("Tray is not rotated", "Tray is not rotated");
 		}
 		JSClick(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button");
-		
+
 		extent.HeaderChildNode(" HLS_151 : Verify on click More/> ");
 		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "More Button")) {
 			JSClick(PWAPremiumPage.objViewAllBtn, "More Button");
@@ -16741,16 +16741,17 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		mandatoryRegistrationPopUp(userType);
 		waitForPlayerAdToComplete2("Video Player");
 		waitTime(5000);
-		if (checkElementDisplayed(PWAMusicPage.objRecommendedVideos, "Recommended tray")) {
-			logger.info("Recommended songs videos is displayed in consumption page");
-			extent.extentLogger("Recommended tray", "Recommended songs videos is displayed in consumption page");
+		if (checkElementDisplayed(PWAMusicPage.objRecommendedSongsVideosTray, "Recommended Songs Videos tray")) {
+			logger.info("Recommended songs videos are displayed right side of the player");
+			extent.extentLogger("Recommended tray", "Recommended songs videos are displayed right side of the player");
 		} else {
 			logger.error("Recommended songs videos is not displayed in consumption page");
-			extent.extentLoggerFail("Recommended tray", "Recommended songs videos is not displayed in consumption page");
+			extent.extentLoggerFail("Recommended tray", "Recommended songs videos are not displayed right side of the player");
 		}
 		Back(1);
-		//Actions actions = new Actions(getWebDriver());
-		//WebElement player = getWebDriver().findElement(PWAPlayerPage.objPlaybackVideoOverlay);
+		// Actions actions = new Actions(getWebDriver());
+		// WebElement player =
+		// getWebDriver().findElement(PWAPlayerPage.objPlaybackVideoOverlay);
 //		if (checkElementDisplayed(PWAPremiumPage.objWEBMastheadCarousel, "Carousel")) {
 //			JSClick(PWAPremiumPage.objWEBMastheadCarousel, "Carousel");
 //			
@@ -17159,6 +17160,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		} catch (Exception e) {
 			e.getMessage();
 		}
+		
 		extent.extentLogger("Autorotating", "First content title :" + firstCarouselTitle + " second content title :"
 				+ secondCarouselTitle + " and third content title :" + thirdCarouselTitle);
 		logger.info("First content title :" + firstCarouselTitle + " second content title :" + secondCarouselTitle
@@ -17233,11 +17235,13 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 		extent.HeaderChildNode("HLS_105 :Verify user is navigate to respective games screen");
 		navigateToAnyScreenOnWeb(tabName);
-		if (checkElementDisplayed(PWAPremiumPage.objWEBMastheadCarousel, "Carousel")) {
-			verifyElementPresentAndClick(PWAPlayPage.objPlayNowButton, "Play Now button of Carousel");
-		}
-		switchToWindow(2);
 		waitTime(5000);
+		swipeTillTrayAndClickFirstAsset(userType, 20, "Top Played Game", "Top Played Game tray", tabName);
+//		if (checkElementDisplayed(PWAPremiumPage.objWEBMastheadCarousel, "Carousel")) {
+//			verifyElementPresentAndClick(PWAPlayPage.objPlayNowButton, "Play Now button of Carousel");
+//		}
+		switchToWindow(2);
+		waitTime(2500);
 		String currentUrl = getWebDriver().getCurrentUrl();
 		logger.info("Current URL: " + currentUrl);
 		extent.extentLogger("", "Current URL: " + currentUrl);
@@ -17251,14 +17255,15 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		getWebDriver().close();
 		switchToParentWindow();
 
-		extent.HeaderChildNode("HLS_107 :Verify the Joystick icon is given on top left for all Play content card");
+		extent.HeaderChildNode("HLS_107 :Verify the Game content should be available in the Search result");
 		verifyElementPresentAndClick(PWASearchPage.objSearchBtn, "Search button");
 		waitTime(2000);
 		type(PWASearchPage.objSearchEditBox, "Danger Dash ", "Search Field");
-		checkElementDisplayed(PWASearchPage.objFirstSearchedAssetTitle, "First search result");
-
+		verifyElementPresent(PWAMusicPage.objJoysticktagAtSearchedResultPage, "joystick icon");
+		
 		extent.HeaderChildNode(
 				"HLS_108 :Verify whether user is able to navigate to Game content from the Search result");
+		checkElementDisplayed(PWASearchPage.objFirstSearchedAssetTitle, "First search result");
 		JSClick(PWASearchPage.objFirstSearchedAssetTitle, "First search result");
 		switchToWindow(2);
 		waitTime(2500);
@@ -22052,8 +22057,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 	public void webSeriesValidation(String userType, String tabName) throws Exception {
 		extent.HeaderChildNode("HLS_157: Verify user navigation " + tabName + "page");
-
 		PWAPagesNavigationAndTabHighlight(tabName);
+
 		extent.HeaderChildNode(" HLS_158 : Verify the rails name and content are loaded for first 2 scroll");
 		pagesTrayValidation(tabName);// update
 
@@ -22069,7 +22074,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.extentLoggerFail("Tray is not rotated", "Tray is not rotated");// update
 		}
 		JSClick(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button");
-		
+
 		extent.HeaderChildNode(" HLS_159 : Verify On click More/> ");
 		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "More Button")) {
 			JSClick(PWAPremiumPage.objViewAllBtn, "More Button");
@@ -22088,97 +22093,90 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		trayTitleAndContentValidationWithApiDataZeeoriginals(tabName, "webseries");
 
 		extent.HeaderChildNode("HLS_162 :Verify the right side bottom arrow ");
+		navigateToAnyScreenOnWeb(tabName);
 		waitTime(2000);
 		scrollToBottomOfPageWEB();
 		waitTime(5000);
 		if (checkElementDisplayed(PWAMusicPage.objArrowToNavigateTop, "Arrow icon")) {
 			waitTime(2000);
-			click(PWAMusicPage.objArrowToNavigateTop, "Arrow icon");
+			JSClick(PWAMusicPage.objArrowToNavigateTop, "Arrow icon");
+		}
+		waitTime(5000);
+
+		if (userType.equalsIgnoreCase("Guest") || userType.equalsIgnoreCase("NonSubscribedUser")) {
+			extent.HeaderChildNode("HLS_163 : Verify the Premium icons are displayed ");
+			scrollToElement(PWAMusicPage.objPremiumTag);
+			if (checkElementDisplayed(PWAMusicPage.objPremiumTag, "Premium Tag")) {
+				logger.info("Premium tag is displayed");
+				extent.extentLogger("Premium Tag", "Premium Tag is displayed");
+			} else {
+				logger.error("Premium tag is not displayed");
+				extent.extentLoggerFail("Premium Tag", "Premium Tag is not displayed");
+			}
 		}
 
-		waitTime(2000);
-		if (userType.equalsIgnoreCase("Guest") || userType.equalsIgnoreCase("NonSubscribedUser")) {
-
-			extent.HeaderChildNode("HLS_163 : Verify the Premium icons are displayed ");
-			for (int i = 0; i < 5; i++) {
-				if (findElements(PWAMusicPage.objPremiumTag).size() > 0) {
-					logger.info("Premium tag is displayed");
-					extent.extentLogger("Premium Tag", "Premium Tag is displayed");
-					break;
-
-				} else {
-					logger.error("Premium tag is not displayed");
-					extent.extentLoggerFail("Premium Tag", "Premium Tag is not displayed");
-					partialScrollDown();
-				}
-			}
-
-			extent.HeaderChildNode("HLS_164 : Verify the Premium user is able to watch all the zee originals shows");
-			if (userType.equalsIgnoreCase("Subscribeduser")) {
-				navigateToAnyScreenOnWeb(tabName);
-				swipeTillTrayAndClickFirstAsset(userType, 15, "ZEE5 Kannada Originals", "ZEE5 Kannada Originals tray",
-						tabName);
-				waitTime(5000);
-				checkElementDisplayed(PWAHamburgerMenuPage.objFirstAssetImageFirstRail, "1 st card");
-				click(PWAHamburgerMenuPage.objFirstAssetImageFirstRail, "1 st card");
-				waitTime(5000);
-				if (checkElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, "Player")) {
-					logger.info("user is able to watch the zee originals shows");
-					extent.extentLogger("zee originals shows", "user is able to watch the zee originals shows");
-				} else {
-					logger.info("user is not able to watch the zee originals shows");
-					extent.extentLoggerFail("zee originals shows", "user is not able to watch the zee originals shows");// update
-				}
-			}
-
-			extent.HeaderChildNode("HLS_166 : Verify user is able to watch the First Episode of the originals shows");
+		extent.HeaderChildNode("HLS_164 : Verify the Premium user is able to watch all the zee originals shows");
+		if (userType.equalsIgnoreCase("Subscribeduser")) {
 			navigateToAnyScreenOnWeb(tabName);
-
-			swipeTillTrayAndClickFirstAsset(userType, 15, "Best of ZEE5 Originals in Kannada",
-					"Best of ZEE5 Originals in Kannada tray", tabName);
-			waitTime(3500);
-			JSClick(PWAHamburgerMenuPage.objFirstcontentCard, "1st content card");
-			waitTime(3500);
-			checkElementDisplayed(PWAHamburgerMenuPage.objFirstAssetImageFirstRail, "1 st card");
-			click(PWAHamburgerMenuPage.objFirstAssetImageFirstRail, "1 st card");
-			waitTime(8000);
-			if (checkElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, "Player")) {
-				logger.info("user is able to watch the First Episode");
-				extent.extentLogger("zee originals shows", "user is able to watch the First Episode");
-			} else {
-				logger.info("user is not able to watch the First Episode");
-				extent.extentLoggerFail("zee originals shows", " user is not  able to watch the First Episode");// update
-			}
-
-			extent.HeaderChildNode(
-					"HLS_167 : Verify user can Navigate to the Original shows Details Screen post click on any Show Thumbnail Card");
-			navigateToAnyScreenOnWeb(tabName);
-			JSClick(PWAHamburgerMenuPage.objFirstcontentCard, "First Card");
-			waitTime(3000);
-
+			swipeTillTrayAndClickFirstAsset(userType, 15, "ZEE5 Kannada Originals", "ZEE5 Kannada Originals tray",
+					tabName);
+			waitTime(5000);
 			checkElementDisplayed(PWAHamburgerMenuPage.objFirstAssetImageFirstRail, "1 st card");
 			click(PWAHamburgerMenuPage.objFirstAssetImageFirstRail, "1 st card");
 			waitTime(5000);
 			if (checkElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, "Player")) {
 				logger.info("user is able to watch the zee originals shows");
-				extent.extentLogger("zee originals shows", "user is navigated to the zee5originals shows");
+				extent.extentLogger("zee originals shows", "user is able to watch the zee originals shows");
 			} else {
-				logger.info("user is not navigated to the zee originals shows");
-				extent.extentLoggerFail("zee originals shows", "user is not navigated to the zee 5riginals shows");// update
+				logger.info("user is not able to watch the zee originals shows");
+				extent.extentLoggerFail("zee originals shows", "user is not able to watch the zee originals shows");// update
 			}
+		}
 
-			if (userType.equalsIgnoreCase("Guest")) {
+		extent.HeaderChildNode("HLS_166 : Verify user is able to watch the First Episode of the originals shows");
+		navigateToAnyScreenOnWeb(tabName);
+		swipeTillTrayAndClickFirstAsset(userType, 15, "Best of ZEE5 Originals in Kannada",
+				"Best of ZEE5 Originals in Kannada tray", tabName);
+		waitTime(3500);
+		JSClick(PWAHamburgerMenuPage.objFirstcontentCard, "1st content card");
+		waitTime(3500);
+		checkElementDisplayed(PWAHamburgerMenuPage.objFirstAssetImageFirstRail, "1 st card");
+		click(PWAHamburgerMenuPage.objFirstAssetImageFirstRail, "1 st card");
+		waitTime(8000);
+		if (checkElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, "Player")) {
+			logger.info("user is able to watch the First Episode");
+			extent.extentLogger("zee originals shows", "user is able to watch the First Episode");
+		} else {
+			logger.info("user is not able to watch the First Episode");
+			extent.extentLoggerFail("zee originals shows", " user is not  able to watch the First Episode");// update
+		}
 
-				extent.HeaderChildNode(
-						"HLS_169 : Verify the Buy Plan CTA is displayed on the  zee5 originals detail screen");
-				String keyword = "Rangbaaz";
-				click(PWAHomePage.objSearchBtn, "Search icon");
-				type(PWAHomePage.objSearchField, keyword + "\n", "Search");
-				JSClick(PWASearchPage.objSearchedResult(keyword), "Search Result");
-				verifyElementPresent(PWAShowsPage.objGetPremiumCTAInShowDetails, "Buy Plan CTA in originals details");
-				verifyElementPresent(PWAShowsPage.objShowdeatilPlayIcon, "Play icon in originals details");
-				Back(1);
-			}
+		extent.HeaderChildNode(
+				"HLS_167 : Verify user can Navigate to the Original shows Details Screen post click on any Show Thumbnail Card");
+		navigateToAnyScreenOnWeb(tabName);
+		JSClick(PWAHamburgerMenuPage.objFirstcontentCard, "First Card");
+		waitTime(3000);
+		checkElementDisplayed(PWAHamburgerMenuPage.objFirstAssetImageFirstRail, "1 st card");
+		click(PWAHamburgerMenuPage.objFirstAssetImageFirstRail, "1 st card");
+		waitTime(5000);
+		if (checkElementDisplayed(PWAPlayerPage.objPlaybackVideoOverlay, "Player")) {
+			logger.info("user is able to watch the zee originals shows");
+			extent.extentLogger("zee originals shows", "user is navigated to the zee5originals shows");
+		} else {
+			logger.info("user is not navigated to the zee originals shows");
+			extent.extentLoggerFail("zee originals shows", "user is not navigated to the zee 5riginals shows");// update
+		}
+
+		if (userType.equalsIgnoreCase("Guest")) {
+			extent.HeaderChildNode(
+					"HLS_169 : Verify the Buy Plan CTA is displayed on the  zee5 originals detail screen");
+			String keyword = "Rangbaaz";
+			click(PWAHomePage.objSearchBtn, "Search icon");
+			type(PWAHomePage.objSearchField, keyword + "\n", "Search");
+			JSClick(PWASearchPage.objSearchedResult(keyword), "Search Result");
+			verifyElementPresent(PWAShowsPage.objGetPremiumCTAInShowDetails, "Buy Plan CTA in originals details");
+			verifyElementPresent(PWAShowsPage.objShowdeatilPlayIcon, "Play icon in originals details");
+			Back(1);
 		}
 	}
 
@@ -37751,8 +37749,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 					"Forward 10 Seconds icon is not displayed for Live TV TVOD content: " + LiveTvTVODContent);
 		}
 	}
-	
-	public void verifyLiveTvTagForLiveTVContentAnypacklessThan499withSupermoonActive(String userType,String  LiveTvTVODContent) throws Exception {
+
+	public void verifyLiveTvTagForLiveTVContentAnypacklessThan499withSupermoonActive(String userType,
+			String LiveTvTVODContent) throws Exception {
 		extent.HeaderChildNode("Verify Whether Live Tag  is displayed on player screen for LiveTV content");
 		AnypacklessThan499withSupermoonActive();
 		waitTime(3500);
@@ -37763,11 +37762,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		JSClick(PWAComboOfferPage.objLiveTVTVODItem(LiveTvTVODContent), LiveTvTVODContent);
 		waitTime(2500);
 		if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
-			
+
 			waitForPlayerAdToComplete("Video Player");
 		}
 		waitTime(5000);
-		
+
 		if (verifyElementPresent(PWAPlayerPage.objLivePlayerLiveTag, " Live Tag")) {
 			logger.info(" Live Tag  is displayed on player screen for LiveTV content, expected behaviour");
 			extent.extentLoggerPass("",
@@ -37778,181 +37777,185 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 		}
 	}
-	
-	public void VerifyPlayerControlsForVideoTVODConsumptionAnypacklessThan499withSupermoonActive(String userType,String videoname) throws Exception {
+
+	public void VerifyPlayerControlsForVideoTVODConsumptionAnypacklessThan499withSupermoonActive(String userType,
+			String videoname) throws Exception {
 		extent.HeaderChildNode("Verify Whether Player controls is displayed on player screen for Video content");
 		AnypacklessThan499withSupermoonActive();
 		waitTime(3500);
-		click(PWAHomePage.objSearchBtn,"Seach button");
+		click(PWAHomePage.objSearchBtn, "Seach button");
 		waitTime(2000);
 		type(PWASearchPage.objSearchEditBox, videoname, "Search Field");
 		waitTime(3000);
 		JSClick(PWASearchPage.objFirstAssetImgSearchNavigationTab, videoname);
 		waitTime(3500);
 		if (checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
-			
+
 			waitForPlayerAdToComplete("Video Player");
 		}
 		waitTime(5000);
 		Actions actions = new Actions(getWebDriver());
 		WebElement ele = getWebDriver().findElement(PWAPlayerPage.objPlaybackVideoOverlay);
 		actions.moveToElement(ele).perform();
-		if(ele.isDisplayed()) {
-		verifyElementPresent(PWAPlayerPage.pauseBtn, "Pause button");
-		verifyElementPresent(PWAPlayerPage.rewind10SecBtn, "Rewind 10 Seconds icon");
-		actions.moveToElement(ele).perform();
+		if (ele.isDisplayed()) {
+			verifyElementPresent(PWAPlayerPage.pauseBtn, "Pause button");
+			verifyElementPresent(PWAPlayerPage.rewind10SecBtn, "Rewind 10 Seconds icon");
+			actions.moveToElement(ele).perform();
 
-		verifyElementPresent(PWAPlayerPage.playBtn, "Play icon");
-		actions.moveToElement(ele).perform();
+			verifyElementPresent(PWAPlayerPage.playBtn, "Play icon");
+			actions.moveToElement(ele).perform();
 
-		verifyElementPresent(PWAPlayerPage.forward10SecBtn, "Forward 10 Seconds icon");
-		actions.moveToElement(ele).perform();
+			verifyElementPresent(PWAPlayerPage.forward10SecBtn, "Forward 10 Seconds icon");
+			actions.moveToElement(ele).perform();
 
-		verifyElementPresent(PWAPlayerPage.progressBar, "Progress bar");
-		actions.moveToElement(ele).perform();
+			verifyElementPresent(PWAPlayerPage.progressBar, "Progress bar");
+			actions.moveToElement(ele).perform();
 
-		verifyElementPresent(PWAPlayerPage.audioBtn, "Audio icon");
-		actions.moveToElement(ele).perform();
+			verifyElementPresent(PWAPlayerPage.audioBtn, "Audio icon");
+			actions.moveToElement(ele).perform();
 
-		verifyElementPresent(PWAPlayerPage.totalDurationTime, "Total duration time");
-		actions.moveToElement(ele).perform();
+			verifyElementPresent(PWAPlayerPage.totalDurationTime, "Total duration time");
+			actions.moveToElement(ele).perform();
 
-		verifyElementPresent(PWAPlayerPage.settingsBtn, "Settings icon");
-		actions.moveToElement(ele).perform();
+			verifyElementPresent(PWAPlayerPage.settingsBtn, "Settings icon");
+			actions.moveToElement(ele).perform();
 
-		verifyElementPresent(PWAPlayerPage.maximizeBtn, "Maximize window icon");
-		actions.moveToElement(ele).perform();
+			verifyElementPresent(PWAPlayerPage.maximizeBtn, "Maximize window icon");
+			actions.moveToElement(ele).perform();
 
-		verifyElementPresent(PWAPlayerPage.totalDurationTime, "Total time");
-		actions.moveToElement(ele).perform();
+			verifyElementPresent(PWAPlayerPage.totalDurationTime, "Total time");
+			actions.moveToElement(ele).perform();
 
-		verifyElementPresentAndClick(PWAPlayerPage.settingsBtn, "Setting button");
-		verifyElementPresentAndClick(PWAPlayerPage.objPlayerQualityButton, "Quality Button");
-		JSClick(PWAPlayerPage.objBestQualityOption, "Best quality");
-		verifyElementPresentAndClick(PWAPlayerPage.settingsBtn, "Setting button");
-		verifyElementPresentAndClick(PWAPlayerPage.objPlayerQualityButton, "Quality Button");
-		String SelectedOption = getText(PWAPlayerPage.objPlayerSelectedQuality);
-		if (SelectedOption.contains("Best")) {
-			logger.info("Best option is selected");
-			extent.extentLogger("Quality", "Best option is selected");
+			verifyElementPresentAndClick(PWAPlayerPage.settingsBtn, "Setting button");
+			verifyElementPresentAndClick(PWAPlayerPage.objPlayerQualityButton, "Quality Button");
+			JSClick(PWAPlayerPage.objBestQualityOption, "Best quality");
+			verifyElementPresentAndClick(PWAPlayerPage.settingsBtn, "Setting button");
+			verifyElementPresentAndClick(PWAPlayerPage.objPlayerQualityButton, "Quality Button");
+			String SelectedOption = getText(PWAPlayerPage.objPlayerSelectedQuality);
+			if (SelectedOption.contains("Best")) {
+				logger.info("Best option is selected");
+				extent.extentLogger("Quality", "Best option is selected");
+			}
+			JSClick(PWAPlayerPage.objBetterQualityOption, "Better quality");
+			verifyElementPresentAndClick(PWAPlayerPage.settingsBtn, "Setting button");
+			verifyElementPresentAndClick(PWAPlayerPage.objPlayerQualityButton, "Quality Button");
+			String SelectedOption2 = getText(PWAPlayerPage.objPlayerSelectedQuality);
+
+			if (SelectedOption2.contains("Better")) {
+				logger.info("Better option is selected");
+				extent.extentLogger("Quality", "Better option is selected");
+			}
+			verifyElementPresentAndClick(PWAPlayerPage.settingsBtn, "Setting button");
+			waitTime(1000);
+			verifyElementPresentAndClick(PWAPlayerPage.maximizeBtn, "Maximize window icon");
+			waitTime(1000);
+
+			JSClick(PWAPlayerPage.minimizeBtn, "Minimize button");
+
+			logger.info(" Player controls is displayed on player screen for Video content, expected behaviour");
+			extent.extentLoggerPass("",
+					" Player controls is displayed on player screen for Video content, expected behaviour");
+		} else {
+			logger.info("Player controls are not displayed on player screen for Video content");
+			extent.extentLoggerFail(" ", "Player controls are not displayed on player screen for Video content");
+
 		}
-		JSClick(PWAPlayerPage.objBetterQualityOption, "Better quality");
-		verifyElementPresentAndClick(PWAPlayerPage.settingsBtn, "Setting button");
-		verifyElementPresentAndClick(PWAPlayerPage.objPlayerQualityButton, "Quality Button");
-		String SelectedOption2 = getText(PWAPlayerPage.objPlayerSelectedQuality);
-
-		if (SelectedOption2.contains("Better")) {
-			logger.info("Better option is selected");
-			extent.extentLogger("Quality", "Better option is selected");
-		}
-		verifyElementPresentAndClick(PWAPlayerPage.settingsBtn, "Setting button");
-		waitTime(1000);
-		verifyElementPresentAndClick(PWAPlayerPage.maximizeBtn, "Maximize window icon");
-		waitTime(1000);
-		
-		JSClick(PWAPlayerPage.minimizeBtn, "Minimize button");
-	 
-		logger.info(" Player controls is displayed on player screen for Video content, expected behaviour");
-		extent.extentLoggerPass("",
-				" Player controls is displayed on player screen for Video content, expected behaviour");
-	} else {
-		logger.info("Player controls are not displayed on player screen for Video content");
-		extent.extentLoggerFail(" ", "Player controls are not displayed on player screen for Video content");
 
 	}
-		
-	}
-	
-	public void noAdsForSubscribedUsersForPremiumContents(String userType,String PremiumContent) throws Exception {
-		if(userType.equals("SubscribedUser")) {
-		extent.HeaderChildNode("Verify that ads are not displayed for subscribed users");
-		click(PWAHomePage.objSearchBtn, "Seach button");
-		waitTime(2000);
-		type(PWASearchPage.objSearchEditBox, PremiumContent, "Search Field");
-		waitTime(3000);
-		JSClick(PWASearchPage.objFirstAssetImgSearchNavigationTab, PremiumContent);
 
-		waitTime(5500);
-		if (!checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
-			logger.info(
-					"user not able to see ads for Subscribed content: " + PremiumContent);
-			extent.extentLoggerPass("Ad",
-					"user not able to see ads for Subscribed content: " + PremiumContent);	
-		}else {
-			logger.info(
-					"user able to see ads for Subscribed content: " + PremiumContent);
-			extent.extentLoggerFail("Ad",
-					"user able to see ads for Subscribed content: " + PremiumContent);	
+	public void noAdsForSubscribedUsersForPremiumContents(String userType, String PremiumContent) throws Exception {
+		if (userType.equals("SubscribedUser")) {
+			extent.HeaderChildNode("Verify that ads are not displayed for subscribed users");
+			click(PWAHomePage.objSearchBtn, "Seach button");
+			waitTime(2000);
+			type(PWASearchPage.objSearchEditBox, PremiumContent, "Search Field");
+			waitTime(3000);
+			JSClick(PWASearchPage.objFirstAssetImgSearchNavigationTab, PremiumContent);
+
+			waitTime(5500);
+			if (!checkElementDisplayed(PWAPlayerPage.objAd, "Ad")) {
+				logger.info("user not able to see ads for Subscribed content: " + PremiumContent);
+				extent.extentLoggerPass("Ad", "user not able to see ads for Subscribed content: " + PremiumContent);
+			} else {
+				logger.info("user able to see ads for Subscribed content: " + PremiumContent);
+				extent.extentLoggerFail("Ad", "user able to see ads for Subscribed content: " + PremiumContent);
+			}
 		}
 	}
-	}
 
-	public void VerifyChromeCastForVideoTVODorLiveTv(String userType,String TVODvideoname) throws Exception {
+	public void VerifyChromeCastForVideoTVODorLiveTv(String userType, String TVODvideoname) throws Exception {
 		extent.HeaderChildNode("Verify if cast option is displaying on the TVOD content player on right top corner");
 
 		waitTime(3500);
-		click(PWAHomePage.objSearchBtn,"Seach button");
+		click(PWAHomePage.objSearchBtn, "Seach button");
 		waitTime(2000);
 		type(PWASearchPage.objSearchEditBox, TVODvideoname, "Search Field");
 		waitTime(3000);
 		JSClick(PWASearchPage.objFirstAssetImgSearchNavigationTab, TVODvideoname);
 		waitTime(3500);
-	//objChromeCast
-		if(verifyElementDisplayed(PWAHamburgerMenuPage.objChromeCast)) {
-			logger.info("user able to see the chromecast option displaying on the TVOD content player on right top corner");
-			extent.extentLoggerPass("", "user able to see the chromecast option displaying on the TVOD content player on right top corner");
-		}else {
-			logger.info("user not able to see the chromecast option displaying on the TVOD content player on right top corner");
-		extent.extentLoggerFail("", "user not able to see the chromecast option displaying on the TVOD content player on right top corner");
-	}
+		// objChromeCast
+		if (verifyElementDisplayed(PWAHamburgerMenuPage.objChromeCast)) {
+			logger.info(
+					"user able to see the chromecast option displaying on the TVOD content player on right top corner");
+			extent.extentLoggerPass("",
+					"user able to see the chromecast option displaying on the TVOD content player on right top corner");
+		} else {
+			logger.info(
+					"user not able to see the chromecast option displaying on the TVOD content player on right top corner");
+			extent.extentLoggerFail("",
+					"user not able to see the chromecast option displaying on the TVOD content player on right top corner");
+		}
 	}
 
 	public void noAutoRenewalStatusForSupermoonConentTVODLogin(String userType) throws Exception {
-		extent.HeaderChildNode("Verify that user is able to see Auto renewal status as NO for rented supermoon content");
+		extent.HeaderChildNode(
+				"Verify that user is able to see Auto renewal status as NO for rented supermoon content");
 		TVODLogin();
 		waitTime(2500);
 		click(PWAHomePage.objProfileMenu, "Profile Menu");
 		waitTime(2000);
 		JSClick(PWAHamburgerMenuPage.objMyTransactions, "My transaction in Hamberger menu");
 		waitTime(2000);
-		String status=getWebDriver().findElement(PWAHamburgerMenuPage.objMyTransactionAutoRenewalStatus).getText();
-		if(status.contains("No")) {
+		String status = getWebDriver().findElement(PWAHamburgerMenuPage.objMyTransactionAutoRenewalStatus).getText();
+		if (status.contains("No")) {
 			logger.info("user is able to see Auto renewal status as NO for rented supermoon content");
-			extent.extentLoggerPass("Auto renewal status", "user is able to see Auto renewal status as NO for rented supermoon content");
-		}else {
+			extent.extentLoggerPass("Auto renewal status",
+					"user is able to see Auto renewal status as NO for rented supermoon content");
+		} else {
 			logger.info("user is not able to see Auto renewal status as NO for rented supermoon content");
-		extent.extentLoggerFail("Auto renewal status", "user is not able to see Auto renewal status as NO for rented supermoon content");
+			extent.extentLoggerFail("Auto renewal status",
+					"user is not able to see Auto renewal status as NO for rented supermoon content");
+		}
 	}
-	}
-	
 
-	
 	@SuppressWarnings("unused")
 	public void contentDiscriptorVerification(String userType) throws Exception {
 		extent.HeaderChildNode("PWA2-8755: 1. Content Descriptors to be displayed on Player");
-		extent.extentLogger("", "Verification of <b>TC 1. A small visual overlay needs to be displayed on the Player with age rating information about the content being played<b>");
+		extent.extentLogger("",
+				"Verification of <b>TC 1. A small visual overlay needs to be displayed on the Player with age rating information about the content being played<b>");
 		mandatoryRegistrationPopUp(userType);
 		navigateToHome();
-		String contentNameTC1="Robin Hood And The Invincible Knight";
-		String contentIDTC1="0-0-103553";
+		String contentNameTC1 = "Robin Hood And The Invincible Knight";
+		String contentIDTC1 = "0-0-103553";
 		String contentMetaInSearchTC1 = "English";
-		String cdInUITC1="",cdInUITC2="",cdInUITC3="",cdInUITC4="";
+		String cdInUITC1 = "", cdInUITC2 = "", cdInUITC3 = "", cdInUITC4 = "";
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		click(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWASearchPage.objSearchEditBox, contentNameTC1, "Search Field");
 		waitTime(2000);
-		click(PWASearchPage.objSearchResultTxt(contentNameTC1,contentMetaInSearchTC1), "Searched content");
+		click(PWASearchPage.objSearchResultTxt(contentNameTC1, contentMetaInSearchTC1), "Searched content");
 		getPlayerHeadPosition();
-		if(getLocatorPresence(PWAPlayerPage.objContentDescriptor,50,"Content Descriptor",true)) {
-			cdInUITC1=getElementPropertyToString("innerText",PWAPlayerPage.objContentDescriptor,"CD Text");
-		}		
+		if (getLocatorPresence(PWAPlayerPage.objContentDescriptor, 50, "Content Descriptor", true)) {
+			cdInUITC1 = getElementPropertyToString("innerText", PWAPlayerPage.objContentDescriptor, "CD Text");
+		}
 		mandatoryRegistrationPopUp(userType);
 		ResponseInstance.updateWatchHistory(contentIDTC1, 1, local.getItem("guestToken"));
-		
+
 		extent.HeaderChildNode("PWA2-8755: 2. Content Descriptors with changed Display Language");
-		extent.extentLogger("", "Verification of <b>TC 2. The text to be displayed must conform to the display language settings.<b>");
-		String contentNameTC2="Robin Hood And The Invincible Knight";
-		String contentIDTC2="0-0-103553";
+		extent.extentLogger("",
+				"Verification of <b>TC 2. The text to be displayed must conform to the display language settings.<b>");
+		String contentNameTC2 = "Robin Hood And The Invincible Knight";
+		String contentIDTC2 = "0-0-103553";
 		String contentMetaInSearchTC2 = "अंग्रेज़ी";
 		String contentDescriptorHindiTC2 = "hindi_text";
 		mandatoryRegistrationPopUp(userType);
@@ -37965,99 +37968,100 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		click(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWASearchPage.objSearchEditBox, contentNameTC2, "Search Field");
 		waitTime(2000);
-		JSClick(PWASearchPage.objSearchResultTxt(contentNameTC2,contentMetaInSearchTC2), "Searched content");
+		JSClick(PWASearchPage.objSearchResultTxt(contentNameTC2, contentMetaInSearchTC2), "Searched content");
 		getPlayerHeadPosition();
-		if(getLocatorPresence(PWAPlayerPage.objContentDescriptor(contentDescriptorHindiTC2),50,"Content Descriptor in Hindi",true)) {
-			cdInUITC2=getElementPropertyToString("innerText",PWAPlayerPage.objContentDescriptor,"CD Text");
-			if(cdInUITC1.equals(cdInUITC2)) {
+		if (getLocatorPresence(PWAPlayerPage.objContentDescriptor(contentDescriptorHindiTC2), 50,
+				"Content Descriptor in Hindi", true)) {
+			cdInUITC2 = getElementPropertyToString("innerText", PWAPlayerPage.objContentDescriptor, "CD Text");
+			if (cdInUITC1.equals(cdInUITC2)) {
 				logger.error("English CD is displayed after changing Display language to Hindi");
 				extent.extentLoggerFail("", "English CD is displayed after changing Display language to Hindi");
-			}
-			else {
+			} else {
 				logger.info("English CD is not displayed after changing Display language to Hindi, expected behavior");
-				extent.extentLogger("", "English CD is not displayed after changing Display language to Hindi, expected behavior");
-				if(cdInUITC2.equals(contentDescriptorHindiTC2)) {
-					logger.info("Expected CD is displayed: "+cdInUITC2);
-					extent.extentLogger("", "Expected CD is displayed: "+cdInUITC2);
-				}
-				else {
-					logger.error(cdInUITC2+" CD is displayed instead of "+contentDescriptorHindiTC2);
-					extent.extentLoggerFail("", cdInUITC2+" CD is displayed instead of "+contentDescriptorHindiTC2);
+				extent.extentLogger("",
+						"English CD is not displayed after changing Display language to Hindi, expected behavior");
+				if (cdInUITC2.equals(contentDescriptorHindiTC2)) {
+					logger.info("Expected CD is displayed: " + cdInUITC2);
+					extent.extentLogger("", "Expected CD is displayed: " + cdInUITC2);
+				} else {
+					logger.error(cdInUITC2 + " CD is displayed instead of " + contentDescriptorHindiTC2);
+					extent.extentLoggerFail("", cdInUITC2 + " CD is displayed instead of " + contentDescriptorHindiTC2);
 				}
 			}
 		}
 		navigateToHome();
 		ResponseInstance.updateWatchHistory(contentIDTC2, 1, local.getItem("guestToken"));
-		
+
 		extent.HeaderChildNode("PWA2-8755: 3. Content Descriptors with fall back to English display");
-		extent.extentLogger("", "Verification of <b>TC 3. In case there is no language data available, we should fall back to display English text.<b>");
+		extent.extentLogger("",
+				"Verification of <b>TC 3. In case there is no language data available, we should fall back to display English text.<b>");
 		mandatoryRegistrationPopUp(userType);
 		navigateToHome();
-		String contentNameTC3="";
-		String contentIDTC3="";
+		String contentNameTC3 = "";
+		String contentIDTC3 = "";
 		String contentMetaInSearchTC3 = "";
 		String contentDescriptorEnglishTC3 = "english_text";
 		click(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWASearchPage.objSearchEditBox, contentNameTC3, "Search Field");
 		waitTime(2000);
-		click(PWASearchPage.objSearchResultTxt(contentNameTC3,contentMetaInSearchTC3), "Searched content");
-		getPlayerHeadPosition();		
-		if(getLocatorPresence(PWAPlayerPage.objContentDescriptor,50,"Content Descriptor",true)) {
-			cdInUITC3=getElementPropertyToString("innerText",PWAPlayerPage.objContentDescriptor,"CD Text");
-			if(cdInUITC3.equals(contentDescriptorEnglishTC3)) {
-				logger.info("Expected CD is displayed: "+contentDescriptorEnglishTC3);
-				extent.extentLogger("", "Expected CD is displayed: "+contentDescriptorEnglishTC3);
+		click(PWASearchPage.objSearchResultTxt(contentNameTC3, contentMetaInSearchTC3), "Searched content");
+		getPlayerHeadPosition();
+		if (getLocatorPresence(PWAPlayerPage.objContentDescriptor, 50, "Content Descriptor", true)) {
+			cdInUITC3 = getElementPropertyToString("innerText", PWAPlayerPage.objContentDescriptor, "CD Text");
+			if (cdInUITC3.equals(contentDescriptorEnglishTC3)) {
+				logger.info("Expected CD is displayed: " + contentDescriptorEnglishTC3);
+				extent.extentLogger("", "Expected CD is displayed: " + contentDescriptorEnglishTC3);
+			} else {
+				logger.error(cdInUITC3 + " CD is displayed instead of " + contentDescriptorEnglishTC3);
+				extent.extentLoggerFail("", cdInUITC3 + " CD is displayed instead of " + contentDescriptorEnglishTC3);
 			}
-			else {
-				logger.error(cdInUITC3+" CD is displayed instead of "+contentDescriptorEnglishTC3);
-				extent.extentLoggerFail("", cdInUITC3+" CD is displayed instead of "+contentDescriptorEnglishTC3);
-			}			
-		}		
-		navigateToHome();		
+		}
+		navigateToHome();
 		click(PWAHamburgerMenuPage.objLanguageBtnWeb, "Language Button");
 		click(PWALanguageSettingsPage.objNonSelectedEng, "English Display Language");
 		click(PWAHamburgerMenuPage.objApplyButtonInContentLangugaePopup, "Apply button");
 		click(PWAHamburgerMenuPage.objApplyButtonInContentLangugaePopup, "Apply button");
-		ResponseInstance.updateWatchHistory(contentIDTC3, 1, local.getItem("guestToken"));		
-		
+		ResponseInstance.updateWatchHistory(contentIDTC3, 1, local.getItem("guestToken"));
+
 		extent.HeaderChildNode("PWA2-8755: 4. Content Descriptors truncated with 3 dots");
-		extent.extentLogger("", "Verification of <b>TC 4. If the text is longer i.e it would go beyond 2 lines then we should truncate the text with 3 dots at the end of the 2nd line.<b>");
+		extent.extentLogger("",
+				"Verification of <b>TC 4. If the text is longer i.e it would go beyond 2 lines then we should truncate the text with 3 dots at the end of the 2nd line.<b>");
 		mandatoryRegistrationPopUp(userType);
 		navigateToHome();
-		String contentNameTC4="";
-		String contentIDTC4="";
+		String contentNameTC4 = "";
+		String contentIDTC4 = "";
 		String contentMetaInSearchTC4 = "";
 		String contentDescriptorEnglishTC4 = "english_text";
 		click(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWASearchPage.objSearchEditBox, contentNameTC4, "Search Field");
 		waitTime(2000);
-		click(PWASearchPage.objSearchResultTxt(contentNameTC4,contentMetaInSearchTC4), "Searched content");
-		getPlayerHeadPosition();		
-		if(getLocatorPresence(PWAPlayerPage.objContentDescriptor,50,"Content Descriptor",true)) {
-			cdInUITC4=getElementPropertyToString("innerText",PWAPlayerPage.objContentDescriptor,"CD Text");
-			if(cdInUITC4.equals(contentDescriptorEnglishTC4)) {
-				logger.info("Expected CD is displayed: "+contentDescriptorEnglishTC4);
-				extent.extentLogger("", "Expected CD is displayed: "+contentDescriptorEnglishTC4);
+		click(PWASearchPage.objSearchResultTxt(contentNameTC4, contentMetaInSearchTC4), "Searched content");
+		getPlayerHeadPosition();
+		if (getLocatorPresence(PWAPlayerPage.objContentDescriptor, 50, "Content Descriptor", true)) {
+			cdInUITC4 = getElementPropertyToString("innerText", PWAPlayerPage.objContentDescriptor, "CD Text");
+			if (cdInUITC4.equals(contentDescriptorEnglishTC4)) {
+				logger.info("Expected CD is displayed: " + contentDescriptorEnglishTC4);
+				extent.extentLogger("", "Expected CD is displayed: " + contentDescriptorEnglishTC4);
+			} else {
+				logger.error(cdInUITC4 + " CD is displayed instead of " + contentDescriptorEnglishTC4);
+				extent.extentLoggerFail("", cdInUITC4 + " CD is displayed instead of " + contentDescriptorEnglishTC4);
 			}
-			else {
-				logger.error(cdInUITC4+" CD is displayed instead of "+contentDescriptorEnglishTC4);
-				extent.extentLoggerFail("", cdInUITC4+" CD is displayed instead of "+contentDescriptorEnglishTC4);
-			}			
 		}
 		ResponseInstance.updateWatchHistory(contentIDTC4, 1, local.getItem("guestToken"));
-		
-		if(!userType.equalsIgnoreCase("Guest")) {
+
+		if (!userType.equalsIgnoreCase("Guest")) {
 			extent.HeaderChildNode("PWA2-8755: 5. Video resuming");
-			extent.extentLogger("", "Verification of <b>TC 5. Video resuming (user clicking a video from continue watching)<b>");
-			String contentNameCWTray="Troubles Multiply";
-			//String contentIDCWTray="0-1-manual-18h5lltrmhh0";
+			extent.extentLogger("",
+					"Verification of <b>TC 5. Video resuming (user clicking a video from continue watching)<b>");
+			String contentNameCWTray = "Troubles Multiply";
+			// String contentIDCWTray="0-1-manual-18h5lltrmhh0";
 			String contentMetaInSearchCWTray = "Hindi";
 			mandatoryRegistrationPopUp(userType);
 			navigateToHome();
 			click(PWAHomePage.objSearchBtn, "Search icon");
 			type(PWASearchPage.objSearchEditBox, contentNameCWTray, "Search Field");
 			waitTime(2000);
-			click(PWASearchPage.objSearchResultTxt(contentNameCWTray,contentMetaInSearchCWTray), "Searched content");
+			click(PWASearchPage.objSearchResultTxt(contentNameCWTray, contentMetaInSearchCWTray), "Searched content");
 			getPlayerHeadPosition();
 			logger.info("Waiting for one minute to get the content on Continue watching tray");
 			extent.extentLogger("", "Waiting for one minute to get the content on Continue watching tray");
@@ -38067,33 +38071,39 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			Back(1);
 			getWebDriver().navigate().refresh();
 			waitTime(5000);
-			if(verifyElementPresentAndClick(PWALandingPages.objContinueWatchingCard(1),"Card in Continue Watching tray")){
-				getLocatorPresence(PWAPlayerPage.objContentDescriptor,50,"Content Descriptor",true);
+			if (verifyElementPresentAndClick(PWALandingPages.objContinueWatchingCard(1),
+					"Card in Continue Watching tray")) {
+				getLocatorPresence(PWAPlayerPage.objContentDescriptor, 50, "Content Descriptor", true);
 			}
-			//ResponseInstance.updateWatchHistory(contentIDCWTray, 1, local.getItem("guestToken"));
+			// ResponseInstance.updateWatchHistory(contentIDCWTray, 1,
+			// local.getItem("guestToken"));
 		}
-		
+
 		extent.HeaderChildNode("PWA2-8755: 6. Next Video Play");
-		extent.extentLogger("", "Verification of <b>TC 6. Video starting due to auto-play next when current video ends<b>");
+		extent.extentLogger("",
+				"Verification of <b>TC 6. Video starting due to auto-play next when current video ends<b>");
 		mandatoryRegistrationPopUp(userType);
 		navigateToHome();
 		click(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWASearchPage.objSearchEditBox, contentNameTC1, "Search Field");
 		waitTime(2000);
-		click(PWASearchPage.objSearchResultTxt(contentNameTC1,contentMetaInSearchTC1), "Searched content");		
+		click(PWASearchPage.objSearchResultTxt(contentNameTC1, contentMetaInSearchTC1), "Searched content");
 		waitTime(5000);
 		getPlayerHeadPosition();
 		ScrubToPlayerEnd();
 		waitTime(5000);
-		if(!userType.equals("SubscribedUser")) getPlayerHeadPosition();
+		if (!userType.equals("SubscribedUser"))
+			getPlayerHeadPosition();
 		String upnextTitle = waitUntilUpNextCardPlays(contentNameTC1);
-		if(!userType.equals("SubscribedUser")) getPlayerHeadPosition();
-		try { 
+		if (!userType.equals("SubscribedUser"))
+			getPlayerHeadPosition();
+		try {
 			getWebDriver().findElement(PWAPlayerPage.pauseBtn).click();
 			getWebDriver().findElement(PWAPlayerPage.playBtn).click();
+		} catch (Exception e) {
 		}
-		catch(Exception e) {};
-		getLocatorPresence(PWAPlayerPage.objContentDescriptor,50,"Content Descriptor",true);
+		;
+		getLocatorPresence(PWAPlayerPage.objContentDescriptor, 50, "Content Descriptor", true);
 		String upnextURL = getWebDriver().getCurrentUrl();
 		String[] abc = upnextURL.split("/");
 		String upnextContentID = abc[abc.length - 1];
@@ -38104,550 +38114,549 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		extent.extentLogger("", "Verification of <b>TC 7. applicable for deeplinking scenarios as well<b>");
 		mandatoryRegistrationPopUp(userType);
 		navigateToHome();
-		String url=getWebDriver().getCurrentUrl();
-		url=url+"/movies/details/robin-hood-and-the-invincible-knight/0-0-103553";
+		String url = getWebDriver().getCurrentUrl();
+		url = url + "/movies/details/robin-hood-and-the-invincible-knight/0-0-103553";
 		getWebDriver().get(url);
 		logger.info("Opened deeplink url");
 		extent.extentLogger("", "Opened deeplink url");
 		getPlayerHeadPosition();
-		getLocatorPresence(PWAPlayerPage.objContentDescriptor,50,"Content Descriptor",true);
+		getLocatorPresence(PWAPlayerPage.objContentDescriptor, 50, "Content Descriptor", true);
 		ResponseInstance.updateWatchHistory(contentIDTC1, 1, local.getItem("guestToken"));
-		
+
 		extent.HeaderChildNode("PWA2-8755: 8. CD with Play elements");
-		extent.extentLogger("", "Verification of <b>TC 8. It should be displayed on player when there are no other player elements<b>");
+		extent.extentLogger("",
+				"Verification of <b>TC 8. It should be displayed on player when there are no other player elements<b>");
 		mandatoryRegistrationPopUp(userType);
 		navigateToHome();
 		getWebDriver().get(url);
 		getPlayerHeadPosition();
-		getLocatorPresence(PWAPlayerPage.objContentDescriptor,50,"Content Descriptor",true);
+		getLocatorPresence(PWAPlayerPage.objContentDescriptor, 50, "Content Descriptor", true);
 		pausePlayer();
-		if(getLocatorPresence(PWAPlayerPage.objContentDescriptor,5,"Content Descriptor",false)) {
+		if (getLocatorPresence(PWAPlayerPage.objContentDescriptor, 5, "Content Descriptor", false)) {
 			logger.error("Content Descriptor is displayed when player controls are displayed");
 			extent.extentLoggerFail("", "Content Descriptor is displayed when player controls are displayed");
-		}
-		else {
+		} else {
 			logger.info("Content Descriptor is not displayed when player controls are displayed, expected behavior");
-			extent.extentLogger("", "Content Descriptor is not displayed when player controls are displayed, expected behavior");
+			extent.extentLogger("",
+					"Content Descriptor is not displayed when player controls are displayed, expected behavior");
 		}
 		extent.HeaderChildNode("PWA2-8755: 9. CD reappear");
-		extent.extentLogger("", "Verification of <b>TC 9. Once these overlay elements are dismissed the CD should re-appear<b>");
-		click(PWAPlayerPage.objPlayerPlay, "Play button");	
-		if(getLocatorPresence(PWAPlayerPage.objContentDescriptor,50,"Content Descriptor ",false)){
+		extent.extentLogger("",
+				"Verification of <b>TC 9. Once these overlay elements are dismissed the CD should re-appear<b>");
+		click(PWAPlayerPage.objPlayerPlay, "Play button");
+		if (getLocatorPresence(PWAPlayerPage.objContentDescriptor, 50, "Content Descriptor ", false)) {
 			logger.info("Content Descriptor reappears after Player controls are dismissed");
 			extent.extentLogger("", "Content Descriptor reappears after Player controls are dismissed");
-		}
-		else {
+		} else {
 			logger.error("Content Descriptor fails to reappear after Player controls are dismissed");
 			extent.extentLoggerFail("", "Content Descriptor fails to reappear after Player controls are dismissed");
 		}
 		extent.HeaderChildNode("PWA2-8755: 10. CD does not appear after display duration");
-		extent.extentLogger("", "Verification of <b>TC 10. Once the Content Descriptor is displayed continuously for its entire display duration, it should not reappear during that playout session<b>");
+		extent.extentLogger("",
+				"Verification of <b>TC 10. Once the Content Descriptor is displayed continuously for its entire display duration, it should not reappear during that playout session<b>");
 		waitTime(20000);
 		logger.info("Waited 20 seconds for completion of CD display duration");
 		extent.extentLogger("", "Waited 20 seconds for completion of CD display duration");
-		if(getLocatorPresence(PWAPlayerPage.objContentDescriptor,100,"Content Descriptor ",false)){
+		if (getLocatorPresence(PWAPlayerPage.objContentDescriptor, 100, "Content Descriptor ", false)) {
 			logger.error("Content Descriptor is displayed even after display duration");
 			extent.extentLoggerFail("", "Content Descriptor is displayed even after display duration");
-		}
-		else {
+		} else {
 			logger.info("Content Descriptor is not displayed after display duration, expected behavior");
 			extent.extentLogger("", "Content Descriptor is not displayed after display duration, expected behavior");
 		}
 		ResponseInstance.updateWatchHistory(contentIDTC1, 1, local.getItem("guestToken"));
-		
+
 		extent.HeaderChildNode("PWA2-8755: 11. CD on same content replay");
-		extent.extentLogger("", "Verification of <b>TC 11. If user exits the player and then plays the same video again the CD should be displayed<b>");
+		extent.extentLogger("",
+				"Verification of <b>TC 11. If user exits the player and then plays the same video again the CD should be displayed<b>");
 		mandatoryRegistrationPopUp(userType);
 		Actions actions = new Actions(getWebDriver());
 		navigateToHome();
 		click(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWASearchPage.objSearchEditBox, contentNameTC1, "Search Field");
 		waitTime(2000);
-		click(PWASearchPage.objSearchResultTxt(contentNameTC1,contentMetaInSearchTC1), "Searched content");		
+		click(PWASearchPage.objSearchResultTxt(contentNameTC1, contentMetaInSearchTC1), "Searched content");
 		waitTime(5000);
 		getPlayerHeadPosition();
-		getLocatorPresence(PWAPlayerPage.objContentDescriptor,50,"Content Descriptor",true);
+		getLocatorPresence(PWAPlayerPage.objContentDescriptor, 50, "Content Descriptor", true);
 		waitTime(20000);
 		logger.info("Waited 20 seconds for completion of CD display duration");
 		extent.extentLogger("", "Waited 20 seconds for completion of CD display duration");
 		Back(1);
 		type(PWASearchPage.objSearchEditBox, contentNameTC1, "Search Field");
 		waitTime(2000);
-		click(PWASearchPage.objSearchResultTxt(contentNameTC1,contentMetaInSearchTC1), "Searched content");		
+		click(PWASearchPage.objSearchResultTxt(contentNameTC1, contentMetaInSearchTC1), "Searched content");
 		waitTime(5000);
 		getPlayerHeadPosition();
-		getLocatorPresence(PWAPlayerPage.objContentDescriptor,50,"Content Descriptor",true);		
+		getLocatorPresence(PWAPlayerPage.objContentDescriptor, 50, "Content Descriptor", true);
 		extent.HeaderChildNode("PWA2-8755: 12. CD in maximized player");
 		extent.extentLogger("", "Verification of <b>TC 12. The CD should be displayed on any orientation<b>");
 		Back(1);
 		type(PWASearchPage.objSearchEditBox, contentNameTC1, "Search Field");
 		waitTime(2000);
-		click(PWASearchPage.objSearchResultTxt(contentNameTC1,contentMetaInSearchTC1), "Searched content");		
+		click(PWASearchPage.objSearchResultTxt(contentNameTC1, contentMetaInSearchTC1), "Searched content");
 		waitTime(5000);
 		getPlayerHeadPosition();
 		WebElement ele = getWebDriver().findElement(PWAPlayerPage.objPlaybackVideoOverlay);
 		actions.moveToElement(ele).perform();
 		JSClick(PWAPlayerPage.maximizeBtn, "Maximize icon");
-		getLocatorPresence(PWAPlayerPage.objContentDescriptor,50,"Content Descriptor",true);
-		
+		getLocatorPresence(PWAPlayerPage.objContentDescriptor, 50, "Content Descriptor", true);
+
 		extent.HeaderChildNode("PWA2-8755: 13. CD in mininmized player after CD display duration");
-		extent.extentLogger("", "Verification of <b>TC 13. once it has been displayed for the entirety of its display duration it should not be displayed again for the other orientation.<b>");
+		extent.extentLogger("",
+				"Verification of <b>TC 13. once it has been displayed for the entirety of its display duration it should not be displayed again for the other orientation.<b>");
 		waitTime(20000);
 		logger.info("Waited 20 seconds for completion of CD display duration");
 		extent.extentLogger("", "Waited 20 seconds for completion of CD display duration");
 		JSClick(PWAPlayerPage.minimizeBtn, "Minimize icon");
-		if(getLocatorPresence(PWAPlayerPage.objContentDescriptor,10,"Content Descriptor ",false)){
+		if (getLocatorPresence(PWAPlayerPage.objContentDescriptor, 10, "Content Descriptor ", false)) {
 			logger.error("Content Descriptor is displayed even after CD display duration");
 			extent.extentLoggerFail("", "Content Descriptor is displayed even after CD display duration");
-		}
-		else {
+		} else {
 			logger.info("Content Descriptor is not displayed after display duration, expected behavior");
 			extent.extentLogger("", "Content Descriptor is not displayed after display duration, expected behavior");
 		}
 		ResponseInstance.updateWatchHistory(contentIDTC1, 1, local.getItem("guestToken"));
-		
+
 		extent.HeaderChildNode("PWA2-8755: 14. CD for Episode");
 		extent.extentLogger("", "Verification of <b>TC 14. CD for Episode<b>");
-		String contentName="Sarla Learns that Preeta Is Not Pregnant";
-		String contentID="0-1-manual-7r0ja7pg6je0";
-		String contentMetaInSearch = "Hindi";		
-		String contentCD = "Rated U 13+";	
-		String cdInUI="";
+		String contentName = "Sarla Learns that Preeta Is Not Pregnant";
+		String contentID = "0-1-manual-7r0ja7pg6je0";
+		String contentMetaInSearch = "Hindi";
+		String contentCD = "Rated U 13+";
+		String cdInUI = "";
 		mandatoryRegistrationPopUp(userType);
 		navigateToHome();
 		click(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWASearchPage.objSearchEditBox, contentName, "Search Field");
 		waitTime(2000);
-		click(PWASearchPage.objSearchResultTxt(contentName,contentMetaInSearch), "Searched content");		
+		click(PWASearchPage.objSearchResultTxt(contentName, contentMetaInSearch), "Searched content");
 		waitTime(5000);
-		getPlayerHeadPosition();	
-		if(getLocatorPresence(PWAPlayerPage.objContentDescriptor,50,"Content Descriptor",true)) {
-			cdInUI=getElementPropertyToString("innerText",PWAPlayerPage.objContentDescriptor,"CD Text");
-			if(cdInUI.equals(contentCD)) {
-				logger.info("Expected CD is displayed: "+cdInUI);
-				extent.extentLogger("", "Expected CD is displayed: "+cdInUI);
+		getPlayerHeadPosition();
+		if (getLocatorPresence(PWAPlayerPage.objContentDescriptor, 50, "Content Descriptor", true)) {
+			cdInUI = getElementPropertyToString("innerText", PWAPlayerPage.objContentDescriptor, "CD Text");
+			if (cdInUI.equals(contentCD)) {
+				logger.info("Expected CD is displayed: " + cdInUI);
+				extent.extentLogger("", "Expected CD is displayed: " + cdInUI);
+			} else {
+				logger.error(cdInUI + " CD is displayed instead of " + contentCD);
+				extent.extentLoggerFail("", cdInUI + " CD is displayed instead of " + contentCD);
 			}
-			else {
-				logger.error(cdInUI+" CD is displayed instead of "+contentCD);
-				extent.extentLoggerFail("", cdInUI+" CD is displayed instead of "+contentCD);
-			}			
 		}
 		ResponseInstance.updateWatchHistory(contentID, 1, local.getItem("guestToken"));
-		
+
 		extent.HeaderChildNode("PWA2-8755: 15. CD for Video");
 		extent.extentLogger("", "Verification of <b>TC 15. CD for Video<b>");
-		contentName="Pictionary with Tanuj, Sunaina and Parambrata";
-		contentID="0-0-136802";
-		contentMetaInSearch = "Hindi";		
-		contentCD = "Rated U";	
-		cdInUI="";
+		contentName = "Pictionary with Tanuj, Sunaina and Parambrata";
+		contentID = "0-0-136802";
+		contentMetaInSearch = "Hindi";
+		contentCD = "Rated U";
+		cdInUI = "";
 		mandatoryRegistrationPopUp(userType);
 		navigateToHome();
 		click(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWASearchPage.objSearchEditBox, contentName, "Search Field");
 		waitTime(2000);
-		click(PWASearchPage.objSearchResultTxt(contentName,contentMetaInSearch), "Searched content");		
+		click(PWASearchPage.objSearchResultTxt(contentName, contentMetaInSearch), "Searched content");
 		waitTime(5000);
-		getPlayerHeadPosition();	
-		if(getLocatorPresence(PWAPlayerPage.objContentDescriptor,50,"Content Descriptor",true)) {
-			cdInUI=getElementPropertyToString("innerText",PWAPlayerPage.objContentDescriptor,"CD Text");
-			if(cdInUI.equals(contentCD)) {
-				logger.info("Expected CD is displayed: "+cdInUI);
-				extent.extentLogger("", "Expected CD is displayed: "+cdInUI);
+		getPlayerHeadPosition();
+		if (getLocatorPresence(PWAPlayerPage.objContentDescriptor, 50, "Content Descriptor", true)) {
+			cdInUI = getElementPropertyToString("innerText", PWAPlayerPage.objContentDescriptor, "CD Text");
+			if (cdInUI.equals(contentCD)) {
+				logger.info("Expected CD is displayed: " + cdInUI);
+				extent.extentLogger("", "Expected CD is displayed: " + cdInUI);
+			} else {
+				logger.error(cdInUI + " CD is displayed instead of " + contentCD);
+				extent.extentLoggerFail("", cdInUI + " CD is displayed instead of " + contentCD);
 			}
-			else {
-				logger.error(cdInUI+" CD is displayed instead of "+contentCD);
-				extent.extentLoggerFail("", cdInUI+" CD is displayed instead of "+contentCD);
-			}			
 		}
 		ResponseInstance.updateWatchHistory(contentID, 1, local.getItem("guestToken"));
-		
+
 		extent.HeaderChildNode("PWA2-8755: 16. CD for Music");
 		extent.extentLogger("", "Verification of <b>TC 16. CD for Music<b>");
-		contentName="Mujhe Ishq Mein Rang De Mahi";
-		contentID="0-0-movie_745793384";
-		contentMetaInSearch = "Hindi";		
-		contentCD = "Rated U";	
-		cdInUI="";
+		contentName = "Mujhe Ishq Mein Rang De Mahi";
+		contentID = "0-0-movie_745793384";
+		contentMetaInSearch = "Hindi";
+		contentCD = "Rated U";
+		cdInUI = "";
 		mandatoryRegistrationPopUp(userType);
 		navigateToHome();
 		click(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWASearchPage.objSearchEditBox, contentName, "Search Field");
 		waitTime(2000);
-		click(PWASearchPage.objSearchResultTxt(contentName,contentMetaInSearch), "Searched content");		
+		click(PWASearchPage.objSearchResultTxt(contentName, contentMetaInSearch), "Searched content");
 		waitTime(5000);
-		getPlayerHeadPosition();	
-		if(getLocatorPresence(PWAPlayerPage.objContentDescriptor,50,"Content Descriptor",true)) {
-			cdInUI=getElementPropertyToString("innerText",PWAPlayerPage.objContentDescriptor,"CD Text");
-			if(cdInUI.equals(contentCD)) {
-				logger.info("Expected CD is displayed: "+cdInUI);
-				extent.extentLogger("", "Expected CD is displayed: "+cdInUI);
+		getPlayerHeadPosition();
+		if (getLocatorPresence(PWAPlayerPage.objContentDescriptor, 50, "Content Descriptor", true)) {
+			cdInUI = getElementPropertyToString("innerText", PWAPlayerPage.objContentDescriptor, "CD Text");
+			if (cdInUI.equals(contentCD)) {
+				logger.info("Expected CD is displayed: " + cdInUI);
+				extent.extentLogger("", "Expected CD is displayed: " + cdInUI);
+			} else {
+				logger.error(cdInUI + " CD is displayed instead of " + contentCD);
+				extent.extentLoggerFail("", cdInUI + " CD is displayed instead of " + contentCD);
 			}
-			else {
-				logger.error(cdInUI+" CD is displayed instead of "+contentCD);
-				extent.extentLoggerFail("", cdInUI+" CD is displayed instead of "+contentCD);
-			}			
 		}
 		ResponseInstance.updateWatchHistory(contentID, 1, local.getItem("guestToken"));
-		
+
 		extent.HeaderChildNode("PWA2-8755: 17. CD for Trailer");
 		extent.extentLogger("", "Verification of <b>TC 17. CD for Trailer<b>");
-		contentName="Dial 100 | Trailer";
-		contentID="0-0-1z51249";
-		contentMetaInSearch = "Hindi";		
-		contentCD = "Rated U/A 13+";	
-		cdInUI="";
+		contentName = "Dial 100 | Trailer";
+		contentID = "0-0-1z51249";
+		contentMetaInSearch = "Hindi";
+		contentCD = "Rated U/A 13+";
+		cdInUI = "";
 		mandatoryRegistrationPopUp(userType);
 		navigateToHome();
 		click(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWASearchPage.objSearchEditBox, contentName, "Search Field");
 		waitTime(2000);
-		click(PWASearchPage.objSearchResultTxt(contentName,contentMetaInSearch), "Searched content");		
+		click(PWASearchPage.objSearchResultTxt(contentName, contentMetaInSearch), "Searched content");
 		waitTime(5000);
-		getPlayerHeadPosition();	
-		if(getLocatorPresence(PWAPlayerPage.objContentDescriptor,50,"Content Descriptor",true)) {
-			cdInUI=getElementPropertyToString("innerText",PWAPlayerPage.objContentDescriptor,"CD Text");
-			if(cdInUI.equals(contentCD)) {
-				logger.info("Expected CD is displayed: "+cdInUI);
-				extent.extentLogger("", "Expected CD is displayed: "+cdInUI);
+		getPlayerHeadPosition();
+		if (getLocatorPresence(PWAPlayerPage.objContentDescriptor, 50, "Content Descriptor", true)) {
+			cdInUI = getElementPropertyToString("innerText", PWAPlayerPage.objContentDescriptor, "CD Text");
+			if (cdInUI.equals(contentCD)) {
+				logger.info("Expected CD is displayed: " + cdInUI);
+				extent.extentLogger("", "Expected CD is displayed: " + cdInUI);
+			} else {
+				logger.error(cdInUI + " CD is displayed instead of " + contentCD);
+				extent.extentLoggerFail("", cdInUI + " CD is displayed instead of " + contentCD);
 			}
-			else {
-				logger.error(cdInUI+" CD is displayed instead of "+contentCD);
-				extent.extentLoggerFail("", cdInUI+" CD is displayed instead of "+contentCD);
-			}			
 		}
 		ResponseInstance.updateWatchHistory(contentID, 1, local.getItem("guestToken"));
-		
+
 		extent.HeaderChildNode("PWA2-8755: 18. CD for Promo");
 		extent.extentLogger("", "Verification of <b>TC 18. CD for Promo<b>");
-		contentName="Beat the Boredom with Commando | Best of ZEE5 Promo";
-		contentID="0-0-145161";
-		contentMetaInSearch = "Hindi";		
-		contentCD = "Rated U";	
-		cdInUI="";
+		contentName = "Beat the Boredom with Commando | Best of ZEE5 Promo";
+		contentID = "0-0-145161";
+		contentMetaInSearch = "Hindi";
+		contentCD = "Rated U";
+		cdInUI = "";
 		mandatoryRegistrationPopUp(userType);
 		navigateToHome();
 		click(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWASearchPage.objSearchEditBox, contentName, "Search Field");
 		waitTime(2000);
-		click(PWASearchPage.objSearchResultTxt(contentName,contentMetaInSearch), "Searched content");		
+		click(PWASearchPage.objSearchResultTxt(contentName, contentMetaInSearch), "Searched content");
 		waitTime(5000);
-		getPlayerHeadPosition();	
-		if(getLocatorPresence(PWAPlayerPage.objContentDescriptor,50,"Content Descriptor",true)) {
-			cdInUI=getElementPropertyToString("innerText",PWAPlayerPage.objContentDescriptor,"CD Text");
-			if(cdInUI.equals(contentCD)) {
-				logger.info("Expected CD is displayed: "+cdInUI);
-				extent.extentLogger("", "Expected CD is displayed: "+cdInUI);
+		getPlayerHeadPosition();
+		if (getLocatorPresence(PWAPlayerPage.objContentDescriptor, 50, "Content Descriptor", true)) {
+			cdInUI = getElementPropertyToString("innerText", PWAPlayerPage.objContentDescriptor, "CD Text");
+			if (cdInUI.equals(contentCD)) {
+				logger.info("Expected CD is displayed: " + cdInUI);
+				extent.extentLogger("", "Expected CD is displayed: " + cdInUI);
+			} else {
+				logger.error(cdInUI + " CD is displayed instead of " + contentCD);
+				extent.extentLoggerFail("", cdInUI + " CD is displayed instead of " + contentCD);
 			}
-			else {
-				logger.error(cdInUI+" CD is displayed instead of "+contentCD);
-				extent.extentLoggerFail("", cdInUI+" CD is displayed instead of "+contentCD);
-			}			
 		}
 		ResponseInstance.updateWatchHistory(contentID, 1, local.getItem("guestToken"));
-		
+
 		extent.HeaderChildNode("PWA2-8755: 19. CD for Webisode");
 		extent.extentLogger("", "Verification of <b>TC 19. CD for Trailer<b>");
-		contentName="Vidya Vinayaka - Weekly Webisode - 25th June to 29th June 2018";
-		contentID="0-0-movie_453293701";
-		contentMetaInSearch = "Kannada";		
-		contentCD = "Rated U";	
-		cdInUI="";
+		contentName = "Vidya Vinayaka - Weekly Webisode - 25th June to 29th June 2018";
+		contentID = "0-0-movie_453293701";
+		contentMetaInSearch = "Kannada";
+		contentCD = "Rated U";
+		cdInUI = "";
 		mandatoryRegistrationPopUp(userType);
 		navigateToHome();
 		click(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWASearchPage.objSearchEditBox, contentName, "Search Field");
 		waitTime(2000);
-		click(PWASearchPage.objSearchResultTxt(contentName,contentMetaInSearch), "Searched content");		
+		click(PWASearchPage.objSearchResultTxt(contentName, contentMetaInSearch), "Searched content");
 		waitTime(5000);
-		getPlayerHeadPosition();	
-		if(getLocatorPresence(PWAPlayerPage.objContentDescriptor,50,"Content Descriptor",true)) {
-			cdInUI=getElementPropertyToString("innerText",PWAPlayerPage.objContentDescriptor,"CD Text");
-			if(cdInUI.equals(contentCD)) {
-				logger.info("Expected CD is displayed: "+cdInUI);
-				extent.extentLogger("", "Expected CD is displayed: "+cdInUI);
+		getPlayerHeadPosition();
+		if (getLocatorPresence(PWAPlayerPage.objContentDescriptor, 50, "Content Descriptor", true)) {
+			cdInUI = getElementPropertyToString("innerText", PWAPlayerPage.objContentDescriptor, "CD Text");
+			if (cdInUI.equals(contentCD)) {
+				logger.info("Expected CD is displayed: " + cdInUI);
+				extent.extentLogger("", "Expected CD is displayed: " + cdInUI);
+			} else {
+				logger.error(cdInUI + " CD is displayed instead of " + contentCD);
+				extent.extentLoggerFail("", cdInUI + " CD is displayed instead of " + contentCD);
 			}
-			else {
-				logger.error(cdInUI+" CD is displayed instead of "+contentCD);
-				extent.extentLoggerFail("", cdInUI+" CD is displayed instead of "+contentCD);
-			}			
 		}
 		ResponseInstance.updateWatchHistory(contentID, 1, local.getItem("guestToken"));
-		
+
 		extent.HeaderChildNode("PWA2-8755: 20. CD for VOD News");
 		extent.extentLogger("", "Verification of <b>TC 20. CD for VOD News<b>");
-		contentName="Attack on ganesh temple in pakistan";
-		contentID="0-0-newsauto_6cn9niipshe0";
-		contentMetaInSearch = "ABP News";		
+		contentName = "Attack on ganesh temple in pakistan";
+		contentID = "0-0-newsauto_6cn9niipshe0";
+		contentMetaInSearch = "ABP News";
 		mandatoryRegistrationPopUp(userType);
 		navigateToHome();
 		click(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWASearchPage.objSearchEditBox, contentName, "Search Field");
 		waitTime(2000);
-		click(PWASearchPage.objSearchResultTxt(contentName,contentMetaInSearch), "Searched content");		
+		click(PWASearchPage.objSearchResultTxt(contentName, contentMetaInSearch), "Searched content");
 		waitTime(5000);
-		getPlayerHeadPosition();	
-		if(getLocatorPresence(PWAPlayerPage.objContentDescriptor,10,"Content Descriptor",false)) {
+		getPlayerHeadPosition();
+		if (getLocatorPresence(PWAPlayerPage.objContentDescriptor, 10, "Content Descriptor", false)) {
 			logger.error("Content Descriptor is displayed for VOD News");
 			extent.extentLoggerFail("", "Content Descriptor is displayed for VOD News");
-		}
-		else {
+		} else {
 			logger.info("Content Descriptor is not displayed for for VOD News, expected behavior");
 			extent.extentLogger("", "Content Descriptor is not displayed for for VOD News, expected behavior");
 		}
 		ResponseInstance.updateWatchHistory(contentID, 1, local.getItem("guestToken"));
-		
+
 		extent.HeaderChildNode("PWA2-8755: 21. CD for Live News");
 		extent.extentLogger("", "Verification of <b>TC 21. CD for Live News<b>");
-		contentName="Zee News";	
+		contentName = "Zee News";
 		mandatoryRegistrationPopUp(userType);
 		navigateToHome();
 		click(PWAHomePage.objSearchBtn, "Search icon");
 		type(PWASearchPage.objSearchEditBox, contentName, "Search Field");
 		waitTime(2000);
-		click(PWASearchPage.objSearchResultTxt(contentName), "Searched content");		
-		waitTime(5000);	
-		if(getLocatorPresence(PWAPlayerPage.objContentDescriptor,10,"Content Descriptor",false)) {
+		click(PWASearchPage.objSearchResultTxt(contentName), "Searched content");
+		waitTime(5000);
+		if (getLocatorPresence(PWAPlayerPage.objContentDescriptor, 10, "Content Descriptor", false)) {
 			logger.error("Content Descriptor is displayed for Live News");
 			extent.extentLoggerFail("", "Content Descriptor is displayed for Live News");
-		}
-		else {
+		} else {
 			logger.info("Content Descriptor is not displayed for for Live News, expected behavior");
 			extent.extentLogger("", "Content Descriptor is not displayed for for Live News, expected behavior");
 		}
-		
+
 		extent.HeaderChildNode("PWA2-8755: 22. CD for U content - Movie");
 		extent.extentLogger("", "Verification of <b>TC 22. CD for U content - Movie<b>");
-		ArrayList<String> contentDetails=new ArrayList<String>();
-		contentDetails.add("movies/details/Aah/0-0-156684");	
+		ArrayList<String> contentDetails = new ArrayList<String>();
+		contentDetails.add("movies/details/Aah/0-0-156684");
 		contentDetails.add("0-0-156684");
 		contentDetails.add("Rated U");
 		contentDetails.add("Drama");
 		verifyContentDescriptorRatingAndDesc(contentDetails);
-		
+
 		extent.HeaderChildNode("PWA2-8755: 23. CD for U/A 7+ content - Movie");
 		extent.extentLogger("", "Verification of <b>TC 23. CD for U/A 7+ content - Movie<b>");
-		contentDetails=new ArrayList<String>();
-		contentDetails.add("movies/details/pareeksha/0-0-188032");	
+		contentDetails = new ArrayList<String>();
+		contentDetails.add("movies/details/pareeksha/0-0-188032");
 		contentDetails.add("0-0-188032");
 		contentDetails.add("Rated U/A 7+");
 		contentDetails.add("Drama");
 		verifyContentDescriptorRatingAndDesc(contentDetails);
-		
+
 		extent.HeaderChildNode("PWA2-8755: 24. CD for U/A 13+ content - Movie");
 		extent.extentLogger("", "Verification of <b>TC 24. CD for U/A 13+ content - Movie<b>");
-		contentDetails=new ArrayList<String>();
-		contentDetails.add("movies/details/watch-veergati-online/0-0-65215");	
+		contentDetails = new ArrayList<String>();
+		contentDetails.add("movies/details/watch-veergati-online/0-0-65215");
 		contentDetails.add("0-0-65215");
 		contentDetails.add("Rated U/A 13+");
 		contentDetails.add("Violence");
 		verifyContentDescriptorRatingAndDesc(contentDetails);
-		
+
 		extent.HeaderChildNode("PWA2-8755: 25. CD for U/A 16+ content - Movie");
 		extent.extentLogger("", "Verification of <b>TC 25. CD for U/A 16+ content - Movie<b>");
-		contentDetails=new ArrayList<String>();
-		contentDetails.add("movies/details/nail-polish/0-0-251089");	
+		contentDetails = new ArrayList<String>();
+		contentDetails.add("movies/details/nail-polish/0-0-251089");
 		contentDetails.add("0-0-251089");
 		contentDetails.add("Rated U/A 16+");
 		contentDetails.add("Violence");
 		verifyContentDescriptorRatingAndDesc(contentDetails);
-		
+
 		extent.HeaderChildNode("PWA2-8755: 26. CD for A content - Movie");
-		extent.extentLogger("", "Verification of <b>TC 26. CD for A content - Movie<b>");		
-		contentDetails=new ArrayList<String>();
-		contentDetails.add("movies/details/shorshe-ilish/0-0-97484");	
+		extent.extentLogger("", "Verification of <b>TC 26. CD for A content - Movie<b>");
+		contentDetails = new ArrayList<String>();
+		contentDetails.add("movies/details/shorshe-ilish/0-0-97484");
 		contentDetails.add("0-0-97484");
 		contentDetails.add("Rated A");
 		contentDetails.add("Nudity, Sex, Threat");
 		verifyContentDescriptorRatingAndDesc(contentDetails);
-		
+
 		extent.HeaderChildNode("PWA2-8755: 27. CD for U content - Episode");
-		extent.extentLogger("", "Verification of <b>TC 27. CD for U content - Episode<b>");		
-		contentDetails=new ArrayList<String>();
-		contentDetails.add("tvshows/details/teri-meri-ikk-jindri/0-6-3137/teri-meri-ikk-jindri-july-29-2021/0-1-manual-47v2vlj4i850");	
+		extent.extentLogger("", "Verification of <b>TC 27. CD for U content - Episode<b>");
+		contentDetails = new ArrayList<String>();
+		contentDetails.add(
+				"tvshows/details/teri-meri-ikk-jindri/0-6-3137/teri-meri-ikk-jindri-july-29-2021/0-1-manual-47v2vlj4i850");
 		contentDetails.add("0-1-manual-47v2vlj4i850");
 		contentDetails.add("Rated U");
 		contentDetails.add("Drama");
 		verifyContentDescriptorRatingAndDesc(contentDetails);
-		
-		//extent.HeaderChildNode("PWA2-8755: 28. CD for U/A 7+ content - Episode");
-		//extent.extentLogger("", "Verification of <b>TC 28. CD for U/A 7+ content - Episode<b>");	
-		
+
+		// extent.HeaderChildNode("PWA2-8755: 28. CD for U/A 7+ content - Episode");
+		// extent.extentLogger("", "Verification of <b>TC 28. CD for U/A 7+ content -
+		// Episode<b>");
+
 		extent.HeaderChildNode("PWA2-8755: 29. CD for U/A 13+ content - Episode");
 		extent.extentLogger("", "Verification of <b>TC 29. CD for U/A 13+ content - Episode<b>");
-		contentDetails=new ArrayList<String>();
-		contentDetails.add("zee5originals/details/dravya/0-6-1820/episode-1-the-great-escape/0-1-221641");	
+		contentDetails = new ArrayList<String>();
+		contentDetails.add("zee5originals/details/dravya/0-6-1820/episode-1-the-great-escape/0-1-221641");
 		contentDetails.add("0-1-221641");
 		contentDetails.add("Rated U/A 13+");
 		contentDetails.add("Nudity, Sex, violence");
 		verifyContentDescriptorRatingAndDesc(contentDetails);
-		
+
 		extent.HeaderChildNode("PWA2-8755: 30. CD for U/A 16+ content - Episode");
 		extent.extentLogger("", "Verification of <b>TC 30. CD for U/A 16+ content - Episode<b>");
-		contentDetails=new ArrayList<String>();
-		contentDetails.add("zee5originals/details/mentalhood/0-6-2471/ep-2-bully/0-1-341207");	
+		contentDetails = new ArrayList<String>();
+		contentDetails.add("zee5originals/details/mentalhood/0-6-2471/ep-2-bully/0-1-341207");
 		contentDetails.add("0-1-341207");
 		contentDetails.add("Rated U/A 16+");
 		contentDetails.add("Foul language, Sex");
 		verifyContentDescriptorRatingAndDesc(contentDetails);
-		
+
 		extent.HeaderChildNode("PWA2-8755: 31. CD for A content - Episode");
 		extent.extentLogger("", "Verification of <b>TC 31. CD for A content - Episode<b>");
-		contentDetails=new ArrayList<String>();
-		contentDetails.add("zee5originals/details/mission-over-mars/0-6-2006/episode-8-mission-over-mars/0-1-265422");	
+		contentDetails = new ArrayList<String>();
+		contentDetails.add("zee5originals/details/mission-over-mars/0-6-2006/episode-8-mission-over-mars/0-1-265422");
 		contentDetails.add("0-1-265422");
 		contentDetails.add("Rated A");
 		contentDetails.add("Foul language, Sex");
 		verifyContentDescriptorRatingAndDesc(contentDetails);
-		
+
 		extent.HeaderChildNode("PWA2-8755: 32. CD for U content - Video");
 		extent.extentLogger("", "Verification of <b>TC 32. CD for U content - Video<b>");
-		contentDetails=new ArrayList<String>();
-		contentDetails.add("videos/details/sau-sau-wari-khat-likhe/0-0-manual-6gk0ph390p70");	
+		contentDetails = new ArrayList<String>();
+		contentDetails.add("videos/details/sau-sau-wari-khat-likhe/0-0-manual-6gk0ph390p70");
 		contentDetails.add("0-0-manual-6gk0ph390p70");
 		contentDetails.add("Rated U");
 		contentDetails.add("Romance");
 		verifyContentDescriptorRatingAndDesc(contentDetails);
-		
+
 		extent.HeaderChildNode("PWA2-8755: 33. CD for U/A 7+ content - Video");
 		extent.extentLogger("", "Verification of <b>TC 33. CD for U/A 7+ content - Video<b>");
-		contentDetails=new ArrayList<String>();
-		contentDetails.add("videos/details/garbe-ki-raat-mai-indian-pro-music-league-soundtracks-season-1-bhoomi-trivedi-aditi-singh-sharma-and-hemant-brijwasi-sachin-jigar-and-vayu/0-0-manual-5oe66iqc4400");	
+		contentDetails = new ArrayList<String>();
+		contentDetails.add(
+				"videos/details/garbe-ki-raat-mai-indian-pro-music-league-soundtracks-season-1-bhoomi-trivedi-aditi-singh-sharma-and-hemant-brijwasi-sachin-jigar-and-vayu/0-0-manual-5oe66iqc4400");
 		contentDetails.add("0-0-manual-5oe66iqc4400");
 		contentDetails.add("Rated U/A 7+");
 		contentDetails.add("Festive, Dance");
 		verifyContentDescriptorRatingAndDesc(contentDetails);
-		
-		
+
 		extent.HeaderChildNode("PWA2-8755: 34. CD for U/A 13+ content - Video");
 		extent.extentLogger("", "Verification of <b>TC 34. CD for U/A 13+ content - Video<b>");
-		contentDetails=new ArrayList<String>();
-		contentDetails.add("videos/details/2-seater-car-full-video-kanika-kapoor-happy-singh-and-vicky-sandhu/0-0-manual-6u07v2m54fl0");	
+		contentDetails = new ArrayList<String>();
+		contentDetails.add(
+				"videos/details/2-seater-car-full-video-kanika-kapoor-happy-singh-and-vicky-sandhu/0-0-manual-6u07v2m54fl0");
 		contentDetails.add("0-0-manual-6u07v2m54fl0");
 		contentDetails.add("Rated U/A 13+");
 		contentDetails.add("Romance");
 		verifyContentDescriptorRatingAndDesc(contentDetails);
-		
+
 		extent.HeaderChildNode("PWA2-8755: 35. CD for U/A 16+ content - Video");
 		extent.extentLogger("", "Verification of <b>TC 35. CD for U/A 16+ content - Video<b>");
-		contentDetails=new ArrayList<String>();
-		contentDetails.add("videos/details/soneya-ve-hello-charlie-aadar-jain-and-shlokka-pandit-kanika-kapoor-jasbir-jassi-and-kumaar/0-0-manual-3b1jfcfamrmg");	
+		contentDetails = new ArrayList<String>();
+		contentDetails.add(
+				"videos/details/soneya-ve-hello-charlie-aadar-jain-and-shlokka-pandit-kanika-kapoor-jasbir-jassi-and-kumaar/0-0-manual-3b1jfcfamrmg");
 		contentDetails.add("0-0-manual-3b1jfcfamrmg");
 		contentDetails.add("Rated U/A 16+");
 		contentDetails.add("Dance");
 		verifyContentDescriptorRatingAndDesc(contentDetails);
-		
-		
+
 		extent.HeaderChildNode("PWA2-8755: 36. CD for A content - Video");
-		extent.extentLogger("", "Verification of <b>TC 36. CD for A content - Video<b>");	
-		contentDetails.add("videos/details/soniye-ft-mishka-tarkar-and-sandesh-gour-vikesh-singh-reema-noopur-anand-singh-amjad-bagadwa/0-0-manual_6h4n7mu0bsm0");	
+		extent.extentLogger("", "Verification of <b>TC 36. CD for A content - Video<b>");
+		contentDetails.add(
+				"videos/details/soniye-ft-mishka-tarkar-and-sandesh-gour-vikesh-singh-reema-noopur-anand-singh-amjad-bagadwa/0-0-manual_6h4n7mu0bsm0");
 		contentDetails.add("0-0-manual_6h4n7mu0bsm0");
 		contentDetails.add("Rated A");
 		contentDetails.add("Sucide, Drugs");
 		verifyContentDescriptorRatingAndDesc(contentDetails);
-		
+
 	}
-	
-	public void contentDiscriptorVerificationFromExcel(String userType,String xlsname,String[] sheets) throws Exception {
-		String xlspath=System.getProperty("user.dir") + "\\" + xlsname;
-		ArrayList<String> contentDetails=new ArrayList<String>();
-		String url="",contentUrl="",showID="",contentID="";
-		String[] parts= {};
-		for(int sheetIt=0;sheetIt<sheets.length;sheetIt++) {				
-			String sheet=sheets[sheetIt];
-			System.out.println("sheet: "+sheet);
-			int NumberOfRows = getRowCount(xlspath,sheet);
-			System.out.println("NumberOfRows"+NumberOfRows);
-			for (int rownumber = 0; rownumber < NumberOfRows; rownumber++) {	
-				contentDetails=new ArrayList<String>();
-				showID="";
-				contentID="";	
+
+	public void contentDiscriptorVerificationFromExcel(String userType, String xlsname, String[] sheets)
+			throws Exception {
+		String xlspath = System.getProperty("user.dir") + "\\" + xlsname;
+		ArrayList<String> contentDetails = new ArrayList<String>();
+		String url = "", contentUrl = "", showID = "", contentID = "";
+		String[] parts = {};
+		for (int sheetIt = 0; sheetIt < sheets.length; sheetIt++) {
+			String sheet = sheets[sheetIt];
+			System.out.println("sheet: " + sheet);
+			int NumberOfRows = getRowCount(xlspath, sheet);
+			System.out.println("NumberOfRows" + NumberOfRows);
+			for (int rownumber = 0; rownumber < NumberOfRows; rownumber++) {
+				contentDetails = new ArrayList<String>();
+				showID = "";
+				contentID = "";
 				XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlspath));
 				XSSFSheet myExcelSheet = myExcelBook.getSheet(sheet);
 				url = myExcelSheet.getRow(rownumber).getCell(0).toString();
-				url = url.split("zee5.com/")[1];				
-				extent.HeaderChildNode("PWA2-8755: "+sheet+": "+"/"+url);
-				String mainurl=getParameterFromXML("url");
-				contentUrl=mainurl+url;
-				logger.info("Verification for: "+contentUrl);
-				extent.extentLogger("", "Verification for: <b>"+contentUrl + "<b>");
-				parts=url.split("/");
-				if(sheet.toLowerCase().contains("show")) {					
-					showID=parts[parts.length-3];
-					logger.info("Show ID from URL: "+showID);
-					extent.extentLogger("", "Show ID from URL: "+showID);
+				url = url.split("zee5.com/")[1];
+				extent.HeaderChildNode("PWA2-8755: " + sheet + ": " + "/" + url);
+				String mainurl = getParameterFromXML("url");
+				contentUrl = mainurl + url;
+				logger.info("Verification for: " + contentUrl);
+				extent.extentLogger("", "Verification for: <b>" + contentUrl + "<b>");
+				parts = url.split("/");
+				if (sheet.toLowerCase().contains("show")) {
+					showID = parts[parts.length - 3];
+					logger.info("Show ID from URL: " + showID);
+					extent.extentLogger("", "Show ID from URL: " + showID);
 				}
-				contentID=parts[parts.length-1];
-				logger.info("Content ID from URL: "+contentID);
-				extent.extentLogger("", "Content ID from URL: "+contentID);
-				ArrayList<String> cdDetails=getCDFromSpapi(showID,contentID);
-				contentDetails.add(url);	
+				contentID = parts[parts.length - 1];
+				logger.info("Content ID from URL: " + contentID);
+				extent.extentLogger("", "Content ID from URL: " + contentID);
+				ArrayList<String> cdDetails = getCDFromSpapi(showID, contentID);
+				contentDetails.add(url);
 				contentDetails.add(contentID);
-				contentDetails.add("Rated "+cdDetails.get(0)); // Age rating
+				contentDetails.add("Rated " + cdDetails.get(0)); // Age rating
 				contentDetails.add(cdDetails.get(1)); // Genres
 				verifyContentDescriptorRatingAndDesc(contentDetails);
 			}
-		}						
+		}
 	}
-	
-	public ArrayList<String> getCDFromSpapi (String tvShowID,String contentID) throws Exception {
+
+	public ArrayList<String> getCDFromSpapi(String tvShowID, String contentID) throws Exception {
 		ArrayList<String> cd = new ArrayList<String>();
-		String ageRating="",genres="";
+		String ageRating = "", genres = "";
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-		Response spapiResp=ResponseInstance.getSinglePlayBackDetails(contentID, tvShowID, "", local.getItem("guestToken"));
+		Response spapiResp = ResponseInstance.getSinglePlayBackDetails(contentID, tvShowID, "",
+				local.getItem("guestToken"));
 		try {
-			ageRating=spapiResp.jsonPath().get("assetDetails.age_rating").toString();
+			ageRating = spapiResp.jsonPath().get("assetDetails.age_rating").toString();
 			cd.add(ageRating);
-			logger.info("Age Rating from SPAPI: "+ageRating);
-			extent.extentLogger("", "Age Rating from SPAPI: "+ageRating);	
-		}
-		catch(Exception e) {
-			ageRating="";
+			logger.info("Age Rating from SPAPI: " + ageRating);
+			extent.extentLogger("", "Age Rating from SPAPI: " + ageRating);
+		} catch (Exception e) {
+			ageRating = "";
 			cd.add(ageRating);
-			logger.info("Age Rating from SPAPI: "+ageRating);
-			extent.extentLogger("", "Age Rating from SPAPI: "+ageRating);		
+			logger.info("Age Rating from SPAPI: " + ageRating);
+			extent.extentLogger("", "Age Rating from SPAPI: " + ageRating);
 		}
 		try {
-			genres=spapiResp.jsonPath().get("assetDetails.extended_wh.content_descriptors").toString().replace("[", "").replace("]", "");
+			genres = spapiResp.jsonPath().get("assetDetails.extended_wh.content_descriptors").toString()
+					.replace("[", "").replace("]", "");
 			cd.add(genres);
-			logger.info("Genres from SPAPI: "+genres);
-			extent.extentLogger("", "Genres from SPAPI: "+genres);
-		}
-		catch(Exception e) {
-			genres="";
+			logger.info("Genres from SPAPI: " + genres);
+			extent.extentLogger("", "Genres from SPAPI: " + genres);
+		} catch (Exception e) {
+			genres = "";
 			cd.add(genres);
-			logger.info("Genres from SPAPI: "+genres);
-			extent.extentLogger("", "Genres from SPAPI: "+genres);
+			logger.info("Genres from SPAPI: " + genres);
+			extent.extentLogger("", "Genres from SPAPI: " + genres);
 		}
 		return cd;
 	}
-	
-	public static int getRowCount(String xlspath,String sheet) {
+
+	public static int getRowCount(String xlspath, String sheet) {
 		int rc = 0;
 		try {
 			System.out.println(xlspath);
 			FileInputStream fis = new FileInputStream(xlspath);
 			Workbook wb = WorkbookFactory.create(fis);
-			rc=wb.getSheet(sheet).getLastRowNum();
+			rc = wb.getSheet(sheet).getLastRowNum();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return rc;
 	}
-	
-	public static int getColumnCount(String xlspath,String sheet) {
+
+	public static int getColumnCount(String xlspath, String sheet) {
 		int rc = 0;
 		try {
 			System.out.println(xlspath);
 			FileInputStream fis = new FileInputStream(xlspath);
 			Workbook wb = WorkbookFactory.create(fis);
-			rc=wb.getSheet(sheet).getRow(0).getLastCellNum();
+			rc = wb.getSheet(sheet).getRow(0).getLastCellNum();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return rc;
 	}
-		
+
 	public static void writeToExcel(String xlspath, String sheet, int rowno, int colno, String value) {
 		try {
 			XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlspath));
@@ -38665,243 +38674,248 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@SuppressWarnings("unused")
 	public void verifyContentDescriptorRatingAndDesc(ArrayList<String> contentDetails) throws Exception {
-		String mainurl=getParameterFromXML("url");
+		String mainurl = getParameterFromXML("url");
 		LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
 		String contentUrl = contentDetails.get(0);
 		String contentID = contentDetails.get(1);
-		String contentCDAgeRating = contentDetails.get(2);	
+		String contentCDAgeRating = contentDetails.get(2);
 		String contentCDAgeDesc = contentDetails.get(3);
-		String cdInUI="";
-		contentUrl=mainurl+contentUrl;
+		String cdInUI = "";
+		contentUrl = mainurl + contentUrl;
 		mandatoryRegistrationPopUp(userType);
-		getWebDriver().get(contentUrl);		
-		logger.info("Navigated to the content URL: "+contentUrl);
-		extent.extentLogger("", "Navigated to the content URL: "+contentUrl);
+		getWebDriver().get(contentUrl);
+		logger.info("Navigated to the content URL: " + contentUrl);
+		extent.extentLogger("", "Navigated to the content URL: " + contentUrl);
 		getPlayerHeadPosition();
-		if(getLocatorPresence(PWAPlayerPage.objContentDescriptor(contentCDAgeRating,contentCDAgeDesc),40,"Content Descriptor",false)) {
-			logger.info("Expected CD is displayed: "+contentCDAgeRating+" "+contentCDAgeDesc);
-			extent.extentLogger("", "Expected CD is displayed: <br/> <b>"+contentCDAgeRating+"<br/>"+contentCDAgeDesc+"");
-		}
-		else {
+		if (getLocatorPresence(PWAPlayerPage.objContentDescriptor(contentCDAgeRating, contentCDAgeDesc), 40,
+				"Content Descriptor", false)) {
+			logger.info("Expected CD is displayed: " + contentCDAgeRating + " " + contentCDAgeDesc);
+			extent.extentLogger("",
+					"Expected CD is displayed: <br/> <b>" + contentCDAgeRating + "<br/>" + contentCDAgeDesc + "");
+		} else {
 			try {
-				getWebDriver().findElement(By.xpath("//*[contains(@class,'skip-button subscribe-link') or contains(@class,'login-text')]"));
+				getWebDriver().findElement(By
+						.xpath("//*[contains(@class,'skip-button subscribe-link') or contains(@class,'login-text')]"));
 				logger.info("Buy Plan with Skip/Login is displayed, content not played");
 				extent.extentLoggerWarning("", "Buy Plan with Skip/Login is displayed, content not played");
-			}
-			catch(Exception e) {
+			} catch (Exception e) {
 				logger.error("Incorrect CD is displayed");
 				extent.extentLoggerFail("", "Incorrect CD is displayed");
 			}
-				
+
 		}
 		getWebDriver().get(mainurl);
-		ResponseInstance.updateWatchHistory(contentID, 1, local.getItem("guestToken"));	
+		ResponseInstance.updateWatchHistory(contentID, 1, local.getItem("guestToken"));
 	}
-	
+
 	public String getPlayerHeadPosition() throws Exception {
-		String playerHeadPosition="0";
+		String playerHeadPosition = "0";
 		waitTime(2000);
-		getWebDriver().manage().timeouts().implicitlyWait(1,TimeUnit.SECONDS);
-		for(int i=0;i<200;i++) {
+		getWebDriver().manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+		for (int i = 0; i < 200; i++) {
 			try {
-				playerHeadPosition=getWebDriver().findElement(PWAPlayerPage.objPlaykitSeekBar).getAttribute("aria-valuenow");
-				System.out.println("playerHeadPosition:"+playerHeadPosition);
-				extent.extentLogger("", "Player Head Position :"+playerHeadPosition);
+				playerHeadPosition = getWebDriver().findElement(PWAPlayerPage.objPlaykitSeekBar)
+						.getAttribute("aria-valuenow");
+				System.out.println("playerHeadPosition:" + playerHeadPosition);
+				extent.extentLogger("", "Player Head Position :" + playerHeadPosition);
 				break;
-			}catch(Exception e) {
+			} catch (Exception e) {
 				try {
 					getWebDriver().findElement(PWAPlayerPage.objLivePlayerLiveTag);
 					System.out.println("Live player is displayed");
 					extent.extentLogger("", "Live player is displayed");
 					break;
-				}
-				catch(Exception e2) {
+				} catch (Exception e2) {
 					try {
 						getWebDriver().findElement(PWAPlayerPage.objAdLayer);
 						if (i == 0) {
 							logger.info("Ad play in progress");
 							extent.extentLogger("AdPlayInProgress", "Ad play in progress");
 						}
+					} catch (Exception e1) {
 					}
-					catch(Exception e1) {}
 				}
-			}	
+			}
 		}
 		System.out.println("out of getplayerhead");
-		return playerHeadPosition;		
+		return playerHeadPosition;
 	}
-	
-	public boolean getLocatorPresence(By locator,int count,String text,boolean error) throws Exception {
-		getWebDriver().manage().timeouts().implicitlyWait(1,TimeUnit.SECONDS);
-		for(int i=0;i<count;i++) {
+
+	public boolean getLocatorPresence(By locator, int count, String text, boolean error) throws Exception {
+		getWebDriver().manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+		for (int i = 0; i < count; i++) {
 			try {
 				getWebDriver().findElement(locator);
-				logger.info(text+" is displayed");
-				extent.extentLogger("", text+" is displayed");
+				logger.info(text + " is displayed");
+				extent.extentLogger("", text + " is displayed");
 				return true;
-			}catch(Exception e) {}	
+			} catch (Exception e) {
+			}
 		}
-		if(error) {
-			logger.error(text+" is not displayed");
-			extent.extentLoggerFail("", text+" is not displayed");
+		if (error) {
+			logger.error(text + " is not displayed");
+			extent.extentLoggerFail("", text + " is not displayed");
+		} else {
+			logger.info(text + " is not displayed");
+			extent.extentLogger("", text + " is not displayed");
 		}
-		else {
-			logger.info(text+" is not displayed");
-			extent.extentLogger("", text+" is not displayed");
-		}
-		return false;		
+		return false;
 	}
-	
-	public void pwaPerformance (int iterations) throws Exception {
-		String env="";
+
+	public void pwaPerformance(int iterations) throws Exception {
+		String env = "";
 		String url = getParameterFromXML("url");
-		if(url.equals("https://newpwa.zee5.com/")) env="newpwa";
-		if(url.equals("https://www.zee5.com/")) env="production";
-		if(url.equals("https://pwauat5.zee5.com/")) env="pwauat5";
-		String userType=getParameterFromXML("userType");
-		String xlspath=System.getProperty("user.dir") + "\\performance.xlsx";
-		int NumberOfRows = getRowCount(xlspath,"performance");
-		System.out.println("NumberOfRows"+NumberOfRows);
-		for(int i=1;i<=iterations;i++) {
-			int colNo = getColumnCount(xlspath,"performance");
-			System.out.println("NumberOfColumns"+colNo);
+		if (url.equals("https://newpwa.zee5.com/"))
+			env = "newpwa";
+		if (url.equals("https://www.zee5.com/"))
+			env = "production";
+		if (url.equals("https://pwauat5.zee5.com/"))
+			env = "pwauat5";
+		String userType = getParameterFromXML("userType");
+		String xlspath = System.getProperty("user.dir") + "\\performance.xlsx";
+		int NumberOfRows = getRowCount(xlspath, "performance");
+		System.out.println("NumberOfRows" + NumberOfRows);
+		for (int i = 1; i <= iterations; i++) {
+			int colNo = getColumnCount(xlspath, "performance");
+			System.out.println("NumberOfColumns" + colNo);
 			Date currentDate = new Date();
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
 			SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-			String dateString=dateFormat.format(currentDate).toString();
-			String timeString=timeFormat.format(currentDate).toString();
-			String value="Env: "+env+"\nDate: "+dateString+"\nTime: "+timeString+"\nUser: "+userType;
+			String dateString = dateFormat.format(currentDate).toString();
+			String timeString = timeFormat.format(currentDate).toString();
+			String value = "Env: " + env + "\nDate: " + dateString + "\nTime: " + timeString + "\nUser: " + userType;
 			writeToExcel(xlspath, "performance", 0, colNo, value);
-			extent.HeaderChildNode("Iteration "+i+": Site Launch");
-			String siteLaunchTime=verifySiteLaunchTime();
+			extent.HeaderChildNode("Iteration " + i + ": Site Launch");
+			String siteLaunchTime = verifySiteLaunchTime();
 			writeToExcel(xlspath, "performance", 1, colNo, siteLaunchTime);
-			
-			extent.HeaderChildNode("Iteration "+i+": Navigation to TV Shows");		
-			String showsNavigation=verifyPageNavigation("tvshows");
+
+			extent.HeaderChildNode("Iteration " + i + ": Navigation to TV Shows");
+			String showsNavigation = verifyPageNavigation("tvshows");
 			writeToExcel(xlspath, "performance", 2, colNo, showsNavigation);
-			
-			extent.HeaderChildNode("Iteration "+i+": Navigation to Movies");
-			String moviesNavigation=verifyPageNavigation("movies");
+
+			extent.HeaderChildNode("Iteration " + i + ": Navigation to Movies");
+			String moviesNavigation = verifyPageNavigation("movies");
 			writeToExcel(xlspath, "performance", 3, colNo, moviesNavigation);
-			
-			extent.HeaderChildNode("Iteration "+i+": Navigation to Premium");
-			String premiumNavigation=verifyPageNavigation("premium");
+
+			extent.HeaderChildNode("Iteration " + i + ": Navigation to Premium");
+			String premiumNavigation = verifyPageNavigation("premium");
 			writeToExcel(xlspath, "performance", 4, colNo, premiumNavigation);
-			
-			extent.HeaderChildNode("Iteration "+i+": Navigation to Videos");
-			String videosNavigation=verifyPageNavigation("videos");
+
+			extent.HeaderChildNode("Iteration " + i + ": Navigation to Videos");
+			String videosNavigation = verifyPageNavigation("videos");
 			writeToExcel(xlspath, "performance", 5, colNo, videosNavigation);
-			
-			extent.HeaderChildNode("Iteration "+i+": Navigation to Show Detail");
-			String showDetailNavigation=verifyPageNavigation("tvshows/details/kundali-bhagya/0-6-366");
+
+			extent.HeaderChildNode("Iteration " + i + ": Navigation to Show Detail");
+			String showDetailNavigation = verifyPageNavigation("tvshows/details/kundali-bhagya/0-6-366");
 			writeToExcel(xlspath, "performance", 6, colNo, showDetailNavigation);
 
-			extent.HeaderChildNode("Iteration "+i+": Navigation to Movie Detail");
-			String movieDetailNavigation=verifyPageNavigation("movies/details/robin-hood-and-the-invincible-knight/0-0-103553");
+			extent.HeaderChildNode("Iteration " + i + ": Navigation to Movie Detail");
+			String movieDetailNavigation = verifyPageNavigation(
+					"movies/details/robin-hood-and-the-invincible-knight/0-0-103553");
 			writeToExcel(xlspath, "performance", 7, colNo, movieDetailNavigation);
-			
+
 			LocalStorage local = ((ChromeDriver) getWebDriver()).getLocalStorage();
-			extent.HeaderChildNode("Iteration "+i+": Playback Start time (VST) [For Premium]");
-			String vstPremium=verifyVST("Uri: The Surgical Strike");
+			extent.HeaderChildNode("Iteration " + i + ": Playback Start time (VST) [For Premium]");
+			String vstPremium = verifyVST("Uri: The Surgical Strike");
 			writeToExcel(xlspath, "performance", 8, colNo, vstPremium);
 			mandatoryRegistrationPopUp(userType);
 			ResponseInstance.updateWatchHistory("0-0-33204", 1, local.getItem("guestToken"));
-					
-			extent.HeaderChildNode("Iteration "+i+": Playback Start time (VST) [For Non-Premium]");
-			String vstNonPremium=verifyVST("Teen Patti");
+
+			extent.HeaderChildNode("Iteration " + i + ": Playback Start time (VST) [For Non-Premium]");
+			String vstNonPremium = verifyVST("Teen Patti");
 			writeToExcel(xlspath, "performance", 9, colNo, vstNonPremium);
 			mandatoryRegistrationPopUp(userType);
 			ResponseInstance.updateWatchHistory("0-0-414244", 1, local.getItem("guestToken"));
 
-			extent.HeaderChildNode("Iteration "+i+": Playback resume time (from pause) (VRT)");
-			String vrt=verifyResumeTimeFromPause("Khalnayak");
+			extent.HeaderChildNode("Iteration " + i + ": Playback resume time (from pause) (VRT)");
+			String vrt = verifyResumeTimeFromPause("Khalnayak");
 			writeToExcel(xlspath, "performance", 10, colNo, vrt);
 			mandatoryRegistrationPopUp(userType);
 			ResponseInstance.updateWatchHistory("0-0-khalnayak", 1, local.getItem("guestToken"));
-			
-			extent.HeaderChildNode("Iteration "+i+": Playback resume time (post seek)");
-			String vrtPostSeek=verifyResumeTimeAfterSeek("Golmaal Returns");
+
+			extent.HeaderChildNode("Iteration " + i + ": Playback resume time (post seek)");
+			String vrtPostSeek = verifyResumeTimeAfterSeek("Golmaal Returns");
 			writeToExcel(xlspath, "performance", 11, colNo, vrtPostSeek);
 			mandatoryRegistrationPopUp(userType);
 			ResponseInstance.updateWatchHistory("0-0-1z51324", 1, local.getItem("guestToken"));
-			
-			extent.HeaderChildNode("Iteration "+i+": Playback resume time (post quality change)");
-			String vrtQualityChange=verifyResumeTimeAfterQualityChange("Ra. One");
+
+			extent.HeaderChildNode("Iteration " + i + ": Playback resume time (post quality change)");
+			String vrtQualityChange = verifyResumeTimeAfterQualityChange("Ra. One");
 			writeToExcel(xlspath, "performance", 12, colNo, vrtQualityChange);
 			mandatoryRegistrationPopUp(userType);
 			ResponseInstance.updateWatchHistory("0-0-2526", 1, local.getItem("guestToken"));
 		}
-	
-	}	
-	
-	public String getDateDifference(Date startDate, Date endDate) throws Exception {
-		long duration  = endDate.getTime() - startDate.getTime();
-		long diffInMilliSeconds = TimeUnit.MILLISECONDS.toMillis(duration);
-		int milliSeconds= (int) Math.floorMod(diffInMilliSeconds, 1000);		
-		int seconds=(int) (diffInMilliSeconds/1000);
-		int mins=0;
-		if(seconds>=60) {
-			mins=seconds/60;
-			seconds=Math.floorMod(seconds, 60);
-		}
-		return mins+"m, "+seconds+"s, "+milliSeconds+"ms";
+
 	}
-	
+
+	public String getDateDifference(Date startDate, Date endDate) throws Exception {
+		long duration = endDate.getTime() - startDate.getTime();
+		long diffInMilliSeconds = TimeUnit.MILLISECONDS.toMillis(duration);
+		int milliSeconds = (int) Math.floorMod(diffInMilliSeconds, 1000);
+		int seconds = (int) (diffInMilliSeconds / 1000);
+		int mins = 0;
+		if (seconds >= 60) {
+			mins = seconds / 60;
+			seconds = Math.floorMod(seconds, 60);
+		}
+		return mins + "m, " + seconds + "s, " + milliSeconds + "ms";
+	}
+
 	public String getDateDetails(Date date) throws Exception {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-		String dateString=dateFormat.format(date).toString();
-		//ChromeOptions options=new ChromeOptions();
-		//options.setHeadless(true);
+		String dateString = dateFormat.format(date).toString();
+		// ChromeOptions options=new ChromeOptions();
+		// options.setHeadless(true);
 		return dateString;
 	}
-	
+
 	public String verifySiteLaunchTime() throws Exception {
 		String url = getParameterFromXML("url");
 		String userType = getParameterFromXML("userType");
-		String siteLaunchTime="";
-		Date startDate = new Date();	
-		logger.info("Start Time : "+getDateDetails(startDate));
-		extent.extentLogger("", "Start Time : "+getDateDetails(startDate));
+		String siteLaunchTime = "";
+		Date startDate = new Date();
+		logger.info("Start Time : " + getDateDetails(startDate));
+		extent.extentLogger("", "Start Time : " + getDateDetails(startDate));
 		tearDown();
 		new Zee5PWASanityWEBBusinessLogic("Chrome");
-		logger.info("Navigated to : "+url);
-		extent.extentLogger("", "Navigated to : "+url);
+		logger.info("Navigated to : " + url);
+		extent.extentLogger("", "Navigated to : " + url);
 		Date endDate = new Date();
-		logger.info("End Time : "+getDateDetails(endDate));
-		extent.extentLogger("", "End Time : "+getDateDetails(endDate));
-		siteLaunchTime=getDateDifference(startDate,endDate);
-		logger.info("Performance time: "+siteLaunchTime);
-		extent.extentLogger("", "Performance time: "+siteLaunchTime);
+		logger.info("End Time : " + getDateDetails(endDate));
+		extent.extentLogger("", "End Time : " + getDateDetails(endDate));
+		siteLaunchTime = getDateDifference(startDate, endDate);
+		logger.info("Performance time: " + siteLaunchTime);
+		extent.extentLogger("", "Performance time: " + siteLaunchTime);
 		ZeeWEBPWALogin(userType);
 		return siteLaunchTime;
 	}
-	
+
 	public String verifyPageNavigation(String page) throws Exception {
 		String url = getParameterFromXML("url");
-		String showsurl=url+page;
-		String pageNavigationTime="";
-		Date startDate = new Date();	
-		logger.info("Start Time : "+getDateDetails(startDate));
-		extent.extentLogger("", "Start Time : "+getDateDetails(startDate));
+		String showsurl = url + page;
+		String pageNavigationTime = "";
+		Date startDate = new Date();
+		logger.info("Start Time : " + getDateDetails(startDate));
+		extent.extentLogger("", "Start Time : " + getDateDetails(startDate));
 		getWebDriver().get(showsurl);
-		logger.info("Navigated to : "+showsurl);
-		extent.extentLogger("", "Navigated to : "+showsurl);
+		logger.info("Navigated to : " + showsurl);
+		extent.extentLogger("", "Navigated to : " + showsurl);
 		Date endDate = new Date();
-		logger.info("End Time : "+getDateDetails(endDate));
-		extent.extentLogger("", "End Time : "+getDateDetails(endDate));
-		pageNavigationTime=getDateDifference(startDate,endDate);
-		logger.info("Performance time: "+pageNavigationTime);
-		extent.extentLogger("", "Performance time: "+pageNavigationTime);
+		logger.info("End Time : " + getDateDetails(endDate));
+		extent.extentLogger("", "End Time : " + getDateDetails(endDate));
+		pageNavigationTime = getDateDifference(startDate, endDate);
+		logger.info("Performance time: " + pageNavigationTime);
+		extent.extentLogger("", "Performance time: " + pageNavigationTime);
 		return pageNavigationTime;
 	}
-		
+
 	public String verifyVST(String searchKeyword) throws Exception {
 		Date startDate = new Date();
 		Date endDate = new Date();
-		ArrayList<Date> startAndEndTime=new ArrayList<Date>();	
+		ArrayList<Date> startAndEndTime = new ArrayList<Date>();
 		verifyElementPresentAndClick(PWASearchPage.objSearchBtn, "Search icon");
 		waitTime(2000);
 		type(PWASearchPage.objSearchEditBox, searchKeyword, "Search Field");
@@ -38909,75 +38923,75 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		click(PWASearchPage.objSearchMoviesTab, "Movies tab");
 		waitTime(5000);
 		mandatoryRegistrationPopUp(userType);
-		verifyElementPresent(PWASearchPage.objSearchedResult(searchKeyword), "Search Result "+searchKeyword);
-		click(PWASearchPage.objSearchedResult(searchKeyword), "Search Result "+searchKeyword);		
-		startAndEndTime=getPlayerStartEndTime(startDate,endDate);
-		startDate=startAndEndTime.get(0);
-		endDate=startAndEndTime.get(1);
-		logger.info("End Time : "+getDateDetails(endDate));
-		extent.extentLogger("", "End Time : "+getDateDetails(endDate));
-		String vst=getDateDifference(startDate,endDate);
-		logger.info("VST : "+vst);
-		extent.extentLogger("", "VST : "+vst);
+		verifyElementPresent(PWASearchPage.objSearchedResult(searchKeyword), "Search Result " + searchKeyword);
+		click(PWASearchPage.objSearchedResult(searchKeyword), "Search Result " + searchKeyword);
+		startAndEndTime = getPlayerStartEndTime(startDate, endDate);
+		startDate = startAndEndTime.get(0);
+		endDate = startAndEndTime.get(1);
+		logger.info("End Time : " + getDateDetails(endDate));
+		extent.extentLogger("", "End Time : " + getDateDetails(endDate));
+		String vst = getDateDifference(startDate, endDate);
+		logger.info("VST : " + vst);
+		extent.extentLogger("", "VST : " + vst);
 		return vst;
 	}
-		
-	public ArrayList<Date> getPlayerStartEndTime (Date startDate,Date endDate) throws Exception {
-		ArrayList<Date> startAndEndTime=new ArrayList<Date>();
+
+	public ArrayList<Date> getPlayerStartEndTime(Date startDate, Date endDate) throws Exception {
+		ArrayList<Date> startAndEndTime = new ArrayList<Date>();
 		startDate = new Date();
-		logger.info("Time : "+getDateDetails(startDate));
-		extent.extentLogger("", "Time : "+getDateDetails(startDate));
-		getWebDriver().manage().timeouts().implicitlyWait(10, TimeUnit.MILLISECONDS);	
-		String playerHeadPosition="0";
-		boolean adPlay=false,adMessage=false;
-		for(int i=0;i<1000;i++) {
-			if(adPlay==true) {
-				for(int j=0;j<1000;j++) {
+		logger.info("Time : " + getDateDetails(startDate));
+		extent.extentLogger("", "Time : " + getDateDetails(startDate));
+		getWebDriver().manage().timeouts().implicitlyWait(10, TimeUnit.MILLISECONDS);
+		String playerHeadPosition = "0";
+		boolean adPlay = false, adMessage = false;
+		for (int i = 0; i < 1000; i++) {
+			if (adPlay == true) {
+				for (int j = 0; j < 1000; j++) {
 					try {
 						getWebDriver().findElement(PWAPlayerPage.objPlaykitSeekBar);
-						startDate=new Date();
+						startDate = new Date();
 						logger.info("Ad play complete");
 						extent.extentLogger("", "Ad play complete");
-						logger.info("Start Time : "+getDateDetails(startDate));
-						extent.extentLogger("", "Start Time : "+getDateDetails(startDate));
+						logger.info("Start Time : " + getDateDetails(startDate));
+						extent.extentLogger("", "Start Time : " + getDateDetails(startDate));
 						break;
-					}
-					catch(Exception e) {}
-				}				
-			}
-			try {
-				playerHeadPosition=getWebDriver().findElement(PWAPlayerPage.objPlaykitSeekBar).getAttribute("aria-valuenow");
-				if(Integer.valueOf(playerHeadPosition)>0) {					
-					endDate=new Date();				
-					logger.info("Player Head Position :"+playerHeadPosition);
-					extent.extentLogger("", "Player Head Position :"+playerHeadPosition);
-					screencapture();
-					break;
-				}				
-			}
-			catch(Exception e) {
-				try {
-					getWebDriver().findElement(PWAPlayerPage.objAdLayer);
-					adPlay=true;
-					if (adMessage==false) {
-						logger.info("Ad play in progress");
-						extent.extentLogger("AdPlayInProgress", "Ad play in progress");
-						adMessage=true;
+					} catch (Exception e) {
 					}
 				}
-				catch(Exception e1) {}
-			}			
+			}
+			try {
+				playerHeadPosition = getWebDriver().findElement(PWAPlayerPage.objPlaykitSeekBar)
+						.getAttribute("aria-valuenow");
+				if (Integer.valueOf(playerHeadPosition) > 0) {
+					endDate = new Date();
+					logger.info("Player Head Position :" + playerHeadPosition);
+					extent.extentLogger("", "Player Head Position :" + playerHeadPosition);
+					screencapture();
+					break;
+				}
+			} catch (Exception e) {
+				try {
+					getWebDriver().findElement(PWAPlayerPage.objAdLayer);
+					adPlay = true;
+					if (adMessage == false) {
+						logger.info("Ad play in progress");
+						extent.extentLogger("AdPlayInProgress", "Ad play in progress");
+						adMessage = true;
+					}
+				} catch (Exception e1) {
+				}
+			}
 		}
 		System.out.println("outside loop");
 		startAndEndTime.add(startDate);
 		startAndEndTime.add(endDate);
 		return startAndEndTime;
 	}
-		
+
 	public String verifyResumeTimeFromPause(String searchKeyword) throws Exception {
 		Date startDate = new Date();
 		Date endDate = new Date();
-		ArrayList<Date> startAndEndTime=new ArrayList<Date>();
+		ArrayList<Date> startAndEndTime = new ArrayList<Date>();
 		verifyElementPresentAndClick(PWASearchPage.objSearchBtn, "Search icon");
 		waitTime(2000);
 		type(PWASearchPage.objSearchEditBox, searchKeyword, "Search Field");
@@ -38985,44 +38999,45 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		click(PWASearchPage.objSearchMoviesTab, "Movies tab");
 		waitTime(5000);
 		mandatoryRegistrationPopUp(userType);
-		verifyElementPresent(PWASearchPage.objSearchedResult(searchKeyword), "Search Result "+searchKeyword);
-		click(PWASearchPage.objSearchedResult(searchKeyword), "Search Result "+searchKeyword);	
-		waitForPlayerAdToComplete("Video Player");	
-		startAndEndTime=getPlayerStartEndTimeAfterPause(startDate,endDate);
-		startDate=startAndEndTime.get(0);
-		endDate=startAndEndTime.get(1);
-		String rst=getDateDifference(startDate,endDate);
-		logger.info("Resume Time from Pause : "+rst);
-		extent.extentLogger("", "Resume Time from Pause : "+rst);
+		verifyElementPresent(PWASearchPage.objSearchedResult(searchKeyword), "Search Result " + searchKeyword);
+		click(PWASearchPage.objSearchedResult(searchKeyword), "Search Result " + searchKeyword);
+		waitForPlayerAdToComplete("Video Player");
+		startAndEndTime = getPlayerStartEndTimeAfterPause(startDate, endDate);
+		startDate = startAndEndTime.get(0);
+		endDate = startAndEndTime.get(1);
+		String rst = getDateDifference(startDate, endDate);
+		logger.info("Resume Time from Pause : " + rst);
+		extent.extentLogger("", "Resume Time from Pause : " + rst);
 		return rst;
 	}
-	
-	public ArrayList<Date> getPlayerStartEndTimeAfterPause (Date startDate,Date endDate) throws Exception {
-		ArrayList<Date> startAndEndTime=new ArrayList<Date>();
-		getWebDriver().manage().timeouts().implicitlyWait(10, TimeUnit.MILLISECONDS);	
-		String playerHeadPositionBefore="",playerHeadPositionAfter="";
+
+	public ArrayList<Date> getPlayerStartEndTimeAfterPause(Date startDate, Date endDate) throws Exception {
+		ArrayList<Date> startAndEndTime = new ArrayList<Date>();
+		getWebDriver().manage().timeouts().implicitlyWait(10, TimeUnit.MILLISECONDS);
+		String playerHeadPositionBefore = "", playerHeadPositionAfter = "";
 		JSClick(PWAPlayerPage.pauseBtn, "Pause icon");
-		playerHeadPositionBefore=getWebDriver().findElement(PWAPlayerPage.objPlaykitSeekBar).getAttribute("aria-valuenow");
-		logger.info("Player Head Position at pause:"+playerHeadPositionBefore);
-		extent.extentLogger("", "Player Head Position at pause:"+playerHeadPositionBefore);
+		playerHeadPositionBefore = getWebDriver().findElement(PWAPlayerPage.objPlaykitSeekBar)
+				.getAttribute("aria-valuenow");
+		logger.info("Player Head Position at pause:" + playerHeadPositionBefore);
+		extent.extentLogger("", "Player Head Position at pause:" + playerHeadPositionBefore);
 		startDate = new Date();
-		logger.info("Start Time : "+getDateDetails(startDate));
-		extent.extentLogger("", "Start Time : "+getDateDetails(startDate));
+		logger.info("Start Time : " + getDateDetails(startDate));
+		extent.extentLogger("", "Start Time : " + getDateDetails(startDate));
 		JSClick(PWAPlayerPage.objPlayerPlay, "Play icon");
-		for(int i=0;i<1000;i++) {
+		for (int i = 0; i < 1000; i++) {
 			try {
-				playerHeadPositionAfter=getWebDriver().findElement(PWAPlayerPage.objPlaykitSeekBar).getAttribute("aria-valuenow");
-				if(Integer.valueOf(playerHeadPositionAfter)>Integer.valueOf(playerHeadPositionBefore)) {					
-					endDate=new Date();	
-					logger.info("End Time : "+getDateDetails(endDate));
-					extent.extentLogger("", "End Time : "+getDateDetails(endDate));
-					logger.info("Player Head Position after resume:"+playerHeadPositionAfter);
-					extent.extentLogger("", "Player Head Position after resume:"+playerHeadPositionAfter);
+				playerHeadPositionAfter = getWebDriver().findElement(PWAPlayerPage.objPlaykitSeekBar)
+						.getAttribute("aria-valuenow");
+				if (Integer.valueOf(playerHeadPositionAfter) > Integer.valueOf(playerHeadPositionBefore)) {
+					endDate = new Date();
+					logger.info("End Time : " + getDateDetails(endDate));
+					extent.extentLogger("", "End Time : " + getDateDetails(endDate));
+					logger.info("Player Head Position after resume:" + playerHeadPositionAfter);
+					extent.extentLogger("", "Player Head Position after resume:" + playerHeadPositionAfter);
 					screencapture();
 					break;
-				}				
-			}
-			catch(Exception e) {
+				}
+			} catch (Exception e) {
 			}
 		}
 		System.out.println("outside loop");
@@ -39030,11 +39045,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		startAndEndTime.add(endDate);
 		return startAndEndTime;
 	}
-	
+
 	public String verifyResumeTimeAfterSeek(String searchKeyword) throws Exception {
 		Date startDate = new Date();
 		Date endDate = new Date();
-		ArrayList<Date> startAndEndTime=new ArrayList<Date>();
+		ArrayList<Date> startAndEndTime = new ArrayList<Date>();
 		verifyElementPresentAndClick(PWASearchPage.objSearchBtn, "Search icon");
 		waitTime(2000);
 		type(PWASearchPage.objSearchEditBox, searchKeyword, "Search Field");
@@ -39042,57 +39057,58 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		click(PWASearchPage.objSearchMoviesTab, "Movies tab");
 		waitTime(5000);
 		mandatoryRegistrationPopUp(userType);
-		verifyElementPresent(PWASearchPage.objSearchedResult(searchKeyword), "Search Result "+searchKeyword);
-		click(PWASearchPage.objSearchedResult(searchKeyword), "Search Result "+searchKeyword);	
-		waitForPlayerAdToComplete("Video Player");	
-		startAndEndTime=getPlayerStartEndTimeAfterSeek(startDate,endDate);
-		startDate=startAndEndTime.get(0);
-		endDate=startAndEndTime.get(1);
-		String rst=getDateDifference(startDate,endDate);
-		logger.info("Playback resume time post seek : "+rst);
-		extent.extentLogger("", "Playback resume time post seek : "+rst);
+		verifyElementPresent(PWASearchPage.objSearchedResult(searchKeyword), "Search Result " + searchKeyword);
+		click(PWASearchPage.objSearchedResult(searchKeyword), "Search Result " + searchKeyword);
+		waitForPlayerAdToComplete("Video Player");
+		startAndEndTime = getPlayerStartEndTimeAfterSeek(startDate, endDate);
+		startDate = startAndEndTime.get(0);
+		endDate = startAndEndTime.get(1);
+		String rst = getDateDifference(startDate, endDate);
+		logger.info("Playback resume time post seek : " + rst);
+		extent.extentLogger("", "Playback resume time post seek : " + rst);
 		return rst;
 	}
-	
-	public ArrayList<Date> getPlayerStartEndTimeAfterSeek (Date startDate,Date endDate) throws Exception {
-		ArrayList<Date> startAndEndTime=new ArrayList<Date>();
-		getWebDriver().manage().timeouts().implicitlyWait(10, TimeUnit.MILLISECONDS);	
-		String playerHeadPositionBefore="",playerHeadPositionAfterSeek1="",playerHeadPositionAfterSeek2="";
-		playerHeadPositionBefore=getWebDriver().findElement(PWAPlayerPage.objPlaykitSeekBar).getAttribute("aria-valuenow");
-		logger.info("Player Head Position before seek:"+playerHeadPositionBefore);
-		extent.extentLogger("", "Player Head Position before seek:"+playerHeadPositionBefore);
+
+	public ArrayList<Date> getPlayerStartEndTimeAfterSeek(Date startDate, Date endDate) throws Exception {
+		ArrayList<Date> startAndEndTime = new ArrayList<Date>();
+		getWebDriver().manage().timeouts().implicitlyWait(10, TimeUnit.MILLISECONDS);
+		String playerHeadPositionBefore = "", playerHeadPositionAfterSeek1 = "", playerHeadPositionAfterSeek2 = "";
+		playerHeadPositionBefore = getWebDriver().findElement(PWAPlayerPage.objPlaykitSeekBar)
+				.getAttribute("aria-valuenow");
+		logger.info("Player Head Position before seek:" + playerHeadPositionBefore);
+		extent.extentLogger("", "Player Head Position before seek:" + playerHeadPositionBefore);
 		startDate = new Date();
-		logger.info("Start Time : "+getDateDetails(startDate));
-		extent.extentLogger("", "Start Time : "+getDateDetails(startDate));
+		logger.info("Start Time : " + getDateDetails(startDate));
+		extent.extentLogger("", "Start Time : " + getDateDetails(startDate));
 		Actions act = new Actions(getWebDriver());
 		WebElement scrubber = getWebDriver().findElement(PWAPlayerPage.objPlayerScrubber);
-		act.moveToElement(scrubber, 50, 0).click().build().perform();		
+		act.moveToElement(scrubber, 50, 0).click().build().perform();
 		extent.extentLogger("", "Seeked the player");
 		logger.info("Seeked the player");
-		for(int i=0;i<1000;i++) {
+		for (int i = 0; i < 1000; i++) {
 			try {
-				playerHeadPositionAfterSeek1=getWebDriver().findElement(PWAPlayerPage.objPlaykitSeekBar).getAttribute("aria-valuenow");
-				if(Integer.valueOf(playerHeadPositionAfterSeek1)>Integer.valueOf(playerHeadPositionBefore)) {
+				playerHeadPositionAfterSeek1 = getWebDriver().findElement(PWAPlayerPage.objPlaykitSeekBar)
+						.getAttribute("aria-valuenow");
+				if (Integer.valueOf(playerHeadPositionAfterSeek1) > Integer.valueOf(playerHeadPositionBefore)) {
 					break;
-				}				
+				}
+			} catch (Exception e) {
 			}
-			catch(Exception e) {
-			}
-		}		
-		for(int i=0;i<1000;i++) {
+		}
+		for (int i = 0; i < 1000; i++) {
 			try {
-				playerHeadPositionAfterSeek2=getWebDriver().findElement(PWAPlayerPage.objPlaykitSeekBar).getAttribute("aria-valuenow");
-				if(Integer.valueOf(playerHeadPositionAfterSeek2)>Integer.valueOf(playerHeadPositionAfterSeek1)) {					
-					endDate=new Date();	
-					logger.info("End Time : "+getDateDetails(endDate));
-					extent.extentLogger("", "End Time : "+getDateDetails(endDate));
-					logger.info("Player Head Position after seek:"+playerHeadPositionAfterSeek2);
-					extent.extentLogger("", "Player Head Position after seek:"+playerHeadPositionAfterSeek2);
+				playerHeadPositionAfterSeek2 = getWebDriver().findElement(PWAPlayerPage.objPlaykitSeekBar)
+						.getAttribute("aria-valuenow");
+				if (Integer.valueOf(playerHeadPositionAfterSeek2) > Integer.valueOf(playerHeadPositionAfterSeek1)) {
+					endDate = new Date();
+					logger.info("End Time : " + getDateDetails(endDate));
+					extent.extentLogger("", "End Time : " + getDateDetails(endDate));
+					logger.info("Player Head Position after seek:" + playerHeadPositionAfterSeek2);
+					extent.extentLogger("", "Player Head Position after seek:" + playerHeadPositionAfterSeek2);
 					screencapture();
 					break;
-				}				
-			}
-			catch(Exception e) {
+				}
+			} catch (Exception e) {
 			}
 		}
 		System.out.println("outside loop");
@@ -39100,11 +39116,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		startAndEndTime.add(endDate);
 		return startAndEndTime;
 	}
-		
+
 	public String verifyResumeTimeAfterQualityChange(String searchKeyword) throws Exception {
 		Date startDate = new Date();
 		Date endDate = new Date();
-		ArrayList<Date> startAndEndTime=new ArrayList<Date>();
+		ArrayList<Date> startAndEndTime = new ArrayList<Date>();
 		verifyElementPresentAndClick(PWASearchPage.objSearchBtn, "Search icon");
 		waitTime(2000);
 		type(PWASearchPage.objSearchEditBox, searchKeyword, "Search Field");
@@ -39112,48 +39128,49 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		click(PWASearchPage.objSearchMoviesTab, "Movies tab");
 		waitTime(5000);
 		mandatoryRegistrationPopUp(userType);
-		verifyElementPresent(PWASearchPage.objSearchedResult(searchKeyword), "Search Result "+searchKeyword);
-		click(PWASearchPage.objSearchedResult(searchKeyword), "Search Result "+searchKeyword);	
-		waitForPlayerAdToComplete("Video Player");	
-		startAndEndTime=getPlayerStartEndTimeAfterQualityChange(startDate,endDate);
-		startDate=startAndEndTime.get(0);
-		endDate=startAndEndTime.get(1);
-		String rst=getDateDifference(startDate,endDate);
-		logger.info("Resume Time from Pause : "+rst);
-		extent.extentLogger("", "Resume Time from Pause : "+rst);
+		verifyElementPresent(PWASearchPage.objSearchedResult(searchKeyword), "Search Result " + searchKeyword);
+		click(PWASearchPage.objSearchedResult(searchKeyword), "Search Result " + searchKeyword);
+		waitForPlayerAdToComplete("Video Player");
+		startAndEndTime = getPlayerStartEndTimeAfterQualityChange(startDate, endDate);
+		startDate = startAndEndTime.get(0);
+		endDate = startAndEndTime.get(1);
+		String rst = getDateDifference(startDate, endDate);
+		logger.info("Resume Time from Pause : " + rst);
+		extent.extentLogger("", "Resume Time from Pause : " + rst);
 		return rst;
 	}
-	
-	public ArrayList<Date> getPlayerStartEndTimeAfterQualityChange(Date startDate,Date endDate) throws Exception {
-		ArrayList<Date> startAndEndTime=new ArrayList<Date>();
-		getWebDriver().manage().timeouts().implicitlyWait(10, TimeUnit.MILLISECONDS);	
-		String playerHeadPositionBefore="",playerHeadPositionAfter="";
+
+	public ArrayList<Date> getPlayerStartEndTimeAfterQualityChange(Date startDate, Date endDate) throws Exception {
+		ArrayList<Date> startAndEndTime = new ArrayList<Date>();
+		getWebDriver().manage().timeouts().implicitlyWait(10, TimeUnit.MILLISECONDS);
+		String playerHeadPositionBefore = "", playerHeadPositionAfter = "";
 		Actions actions = new Actions(getWebDriver());
 		WebElement ele = getWebDriver().findElement(PWAPlayerPage.objPlaybackVideoOverlay);
 		actions.moveToElement(ele).perform();
 		click(PWAPlayerPage.settingsBtn, "Setting icon");
 		click(PWAPlayerPage.qualityBtn, "Quality option");
-		playerHeadPositionBefore=getWebDriver().findElement(PWAPlayerPage.objPlaykitSeekBar).getAttribute("aria-valuenow");
-		logger.info("Player Head Position before clicking on Quality:"+playerHeadPositionBefore);
-		extent.extentLogger("", "Player Head Position before clicking on Quality:"+playerHeadPositionBefore);	
+		playerHeadPositionBefore = getWebDriver().findElement(PWAPlayerPage.objPlaykitSeekBar)
+				.getAttribute("aria-valuenow");
+		logger.info("Player Head Position before clicking on Quality:" + playerHeadPositionBefore);
+		extent.extentLogger("", "Player Head Position before clicking on Quality:" + playerHeadPositionBefore);
 		startDate = new Date();
-		logger.info("Start Time : "+getDateDetails(startDate));
-		extent.extentLogger("", "Start Time : "+getDateDetails(startDate));
-		click(PWAPlayerPage.objNonSelectedPlayerQuality,"unticked Quality");		
-		for(int i=0;i<1000;i++) {
+		logger.info("Start Time : " + getDateDetails(startDate));
+		extent.extentLogger("", "Start Time : " + getDateDetails(startDate));
+		click(PWAPlayerPage.objNonSelectedPlayerQuality, "unticked Quality");
+		for (int i = 0; i < 1000; i++) {
 			try {
-				playerHeadPositionAfter=getWebDriver().findElement(PWAPlayerPage.objPlaykitSeekBar).getAttribute("aria-valuenow");
-				if(Integer.valueOf(playerHeadPositionAfter)>Integer.valueOf(playerHeadPositionBefore)) {					
-					endDate=new Date();	
-					logger.info("End Time : "+getDateDetails(endDate));
-					extent.extentLogger("", "End Time : "+getDateDetails(endDate));
-					logger.info("Player Head Position after quality change:"+playerHeadPositionAfter);
-					extent.extentLogger("", "Player Head Position after quality change:"+playerHeadPositionAfter);
+				playerHeadPositionAfter = getWebDriver().findElement(PWAPlayerPage.objPlaykitSeekBar)
+						.getAttribute("aria-valuenow");
+				if (Integer.valueOf(playerHeadPositionAfter) > Integer.valueOf(playerHeadPositionBefore)) {
+					endDate = new Date();
+					logger.info("End Time : " + getDateDetails(endDate));
+					extent.extentLogger("", "End Time : " + getDateDetails(endDate));
+					logger.info("Player Head Position after quality change:" + playerHeadPositionAfter);
+					extent.extentLogger("", "Player Head Position after quality change:" + playerHeadPositionAfter);
 					screencapture();
 					break;
-				}				
-			}
-			catch(Exception e) {
+				}
+			} catch (Exception e) {
 			}
 		}
 		System.out.println("outside loop");
@@ -39162,6 +39179,149 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		return startAndEndTime;
 	}
 
+	public void VerifyBuySupermoonComboForNonSub(String userType, String tabname) throws Exception {
+		if (userType.equals("NonSubscribedUser")) {
+			HeaderChildNode("Verify that on Selecting Super Combo  Rs 499 user will see Buy Supermoon Combo CTA");
 
+			navigateToAnyScreenOnWeb(tabname);
+			waitTime(3500);
+			ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
+			JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+
+			waitTime(3500);
+			verifyElementPresentAndClick(PWAComboOfferPage.objRentNowPlaybackOnConsumptionPage,
+					"Rent Now CTA below the player");
+			waitTime(3000);
+
+			if (verifyElementPresent(PWAComboOfferPage.objBuySupermoonComboBtn,
+					"Buy Supermoon Combo CTA in combo offer page")) {
+				logger.info("Buy Supermoon Combo CTA in combo offer page is displayed , expected behaviour");
+				extent.extentLoggerPass(" ",
+						"Buy Supermoon Combo CTA in combo offer page is displayed , expected behaviour");
+			} else {
+				logger.info("Buy Supermoon Combo CTA in combo offer page is not displayed ");
+				extent.extentLoggerFail(" ", "Buy Supermoon Combo CTA in combo offer page is not displayed ");
+			}
+		}
+
+	}
+
+	public void VerifyForNonSubuserRentShow(String userType, String tabname) throws Exception {
+		if (userType.equals("NonSubscribedUser")) {
+			HeaderChildNode("Verify that user is able to see Rent Content cta on selecting only Rent content");
+
+			navigateToAnyScreenOnWeb(tabname);
+			waitTime(3500);
+			ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
+			JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+
+			waitTime(3500);
+			verifyElementPresentAndClick(PWAComboOfferPage.objRentNowPlaybackOnConsumptionPage,
+					"Rent Now CTA below the player");
+			waitTime(3000);
+			verifyElementPresent(PWAComboOfferPage.objOnlyRentMovieCheckBox, "249 check box");
+			JSClick(PWAComboOfferPage.objOnlyRentMovieCheckBox, "249 check box select");
+
+			waitTime(3000);
+			if (verifyElementPresent(PWAComboOfferPage.objRentContent,
+					"Rent Content CTA after clicking on selecting only Rent content")) {
+				logger.info(
+						"Rent Content CTA on selecting only Rent content in combo offer page is displayed , expected behaviour");
+				extent.extentLoggerPass(" ",
+						"Rent Content CTA on selecting only Rent content in combo offer page is displayed  , expected behaviour");
+			} else {
+				logger.info("Rent Content CTA on selecting only Rent content in combo offer page is not displayed  ");
+				extent.extentLoggerFail(" ",
+						"Rent Content CTA on selecting only Rent content in combo offer page is not displayed  ");
+			}
+		}
+	}
+
+	public void paymentModeScreenAfterClickOnBuySupermoonCTA(String userType, String tabname) throws Exception {
+		if (userType.equals("NonSubscribedUser")) {
+			HeaderChildNode(
+					"Verify that on clicking Buy Supermoon Combo Cta user will redirect to payment mode screen  ");
+
+			navigateToAnyScreenOnWeb(tabname);
+			waitTime(3500);
+			ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
+			JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+
+			waitTime(3500);
+			verifyElementPresentAndClick(PWAComboOfferPage.objRentNowPlaybackOnConsumptionPage,
+					"Rent Now CTA below the player");
+			waitTime(3000);
+			if (verifyElementPresent(PWAComboOfferPage.objBuySupermoonComboBtn,
+					"Buy Supermoon Combo CTA in combo offer page")) {
+				JSClick(PWAComboOfferPage.objBuySupermoonComboBtn, "Buy Supermoon Combo CTA");
+			}
+			if (verifyElementPresent(PWAComboOfferPage.objPaymentPageHeader, "Payment mode screen")) {
+				logger.info("user is redirected to Payment mode screen clicking Buy Supermoon Combo Cta");
+				extent.extentLoggerPass("",
+						"user is redirected to Payment mode screen clicking Buy Supermoon Combo Cta");
+			} else {
+				logger.error("user is not redirected to Payment mode screen clicking Buy Supermoon Combo Cta");
+				extent.extentLoggerFail("",
+						"user is not redirected to Payment mode screen clicking Buy Supermoon Combo Cta");
+			}
+
+		}
+	}
+
+	public void paymentModeScreenAfterClickOnRentMovie(String userType, String tabname) throws Exception {
+		if (userType.equals("NonSubscribedUser")) {
+			HeaderChildNode("Verify that on selecting only rent movie User will redirect to Payment mode screen ");
+
+			navigateToAnyScreenOnWeb(tabname);
+			waitTime(3500);
+			ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
+			JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+
+			waitTime(3500);
+			verifyElementPresentAndClick(PWAComboOfferPage.objRentNowPlaybackOnConsumptionPage,
+					"Rent Now CTA below the player");
+
+			waitTime(3000);
+			JSClick(PWAComboOfferPage.objUpgradeBtn, "Upgrade CTA in combo offer page");
+			waitTime(3000);
+			verifyElementPresentAndClick(PWAComboOfferPage.objOnlyRentMovieCheckBox, "249 check box");
+			JSClick(PWAComboOfferPage.objOnlyRentMovieCheckBox, "249 check box select");
+			waitTime(3000);
+			JSClick(PWAComboOfferPage.objRentContent, "Rent Content CTA after clicking on Upgrade CTA");
+			waitTime(3000);
+			if (verifyElementPresent(PWAComboOfferPage.objPaymentPageHeader,
+					"Payment page after clicking on Rent Content CTA")) {
+				logger.info(
+						"user is directed to Payment mode screen page after  selecting only rent movie , expected behaviour");
+				extent.extentLoggerPass(" ",
+						"user is directed to Payment mode screen page after  selecting only rent movie , expected behaviour");
+			} else {
+				logger.info("user is not directed to Payment mode screen page after  selecting only rent movie");
+				extent.extentLoggerFail(" ",
+						"user is not directed to Payment mode screen page after  selecting only rent movie");
+			}
+
+		}
+
+	}
+
+	public void noPlexLogoForSearchedLiveTVTvodResult(String userType, String LiveTVTVODContent) throws Exception {
+		extent.HeaderChildNode(
+				"Verify that Plex logo is not displayed for Live TV TVOD or TVOD videos content in the search result");
+		click(PWAHomePage.objSearchBtn, "Seach button");
+		waitTime(2000);
+		type(PWASearchPage.objSearchEditBox, LiveTVTVODContent, "Search Field");
+		waitForElement(PWASearchPage.objSpecificSearch(LiveTVTVODContent), 20, LiveTVTVODContent);
+		waitTime(3000);
+		if (!checkElementDisplayed(PWAComboOfferPage.objplexlogoOnCard, "plex logo on card")) {
+			logger.info("Plex logo is not displayed for Live TV TVOD or TVOD videos content in the search result");
+			extent.extentLoggerPass("",
+					"Plex logo is not displayed for Live TV TVOD or TVOD videos content in the search result");
+		} else {
+			logger.error("");
+			extent.extentLoggerFail("",
+					"Plex logo is not displayed for Live TV TVOD or TVOD videos content in the search result");
+		}
+	}
 
 }

@@ -27,4 +27,9 @@ public class AppCenterPage {
 	
 	public static By objDownloadLatestReleaseBtn = By.xpath(".//*[text()='Download']");
 	
+	public static By objExpandMore = By.xpath(".//*[@alt='Expand More']");
+	
+	public static By objVersion = By.xpath(".//*[@class='_1FqZrtOgx _6N07j8WWx _2CPSTw5ex _2tt1fylgx _6UYCKwXNx _1oz0dxenx _7mS0f4yVx']");
+	
+	
 }

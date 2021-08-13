@@ -144,4 +144,7 @@ public class PWAMusicPage {
 	public static By objJoysticktag = By.xpath("//*[@class='slick-slide slick-active']//*[@class='cardJoystickContent cardPremiumContent']");
 	
 	public static By objPremiumTag = By.xpath("//*[@class='noSelect clickWrapper']//*[@class='cardPremiumContent']");
+	
+	public static By objJoysticktagAtSearchedResultPage = By.xpath("//*[@class='cardJoystickContent cardPremiumContent']");
+
 }

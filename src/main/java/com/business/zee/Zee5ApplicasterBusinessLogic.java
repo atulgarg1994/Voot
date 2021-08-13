@@ -37215,6 +37215,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		if(verifyElementPresent(AppCenterPage.objZee5AndroidHeader, "ZEE5 Android Header")) {
 			if(build.equals("latest")) {
 			click(AppCenterPage.objDownloadLatestReleaseBtn, "Dwonload button");
+			}else {
+				int buildsVersion = findElements(AppCenterPage.objVersion).size();
+				for (int i = 0; i < buildsVersion; i++) {
+					
+				}
 			}
 		}
 		
