@@ -37192,13 +37192,13 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 	}
 
-	public void AppCenter(String build) throws Exception {
+	public void AppCenter(String build,String buildVersion) throws Exception {
 		HeaderChildNode("App Center");
 		verifyElementPresentAndClick(AppCenterPage.objMicrosoft, "Microsoft");
-		type(AppCenterPage.objEmail, "hitesh.c@igsindia.net", "Email Field");
+		type(AppCenterPage.objEmail, "ABC@igsindia.net", "Email Field");
 		verifyElementPresentAndClick(AppCenterPage.objSignIn, "Next Icon");
 		waitTime(4000);
-		type(AppCenterPage.objPassword, "hiti.igs@123", "Password Field");
+		type(AppCenterPage.objPassword, "password", "Password Field");
 		verifyElementPresentAndClick(AppCenterPage.objSignIn, "Next Icon");
 		if (verifyElementPresent(AppCenterPage.objSignIn, "Next Icon")) {
 			verifyElementPresentAndClick(AppCenterPage.objSignIn, "Next Icon");
@@ -37216,13 +37216,19 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			if(build.equals("latest")) {
 			click(AppCenterPage.objDownloadLatestReleaseBtn, "Dwonload button");
 			}else {
-				int buildsVersion = findElements(AppCenterPage.objVersion).size();
-				for (int i = 0; i < buildsVersion; i++) {
-					
+				List<WebElement> version = findElements(AppCenterPage.objVersion);
+				List<WebElement> expend = findElements(AppCenterPage.objExpandMore);
+				int buildsVersion = version.size();
+				for (int i = 1; i < buildsVersion; i++) {
+					System.out.println(version.get(i).getText());
+					if(version.get(i).getText().contains(buildVersion)) {
+						expend.get(i).click();
+						verifyElementPresentAndClick(AppCenterPage.objDownloadBtn,"Download button");
+						break;
+					}
 				}
 			}
 		}
-		
 	}
 
 	public void HomeScreenViaDeeplink() throws Exception {

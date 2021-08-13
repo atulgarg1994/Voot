@@ -16746,7 +16746,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.extentLogger("Recommended tray", "Recommended songs videos are displayed right side of the player");
 		} else {
 			logger.error("Recommended songs videos is not displayed in consumption page");
-			extent.extentLoggerFail("Recommended tray", "Recommended songs videos are not displayed right side of the player");
+			extent.extentLoggerFail("Recommended tray",
+					"Recommended songs videos are not displayed right side of the player");
 		}
 		Back(1);
 		// Actions actions = new Actions(getWebDriver());
@@ -17160,7 +17161,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		} catch (Exception e) {
 			e.getMessage();
 		}
-		
+
 		extent.extentLogger("Autorotating", "First content title :" + firstCarouselTitle + " second content title :"
 				+ secondCarouselTitle + " and third content title :" + thirdCarouselTitle);
 		logger.info("First content title :" + firstCarouselTitle + " second content title :" + secondCarouselTitle
@@ -17186,7 +17187,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 				checkElementDisplayed(PWAPremiumPage.objTrayTitle(i), "Tray");
 			}
 		}
-		
+
 		extent.HeaderChildNode(" HLS_102 : Verify Next-Previous Functionality");
 		verifyElementPresent(PWAPremiumPage.objNextArrowBtn, "Next Arrow Button");
 		JSClick(PWAPremiumPage.objNextArrowBtn, "Next Arrow Button");
@@ -17200,7 +17201,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 		JSClick(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button");
 		waitTime(3000);
-		
+
 		extent.HeaderChildNode(" HLS_101 : Verify On click More/>");
 		if (checkElementDisplayed(PWAPremiumPage.objViewAllBtn, "More Button")) {
 			JSClick(PWAPremiumPage.objViewAllBtn, "More Button");
@@ -17217,7 +17218,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitTime(2000);
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objZeeLogo1, "Zee Logo");
 		waitTime(3000);
-		
+
 		extent.HeaderChildNode("HLS_103 :Verify the Joystick icon is given on top left for all Play content card");
 		navigateToAnyScreenOnWeb("Play");
 		partialScroll();
@@ -17251,7 +17252,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		} else {
 			logger.info("Failed to navigate to Games screen");
 			extent.extentLoggerFail("", "Failed to navigate to Games screen");
-		}		
+		}
 		getWebDriver().close();
 		switchToParentWindow();
 
@@ -17260,7 +17261,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		waitTime(2000);
 		type(PWASearchPage.objSearchEditBox, "Danger Dash ", "Search Field");
 		verifyElementPresent(PWAMusicPage.objJoysticktagAtSearchedResultPage, "joystick icon");
-		
+
 		extent.HeaderChildNode(
 				"HLS_108 :Verify whether user is able to navigate to Game content from the Search result");
 		checkElementDisplayed(PWASearchPage.objFirstSearchedAssetTitle, "First search result");
@@ -22063,7 +22064,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		pagesTrayValidation(tabName);// update
 
 		extent.HeaderChildNode(" HLS_160 : Verify Next-Previous functionality");
-		//scrollDownWEB();
+		// scrollDownWEB();
 		JSClick(PWAPremiumPage.objNextArrowBtn, "Next Arrow Button");
 		waitTime(5000);
 		if (checkElementDisplayed(PWAPremiumPage.objPreviousArrowBtn, "Previous Arrow Button")) {
@@ -39324,4 +39325,78 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		}
 	}
 
+	public void streamedLiveContentOnAug21(String userType, String LiveTvContent) throws Exception {
+		extent.HeaderChildNode("Verify LiveTV content is streamed on live August 21st 2021");
+
+		String streamedDate = "21-08-2021";
+		SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyyy");
+		Date Livedate = new Date();
+		Livedate = f.parse(streamedDate);
+
+		Date ContentTVDate = new Date();
+		String contdate = f.format(ContentTVDate);
+		Date cont1date = f.parse(contdate);
+
+		click(PWAHomePage.objSearchBtn, "Search button");
+		type(PWASearchPage.objSearchEditBox, LiveTvContent, "Search edit");
+		waitForElement(PWASearchPage.objSearchedResult(LiveTvContent), 20, "Search Result");
+
+		waitTime(5000);
+		if (checkElementDisplayed(PWASearchPage.objSearchedResult(LiveTvContent), "LiveTvContent")) {
+
+			System.out.println(cont1date);
+			System.out.println(Livedate);
+
+			Boolean bool1 = cont1date.after(Livedate);
+			Boolean bool2 = cont1date.before(Livedate);
+			Boolean bool3 = cont1date.equals(Livedate);
+			if (bool1 || bool3) {
+				logger.info("The content searched is streamed live");
+				extent.extentLoggerPass("", "The content searched is streamed live,expected behaviour");
+			}
+			if (bool2) {
+				logger.info("The content searched is not streamed live");
+				extent.extentLoggerFail("", "The content searched is not streamed live");
+			}
+
+		} else {
+			logger.info("The content searched is not displayed");
+			extent.extentLoggerFail("", "The content searched is not displayed");
+		}
+
+	}
+
+	public void LiveTvContentInTrendingSearch(String userType, String LiveTVTVODContent) throws Exception {
+		extent.HeaderChildNode(
+				"Verify user is able to see Live TV TVOD contents in Top/Trending searched if featured or configured");
+		click(PWAHomePage.objSearchBtn, "Seach button");
+		waitTime(4000);
+		scrollToTheElementWEB(PWASearchPage.objTrendingSearchesTray);
+		if (checkElementDisplayed(PWASearchPage.objTrendingSearchesTray, "Treanding Searches tray") == true) {
+			ArrayList<String> TreandingSearch = new ArrayList<String>();
+			List<WebElement> ele = getWebDriver().findElements(PWALandingPages.objNumOfContentsInTray);
+			int size1 = ele.size();
+			System.out.println(size1);
+			waitTime(2000);
+			for (int i = 1; i <= size1; i++) {
+				String updatedContent = null;
+				if (!checkElementDisplayed(PWALandingPages.objContentTiltle(i), "content")) {
+					JSClick(PWALandingPages.objNextButtoninTray, "Next Arrow ");
+					waitTime(3000);
+				}
+				updatedContent = getWebDriver().findElement(PWALandingPages.objContentTiltle(i)).getText();// PWALandingPages.objContentTiltle(i)
+				waitTime(1000);
+				System.out.println(updatedContent);
+				TreandingSearch.add(updatedContent);
+				System.out.println(TreandingSearch);
+			}
+			if (TreandingSearch.contains(LiveTVTVODContent)) {
+				logger.info("user is able to see Live TV TVOD contents in Top/Trending searched");
+				extent.extentLoggerPass("", "user is able to see Live TV TVOD contents in Top/Trending searched");
+			} else {
+				logger.error("user is not able to see Live TV TVOD contents in Top/Trending searched");
+				extent.extentLoggerFail("", "user is not able to see Live TV TVOD contents in Top/Trending searched");
+			}
+		}
+	}
 }

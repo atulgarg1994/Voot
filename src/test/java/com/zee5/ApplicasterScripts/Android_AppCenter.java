@@ -19,7 +19,7 @@ public class Android_AppCenter {
 	
 	@Test(priority=0)
 	public void AppCenter() throws Exception {
-		ZEE5ApplicasterBusinessLogic.AppCenter("latest");
+		ZEE5ApplicasterBusinessLogic.AppCenter("test"," ");
 	}
 	
 	@AfterTest

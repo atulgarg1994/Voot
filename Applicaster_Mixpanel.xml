@@ -24,7 +24,7 @@
 	<parameter name="tabName" value="Movies" />
 	<parameter name="displayLanguage" value="Marathi" />
 	
-	<parameter name="pTabName" value="Home" />		<!-- Home|Shows|Movies|ZEE5 Originals|News|Premium|Live TV|Music|Eduauraa -->
+	<parameter name="pTabName" value="Home" />		<!-- Home|TV Shows|Movies|Web Series|News|Premium|Live TV|Music|Eduauraa -->
 	
 	<parameter name="keyword1" value="Jodi Hakki" />
 	<parameter name="keyword2" value="Chemistry of Kariyappa" />
@@ -61,7 +61,8 @@
 	<parameter name="keywordID4" value="0-1-manual_779smvu9cl80" />
 	<parameter name="zeeplexContent" value="TVOD Test movie 2"/>
 	<parameter name="zeeplexContentID" value="0-0-425002"/>
-	<parameter name="clipID" value="0-6-1179" />
+	<parameter name="clipID" value="0-2-1095" />
+	<parameter name="firstEpisode" value="The Hunter's Scent" />
 	
 	<parameter name="BottomNavigation" value="Downloads" />
 	<parameter name="MoreMenuOptions" value="Settings" />

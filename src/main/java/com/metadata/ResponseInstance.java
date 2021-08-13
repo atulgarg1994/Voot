@@ -6937,5 +6937,175 @@ public class ResponseInstance {
 		return contentName;
 	}
 
+	public static String getRailNameFromPage_ForThumbnailClickEvent(String pTabName, String pUserType, String eventName) {
+		String tabName = pTabName;
+		String assettype = "", pContentID = "", contentName = "", pTrayName = "", setContentType = "0";
+		String guestTrayName = "Top Free Movies";
+
+		String pContentLang = getContentLanguageForAppMixpanel(pUserType);
+		System.out.println("CONTENT LANGUAGES: " + pContentLang);
+
+		resp = ResponseInstance.getResponseForAppPages(tabName, pContentLang, pUserType);
+
+		if (tabName.equalsIgnoreCase("premium")) {
+			setContentType = "8";
+		} else if (tabName.equalsIgnoreCase("Live TV") || tabName.equalsIgnoreCase("livetv")) {
+			setContentType = "9";
+		} else if (tabName.equalsIgnoreCase("Web Series")) {
+			setContentType = "6";
+		}
+
+		if (tabName.equalsIgnoreCase("live tv") || tabName.equalsIgnoreCase("livetv")) {
+			int totalCollection = resp.jsonPath().getList("items").size();
+			for (int i = 0; i < totalCollection; i++) {
+				int totalItems = resp.jsonPath().getList("items[" + i + "].items").size();
+				if (totalItems > 0) {
+					assettype = resp.jsonPath().get("items[" + i + "].items[0].asset_type").toString();
+					pTrayName = resp.jsonPath().get("items[" + i + "].title").toString();
+					if (assettype.equals(setContentType)) {
+						pContentID = resp.jsonPath().get("items[" + i + "].items[0].id").toString();
+						contentName = resp.jsonPath().get("items[" + i + "].items[0].title").toString();
+
+						System.out.println("\nTrayName: " + pTrayName);
+						System.out.println("ContentID: " + pContentID);
+						System.out.println("ContentName: " + contentName);
+						break;
+					}
+				}
+			}
+		} else if (tabName.equalsIgnoreCase("premium") || tabName.equalsIgnoreCase("Web Series")) {
+			String assetsubType = null;
+			for (int i = 1; i < 5; i++) {
+				if (tabName.equalsIgnoreCase("premium")) {
+					assettype = resp.jsonPath().get("buckets[" + i + "].asset_type").toString();
+				} else {
+					assettype = resp.jsonPath().get("buckets[" + i + "].items[0].asset_type").toString();
+				}
+				pTrayName = resp.jsonPath().get("buckets[" + i + "].title").toString();
+				
+				if (assettype.equals(setContentType)) {
+					pContentID = resp.jsonPath().get("buckets[" + i + "].items[0].id").toString();
+					contentName = resp.jsonPath().get("buckets[" + i + "].items[0].title").toString();
+					assetsubType = resp.jsonPath().get("buckets[" + i + "].items[0].asset_subtype").toString();
+					System.out.println(assetSubType);
+					System.out.println("\nTrayName: " + pTrayName);
+					System.out.println("ContentID: " + pContentID);
+					System.out.println("ContentName: " + contentName);
+					break;
+				}
+			}
+			
+			Response contentResp = null;
+			int seasonCount= 0;
+			if(assetsubType.equalsIgnoreCase("original") && (!eventName.equalsIgnoreCase("Thumbnail Click"))){
+				contentResp = getContentDetails(pContentID, "original");
+				seasonCount = contentResp.jsonPath().getList("seasons").size();
+				System.out.println("seasonCount: "+seasonCount);
+			}
+			
+			if (pUserType.equalsIgnoreCase("guest") && tabName.equalsIgnoreCase("Web Series") && (seasonCount > 1)) {
+				pContentID = contentResp.jsonPath().get("seasons[0].episodes[0].id");
+			} else if (pUserType.equalsIgnoreCase("guest") && (seasonCount > 1)) {
+				pContentID = contentResp.jsonPath().get("seasons[0].trailers[0].id");
+			} else if (seasonCount != 0) {
+				pContentID = contentResp.jsonPath().get("seasons[0].episodes[0].id");
+			} else {
+				System.out.println("\nNO EPISODES...");
+			}
+
+		} else if (tabName.equalsIgnoreCase("home")) {
+			boolean freeContentCard = false;
+			for (int i = 1; i < 5; i++) {
+				pTrayName = resp.jsonPath().get("buckets[" + i + "].title").toString();
+				System.out.println(pTrayName);
+				if (pTrayName.contains(guestTrayName)) {
+					freeContentCard = true;
+					int totalItems = resp.jsonPath().getList("buckets[" + i + "].items").size();
+					if (totalItems > 0) {
+						pContentID = resp.jsonPath().get("buckets[" + i + "].items[0].id").toString();
+						contentName = resp.jsonPath().get("buckets[" + i + "].items[0].title").toString();
+
+						System.out.println("\nTrayName: " + pTrayName);
+						System.out.println("ContentID: " + pContentID);
+						System.out.println("ContentName: " + contentName);
+						break;
+					}
+				}
+			}
+			if (!freeContentCard) {
+				for (int i = 1; i < 5; i++) {
+					assettype = resp.jsonPath().get("buckets[" + i + "].items[0].asset_type").toString();
+					pTrayName = resp.jsonPath().get("buckets[" + i + "].title").toString();
+					if (assettype.equals("0") || assettype.equals("1")) {
+						pContentID = resp.jsonPath().get("buckets[" + i + "].items[0].id").toString();
+						contentName = resp.jsonPath().get("buckets[" + i + "].items[0].title").toString();
+
+						System.out.println("\nTrayName: " + pTrayName);
+						System.out.println("ContentID: " + pContentID);
+						System.out.println("ContentName: " + contentName);
+						break;
+					}
+				}
+			}
+		} else if (pUserType.equalsIgnoreCase("Guest") && tabName.equalsIgnoreCase("movies")) {
+			boolean freeContentCard = false;
+			for (int i = 1; i < 5; i++) {
+				pTrayName = resp.jsonPath().get("buckets[" + i + "].title").toString();
+				System.out.println(pTrayName);
+				if (pTrayName.contains(guestTrayName)) {
+					freeContentCard = true;
+					int totalItems = resp.jsonPath().getList("buckets[" + i + "].items").size();
+					if (totalItems > 0) {
+						pContentID = resp.jsonPath().get("buckets[" + i + "].items[0].id").toString();
+						contentName = resp.jsonPath().get("buckets[" + i + "].items[0].title").toString();
+
+						System.out.println("\nTrayName: " + pTrayName);
+						System.out.println("ContentID: " + pContentID);
+						System.out.println("ContentName: " + contentName);
+						break;
+					}
+				}
+			}
+			if (!freeContentCard) {
+				for (int i = 1; i < 5; i++) {
+					assettype = resp.jsonPath().get("buckets[" + i + "].items[0].asset_type").toString();
+					pTrayName = resp.jsonPath().get("buckets[" + i + "].title").toString();
+					if (assettype.equals("0") || assettype.equals("1")) {
+						pContentID = resp.jsonPath().get("buckets[" + i + "].items[0].id").toString();
+						contentName = resp.jsonPath().get("buckets[" + i + "].items[0].title").toString();
+
+						System.out.println("\nTrayName: " + pTrayName);
+						System.out.println("ContentID: " + pContentID);
+						System.out.println("ContentName: " + contentName);
+						break;
+					}
+				}
+			}
+		} else {
+			for (int i = 1; i < 5; i++) {
+				assettype = resp.jsonPath().get("buckets[" + i + "].items[0].asset_type").toString();
+				pTrayName = resp.jsonPath().get("buckets[" + i + "].title").toString();
+				if (assettype.equals("0") || assettype.equals("1")) {
+					pContentID = resp.jsonPath().get("buckets[" + i + "].items[0].id").toString();
+					contentName = resp.jsonPath().get("buckets[" + i + "].items[0].title").toString();
+
+					System.out.println("\nTrayName: " + pTrayName);
+					System.out.println("ContentID: " + pContentID);
+					System.out.println("ContentName: " + contentName);
+					break;
+				}
+			}
+		}
+		switch (tabName.toLowerCase()) {
+		case "live tv":
+			setFEPropertyOfLIVETVCardDetails(pTrayName, pContentID);
+			break;
+
+		default:
+			setFEPropertyOfContentCardDetails(pTrayName, pContentID);
+			break;
+		}
+		return pTrayName;
+	}
 	
 }

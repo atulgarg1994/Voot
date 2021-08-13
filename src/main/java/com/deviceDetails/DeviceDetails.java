@@ -1,6 +1,7 @@
 package com.deviceDetails;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -197,7 +198,9 @@ public class DeviceDetails {
 	}
 	
 	public static void main(String[] args) {
-		getListOfDevicesConnected1();
+//		getListOfDevicesConnected1();
+//		appSize();
+		Test();
 	}
 	
 	
@@ -213,5 +216,38 @@ public class DeviceDetails {
 			e.printStackTrace();
 		}
 		getTheOSVersion();
+	}
+	
+	@SuppressWarnings("unused")
+	public static void appSize() {
+		String cmd = "adb shell pm path com.graymatrix.did";
+		Process process;
+		String pathAPK = null;
+		String SizeAfterInstalling = null;
+		try {
+			process = Runtime.getRuntime().exec(cmd);
+			BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			pathAPK = br.readLine().replaceAll("package:", "");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println(pathAPK);
+		String cmd1 = "adb shell stat "+pathAPK+" |grep Size";
+		Process p1;
+		try {
+			p1 = Runtime.getRuntime().exec(cmd1);
+			BufferedReader br = new BufferedReader(new InputStreamReader(p1.getInputStream()));
+			SizeAfterInstalling = br.readLine().split("	")[0];
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void Test() {
+		File f = new File("news.easynews.com.newsrc");
+		System.out.println(f.length());
+		System.out.println((f.length()) + " Mb");
+		long MEGABYTE = 1024L * 1024L;
+		System.out.println(f.length() / MEGABYTE);
 	}
 }

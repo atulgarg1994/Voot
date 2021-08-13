@@ -238,4 +238,15 @@ public class PWALandingPages {
 	public static By objContinueWatchingCard (int i) {
 		return By.xpath("(//*[contains(@class,'removeBtn iconInitialLoad-ic_close')])["+i+"]//parent::*//a");
 	}
+	
+	public static By objNumOfContentsInTray=By.xpath("//div[@class='slick-slider latestEpisodeTray slick-initialized']//div[@class='slick-track']/child::*");
+
+	public static By objContentsInTray(int i) {
+			return By.xpath("(//div[@class='slick-slider latestEpisodeTray slick-initialized']//div[@class='slick-track']/child::*)["+i+"]");
+		}
+	public static By objContentTiltle(int i) {
+			return By.xpath("(//div[@class='slick-slider latestEpisodeTray slick-initialized']//div[@class='slick-track']/child::*//h3[@class='cardTitle'])["+i+"]");
+		}
+
+	public static By objNextButtoninTray = By.xpath("//*[contains(text(),'Trending Searches')]//ancestor::div[@class='trayHeader']//following-sibling::div//button[@class='slick-arrow slick-next']");
 }

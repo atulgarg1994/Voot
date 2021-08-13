@@ -20,16 +20,27 @@ public class AndroidMixpanel_ThumbnailClick {
 	@Test(priority = 0)
 	@Parameters({ "userType" })
 	public void AndroidAppMixPanelLogin(String userType) throws Exception {
-		Zee5ApplicasterMixPanelBusinessLogic.navigateToHomeScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
 		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
 	}
 	
 	@Test(priority = 1)
 	@Parameters({"userType","pTabName"})
-	public void VerifyThumbnailClickEvent(String userType,String pTabName) throws Exception {
-		Zee5ApplicasterMixPanelBusinessLogic.JourneyToThumbnailClickEvent(userType,pTabName);
-		Zee5ApplicasterMixPanelBusinessLogic.EventValidation(userType, "Thumbnail Click","Homepage","More");
+	public void VerifyThumbnailClickEvent_LandingPage(String userType,String pTabName) throws Exception {
+		Zee5ApplicasterMixPanelBusinessLogic.ThumbnailClickEventValidationFromLandingPage(userType,pTabName);
 	}
+	
+	@Test(priority = 2)
+	@Parameters({"userType","clipContent", "clipID", "clipContentID"})
+	public void VerifyThumbnailClickEvent_ConsumptionPage(String userType,String clipContent, String clipID, String clipContentID) throws Exception {
+		System.out.println("Thumbnail Click event through consumption page rail");
+		Zee5ApplicasterMixPanelBusinessLogic.relaunch(true);
+		Zee5ApplicasterMixPanelBusinessLogic.navigateToIntroScreen_DisplaylangScreen();
+		Zee5ApplicasterMixPanelBusinessLogic.ZeeApplicasterLogin(userType);
+		Zee5ApplicasterMixPanelBusinessLogic.ThumbnailClickEventValidationFromConsumptionPage(userType,  clipContent, clipID, clipContentID);
+	}
+	
+	
 	
 	@AfterTest
 	public void tearDownApp() {

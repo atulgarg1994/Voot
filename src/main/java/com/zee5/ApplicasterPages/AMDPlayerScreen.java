@@ -231,6 +231,9 @@ public class AMDPlayerScreen {
 	
 	public static By objAd = By.xpath("(//*[contains(text(),'Ad :')]) | (//*[contains(text(),'Ad 1 of 2 :')]) | (//*[contains(text(),'Ad 2 of 2 :')])  | //*[@content-desc='Learn More']");
 	
+	public static By objAudioLanguage = By.xpath("//*[@id='audio_language_textView']");
+	
+	public static By objAudioLanguageOption = By.xpath("(//*[@id='playerOptionTitle'])[1]");
 
 }
 
