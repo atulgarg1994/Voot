@@ -1,9 +1,12 @@
 package com.driverInstance;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebElement;
@@ -96,11 +99,20 @@ public class DriverInstance extends Drivertools {
 		return capabilities;
 	}
 	
-	private void installAPK() {
+	private void installAPK(String build) {
+		String apkName = null;
+		if(build.equals("Latest") || build.equals("BuildVersion")) {
+		DownloadApp();
 		String dir = System.getProperty("user.dir") + "\\APK\\";
+		File file = new File(dir);
+		file.mkdir();
+		File filesList[] = file.listFiles();
+		 for(File fileName : filesList) {
+			 apkName = fileName.getName();
+		 }
 		switch(getApk()) {
 		case "CleverTap":
-			capabilities.setCapability(MobileCapabilityType.APP, dir+"clevertap.apk");
+			capabilities.setCapability(MobileCapabilityType.APP, dir+apkName);
 			break;
 		case "AppsFlyer":
 //			capabilities.setCapability(MobileCapabilityType.APP, dir+"");
@@ -115,6 +127,7 @@ public class DriverInstance extends Drivertools {
 			capabilities.setCapability(MobileCapabilityType.APP, dir+"mixpanel.apk");
 			break;
 		}
+	  }
 	}
 
 	/**
@@ -142,16 +155,19 @@ public class DriverInstance extends Drivertools {
 //			options.addArguments("--window-size=1616, 876");
 			options.setPageLoadStrategy(PageLoadStrategy.EAGER);
 			tlWebDriver.set(new ChromeDriver(options));
-		}
-
+		}else if (browserName.equalsIgnoreCase("ChromeNormal")) {
+			WebDriverManager.chromedriver().version(getDriverVersion()).setup();
+			ChromeOptions options = new ChromeOptions();
+			options.addArguments("start-maximized");
+			options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
+			tlWebDriver.set(new ChromeDriver(options));
+		} 
 		else if (browserName.equalsIgnoreCase("IE")) {
 			tlWebDriver.set(new InternetExplorerDriver());
 		}
-
 		else if (browserName.equalsIgnoreCase("MSEdge")) {
 			tlWebDriver.set(new EdgeDriver());
 		}
-
 		tlWebDriver.get().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		tlWebDriver.get().get(getURL());
 		tlWebDriver.get().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -170,6 +186,23 @@ public class DriverInstance extends Drivertools {
 			Runtime.getRuntime().exec(cmd2);
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public static void DownloadApp() {
+		WebDriverManager.chromedriver().version(getDriverVersion()).setup();
+	    Map<String, Object> prefs = new HashMap<String, Object>();
+	    prefs.put("download.default_directory",System.getProperty("user.dir") + File.separator + "AppsflyerReport");
+	    ChromeOptions options = new ChromeOptions();
+	    options.setExperimentalOption("prefs", prefs);
+	    tlWebDriver.set(new ChromeDriver(options));
+	    Utilities util = new Utilities();
+		util.initDriver();
+		try {
+		DownloadAPPFromAPPCenter DAFAC = new DownloadAPPFromAPPCenter();
+		DAFAC.AppCenter("","");
+		}catch(Exception e) {
+			
 		}
 	}
 }

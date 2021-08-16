@@ -132,5 +132,23 @@
 		</classes>
 	</test> 
 	
+	<test name="WebPWASanityScript">
+		<classes>
+			<class name="com.zee5.PWASanityScripts.WebPWASanityScript" />
+		</classes>
+	</test> 
+	
+	<test name="WebPWAInSprintScript">
+	  	<groups>
+            <run>
+            	<include name = "required_setup"></include>
+              	<include name = "sprint77"></include>
+            </run>
+        </groups>  
+		<classes>
+			<class name="com.zee5.PWASanityScripts.WebPWAInSprintScript" />
+		</classes>
+	</test> 
+	
 	
 </suite>

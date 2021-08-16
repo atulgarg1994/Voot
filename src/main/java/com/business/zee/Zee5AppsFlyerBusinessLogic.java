@@ -16,6 +16,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import com.appsflyerValidation.AppsFlyer;
 import com.driverInstance.CommandBase;
+import com.driverInstance.DriverInstance;
 import com.extent.ExtentReporter;
 import com.metadata.ResponseInstance;
 import com.propertyfilereader.PropertyFileReader;
@@ -215,7 +216,7 @@ public class Zee5AppsFlyerBusinessLogic extends Utilities{
 		
       // Setting chrome driver path
 //    System.setProperty("webdriver.chrome.driver", "./exefiles/chromedriver.exe");
- 	WebDriverManager.chromedriver().version("90.0.4430.24").setup();
+ 	WebDriverManager.chromedriver().version(DriverInstance.getDriverVersion()).setup();
     // Setting new download directory path
     Map<String, Object> prefs = new HashMap<String, Object>();
     // Use File.separator as it will work on any OS

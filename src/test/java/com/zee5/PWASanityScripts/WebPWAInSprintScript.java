@@ -56,7 +56,7 @@ public class WebPWAInSprintScript {
 	@Test(priority=6, groups = {"sprint74"})
 	@Parameters({ "userType" })
 	public void Sprint74and75_PWA2_8755(String userType) throws Exception {
-		//Zee5WEBPWASanityBusinessLogic.contentDiscriptorVerification(userType);
+		Zee5WEBPWASanityBusinessLogic.contentDiscriptorVerification(userType);
 		String xlsname="cd_contents.xlsx"; //name of excel in project folder
 		String[] sheets= {"Movie","Shows","Video"}; //sheets in the excel
 		Zee5WEBPWASanityBusinessLogic.contentDiscriptorVerificationFromExcel(userType,xlsname,sheets);
@@ -1208,6 +1208,8 @@ public class WebPWAInSprintScript {
 	public void VerifyInWatchListForVideoTVODConsumptionAnypacklessThan499withSupermoonActive(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.VerifyInWatchListForVideoTVODConsumptionAnypacklessThan499withSupermoonActive(userType , "Videoname");;
 	}
+	
+	
 	
 	
 	@AfterClass

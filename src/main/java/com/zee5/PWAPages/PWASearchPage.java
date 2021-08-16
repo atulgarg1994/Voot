@@ -382,6 +382,6 @@ public class PWASearchPage {
 	}
 	
 	public static By objSearchResultTxt(String title,String meta){
-		return By.xpath("(//*[\""+meta+"\"]//parent::div[contains(@class,'dateTime ')]//preceding-sibling::div[@class='metaData']//*[\""+title+"\"]//ancestor::div[@class='listingGrid']//div[@class='btnText'])[1]");
+		return By.xpath("(//*[\""+meta+"\"]//parent::div[contains(@class,'dateTime ')]//preceding-sibling::div[@class='metaData']//*[\""+title+"\"]//ancestor::div[@class='listingGrid']//a)[1]");
 	}
 }
