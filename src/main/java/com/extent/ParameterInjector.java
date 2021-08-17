@@ -152,6 +152,12 @@ public class ParameterInjector implements IAlterSuiteListener {
 			//Logged in Non subscribed , Premium user , Regional User with Plan Price less than Combo offer with active  Supermoon
 			params.put("anyPackLessThen499withSupermoonUser", suite.getParameter("anyPackLessThen499withSupermoonUser"));
 			params.put("anyPackLessThen499withSupermoonPassword", suite.getParameter("anyPackLessThen499withSupermoonPassword"));
+			//749
+			params.put("SubscribedUserName749", suite.getParameter("SubscribedUserName749"));
+			params.put("SubscribedPassword749", suite.getParameter("SubscribedPassword749"));
+			//599
+			params.put("SubscribedUserName599", suite.getParameter("SubscribedUserName599"));
+			params.put("SubscribedPassword599", suite.getParameter("SubscribedPassword599"));
 			
 		}
 		if (region.equals("MH")) {
@@ -245,7 +251,12 @@ public class ParameterInjector implements IAlterSuiteListener {
 			//Logged in Non subscribed , Premium user , Regional User with Plan Price less than Combo offer with active  Supermoon
 			params.put("anyPackLessThen499withSupermoonUser", suite.getParameter("anyPackLessThen499withSupermoonUser"));
 			params.put("anyPackLessThen499withSupermoonPassword", suite.getParameter("anyPackLessThen499withSupermoonPassword"));
-			
+			//749
+			params.put("SubscribedUserName749", suite.getParameter("SubscribedUserName749"));
+			params.put("SubscribedPassword749", suite.getParameter("SubscribedPassword749"));
+			//599
+			params.put("SubscribedUserName599", suite.getParameter("SubscribedUserName599"));
+			params.put("SubscribedPassword599", suite.getParameter("SubscribedPassword599"));
 		}
 		suite.setParameters(params);
 	}

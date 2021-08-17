@@ -247,5 +247,9 @@ public class PWAComboOfferPage {
 	public static By objLiveTVTvodAd=By.xpath("");
 	
 	public static By objplexlogoOnCard=By.xpath("");
+	
+	public static By objLoading=By.xpath("");
+	public static By objPackDetails=By.xpath("//*[@class='packDetails pack ']");
+
 
 }

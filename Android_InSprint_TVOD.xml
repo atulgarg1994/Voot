@@ -79,7 +79,7 @@
 	<parameter name="searchKeyword10" value="Vikrant and Aarati reconcile - Gattimela" />
 	<parameter name="searchKeyword11" value="Paarvathi writes a love letter to Aditya - Paaru" />
 
-	<parameter name="tabName1" value="Home" />
+	<parameter name="tabName1" value="Music" />
 	<parameter name="tabName2" value="Movies" />
 	<parameter name="tabName3" value="ZEE5 Originals" />
 	<parameter name="tabName4" value="Live TV" />
@@ -161,8 +161,8 @@
 	<parameter name="RSVOD49PackEmail" value="49rsvod@yopmail.com" />
 	<parameter name="RSVOD49PackPwd" value="welcome" />
 	
-	<parameter name="299PremiumPackEmail" value="zeetest6@g.com" />
-	<parameter name="RSVOD499PackEmail" value="rsvodkannada1@gmail.com" />
+	<parameter name="299PremiumPackEmail" value="dc1cl@mailnesia.com" />
+	<parameter name="RSVOD499PackEmail" value="zeetest07@gmail.com" />
 	
 	<parameter name="SubsUserWithRadheRentalPlan" value="sanaraj.sunny@gmail.com" />
 	
@@ -171,12 +171,13 @@
 	
 	<parameter name="SubsUserWithoutRentalPlan" value="mobicheck@gmail.com" />
 	
-	<parameter name="499PremiumPackEmail" value="499subnoradhe@gmail.com" />
+	<parameter name="499PremiumPackEmail" value="juspayotp@mailnesia.com" />
+	<parameter name="499PremiumPackEmailPassword" value="111222" />
 	
 	<!-- ######  ZEEPLEX Content Names	###### -->
-	<parameter name="RentalContentName1" value="Radhe - Your Most Wanted Bhai" />
+	<parameter name="RentalContentName1" value="Demo Moon Live" />
 	<parameter name="RentalContentName2" value="Mard Ki Zubaan" />
-	<parameter name="RentalContentName3" value="Radhe - Your Most Wanted Bhai" />
+	<parameter name="RentalContentName3" value="Demo Moon Live" />
 	<parameter name="RentalContentName4" value="Passport" />
 	
 	<!-- ######  Deeplinking URL ######	 -->
@@ -193,12 +194,20 @@
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
 
-	<test name="Android_TVOD_ComboOffer">
+<!-- 	<test name="Android_TVOD_ComboOffer">
 		<classes>
 			<class
 				name="com.zee5.ApplicasterScripts.Android_TVOD_ComboOffer" />
 		</classes>
+	</test> -->
+
+   <test name="Android_TVOD_Supermoon">
+		<classes>
+			<class
+				name="com.zee5.ApplicasterScripts.Android_TVOD_Supermoon" />
+		</classes>
 	</test>
+
 
  
 </suite>

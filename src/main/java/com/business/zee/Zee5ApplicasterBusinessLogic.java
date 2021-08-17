@@ -37661,6 +37661,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 	}
 	
-	
+	public void NonSubscribed_withoutSupermoon(String tabName, String contentTitle) throws Exception {
+		validationOfCarousalAndConsumptionPageForComboOfferContent(tabName, contentTitle);
+		ValidationOfcomboOfferPageAndPaymentPage("Pay less, Watch more!", "Buy Radhe Combo");
+	}
 	
 }

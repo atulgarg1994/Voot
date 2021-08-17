@@ -1046,4 +1046,6 @@ public class PWAHamburgerMenuPage {
 	public static By objAuthenticationTDesc = By.xpath("//p[contains(@class,'pageDesc')]");
 	
 	public static By objzeeplex=By.xpath("//*[.='My Rentals']");
+	
+	public static By objSearchThroughTitle=By.xpath("(//*[contains(@class,'highLight')])[1]");
 }

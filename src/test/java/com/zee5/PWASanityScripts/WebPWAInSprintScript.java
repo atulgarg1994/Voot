@@ -1209,7 +1209,308 @@ public class WebPWAInSprintScript {
 		Zee5WEBPWASanityBusinessLogic.VerifyInWatchListForVideoTVODConsumptionAnypacklessThan499withSupermoonActive(userType , "Videoname");;
 	}
 	
+	@Test(priority=190, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void VerifyPreRollAdForLiveTVODContentAnypacklessThan499withSupermoonActive(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.VerifyPreRollAdForLiveTVODContentAnypacklessThan499withSupermoonActive(userType , "LiveTvod");
+	}
 	
+	@Test(priority=191, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void NoComboOfferWidgetBelowThePlayerAnypacklessThan499withSupermoonActive(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.NoComboOfferWidgetBelowThePlayerAnypacklessThan499withSupermoonActive(userType);
+	}
+	
+	@Test(priority=192, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void PreAndMidRollAdsForExclusiveVODContentAnypacklessThan499withSupermoonActive(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.PreAndMidRollAdsForExclusiveVODContentAnypacklessThan499withSupermoonActive(userType , "Videoname");
+	}
+	
+	
+	@Test(priority=193, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void PostRollAdsForExclusiveVODContentAnypacklessThan499withSupermoonActive(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.PostRollAdsForExclusiveVODContentAnypacklessThan499withSupermoonActive(userType , "Videoname");
+	}
+	
+	@Test(priority=194, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void noAdsForSVODContentExceptLiveTVODContent(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.noAdsForSVODContentExceptLiveTVODContent(userType , "SVodContent" , "LivevodContent");
+	}
+	
+	@Test(priority=195, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void noAdsForSVODContentExceptVideoTVODContent(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.noAdsForSVODContentExceptVideoTVODContent(userType , "SVodContent" , "LivevodContent");
+	}
+	
+	@Test(priority=196, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void playAndPauseForLiveTvTVODContentAnypacklessThan499withSupermoonActive(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.playAndPauseForLiveTvTVODContentAnypacklessThan499withSupermoonActive(userType , "LivevodContent");
+	}
+	
+	@Test(priority=197, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void noPlayerFunctionalityForLiveTVContentAnypacklessThan499withSupermoonActive(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.noPlayerFunctionalityForLiveTVContentAnypacklessThan499withSupermoonActive(userType , "LivevodContent");
+	}
+	
+	
+	@Test(priority=198, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void verifyLiveTvTagForLiveTVContentAnypacklessThan499withSupermoonActive(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.verifyLiveTvTagForLiveTVContentAnypacklessThan499withSupermoonActive(userType , "LivevodContent");
+	}
+	
+	@Test(priority=199, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void VerifyPlayerControlsForVideoTVODConsumptionAnypacklessThan499withSupermoonActive(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.VerifyPlayerControlsForVideoTVODConsumptionAnypacklessThan499withSupermoonActive(userType , "Videoname");;
+	}
+	
+	@Test(priority=200, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void noAdsForSubscribedUsersForPremiumContents(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.noAdsForSubscribedUsersForPremiumContents(userType , "Premiumcontent");;
+	}
+	
+	@Test(priority=201, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void VerifyChromeCastForVideoTVODorLiveTv(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.VerifyChromeCastForVideoTVODorLiveTv(userType , "TVODContent");
+	}
+	
+	@Test(priority=202, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void noAutoRenewalStatusForSupermoonConentTVODLogin(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.noAutoRenewalStatusForSupermoonConentTVODLogin(userType );
+	}
+	
+	
+	@Test(priority=203, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void VerifyBuySupermoonComboForNonSub(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.VerifyBuySupermoonComboForNonSub(userType , "ZEEPLEX");
+	}
+	
+	@Test(priority=204, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void VerifyForNonSubuserRentShow(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.VerifyForNonSubuserRentShow(userType , "ZEEPLEX");;
+	}
+	@Test(priority=205, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void paymentModeScreenAfterClickOnBuySupermoonCTA(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.paymentModeScreenAfterClickOnBuySupermoonCTA(userType , "ZEEPLEX");;
+	}
+	
+	@Test(priority=206, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void paymentModeScreenAfterClickOnRentMovie(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.paymentModeScreenAfterClickOnRentMovie(userType , "ZEEPLEX");
+	}
+	
+	@Test(priority=207, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void noPlexLogoForSearchedLiveTVTvodResult(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.noPlexLogoForSearchedLiveTVTvodResult(userType , "LiveTvodContent");
+	}
+	
+	
+	@Test(priority=208, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void streamedLiveContentOnAug21(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.streamedLiveContentOnAug21(userType , "LiveTvodContent");
+	}
+	
+	@Test(priority=209, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void SupermoonPlanAmount(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.SupermoonPlanAmount(userType );
+	}
+	
+	@Test(priority=210, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void SuperMoonContentInSearchResult(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.SuperMoonContentInSearchResult(userType);;
+	}
+	
+	@Test(priority=211, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void SuperMoonContentInZeeplex(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.SuperMoonContentInZeeplex(userType);
+	}
+	
+	@Test(priority=212, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void SuperMoonExclusiveContentInSearchResult(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.SuperMoonExclusiveContentInSearchResult(userType );
+	}
+	
+	
+	@Test(priority=213, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void ComboofferPageUI(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.ComboofferPageUI(userType);
+	}
+	
+	@Test(priority=214, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void UpgradeToSupermoonPack(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.UpgradeToSupermoonPack(userType);;
+	}
+	
+	@Test(priority=215, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void LoadingInSubscription(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.LoadingInSubscription(userType);;
+	}
+	
+	@Test(priority=216, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void ComboOfferPageThroughSearchResult(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.ComboOfferPageThroughSearchResult(userType);
+	}
+	
+	@Test(priority=217, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void YouHaveItAll(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.YouHaveItAll(userType );
+	}
+	
+	
+	@Test(priority=218, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void Upgradetocomboofferbyjustpayingthedifference(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.Upgradetocomboofferbyjustpayingthedifference(userType);
+	}
+	
+	@Test(priority=219, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void upgradePopup(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.upgradePopup(userType);;
+	}
+	
+	@Test(priority=220, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void BackButtonInUpgradePopup(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.BackButtonInUpgradePopup(userType);;
+	}
+	
+	@Test(priority=221, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void UpgradeCTA(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.UpgradeCTA(userType);
+	}
+	
+	@Test(priority=222, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void PaymentPageThroughOnlyRentmovie(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.PaymentPageThroughOnlyRentmovie(userType );
+	}
+	
+	
+	@Test(priority=223, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void SubscriptionPage(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.SubscriptionPage(userType );
+	}
+	
+	@Test(priority=224, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void PaymentPage(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.PaymentPage(userType);;
+	}
+	
+	@Test(priority=225, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void AccountinfoPage(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.AccountinfoPage(userType);;
+	}
+	
+	@Test(priority=226, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void AccountinfoPageThroughtRentOnlyMovie(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.AccountinfoPageThroughtRentOnlyMovie(userType);
+	}
+	
+	@Test(priority=227, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void PaymentMode(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.PaymentMode(userType);
+	}
+	
+	
+	@Test(priority=228, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void RsvodComboScreenAsPerVD(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.RsvodComboScreenAsPerVD(userType );
+	}
+	
+	@Test(priority=229, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void NonSubscribedUserComboScreenAsPerVD(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.NonSubscribedUserComboScreenAsPerVD(userType);;
+	}
+	
+	@Test(priority=230, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void PackDetails(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.PackDetails(userType);
+	}
+	
+	@Test(priority=231, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void PaymentFailurePopup(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.PaymentFailurePopup(userType);
+	}
+	
+	@Test(priority=232, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void ComboOfferPageFor299User(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.ComboOfferPageFor299User(userType );
+	}
+	
+	
+	@Test(priority=233, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void SupermoonPoster(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.SupermoonPoster(userType );
+	}
+	
+	@Test(priority=234, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void PaymentPageThroughOnlyRentmovie499(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.PaymentPageThroughOnlyRentmovie499(userType);
+	}
+	
+	@Test(priority=235, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void upgradePopup499(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.upgradePopup499(userType);
+	}
+	
+	@Test(priority=236, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void BackButtonInUpgradePopup499(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.BackButtonInUpgradePopup499(userType);
+	}
+	
+	@Test(priority=237, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void UpgradeCTA499(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.UpgradeCTA499(userType);
+	}
+	
+	
+	@Test(priority=238, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void PackDetails499(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.PackDetails499(userType);
+	}
 	
 	
 	@AfterClass
