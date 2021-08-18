@@ -13,6 +13,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.Reporter;
 import org.testng.SkipException;
 import com.propertyfilereader.PropertyFileReader;
 import com.utility.Utilities;
@@ -89,7 +90,8 @@ public class DriverInstance extends Drivertools {
 			return capabilities;
 		}
 //		logger.info("APK INSTALLED..");
-//		installAPK();
+//		String buildChoice = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("Build");
+//		installAPK(buildChoice);
 		capabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, getAppPackage());
 		capabilities.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, getappActivity());
 		if (Utilities.relaunch) {
@@ -102,7 +104,7 @@ public class DriverInstance extends Drivertools {
 	private void installAPK(String build) {
 		String apkName = null;
 		if(build.equals("Latest") || build.equals("BuildVersion")) {
-		DownloadApp();
+		DownloadApp(build);
 		String dir = System.getProperty("user.dir") + "\\APK\\";
 		File file = new File(dir);
 		file.mkdir();
@@ -110,6 +112,7 @@ public class DriverInstance extends Drivertools {
 		 for(File fileName : filesList) {
 			 apkName = fileName.getName();
 		 }
+		 capabilities.setCapability(MobileCapabilityType.APP, dir+apkName);
 		switch(getApk()) {
 		case "CleverTap":
 			capabilities.setCapability(MobileCapabilityType.APP, dir+apkName);
@@ -189,10 +192,12 @@ public class DriverInstance extends Drivertools {
 		}
 	}
 	
-	public static void DownloadApp() {
+	public static void DownloadApp(String build) {
+		File file = new File(System.getProperty("user.dir") + File.separator + "Apk");
+		file.mkdir();
 		WebDriverManager.chromedriver().version(getDriverVersion()).setup();
 	    Map<String, Object> prefs = new HashMap<String, Object>();
-	    prefs.put("download.default_directory",System.getProperty("user.dir") + File.separator + "AppsflyerReport");
+	    prefs.put("download.default_directory",System.getProperty("user.dir") + File.separator + "Apk");
 	    ChromeOptions options = new ChromeOptions();
 	    options.setExperimentalOption("prefs", prefs);
 	    tlWebDriver.set(new ChromeDriver(options));
@@ -200,7 +205,8 @@ public class DriverInstance extends Drivertools {
 		util.initDriver();
 		try {
 		DownloadAPPFromAPPCenter DAFAC = new DownloadAPPFromAPPCenter();
-		DAFAC.AppCenter("","");
+		String buildversion = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("BuildVersion");
+		DAFAC.AppCenter(build,buildversion);
 		}catch(Exception e) {
 			
 		}
