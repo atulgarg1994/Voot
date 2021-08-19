@@ -529,8 +529,6 @@ public class PWAHamburgerMenuPage {
 
 	public static By objParentalControl = By.xpath("//*[contains(text(),'Parental Control') and @class]");
 
-	public static By objAuthenticationOption = By.xpath("//*[@href='/device' and contains(text(),'Authenticate Device')]");
-
 	public static By objAuthenticationButtonHighlighted = By
 			.xpath("//button[contains(@class,'noSelect buttonGradient')]");
 
@@ -1048,4 +1046,6 @@ public class PWAHamburgerMenuPage {
 	public static By objzeeplex=By.xpath("//*[.='My Rentals']");
 	
 	public static By objSearchThroughTitle=By.xpath("(//*[contains(@class,'highLight')])[1]");
+	
+	public static By objAuthenticationOption = By.xpath("//*[@href='/device' and contains(text(),'Activate Device')]");
 }

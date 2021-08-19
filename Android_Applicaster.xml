@@ -10,6 +10,9 @@
 	<parameter name="runModule" value="Suite" />
 	<parameter name="runMode" value="Suites" /> 
 	
+	<parameter name="Build" value="BuildVersion" />
+	<parameter name="BuildVersion" value="33.027013166.0" />
+	
 	<parameter name="testExecutionKey" value="TC-25116" />
 	
 	<parameter name="url" value="https://newpwa.zee5.com/" />

@@ -29191,8 +29191,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			click(AMDDownloadPage.objvideostab, "Videos tab in Downloads landing screen");
 			if (verifyElementDisplayed(AMDDownloadPage.objBrowseToDownloadBtn)) {
 				logger.error("AMA2-17966 : Downloads are not retained, There are no contents in Videos tab");
-				extentLoggerFail("","AMA2-17966 : Downloads are not retained, There are no contents in Videos tab");
-				
+				extentLoggerFail("", "AMA2-17966 : Downloads are not retained, There are no contents in Videos tab");
+
 			} else {
 				verifyElementExist(AMDDownloadPage.objDownloadedVideoContent, "Downloaded content");
 				String DownloadedContentText = getDriver().findElement(AMDDownloadPage.objDownloadedVideoContent)
@@ -29228,7 +29228,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLogger("", "This is not applicable for " + userType);
 		}
 	}
-
 
 	public void RecentSearchedForMarketBuild(String userType) throws Exception {
 		extent.HeaderChildNode("Capture Recent search history for Market build");
@@ -33736,7 +33735,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					waitTime(2000);
 					if (verifyElementIsNotDisplayed(AMDSugarbox.objSugarboxLogo)) {
 						TurnONWifi();
-					}else {
+					} else {
 						verifyElementPresentAndClick(AMDSugarbox.objSugarboxLogo, "Logo");
 						verifyElementPresentAndClick(AMDSugarbox.objConnectToSugarBox, "ConnectToSugarBox CTA");
 						waitTime(3000);
@@ -34379,11 +34378,12 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 //			waitTime(2000);
 		boolean value = verifyElementDisplayed(loc);
 		if (value == true) {
-		click(loc, text);
-		}else
-		{
-				logger.error("[AMA2-17876] [AMD] - Device Specific - \"Restrict U/A 18+ Content\" is displayed instead of \"Restrict A 18+ Content\" option in Parental control screen");
-				extent.extentLoggerFail("","[AMA2-17876] [AMD] - Device Specific - \"Restrict U/A 18+ Content\" is displayed instead of \"Restrict A 18+ Content\" option in Parental control screen");
+			click(loc, text);
+		} else {
+			logger.error(
+					"[AMA2-17876] [AMD] - Device Specific - \"Restrict U/A 18+ Content\" is displayed instead of \"Restrict A 18+ Content\" option in Parental control screen");
+			extent.extentLoggerFail("",
+					"[AMA2-17876] [AMD] - Device Specific - \"Restrict U/A 18+ Content\" is displayed instead of \"Restrict A 18+ Content\" option in Parental control screen");
 		}
 		click(AMDMoreMenu.objContinueBtn, "Continue Button");
 		waitTime(5000);
@@ -34428,17 +34428,19 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				Back(2);
 				waitTime(5000);
 			} else {
-				
+
 				if (text.contains("Restrict A 7+ Content")) {
-					logger.error("[AMA2-17867] [AMD] - Parental Control popup fails to display on consumption screen upon playing U/A 7+ contents post Restricting U/A 7+ in parental control screen");
-					extent.extentLoggerFail("","[AMA2-17867] [AMD] - Parental Control popup fails to display on consumption screen upon playing U/A 7+ contents post Restricting U/A 7+ in parental control screen");
-				}else {
-				logger.error("Parental Pin Popup is NOT displayed for "+text);
-				extentLoggerFail("Parental Pin Popup", "Parental Pin Popup is NOT displayed for "+text);
+					logger.error(
+							"[AMA2-17867] [AMD] - Parental Control popup fails to display on consumption screen upon playing U/A 7+ contents post Restricting U/A 7+ in parental control screen");
+					extent.extentLoggerFail("",
+							"[AMA2-17867] [AMD] - Parental Control popup fails to display on consumption screen upon playing U/A 7+ contents post Restricting U/A 7+ in parental control screen");
+				} else {
+					logger.error("Parental Pin Popup is NOT displayed for " + text);
+					extentLoggerFail("Parental Pin Popup", "Parental Pin Popup is NOT displayed for " + text);
 				}
 			}
 		}
-		
+
 		if (text.contains("No Restrict Content")) {
 			boolean checkParentalPopUp = verifyElementDisplayed(AMDPlayerScreen.objParentalPinPopUp);
 			if (checkParentalPopUp) {
@@ -34654,39 +34656,39 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			System.out.println(
 					"TC_30 : Validate that new age rating is displayed as part of metadata below the player in Consumption screen for \"U\" rated content.");
 			// Verify "U" rated content
-			NewAgeRatingValidation("Saand Ki Aankh", "","U");
-			//relaunch(false);
+			NewAgeRatingValidation("Saand Ki Aankh", "", "U");
+			// relaunch(false);
 			// Verify "U/A 7+" rated content
 			extent.HeaderChildNode(
 					"TC_31 : Validate that new age rating is displayed as part of metadata below the player in Consumption screen for 'U/A 7+' rated content.");
 			System.out.println(
 					"TC_31 : Validate that new age rating is displayed as part of metadata below the player in Consumption screen for 'U/A 7+' rated content.");
-			NewAgeRatingValidation("Hero No. 1", "U/A ","7+");
-			//relaunch(false);
+			NewAgeRatingValidation("Hero No. 1", "U/A ", "7+");
+			// relaunch(false);
 			// Verify "U/A 7+" rated content
 			extent.HeaderChildNode(
 					"TC_32 : Validate that new age rating is displayed as part of metadata below the player in Consumption screen for 'U/A 13+' rated content.");
 			System.out.println(
 					"TC_32 : Validate that new age rating is displayed as part of metadata below the player in Consumption screen for 'U/A 13+' rated content.");
-			NewAgeRatingValidation("Dhoop Ki Deewar", "U/A ","13+");
-			//relaunch(false);
+			NewAgeRatingValidation("Dhoop Ki Deewar", "U/A ", "13+");
+			// relaunch(false);
 			// Verify "U" rated content
 			extent.HeaderChildNode(
 					"TC_33 : Validate that new age rating is displayed as part of metadata below the player in Consumption screen for 'U/A 16+' rated content.");
 			System.out.println(
 					"TC_33 : Validate that new age rating is displayed as part of metadata below the player in Consumption screen for 'U/A 16+' rated content.");
-			NewAgeRatingValidation("Bebaakee", "U/A ","16+");
-			//relaunch(false);
+			NewAgeRatingValidation("Bebaakee", "U/A ", "16+");
+			// relaunch(false);
 			// Verify "U/A 7+" rated content
 			extent.HeaderChildNode(
 					"TC_34 : Validate that new age rating is displayed as part of metadata below the player in Consumption screen for 'A' rated content.");
 			System.out.println(
 					"TC_34 : Validate that new age rating is displayed as part of metadata below the player in Consumption screen for 'A' rated content.");
-			NewAgeRatingValidation("Cabaret", "","A");
+			NewAgeRatingValidation("Cabaret", "", "A");
 		}
 	}
 
-	public void NewAgeRatingValidation(String Keyword,String Rating, String AgeRating) throws Exception {
+	public void NewAgeRatingValidation(String Keyword, String Rating, String AgeRating) throws Exception {
 		navigateBackToHomeLandingScreen();
 		click(AMDHomePage.objSearchBtn, "Search button");
 		waitTime(5000);
@@ -34704,20 +34706,22 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			String text = getText(AMDPlayerScreen.objcontentRating);
 
 			System.out.println("Content rating " + text);
-			String text1=Rating+AgeRating;
+			String text1 = Rating + AgeRating;
 			String text2 = "•  " + text1;
 			System.out.println(text1);
 			System.out.println(text2);
-			if (text.contains(text2)&&text.contains(AgeRating)) {
+			if (text.contains(text2) && text.contains(AgeRating)) {
 				logger.info("Content Rating  " + text + " is displayed below the player");
 				extentLoggerPass("Myprofile", "Content Rating  " + text + " is displayed below the player");
 			} else {
 				if (text.contains("7+")) {
-					logger.error("[AMA2-17861] [AMD] - \"U/A 7+\" rating is not displayed for all the kids contents instead it is displayed as \"U\"");
-					extent.extentLoggerFail("","[AMA2-17861] [AMD] - \\\"U/A 7+\\\" rating is not displayed for all the kids contents instead it is displayed as \\\"U\\\"");
-				}else {
-				logger.error("Content age Rating " + AgeRating + " does not match below the player");
-				extentLoggerFail("Rating", "Content age Rating " + AgeRating + " does not match below the player");
+					logger.error(
+							"[AMA2-17861] [AMD] - \"U/A 7+\" rating is not displayed for all the kids contents instead it is displayed as \"U\"");
+					extent.extentLoggerFail("",
+							"[AMA2-17861] [AMD] - \\\"U/A 7+\\\" rating is not displayed for all the kids contents instead it is displayed as \\\"U\\\"");
+				} else {
+					logger.error("Content age Rating " + AgeRating + " does not match below the player");
+					extentLoggerFail("Rating", "Content age Rating " + AgeRating + " does not match below the player");
 				}
 			}
 		} else {
@@ -34726,8 +34730,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 		waitTime(6000);
 	}
-	
-	
+
 	public void NewAgeRatingValidation(String Keyword, String AgeRating) throws Exception {
 		navigateBackToHomeLandingScreen();
 		click(AMDHomePage.objSearchBtn, "Search button");
@@ -35259,7 +35262,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		click(AMDHomePage.objHomeBottomBtn, "Home icon");
 		SelectTopNavigationTab("Live TV");
 		click(AMDLiveTVScreen.objLiveTVFirstContentCard, "Live Tv content");
-	//	verifyElementExist(AMDLiveTVScreen.objLiveTV, "Live toggle on Player screen");
+		// verifyElementExist(AMDLiveTVScreen.objLiveTV, "Live toggle on Player
+		// screen");
 		boolean value2 = verifyElementIsNotDisplayed(AMDPlayerScreen.objContentDescOnPlayer);
 		if (value2) {
 			logger.info("Content Descriptor is NOT displayed for Live content - Expected Behaviour");
@@ -35271,7 +35275,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		waitTime(3000);
 		Back(1);
 		click(AMDLiveTVScreen.objLiveTVFirstContentCard, "Live Tv content");
-	//	verifyElementExist(AMDLiveTVScreen.objLiveTV, "Live toggle on Player screen");
+		// verifyElementExist(AMDLiveTVScreen.objLiveTV, "Live toggle on Player
+		// screen");
 		boolean value3 = verifyElementIsNotDisplayed(AMDPlayerScreen.objAgeRatedOnPlayer);
 		if (value3) {
 			logger.info("Age Rating on Player is NOT displayed for Live content - Expected Behaviour");
@@ -35424,7 +35429,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			waitTime(2000);
 			hideKeyboard();
 			click(AMDDownloadPage.objsearchresultFirst, "Searched Show");
-			click(AMDPlayerScreen.objPlayerScreen,"Player screen");
+			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 			waitForElementDisplayed(AMDDownloadPage.objPauseIconOnPlayer, 10000);
 			if (verifyElementIsNotDisplayed(AMDPlayerScreen.objContentDescOnPlayer)) {
 				logger.info("Content Descriptor is Empty");
@@ -35704,7 +35709,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		waitTime(6000);
 		click(AMDSearchScreen.objFirstSearchResult1(searchcontent), "Search result");
 		waitTime(5000);
-		click(AMDPlayerScreen.objPlayerScreen,"Player Screen");
+		click(AMDPlayerScreen.objPlayerScreen, "Player Screen");
 		scrubProgressBarTillEnd(AMDPlayerScreen.objProgressBar);
 		waitTime(6000);
 		if (verifyElementDisplayed(AMDPlayerScreen.objAgeRatedOnPlayer)) {
@@ -35830,7 +35835,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		click(AMDPlayerScreen.objPreviousIcon, "Previous icon");
 		waitTime(5000);
-		click(AMDPlayerScreen.objPlayerScreen,"Player screen");
+		click(AMDPlayerScreen.objPlayerScreen, "Player screen");
 		if (verifyElementDisplayed(AMDPlayerScreen.objNextIcon)) {
 			logger.info("Previous Icon is Functional");
 			extent.extentLoggerPass("", "Previous Icon is Functional");
@@ -35839,7 +35844,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			extent.extentLoggerFail("", "Previous Icon is NOT Functional");
 		}
 	}
-
 
 	public void contentDescriptorShouldBeDisplayedOnThePlayerWhenVideoStartingFromTheBeginning(String userType)
 			throws Exception {
@@ -35876,20 +35880,20 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				waitTime(3000);
 				verifyElementPresentAndClick(AMDHomePage.objFirstContentCardOfTray("Continue"),
 						"Continue watching tray first Content");
-				if(verifyElementExist(AMDPlayerScreen.objAgeRatedOnPlayer, "Age Rating on Player")) {
-				boolean value = verifyElementDisplayed(AMDPlayerScreen.objContentDescOnPlayer);
-				System.out.println(value);
-				if (value) {
-					logger.info("Content Descriptor is displayed after resuming the video from Continue watching tray");
-					extentLoggerPass("",
-							"Content Descriptor is displayed after resuming the video from Continue watching tray");
-				} else {
-					logger.info(
-							"Content Descriptor is Empty");
-					extentLoggerWarning("","Content Descriptor is Empty");
+				if (verifyElementExist(AMDPlayerScreen.objAgeRatedOnPlayer, "Age Rating on Player")) {
+					boolean value = verifyElementDisplayed(AMDPlayerScreen.objContentDescOnPlayer);
+					System.out.println(value);
+					if (value) {
+						logger.info(
+								"Content Descriptor is displayed after resuming the video from Continue watching tray");
+						extentLoggerPass("",
+								"Content Descriptor is displayed after resuming the video from Continue watching tray");
+					} else {
+						logger.info("Content Descriptor is Empty");
+						extentLoggerWarning("", "Content Descriptor is Empty");
+					}
 				}
-			} 
-			}else {
+			} else {
 				logger.error("Continue watching tray is NOT displayed in Landing screen");
 				extent.extentLoggerFail("Continue watching",
 						"Continue watching tray is NOT displayed in Landing screen");
@@ -36368,7 +36372,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extentLoggerPass("Content Descriptor ", "Content Description is displayed in Landscape mode");
 			} else {
 				logger.error("[AMA2-17870] Content Description is not displayed in Landscape mode");
-				extentLoggerFail("Content Descriptor ", "[AMA2-17870] Content Description is not displayed in Landscape mode");
+				extentLoggerFail("Content Descriptor ",
+						"[AMA2-17870] Content Description is not displayed in Landscape mode");
 			}
 			waitTime(3000);
 			Back(2);
@@ -37192,7 +37197,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 	}
 
-	public void AppCenter(String build,String buildVersion) throws Exception {
+	public void AppCenter(String build, String buildVersion) throws Exception {
 		HeaderChildNode("App Center");
 		verifyElementPresentAndClick(AppCenterPage.objMicrosoft, "Microsoft");
 		type(AppCenterPage.objEmail, "ABC@igsindia.net", "Email Field");
@@ -37211,19 +37216,19 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		if (verifyElementPresent(AppCenterPage.objNoBtn, "No Icon")) {
 			click(AppCenterPage.objNoBtn, "No Icon");
 		}
-		
-		if(verifyElementPresent(AppCenterPage.objZee5AndroidHeader, "ZEE5 Android Header")) {
-			if(build.equals("latest")) {
-			click(AppCenterPage.objDownloadLatestReleaseBtn, "Dwonload button");
-			}else {
+
+		if (verifyElementPresent(AppCenterPage.objZee5AndroidHeader, "ZEE5 Android Header")) {
+			if (build.equals("latest")) {
+				click(AppCenterPage.objDownloadLatestReleaseBtn, "Dwonload button");
+			} else {
 				List<WebElement> version = findElements(AppCenterPage.objVersion);
 				List<WebElement> expend = findElements(AppCenterPage.objExpandMore);
 				int buildsVersion = version.size();
 				for (int i = 1; i < buildsVersion; i++) {
 					System.out.println(version.get(i).getText());
-					if(version.get(i).getText().contains(buildVersion)) {
+					if (version.get(i).getText().contains(buildVersion)) {
 						expend.get(i).click();
-						verifyElementPresentAndClick(AppCenterPage.objDownloadBtn,"Download button");
+						verifyElementPresentAndClick(AppCenterPage.objDownloadBtn, "Download button");
 						break;
 					}
 				}
@@ -37489,17 +37494,17 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Verification of Rails based on Content Language");
 		selectContentLang_MoreMenu_ByDeselectingEnglishKannada(contentLanguage);
 		SelectTopNavigationTab("Home");
-		
-		boolean flag=false;
-		if(contentLanguage.equalsIgnoreCase("Bengali")) {
+
+		boolean flag = false;
+		if (contentLanguage.equalsIgnoreCase("Bengali")) {
 			flag = SwipeUntilFindElement(AMDHomePage.objRailName("Bangla"), "UP");
-		}else {
+		} else {
 			flag = SwipeUntilFindElement(AMDHomePage.objRailName(contentLanguage), "UP");
 		}
-		if(flag==true) {
+		if (flag == true) {
 			logger.info("Relevent rail is displayed");
 			extent.extentLoggerPass("rails", "Relevent rail is displayed");
-		}else {
+		} else {
 			logger.error("Relevent rail is not displayed");
 			extent.extentLoggerFail("rails", "Relevent rail is not displayed");
 		}
@@ -37620,50 +37625,1460 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void verifyRailsInLangingScreen(String userType, String tabName) throws Exception {
-		extent.HeaderChildNode("Verification of Rails in Landing screen: "+tabName);
+		extent.HeaderChildNode("Verification of Rails in Landing screen: " + tabName);
 		SelectTopNavigationTab(tabName);
-		
+
 		String pContentLang = ResponseInstance.getContentLanguageForAppMixpanel(userType);
 		System.out.println("CONTENT LANG: " + pContentLang);
 
 		Response pageResp = ResponseInstance.getResponseForAppPages(tabName, pContentLang, userType);
 		pageResp.print();
-		
+
 		ArrayList<String> railNames = new ArrayList<String>();
-		
-		if(tabName.equalsIgnoreCase("Live TV")) {
-			for(int i=0; i< 20; i++) {
-				List trayItems = pageResp.jsonPath().getList("items["+i+"].items");
+
+		if (tabName.equalsIgnoreCase("Live TV")) {
+			for (int i = 0; i < 20; i++) {
+				List trayItems = pageResp.jsonPath().getList("items[" + i + "].items");
 				System.out.println(trayItems.size());
-				if(trayItems.size()>0) {
-					String title = pageResp.jsonPath().getString("items["+i+"].title");
+				if (trayItems.size() > 0) {
+					String title = pageResp.jsonPath().getString("items[" + i + "].title");
 					railNames.add(title);
 				}
-				if(railNames.size()==3) {
+				if (railNames.size() == 3) {
 					break;
 				}
 			}
 			System.out.println(railNames);
-			
-			findingTrayInscreen(20, AMDHomePage.objTrayTitle(railNames.get(0)), AMDHomePage.objTrayTitle(railNames.get(0)), railNames.get(0), "First rail", userType, tabName);
-			findingTrayInscreen(20, AMDHomePage.objTrayTitle(railNames.get(1)), AMDHomePage.objTrayTitle(railNames.get(0)), railNames.get(1), "First rail", userType, tabName);
-			findingTrayInscreen(20, AMDHomePage.objTrayTitle(railNames.get(2)), AMDHomePage.objTrayTitle(railNames.get(0)), railNames.get(2), "First rail", userType, tabName);
-		}else {
-			for(int i=2; i<5;i++) {
-				String title = pageResp.jsonPath().getString("buckets["+i+"].title");
+
+			findingTrayInscreen(20, AMDHomePage.objTrayTitle(railNames.get(0)),
+					AMDHomePage.objTrayTitle(railNames.get(0)), railNames.get(0), "First rail", userType, tabName);
+			findingTrayInscreen(20, AMDHomePage.objTrayTitle(railNames.get(1)),
+					AMDHomePage.objTrayTitle(railNames.get(0)), railNames.get(1), "First rail", userType, tabName);
+			findingTrayInscreen(20, AMDHomePage.objTrayTitle(railNames.get(2)),
+					AMDHomePage.objTrayTitle(railNames.get(0)), railNames.get(2), "First rail", userType, tabName);
+		} else {
+			for (int i = 2; i < 5; i++) {
+				String title = pageResp.jsonPath().getString("buckets[" + i + "].title");
 				railNames.add(title);
 			}
 			System.out.println(railNames);
-			
-		findingTrayInscreen(20, AMDHomePage.objTrayTitle(railNames.get(0)), AMDHomePage.objCarouselDots, railNames.get(0), "MastheadCarousel", userType, tabName);
-		findingTrayInscreen(20, AMDHomePage.objTrayTitle(railNames.get(1)), AMDHomePage.objCarouselDots, railNames.get(1), "MastheadCarousel", userType, tabName);
-		findingTrayInscreen(20, AMDHomePage.objTrayTitle(railNames.get(2)), AMDHomePage.objCarouselDots, railNames.get(2), "MastheadCarousel", userType, tabName);
+
+			findingTrayInscreen(20, AMDHomePage.objTrayTitle(railNames.get(0)), AMDHomePage.objCarouselDots,
+					railNames.get(0), "MastheadCarousel", userType, tabName);
+			findingTrayInscreen(20, AMDHomePage.objTrayTitle(railNames.get(1)), AMDHomePage.objCarouselDots,
+					railNames.get(1), "MastheadCarousel", userType, tabName);
+			findingTrayInscreen(20, AMDHomePage.objTrayTitle(railNames.get(2)), AMDHomePage.objCarouselDots,
+					railNames.get(2), "MastheadCarousel", userType, tabName);
 		}
 	}
-	
+
 	public void NonSubscribed_withoutSupermoon(String tabName, String contentTitle) throws Exception {
 		validationOfCarousalAndConsumptionPageForComboOfferContent(tabName, contentTitle);
 		ValidationOfcomboOfferPageAndPaymentPage("Pay less, Watch more!", "Buy Radhe Combo");
 	}
-	
+
+//========================VI Integration============================
+
+	// ---------------------------------------Veena-----------------------------------
+
+	public void Zee_Register(String searchcontent) throws Exception {
+		if (userType.equalsIgnoreCase("ClassicUser")) {
+			extent.HeaderChildNode(
+					"[TC_AND_VI_SUB_056] [TC_AND_VI_SUB_057]  - Verify that User is able to register the app through 'Existing ZEE5 user? Click here to login' CTA in blocker screen, Verify that user is able to register the app from blocker screen using Email/Mobile number/any socila login");
+			System.out.println(
+					"[TC_AND_VI_SUB_056] [TC_AND_VI_SUB_057]  - Verify that User is able to register the app through 'Existing ZEE5 user? Click here to login' CTA in blocker screen, Verify that user is able to register the app from blocker screen using Email/Mobile number/any socila login");
+
+			relaunch(false);
+			waitTime(6000);
+			click(AMDViPage.objBlockerLoginLink, "Existing ZEE5 user? Click here to login");
+			waitTime(6000);
+			registerForFreeScreen("Email");
+			waitTime(6000);
+			extent.HeaderChildNode(
+					"[TC_AND_VI_SUB_058]  - Verify that blocker screen shouldn't be displayed for newly register user post kill and relaunch the ZEE5 App instead home landing screen should be displated");
+			System.out.println(
+					"[TC_AND_VI_SUB_058]  - Verify that blocker screen shouldn't be displayed for newly register user post kill and relaunch the ZEE5 App instead home landing screen should be displated");
+
+			relaunch(false);
+			waitTime(4000);
+			if (verifyElementIsNotDisplayed(AMDViPage.objLaunchViMoviesTV)) {
+				logger.info(
+						"Blocker screen is not displayed for newly register user post kill and relaunch the ZEE5 App");
+				extentLogger("",
+						"Blocker screen is not displayed for newly register user post kill and relaunch the ZEE5 App");
+			} else {
+				logger.info("Blocker screen is displayed for newly register user post kill and relaunch the ZEE5 App");
+				extentLoggerPass("",
+						"Blocker screen is displayed for newly register user post kill and relaunch the ZEE5 App");
+			}
+
+			if (verifyElementDisplayed(AMDHomePage.HomeIcon)) {
+				logger.info("Home screen is displayed When ever click on Back Button ");
+				extentLoggerPass("", "Home screen is displayed When ever click on Back Button ");
+			} else {
+				logger.info("Home screen is not displayed When ever click on Back Button ");
+				extentLogger("", "Home screen is not displayed When ever click on Back Button ");
+			}
+
+			extent.HeaderChildNode(
+					"[TC_AND_VI_SUB_059]  - Verify that Telco More menu options should not be displayed for newly Registered user instead complete More Menu should be displayed");
+			System.out.println(
+					"[TC_AND_VI_SUB_059]  - Verify that Telco More menu options should not be displayed for newly Registered user instead complete More Menu should be displayed");
+
+			waitTime(2000);
+			navigateBackToHomeLandingScreen();
+			click(AMDHomePage.MoreMenuIcon, "More Menu tab");
+			waitTime(2000);
+			verifyElementPresent(AMDMoreMenu.objBuySubscription, "Buy plans Option");
+			verifyElementPresent(AMDMoreMenu.objMySubscription, "My Subscription Option");
+			verifyElementPresent(AMDMoreMenu.objMyTransactions, "My Transaction Option");
+			verifyElementPresent(AMDMoreMenu.objWatchlist, "Watchlist Option");
+			verifyElementPresent(AMDMoreMenu.objSettings, "Settings Option");
+			verifyElementPresent(AMDMoreMenu.objInviteAFriend, "Invite a friend Option");
+			verifyElementPresent(AMDMoreMenu.objAboutUs, "About us Option");
+			verifyElementPresent(AMDMoreMenu.objHelpCentre, "Help centre Option");
+			verifyElementPresent(AMDMoreMenu.objHaveaPrepaidCode, "Have a prepaid code  Option");
+			Swipe("UP", 1);
+			verifyElementPresent(AMDMoreMenu.objLogout, "Logout Option");
+			verifyElementPresent(AMDMoreMenu.objTermsOfUse, "Terms of use option");
+			verifyElementPresent(AMDMoreMenu.objPrivacyPolicy, "Privacy option");
+			verifyElementPresent(AMDMoreMenu.objBuildVersion, "Build version section");
+			verifyElementPresent(AMDMoreMenu.objGrievanceRedressalOption, "Grievance Redressal Option");
+			// Verify all menu are tappable
+			AllMenuTappable();
+			// Verify Buy plan CTA displayed for Classic user
+			BuyPlanCTALandingScreenHeader(userType);
+			BuyPlanCTAcarousel(userType);
+			buyPlanButtonBelowThePlayer(userType);
+			buyPlanCTAOnThePlayer(userType);
+
+		}
+	}
+
+	public void AllMenuTappable() throws Exception {
+		extent.HeaderChildNode(
+				"[TC_AND_VI_SUB_060]  - Verify that all More menu options are tappable for newly register user from blocker screen");
+		System.out.println(
+				"[TC_AND_VI_SUB_060]  - Verify that all More menu options are tappable for newly register user from blocker screen");
+//		navigateBackToHomeLandingScreen();
+//		click(AMDHomePage.MoreMenuIcon, "More Menu tab");
+		waitTime(2000);
+		Swipe("DOWN", 1);
+		if (verifyElementPresentAndClick(AMDMoreMenu.objBuySubscription, "Buy plans Option")) {
+			verifyElementPresent(AMDMySubscriptionPage.objBuyPremiumText, "Buy premium text");
+			Back(1);
+		}
+		if (verifyElementPresentAndClick(AMDMoreMenu.objHaveaPrepaidCode, "Have a prepaid code Option")) {
+			verifyElementPresent(AMDMoreMenu.objPrepaidCodePopUp, "Have a prepaid code pop up");
+			Back(1);
+		}
+
+		if (verifyElementPresentAndClick(AMDMoreMenu.objProfile, "Profile option")) {
+			verifyElementPresent(AMDMoreMenu.objProfilePic, "User Profile");
+			Back(1);
+		}
+		waitTime(6000);
+
+		if (verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Setting option")) {
+			Swipe("UP", 1);
+			verifyElementPresent(AMDSettingsScreen.objAuthenticateDevice, "Authenticate option");
+			Back(1);
+		}
+	}
+
+	public void BuyPlanCTALandingScreenHeader(String userType) throws Exception {
+
+		extent.HeaderChildNode(
+				"(TC_AND_VI_SUB_061),Verify that Buy Plan cta displayed in Landing screen header after register the app");
+		System.out.println(
+				"(TC_AND_VI_SUB_061),Verify that Buy Plan cta displayed in Landing screen header after register the app");
+		navigateBackToHomeLandingScreen();
+		waitTime(2000);
+		if (verifyElementDisplayed(AMDHomePage.objSubscribeIcon)) {
+			logger.info("Buy Plan tag is displayed  in Landing screen header");
+			extentLoggerPass("Buy Plan Tag", "Buy Plan tag is displayed  in Landing screen header");
+		} else {
+			logger.error("Buy Plan tag is not displayed in Landing screen header");
+			extentLoggerFail("Get premium Tag", "Buy Plan tag is not displayed in Landing screen header");
+		}
+
+	}
+//			public void BuyPlanCTAcarousel(String userType) throws Exception {
+//				extent.HeaderChildNode("(TC_AND_VI_SUB_062),Verify thet Buy Plan cta displayed in Carousel banner for Premium contents after register the app");
+//				System.out.println("(TC_AND_VI_SUB_062),Verify thet Buy Plan cta displayed in Carousel banner for Premium contents after register the app");
+//				
+//				if (verifyElementDisplayed(AMDHomePage.objPremiumBtn)) {
+//					logger.info("Buy Plan tag is displayed in Carousel banner");
+//					extentLoggerPass("Buy Plan Tag", "Buy Plan tag is displayed in Carousel banner");
+//				} else {
+//					logger.error("Buy Plan tag is not displayed in Carousel banner");
+//					extentLoggerFail("Get premium Tag", "Buy Plan tag is not displayed in Carousel banner");
+//				}
+//				
+//			}
+//			
+
+//			public void buyPlanButtonBelowThePlayer(String userType) throws Exception {
+//				extent.HeaderChildNode("(TC_AND_VI_SUB_063), Verify thet Buy Plan cta displayed below the Player for premium contents");
+//				System.out.println("(TC_AND_VI_SUB_063), Verify thet Buy Plan cta displayed below the Player for premium contents");
+//				
+//				click(AMDHomePage.objPlayBtn,"Play CTA");
+//				waitTime(5000);
+//				if(verifyElementPresent(AMDPlayerScreen.objBuyNowCTABelowThePlayer, "BuyPlan CTA Below the player")) {
+//					logger.info("Buy Plan tag is displayed  Below the player");
+//					extentLoggerPass("Buy Plan Tag", "Buy Plan tag is displayed  Below the player");
+//				} else {
+//					logger.error("Buy Plan tag is not displayed  Below the player");
+//					extentLoggerFail("Get premium Tag", "Buy Plan tag is not displayed  Below the player");
+//				}
+//				
+//				
+//			}
+//			
+//			public void buyPlanCTAOnThePlayer(String userType) throws Exception {
+//				extent.HeaderChildNode("(TC_AND_VI_SUB_064), Verify that Buy Plan cta displayed on Player for premium contents which doesnot have trailer");
+//				System.out.println("(TC_AND_VI_SUB_064), Verify that Buy Plan cta displayed on Player for premium contents which doesnot have trailer");
+//				
+//				waitForElementDisplayed(AMDPlayerScreen.objBuyPlanOnThePlayer, 160);
+//				if(verifyElementPresent(AMDPlayerScreen.objBuyPlanOnThePlayer, "BuyPlan CTA ON the player")) {
+//					logger.info("Buy Plan tag is displayed  ON the player");
+//					extentLoggerPass("Buy Plan Tag", "Buy Plan tag is displayed  ON the player");
+//				} else {
+//					logger.error("Buy Plan tag is not displayed  ON the player");
+//					extentLoggerFail("Get premium Tag", "Buy Plan tag is not displayed  ON the player");
+//				}
+//				
+//				
+//				
+//			}
+//	
+
+	public void Vi_PackOverride(String searchcontent) throws Exception {
+		if (userType.equalsIgnoreCase("ClassicUser")) {
+			extent.HeaderChildNode("[TC_AND_VI_SUB_049]  - Verify that Vi user is able to Play the premium contents");
+			loginVi(userType, "14 Phere");
+			waitTime(20000);
+			if (checkElementExist(AMDPlayerScreen.objPlayerScreen, "Player screen")) {
+				logger.info("Vi user is able to play premium content");
+				extent.extentLoggerPass("Player", "Vi user is able to play premium content");
+			} else {
+				logger.info("Vi user is not able to play premium content");
+				extent.extentLoggerFail("Player", "Vi user is not able to play premium content");
+			}
+
+			extent.HeaderChildNode(
+					"[TC_AND_VI_SUB_047]  - Verify that If any existing signed in user on ZEE5,comes Via Vi app, the Vi pack gets attached and the \r\n"
+							+ " existing session gets overridden by Vi session.");
+			Back(1);
+			navigateBackToHomeLandingScreen();
+			click(AMDHomePage.MoreMenuIcon, "More Menu tab");
+			waitTime(2000);
+			verifyElementPresent(AMDMoreMenu.objProfile, "Profile");
+			String user = getText(AMDMoreMenu.objProfileHeader);
+			System.out.println(user);
+			System.out.println(FirstName + " " + LastName);
+			if (user.contains(FirstName + " " + LastName)) {
+				logger.info("Existing session is not getting overridden by Vi session");
+				extent.extentLoggerFail("Player", "Existing session is not getting overridden by Vi session");
+			} else {
+				logger.info("Existing session is getting overridden by Vi session");
+				extent.extentLoggerPass("Player", "Existing session is getting overridden by Vi session");
+			}
+
+		}
+	}
+
+	public void Vi_Search(String searchcontent) throws Exception {
+
+		verifyElementPresentAndClick(AMDViPage.objSearchIcon, "Search Icon ");
+
+		verifyElementPresentAndClick(AMDViPage.objSearchBox, "Search Box");
+
+		type(AMDViPage.objSearchBox, searchcontent + "\n", "Search box");
+		hideKeyboard();
+		waitTime(6000);
+		click(AMDViPage.objFirstSearchResult1(searchcontent), "Search result");
+		waitTime(2000);
+		if (verifyElementDisplayed(AMDViPage.objFirstEpisode)) {
+			waitTime(2000);
+			click(AMDViPage.objFirstEpisode, "First Episode");
+		}
+
+	}
+
+	public void Vi_ZEEMoreMenuValidation(String userType) throws Exception {
+		if (userType.equalsIgnoreCase("VIPUser") || userType.equalsIgnoreCase("ClassicUser")) {
+			Vi_PlaybackInitiated(userType);
+			Vi_ZeeAppMenuValidation(userType);
+			Vi_BuyPlan_Visibility(userType);
+			Vi_HaveAPrepaidCodeOption(userType);
+			Vi_LogoutVisibility(userType);
+			Vi_AuthenticateOption(userType);
+			Vi_Profile_Visibility(userType);
+			Vi_MySubscription(userType);
+			Vi_MySubscriptionHidden(userType);
+			Vi_MyTransactionsOption(userType);
+			// Vi_ParentalControlPopupPinValidation(userType);
+
+		}
+	}
+
+	public void Vi_PlaybackInitiated(String userType) throws Exception {
+		waitTime(10000);
+		if (userType.equalsIgnoreCase("VIPUser")) {
+			extent.HeaderChildNode(
+					"[TC_AND_VI_SUB_016] -Verify that post clicking the Zee5 content on Vi MTV app ZEE5 app gets launched with SSO & playback must be initiated");
+			System.out.println(
+					"[TC_AND_VI_SUB_016] -Verify that post clicking the Zee5 content on Vi MTV app ZEE5 app gets launched with SSO & playback must be initiated");
+		}
+		if (userType.equalsIgnoreCase("ClassicUser")) {
+			extent.HeaderChildNode(
+					"[TC_AND_VI_SUB_077] -Verify that post clicking the Zee5 content on Vi MTV app ZEE5 app gets launched with SSO & playback must be initiated");
+			System.out.println(
+					"[TTC_AND_VI_SUB_077] -Verify that post clicking the Zee5 content on Vi MTV app ZEE5 app gets launched with SSO & playback must be initiated");
+		}
+		if (checkElementExist(AMDPlayerScreen.objPlayerScreen, "Player screen")) {
+			logger.info("Content playback is initiated after accessing a content from Vi app");
+			extent.extentLoggerPass("Player", "Content playback is initiated after accessing a content from Vi app");
+		} else {
+			logger.info("Content playback is not initiated after accessing a content from Vi app");
+			extent.extentLoggerFail("Player",
+					"Content playback is not initiated after accessing a content from Vi app");
+		}
+	}
+
+	public void Vi_ZeeAppMenuValidation(String userType) throws Exception {
+
+		if (userType.equalsIgnoreCase("VIPUser")) {
+			extent.HeaderChildNode(
+					"[TC_AND_VI_SUB_091] - Verify that when user tap on the More menu should able to see below options\r\n"
+							+ " 1)My Subscription\r\n" + " 2)My Transactions\r\n" + " 3)Watchlist\r\n"
+							+ " 4)Settings\r\n" + " 5)Invite a Friend\r\n" + " 6)About Us\r\n" + " 7)Help Center\r\n"
+							+ " 8)Logout\r\n" + " 9)Terms of use and privacy policy links\r\n" + " 10)Build version");
+			System.out.println(
+					"[TC_AND_VI_SUB_091] - Verify that when user tap on the More menu should able to see below options\\r\\n\"\r\n"
+							+ "					+ \" 1)My Subscription\\r\\n\"\r\n"
+							+ "					+ \" 2)My Transactions\\r\\n\"\r\n"
+							+ "					+ \" 3)Watchlist\\r\\n\"\r\n"
+							+ "					+ \" 4)Settings\\r\\n\"\r\n"
+							+ "					+ \" 5)Invite a Friend\\r\\n\"\r\n"
+							+ "					+ \" 6)About Us\\r\\n\"\r\n"
+							+ "					+ \" 7)Help Center\\r\\n\"\r\n"
+							+ "					+ \" 8)Logout\\r\\n\"\r\n"
+							+ "					+ \" 9)Terms of use and privacy policy links\\r\\n\"\r\n"
+							+ "					+ \" 10)Build version");
+		}
+		if (userType.equalsIgnoreCase("ClassicUser")) {
+			extent.HeaderChildNode(
+					"[TC_AND_VI_SUB_030] - Verify that when user tap on the More menu should able to see below options\r\n"
+							+ " 1)My Subscription\r\n" + " 2)My Transactions\r\n" + " 3)Watchlist\r\n"
+							+ " 4)Settings\r\n" + " 5)Invite a Friend\r\n" + " 6)About Us\r\n" + " 7)Help Center\r\n"
+							+ " 8)Logout\r\n" + " 9)Terms of use and privacy policy links\r\n" + " 10)Build version");
+			System.out.println(
+					"[TC_AND_VI_SUB_030] - Verify that when user tap on the More menu should able to see below options\\r\\n\"\r\n"
+							+ "					+ \" 1)My Subscription\\r\\n\"\r\n"
+							+ "					+ \" 2)My Transactions\\r\\n\"\r\n"
+							+ "					+ \" 3)Watchlist\\r\\n\"\r\n"
+							+ "					+ \" 4)Settings\\r\\n\"\r\n"
+							+ "					+ \" 5)Invite a Friend\\r\\n\"\r\n"
+							+ "					+ \" 6)About Us\\r\\n\"\r\n"
+							+ "					+ \" 7)Help Center\\r\\n\"\r\n"
+							+ "					+ \" 8)Logout\\r\\n\"\r\n"
+							+ "					+ \" 9)Terms of use and privacy policy links\\r\\n\"\r\n"
+							+ "					+ \" 10)Build version");
+		}
+		waitTime(2000);
+		Back(1);
+		navigateBackToHomeLandingScreen();
+		click(AMDHomePage.MoreMenuIcon, "More Menu tab");
+		waitTime(2000);
+		verifyElementPresent(AMDMoreMenu.objMySubscription, "My Subscription Option");
+		verifyElementPresent(AMDMoreMenu.objMyTransactions, "My Transaction Option");
+		verifyElementPresent(AMDMoreMenu.objWatchlist, "Watchlist Option");
+		verifyElementPresent(AMDMoreMenu.objSettings, "Settings Option");
+		verifyElementPresent(AMDMoreMenu.objInviteAFriend, "Invite a friend Option");
+		verifyElementPresent(AMDMoreMenu.objAboutUs, "About us Option");
+		verifyElementPresent(AMDMoreMenu.objHelpCentre, "Help centre Option");
+		waitTime(2000);
+		Swipe("UP", 1);
+		verifyElementPresent(AMDMoreMenu.objLogout, "Logout Option");
+		verifyElementPresent(AMDMoreMenu.objTermsOfUse, "Terms of use option");
+		verifyElementPresent(AMDMoreMenu.objPrivacyPolicy, "Privacy option");
+		verifyElementPresent(AMDMoreMenu.objBuildVersion, "Build version section");
+		waitTime(2000);
+
+	}
+
+	public void Vi_ParentalPinPopupValidation(By loc, String text) throws Exception {
+
+		navigateBackToHomeLandingScreen();
+		click(AMDHomePage.MoreMenuIcon, "More Menu tab");
+		waitTime(2000);
+		click(AMDMoreMenu.objSettings, "Settings option");
+		waitTime(5000);
+		Swipe("UP", 1);
+		verifyElementPresentAndClick(AMDMoreMenu.objParentalControl, "Parental Control");
+		waitTime(2000);
+		click(loc, text);
+		waitTime(2000);
+		click(AMDMoreMenu.objContinueBtn, "Continue Button");
+		waitTime(5000);
+		if (text.contains("No Restrict Content")) {
+			click(AMDMoreMenu.objParentalLockDone, "Done Button");
+		} else {
+			if (verifyElementExist(AMDMoreMenu.objSetPin, "Set Pin")) {
+				logger.info("Parental Pin is SET");
+				extent.extentLoggerPass("Parental Pin", "Parental Pin is SET");
+				waitTime(2000);
+				verifyElementExist(AMDMoreMenu.objSetPin, "Set Pin");
+				type(AMDMoreMenu.objParentalLockPin1, "1", "ParentalLockPin");
+				hideKeyboard();
+				type(AMDMoreMenu.objParentalLockPin2, "1", "ParentalLockPin");
+				hideKeyboard();
+				type(AMDMoreMenu.objParentalLockPin3, "1", "ParentalLockPin");
+				hideKeyboard();
+				type(AMDMoreMenu.objParentalLockPin4, "1", "ParentalLockPin");
+				hideKeyboard();
+				waitTime(4000);
+				click(AMDMoreMenu.objSetPinContinueBtn, "Continue Button");
+				waitTime(2000);
+				click(AMDMoreMenu.objParentalLockDone, "Done Button");
+			} else {
+				logger.info("Parental Pin Popup is NOT displayed");
+				extent.extentLoggerFail("Parental Pin", "Parental Pin Popup is NOT displayed");
+			}
+		}
+	}
+
+	public void Vi_ParentalPopupValidation() throws Exception {
+		waitTime(10000);
+		boolean checkParentalPopUp = verifyElementPresent(AMDPlayerScreen.objParentalPinPopUp, "Parental Pin Popup");
+		if (checkParentalPopUp) {
+			logger.info("Parental Pin Popup is displayed");
+			extentLoggerPass("Parental Pin Popup", "Parental Pin Popup is displayed in Landscape mode");
+			waitTime(3000);
+			if (verifyIsElementDisplayed(AMDPlayerScreen.objParentalPinPopUp)) {
+				type(AMDMoreMenu.objParentalLockPin1, "1", "ParentalLockPin");
+				hideKeyboard();
+				type(AMDMoreMenu.objParentalLockPin2, "1", "ParentalLockPin");
+				hideKeyboard();
+				type(AMDMoreMenu.objParentalLockPin3, "1", "ParentalLockPin");
+				hideKeyboard();
+				type(AMDMoreMenu.objParentalLockPin4, "1", "ParentalLockPin");
+				hideKeyboard();
+				waitTime(4000);
+				click(AMDPlayerScreen.objParentalPinContinue, "Continue Button");
+
+			} else {
+				logger.info("Parental Pin Popup is NOT displayed");
+				extentLoggerFail("Parental Pin Popup", "Parental Pin Popup is NOT displayed in Landscape mode");
+			}
+			waitTime(2000);
+		}
+	}
+
+	public void Vi_BuyPlan_Visibility(String UseTyper) throws Exception {
+		if (userType.equalsIgnoreCase("VIPUser") || userType.equalsIgnoreCase("ClassicUser")) {
+			if (userType.equalsIgnoreCase("VIPUser")) {
+				extent.HeaderChildNode("TC_AND_VI_SUB_034] - Verify that Buy Plan is Hidden for Vi user");
+				System.out.println("TC_AND_VI_SUB_034] - Verify that Buy Plan is Hidden for Vi user");
+			}
+			if (userType.equalsIgnoreCase("ClassicUser")) {
+				extent.HeaderChildNode("TC_AND_VI_SUB_095] - Verify that Buy Plan is Hidden for Vi user");
+				System.out.println("TC_AND_VI_SUB_095] - Verify that Buy Plan is Hidden for Vi user");
+			}
+
+			navigateBackToHomeLandingScreen();
+			// Back(1);
+			click(AMDHomePage.MoreMenuIcon, "More Menu tab");
+			waitTime(2000);
+			if (verifyElementIsNotDisplayed(AMDMoreMenu.objBuySubscription)) {
+				logger.info("Buy plan is hidden for Vi User");
+				extent.extentLoggerPass("Buy Plan", "Buy plan is hidden for Vi User");
+			} else {
+				logger.error("Buy plan is not hidden for Vi User");
+				extent.extentLoggerFail("Buy Plan", "Buy plan is not hidden for Vi User");
+
+			}
+			waitTime(2000);
+		}
+	}
+
+	public void Vi_MySubscription(String Keyword) throws Exception {// 2
+
+		if (userType.equalsIgnoreCase("VIPUser") || userType.equalsIgnoreCase("ClassicUser")) {
+			if (userType.equalsIgnoreCase("VIPUser")) {
+				extent.HeaderChildNode("[TC_AND_VI_SUB_096] - Verify that Vi user should get 'My Subscription' \r\n"
+						+ " option under More screen With limited data like\r\n" + " 1. Pack name on top\r\n"
+						+ " 2. Date fo purchase\r\n" + " 3. Status, Pack Country and Auto Renewal\r\n"
+						+ " 4. Watch Ad-free on 3 devices at a time text is able to display.");
+				System.out.println("[TC_AND_VI_SUB_096] - Verify that Vi user should get 'My Subscription' \\r\\n\"\r\n"
+						+ "						+ \" option under More screen With limited data like\\r\\n\"\r\n"
+						+ "						+ \" 1. Pack name on top\\r\\n\"\r\n"
+						+ "						+ \" 2. Date fo purchase\\r\\n\"\r\n"
+						+ "						+ \" 3. Status, Pack Country and Auto Renewal\\r\\n\"\r\n"
+						+ "						+ \" 4. Watch Ad-free on 3 devices at a time text is able to display.");
+			}
+			if (userType.equalsIgnoreCase("ClassicUser")) {
+				extent.HeaderChildNode("[TC_AND_VI_SUB_035] - Verify that Vi user should get 'My Subscription' \r\n"
+						+ " option under More screen With limited data like\r\n" + " 1. Pack name on top\r\n"
+						+ " 2. Date fo purchase\r\n" + " 3. Status, Pack Country and Auto Renewal\r\n"
+						+ " 4. Watch Ad-free on 3 devices at a time text is able to display.");
+				System.out.println("[TC_AND_VI_SUB_035] - Verify that Vi user should get 'My Subscription' \\r\\n\"\r\n"
+						+ "						+ \" option under More screen With limited data like\\r\\n\"\r\n"
+						+ "						+ \" 1. Pack name on top\\r\\n\"\r\n"
+						+ "						+ \" 2. Date fo purchase\\r\\n\"\r\n"
+						+ "						+ \" 3. Status, Pack Country and Auto Renewal\\r\\n\"\r\n"
+						+ "						+ \" 4. Watch Ad-free on 3 devices at a time text is able to display.");
+			}
+			waitTime(2000);
+			click(AMDMoreMenu.objMySubscription, "My Subscription Screen");
+			waitTime(2000);
+			verifyElementPresent(AMDMySubscriptionPage.objActivePackName, "Pack Name");
+			verifyElementPresent(AMDMySubscriptionPage.objDateOfPurchase, "Date of purchase");
+			verifyElementPresent(AMDMySubscriptionPage.objActiveStatus, "Pack Status");
+			verifyElementPresent(AMDMySubscriptionPage.objPackCountry, "Pack Country");
+			verifyElementPresent(AMDMySubscriptionPage.objAutoRenewal, "Auto Renewal");
+			verifyElementPresent(AMDMySubscriptionPage.objWatchFreeText, "Watch Ad Free");
+
+		}
+	}
+
+	public void Vi_MySubscriptionHidden(String Keyword) throws Exception {// 2
+
+		if (userType.equalsIgnoreCase("VIPUser") || userType.equalsIgnoreCase("ClassicUser")) {
+			if (userType.equalsIgnoreCase("VIPUser")) {
+				extent.HeaderChildNode(
+						"[TC_AND_VI_SUB_097] - Verify that for Vi user following fields must be hidden in My Subscription\r\n"
+								+ " 1. Plan Price to be hidden; The space will remain blank on screen\r\n"
+								+ " 2. Payment mode to be hidden\r\n"
+								+ " 3. Plan Expiry date should be hidden; User should not see the line item on plan card\r\n"
+								+ " 4. 'Browse All Packs' should be hidden");
+				System.out.println(
+						"[TC_AND_VI_SUB_097] - Verify that for Vi user following fields must be hidden in My Subscription\r\n"
+								+ " 1. Plan Price to be hidden; The space will remain blank on screen\r\n"
+								+ " 2. Payment mode to be hidden\r\n"
+								+ " 3. Plan Expiry date should be hidden; User should not see the line item on plan card\r\n"
+								+ " 4. 'Browse All Packs' should be hidden");
+			}
+			if (userType.equalsIgnoreCase("ClassicUser")) {
+				extent.HeaderChildNode(
+						"[TC_AND_VI_SUB_036] - Verify that for Vi user following fields must be hidden in My Subscription\r\n"
+								+ " 1. Plan Price to be hidden; The space will remain blank on screen\r\n"
+								+ " 2. Payment mode to be hidden\r\n"
+								+ " 3. Plan Expiry date should be hidden; User should not see the line item on plan card\r\n"
+								+ " 4. 'Browse All Packs' should be hidden");
+				System.out.println(
+						"[TC_AND_VI_SUB_036] - Verify that for Vi user following fields must be hidden in My Subscription\r\n"
+								+ " 1. Plan Price to be hidden; The space will remain blank on screen\r\n"
+								+ " 2. Payment mode to be hidden\r\n"
+								+ " 3. Plan Expiry date should be hidden; User should not see the line item on plan card\r\n"
+								+ " 4. 'Browse All Packs' should be hidden");
+			}
+
+			waitTime(5000);
+			click(AMDMoreMenu.objMySubscription, "My Subscription Screen");
+			if (verifyElementIsNotDisplayed(AMDMySubscriptionPage.objPaymentText)) {
+				logger.info("Plan Price Text is Not displayed for Vi user");
+				extent.extentLoggerPass("Plan Price ", "Plan Price Text is Not displayed for Vi user");
+			} else {
+				logger.error("Plan Price Text is displayed for Vi user");
+				extent.extentLoggerFail("Plan price", "Plan Price Text is displayed for Vi user");
+
+			}
+			if (verifyElementIsNotDisplayed(AMDMySubscriptionPage.objPaymentMode)) {
+				logger.info("Plan Price Text is Not displayed for Vi user");
+				extent.extentLoggerPass("Plan Price ", "Plan Price Text is Not displayed for Vi user");
+			} else {
+				logger.error("Plan Price Text is displayed for Vi user");
+				extent.extentLoggerFail("Plan price", "Plan Price Text is displayed for Vi user");
+
+			}
+			if (verifyElementIsNotDisplayed(AMDMySubscriptionPage.objExpiryInfo)) {
+				logger.info("Pack Expiry is Not displayed for Vi user");
+				extent.extentLoggerPass("Pack Expiry", "Pack Expiry is Not displayed for Vi user");
+			} else {
+				logger.error("Pack Expiryt is displayed for Vi user");
+				extent.extentLoggerFail("Pack Expiry", "Pack Expiry is displayed for Vi user");
+
+			}
+			if (verifyElementIsNotDisplayed(AMDMySubscriptionPage.objBrowseAllPack)) {
+				logger.info("Browse All Pack is Not displayed for Vi user");
+				extent.extentLoggerPass("Browse All Pack", "Browse All Pack is Not displayed for Vi user");
+			} else {
+				logger.error("Browse All Pack is displayed for Vi user");
+				extent.extentLoggerFail("Browse All Pack", "Browse All Pack is displayed for Vi user");
+
+			}
+			waitTime(2000);
+
+			Back(1);
+		}
+	}
+
+	public void Vi_MyTransactionsOption(String Keyword) throws Exception {
+
+		if (userType.equalsIgnoreCase("VIPUser") || userType.equalsIgnoreCase("ClassicUser")) {
+			if (userType.equalsIgnoreCase("VIPUser")) {
+				extent.HeaderChildNode(
+						"[TC_AND_VI_SUB_098] - Verify that Vi user should get 'My Transactions' option under More screen with Blank Payment mode & '0' pack price");
+				System.out.println(
+						"[TC_AND_VI_SUB_098] - Verify that Vi user should get 'My Transactions' option under More screen with Blank Payment mode & '0' pack price");
+			}
+			if (userType.equalsIgnoreCase("ClassicUser")) {
+				extent.HeaderChildNode(
+						"[TC_AND_VI_SUB_037] - Verify that Vi user should get 'My Transactions' option under More screen with Blank Payment mode & '0' pack price");
+
+				System.out.println(
+						"[TC_AND_VI_SUB_037] - Verify that Vi user should get 'My Transactions' option under More screen with Blank Payment mode & '0' pack price");
+			}
+
+			waitTime(2000);
+			verifyElementPresentAndClick(AMDMoreMenu.objMyTransactions, "My Transaction Screen");
+			String mode = getText(AMDMySubscriptionPage.objMyTransPaymentMode);
+			if (mode.contains("-") || mode.contains(" ")) {
+				logger.info("Payment mode in My Transaction screen is blank for Vi User");
+				extent.extentLoggerPass("Have a Prepaid Code",
+						"Payment mode in My Transaction screen is blank for Vi User");
+			} else {
+				logger.error("Payment mode in My Transaction screen is not blank for Vi User");
+				extent.extentLoggerFail("Have a Prepaid Code",
+						"Payment mode in My Transaction screen is not blank for Vi User");
+			}
+			String plan = getText(AMDMySubscriptionPage.objMyTransPlanPrice);
+			if (plan.contains("0")) {
+				logger.info("Payment mode in My Transaction screen is blank for Vi User");
+				extent.extentLoggerPass("Have a Prepaid Code",
+						"Payment mode in My Transaction screen is blank for Vi User");
+			} else {
+				logger.error("Payment mode in My Transaction screen is not blank for Vi User");
+				extent.extentLoggerFail("Have a Prepaid Code",
+						"Payment mode in My Transaction screen is not blank for Vi User");
+			}
+
+		}
+	}
+
+	public void Vi_HaveAPrepaidCodeOption(String Keyword) throws Exception {
+		if (userType.equalsIgnoreCase("VIPUser") || userType.equalsIgnoreCase("ClassicUser")) {
+			if (userType.equalsIgnoreCase("VIPUser")) {
+				extent.HeaderChildNode(
+						"TC_AND_VI_SUB_099] -Verify that Vi user should not get 'Have a Prepaid Code' option under More screen");
+				System.out.println(
+						"TC_AND_VI_SUB_099] - Verify that Vi user should not get 'Have a Prepaid Code' option under More screen");
+			}
+			if (userType.equalsIgnoreCase("ClassicUser")) {
+				extent.HeaderChildNode(
+						"TC_AND_VI_SUB_038] -Verify that Vi user should not get 'Have a Prepaid Code' option under More screen");
+				System.out.println(
+						"TC_AND_VI_SUB_038] -Verify that Vi user should not get 'Have a Prepaid Code' option under More screen");
+			}
+			waitTime(2000);
+			if (verifyElementIsNotDisplayed(AMDMoreMenu.objHaveaPrepaidCode)) {
+				logger.info("Have a Prepaid code is hidden for Vi User");
+				extent.extentLoggerPass("Have a Prepaid Code", "Have a Prepaid code is hidden for Vi User");
+			} else {
+				logger.error("Have a Prepaid code is displayed for Vi User");
+				extent.extentLoggerFail("Have a Prepaid Code", "Have a Prepaid code is displayed for Vi User");
+			}
+			waitTime(2000);
+		}
+	}
+
+	public void Vi_LogoutVisibility(String Keyword) throws Exception {
+
+		if (userType.equalsIgnoreCase("VIPUser") || userType.equalsIgnoreCase("ClassicUser")) {
+			if (userType.equalsIgnoreCase("VIPUser")) {
+				extent.HeaderChildNode(
+						"[TC_AND_VI_SUB_100] - Verify that Vi user should get 'Logout' option under More screen");
+				System.out.println(
+						"[TC_AND_VI_SUB_100] - Verify that Vi user should get 'Logout' option under More screen");
+			}
+			if (userType.equalsIgnoreCase("ClassicUser")) {
+				extent.HeaderChildNode(
+						"[TC_AND_VI_SUB_039] - Verify that Vi user should get 'Logout' option under More screen");
+				System.out.println(
+						"[TC_AND_VI_SUB_039] - Verify that Vi user should get 'Logout' option under More screen");
+			}
+
+			Swipe("UP", 2);
+			verifyElementPresent(AMDMoreMenu.objLogout, "Logout option");
+
+		}
+	}
+
+	public void Vi_AuthenticateOption(String Keyword) throws Exception {// 2
+		if (userType.equalsIgnoreCase("VIPUser") || userType.equalsIgnoreCase("ClassicUser")) {
+			if (userType.equalsIgnoreCase("VIPUser")) {
+				extent.HeaderChildNode(
+						"TC_AND_VI_SUB_102] - Verify that Authenticate option is hidden for Vi user both in More & Settings screen");
+				System.out.println(
+						"TC_AND_VI_SUB_102] - Verify that Authenticate option is hidden for Vi user both in More & Settings screen");
+			}
+			if (userType.equalsIgnoreCase("ClassicUser")) {
+				extent.HeaderChildNode(
+						"TC_AND_VI_SUB_041] -Verify that Authenticate option is hidden for Vi user both in More & Settings screen");
+				System.out.println(
+						"TC_AND_VI_SUB_041] -Verify that Authenticate option is hidden for Vi user both in More & Settings screen");
+			}
+			Swipe("UP", 1);
+			if (verifyElementIsNotDisplayed(AMDSettingsScreen.objAuthenticateScreen)) {
+				logger.info("Authentication screen  is not displayed in Moremenu");
+				extent.extentLoggerPass("Authentication screen", "Authentication screen  is not displayed in Moremenu");
+			} else {
+				logger.error("Authentication screen  is displayed in Moremenu for Vi User");
+				extent.extentLoggerFail("Authentication screen", "Have a Prepaid code is displayed for Vi User");
+
+			}
+
+			click(AMDMoreMenu.objSettings, "Settings option");
+			waitTime(5000);
+			Swipe("UP", 1);
+			if (verifyElementIsNotDisplayed(AMDSettingsScreen.objAuthenticateScreen)) {
+				logger.info("Authentication screen  is not displayed in Settings Screen");
+				extent.extentLoggerPass("Authentication screen",
+						"Authentication screen  is not displayed in Settings Screen");
+			} else {
+				logger.error("Authentication screen  is displayed in Settings screen for Vi User");
+				extent.extentLoggerFail("Authentication screen",
+						"Authentication screen  is displayed in Settings screen for Vi User");
+
+			}
+			Back(1);
+		}
+	}
+
+	public void Vi_Profile_Visibility(String Keyword) throws Exception {// 2
+		if (userType.equalsIgnoreCase("VIPUser") || userType.equalsIgnoreCase("ClassicUser")) {
+			if (userType.equalsIgnoreCase("VIPUser")) {
+				extent.HeaderChildNode(
+						"[TC_AND_VI_SUB_101] [TC_AND_VI_SUB_094] - Verify that Vi user Profile must be Visible and Non-tappable, Verify that Vi user Profile must be Visible and Non-tappable , Verify that there is no Set Password, Change Password and Forgot Password option displayed in My Profile for VIP user");
+				System.out.println(
+						"[TC_AND_VI_SUB_101] [TC_AND_VI_SUB_094] - Verify that Vi user Profile must be Visible and Non-tappable, Verify that Vi user Profile must be Visible and Non-tappable , Verify that there is no Set Password, Change Password and Forgot Password option displayed in My Profile for VIP user");
+			}
+			if (userType.equalsIgnoreCase("ClassicUser")) {
+				extent.HeaderChildNode(
+						"[TC_AND_VI_SUB_033] [TC_AND_VI_SUB_040] - Verify that Vi user Profile must be Visible and Non-tappable, Verify that Vi user Profile must be Visible and Non-tappable , Verify that there is no Set Password, Change Password and Forgot Password option displayed in My Profile for VIP user");
+				System.out.println(
+						"[TC_AND_VI_SUB_033] [TC_AND_VI_SUB_040] - Verify that Vi user Profile must be Visible and Non-tappable, Verify that Vi user Profile must be Visible and Non-tappable , Verify that there is no Set Password, Change Password and Forgot Password option displayed in My Profile for VIP user");
+			}
+			Swipe("DOWN", 1);
+			verifyElementPresent(AMDMoreMenu.objProfile, "Profile section");
+			click(AMDMoreMenu.objProfile, "Profile Section");
+
+			if (verifyElementIsNotDisplayed(AMDProfileScreen.objChangePwdBtn)) {
+				logger.info("Profile screen is Non tappable");
+				extent.extentLoggerPass("Parental Pin", "Profile screen is Non tappable");
+			} else {
+				logger.error("Profile screen is tappable");
+				extent.extentLoggerFail("Parental Pin", "Profile screen is tappable");
+			}
+		}
+	}
+
+	public void Vi_ParentalControlPopupPinValidation(String userType) throws Exception {
+		if (userType.equalsIgnoreCase("VIPUser") || userType.equalsIgnoreCase("ClassicUser")) {
+			if (userType.equalsIgnoreCase("VIPUser")) {
+				extent.HeaderChildNode(
+						"[TC_AND_VI_SUB_092] - Verify that Vi user is able to set & use all the Parental Control feature");
+				System.out.println(
+						"[TC_AND_VI_SUB_092] - Verify that Vi user is able to set & use all the Parental Control feature");
+			}
+			if (userType.equalsIgnoreCase("ClassicUser")) {
+				extent.HeaderChildNode(
+						"[TC_AND_VI_SUB_031] - Verify that Vi user is able to set & use all the Parental Control feature");
+				System.out.println(
+						"[TC_AND_VI_SUB_031] - Verify that Vi user is able to set & use all the Parental Control feature");
+			}
+
+			Vi_ParentalPinPopupValidation(AMDMoreMenu.Restrict18PlusAboveContent, "Restrict A 18+ Content");
+			Utilities.relaunch = true; // Clear App Data on First Launch
+			new CommandBase("Vodafone");
+			init();
+			waitTime(20000);
+			Vi_Search("Auto Shankar");
+			Vi_ParentalPopupValidation();
+
+			Vi_ParentalPinPopupValidation(AMDMoreMenu.Restrict16AboveContent, "Restrict A 16+ Content");
+			relaunch(false);
+			waitTime(10000);
+			click(AMDViPage.objLaunchViMoviesTV, "Launch Vi");
+			waitTime(20000);
+			Vi_Search("Bebaakee");
+			Vi_ParentalPopupValidation();
+
+			Vi_ParentalPinPopupValidation(AMDMoreMenu.Restrict13PlusAboveContent, "Restrict A 13+ Content");
+			relaunch(false);
+			waitTime(10000);
+			click(AMDViPage.objLaunchViMoviesTV, "Launch Vi");
+			waitTime(20000);
+			Vi_Search("Dhoop Ki Dheewar");
+			Vi_ParentalPopupValidation();
+
+			Vi_ParentalPinPopupValidation(AMDMoreMenu.Restrict7AboveContent, "Restrict A 7+ Content");
+			relaunch(false);
+			waitTime(10000);
+			click(AMDViPage.objLaunchViMoviesTV, "Launch Vi");
+			waitTime(20000);
+			Vi_Search("Hero No. 1");
+			Vi_ParentalPopupValidation();
+
+			Vi_ParentalPinPopupValidation(AMDMoreMenu.objRestrictAllContent, "Restrict All Content");
+			relaunch(false);
+			waitTime(10000);
+			click(AMDViPage.objLaunchViMoviesTV, "Launch Vi");
+			waitTime(20000);
+			Vi_Search("Gattimela");
+			Vi_ParentalPopupValidation();
+		}
+	}
+
+	public void loginVi(String userType, String searchcontent) throws Exception {
+		extent.HeaderChildNode("Login to Vodafone app");
+		waitTime(20000);
+
+		verifyElementPresentAndClick(AMDViPage.objSearchIcon, "Search Icon ");
+
+		verifyElementPresentAndClick(AMDViPage.objSearchBox, "Search Box");
+
+		type(AMDViPage.objSearchBox, searchcontent + "\n", "Search box");
+		hideKeyboard();
+		waitTime(6000);
+		click(AMDViPage.objFirstSearchResult1(searchcontent), "Search result");
+
+		verifyElementPresentAndClick(AMDViPage.objEnterYourMobileNumberTextbox, "Enter Your Mobile Number Text box");
+
+		type(AMDViPage.objEnterYourMobileNumberTextbox, "9620001568", "Search box");
+
+		click(AMDViPage.objContinue, "Continue Button");
+		waitTime(20000);
+
+//		getSugarBoxOTP();
+
+	}
+
+	public void deepLink_Vi(String pDeeplink) {
+
+//		String appPackageName = getParameterFromXML("appPackageName");
+		String appPackageName = "com.graymatrix.did";
+		try {
+			getDriver().close();
+			waitTime(5000);
+			String command = null;
+			Instant startTime = Instant.now();
+			logger.info("Start time: " + startTime);
+			extent.extentLogger("Start Time", "Start time: " + startTime);
+			if (pDeeplink.equalsIgnoreCase("ClassicUser")) {
+				command = "adb shell am start -W -a android.intent.action.VIEW -d  \"https://www.zee5.com/zee5originals/details/abhay/0-6-1298/ep-1-brain-soup/0-1-387043?tag=e063b92223855d88315250f998517fef\"";
+			} else if (pDeeplink.equalsIgnoreCase("VIPUser")) {
+				command = "adb shell am start -W -a android.intent.action.VIEW -d  \"https://www.zee5.com/zee5originals/details/abhay/0-6-1298/ep-2-one-legged-skeleton/0-1-387070\"";
+
+			}
+			Process process = Runtime.getRuntime().exec(command);
+			new BufferedReader(new InputStreamReader(process.getInputStream()));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void Vi_Deeplink(String userType) throws Exception {
+		if (userType.equalsIgnoreCase("VIPUser") || userType.equalsIgnoreCase("ClassicUser")) {
+			if (userType.equalsIgnoreCase("VIPUser")) {
+				extent.HeaderChildNode(
+						"[TC_AND_VI_SUB_76]- Verify that Classic user is able to login with configured custom Deeplinks");
+				System.out.println(
+						"[TC_AND_VI_SUB_76]- Verify that Classic user is able to login with configured custom Deeplinks");
+			}
+			if (userType.equalsIgnoreCase("ClassicUser")) {
+				extent.HeaderChildNode(
+						"[TC_AND_VI_SUB_15]- Verify that Classic user is able to login with configured custom Deeplinks");
+				System.out.println(
+						"[TC_AND_VI_SUB_15]- Verify that Classic user is able to login with configured custom Deeplinks");
+			}
+			waitTime(5000);
+			navigateBackToHomeLandingScreen();
+			deepLink_Vi(userType);
+
+		}
+	}
+
+	public void loginViAppWithValidViNumber(String userType, String searchcontent) throws Exception {
+
+		if (userType.equalsIgnoreCase("VIPUser")) {
+			extent.HeaderChildNode(
+					"[TC_AND_VI_SUB_074]Verify that Vi user is able to Login to Vi app with a valid Vi number");
+			System.out.println(
+					"[TC_AND_VI_SUB_074]Verify that Vi user is able to Login to Vi app with a valid Vi number");
+		} else if (userType.equalsIgnoreCase("ClassicUser")) {
+			extent.HeaderChildNode(
+					"[TC_AND_VI_SUB_013] Verify that Vi user is able to Login to Vi app with a valid Vi number");
+			System.out.println(
+					"[TC_AND_VI_SUB_013] Verify that Vi user is able to Login to Vi app with a valid Vi number");
+		}
+		waitTime(20000);
+
+		verifyElementPresentAndClick(AMDViPage.objSearchIcon, "Search Icon ");
+
+		verifyElementPresentAndClick(AMDViPage.objSearchBox, "Search Box");
+
+		type(AMDViPage.objSearchBox, searchcontent + "\n", "Search box");
+		hideKeyboard();
+		waitTime(6000);
+		click(AMDViPage.objFirstSearchResult1(searchcontent), "Search result");
+		String vipUser = getParameterFromXML("VIPUserMobileNumber");
+
+		verifyElementPresentAndClick(AMDViPage.objEnterYourMobileNumberTextbox, "Enter Your Mobile Number Text box");
+//		9072461731
+		type(AMDViPage.objEnterYourMobileNumberTextbox, vipUser, "Search box");
+
+		click(AMDViPage.objContinue, "Continue Button");
+		waitForElementDisplayed(AMDPlayerScreen.objcontentTitleInconsumptionPage, 60);
+		verifyElementPresent(AMDPlayerScreen.objcontentTitleInconsumptionPage, "Content Title In consumption Page");
+
+	}
+
+	public void BacktoVimovieCTAValidation(String userType) throws Exception {
+
+		if (userType.equalsIgnoreCase("VIPUser")) {
+			extent.HeaderChildNode(
+					"[TC_AND_VI_SUB_080], Verify that Vi user sees an “Back to Vi Movies & TV\\\" CTA below the player when Vi user navigates from Vi app only");
+			System.out.println(
+					"[TC_AND_VI_SUB_080], Verify that Vi user sees an “Back to Vi Movies & TV\\\\\\\" CTA below the player when Vi user navigates from Vi app only");
+		} else if (userType.equalsIgnoreCase("ClassicUser")) {
+			extent.HeaderChildNode(
+					"[TC_AND_VI_SUB_019], Verify that Vi user sees an “Back to Vi Movies & TV\\\\\\\" CTA below the player when Vi user navigates from Vi app only");
+			System.out.println(
+					"[TC_AND_VI_SUB_019], Verify that Vi user sees an “Back to Vi Movies & TV\\\\\\\\\\\\\\\" CTA below the player when Vi user navigates from Vi app only");
+		}
+		if (verifyElementPresent(AMDViPage.objBackToViMovie, "Back To Vi Movie & TV")) {
+			logger.info("Back To Vi Movie & TV Option is displayed");
+			extentLoggerPass("Back To Vi Movie & TV", "Back To Vi Movie & TV Option is displayed");
+		} else {
+			logger.info("Back To Vi Movie & TV Option is not displayed");
+			extentLogger("Back To Vi Movie & TV", "Back To Vi Movie & TV Option is not displayed");
+		}
+
+		if (userType.equalsIgnoreCase("VIPUser")) {
+			extent.HeaderChildNode(
+					"[TC_AND_VI_SUB_081], Verify that tapping on “Back to Vi Movies & TV\" CTA below the player, Vi user is redirected to Vi MTV app");
+			System.out.println(
+					"[TC_AND_VI_SUB_081], Verify that tapping on “Back to Vi Movies & TV\" CTA below the player, Vi user is redirected to Vi MTV app");
+		} else if (userType.equalsIgnoreCase("ClassicUser")) {
+			extent.HeaderChildNode(
+					"[TC_AND_VI_SUB_020], Verify that tapping on “Back to Vi Movies & TV\" CTA below the player, Vi user is redirected to Vi MTV app");
+			System.out.println(
+					"[TC_AND_VI_SUB_020], Verify that tapping on “Back to Vi Movies & TV\\\" CTA below the player, Vi user is redirected to Vi MTV app");
+		}
+		click(AMDViPage.objBackToViMovie, "Back To Vi Movie & TV ");
+
+		if (verifyElementPresent(AMDViPage.objViLoGO, "Vi LoGo")) {
+			logger.info("Vi movie & tv Logo is displayed when ever click on Back To Vi Movie & TV Option");
+			extentLoggerPass("", "Vi movie & tv Logo is displayed when ever click on Back To Vi Movie & TV Option");
+		} else {
+			logger.info("Vi movie & tv Logo is not displayed when ever click on Back To Vi Movie & TV Option");
+			extentLogger("", "Vi movie & tv Logo is not displayed when ever click on Back To Vi Movie & TV Option");
+		}
+	}
+
+	public void LaunchViAndTvZee5App(String userType) throws Exception {
+
+		if (userType.equalsIgnoreCase("VIPUser")) {
+			extent.HeaderChildNode(
+					"[TC_AND_VI_SUB_084], Verify that tapping on “Launch Vi Movies & TV\\\" CTA from the Blocker screen, Vi user is redirected to Vi MTV app");
+			System.out.println(
+					"[TC_AND_VI_SUB_084], Verify that tapping on “Launch Vi Movies & TV\" CTA from the Blocker screen, Vi user is redirected to Vi MTV app");
+		} else if (userType.equalsIgnoreCase("ClassicUser")) {
+			extent.HeaderChildNode(
+					"[TC_AND_VI_SUB_023], Verify that tapping on “Launch Vi Movies & TV\\\" CTA from the Blocker screen, Vi user is redirected to Vi MTV app");
+			System.out.println(
+					"[TC_AND_VI_SUB_023], Verify that tapping on “Launch Vi Movies & TV\\\\\\\" CTA from the Blocker screen, Vi user is redirected to Vi MTV app");
+		}
+		relaunch(false);
+		if (verifyElementDisplayed(AMDViPage.objLaunchViMoviesTV)) {
+			logger.info("Launch Vi Movies & TV is displayed when ever ReLaunch Zee5 App");
+			extentLoggerPass("", "Launch Vi Movies & TV is displayed when ever ReLaunch Zee5 App");
+		} else {
+			logger.info("Launch Vi Movies & TV is not displayed when ever  ReLaunch Zee5 App");
+			extentLogger("", "Launch Vi Movies & TV is not displayed when ever  ReLaunch Zee5 App");
+		}
+		click(AMDViPage.objLaunchViMoviesTV, "Launch Vi Movies & TV");
+		if (verifyElementDisplayed(AMDViPage.objViLoGO)) {
+			logger.info("Vi movie & tv Logo is displayed when ever click on Back To Vi Movie & TV Option");
+			extentLoggerPass("", "Vi movie & tv Logo is displayed when ever click on Back To Vi Movie & TV Option");
+		} else {
+			logger.info("Vi movie & tv Logo is not displayed when ever click on Back To Vi Movie & TV Option");
+			extentLogger("", "Vi movie & tv Logo is not displayed when ever click on Back To Vi Movie & TV Option");
+		}
+	}
+
+	public void backToViMoviesTVCTAWillNoLongerBeAvailable(String userType, String searchcontent) throws Exception {
+
+		if (userType.equalsIgnoreCase("VIPUser")) {
+			extent.HeaderChildNode(
+					"[TC_AND_VI_SUB_083], Verify that tapping any other content than the existing one, the direct back option “Back to Vi Movies & TV\\\" CTA will no longer be available");
+			System.out.println(
+					"[TC_AND_VI_SUB_083], Verify that tapping any other content than the existing one, the direct back option “Back to Vi Movies & TV\" CTA will no longer be available");
+		} else if (userType.equalsIgnoreCase("ClassicUser")) {
+			extent.HeaderChildNode(
+					"[TC_AND_VI_SUB_022], Verify that tapping any other content than the existing one, the direct back option “Back to Vi Movies & TV\\\" CTA will no longer be available");
+			System.out.println(
+					"[TC_AND_VI_SUB_022], Verify that tapping any other content than the existing one, the direct back option “Back to Vi Movies & TV\\\\\\\" CTA will no longer be available");
+		}
+		verifyElementPresentAndClick(AMDViPage.objSearchIcon, "Search Icon ");
+
+		verifyElementPresentAndClick(AMDViPage.objSearchBox, "Search Box");
+
+		type(AMDViPage.objSearchBox, searchcontent + "\n", "Search box");
+		hideKeyboard();
+		waitTime(6000);
+		click(AMDViPage.objFirstSearchResult1(searchcontent), "Search result");
+		verifyElementPresentAndClick(AMDPlayerScreen.objcontentCard, "Content card");
+		waitTime(3000);
+		if (verifyElementIsNotDisplayed(AMDViPage.objBackToViMovie)) {
+			logger.info("Back To Vi Movie & TV Option is not displayed");
+			extentLogger("Back To Vi Movie & TV", "Back To Vi Movie & TV Option is not displayed");
+
+		} else {
+			logger.info("Back To Vi Movie & TV Option is displayed");
+			extentLoggerPass("Back To Vi Movie & TV", "Back To Vi Movie & TV Option is displayed");
+		}
+
+	}
+
+	public void ClickingONBackButtonHomeScreenVerification(String userType) throws Exception {
+
+		if (userType.equalsIgnoreCase("VIPUser")) {
+			extent.HeaderChildNode(
+					"[TC_AND_VI_SUB_086], Verify that tapping device back button from the existing one, than Vi user should be navigated to Home screen");
+			System.out.println(
+					"[TC_AND_VI_SUB_086], Verify that tapping device back button from the existing one, than Vi user should be navigated to Home screen");
+		} else if (userType.equalsIgnoreCase("ClassicUser")) {
+			extent.HeaderChildNode(
+					"[TC_AND_VI_SUB_025], Verify that tapping device back button from the existing one, than Vi user should be navigated to Home screen");
+			System.out.println(
+					"[TC_AND_VI_SUB_025], Verify that tapping device back button from the existing one, than Vi user should be navigated to Home screen");
+		}
+		Back(1);
+		if (verifyElementDisplayed(AMDHomePage.HomeIcon)) {
+			logger.info("Home screen is displayed When ever click on Back Button ");
+			extentLoggerPass("", "Home screen is displayed When ever click on Back Button ");
+		} else {
+			logger.info("Home screen is not displayed When ever click on Back Button ");
+			extentLogger("", "Home screen is not displayed When ever click on Back Button ");
+		}
+
+		if (userType.equalsIgnoreCase("VIPUser")) {
+			extent.HeaderChildNode(
+					"[TC_AND_VI_SUB_088], Verify that tapping device back button from Home screen should not get Exit popup");
+			System.out.println(
+					"[TC_AND_VI_SUB_088], Verify that tapping device back button from Home screen should not get Exit popup");
+		} else if (userType.equalsIgnoreCase("ClassicUser")) {
+			extent.HeaderChildNode(
+					"[TC_AND_VI_SUB_027], Verify that tapping device back button from Home screen should not get Exit popup");
+			System.out.println(
+					"[TC_AND_VI_SUB_027], Verify that tapping device back button from Home screen should not get Exit popup");
+		}
+		Back(1);
+		if (verifyElementIsNotDisplayed(AMDHomePage.objAreYouSureYouWantExitZee5)) {
+			logger.info(" Tapping device back button from Home screen should not get Exit popu ");
+			extentLogger("", " Tapping device back button from Home screen should not get Exit popu ");
+
+		} else {
+			logger.info(" Tapping device back button from Home screen should get Exit popu ");
+			extentLoggerPass("", " Tapping device back button from Home screen should get Exit popu ");
+		}
+
+		if (userType.equalsIgnoreCase("VIPUser")) {
+			extent.HeaderChildNode(
+					"[TC_AND_VI_SUB_087], Verify that tapping device back button from Home screen should be navigated to Vi app");
+			System.out.println(
+					"[TC_AND_VI_SUB_088], Verify that tapping device back button from Home screen should be navigated to Vi app");
+		} else if (userType.equalsIgnoreCase("ClassicUser")) {
+			extent.HeaderChildNode(
+					"[TC_AND_VI_SUB_026], Verify that tapping device back button from Home screen should be navigated to Vi app");
+			System.out.println(
+					"[TC_AND_VI_SUB_026], Verify that tapping device back button from Home screen should be navigated to Vi app");
+		}
+		waitForElementDisplayed(AMDViPage.objViLoGO, 60);
+		if (verifyElementPresent(AMDViPage.objViLoGO, "Vi LoGo")) {
+			logger.info("Vi movie & tv Logo is displayed when ever click on Back To Vi Movie & TV Option");
+			extentLoggerPass("", "Vi movie & tv Logo is displayed when ever click on Back To Vi Movie & TV Option");
+		} else {
+			logger.info("Vi movie & tv Logo is not displayed when ever click on Back To Vi Movie & TV Option");
+			extentLogger("", "Vi movie & tv Logo is not displayed when ever click on Back To Vi Movie & TV Option");
+		}
+	}
+
+	public void relaunchZee5AppAndVerifyBlockerScreen(String userType) throws Exception {
+		extent.HeaderChildNode(
+				"(TC_AND_VI_SUB_054), Verify that blocker screen is displayed post kill and relaunch the ZEE5 App.");
+		System.out.println(
+				"(TC_AND_VI_SUB_054), Verify that blocker screen is displayed post kill and relaunch the ZEE5 App.");
+
+		relaunch(false);
+		if (verifyElementDisplayed(AMDViPage.objLaunchViMoviesTV)) {
+			logger.info("Launch Vi Movies & TV is displayed when ever ReLaunch Zee5 App");
+			extentLoggerPass("", "Launch Vi Movies & TV is displayed when ever ReLaunch Zee5 App");
+		} else {
+			logger.info("Launch Vi Movies & TV is not displayed when ever  ReLaunch Zee5 App");
+			extentLogger("", "Launch Vi Movies & TV is not displayed when ever  ReLaunch Zee5 App");
+		}
+	}
+
+	public void killAndRelaunchBlockerScreenHomescreenShouldBeDisplayed(String userType) throws Exception {
+
+		extent.HeaderChildNode(
+				"(TC_AND_VI_SUB_058), (TC_AND_VI_SUB_069), Verify that blocker screen shouldn't be displayed for newly register user post kill and relaunch the ZEE5 App instead home landing screen should be displated");
+		System.out.println(
+				"(TC_AND_VI_SUB_058),Verify that blocker screen shouldn't be displayed for newly register user post kill and relaunch the ZEE5 App instead home landing screen should be displated");
+
+		relaunch(false);
+
+		if (verifyElementIsNotDisplayed(AMDViPage.objLaunchViMoviesTV)) {
+			logger.info("Launch Vi Movies & TV is not displayed when ever Kill and  Launch Zee5 App");
+			extentLogger("", "Launch Vi Movies & TV is not displayed when ever Kill and Launch Zee5 App");
+		} else {
+			logger.info("Launch Vi Movies & TV is displayed when ever Kill and Launch Zee5 App");
+			extentLoggerPass("", "Launch Vi Movies & TV is displayed when ever Kill and Launch Zee5 App");
+
+		}
+
+		if (verifyElementDisplayed(AMDHomePage.HomeIcon)) {
+			logger.info("Home screen is displayed When ever click on Back Button ");
+			extentLoggerPass("", "Home screen is displayed When ever click on Back Button ");
+		} else {
+			logger.info("Home screen is not displayed When ever click on Back Button ");
+			extentLogger("", "Home screen is not displayed When ever click on Back Button ");
+		}
+
+	}
+
+	public void makePaymentScreen(String userType) throws Exception {
+		extent.HeaderChildNode(
+				"(TC_AND_VI_SUB_072),Verify that user is navigating to Make Payment screen after registering the app.");
+		System.out.println(
+				"(TC_AND_VI_SUB_072),Verify that user is navigating to Make Payment screen after registering the app.");
+
+		verifyElementPresentAndClick(AMDHomePage.objSubscribeIcon, "Buyplan CTA");
+		waitTime(3000);
+		verifyElementPresentAndClick(AMDSubscibeScreen.objContinueBtn, "Continue Icon");
+		waitTime(10000);
+		waitForElementDisplayed(AMDPlayerScreen.objMakePayment, 120);
+		if (verifyElementExist(AMDPlayerScreen.objMakePayment, "Payment Page")) {
+			logger.info("Payment screen is displayed");
+			extentLoggerPass("", "Payment screen is displayed");
+		} else {
+			logger.info("Payment screen is not displayed");
+			extentLogger("", "Payment screen is not displayed");
+		}
+	}
+
+//public void BuyPlanCTALandingScreenHeader(String userType) throws Exception {
+//	
+//extent.HeaderChildNode("(TC_AND_VI_SUB_061),Verify that Buy Plan cta displayed in Landing screen header after register the app");
+//System.out.println("(TC_AND_VI_SUB_061),Verify that Buy Plan cta displayed in Landing screen header after register the app");
+//
+//	
+//	if (verifyElementDisplayed(AMDHomePage.objSubscribeIcon)) {
+//		logger.info("Buy Plan tag is displayed  in Landing screen header");
+//		extentLoggerPass("Buy Plan Tag", "Buy Plan tag is displayed  in Landing screen header");
+//	} else {
+//		logger.error("Buy Plan tag is not displayed in Landing screen header");
+//		extentLoggerFail("Get premium Tag", "Buy Plan tag is not displayed in Landing screen header");
+//	}
+//
+//}
+	public void BuyPlanCTAcarousel(String userType) throws Exception {
+		extent.HeaderChildNode(
+				"(TC_AND_VI_SUB_062),Verify thet Buy Plan cta displayed in Carousel banner for Premium contents after register the app");
+		System.out.println(
+				"(TC_AND_VI_SUB_062),Verify thet Buy Plan cta displayed in Carousel banner for Premium contents after register the app");
+
+		if (verifyElementDisplayed(AMDHomePage.objPremiumBtn)) {
+			logger.info("Buy Plan tag is displayed in Carousel banner");
+			extentLoggerPass("Buy Plan Tag", "Buy Plan tag is displayed in Carousel banner");
+		} else {
+			logger.error("Buy Plan tag is not displayed in Carousel banner");
+			extentLoggerFail("Get premium Tag", "Buy Plan tag is not displayed in Carousel banner");
+		}
+
+	}
+
+	public void buyPlanButtonBelowThePlayer(String userType) throws Exception {
+		extent.HeaderChildNode(
+				"(TC_AND_VI_SUB_063), Verify thet Buy Plan cta displayed below the Player for premium contents");
+		System.out.println(
+				"(TC_AND_VI_SUB_063), Verify thet Buy Plan cta displayed below the Player for premium contents");
+
+		click(AMDHomePage.objPlayBtn, "Play CTA");
+		waitTime(5000);
+		if (verifyElementPresent(AMDPlayerScreen.objBuyNowCTABelowThePlayer, "BuyPlan CTA Below the player")) {
+			logger.info("Buy Plan tag is displayed  Below the player");
+			extentLoggerPass("Buy Plan Tag", "Buy Plan tag is displayed  Below the player");
+		} else {
+			logger.error("Buy Plan tag is not displayed  Below the player");
+			extentLoggerFail("Get premium Tag", "Buy Plan tag is not displayed  Below the player");
+		}
+
+	}
+
+	public void svodContentsShouldBePlayed(String userType) throws Exception {
+		extent.HeaderChildNode(
+				"[TC_AND_VI_SUB_067], Verify that all svod contents should be played for premium logged in user from blocker screen");
+		System.out.println(
+				"(TC_AND_VI_SUB_063), Verify thet Buy Plan cta displayed below the Player for premium contents");
+
+		verifyElementExist(AMDHomePage.objPlayBtn, "Play CTA");
+		click(AMDHomePage.objPlayBtn, "Play CTA");
+		waitTime(20000);
+		if (checkElementExist(AMDPlayerScreen.objPlayerScreen, "Player screen")) {
+			logger.info("Vi user is able to play premium content");
+			extent.extentLoggerPass("Player", "Vi user is able to play premium content");
+		} else {
+			logger.info("Vi user is not able to play premium content");
+			extent.extentLoggerFail("Player", "Vi user is not able to play premium content");
+		}
+
+		if (verifyElementPresent(AMDPlayerScreen.objBuyNowCTABelowThePlayer, "BuyPlan CTA Below the player")) {
+			logger.info("Buy Plan tag is displayed  Below the player");
+			extentLoggerPass("Buy Plan Tag", "Buy Plan tag is displayed  Below the player");
+		} else {
+			logger.error("Buy Plan tag is not displayed  Below the player");
+			extentLoggerFail("Get premium Tag", "Buy Plan tag is not displayed  Below the player");
+		}
+
+	}
+
+	public void buyPlanCTAOnThePlayer(String userType) throws Exception {
+		extent.HeaderChildNode(
+				"(TC_AND_VI_SUB_064), Verify that Buy Plan cta displayed on Player for premium contents which doesnot have trailer");
+		System.out.println(
+				"(TC_AND_VI_SUB_064), Verify that Buy Plan cta displayed on Player for premium contents which doesnot have trailer");
+
+		waitForElementDisplayed(AMDPlayerScreen.objBuyPlanOnThePlayer, 160);
+		if (verifyElementPresent(AMDPlayerScreen.objBuyPlanOnThePlayer, "BuyPlan CTA ON the player")) {
+			logger.info("Buy Plan tag is displayed  ON the player");
+			extentLoggerPass("Buy Plan Tag", "Buy Plan tag is displayed  ON the player");
+		} else {
+			logger.error("Buy Plan tag is not displayed  ON the player");
+			extentLoggerFail("Get premium Tag", "Buy Plan tag is not displayed  ON the player");
+		}
+
+	}
+
+	public void ParntalControl(String userTYpe) throws Exception {
+		relaunch(false);
+		LoginThrowEmail(userType);
+		String Password = null;
+		Password = getParameterFromXML("ParentalControlPassword");
+		verifyElementPresentAndClick(AMDHomePage.objMoreMenuBtn, "More Menu");
+		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings");
+		verifyElementPresent(AMDSettingsScreen.objParentalControloption, "Parental Control option");
+
+		Swipe("UP", 1);
+
+		verifyElementPresentAndClick(AMDSettingsScreen.objParentalControloption, "Parental Control option");
+		verifyElementPresentAndClick(AMDSettingsScreen.objPasswordfield, "Password field");
+		waitTime(5000);
+		type(AMDSettingsScreen.objPasswordfield, Password, "Enter Password");
+		hideKeyboard();
+		verifyElementPresentAndClick(AMDSettingsScreen.objContinueCTAVerifyAccount, "Continue Button Set PIN page");
+		waitTime(5000);
+		verifyElementPresentAndClick(AMDSettingsScreen.objRestrictAllContent, "Restrict All Content");
+		verifyElementPresentAndClick(AMDSettingsScreen.objContinueCTA, "Continue CTA");
+
+		verifyElementPresentAndClick(AMDSettingsScreen.objSetPIN, "Set PIN Popup");
+		verifyElementPresentAndClick(AMDSettingsScreen.objEnterPINTextFeiled, "Enter PIN");
+		type(AMDSettingsScreen.objEnterPINTextFeiled, "1122", "Enter PIN");
+		hideKeyboard();
+		verifyElementPresentAndClick(AMDSettingsScreen.objContinueButtonSetPINpage, "Continue Button Set PIN page");
+		if (verifyElementExist(AMDSettingsScreen.objParentalControlSettingsAppliedSuccessfully,
+				"Parental control settings applied successfully")) {
+			logger.info("Continue CTA is functional and user is able to set parental pin successfully");
+			extent.extentLoggerPass("", "Continue CTA is functional and user is able to set parental pin successfully");
+		} else {
+			logger.error("Continue CTA is NOT functional and user is Unable to set parental pin successfully");
+			extent.extentLoggerFail("",
+					"Continue CTA is NOT functional and user is Unable to set parental pin successfully");
+		}
+		verifyElementPresentAndClick(AMDSettingsScreen.objDoneButton, "Done Button on Success page");
+
+		verifyElementPresentAndClick(AMDSettingsScreen.objBackButton, "Back Button");
+		verifyElementPresentAndClick(AMDHomePage.objHomeTab, "Home tab");
+		verifyElementPresentAndClick(AMDHomePage.objPlayBtn, "Play Button on carousel");
+		if (checkElementExist(AMDConsumptionScreen.objEnterYour4DigitPIN)) {
+			logger.info("Enter your 4-digit PIN parental pop up is displayed on playing the content");
+			extent.extentLoggerPass("", "Enter your 4-digit PIN parental pop up is displayed on playing the content");
+		} else {
+			logger.error("Enter your 4-digit PIN parental pop up is NOT displayed on playing the content");
+			extent.extentLoggerFail("",
+					"Enter your 4-digit PIN parental pop up is NOT displayed on playing the content");
+		}
+
+	}
+
+	public void LoginThrowEmail(String userType) throws Exception {
+
+		extent.HeaderChildNode("(TC_AND_VI_SUB_066),Verify that existing user is able to login from Blocker screen");
+		System.out.println("(TC_AND_VI_SUB_066),Verify that existing user is able to login from Blocker screen");
+//	relaunch(false);
+		click(AMDViPage.obJLoginCTAVi, "Login CTA");
+		waitTime(3000);
+
+		verifyElementPresentAndClick(AMDLoginScreen.objEmailIdField, "Email field");
+		type(AMDLoginScreen.objEmailIdField, "nagakartheek.dasareddy@gmail.com", "Email Field");
+		verifyElementPresentAndClick(AMDLoginScreen.objProceedBtn, "Proceed Button");
+		verifyElementPresentAndClick(AMDLoginScreen.objPasswordField, "Password Field");
+		type(AMDLoginScreen.objPasswordField, "123456", "Password field");
+		hideKeyboard();
+		verifyElementPresentAndClick(AMDLoginScreen.objLoginBtn, "Login Button");
+		waitTime(3000);
+
+	}
+
+	public void moreMenuShouldBeDisplayed(String userType) throws Exception {
+
+		extent.HeaderChildNode(
+				"[TC_AND_VI_SUB_068]  - Verify that telco More menu options should not be displayed for Premium logged in user instead complete More Menu should be displayed\r\n"
+						+ "");
+		System.out.println(
+				"[TC_AND_VI_SUB_068]  - Verify that telco More menu options should not be displayed for Premium logged in user instead complete More Menu should be displayed\\r\\n");
+
+		waitTime(2000);
+		navigateBackToHomeLandingScreen();
+		click(AMDHomePage.MoreMenuIcon, "More Menu tab");
+		waitTime(2000);
+		verifyElementPresent(AMDMoreMenu.objBuySubscription, "Buy plans Option");
+		verifyElementPresent(AMDMoreMenu.objMySubscription, "My Subscription Option");
+		verifyElementPresent(AMDMoreMenu.objMyTransactions, "My Transaction Option");
+		verifyElementPresent(AMDMoreMenu.objWatchlist, "Watchlist Option");
+		verifyElementPresent(AMDMoreMenu.objSettings, "Settings Option");
+		verifyElementPresent(AMDMoreMenu.objInviteAFriend, "Invite a friend Option");
+		verifyElementPresent(AMDMoreMenu.objAboutUs, "About us Option");
+		verifyElementPresent(AMDMoreMenu.objHelpCentre, "Help centre Option");
+		verifyElementPresent(AMDMoreMenu.objHaveaPrepaidCode, "Have a prepaid code  Option");
+		Swipe("UP", 1);
+		verifyElementPresent(AMDMoreMenu.objLogout, "Logout Option");
+		verifyElementPresent(AMDMoreMenu.objTermsOfUse, "Terms of use option");
+		verifyElementPresent(AMDMoreMenu.objPrivacyPolicy, "Privacy option");
+		verifyElementPresent(AMDMoreMenu.objBuildVersion, "Build version section");
+		verifyElementPresent(AMDMoreMenu.objGrievanceRedressalOption, "Grievance Redressal Option");
+
+	}
+
+	public void Zee5ViValidation(String userType) throws Exception {
+
+		if (userType.equalsIgnoreCase("VIPUser") || userType.equalsIgnoreCase("ClassicUser")) {
+
+			ZeeApplicasterLoginVi(userType, "14 Phere");
+			BacktoVimovieCTAValidation(userType);
+			LaunchViAndTvZee5App(userType);
+			backToViMoviesTVCTAWillNoLongerBeAvailable(userType, "Dial 100");
+			ClickingONBackButtonHomeScreenVerification(userType);
+		}
+
+	}
+
+	public void ViClassicuser(String userType) throws Exception {
+		if (userType.equalsIgnoreCase("ClassicUser")) {
+			relaunchZee5AppAndVerifyBlockerScreen(userType);
+			LoginThrowEmail(userType);
+			svodContentsShouldBePlayed(userType);
+			moreMenuShouldBeDisplayed(userType);
+			killAndRelaunchBlockerScreenHomescreenShouldBeDisplayed(userType);
+			makePaymentScreen(userType);
+
+		}
+
+	}
+
+	public void ZeeApplicasterLoginVi(String LoginMethod, String searchcontent) throws Exception {
+		System.out.println("\nLogin to the App");
+
+		switch (LoginMethod) {
+		case "BasicDefaultUser":
+//			extent.HeaderChildNode("Logged in as <b>BasicDefaultUser</b> User");
+			extent.HeaderChildNode(
+					"[TC_AND_VI_SUB_001] Verify that Vi user is able to Login to Vi app with a valid Vi number");
+			System.out.println(
+					"[TC_AND_VI_SUB_001] Verify that Vi user is able to Login to Vi app with a valid Vi number");
+
+			verifyElementPresentAndClick(AMDViPage.objSearchIcon, "Search Icon ");
+
+			verifyElementPresentAndClick(AMDViPage.objSearchBox, "Search Box");
+			String basic = getParameterFromXML("DefaultUserMobileNumber");
+			type(AMDViPage.objSearchBox, searchcontent + "\n", "Search box");
+			hideKeyboard();
+			waitTime(6000);
+			click(AMDViPage.objFirstSearchResult1(searchcontent), "Search result");
+
+			verifyElementPresentAndClick(AMDViPage.objEnterYourMobileNumberTextbox,
+					"Enter Your Mobile Number Text box");
+
+			type(AMDViPage.objEnterYourMobileNumberTextbox, basic, "Search box");
+
+			click(AMDViPage.objContinue, "Continue Button");
+			waitTime(20000);
+			verifyElementPresent(AMDPlayerScreen.objcontentTitleInconsumptionPage, "Content Title In consumption Page");
+//		
+			break;
+
+		case "ClassicUser":
+//			extent.HeaderChildNode("Login as Classic User");
+			extent.HeaderChildNode(
+					"[TC_AND_VI_SUB_013] Verify that Vi user is able to Login to Vi app with a valid Vi number");
+			System.out.println(
+					"[TC_AND_VI_SUB_013] Verify that Vi user is able to Login to Vi app with a valid Vi number");
+
+			verifyElementPresentAndClick(AMDViPage.objSearchIcon, "Search Icon ");
+
+			verifyElementPresentAndClick(AMDViPage.objSearchBox, "Search Box");
+			String clissic = getParameterFromXML("ClassicUserMobileNumber");
+
+			type(AMDViPage.objSearchBox, searchcontent + "\n", "Search box");
+			hideKeyboard();
+			waitTime(6000);
+			click(AMDViPage.objFirstSearchResult1(searchcontent), "Search result");
+
+			verifyElementPresentAndClick(AMDViPage.objEnterYourMobileNumberTextbox,
+					"Enter Your Mobile Number Text box");
+
+			type(AMDViPage.objEnterYourMobileNumberTextbox, clissic, "Search box");
+
+			click(AMDViPage.objContinue, "Continue Button");
+			waitTime(20000);
+			verifyElementPresent(AMDPlayerScreen.objcontentTitleInconsumptionPage, "Content Title In consumption Page");
+
+			break;
+
+		case "VIPUser":
+//			extent.HeaderChildNode("Login as VIP User");
+			extent.HeaderChildNode(
+					"[TC_AND_VI_SUB_074]Verify that Vi user is able to Login to Vi app with a valid Vi number");
+			System.out.println(
+					"[TC_AND_VI_SUB_074]Verify that Vi user is able to Login to Vi app with a valid Vi number");
+
+			verifyElementPresentAndClick(AMDViPage.objSearchIcon, "Search Icon ");
+
+			verifyElementPresentAndClick(AMDViPage.objSearchBox, "Search Box");
+
+			type(AMDViPage.objSearchBox, searchcontent + "\n", "Search box");
+			hideKeyboard();
+			waitTime(6000);
+			click(AMDViPage.objFirstSearchResult1(searchcontent), "Search result");
+
+			verifyElementPresentAndClick(AMDViPage.objEnterYourMobileNumberTextbox,
+					"Enter Your Mobile Number Text box");
+			String vip = getParameterFromXML("VIPUserMobileNumber");
+
+			type(AMDViPage.objEnterYourMobileNumberTextbox, vip, "Search box");
+
+			click(AMDViPage.objContinue, "Continue Button");
+			waitTime(20000);
+			verifyElementPresent(AMDPlayerScreen.objcontentTitleInconsumptionPage, "Content Title In consumption Page");
+
+			break;
+		}
+	}
+
 }

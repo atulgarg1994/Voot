@@ -251,5 +251,6 @@ public class PWAComboOfferPage {
 	public static By objLoading=By.xpath("");
 	public static By objPackDetails=By.xpath("//*[@class='packDetails pack ']");
 
+	public static By objVideoNameInSearch=By.xpath("//h3[@class='cardTitle overflowEllipsis ']");
 
 }

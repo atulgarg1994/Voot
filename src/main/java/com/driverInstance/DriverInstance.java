@@ -105,14 +105,18 @@ public class DriverInstance extends Drivertools {
 		String apkName = null;
 		if(build.equals("Latest") || build.equals("BuildVersion")) {
 		DownloadApp(build);
+		System.out.println("Finished download");
 		String dir = System.getProperty("user.dir") + "\\APK\\";
+		System.out.println(dir);
 		File file = new File(dir);
 		file.mkdir();
 		File filesList[] = file.listFiles();
 		 for(File fileName : filesList) {
 			 apkName = fileName.getName();
 		 }
+		 System.out.println(apkName);
 		 capabilities.setCapability(MobileCapabilityType.APP, dir+apkName);
+		 System.out.println("Install APK");
 		switch(getApk()) {
 		case "CleverTap":
 			capabilities.setCapability(MobileCapabilityType.APP, dir+apkName);
@@ -193,6 +197,7 @@ public class DriverInstance extends Drivertools {
 	}
 	
 	public static void DownloadApp(String build) {
+		DriverInstance.setPlatfrom("Web");
 		File file = new File(System.getProperty("user.dir") + File.separator + "Apk");
 		file.mkdir();
 		WebDriverManager.chromedriver().version(getDriverVersion()).setup();
@@ -201,12 +206,15 @@ public class DriverInstance extends Drivertools {
 	    ChromeOptions options = new ChromeOptions();
 	    options.setExperimentalOption("prefs", prefs);
 	    tlWebDriver.set(new ChromeDriver(options));
+	    tlWebDriver.get().get("https://install.appcenter.ms/sign-in?original_url=install:/%2Forgs%2FZee5-Mobile%2Fapps%2FZee5-Android");
 	    Utilities util = new Utilities();
 		util.initDriver();
 		try {
 		DownloadAPPFromAPPCenter DAFAC = new DownloadAPPFromAPPCenter();
 		String buildversion = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("BuildVersion");
 		DAFAC.AppCenter(build,buildversion);
+		tlWebDriver.get().quit();
+		DriverInstance.setPlatfrom("Android");
 		}catch(Exception e) {
 			
 		}

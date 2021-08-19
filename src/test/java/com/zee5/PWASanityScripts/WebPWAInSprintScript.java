@@ -1512,6 +1512,67 @@ public class WebPWAInSprintScript {
 		Zee5WEBPWASanityBusinessLogic.PackDetails499(userType);
 	}
 	
+	@Test(priority=239, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void consumptionPageclickingOnWatchCTAFor749users(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.consumptionPageclickingOnWatchCTAFor749users(userType , "LiveTvodContent");
+	}
+	
+	@Test(priority=240, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void paymentModeScreeWithin3seconds(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.paymentModeScreeWithin3seconds(userType , "LiveTvodContent");
+	}
+	
+	@Test(priority=241, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void TrailerPlayWithin5seconds(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.TrailerPlayWithin5seconds(userType);
+	}
+	
+	@Test(priority=242, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void PaymentFailurePopupThroughBackButton(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.PaymentFailurePopupThroughBackButton(userType);
+	}
+	
+	
+	@Test(priority=243, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void PaymentPageThroughBrowserBackButton(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.PaymentPageThroughBrowserBackButton(userType);
+	}
+	
+	
+	@Test(priority=244, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void WalletGateway(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.WalletGateway(userType);
+	}
+	
+	@Test(priority=245, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void PaymentPageWithin15seconds(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.PaymentPageWithin15seconds(userType , "LiveTvodContent");
+	}
+	
+	@Test(priority=246, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void VerifyExclusiveVodContentInRail(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.VerifyExclusiveVodContentInRail(userType);
+	}
+	
+	@Test(priority=247, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void EventNameInSearchResult(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.EventNameInSearchResult(userType);
+	}
+	
+	@Test(priority=248, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void VerifyTheComboOfferShouldNotDisplay(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.VerifyTheComboOfferShouldNotDisplay(userType);
+	}
 	
 	@AfterClass
 	public void tearDown() {

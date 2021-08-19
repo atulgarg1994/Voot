@@ -333,5 +333,7 @@ public class AMDHomePage {
 		return By.xpath("//*[@text='More']//parent::*//parent::*//*[contains(text(),'"+railName+"')][1]");
 	}
  	
+ 	public static By objAreYouSureYouWantExitZee5 = By.xpath("//*[@resource-id='com.graymatrix.did:id/title']");
+
  	
 }

@@ -32,4 +32,17 @@ public class AMDMySubscriptionPage {
 	
 	public static By objPayNow = By.xpath("//*[@text='Pay Now']");
 	
+	public static By objBuyPremiumText = By.xpath("//*[@id='plansHeader']");
+	
+	public static By objMyTransPlanPrice = By.xpath("//*[@id='mytran_amount']");
+	public static By objMyTransPaymentMode = By.xpath("//*[@id='mytran_paymentmode']");
+	
+	public static By objActivePackName = By.xpath("//*[@id='subs_Title']");
+	public static By objActiveStatus = By.xpath("//*[@id='status']");
+	public static By objPackCountry = By.xpath("//*[@id='pack_country']");
+	public static By objAutoRenewal = By.xpath("//*[@id='auto_renewal']");
+	public static By objWatchFreeText = By.xpath("//*[@id='watchOnFiveDevicesText']");
+	public static By objExpiryInfo = By.xpath("//*[@id='renewal_date']");
+	public static By objPaymentMode = By.xpath("//*[@id='payment_mode']");
+
 }

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="MPWA" parallel="false" thread-count="1">
 
@@ -22,15 +21,13 @@
 	<!-- NONSubscribed User -->
 
 	<parameter name="NonsubscribedUserName" value="impact0314@gmail.com" />
-	<parameter name="NonsubscribedPassword" value="igs123" />
+	<parameter name="NonsubscribedPassword" value="igs1619" />
 
 	<!-- Subscribed User -->
 
 
-	<parameter name="SubscribedUserName"
-		value="thomas.cutinha1@gmail.com" />
-
-	<parameter name="SubscribedPassword" value="tani123" />
+	<parameter name="SubscribedUserName" value="tanisha@a.com" />
+	<parameter name="SubscribedPassword" value="igs1619" />
 
 	<parameter name="devicePin" value="1619" />
 
@@ -135,10 +132,25 @@
 		<!--  <listener class-name="com.epam.reportportal.testng.ReportPortalTestNGListener"/> -->
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
-
+  
 	<test name="AndroidPWASanityScript">
 		<classes>
 			<class name="com.zee5.PWASanityScripts.AndroidPWASanityScript" />
 		</classes>
 	</test>
+	
+<!--	
+	<test name="AndroidPWAInSprintScript">
+  		<groups>
+           <run>
+           	<include name = "required_setup"></include>
+             	<include name = "sprint72-73"></include>
+           </run>
+       </groups>  
+		<classes>
+			<class name="com.zee5.PWASanityScripts.AndroidPWAInSprintScript" />
+		</classes>
+	</test> 
+ -->
+ 	
 </suite>
