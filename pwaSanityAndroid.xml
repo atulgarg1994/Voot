@@ -21,13 +21,13 @@
 	<!-- NONSubscribed User -->
 
 	<parameter name="NonsubscribedUserName" value="impact0314@gmail.com" />
-	<parameter name="NonsubscribedPassword" value="igs1619" />
+	<parameter name="NonsubscribedPassword" value="igs123" />
 
 	<!-- Subscribed User -->
 
 
-	<parameter name="SubscribedUserName" value="tanisha@a.com" />
-	<parameter name="SubscribedPassword" value="igs1619" />
+	<parameter name="SubscribedUserName" value="thomas.cutinha1@gmail.com" />
+	<parameter name="SubscribedPassword" value="tani123" />
 
 	<parameter name="devicePin" value="1619" />
 
