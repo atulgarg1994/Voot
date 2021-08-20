@@ -16761,6 +16761,76 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 	}
 
 
+	public void playerCTAsEvent(String userType, String keyword) throws Exception {
+		extent.HeaderChildNode("Player CTAs Event");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objSearchResultFirstContent, "Search result");
+		waitTime(5000);
+		verifyElementPresentAndClick(AMDTVODComboOffer.objRentNowCTAOnPlayer, "Rent Now CTA on Player");
+		
+		String contentID = getParameterFromXML("supermoonContentID");
+		Response ContentResp = ResponseInstance.getResponseDetails(contentID);
+		ResponseInstance.setFEPropertyOfContentFromAPI2(contentID, ContentResp, "Home");
+		
+		String pManufacturer = DeviceDetails.OEM;
+		setFEProperty(userType);
+		setUserType_SubscriptionProperties(userType);
+		SetAppsflyerProperty();
+
+		if (userType.equalsIgnoreCase("Guest")) {
+			mixpanel.FEProp.setProperty("User Type", "Guest");
+		}
+		mixpanel.FEProp.setProperty("Source", "SearchPage");
+		mixpanel.FEProp.setProperty("Page Name", "ConsumptionPage");
+		mixpanel.FEProp.setProperty("Button Type", "Player");
+		mixpanel.FEProp.setProperty("Element", "SUBSCRIBE");
+		
+		mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+		mixpanel.FEProp.setProperty("brand", pManufacturer);
+
+		mixpanel.ValidateParameter("", "Player CTAs");
+		
+	}
+
+	public void RibbonCTAsEvent(String userType, String keyword) throws Exception {
+		extent.HeaderChildNode("Ribbon CTAs Event");
+		click(AMDSearchScreen.objSearchIcon, "Search icon");
+		click(AMDSearchScreen.objSearchEditBox, "Search Box");
+		type(AMDSearchScreen.objSearchBoxBar, keyword + "\n", "Search bar");
+		hideKeyboard();
+		waitTime(4000);
+		waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+		click(AMDSearchScreen.objSearchResultFirstContent, "Search result");
+		waitTime(5000);
+		verifyElementPresentAndClick(AMDTVODComboOffer.objRentNowCTABelowPlayer, "Rent Now CTA below the player");
+		
+		String contentID = getParameterFromXML("supermoonContentID");
+		Response ContentResp = ResponseInstance.getResponseDetails(contentID);
+		ResponseInstance.setFEPropertyOfContentFromAPI2(contentID, ContentResp, "Home");
+		
+		String pManufacturer = DeviceDetails.OEM;
+		setFEProperty(userType);
+		setUserType_SubscriptionProperties(userType);
+		SetAppsflyerProperty();
+
+		if (userType.equalsIgnoreCase("Guest")) {
+			mixpanel.FEProp.setProperty("User Type", "Guest");
+		}
+		mixpanel.FEProp.setProperty("Source", "SearchPage");
+		mixpanel.FEProp.setProperty("Page Name", "ConsumptionPage");
+		mixpanel.FEProp.setProperty("Button Type", "Banner");
+		mixpanel.FEProp.setProperty("Element", "Rent Now");
+		
+		mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+		mixpanel.FEProp.setProperty("brand", pManufacturer);
+
+		mixpanel.ValidateParameter("", "Ribbon CTAs");
+	}
 	
 	
 }

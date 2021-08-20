@@ -119,31 +119,13 @@
 		<!--  <listener class-name="com.epam.reportportal.testng.ReportPortalTestNGListener"/> -->
 		<!-- <listener class-name="com.utility.MyTranformer"/> -->
 	</listeners>
-
-	<test name="WebPWASanityScript">
-		<classes>
-			<class name="com.zee5.PWASanityScripts.WebPWASanityScript" />
-		</classes>
-	</test> 
-	
-	<test name="WebPWASanityScript">
-	<!--  	<groups>
-            <run>
-            	<include name = "required_setup"></include>
-              	<include name = "sprint73"></include>
-            </run>
-        </groups>  -->
-		<classes>
-			<class name="com.zee5.PWASanityScripts.WebPWASanityScript" />
-		</classes>
-	</test> 
 	
 	<test name="WebPWASanityScript">
 		<classes>
 			<class name="com.zee5.PWASanityScripts.WebPWASanityScript" />
 		</classes>
 	</test> 
-	
+<!--  
 	<test name="WebPWAInSprintScript">
 	  	<groups>
             <run>
@@ -155,6 +137,6 @@
 			<class name="com.zee5.PWASanityScripts.WebPWAInSprintScript" />
 		</classes>
 	</test> 
-	
+-->		
 	
 </suite>

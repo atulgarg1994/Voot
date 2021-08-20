@@ -33,4 +33,5 @@ public class AppCenterPage {
 	public static By objBuild = By.xpath("(.//*[@class='_6UUDY6wdx '])[2]");
 	
 	public static By objDwonload = By.xpath("(.//*[text()='Download'])[2]");
+	
 }

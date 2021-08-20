@@ -39081,4 +39081,130 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 	}
 
+	public void ActivateDevice(String userType) throws Exception {
+		extent.HeaderChildNode(
+				"ActivateDevice screen validation");
+		logger.info(
+				"ActivateDevice screen validation");
+		if (!userType.equalsIgnoreCase("Guest")) {
+			waitTime(3000);
+			click(AMDHomePage.objMoreMenu, "More");
+			click(AMDMoreMenu.objActivateDevice, "Activate Device");
+			waitForElementDisplayed(AMDActivateDevicePage.objActivateDeviceTitle,40);
+			if (verifyElementDisplayed(AMDActivateDevicePage.objActivateDeviceTitle)) {
+				logger.info("User navigated to Activate ZEE5 on your TV screen post taping on Activate Device");
+				extent.extentLoggerPass("Activate Device", 
+						"User navigated to Activate ZEE5 on your TV screen post taping on Activate Device");
+			} else {
+				logger.error("User is not navigated to My Reminder screen post taping on My Reminders");
+				extent.extentLoggerFail("Activate Device",
+						"User not navigated to Activate ZEE5 on your TV screen post taping on Activate Device");
+			}
+			if (verifyElementDisplayed(AMDActivateDevicePage.objActivationDescription)) {
+				logger.info("Enter the Activation Code displayed on your TV scree message is displayed");
+				extent.extentLoggerPass("Activate Device screen Description", 
+						"Enter the Activation Code displayed on your TV scree message is displayed");
+			} else {
+				logger.error("Enter the Activation Code displayed on your TV scree message is not displayed");
+				extent.extentLoggerFail("Activate Device screen Description",
+						"Enter the Activation Code displayed on your TV scree message is not displayed");
+			}
+			if (verifyElementDisplayed(AMDActivateDevicePage.objActivateScreencloseButton)) {
+				logger.info("Close Button is displayed on Activate Device Screen");
+				extent.extentLoggerPass("Activate Device Screen Close Button", "Close Button is displayed on Activate Device Screen");
+			} else {
+				logger.error("Close Button is not displayed on Activate Device Screen");
+				extent.extentLoggerFail("Activate Device Screen Close Button",
+						"Close Button is not displayed on Activate Device Screen");
+			}
+			if (verifyElementDisplayed(AMDActivateDevicePage.objInputField1)) {
+				logger.info("Input Filed is displayed");
+				extent.extentLoggerPass("Activate Device Screen Input Field", "Input Filed is displayed");
+			} else {
+				logger.error("Input Filed is not displayed");
+				extent.extentLoggerFail("Activate Device Screen Input Field",
+						"Input Filed is not displayed");
+			}
+			if (verifyElementDisplayed(AMDActivateDevicePage.objActivateCTA)) {
+				logger.info("Activate CTA is displayed in Activate Device Screen");
+				extent.extentLoggerPass("Activate CTA", "Activate CTA is displayed in Activate Device Screen");
+				
+			           if (verifyElementDisplayed(AMDActivateDevicePage.objActivateCTADisabled)) {
+			            	logger.info("Activate CTA is displayed in disabled state by default in Activate Device Screen");
+			               	extent.extentLoggerPass("Activate CTA Disabled state",
+			               			"Activate CTA is displayed in disabled state by default in Activate Device Screen");
+		               	} else {
+			              	logger.error("Close Button is not displayed on Activate Device Screen");
+			            	extent.extentLoggerFail("Activate CTA Disabled state",
+				      		"Activate CTA is displayed in enabled state by default in Activate Device Screen");
+			            }
+			           
+			 }else {
+	              	logger.error("Activate CTA is not displayed in Activate Device Screen");
+	            	extent.extentLoggerFail("Activate CTA",
+		      		"Activate CTA is not displayed in Activate Device Screen");
+	           }
+			if (verifyElementDisplayed(AMDActivateDevicePage.objInputField1)) {
+				logger.info("Input Field is displayed in Activate Device Screen");
+				extent.extentLoggerPass("Input Field", "Input Field is displayed in Activate Device Screen");
+				verifyElementPresentAndClick(AMDActivateDevicePage.objInputField1, "Input Field");
+				        waitTime(2000);
+				        type(AMDActivateDevicePage.objInputField1, "A", "Input Field");
+			        	hideKeyboard();
+			        	type(AMDActivateDevicePage.objInputField2, "3", "Input Field");
+			        	hideKeyboard();
+				        type(AMDActivateDevicePage.objInputField3, "3", "Input Field");
+				        hideKeyboard();
+				        type(AMDActivateDevicePage.objInputField4, "5", "Input Field");
+				        hideKeyboard();
+				        type(AMDActivateDevicePage.objInputField5, "F", "Input Field");
+				        hideKeyboard();
+				        type(AMDActivateDevicePage.objInputField6, "T", "Input Field");
+				        hideKeyboard();
+				        waitTime(2000);
+				
+			           if (verifyElementDisplayed(AMDActivateDevicePage.objActivateCTAEnabled)) {
+			            	logger.info("Activate CTA is enabled on entering Device code");
+			               	extent.extentLoggerPass("Activate CTA Enabled state",
+			               			"Activate CTA is enabled on entering Device code");
+		               	} else {
+			              	logger.error("Activate CTA is not enabled on entering Device code");
+			            	extent.extentLoggerFail("Activate CTA Disabled state",
+				      		"Activate CTA is not enabled on entering Device code");
+			            }
+			           verifyElementPresentAndClick(AMDActivateDevicePage.objActivateCTAEnabled,"Activate CTA");
+			           if (verifyElementDisplayed(AMDActivateDevicePage.objInvalidCode)) {
+			            	logger.info("Device with code Not Found error message is displayed");
+			               	extent.extentLoggerPass("Invalid Device code",
+			               			"Device with code Not Found error message is displayed");
+		               	} else {
+			              	logger.error("Device with code Not Found error message is not displayed");
+			            	extent.extentLoggerFail("Invalid Device code",
+				      		"Device with code Not Found error message is not displayed");
+			            }
+			           verifyElementPresentAndClick(AMDActivateDevicePage.objActivateScreencloseButton,"Close Button");
+			           waitTime(2000);
+			           if (verifyElementDisplayed(AMDHomePage.objMoreMenuBtn)) {
+			            	logger.info("User is navigated to More Menu on tapping Close button");
+			               	extent.extentLoggerPass("Close Button",
+			               			"User is navigated to More Menu on tapping Close button");
+		               	} else {
+			              	logger.error("User is not navigated to More Menu on tapping Close button");
+			            	extent.extentLoggerFail("Close Button",
+				      		"User is not navigated to More Menu on tapping Close button");
+			            }
+			           
+			 }else {
+	              	logger.error("Activate CTA is not displayed in Activate Device Screen");
+	            	extent.extentLoggerFail("Activate CTA",
+		      		"Activate CTA is not displayed in Activate Device Screen");
+	           }
+			
+
+		} else {
+			logger.info("Activate Device" + " Not applicable for "+ userType + "user");
+			extent.extentLogger("Activate Device", " Not applicable for " + userType);
+		}
+	}
+	
 }

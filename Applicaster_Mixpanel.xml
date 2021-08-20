@@ -67,6 +67,9 @@
 	<parameter name="BottomNavigation" value="Downloads" />
 	<parameter name="MoreMenuOptions" value="Settings" />
 	
+	<parameter name="supermoonContentID" value="0-9-373" />
+	<parameter name="supermoonContentName" value="Demo Moon Live" />
+	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
 		<!--  <listener class-name="com.epam.reportportal.testng.ReportPortalTestNGListener"/> -->

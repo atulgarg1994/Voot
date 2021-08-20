@@ -192,6 +192,9 @@
 	<parameter name="DeepLink_Edit" value="https://www.zee5.com/myprofile/edit" />
 	<parameter name="DeeplinkToGrievanceRedressal" value=" https://www.zee5.com/content-grievance-redressal" />
 	
+	<parameter name="supermoonContentID" value="0-9-373" />
+	<parameter name="supermoonContentName" value="Demo Moon Live" />
+	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
 		<!--  <listener class-name="com.epam.reportportal.testng.ReportPortalTestNGListener"/> -->

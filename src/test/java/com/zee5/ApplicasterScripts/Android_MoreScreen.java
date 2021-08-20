@@ -119,6 +119,14 @@ public class Android_MoreScreen {
 	public void TermsOfUseValidation(String userType) throws Exception {
 		ZEE5ApplicasterBusinessLogic.TermsOfUseScreen(userType);
 	}
+	
+	@Test(priority = 16) //Mallikarjun
+	@Parameters({ "userType" })
+	public void ActivateDevice(String userType) throws Exception {
+		ZEE5ApplicasterBusinessLogic.relaunch(true);
+		ZEE5ApplicasterBusinessLogic.navigateToLandingScreen();
+		ZEE5ApplicasterBusinessLogic.ActivateDevice(userType);
+	}
 
 	@AfterTest
 	public void tearDownApp() {

@@ -347,4 +347,6 @@ public class AMDMoreMenu {
 	public static By Restrict18PlusAboveContent = By.xpath("//*[@text='Restrict A 18+ Content']");
 	
 	public static By objProfilePic= By.xpath("//*[@id='icon_user_image']");
+	
+	public static By objActivateDevice = By.xpath("//*[@text='Activate Device']");
 }
