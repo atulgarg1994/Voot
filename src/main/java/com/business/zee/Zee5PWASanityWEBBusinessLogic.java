@@ -32010,39 +32010,39 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			navigateToAnyScreenOnWeb("ZEEPLEX");
 			waitTime(3000);
 		}
-		ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
-		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
-		waitTime(3500);
+		ScrollToTheElementWEB(PWAComboOfferPage.objTrailerOfFirstMovie);
+		JSClick(PWAComboOfferPage.objTrailerOfFirstMovie, "Trailer Supermoon");
+		waitTime(6500);
 
-		if (verifyElementPresent(PWAComboOfferPage.objBlockbusterText, "Blockbuster movies and live events at home")) {
-			logger.info(
-					"Blockbuster movies and live events at home\"Text in zee plex landing page, expected behaviour");
-			extent.extentLoggerPass(" ",
-					"ZEEPLEX brings Blockbuster Movies in the comfort of your home, expected behaviour");
-		} else {
-			logger.info("Blockbuster movies and live events at home\"Text fails to display.");
-			extent.extentLoggerFail(" ", " Blockbuster movies and live events at home\"Text fails to display. ");
-		}
+//		if (verifyElementPresent(PWAComboOfferPage.objBlockbusterText, "Blockbuster movies and live events at home")) {
+//			logger.info(
+//					"Blockbuster movies and live events at home\"Text in zee plex landing page, expected behaviour");
+//			extent.extentLoggerPass(" ",
+//					"ZEEPLEX brings Blockbuster Movies in the comfort of your home, expected behaviour");
+//		} else {
+//			logger.info("Blockbuster movies and live events at home\"Text fails to display.");
+//			extent.extentLoggerFail(" ", " Blockbuster movies and live events at home\"Text fails to display. ");
+//		}
 
 		if (verifyElementPresent(PWAComboOfferPage.objRentNowBelowPlayer, "Rent Now CTA below the player")) {
 			logger.info("Rent Now CTA below the player");
 			extent.extentLoggerPass(" ", "Rent Now CTA below the player, expected behaviour");
-
 		} else {
 			logger.info("Rent Now CTA below the player in not Present");
 			extent.extentLoggerFail(" ", "Rent Now CTA below the player in not Present");
-
 		}
+		click(PWAHomePage.objZeeLogo, "Zee logo");
+		waitTime(2500);
 	}
 
 	public void comboOfferPageAfterClickinOnRentNow(String userType, String tabname) throws Exception {
 		extent.HeaderChildNode("Verify that Combo Offer page is displayed on clicking Rent Now CTA on player");
 		navigateToAnyScreenOnWeb(tabname);
 		waitTime(3500);
-		ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
-		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
-		waitTime(3500);
-		verifyElementPresentAndClick(PWAComboOfferPage.objRentNowPlaybackOnConsumptionPage,
+		ScrollToTheElementWEB(PWAComboOfferPage.objTrailerOfFirstMovie);
+		JSClick(PWAComboOfferPage.objTrailerOfFirstMovie, "Trailer Supermoon");
+		waitTime(6500);
+		verifyElementPresentAndClick(PWAComboOfferPage.objRentNowBelowPlayer,
 				"Rent Now CTA below the player");
 		waitTime(3000);
 		if (verifyElementPresent(PWAComboOfferPage.objContentCard, "Content Thumbnail")
@@ -32053,6 +32053,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			logger.info("combo offer page is not displayed ");
 			extent.extentLoggerFail(" ", "combo offer page is not displayed ");
 		}
+		click(PWAHomePage.objZeeLogo, "Zee logo");
+		waitTime(2500);
 	}
 
 	public void LoginButtonBelowRentNow(String userType, String tabname) throws Exception {
@@ -32144,25 +32146,22 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		HeaderChildNode("Verify information is displaying on combo page");
 		navigateToAnyScreenOnWeb(tabname);
 		waitTime(3500);
-		ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
-		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		ScrollToTheElementWEB(PWAComboOfferPage.objRentNow);
+		JSClick(PWAComboOfferPage.objRentNow, "SuperMoon Rent Now");
 		waitTime(3500);
-		waitTime(3500);
-		verifyElementPresentAndClick(PWAComboOfferPage.objRentNowPlaybackOnConsumptionPage,
-				"Rent Now CTA below the player");
-		waitTime(3000);
+		
 
-		// verifyElementPresent(PWAComboOfferPage.objContentCard, "Content Thumbnail");
 		compareText(PWAComboOfferPage.objSupermoonPlanTxt, "Supermoon Plan");
 		verifyElementPresent(PWAComboOfferPage.objPremiumCard, "1 year Premium plan 499 with cut off 999");
-		compareText(PWAComboOfferPage.objLiveEventTicket, "Live Event Ticket");
+		compareText(PWAComboOfferPage.objLiveEventTicket, "Online Live Concert");
 		compareText(PWAComboOfferPage.objExclusiveVideos, "Exclusive Videos");
 
 		compareText(PWAComboOfferPage.obj4000blockusterTxt, "2800 + blockbuster movies");
 		compareText(PWAComboOfferPage.objzee5OriginalTxt, "150 + Web Series");
-		compareText(PWAComboOfferPage.objWatchshowsTxt, "Watch shows before TV");
-		compareText(PWAComboOfferPage.objWatchAdTxt, "Watch Ad Free");
-
+		compareText(PWAComboOfferPage.objWatchshowsTxt, "Watch before TV");
+		compareText(PWAComboOfferPage.objWatchAdTxt, "Live TV, Ad-Free entertainment");
+		click(PWAHomePage.objZeeLogo, "Zee logo");
+		waitTime(2500);
 	}
 
 	public void comboOfferSaveAmount(String userType, String tabname) throws Exception {
@@ -32208,64 +32207,73 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		HeaderChildNode("Verify if the Supermoon combo pack is selected by default when user land on the combo page");
 		navigateToAnyScreenOnWeb(tabname);
 		waitTime(3500);
-		ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
-		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		ScrollToTheElementWEB(PWAComboOfferPage.objRentNow);
+		JSClick(PWAComboOfferPage.objRentNow, "SuperMoon Rent Now");
 		waitTime(3500);
 
-		verifyElementPresentAndClick(PWAComboOfferPage.objRentNowPlaybackOnConsumptionPage,
-				"Rent Now CTA below the player");
-		waitTime(3000);
-		verifyElementPresentAndClick(PWAComboOfferPage.objCheckbox, "Supermoon combo pack selected");
-
+		if(verifyElementPresent(PWAComboOfferPage.objSelectedCheckbox, "Supermoon combo pack selected")) {
+			logger.info("Supermoon combo pack is selected by default when user land on the combo page");
+			extent.extentLoggerPass("", "Supermoon combo pack is selected by default when user land on the combo page");
+		}else {
+			logger.info("Supermoon combo pack is not selected by default when user land on the combo page");
+			extent.extentLoggerFail("", "Supermoon combo pack is not selected by default when user land on the combo page");
+		}		
+		click(PWAHomePage.objZeeLogo, "Zee logo");
+		waitTime(2500);
 	}
 
 	public void supermoonPrivacyPolicyAndTermsAndConditions(String userType, String tabname) throws Exception {
-		HeaderChildNode("Verify if the user can see the other plan Only Rent Content for INR 249 with information");
+		HeaderChildNode("Verify if the user can see disclaimer as 'By proceeding you agree to our Terms of service and Privacy policy' above the Buy CTA");
 		navigateToAnyScreenOnWeb(tabname);
 		waitTime(3500);
-		ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
-		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		ScrollToTheElementWEB(PWAComboOfferPage.objRentNow);
+		JSClick(PWAComboOfferPage.objRentNow, "SuperMoon Rent Now");
 		waitTime(3500);
-
-		verifyElementPresentAndClick(PWAComboOfferPage.objRentNowPlaybackOnConsumptionPage,
-				"Rent Now CTA below the player");
-		waitTime(3000);
-
-		compareText(PWAComboOfferPage.objPrivacyPolicyTitle, "Privacy policy");
-		compareText(PWAComboOfferPage.objTermsOfServiceTitle, "Terms of Service");
-
+		compareText(PWAComboOfferPage.objTermsOfService, "Terms of Services");
+		compareText(PWAComboOfferPage.objPrivacyPolicy, "Privacy Policy");
+		click(PWAHomePage.objZeeLogo, "Zee logo");
+		waitTime(2500);
 	}
 
 	public void BuyorRentorUpgrade(String userType, String tabname) throws Exception {
 		HeaderChildNode("Verify if the user can see Buy or Rent CTA or Upgrade sticky in the bottom of the page");
 		navigateToAnyScreenOnWeb(tabname);
 		waitTime(3500);
-		ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
-		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
+		ScrollToTheElementWEB(PWAComboOfferPage.objRentNow);
+		JSClick(PWAComboOfferPage.objRentNow, "SuperMoon Rent Now");
 		waitTime(3500);
 
-		verifyElementPresentAndClick(PWAComboOfferPage.objRentNowPlaybackOnConsumptionPage,
-				"Rent Now CTA below the player");
-		waitTime(3000);
 		if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
-			verifyElementPresent(PWAComboOfferPage.objBuySupermoonComboBtn, "Buy Supermoon Combo Button");
+			if(verifyElementPresent(PWAComboOfferPage.objBuySupermoonComboBtn, "Buy Supermoon Combo Button")) {
+				logger.info("user can see Buy Supermoon Combo CTA in the bottom of the page");
+				extent.extentLoggerPass("", "user can see Buy Supermoon Combo CTA in the bottom of the page");
+			}else {
+				logger.info("user cannot see Buy Supermoon Combo CTA in the bottom of the page");
+				extent.extentLoggerFail("", "user cannot see Buy Supermoon Combo CTA in the bottom of the page");
+			}
 		} else if (userType.equals("SubscribedUser")) {
-			verifyElementPresent(PWAComboOfferPage.objUpgradeBtn, "Upgrade Button");
+			if(verifyElementPresent(PWAComboOfferPage.objUpgradeBtn, "Upgrade Button")) {
+			logger.info("user can see Upgrade CTA in the bottom of the page");
+			extent.extentLoggerPass("", "user can see Upgrade CTA in the bottom of the page");
+		}else {
+			logger.info("user cannot see Upgrade CTA in the bottom of the page");
+			extent.extentLoggerFail("", "user cannot see Upgrade CTA in the bottom of the page");
+		}			
 		}
+		click(PWAHomePage.objZeeLogo, "Zee logo");
+		waitTime(2500);
 	}
 
 	public void TextChangeAsDisplayLanguage(String userType, String tabname) throws Exception {
 		HeaderChildNode("Verify that text on Combo offer Page is displayed properly as per selected display language");
 		navigateToAnyScreenOnWeb(tabname);
 		waitTime(3500);
-		ScrollToTheElementWEB(PWAHomePage.objPlaybackMovieTitle("supermoon"));
-		JSClick(PWAHomePage.objPlaybackMovieTitle("supermoon"), "supermoon");
-		waitTime(3500);
-		verifyElementPresentAndClick(PWAComboOfferPage.objRentNowPlaybackOnConsumptionPage,
-				"Rent Now CTA below the player");
-		waitTime(3000);
 		Kannadalanguageselection();
-		waitTime(3000);
+		waitTime(3500);
+		ScrollToTheElementWEB(PWAComboOfferPage.objOtherLangRentNowCTA);
+		JSClick(PWAComboOfferPage.objOtherLangRentNowCTA, "SuperMoon Rent Now");
+		waitTime(3500);
+		
 		String supermoon = getText(PWAComboOfferPage.objSupermoonPlanTxt);
 		System.out.println(supermoon);
 		extent.extentLogger("", "Supermoon" + supermoon);
@@ -32278,7 +32286,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.extentLoggerFail("",
 					"Supermoon combo is not displayed based on display language,expected behaviour");
 		}
-		String buySupermoonCombobtn = getText(PWAComboOfferPage.objBuySupermoonComboBtn);
+		String buySupermoonCombobtn = getText(PWAComboOfferPage.objOtherLangBuysupermoonComboCTA);
 		System.out.println(buySupermoonCombobtn);
 		if (!buySupermoonCombobtn.contains("Buy Supermoon combo")) {
 			logger.info("Buy Supermoon combo button is displayed based on display language,expected behaviour");
@@ -32316,14 +32324,14 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 		String LiveEventTicket = getText(PWAComboOfferPage.objLiveEventTicket);
 		System.out.println(LiveEventTicket);
-		if (!LiveEventTicket.contains("Live Event Ticket")) {
-			logger.info("Live Event Ticket Text is displayed based on display language,expected behaviour");
+		if (!LiveEventTicket.contains("Online Live Concert")) {
+			logger.info("Online Live Concert Text is displayed based on display language,expected behaviour");
 			extent.extentLoggerPass("",
-					"Live Event Ticket Text is displayed based on display language,expected behaviour");
+					"Online Live Concert Text is displayed based on display language,expected behaviour");
 		} else {
-			logger.error("Live Event Ticket Text is not displayed based on display language,expected behaviour");
+			logger.error("Online Live Concert Text is not displayed based on display language,expected behaviour");
 			extent.extentLoggerFail("",
-					"Live Event Ticket Text is not displayed based on display language,expected behaviour");
+					"Online Live Concert Text is not displayed based on display language,expected behaviour");
 		}
 
 		String ExclusiveVideos = getText(PWAComboOfferPage.objExclusiveVideos);
@@ -32387,6 +32395,9 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			extent.extentLoggerFail("",
 					"Watch Ad Free Text is not displayed based on display language,expected behaviour");
 		}
+		click(PWAHomePage.objZeeLogo, "Zee logo");
+		waitTime(2500);
+		EnglishLanguageselection();
 	}
 
 	public void ComboOfferScreenLessThan299RentNowCTA(String userType) throws Exception {
@@ -32399,14 +32410,22 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			JSClick(PWAComboOfferPage.objTrailer, "Watch trailer");
 			waitTime(6000);
 		}
-		if (verifyElementPresent(PWAComboOfferPage.objRentNow, "Rent Now CTA")) {
-			logger.info("Rent Now CTA is Present");
-			extent.extentLoggerPass("", " Rent Now CTA is Present,expected behaviour");
-		} else {
-			logger.info("Rent Now CTA is not Present");
-			extent.extentLoggerFail("", " Rent Now CTA is not Present,expected behaviour");
+		if (verifyElementPresent(PWAComboOfferPage.objRentNowBelowPlayer, "Rent Now CTA")) {
+			JSClick(PWAComboOfferPage.objRentNowBelowPlayer, "Rent Now");
+			waitTime(3000);
 		}
-
+		
+		if (verifyElementPresent(PWAComboOfferPage.objContentCard, "Content Thumbnail")
+				&& verifyElementPresent(PWAComboOfferPage.objPremiumCard, "1 year Premium Thumbnail")) {
+			logger.info("combo offer page is displayed , expected behaviour");
+			extent.extentLoggerPass(" ", "combo offer page is displayed  , expected behaviour");
+		} else {
+			logger.info("combo offer page is not displayed ");
+			extent.extentLoggerFail(" ", "combo offer page is not displayed ");
+		}
+		click(PWAHomePage.objZeeLogo, "Zee logo");
+		waitTime(2500);
+		logout();
 	}
 
 	public void ComboOfferScreenLessThan299RentNowCTAOnPlayer(String userType) throws Exception {
@@ -40706,5 +40725,23 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			}
 		}
 	}
+	
+	public void supermoonInfoInOnlyrent(String userType, String tabname) throws Exception {
+		HeaderChildNode("Verify if the user can see the other plan Only Rent Content for INR 249 with information");
+		navigateToAnyScreenOnWeb(tabname);
+		waitTime(3500);
+		ScrollToTheElementWEB(PWAComboOfferPage.objRentNow);
+		JSClick(PWAComboOfferPage.objRentNow, "SuperMoon Rent Now");
+		waitTime(3500);
+		verifyElementPresent(PWAComboOfferPage.objOnlyRentMovie, "Only Rent Content");
+		verifyElementPresent(PWAComboOfferPage.objpackprice249, "Only Rent Content with INR 249");
+		compareText(PWAComboOfferPage.objBottomOnlyRentMovie, "Supermoon Plan");
 
+		compareText(PWAComboOfferPage.objbottomLiveEventTicket, "Online Live Concert");
+		compareText(PWAComboOfferPage.objbottomExclusiveVideos, "Exclusive Videos");
+		click(PWAHomePage.objZeeLogo, "Zee logo");
+		waitTime(2500);
+	}
+
+	
 }

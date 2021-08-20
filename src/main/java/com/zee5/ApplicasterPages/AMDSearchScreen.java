@@ -74,14 +74,6 @@ public class AMDSearchScreen {
 
 	public static By objTermsOfUse = By.xpath("//*[@resource-id='com.graymatrix.did:id/terms_of_use']");
 	public static By objPrivacyPolicy = By.xpath("//*[@resource-id='com.graymatrix.did:id/privacy_policy']");
-
-	public static By objPlanPrice = By.xpath("//*[@resource-id='com.graymatrix.did:id/tv_plan_price']");
-	public static By objDiscount = By.xpath("//*[@resource-id='com.graymatrix.did:id/tv_discount']");
-	public static By objRoundoff = By.xpath("//*[@resource-id='com.graymatrix.did:id/tv_round_off']");
-	public static By objTotalPayableAmount = By.xpath("//*[@resource-id='com.graymatrix.did:id/tv_total_amount']");
-	public static By objRevisedBillingInfo = By
-			.xpath("//*[@resource-id='com.graymatrix.did:id/revised_billing_cycle_decription']");
-	public static By objAccountInfo = By.xpath("//*[@resource-id='com.graymatrix.did:id/account_info_title']");
 	public static By objYouWillBeChargedInfo = By
 			.xpath("//*[@resource-id='com.graymatrix.did:id/payment_recurring_msg']");
 
@@ -281,4 +273,17 @@ public class AMDSearchScreen {
 	public static By objcastsearchresult = By.xpath(
 			"	//*[@text='Bablu Dablu - Robo Rumble']//parent::*//parent::*//child::*[@class='android.widget.ImageView']");
 
+	public static By objPlanPrice = By.xpath("//*[@resource-id='com.graymatrix.did:id/tv_plan_price'] | //*[@text='Plan Price']");
+
+	public static By objDiscount = By.xpath("//*[@resource-id='com.graymatrix.did:id/tv_discount'] | //*[@text='Discount']");
+
+	public static By objRoundoff = By.xpath("//*[@resource-id='com.graymatrix.did:id/tv_round_off'] | //*[@text='Round Off']");
+
+	public static By objTotalPayableAmount = By.xpath("//*[@resource-id='com.graymatrix.did:id/tv_total_amount'] | //*[@text='Payable ");
+
+	public static By objRevisedBillingInfo = By
+			.xpath("//*[@resource-id='com.graymatrix.did:id/revised_billing_cycle_decription'] | //*[@text='Revised billing cycle will be effective from date of payment']");
+
+	public static By objAccountInfo = By.xpath("//*[@resource-id='com.graymatrix.did:id/account_info_title'] | //*[@text='Logged in']");
+	
 }

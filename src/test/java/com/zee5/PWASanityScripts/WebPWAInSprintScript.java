@@ -138,11 +138,11 @@ public class WebPWAInSprintScript {
 	
 	@Test(priority=14, groups = {"sprint77"})
 	@Parameters({ "userType" })
-	public void comboOfferSaveAmount(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.comboOfferSaveAmount(userType, "ZEEPLEX");
+	public void supermoonInfoInOnlyrentAllInfo(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.supermoonInfoInOnlyrent(userType, "ZEEPLEX");
 	}
-	
-	@Test(priority=15, groups = {"sprint77"})
+
+	//@Test(priority=15, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void OtherPlanOnlyRentContentForINR249(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.OtherPlanOnlyRentContentForINR249(userType, "ZEEPLEX");;

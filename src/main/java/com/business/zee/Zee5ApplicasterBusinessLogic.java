@@ -1099,41 +1099,54 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			click(AMDSearchScreen.objContentNameInPlayer(RSVODContent), "Search result");
 			waitTime(5000);
 			verifyElementExist(AMDSearchScreen.objContentNameInPlayer(RSVODContent), "Content name in player");
+			waitTime(80000);
+			waitForElementDisplayed(AMDHomePage.objGetClubInConsumptionScreen,160);
 			if (verifyElementExist(AMDHomePage.objGetClubInConsumptionScreen, "Upgrade button")) {
 				click(AMDHomePage.objGetClubInConsumptionScreen, "Upgrade button");
-				verifyElementExist(AMDSearchScreen.objUpgradePopup, "Upgrade popup for RSVOD user");
-				verifyElementExist(AMDSearchScreen.objUpgradePopupDescription, "Upgrade popup description");
-				logger.info(getText(AMDSearchScreen.objUpgradePopupDescription));
-				int size4 = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).size();
-				for (int i = 0; i < size4; i++) {
-					boolean isDisplayed = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).get(i)
-							.isDisplayed();
-					if (isDisplayed) {
-						String pack = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).get(i).getText();
-						extent.extentLoggerPass("Packs", "Available Pack " + i + " : " + pack);
-						logger.info("Available Pack " + i + " : " + pack);
-					} else {
-						extent.extentLoggerFail("Packs", "No Packs are available");
-						logger.info("No Packs are available");
-					}
-				}
-				Swipe("UP", 1);
-				PartialSwipe("UP", 1);
-				verifyElementExist(AMDSearchScreen.objTermsOfUse, "Terms of use link");
-				verifyElementExist(AMDSearchScreen.objPrivacyPolicy, "Privacy policy");
-				if (findElement(AMDSearchScreen.objUpgradePopupProceedButton).isEnabled()) {
-					logger.info("Proceed button is enebled when user select any pack in upgrade popup");
-					extent.extentLoggerPass("Proceed",
-							"Proceed button is enebled when user select any pack in upgrade popup");
-				}
-				click(AMDSearchScreen.objUpgradePopupProceedButton, "Proceed");
+//				verifyElementExist(AMDSearchScreen.objUpgradePopup, "Upgrade popup for RSVOD user");
+//				verifyElementExist(AMDSearchScreen.objUpgradePopupDescription, "Upgrade popup description");
+//				logger.info(getText(AMDSearchScreen.objUpgradePopupDescription));
+//				int size4 = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).size();
+//				for (int i = 0; i < size4; i++) {
+//					boolean isDisplayed = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).get(i)
+//							.isDisplayed();
+//					if (isDisplayed) {
+//						String pack = getDriver().findElements(AMDSubscibeScreen.objRSVODPack2).get(i).getText();
+//						extent.extentLoggerPass("Packs", "Available Pack " + i + " : " + pack);
+//						logger.info("Available Pack " + i + " : " + pack);
+//					} else {
+//						extent.extentLoggerFail("Packs", "No Packs are available");
+//						logger.info("No Packs are available");
+//					}
+//				}
 				verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe page");
-				Swipe("DOWN", 1);
+				verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe header in subscription page");
+				verifyElementExist(AMDSubscibeScreen.objSubscribePageBackButton, "Back button in subscribe page");
+				verifyElementExist(AMDSubscibeScreen.objPlanName, "Available plan in subscribe page");
+				if (getDriver().findElement(AMDSubscibeScreen.objContinueBtn).isEnabled()) {
+					logger.info("Upgrage button is highlighted");
+					extent.extentLoggerPass("Highlighted", "Upgrade button is highlighted");
+				}
+				click(AMDSubscibeScreen.objContinueBtn, "Upgrade button");
+				verifyElementExist(AMDSubscibeScreen.objMakePaymentScreen, "Payment page");
+//				Swipe("UP", 1);
+//				PartialSwipe("UP", 1);
+//				verifyElementExist(AMDSearchScreen.objTermsOfUse, "Terms of use link");
+//				verifyElementExist(AMDSearchScreen.objPrivacyPolicy, "Privacy policy");
+//				if (findElement(AMDSearchScreen.objUpgradePopupProceedButton).isEnabled()) {
+//					logger.info("Proceed button is enebled when user select any pack in upgrade popup");
+//					extent.extentLoggerPass("Proceed",
+//							"Proceed button is enebled when user select any pack in upgrade popup");
+//				}
+//				click(AMDSearchScreen.objUpgradePopupProceedButton, "Proceed");
+//				verifyElementExist(AMDSubscibeScreen.objSubscribeHeader, "Subscribe page");
+//				Swipe("DOWN", 1);
 				verifyElementExist(AMDSearchScreen.objPlanPrice, "Plan price detials in Subscribe page");
 				verifyElementExist(AMDSearchScreen.objDiscount, "Discount price detials in Subscribe page");
 				verifyElementExist(AMDSearchScreen.objRoundoff, "Round off price detials in Subscribe page");
-				verifyElementExist(AMDSearchScreen.objTotalPayableAmount,
-						"Total payable price detials in Subscribe page");
+				verifyElementExist(AMDSearchScreen.objTotalPayableAmount,"Total payable price detials in Subscribe page");
+				verifyElementExist(AMDSearchScreen.objRevisedBillingInfo,"Revised billing cycle information");
+				
 				verifyElementExist(AMDSearchScreen.objAccountInfo, "Account info detials in Subscribe page");
 //				Swipe("UP", 1);
 //				verifyElementExist(AMDSearchScreen.objYouWillBeChargedInfo, "Recurring amount detials in Subscribe page");

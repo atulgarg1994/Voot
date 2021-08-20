@@ -65,6 +65,8 @@ public class ExtentReporter implements ITestListener {
 	public static String CTCurrentTime;
 	public static ArrayList<String> performaceDetails = new ArrayList<String>();
 	public static Dictionary<String, String> performaceMatrics = new Hashtable<String, String>();
+	static int passed = 0;
+	static int failed = 0;
 
 	/** The Constant logger. */
 	static LoggingUtils logger = new LoggingUtils();
@@ -374,21 +376,40 @@ public class ExtentReporter implements ITestListener {
 	}
 	
 	public static StringBuilder updateResult() {
+		int totalTest = moduleFail.size();
+		passedCount();
 		StringBuilder builder = new StringBuilder();
-				builder.append("        <tr>\r\n" + "          <td> " + (totalTests) + " </td>\r\n" + "          <td> "
-						+ totalPassedTest + " </td>\r\n" + "          <td> " + totalFailedTest + " </td>\r\n"
+				builder.append("        <tr>\r\n" + "          <td> " + (totalTest) + " </td>\r\n" + "          <td> "
+						+ passed + " </td>\r\n" + "          <td> " + failed + " </td>\r\n"
 						+ "        </tr>\r\n");
 			return builder;
 	}
 	
+	public static void passedCount(){
+		for(int i=0;i<moduleFail.size();i++){
+			String result[] = moduleFail.get(i).toString().split(",");
+			if(result[1].equals("Pass")){
+				passed ++;
+			}else {
+				failed++;
+			}
+		}
+	}
+	
+	static double pass = 0;
+	static double fail = 0;
 	public static StringBuilder updateModuleResult() {
 		StringBuilder builder = new StringBuilder();
 		if (moduleFail.size() > 0) {
 			for (int i = 0; i < moduleFail.size(); i++) {
 				String result[] = moduleFail.get(i).toString().split(",");
-				builder.append("        <tr>\r\n" + "          <td> " + result[0] + " </td>\r\n" + "          <td> "
-						+ result[1] + " </td>\r\n"
-						+ "        </tr>\r\n");
+				if(moduleFail.get(i).toString().contains("Pass")) {
+					builder.append("<tr>\r\n" + "<td> " + result[0] + " </td>\r\n" + "<td> <span style=\"font-weight:bold;color:green\">"+ result[1] + " </td>\r\n"+ "</tr>\r\n");
+					pass++;
+				}else {
+					builder.append("<tr>\r\n" + "<td> " + result[0] + " </td>\r\n" + "<td> <span style=\"font-weight:bold;color:red\">"+ result[1] + " </td>\r\n"+ "</tr>\r\n");
+					fail++;
+				}
 			}
 			return builder;
 		}else {
@@ -443,5 +464,15 @@ public class ExtentReporter implements ITestListener {
 		LocalDateTime now = LocalDateTime.now();
 		CTCurrentTime = dtf.format(now);
 		System.out.println(CTCurrentTime);
+	}
+	
+	public static StringBuilder updatePercentageOffailure() {
+		StringBuilder builder = new StringBuilder();
+		double total = (pass+fail);
+	     double percentage;
+	     percentage = (fail * 100/ total);
+	     String percent = String.format("%.2f", percentage);
+	     builder.append("<tr>\r\n" + "<td>"+total+"</td>\r\n" + "<td>"+pass+"</td>\r\n"+ "<td>"+fail+"</td>\r\n"+"<td>"+percent+"%</td>\r\n"+"</tr>\r\n");
+	     return builder;
 	}
 }

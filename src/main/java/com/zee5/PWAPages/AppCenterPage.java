@@ -30,7 +30,7 @@ public class AppCenterPage {
 	
 	public static By objVersion = By.xpath(".//*[@class='_1FqZrtOgx _6N07j8WWx _2CPSTw5ex _2tt1fylgx _6UYCKwXNx _1oz0dxenx _7mS0f4yVx']");
 	
-	public static By objBuild = By.xpath("(.//*[@class='_6UUDY6wdx '])[2]");
+	public static By objBuild = By.xpath("(.//*[@class='_6UUDY6wdx '])[2]/p");
 	
 	public static By objDwonload = By.xpath("(.//*[text()='Download'])[2]");
 	

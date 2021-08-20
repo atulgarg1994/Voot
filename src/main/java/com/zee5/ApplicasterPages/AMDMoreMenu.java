@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 
 public class AMDMoreMenu {
 
-	public static By objMoreMenu = By.xpath("//*[@id='bb_bottom_bar_icon']");
 	public static By objLoginRegister = By.xpath("//*[@text='Login/Register for best experience']");
 	public static By objProfile = By.xpath("//*[@text='P']");
 	public static By objUserType = By.xpath("//*[@text='Guest']");
@@ -18,7 +17,6 @@ public class AMDMoreMenu {
 	public static By objHomeIcon = By.xpath("//*[@text='Home']");
 	public static By objUpcomingIcon = By.xpath("//*[@text='Upcoming' and @id='bb_bottom_bar_title']");
 	public static By objDownloadsIcon = By.xpath("//*[@text='Downloads']");
-	public static By objMoreMenuIcon = By.xpath("//*[@text='More']");
 	public static By objLogout = By.xpath("//*[@text='Logout']");
 	public static By objLogoutBtn = By.xpath("//*[@id='logoutButton']");
 
@@ -349,4 +347,9 @@ public class AMDMoreMenu {
 	public static By objProfilePic= By.xpath("//*[@id='icon_user_image']");
 	
 	public static By objActivateDevice = By.xpath("//*[@text='Activate Device']");
+	
+	public static By objMoreMenu = By.xpath("(//*[@id='navigationTitleTextView' and @text='More'])");
+
+	public static By objMoreMenuIcon = By.xpath("(//*[@id='navigationTitleTextView' and @text='More'])");
+
 }
