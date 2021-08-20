@@ -51,6 +51,8 @@ public class Drivertools {
 	public static Duration timeElapsed ;
 	private static String DeviceList;
 	private static String apk;
+	public static String apkName = null;
+	public static String dir = System.getProperty("user.dir") + "\\APK\\";
 
 	public static String getApk() {
 		return apk;

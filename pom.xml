@@ -285,11 +285,13 @@
 				<configuration>
 					<useSystemClassLoader>false</useSystemClassLoader>
 					<systemPropertyVariables>
-					<!--	<UserType>${UserType}</UserType>
+					<!--<UserType>${UserType}</UserType>
 						<BrowserType>${BrowserType}</BrowserType>
 						<url>${url}</url>
 						 <runMode>${runMode}</runMode> 
-						 <runModule>${runModule}</runModule> -->
+						 <runModule>${runModule}</runModule>
+						 <BuildVersionChoice>${BuildVersionChoice}</BuildVersionChoice> 
+						 <BuildVersion>${BuildVersion}</BuildVersion> -->
 					</systemPropertyVariables>
 					<suiteXmlFiles>
 						<!-- TestNG suite XML files -->

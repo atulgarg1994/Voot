@@ -1,7 +1,6 @@
 package com.driverInstance;
 
 import java.util.List;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -18,10 +17,10 @@ public class DownloadAPPFromAPPCenter extends Utilities{
 	public void AppCenter(String build,String buildVersion) throws Exception {
 		HeaderChildNode("App Center");
 		verifyElementPresentAndClick(AppCenterPage.objMicrosoft, "Microsoft");
-		type(AppCenterPage.objEmail, "abc", "Email Field");
+		type(AppCenterPage.objEmail, "ABC", "Email Field");
 		verifyElementPresentAndClick(AppCenterPage.objSignIn, "Next Icon");
 		waitTime(4000);
-		type(AppCenterPage.objPassword, "abc", "Password Field");
+		type(AppCenterPage.objPassword, "ABC", "Password Field");
 		verifyElementPresentAndClick(AppCenterPage.objSignIn, "Next Icon");
 		if (verifyElementPresent(AppCenterPage.objSignIn, "Next Icon")) {
 			verifyElementPresentAndClick(AppCenterPage.objSignIn, "Next Icon");

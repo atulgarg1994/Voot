@@ -42,6 +42,8 @@ public class DriverInstance extends Drivertools {
 				timeElapsed = Duration.between(startTime , endTime  );
 				logger.info("Time taken to launch the App (millisec)" + timeElapsed.toMillis());
 //				extent.extentLogger("Timer","to the App (millisec): " + timeElapsed.toMillis());
+//				File file = new File(dir+apkName);
+//				file.delete();
 				break;
 
 			case "MPWA":
@@ -102,11 +104,9 @@ public class DriverInstance extends Drivertools {
 	}
 	
 	private void installAPK(String build) {
-		String apkName = null;
 		if(build.equals("Latest") || build.equals("BuildVersion")) {
 		DownloadApp(build);
 		System.out.println("Finished download");
-		String dir = System.getProperty("user.dir") + "\\APK\\";
 		System.out.println(dir);
 		File file = new File(dir);
 		file.mkdir();
@@ -114,7 +114,6 @@ public class DriverInstance extends Drivertools {
 		 for(File fileName : filesList) {
 			 apkName = fileName.getName();
 		 }
-		 System.out.println(apkName);
 		 capabilities.setCapability(MobileCapabilityType.APP, dir+apkName);
 		 System.out.println("Install APK");
 		switch(getApk()) {
