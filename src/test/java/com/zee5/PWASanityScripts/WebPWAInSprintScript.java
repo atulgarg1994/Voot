@@ -131,6 +131,7 @@ public class WebPWAInSprintScript {
 	
 	@Test(priority=13, groups = {"sprint77"})
 	@Parameters({ "userType" })
+	//Premium is displayed instead of Supermoon combo 
 	public void verifyinformationisdisplayingonComboScreen(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.verifyinformationisdisplayingonComboScreen(userType, "ZEEPLEX");
 	}
@@ -162,6 +163,7 @@ public class WebPWAInSprintScript {
 	
 	@Test(priority=18, groups = {"sprint77"})
 	@Parameters({ "userType" })
+	//Buy premium is displayed instead of buy supermoon
 	public void BuyorRentorUpgrade(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.BuyorRentorUpgrade(userType, "ZEEPLEX");
 	}
@@ -292,7 +294,8 @@ public class WebPWAInSprintScript {
 	}
 	
 	
-	@Test(priority=39, groups = {"sprint77"})
+	//@Test(priority=39, groups = {"sprint77"})
+	//already covered
 	@Parameters({ "userType" })
 	public void justPayingDifferenceTxtAndActivePlanTxt(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.justPayingDifferenceTxtAndActivePlanTxt(userType, "ZEEPLEX");
@@ -494,7 +497,7 @@ public class WebPWAInSprintScript {
 	@Test(priority=72, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void ValidateSearchContentLessThan299User(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.ValidateSearchContentLessThan299User(userType);
+		Zee5WEBPWASanityBusinessLogic.ValidateSearchContentLessThan299User(userType,"Demo Moon Live");
 	}
 	
 	@Test(priority=73, groups = {"sprint77"})
@@ -525,38 +528,41 @@ public class WebPWAInSprintScript {
 	
 	@Test(priority=77, groups = {"sprint77"})
 	@Parameters({ "userType" })
+	public void UpgradeButtonRSVOD(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.UpgradeButtonRSVOD(userType);;
+	}
+	
+	@Test(priority=78, groups = {"sprint77"})
+	@Parameters({ "userType" })
+	public void PaymentPageUsingUpgradeButtonRSVOD(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.PaymentPageUsingUpgradeButtonRSVOD(userType);
+	}
+	
+	
+	/*
+	 * @Test(priority=79, groups = {"sprint77"})
+	 * 
+	 * @Parameters({ "userType" }) public void
+	 * PaymentPageUsingRentNowButtonRSVOD(String userType) throws Exception {
+	 * Zee5WEBPWASanityBusinessLogic.PaymentPageUsingRentNowButtonRSVOD(userType); }
+	 */
+	
+	@Test(priority=80, groups = {"sprint77"})
+	@Parameters({ "userType" })
 	public void TermsAndPrivacyPolicGuest(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.TermsAndPrivacyPolicGuest(userType);
 	}
 	
-	@Test(priority=78, groups = {"sprint77"})
+	@Test(priority=81, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void TermsOfUsePageGuest(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.TermsOfUsePageGuest(userType);
 	}
 	
-	
-	@Test(priority=79, groups = {"sprint77"})
+	@Test(priority=82, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void PrivacyPolicyPageGuest(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.PrivacyPolicyPageGuest(userType);
-	}
-	
-	@Test(priority=80, groups = {"sprint77"})
-	@Parameters({ "userType" })
-	public void UpgradeButtonRSVOD(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.UpgradeButtonRSVOD(userType);;
-	}
-	
-	@Test(priority=81, groups = {"sprint77"})
-	@Parameters({ "userType" })
-	public void PaymentPageUsingUpgradeButtonRSVOD(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.PaymentPageUsingUpgradeButtonRSVOD(userType);;
-	}
-	@Test(priority=82, groups = {"sprint77"})
-	@Parameters({ "userType" })
-	public void PaymentPageUsingRentNowButtonRSVOD(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.PaymentPageUsingRentNowButtonRSVOD(userType);
 	}
 	
 	@Test(priority=83, groups = {"sprint77"})

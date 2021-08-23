@@ -4,9 +4,7 @@
 	
 	<!-- <parameter name="userType" value="${UserType}"/> Guest/NonSubscribedUser/SubscribedUser 
 		<parameter name="runMode" value="${runMode}"/> <parameter name="runModule" 
-		value="${runModule}"/> <parameter name="browserType" value="${browserType}"/>
-		<parameter name="Build" value="${BuildVersionChoice}" />
-		<parameter name="BuildVersion" value="${BuildVersion}" /> -->
+		value="${runModule}"/> <parameter name="browserType" value="${browserType}"/> -->
 
 	<parameter name="userType" value="Guest" />  <!-- Guest/NonSubscribedUser/SubscribedUser -->
 	<parameter name="runModule" value="Suite" />
@@ -160,25 +158,42 @@
 	<parameter name="99PremiumPackEmail" value="recurringdc@mailnesia.com" />
 	<parameter name="99PremiumPackPwd" value="ABCD1234" />
 	
-	<parameter name="RSVOD49PackEmail" value="49rsvod@yopmail.com" />
-	<parameter name="RSVOD49PackPwd" value="welcome" />
+	<parameter name="RSVOD49PackEmail" value="smtrsvod99@mailnesia.com " />
+	<parameter name="RSVOD49PackPwd" value="123456" />
 	
 	<parameter name="299PremiumPackEmail" value="dc1cl@mailnesia.com" />
-	<parameter name="RSVOD499PackEmail" value="zeetest07@gmail.com" />
+	<parameter name="RSVOD499PackEmail" value="smtrsvod499@mailnesia.com " />
 	
 	<parameter name="SubsUserWithRadheRentalPlan" value="sanaraj.sunny@gmail.com" />
 	
-	<parameter name="NonSubsUserWithActiveRentalPlan" value="radhecontent@gmail.com" />
-	<parameter name="NonSubsUserWithActiveRentalPlanPwd" value="Anto123" />
+	<parameter name="NonSubsUserWithActiveRentalPlan" value="tvod18@g.com" />
+	<parameter name="NonSubsUserWithActiveRentalPlanPwd" value="123456" />
 	
 	<parameter name="SubsUserWithoutRentalPlan" value="mobicheck@gmail.com" />
+	
+	<parameter name="SubsUserWithActiveRentalPlan" value="zeetestsub@gmail.com" />
+	<parameter name="SubsUserWithActiveRentalPlanPwd" value="123456" />
+	
 	
 	<parameter name="499PremiumPackEmail" value="juspayotp@mailnesia.com" />
 	<parameter name="499PremiumPackEmailPassword" value="111222" />
 	
+	<parameter name="99PremiumPackEmailWithActiveSupermoon" value="smrec99@mailnesia.com" />
+	<parameter name="99PremiumPackEmailPasswordWithActiveSupermoon" value="123456" />
+	
+	<parameter name="299PremiumPackEmailWithActiveSupermoon" value="newsubflow@gmail.com" />
+	<parameter name="299PremiumPackEmailPasswordWithActiveSupermoon" value="123456" />
+	
+	<parameter name="RSVOD49PackEmailWithActiveSupermoon" value="smrsvod99@mailnesia.com" />
+	<parameter name="RSVOD49PackEmailPasswordWithActiveSupermoon" value="123456" />
+	
+	<parameter name="RSVOD499PackEmailWithActiveSupermoon" value="" />
+	<parameter name="RSVOD499PackEmailPasswordWithActiveSupermoon" value="" />
+	
+	
 	<!-- ######  ZEEPLEX Content Names	###### -->
 	<parameter name="RentalContentName1" value="Demo Moon Live" />
-	<parameter name="RentalContentName2" value="Mard Ki Zubaan" />
+	<parameter name="RentalContentName2" value="Sensational Dialogues | Sensational ZEE5" />
 	<parameter name="RentalContentName3" value="Demo Moon Live" />
 	<parameter name="RentalContentName4" value="Passport" />
 	

@@ -1100,7 +1100,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			waitTime(5000);
 			verifyElementExist(AMDSearchScreen.objContentNameInPlayer(RSVODContent), "Content name in player");
 			waitTime(80000);
-			waitForElementDisplayed(AMDHomePage.objGetClubInConsumptionScreen,160);
+			waitForElementDisplayed(AMDHomePage.objGetClubInConsumptionScreen, 160);
 			if (verifyElementExist(AMDHomePage.objGetClubInConsumptionScreen, "Upgrade button")) {
 				click(AMDHomePage.objGetClubInConsumptionScreen, "Upgrade button");
 //				verifyElementExist(AMDSearchScreen.objUpgradePopup, "Upgrade popup for RSVOD user");
@@ -1144,9 +1144,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				verifyElementExist(AMDSearchScreen.objPlanPrice, "Plan price detials in Subscribe page");
 				verifyElementExist(AMDSearchScreen.objDiscount, "Discount price detials in Subscribe page");
 				verifyElementExist(AMDSearchScreen.objRoundoff, "Round off price detials in Subscribe page");
-				verifyElementExist(AMDSearchScreen.objTotalPayableAmount,"Total payable price detials in Subscribe page");
-				verifyElementExist(AMDSearchScreen.objRevisedBillingInfo,"Revised billing cycle information");
-				
+				verifyElementExist(AMDSearchScreen.objTotalPayableAmount,
+						"Total payable price detials in Subscribe page");
+				verifyElementExist(AMDSearchScreen.objRevisedBillingInfo, "Revised billing cycle information");
+
 				verifyElementExist(AMDSearchScreen.objAccountInfo, "Account info detials in Subscribe page");
 //				Swipe("UP", 1);
 //				verifyElementExist(AMDSearchScreen.objYouWillBeChargedInfo, "Recurring amount detials in Subscribe page");
@@ -22748,10 +22749,10 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 	}
 
+
 	public void PaymentScreenVerification() throws Exception {
 		extent.HeaderChildNode("Payment screen Verification");
 		System.out.println("\nPayment screen Verification");
-
 		waitTime(2000);
 		verifyElementPresent(AMDPlayerScreen.objMakePayment, "Payment screen");
 		verifyElementPresent(AMDPlayerScreen.objLoggedIn, "Logged in text");
@@ -22760,9 +22761,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.info("Email Id is displayed in payment screen " + getEmail);
 			extentLoggerPass("Email ID", "Email Id is displayed in payment screen " + getEmail);
 		}
-
-		verifyElementPresent(AMDSubscibeScreen.objOfferPlanName, getText(AMDSubscibeScreen.objOfferPlanName));
-		verifyElementPresent(AMDSubscibeScreen.objOfferPlanPrice, getText(AMDSubscibeScreen.objOfferPlanPrice));
+		verifyElementExist(AMDSubscibeScreen.objOfferPlanName, getText(AMDSubscibeScreen.objOfferPlanName));
+		verifyElementExist(AMDSubscibeScreen.objOfferPlanPrice, getText(AMDSubscibeScreen.objOfferPlanPrice));
 	}
 
 	public void premiumUser_99(String tabName, String contentTitle) throws Exception {
@@ -22820,9 +22820,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 									+ contentTitle);
 				}
 			} else {
-				logger.error("Trailer CTA on carousel banner for TVOD content is NOT displayed : AMA2-14680");
+				logger.error("Trailer CTA on carousel banner for TVOD content is NOT displayed ");
 				extent.extentLoggerWarning("Carousel",
-						"Trailer CTA on carousel banner for " + contentTitle + " is NOTdisplayed : AMA2-14680");
+						"Trailer CTA on carousel banner for " + contentTitle + " is NOTdisplayed ");
 			}
 
 			// Rent Now CTA from Carousel
@@ -22875,12 +22875,14 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			}
 
 			// Rent Now CTA below the player
-			if (verifyElementExist(AMDTVODComboOffer.objRentNowCTABelowPlayer, "Rent Now CTA below the player")) {
-				click(AMDTVODComboOffer.objRentNowCTABelowPlayer, "Rent Now CTA Below the Player");
+			if (verifyElementDisplayed(AMDTVODComboOffer.objRentNowCTABelowPlayer)) {
+				String text = findElement(AMDTVODComboOffer.objRentNowCTABelowPlayer).getText();
+				extentLoggerPass("", text + " CTA is displayed below the player");
+				click(AMDTVODComboOffer.objRentNowCTABelowPlayer, text + " CTA Below the Player");
 				if (verifyElementDisplayed(AMDTVODComboOffer.obComboOfferScreen)) {
-					logger.info("Combo offer page is displayed on clicking Rent Now CTA Below the player");
+					logger.info("Combo offer page is displayed on clicking "+ text + " CTA Below the player");
 					extent.extentLoggerPass("Consumption Screen",
-							"Combo offer page is displayed on clicking Rent Now CTA Below the player");
+							"Combo offer page is displayed on clicking "+ text + " CTA Below the player");
 					Back(1);
 				} else {
 					logger.error("Combo offer page is not displayed on clicking Rent Now CTA Below the player");
@@ -22888,18 +22890,34 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 							"Combo offer page is not displayed on clicking Rent Now CTA Below the player");
 				}
 			}
-			// Rent Now CTA on The player
+			
 			// click(AMDConsumptionScreen.objWatchTrialer, "Watch Trailer");
-			waitTime(5000);
-			if (verifyElementIsNotDisplayed(AMDPlayerScreen.objPauseIcon)) {
-				click(AMDPlayerScreen.objPlayerScreen, "player screen");
+//			waitTime(5000);
+//			if (verifyElementIsNotDisplayed(AMDPlayerScreen.objPauseIcon)) {
+//				click(AMDPlayerScreen.objPlayerScreen, "player screen");
+//			}
+//			click(AMDPlayerScreen.objPauseIcon, "Pause");
+//			scrubProgressBarTillEnd2(AMDPlayerScreen.objProgressBar);
+			if(verifyElementDisplayed(AMDTVODComboOffer.objRentNowTextOnPlayer)) {
+				String OnPlayertext = findElement(AMDTVODComboOffer.objRentNowTextOnPlayer).getText();
+				extentLogger("", OnPlayertext + " text is displayed player");
+				if(OnPlayertext.contains("Watch full content by renting it now")) {
+				logger.error("[AMA2-18092] " + OnPlayertext + " text is displayed player instead of 'Blockbuster movies and live events at home'");
+				extent.extentLoggerFail("Consumption Screen",
+						"[AMA2-18092] " +OnPlayertext + " text is displayed player instead of 'Blockbuster movies and live events at home'");
+				}else {
+					logger.info(OnPlayertext+ " text is displayed on the player");
+					extent.extentLoggerPass("Consumption Screen",
+							OnPlayertext+ " text is displayed on the player");
+				}
 			}
-			click(AMDPlayerScreen.objPauseIcon, "Pause");
-			scrubProgressBarTillEnd2(AMDPlayerScreen.objProgressBar);
-			verifyElementExist(AMDTVODComboOffer.objRentNowTextOnPlayer,
-					"Watch full content by renting it now text on player");
-			if (verifyElementExist(AMDTVODComboOffer.objRentNowCTAOnPlayer, "Rent Now CTA on Player")) {
-				click(AMDTVODComboOffer.objRentNowCTAOnPlayer, "Rent Now CTA on Player");
+			
+			// Rent Now CTA on The player
+			
+			if (verifyElementDisplayed((AMDTVODComboOffer.objRentNowCTAOnPlayer))) {
+				String Renttext = findElement(AMDTVODComboOffer.objRentNowCTAOnPlayer).getText();
+				extentLoggerPass("", Renttext + " CTA is displayed on the player");
+				click(AMDTVODComboOffer.objRentNowCTAOnPlayer, Renttext + " CTA on the Player");
 				if (verifyElementDisplayed(AMDTVODComboOffer.obComboOfferScreen)) {
 					logger.info("Combo offer page is displayed on clicking Rent Now CTA on the player");
 					extent.extentLoggerPass("Consumption Screen",
@@ -22913,10 +22931,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 							"Combo offer page is not displayed on clicking Rent Now CTA on the player");
 				}
 			}
-
-			// Radhe combo offer widget on Consumption screen
-			if (verifyElementExist(AMDTVODComboOffer.objComboOfferWidgetBelowThePlayer,
-					"Combo offer widget below the player")) {
+			
+			// Supermoon combo offer widget on Consumption screen
+			if (verifyElementDisplayed(AMDTVODComboOffer.objComboOfferWidgetBelowThePlayer)) {
 				click(AMDTVODComboOffer.objComboOfferWidgetBelowThePlayer, "combo offer widget");
 				if (verifyElementDisplayed(AMDTVODComboOffer.obComboOfferScreen)) {
 					logger.info("Combo offer page is displayed on clicking combo offer widget below the player");
@@ -22931,14 +22948,17 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 					extent.extentLoggerFail("Consumption Screen",
 							"Combo offer page is not displayed on clicking combo offer widget below the player");
 				}
+			}else {
+				logger.error("[AMA2-18106] Combo offer widget below the player is not displayed");
+				extent.extentLoggerFail("Consumption Screen","[AMA2-18106] Combo offer widget below the player is not displayed");
 			}
 			Swipe("UP", 1);
-			verifyElementExist(AMDTVODComboOffer.objHowItWorksCTA, "How it works CTA");
-			click(AMDTVODComboOffer.objHowItWorksCTA, "How it works CTA");
-			waitTime(2000);
-			verifyElementExist(AMDTVODComboOffer.objQandAModelWindow, "Q&A model window");
-			Back(1);
-			waitTime(3000);
+//			verifyElementExist(AMDTVODComboOffer.objHowItWorksCTA, "How it works CTA");
+//			click(AMDTVODComboOffer.objHowItWorksCTA, "How it works CTA");
+//			waitTime(2000);
+//			verifyElementExist(AMDTVODComboOffer.objQandAModelWindow, "Q&A model window");
+//			Back(1);
+//			waitTime(3000);
 //				PartialSwipeInConsumptionScreen("DOWN", 2);
 			click(AMDTVODComboOffer.objRentNowCTABelowPlayer, "Rent Now CTA Below the Player");
 		} else {
@@ -22968,44 +22988,47 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			Swipe("DOWN", 1);
 			String value = getAttributValue("checked", AMDTVODComboOffer.objPlanCost);
 			if (value.equalsIgnoreCase("true")) {
-				logger.info("Radhe combo plan is selected by default");
-				extent.extentLoggerPass("Combo offer Screen", "Radhe combo plan is selected by default");
+				logger.info("Supermoon combo plan is selected by default");
+				extent.extentLoggerPass("Combo offer Screen", "Supermoon combo plan is selected by default");
 				String cta = getText(AMDTVODComboOffer.objCTABelowTheComboOfferPage);
-				if (cta.equalsIgnoreCase(CTAName)) {
-					logger.info(CTAName + " CTA is displayed when Radhe combo plan is selected");
-					extentLoggerPass("Upgrade CTA", CTAName + " CTA is displayed when Radhe combo plan is selected");
-					click(AMDTVODComboOffer.objCTABelowTheComboOfferPage, "Upgrade CTA");
+				System.out.println(cta);
+				if (cta.equalsIgnoreCase(CTAName)) {					
+					logger.info(CTAName + " CTA is displayed when Supermoon combo plan is selected");
+					extentLoggerPass("Upgrade CTA", CTAName + " CTA is displayed when Supermoon combo plan is selected");					
+				}
+				else {
+					logger.error("[AMA2-18102] " +cta + " CTA is displayed when Supermoon combo plan is selected instead 'Buy Supermoon Combo' CTA");
+					extentLoggerFail("Upgrade CTA","[AMA2-18102] " + cta + " CTA is displayed when Supermoon combo plan is selected instead 'Buy Supermoon Combo' CTA\"");
+									}					
+					click(AMDTVODComboOffer.objCTABelowTheComboOfferPage, CTAName +" CTA");
 					PaymentScreenVerification();
 					Back(1);
-				} else {
-					logger.info("Upgrade CTA is not displayed when Radhe combo plan is selected");
-					extentLoggerFail("Upgrade CTA", "Upgrade CTA is not displayed when Radhe combo plan is selected");
-				}
-			} else {
-				logger.error("Radhe combo plan is NOT selected by default");
-				extent.extentLoggerFail("Combo offer Screen", "Radhe combo plan is NOT selected by default");
+				} 
+		      else {
+				logger.error("Supermoon combo plan is NOT selected by default");
+				extent.extentLoggerFail("Combo offer Screen", "Supermoon combo plan is NOT selected by default");
 			}
 			Swipe("UP", 1);
 			click(AMDTVODComboOffer.objOnlyRentMoviePlan, "Only Rent Movie plan");
 			String cta2 = getText(AMDTVODComboOffer.objCTABelowTheComboOfferPage);
-			if (cta2.equalsIgnoreCase("Rent Movie")) {
-				logger.info("'Rent Movie' CTA is displayed when 'Only Rent Movie plan' is selected");
-				extentLoggerPass("Rent Movie CTA",
-						"'Rent Movie' CTA is displayed when 'Only Rent Movie plan' is selected");
-				click(AMDTVODComboOffer.objCTABelowTheComboOfferPage, "'Rent Movie' CTA");
+			if (cta2.equalsIgnoreCase("Rent Content")) {
+				logger.info(cta2 + " CTA is displayed when 'Only Rent Movie plan' is selected");
+				extentLoggerPass("Rent Movie CTA",cta2 + 
+						" CTA is displayed when 'Only Rent Content plan' is selected");
+				click(AMDTVODComboOffer.objCTABelowTheComboOfferPage, cta2 +" CTA");
 				PaymentScreenVerification();
 				Back(1);
 			} else {
-				logger.info("'Rent Movie' CTA is not displayed when 'Only Rent Movie plan' is selected");
+				logger.info("'Rent Content' CTA is not displayed when 'Only Rent Content plan' is selected");
 				extentLoggerFail("Rent Movie CTA",
-						"'Rent Movie' CTA is not displayed when 'Only Rent Movie plan' is selected");
+						"'Rent Content' CTA is not displayed when 'Only Rent Content plan' is selected");
 			}
 		} else {
 			logger.info("Combo offer page is not displayed");
 			extentLoggerWarning("Combo offer page", "Combo offer page is not displayed");
 		}
-
 	}
+
 
 	public void VerifyRentalPlanAsSubscribedUser(String pEmailId, String pPassword, String pContentName)
 			throws Exception {
@@ -23111,16 +23134,15 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	public void VerifyRentalPlanAsNonSubscribedUser(String pEmailId, String pPassword, String pContent)
 			throws Exception {
-		extent.HeaderChildNode("UC-8: Validate Movie already rented screen displayed for Non-SubscribedUser");
-		System.out.println("\nUC-8: Validate Movie already rented screen displayed for Non-SubscribedUser");
-
-		waitForElementDisplayed(AMDTVODComboOffer.objPlayCTAonCarouselforContent(pContent), 15);
-		verifyElementPresentAndClick(AMDTVODComboOffer.objPlayCTAonCarouselforContent(pContent),
-				"Play button from Carousel");
+		extent.HeaderChildNode("UC-8: Validate Content already rented screen displayed for Non-SubscribedUser");
+		System.out.println("\nUC-8: Validate Content already rented screen displayed for Non-SubscribedUser");
+        SelectTopNavigationTab("Music");
+        waitForElementAndClickIfPresent(AMDHomePage.objCarouselContentTitleCard(pContent), 60,
+				"Carousel content: " + pContent);
 		click(AMDTVODComboOffer.objRentNowCTABelowPlayer, "Rent Now CTA");
 		waitTime(3000);
 		ComboOfferPlanCard_OnlyRentMoviePlanCard_Validation();
-		click(AMDTVODComboOffer.objBuyRadheComboCTA, "Buy Radhe Combo CTA");
+		click(AMDTVODComboOffer.objBuyRadheComboCTA, "Buy Supermoon Combo CTA");
 		waitTime(2000);
 		if (verifyElementPresent(AMDTVODComboOffer.objAccountInfoLabel, "Account Info overlay")) {
 			logger.info("Account Info widget is displayed");
@@ -23140,16 +23162,43 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 			waitTime(5000);
 			if (verifyIsElementDisplayed(AMDTVODComboOffer.objAlreadyRented)) {
-				logger.info("'Movie already rented' bottom sheet is displayed");
-				extentLoggerPass("Bottom Sheet", "<b>'Movie already rented'</b> bottom sheet is displayed");
-
+				logger.info("'Content already rented' bottom sheet is displayed");
+				extentLoggerPass("Bottom Sheet", "<b>'Content already rented'</b> bottom sheet is displayed");
 				verifyElementPresent(AMDTVODComboOffer.objActivePlanMsg2, "Already Rental Details");
 				verifyElementPresent(AMDTVODComboOffer.objWatchNowCalloutCTA, "Watch Now CTA");
 				verifyElementPresent(AMDTVODComboOffer.objBuyPremiumCalloutCTA, "Buy Premium CTA");
-
+				
+				//Verify consumption screen on clicking back				
+				VerifyConsumptionScreen_AfterClickingBack();
+				
+				//validate watch now CTA
+				validateWatchNow(pContent);
+				
+				relaunch(true);
+				SelectTopNavigationTab("Music");
+				waitForElementAndClickIfPresent(AMDHomePage.objCarouselContentTitleCard(pContent), 60,
+									"Carousel content: " + pContent);
+				waitTime(3000);
+				click(AMDTVODComboOffer.objRentNowCTABelowPlayer, "Rent Now CTA");
+				waitTime(3000);
+				click(AMDTVODComboOffer.objBuyRadheComboCTA, "Buy Supermoon Combo CTA");
+				waitTime(2000);
+					verifyElementPresent(AMDTVODComboOffer.objPaymentStep2, "Payment Step indicator");
+					type(AMDTVODComboOffer.objEmailIdfield, pEmailId, "Email Id");
+					hideKeyboard();
+					click(AMDTVODComboOffer.objHeadingBottomSheet, "HideKeyboard");
+					click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
+					type(AMDTVODComboOffer.objPasswordfield, pPassword, "Password");
+					hideKeyboard();
+					click(AMDTVODComboOffer.objHeadingBottomSheet, "HideKeyboard");
+					click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
+					waitTime(4000);
+					
+					//validate Buy premium CTA
+					validateBuyPremium();
 			} else {
-				logger.info("'Movie already rented' screen is not displayed");
-				extentLoggerFail("Movie already rented", "<b>'Movie already rented'</b> screen is not displayed ");
+				logger.info("'Content already rented' screen is not displayed");
+				extentLoggerFail("Content already rented", "<b>'Movie already rented'</b> screen is not displayed ");
 			}
 		} else {
 			logger.info("Account info screen is not displayed");
@@ -23170,28 +23219,28 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	public void Guest_premiumUser_99(String tabName, String contentTitle, String email, String password)
 			throws Exception {
 		validationOfCarousalAndConsumptionPageForComboOfferContent(tabName, contentTitle);
-		ValidationOfComboOfferPage_AccountInfoPage_UpgradeBottomSheet("Pay less, Watch more!", "Buy Radhe Combo", email,
+		ValidationOfComboOfferPage_AccountInfoPage_UpgradeBottomSheet("Pay less, Watch more!", "Buy Supermoon Combo", email,
 				password, "99");
 	}
 
 	public void Guest_premiumUser_299(String tabName, String contentTitle, String email, String password)
 			throws Exception {
 		validationOfCarousalAndConsumptionPageForComboOfferContent(tabName, contentTitle);
-		ValidationOfComboOfferPage_AccountInfoPage_UpgradeBottomSheet("Pay less, Watch more!", "Buy Radhe Combo", email,
+		ValidationOfComboOfferPage_AccountInfoPage_UpgradeBottomSheet("Pay less, Watch more!", "Buy Supermoon Combo", email,
 				password, "299");
 	}
-
+	
 	public void Guest_premiumUser_499(String tabName, String contentTitle, String email, String password)
 			throws Exception {
 		validationOfCarousalAndConsumptionPageForComboOfferContent(tabName, contentTitle);
-		ValidationOfComboOfferPage_AccountInfoPage_UpgradeBottomSheet("Pay less, Watch more!", "Buy Radhe Combo", email,
+		ValidationOfComboOfferPage_AccountInfoPage_UpgradeBottomSheet("Pay less, Watch more!", "Buy Supermoon Combo", email,
 				password, "499");
 	}
 
 	public void Guest_RSVODUser_49(String tabName, String contentTitle, String email, String password)
 			throws Exception {
 		validationOfCarousalAndConsumptionPageForComboOfferContent(tabName, contentTitle);
-		ValidationOfComboOfferPage_AccountInfoPage_UpgradeBottomSheet("Pay less, Watch more!", "Buy Radhe Combo", email,
+		ValidationOfComboOfferPage_AccountInfoPage_UpgradeBottomSheet("Pay less, Watch more!", "Buy Supermoon Combo", email,
 				password, "49");
 	}
 
@@ -23218,13 +23267,18 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			Swipe("DOWN", 2);
 			boolean value = findElement(AMDTVODComboOffer.objComboOfferPlan).isEnabled();
 			if (value) {
-				logger.info("Radhe combo plan is selected by default");
-				extent.extentLoggerPass("Combo offer Screen", "Radhe combo plan is selected by default");
+				logger.info("Supermoon combo plan is selected by default");
+				extent.extentLoggerPass("Combo offer Screen", "supermoon combo plan is selected by default");
 				String cta = getText(AMDTVODComboOffer.objCTABelowTheComboOfferPage);
 				if (cta.equalsIgnoreCase(CTAName)) {
-					logger.info(CTAName + " CTA is displayed when Radhe combo plan is selected");
-					extentLoggerPass("Upgrade CTA", CTAName + " CTA is displayed when Radhe combo plan is selected");
-					click(AMDTVODComboOffer.objCTABelowTheComboOfferPage, CTAName + " CTA");
+					logger.info(CTAName + " CTA is displayed when supermoon combo plan is selected");
+					extentLoggerPass("Upgrade CTA", CTAName + " CTA is displayed when supermoon combo plan is selected");
+				}
+					else {
+						logger.info("[AMA2-18102] " +cta + " CTA is displayed when Supermoon combo plan is selected instead of " + CTAName);
+						extentLoggerFail("Upgrade CTA", "[AMA2-18102] " +cta + " CTA is displayed when Supermoon combo plan is selected instead of " + CTAName);
+					}
+					click(AMDTVODComboOffer.objCTABelowTheComboOfferPage, cta + " CTA");
 					waitTime(2000);
 					verifyElementPresent(AMDTVODComboOffer.objPaymentStep2, "Payment Step indicator");
 
@@ -23236,12 +23290,12 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 						waitTime(2000);
 						if (verifyElementPresent(AMDTVODComboOffer.objUpgradeBottomSheet, "Upgrade bottom sheet")) {
 							String text = getText(AMDTVODComboOffer.objUpgradeBottomSheetText);
-							if (text.contains("Upgrade") | text.contains("Rent")) {
+							if (text.contains("Upgrade") | text.contains("Rent Content")) {
 								logger.info(text + " is displayed");
 								extentLoggerPass("Upgrade", text + " is displayed");
 							} else {
-								logger.info(text + " is not displayed");
-								extentLoggerFail("Upgrade", text + " is not displayed");
+								logger.info("[AMA2-18084] " +text + " is displayed instead 'Rent Content for text'");
+								extentLoggerFail("Upgrade","[AMA2-18084] " + text + " is displayed instead 'Rent Content for text'");
 							}
 
 							String subtext = getText(AMDTVODComboOffer.objUpgradeBottomSheetSubText);
@@ -23252,20 +23306,26 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 								logger.info(subtext + " is not displayed");
 								extentLoggerFail("Upgrade", subtext + " is not displayed");
 							}
-							verifyElementPresentAndClick(AMDTVODComboOffer.objUpgradeBottomSheetCTA,
-									"Upgrade bottom sheet CTA");
+							if(verifyElementDisplayed(AMDTVODComboOffer.objUpgradeBottomSheetCTA)) {
+								String upgradebottomsheetcta = getText(AMDTVODComboOffer.objUpgradeBottomSheetCTA);
+								if (upgradebottomsheetcta.contains("Upgrade") | upgradebottomsheetcta.contains("Rent Content")) {
+									logger.info(upgradebottomsheetcta + " is displayed");
+									extentLoggerPass("Upgrade", upgradebottomsheetcta + " is displayed");
+								} else {
+									logger.info("[AMA2-18084] " +upgradebottomsheetcta + " is displayed instead 'Rent Content CTA'");
+									extentLoggerFail("Upgrade","[AMA2-18084] " + upgradebottomsheetcta + " is displayed instead 'Rent Content CTA'");
+								}	
+							}
+							click(AMDTVODComboOffer.objUpgradeBottomSheetCTA,"Upgrade bottom sheet CTA");
 							PaymentScreenVerification();
 							Back(1);
 						}
 					}
 					Back(1);
-				} else {
-					logger.info("Upgrade CTA is not displayed when Radhe combo plan is selected");
-					extentLoggerFail("Upgrade CTA", "Upgrade CTA is not displayed when Radhe combo plan is selected");
-				}
-			} else {
-				logger.error("Radhe combo plan is NOT selected by default");
-				extent.extentLoggerFail("Combo offer Screen", "Radhe combo plan is NOT selected by default");
+				} 
+			 else {
+				logger.error("Supermoon combo plan is NOT selected by default");
+				extent.extentLoggerFail("Combo offer Screen", "Supermoon combo plan is NOT selected by default");
 			}
 		} else {
 			logger.info("Combo offer page is not displayed");
@@ -23878,6 +23938,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			BackToLandingScreen();
 		}
 		// clicking on TVOD Carousel content
+		  SelectTopNavigationTab("Music");
 		waitForElementAndClickIfPresent(AMDHomePage.objCarouselContentTitleCard(contentTitle), 60,
 				"Carousel content: " + contentTitle);
 		waitTime(3000);
@@ -23999,6 +24060,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			BackToLandingScreen();
 		}
 		// clicking on TVOD Carousel content
+		  SelectTopNavigationTab("Music");
 		waitForElementAndClickIfPresent(AMDHomePage.objCarouselContentTitleCard(contentTitle), 60,
 				"Carousel content: " + contentTitle);
 		waitTime(3000);
@@ -24062,13 +24124,12 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				logger.info("Parental Pin Popup is NOT displayed");
 				extentLoggerFail("Parental Pin Popup", "Parental Pin Popup is NOT displayed ");
 			}
-
 		} else {
 			logger.info("Parental Pin failed to set hence Popup is NOT displayed");
 			extentLoggerFail("Parental Pin Popup", "Parental Pin failed to set hence Popup is NOT displayed");
 		}
-
 	}
+
 
 	public void VerifyPlayBackAfterEnteringPIN() throws Exception {
 		extent.HeaderChildNode("Verifying playback of TVOD content after entering Parental PIN");
@@ -24212,17 +24273,34 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	public void Guest_SearchEntryPoint_ZeePlexConsumptionPage(String usertype, String contentTitle) throws Exception {
 		if (usertype.equalsIgnoreCase("Guest")) {
 			SearchZEEPLEXContentAndPlay(contentTitle);
-			boolean var = verifyElementExist(AMDTVODComboOffer.objZeePlexLogoBelowThePlayer,
-					"ZeePlex logo below the Player");
+			boolean var = verifyElementIsNotDisplayed(AMDTVODComboOffer.objZeePlexLogoBelowThePlayer);
 			if (var == true) {
-				logger.info("Guest user can reach ZEEPLEX Consumption page from search screen");
+				logger.info("ZeePlex logo below player is not displayed for TVOD plex content - Expected behaviour");
 				extent.extentLoggerPass("ZEEPLEX content",
-						"Guest user can reach ZEEPLEX Consumption page from search screen");
+						"ZeePlex logo below player is not displayed for TVOD plex content - Expected behaviour");
 			} else {
-				logger.error("Guest user can't reach ZEEPLEX Consumption page from search screen");
+				logger.error("ZeePlex logo below player is displayed for TVOD plex content");
 				extent.extentLoggerFail("ZEEPLEX content",
-						"Guest user can't reach ZEEPLEX Consumption page from search screen");
+						"ZeePlex logo below player is displayed for TVOD plex content");
 			}
+			waitTime(3000);
+			if (verifyElementExist(AMDConsumptionScreen.objContentName, "Content name in Consumption screen")) {
+				logger.info(
+						"User is navigated to Consumption screen on clicking searched content: "
+								+ contentTitle);
+				extent.extentLoggerPass("Consumption Screen",
+						"User is navigated to Consumption screen on clicking searched content: "
+								+ contentTitle);
+						} else {
+				logger.error(
+						"User Fails navigate to Consumption screen on clicking searched content: "
+								+ contentTitle);
+				extent.extentLoggerFail("Carousel",
+						"User Fails navigate to Consumption screen on clicking searched content: "
+								+ contentTitle);
+			}
+			verifyElementExist(AMDConsumptionScreen.objContentName, "Content title in Consumption screen");
+			verifyElementExist(AMDPlayerScreen.objcontentRating,"Meta data of searched content");
 		} else {
 			logger.info("Not applicable for this user");
 			extent.extentLogger("Not Applicable", "Not applicable for this user");
@@ -37687,7 +37765,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	public void NonSubscribed_withoutSupermoon(String tabName, String contentTitle) throws Exception {
 		validationOfCarousalAndConsumptionPageForComboOfferContent(tabName, contentTitle);
-		ValidationOfcomboOfferPageAndPaymentPage("Pay less, Watch more!", "Buy Radhe Combo");
+		ValidationOfcomboOfferPageAndPaymentPage("Pay less, Watch more!", "Buy Supermoon Combo");
 	}
 
 //========================VI Integration============================
@@ -39095,18 +39173,16 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void ActivateDevice(String userType) throws Exception {
-		extent.HeaderChildNode(
-				"ActivateDevice screen validation");
-		logger.info(
-				"ActivateDevice screen validation");
+		extent.HeaderChildNode("ActivateDevice screen validation");
+		logger.info("ActivateDevice screen validation");
 		if (!userType.equalsIgnoreCase("Guest")) {
 			waitTime(3000);
 			click(AMDHomePage.objMoreMenu, "More");
 			click(AMDMoreMenu.objActivateDevice, "Activate Device");
-			waitForElementDisplayed(AMDActivateDevicePage.objActivateDeviceTitle,40);
+			waitForElementDisplayed(AMDActivateDevicePage.objActivateDeviceTitle, 40);
 			if (verifyElementDisplayed(AMDActivateDevicePage.objActivateDeviceTitle)) {
 				logger.info("User navigated to Activate ZEE5 on your TV screen post taping on Activate Device");
-				extent.extentLoggerPass("Activate Device", 
+				extent.extentLoggerPass("Activate Device",
 						"User navigated to Activate ZEE5 on your TV screen post taping on Activate Device");
 			} else {
 				logger.error("User is not navigated to My Reminder screen post taping on My Reminders");
@@ -39115,7 +39191,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			}
 			if (verifyElementDisplayed(AMDActivateDevicePage.objActivationDescription)) {
 				logger.info("Enter the Activation Code displayed on your TV scree message is displayed");
-				extent.extentLoggerPass("Activate Device screen Description", 
+				extent.extentLoggerPass("Activate Device screen Description",
 						"Enter the Activation Code displayed on your TV scree message is displayed");
 			} else {
 				logger.error("Enter the Activation Code displayed on your TV scree message is not displayed");
@@ -39124,7 +39200,8 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			}
 			if (verifyElementDisplayed(AMDActivateDevicePage.objActivateScreencloseButton)) {
 				logger.info("Close Button is displayed on Activate Device Screen");
-				extent.extentLoggerPass("Activate Device Screen Close Button", "Close Button is displayed on Activate Device Screen");
+				extent.extentLoggerPass("Activate Device Screen Close Button",
+						"Close Button is displayed on Activate Device Screen");
 			} else {
 				logger.error("Close Button is not displayed on Activate Device Screen");
 				extent.extentLoggerFail("Activate Device Screen Close Button",
@@ -39135,89 +39212,561 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extent.extentLoggerPass("Activate Device Screen Input Field", "Input Filed is displayed");
 			} else {
 				logger.error("Input Filed is not displayed");
-				extent.extentLoggerFail("Activate Device Screen Input Field",
-						"Input Filed is not displayed");
+				extent.extentLoggerFail("Activate Device Screen Input Field", "Input Filed is not displayed");
 			}
 			if (verifyElementDisplayed(AMDActivateDevicePage.objActivateCTA)) {
 				logger.info("Activate CTA is displayed in Activate Device Screen");
 				extent.extentLoggerPass("Activate CTA", "Activate CTA is displayed in Activate Device Screen");
-				
-			           if (verifyElementDisplayed(AMDActivateDevicePage.objActivateCTADisabled)) {
-			            	logger.info("Activate CTA is displayed in disabled state by default in Activate Device Screen");
-			               	extent.extentLoggerPass("Activate CTA Disabled state",
-			               			"Activate CTA is displayed in disabled state by default in Activate Device Screen");
-		               	} else {
-			              	logger.error("Close Button is not displayed on Activate Device Screen");
-			            	extent.extentLoggerFail("Activate CTA Disabled state",
-				      		"Activate CTA is displayed in enabled state by default in Activate Device Screen");
-			            }
-			           
-			 }else {
-	              	logger.error("Activate CTA is not displayed in Activate Device Screen");
-	            	extent.extentLoggerFail("Activate CTA",
-		      		"Activate CTA is not displayed in Activate Device Screen");
-	           }
+
+				if (verifyElementDisplayed(AMDActivateDevicePage.objActivateCTADisabled)) {
+					logger.info("Activate CTA is displayed in disabled state by default in Activate Device Screen");
+					extent.extentLoggerPass("Activate CTA Disabled state",
+							"Activate CTA is displayed in disabled state by default in Activate Device Screen");
+				} else {
+					logger.error("Close Button is not displayed on Activate Device Screen");
+					extent.extentLoggerFail("Activate CTA Disabled state",
+							"Activate CTA is displayed in enabled state by default in Activate Device Screen");
+				}
+
+			} else {
+				logger.error("Activate CTA is not displayed in Activate Device Screen");
+				extent.extentLoggerFail("Activate CTA", "Activate CTA is not displayed in Activate Device Screen");
+			}
 			if (verifyElementDisplayed(AMDActivateDevicePage.objInputField1)) {
 				logger.info("Input Field is displayed in Activate Device Screen");
 				extent.extentLoggerPass("Input Field", "Input Field is displayed in Activate Device Screen");
 				verifyElementPresentAndClick(AMDActivateDevicePage.objInputField1, "Input Field");
-				        waitTime(2000);
-				        type(AMDActivateDevicePage.objInputField1, "A", "Input Field");
-			        	hideKeyboard();
-			        	type(AMDActivateDevicePage.objInputField2, "3", "Input Field");
-			        	hideKeyboard();
-				        type(AMDActivateDevicePage.objInputField3, "3", "Input Field");
-				        hideKeyboard();
-				        type(AMDActivateDevicePage.objInputField4, "5", "Input Field");
-				        hideKeyboard();
-				        type(AMDActivateDevicePage.objInputField5, "F", "Input Field");
-				        hideKeyboard();
-				        type(AMDActivateDevicePage.objInputField6, "T", "Input Field");
-				        hideKeyboard();
-				        waitTime(2000);
-				
-			           if (verifyElementDisplayed(AMDActivateDevicePage.objActivateCTAEnabled)) {
-			            	logger.info("Activate CTA is enabled on entering Device code");
-			               	extent.extentLoggerPass("Activate CTA Enabled state",
-			               			"Activate CTA is enabled on entering Device code");
-		               	} else {
-			              	logger.error("Activate CTA is not enabled on entering Device code");
-			            	extent.extentLoggerFail("Activate CTA Disabled state",
-				      		"Activate CTA is not enabled on entering Device code");
-			            }
-			           verifyElementPresentAndClick(AMDActivateDevicePage.objActivateCTAEnabled,"Activate CTA");
-			           if (verifyElementDisplayed(AMDActivateDevicePage.objInvalidCode)) {
-			            	logger.info("Device with code Not Found error message is displayed");
-			               	extent.extentLoggerPass("Invalid Device code",
-			               			"Device with code Not Found error message is displayed");
-		               	} else {
-			              	logger.error("Device with code Not Found error message is not displayed");
-			            	extent.extentLoggerFail("Invalid Device code",
-				      		"Device with code Not Found error message is not displayed");
-			            }
-			           verifyElementPresentAndClick(AMDActivateDevicePage.objActivateScreencloseButton,"Close Button");
-			           waitTime(2000);
-			           if (verifyElementDisplayed(AMDHomePage.objMoreMenuBtn)) {
-			            	logger.info("User is navigated to More Menu on tapping Close button");
-			               	extent.extentLoggerPass("Close Button",
-			               			"User is navigated to More Menu on tapping Close button");
-		               	} else {
-			              	logger.error("User is not navigated to More Menu on tapping Close button");
-			            	extent.extentLoggerFail("Close Button",
-				      		"User is not navigated to More Menu on tapping Close button");
-			            }
-			           
-			 }else {
-	              	logger.error("Activate CTA is not displayed in Activate Device Screen");
-	            	extent.extentLoggerFail("Activate CTA",
-		      		"Activate CTA is not displayed in Activate Device Screen");
-	           }
-			
+				waitTime(2000);
+				type(AMDActivateDevicePage.objInputField1, "A", "Input Field");
+				hideKeyboard();
+				type(AMDActivateDevicePage.objInputField2, "3", "Input Field");
+				hideKeyboard();
+				type(AMDActivateDevicePage.objInputField3, "3", "Input Field");
+				hideKeyboard();
+				type(AMDActivateDevicePage.objInputField4, "5", "Input Field");
+				hideKeyboard();
+				type(AMDActivateDevicePage.objInputField5, "F", "Input Field");
+				hideKeyboard();
+				type(AMDActivateDevicePage.objInputField6, "T", "Input Field");
+				hideKeyboard();
+				waitTime(2000);
+
+				if (verifyElementDisplayed(AMDActivateDevicePage.objActivateCTAEnabled)) {
+					logger.info("Activate CTA is enabled on entering Device code");
+					extent.extentLoggerPass("Activate CTA Enabled state",
+							"Activate CTA is enabled on entering Device code");
+				} else {
+					logger.error("Activate CTA is not enabled on entering Device code");
+					extent.extentLoggerFail("Activate CTA Disabled state",
+							"Activate CTA is not enabled on entering Device code");
+				}
+				verifyElementPresentAndClick(AMDActivateDevicePage.objActivateCTAEnabled, "Activate CTA");
+				if (verifyElementDisplayed(AMDActivateDevicePage.objInvalidCode)) {
+					logger.info("Device with code Not Found error message is displayed");
+					extent.extentLoggerPass("Invalid Device code",
+							"Device with code Not Found error message is displayed");
+				} else {
+					logger.error("Device with code Not Found error message is not displayed");
+					extent.extentLoggerFail("Invalid Device code",
+							"Device with code Not Found error message is not displayed");
+				}
+				verifyElementPresentAndClick(AMDActivateDevicePage.objActivateScreencloseButton, "Close Button");
+				waitTime(2000);
+				if (verifyElementDisplayed(AMDHomePage.objMoreMenuBtn)) {
+					logger.info("User is navigated to More Menu on tapping Close button");
+					extent.extentLoggerPass("Close Button", "User is navigated to More Menu on tapping Close button");
+				} else {
+					logger.error("User is not navigated to More Menu on tapping Close button");
+					extent.extentLoggerFail("Close Button",
+							"User is not navigated to More Menu on tapping Close button");
+				}
+
+			} else {
+				logger.error("Activate CTA is not displayed in Activate Device Screen");
+				extent.extentLoggerFail("Activate CTA", "Activate CTA is not displayed in Activate Device Screen");
+			}
 
 		} else {
-			logger.info("Activate Device" + " Not applicable for "+ userType + "user");
+			logger.info("Activate Device" + " Not applicable for " + userType + "user");
 			extent.extentLogger("Activate Device", " Not applicable for " + userType);
 		}
 	}
-	
+
+	public void Guest_VideoConsumptionPageForPLEXContent(String pContentName) throws Exception {
+		extent.HeaderChildNode("Validate video consumption page for ZeePlex content");
+		SelectTopNavigationTab("Music");
+		waitForElementAndClickIfPresent(AMDHomePage.objCarouselContentTitleCard(pContentName), 60,
+				"Carousel content: " + pContentName);
+		waitTime(3000);
+		// Rent Now CTA below the player
+		if (verifyElementDisplayed(AMDTVODComboOffer.objRentNowCTABelowPlayer)) {
+			String text = findElement(AMDTVODComboOffer.objRentNowCTABelowPlayer).getText();
+			extentLoggerPass("", text + " CTA is displayed below the player");
+			click(AMDTVODComboOffer.objRentNowCTABelowPlayer, text + " CTA Below the Player");
+			if (verifyElementDisplayed(AMDTVODComboOffer.obComboOfferScreen)) {
+				logger.info("Combo offer page is displayed on clicking " + text + " CTA Below the player");
+				extent.extentLoggerPass("Consumption Screen",
+						"Combo offer page is displayed on clicking " + text + " CTA Below the player");
+				Back(1);
+			} else {
+				logger.error("Combo offer page is not displayed on clicking Rent Now CTA Below the player");
+				extent.extentLoggerFail("Consumption Screen",
+						"Combo offer page is not displayed on clicking Rent Now CTA Below the player");
+			}
+		}
+
+		// Rent Now CTA on The player
+
+		if (verifyElementDisplayed((AMDTVODComboOffer.objRentNowCTAOnPlayer))) {
+			String Renttext = findElement(AMDTVODComboOffer.objRentNowCTAOnPlayer).getText();
+			extentLoggerPass("", Renttext + " CTA is displayed on the player");
+			click(AMDTVODComboOffer.objRentNowCTAOnPlayer, Renttext + " CTA on the Player");
+			if (verifyElementDisplayed(AMDTVODComboOffer.obComboOfferScreen)) {
+				logger.info("Combo offer page is displayed on clicking Rent Now CTA on the player");
+				extent.extentLoggerPass("Consumption Screen",
+						"Combo offer page is displayed on clicking Rent Now CTA on the player");
+				verifyElementExist(AMDTVODComboOffer.objUpgradeTextOnComboOfferPage, "Upgrade Text");
+				verifyElementExist(AMDTVODComboOffer.objUpgradeSubTextOnComboOfferPage, "Upgrade Subtext");
+				Back(1);
+			} else {
+				logger.error("Combo offer page is not displayed on clicking Rent Now CTA on the player");
+				extent.extentLoggerFail("Consumption Screen",
+						"Combo offer page is not displayed on clicking Rent Now CTA on the player");
+			}
+		}
+
+		// Login CTA on player
+		if (verifyElementDisplayed(AMDConsumptionScreen.objLoginCTA)) {
+			logger.info("Login CTA is displayed on player for Guest user");
+			extent.extentLoggerPass("Consumption Screen", "Login CTA is displayed on player for Guest user");
+			click(AMDConsumptionScreen.objLoginCTA, "Login CTA");
+			if (verifyElementDisplayed(AMDLoginScreen.objLoginOrRegisterPageTitle)) {
+				logger.info("User navigated to login or register screen post taping Login CTA");
+				extent.extentLoggerPass("Watchlist", "User navigated to Login/Register screen post taping Login CTA");
+			} else {
+				logger.error("User is not navigated to Login/Register screen post taping Login CTA");
+				extent.extentLoggerFail("Watchlist",
+						"User is not navigated to login or register screen post taping Login CTA");
+			}
+			Back(1);
+
+		} else {
+			logger.error("Login CTA is NOT displayed on player for Guest user");
+			extent.extentLoggerFail("Consumption Screen", "Login CTA is NOT displayed on player for Guest user");
+		}
+
+		if (verifyElementDisplayed(AMDTVODComboOffer.objAvailabilityTextOnPlayer)) {
+			String validitytext = findElement(AMDTVODComboOffer.objAvailabilityTextOnPlayer).getText();
+			logger.error("[AMA2-18103] " + validitytext + " Rent Expiry text is displayed for Live VOD content");
+			extent.extentLoggerFail("Consumption Screen",
+					"[AMA2-18103] " + validitytext + " Rent Expiry text is displayed for Live VOD content");
+		} else {
+			logger.info("Rent Expiry text is not displayed for Live VOD content - Expected behaviour");
+			extent.extentLoggerPass("Watchlist",
+					"Rent Expiry text is not displayed for Live VOD content - Expected behaviour");
+		}
+	}
+
+	public void VerifyConsumptionScreen_AfterClickingBack() throws Exception {
+		extent.HeaderChildNode(
+				"Verify User is redirected to the consumption screen of PLEX content on tapping Back button from 'You have it all' page");
+		Back(1);
+		if (verifyElementDisplayed(AMDConsumptionScreen.objContentName)) {
+			logger.info("User is navigated to Consumption screen on clicking Back button ");
+			extent.extentLoggerPass("Consumption Screen",
+					"User is navigated to Consumption screen on clicking Back button");
+		} else {
+			logger.error("User Fails navigate to Consumption screen on clicking Back button ");
+			extent.extentLoggerFail("Carousel", "User Fails navigate to Consumption screen on clicking Back button");
+		}
+		click(AMDTVODComboOffer.objRentNowCTABelowPlayer, "Rent Now");
+	}
+
+	public void WatchListForLiveVOD() throws Exception {
+		extent.HeaderChildNode("Validate watchlist icon for Live VOD");
+		boolean value = verifyElementIsNotDisplayed(AMDConsumptionScreen.objWatchlistBtn);
+		if (value) {
+			logger.info("Watchlist icon is not displayed for Live VOD content - Expected behaviour");
+			extent.extentLoggerPass("rails",
+					"Watchlist icon is not displayed for Live VOD content - Expected behaviour");
+		} else {
+			logger.error("Watchlist icon is not displayed for Live VOD content - Expected behaviour");
+			extent.extentLoggerFail("rails",
+					"Watchlist icon is not displayed for Live VOD content - Expected behaviour");
+		}
+		Back(1);
+		click(AMDHomePage.objHomeBottomBtn, "Home icon");
+	}
+
+	public void AddtoWatchList() throws Exception {
+		extent.HeaderChildNode("Adding content to watchlist");
+		waitTime(3000);
+		verifyElementExist(AMDConsumptionScreen.objWatchlistBtn, "Watchlist icon");
+		click(AMDConsumptionScreen.objWatchlistBtn, "Watchlist icon");
+		waitTime(3000);
+		Back(1);
+
+	}
+
+	public void WatchlistEntryPoint(String userType, String contentTitle) throws Exception {
+		extent.HeaderChildNode("Validate Watchlist screen for Zeeplex content");
+		click(AMDHomePage.MoreMenuIcon, "More Menu tab");
+		waitTime(2000);
+		click(AMDMoreMenu.objWatchlist, "Watchlist option");
+		String selectedTab = findElement(AMDWatchlistPage.objSelectedTab).getText();
+
+		if (verifyIsElementDisplayed(AMDWatchlistPage.objWatchlistTitle)) {
+			logger.info("User navigated to my Watchlist screen");
+			extent.extentLoggerPass("watchlist", "User navigated to my Watchlist screen");
+		} else {
+			logger.error("User not navigated to my Watchlist screen");
+			extent.extentLoggerFail("watchlist", "User not navigated to my Watchlist screen");
+		}
+
+		boolean watchlistFlag = false;
+		if (verifyIsElementDisplayed(AMDWatchlistPage.objNoReminderIcon)) {
+			logger.info("Watchlist screen displayed with Empty Watchlist icon");
+			extent.extentLoggerPass("Watchlist", "Watchlist screen displayed with Empty Watchlist icon");
+			verifyElementPresent(AMDWatchlistPage.objNoReminderIcon, "No watchlist Icon");
+			verifyElementPresent(AMDWatchlistPage.objNoReminderTxt, "No watchlist Text");
+		} else {
+			watchlistFlag = true;
+			logger.info("Watchlist has some content cards added in Watchlist");
+			extent.extentLoggerPass("watchlist", "Watchlist has some content cards added in Watchlist");
+		}
+
+		if (selectedTab.equalsIgnoreCase("Videos")) {
+			logger.info("Zeeplex contents are displayed in videos tab after adding to watchlist");
+			extent.extentLoggerPass("Watchlist",
+					"Zeeplex contents are displayed in videos tab after adding to watchlist");
+		} else {
+			logger.error("Zeeplex contents are not displayed in videos tab after adding to watchlist");
+			extent.extentLoggerFail("watchlist",
+					"Zeeplex contents are not displayed in videos tab after adding to watchlist");
+		}
+		for (int i = 1; i <= findElements(AMDWatchlistPage.objContentThumbnail).size(); i++) {
+			String title = findElement(AMDWatchlistPage.objContentName(i)).getText();
+			String duration = findElement(AMDWatchlistPage.objIterateEpisode(i)).getText();
+
+			logger.info(title + " is displayed in watchlist tab: " + selectedTab);
+			extent.extentLoggerPass("Watchlist", title + " is displayed in watchlist tab: " + selectedTab);
+			logger.info("Duration of " + i + "st title is: " + duration);
+			extent.extentLoggerPass("watchlist", "Duration of " + i + "st title is: " + duration);
+		}
+	}
+
+	public void validateWatchNow(String contentTitle) throws Exception {
+		extent.HeaderChildNode("Verify Watch now CTA in 'You have it all' screen");
+		verifyElementPresent(AMDTVODComboOffer.objWatchNowCalloutCTA, "Watch Now CTA");
+		click(AMDTVODComboOffer.objWatchNowCalloutCTA, "Watch Now CTA");
+		if (verifyElementDisplayed(AMDConsumptionScreen.objContentName)) {
+			logger.info("User is navigated to Consumption screen on clicking Watch Now CTA " + contentTitle);
+			extent.extentLoggerPass("Consumption Screen",
+					"User is navigated to Consumption screen on clicking Watch Now CTA" + contentTitle);
+		} else {
+			logger.error("User Fails navigate to Consumption screen on clicking Watch Now CTA " + contentTitle);
+			extent.extentLoggerFail("Carousel",
+					"User Fails navigate to Consumption screen on clicking Watch Now CTA" + contentTitle);
+		}
+
+		String text = findElement(AMDTVODComboOffer.objResumeCTAonPlayer).getText();
+		System.out.println(text);
+		extentLogger("", "CTA on player : " + text);
+		if (text.equalsIgnoreCase("Resume")) {
+			logger.info("Resume CTA on Player is displayed as user viewed the movie");
+			extentLoggerPass("Bottom Sheet", "Resume CTA on Player is displayed as user viewed the movie");
+		}
+
+		if (text.equalsIgnoreCase("Watch now")) {
+			logger.info("Watch wow CTA on Player is displayed as user NOT viewed the movie");
+			extentLoggerPass("Bottom Sheet", "Watch now CTA on Player is displayed as user NOT viewed the movie");
+		}
+
+	}
+
+	public void validateBuyPremium() throws Exception {
+		extent.HeaderChildNode("Verify Buy Premium CTA in 'You have it all' screen");
+		verifyElementPresent(AMDTVODComboOffer.objBuyPremiumCalloutCTA, "Buy Premium CTA");
+		click(AMDTVODComboOffer.objBuyPremiumCalloutCTA, "Buy Premium CTA");
+		waitTime(5000);
+		if (checkElementExist(AMDSubscibeScreen.objNewSubscribePopup, "Subscribe Screen")) {
+			logger.info("User is navigated to Subscribe screen on clicking Buy Premium CTA");
+			extent.extentLoggerPass("Home", "User is navigated to Subscribe screen on clicking Buy Premium CTA");
+		} else {
+			logger.error("User is NOT navigated to Subscribe screen on clicking Buy Premium CTA");
+			extent.extentLoggerFail("Home", "User is NOT navigated to Subscribe screen on clicking Buy Premium CTA");
+			Back(1);
+		}
+
+	}
+
+	public void Guest_premiumUser_99_WithActiveSupermoon(String email, String password, String contentTitle,
+			String tabName) throws Exception {
+		extent.HeaderChildNode("Guest checkout-Login with 99 premium user with Active Supermoon");
+		LoginWithSupermoonActive(email, password, contentTitle, tabName, "99");
+		VerifyConsumptionScreen_AfterClickingBack();
+		validateWatchNow(contentTitle);
+		relaunch(true);
+		SelectTopNavigationTab(tabName);
+		waitForElementAndClickIfPresent(AMDHomePage.objCarouselContentTitleCard(contentTitle), 60,
+				"Carousel content: " + contentTitle);
+		waitTime(3000);
+		click(AMDTVODComboOffer.objRentNowCTABelowPlayer, "Rent Now CTA");
+		waitTime(3000);
+		click(AMDTVODComboOffer.objBuyRadheComboCTA, "Buy Supermoon Combo CTA");
+		waitTime(2000);
+		verifyElementPresent(AMDTVODComboOffer.objPaymentStep2, "Payment Step indicator");
+		type(AMDTVODComboOffer.objEmailIdfield, email, "Email Id");
+		hideKeyboard();
+		click(AMDTVODComboOffer.objHeadingBottomSheet, "HideKeyboard");
+		click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
+		type(AMDTVODComboOffer.objPasswordfield, password, "Password");
+		hideKeyboard();
+		click(AMDTVODComboOffer.objHeadingBottomSheet, "HideKeyboard");
+		click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
+		waitTime(4000);
+		validateExplorePremium();
+	}
+
+	public void Guest_premiumUser_299_WithActiveSupermoon(String email, String password, String contentTitle,
+			String tabName) throws Exception {
+		extent.HeaderChildNode("Guest checkout-Login with 299 premium user with Active Supermoon");
+		LoginWithSupermoonActive(email, password, contentTitle, tabName, "299");
+		VerifyConsumptionScreen_AfterClickingBack();
+		validateWatchNow(contentTitle);
+		relaunch(true);
+		SelectTopNavigationTab(tabName);
+		waitForElementAndClickIfPresent(AMDHomePage.objCarouselContentTitleCard(contentTitle), 60,
+				"Carousel content: " + contentTitle);
+		waitTime(3000);
+		click(AMDTVODComboOffer.objRentNowCTABelowPlayer, "Rent Now CTA");
+		waitTime(3000);
+		click(AMDTVODComboOffer.objBuyRadheComboCTA, "Buy Supermoon Combo CTA");
+		waitTime(2000);
+		verifyElementPresent(AMDTVODComboOffer.objPaymentStep2, "Payment Step indicator");
+		type(AMDTVODComboOffer.objEmailIdfield, email, "Email Id");
+		hideKeyboard();
+		click(AMDTVODComboOffer.objHeadingBottomSheet, "HideKeyboard");
+		click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
+		type(AMDTVODComboOffer.objPasswordfield, password, "Password");
+		hideKeyboard();
+		click(AMDTVODComboOffer.objHeadingBottomSheet, "HideKeyboard");
+		click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
+		waitTime(4000);
+		validateExplorePremium();
+
+	}
+
+	public void Guest_premiumUser_RSVOD49_WithActiveSupermoon(String email, String password, String contentTitle,
+			String tabName) throws Exception {
+		extent.HeaderChildNode("Guest checkout-Login with RSVOD 49 premium user with Active Supermoon");
+		LoginWithSupermoonActive(email, password, contentTitle, tabName, "RSVOD 49");
+		VerifyConsumptionScreen_AfterClickingBack();
+		validateWatchNow(contentTitle);
+		relaunch(true);
+		SelectTopNavigationTab(tabName);
+		waitForElementAndClickIfPresent(AMDHomePage.objCarouselContentTitleCard(contentTitle), 60,
+				"Carousel content: " + contentTitle);
+		waitTime(3000);
+		click(AMDTVODComboOffer.objRentNowCTABelowPlayer, "Rent Now CTA");
+		waitTime(3000);
+		click(AMDTVODComboOffer.objBuyRadheComboCTA, "Buy Supermoon Combo CTA");
+		waitTime(2000);
+		verifyElementPresent(AMDTVODComboOffer.objPaymentStep2, "Payment Step indicator");
+		type(AMDTVODComboOffer.objEmailIdfield, email, "Email Id");
+		hideKeyboard();
+		click(AMDTVODComboOffer.objHeadingBottomSheet, "HideKeyboard");
+		click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
+		type(AMDTVODComboOffer.objPasswordfield, password, "Password");
+		hideKeyboard();
+		click(AMDTVODComboOffer.objHeadingBottomSheet, "HideKeyboard");
+		click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
+		waitTime(4000);
+		validateExplorePremium();
+
+	}
+
+	public void Guest_premiumUser_RSVOD499_WithActiveSupermoon(String email, String password, String contentTitle,
+			String tabName) throws Exception {
+		extent.HeaderChildNode("Guest checkout-Login with RSVOD 499 premium user with Active Supermoon");
+		LoginWithSupermoonActive(email, password, contentTitle, tabName, "RSVOD 499");
+		VerifyConsumptionScreen_AfterClickingBack();
+		validateWatchNow(contentTitle);
+		relaunch(true);
+		SelectTopNavigationTab(tabName);
+		waitForElementAndClickIfPresent(AMDHomePage.objCarouselContentTitleCard(contentTitle), 60,
+				"Carousel content: " + contentTitle);
+		waitTime(3000);
+		click(AMDTVODComboOffer.objRentNowCTABelowPlayer, "Rent Now CTA");
+		waitTime(3000);
+		click(AMDTVODComboOffer.objBuyRadheComboCTA, "Buy Supermoon Combo CTA");
+		waitTime(2000);
+		verifyElementPresent(AMDTVODComboOffer.objPaymentStep2, "Payment Step indicator");
+		type(AMDTVODComboOffer.objEmailIdfield, email, "Email Id");
+		hideKeyboard();
+		click(AMDTVODComboOffer.objHeadingBottomSheet, "HideKeyboard");
+		click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
+		type(AMDTVODComboOffer.objPasswordfield, password, "Password");
+		hideKeyboard();
+		click(AMDTVODComboOffer.objHeadingBottomSheet, "HideKeyboard");
+		click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
+		waitTime(4000);
+		validateExplorePremium();
+
+	}
+
+	public void LoginWithSupermoonActive(String pEmailId, String pPassword, String pContentName, String tabName,
+			String pPack) throws Exception {
+		extent.HeaderChildNode(" Validate 'You have it all' bottom sheet displayed for " + pPack + " premium user");
+		System.out.println("\nValidate 'You have it all' bottom sheet  displayed for SubscribedUser");
+		SelectTopNavigationTab(tabName);
+		waitForElementAndClickIfPresent(AMDHomePage.objCarouselContentTitleCard(pContentName), 60,
+				"Carousel content: " + pContentName);
+		waitTime(3000);
+		click(AMDTVODComboOffer.objRentNowCTABelowPlayer, "Rent Now CTA");
+		waitTime(3000);
+		click(AMDTVODComboOffer.objBuyRadheComboCTA, "Buy Supermoon Combo CTA");
+		waitTime(2000);
+		if (verifyElementPresent(AMDTVODComboOffer.objAccountInfoLabel, "Account Info overlay")) {
+			logger.info("Account Info widget is displayed");
+			extentLoggerPass("Account Info widget", "Account Info widget is displayed");
+			verifyElementPresent(AMDTVODComboOffer.objPaymentStep2, "Payment Step indicator");
+			waitTime(5000);
+			type(AMDTVODComboOffer.objEmailIdfield, pEmailId, "Email Id");
+			hideKeyboard();
+			waitTime(5000);
+			click(AMDTVODComboOffer.objHeadingBottomSheet, "HideKeyboard");
+			waitTime(5000);
+			click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
+			waitTime(5000);
+			type(AMDTVODComboOffer.objPasswordfield, pPassword, "Password");
+			hideKeyboard();
+			waitTime(5000);
+			click(AMDTVODComboOffer.objHeadingBottomSheet, "HideKeyboard");
+			waitTime(5000);
+			click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
+			waitTime(6000);
+			if (verifyIsElementDisplayed(AMDTVODComboOffer.objBottomImg)) {
+
+				if (verifyIsElementDisplayed(AMDTVODComboOffer.objAlreadyActive)) {
+					logger.info("'You have it all' bottom sheet is displayed since user already has active plan");
+					extentLoggerPass("You have it all",
+							"<b>'You have it all'</b> bottom sheet is displayed since user already has active plan");
+
+					verifyElementPresent(AMDTVODComboOffer.objBottomSheetTitle,
+							getText(AMDTVODComboOffer.objBottomSheetTitle));
+					verifyElementPresent(AMDTVODComboOffer.objBottomSheetSubTitle,
+							getText(AMDTVODComboOffer.objBottomSheetSubTitle));
+					verifyElementPresent(AMDTVODComboOffer.objActivePlanMsg2, "You have already rented this content");
+					verifyElementPresent(AMDTVODComboOffer.objWatchNowCalloutCTA, "Watch Now CTA");
+					verifyElementPresent(AMDTVODComboOffer.objExplorePremiumCTA, "Explore Premium CTA");
+				} else {
+					logger.info(getText(AMDTVODComboOffer.objBottomSheetTitle)
+							+ " message in bottom sheet is displayed even though user already has active plan");
+					extentLoggerFail("You have it all", getText(AMDTVODComboOffer.objBottomSheetTitle)
+							+ " message in bottom sheet is displayed even though user already has active plan");
+
+					verifyElementPresent(AMDTVODComboOffer.objBottomSheetTitle,
+							getText(AMDTVODComboOffer.objBottomSheetTitle));
+					verifyElementPresent(AMDTVODComboOffer.objBottomSheetSubTitle,
+							getText(AMDTVODComboOffer.objBottomSheetSubTitle));
+					verifyElementPresent(AMDTVODComboOffer.objBottomSheetCTA,
+							getText(AMDTVODComboOffer.objBottomSheetSubTitle));
+				}
+			} else {
+				logger.info("'You have it all' screen is not displayed");
+				extentLoggerFail("Bottom Sheet", "<b>'You have it all'</b> screen is not displayed ");
+			}
+		} else {
+			logger.info("Account info screen is not displayed");
+			extentLoggerFail("Account info", "Account info screen is not displayed ");
+		}
+	}
+
+	public void validateExplorePremium() throws Exception {
+		extent.HeaderChildNode("Verify Explore Premium CTA in 'You have it all' screen");
+		verifyElementPresent(AMDTVODComboOffer.objExplorePremiumCTA, "Explore Premium CTA");
+		click(AMDTVODComboOffer.objExplorePremiumCTA, "Explore Premium CTA");
+
+		if (checkElementExist(AMDHomePage.objHomeBtn, "Home tab")) {
+			logger.info("User is navigated to Home Page on clicking Explore Premium CTA");
+			extent.extentLoggerPass("Home", "User is navigated to Home Page on clicking Explore Premium CTA");
+		} else {
+			logger.error("User is NOT navigated to Home Page on clicking Explore Premium CTA");
+			extent.extentLoggerFail("Home", "User is NOT navigated to Home Page on clicking Explore Premium CTA");
+			Back(1);
+		}
+
+	}
+
+	public void VerifyRentalPlanAsSubscribedUser(String pEmailId, String pPassword, String pContentName, String tabName)
+			throws Exception {
+		extent.HeaderChildNode(" Validate 'You have it all' bottom sheet displayed for SubscribedUser");
+		System.out.println("\nValidate 'You have it all' bottom sheet  displayed for SubscribedUser");
+		SelectTopNavigationTab(tabName);
+		waitForElementAndClickIfPresent(AMDHomePage.objCarouselContentTitleCard(pContentName), 60,
+				"Carousel content: " + pContentName);
+		waitTime(3000);
+//		waitForElementDisplayed(AMDTVODComboOffer.objPlayCTAonCarouselforContent(pContentName), 15);
+//		verifyElementPresentAndClick(AMDTVODComboOffer.objPlayCTAonCarouselforContent(pContentName),
+//				"Play button from Carousel");
+		click(AMDTVODComboOffer.objRentNowCTABelowPlayer, "Rent Now CTA");
+		waitTime(3000);
+		ComboOfferPlanCard_OnlyRentMoviePlanCard_Validation();
+		click(AMDTVODComboOffer.objBuyRadheComboCTA, "Buy Supermoon Combo CTA");
+		waitTime(2000);
+
+		if (verifyElementPresent(AMDTVODComboOffer.objAccountInfoLabel, "Account Info overlay")) {
+			logger.info("Account Info widget is displayed");
+			extentLoggerPass("Account Info widget", "Account Info widget is displayed");
+			verifyElementPresent(AMDTVODComboOffer.objPaymentStep2, "Payment Step indicator");
+			type(AMDTVODComboOffer.objEmailIdfield, pEmailId, "Email Id");
+			hideKeyboard();
+			click(AMDTVODComboOffer.objHeadingBottomSheet, "HideKeyboard");
+			click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
+			type(AMDTVODComboOffer.objPasswordfield, pPassword, "Password");
+			hideKeyboard();
+			click(AMDTVODComboOffer.objHeadingBottomSheet, "HideKeyboard");
+			click(AMDTVODComboOffer.objContinueBtn, "Continue Button");
+			waitTime(4000);
+			if (verifyIsElementDisplayed(AMDTVODComboOffer.objBottomImg)) {
+
+				if (verifyIsElementDisplayed(AMDTVODComboOffer.objAlreadyActive)) {
+					logger.info("'You have it all' bottom sheet is displayed since user already has active plan");
+					extentLoggerPass("You have it all",
+							"<b>'You have it all'</b> bottom sheet is displayed since user already has active plan");
+
+					verifyElementPresent(AMDTVODComboOffer.objBottomSheetTitle,
+							getText(AMDTVODComboOffer.objBottomSheetTitle));
+					verifyElementPresent(AMDTVODComboOffer.objBottomSheetSubTitle,
+							getText(AMDTVODComboOffer.objBottomSheetSubTitle));
+					verifyElementPresent(AMDTVODComboOffer.objActivePlanMsg2,
+							"You have already rented this ZEEPLEX movie");
+					verifyElementPresent(AMDTVODComboOffer.objWatchNowCalloutCTA, "Watch Now CTA");
+					verifyElementPresent(AMDTVODComboOffer.objExplorePremiumCTA, "Explore Premium CTA");
+				} else {
+					logger.info(getText(AMDTVODComboOffer.objBottomSheetTitle)
+							+ " message in bottom sheet is displayed even though user already has active plan");
+					extentLoggerFail("You have it all", getText(AMDTVODComboOffer.objBottomSheetTitle)
+							+ " message in bottom sheet is displayed even though user already has active plan");
+
+					verifyElementPresent(AMDTVODComboOffer.objBottomSheetTitle,
+							getText(AMDTVODComboOffer.objBottomSheetTitle));
+					verifyElementPresent(AMDTVODComboOffer.objBottomSheetSubTitle,
+							getText(AMDTVODComboOffer.objBottomSheetSubTitle));
+					verifyElementPresent(AMDTVODComboOffer.objBottomSheetCTA,
+							getText(AMDTVODComboOffer.objBottomSheetSubTitle));
+				}
+			} else {
+				logger.info("'You have it all' screen is not displayed");
+				extentLoggerFail("Bottom Sheet", "<b>'You have it all'</b> screen is not displayed ");
+			}
+		} else {
+			logger.info("Account info screen is not displayed");
+			extentLoggerFail("Account info", "Account info screen is not displayed ");
+		}
+	}
+
+
+
 }

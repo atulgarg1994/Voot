@@ -82,8 +82,8 @@
 	<parameter name="SubscribedUserName99" value="recurringdc@mailnesia.com"/>
 	<parameter name="SubscribedPassword99" value="ABCD1234"/>
 	<!--  Subscribed User 49 Plan--> 
-	<parameter name="SubscribedUserName49" value="49rsvod@yopmail.com"/>
-	<parameter name="SubscribedPassword49" value="welcome"/>
+	<parameter name="SubscribedUserName49" value="smtrsvod99@mailnesia.com"/>
+	<parameter name="SubscribedPassword49" value="123456"/>
 	
 	<parameter name="comboOfferMovie" value="Radhe - Your Most Wanted Bhai"/>
 	<parameter name="DeeplinkConsumption" value="https://newpwa.zee5.com/movies/details/aag-ka-gola/0-0-movie_216980339"/>

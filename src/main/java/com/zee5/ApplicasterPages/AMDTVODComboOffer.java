@@ -17,8 +17,6 @@ public class AMDTVODComboOffer {
 	public static By objPayLessWatchMoreText = By.xpath("//*[@id='mainSubtitle' and @text='Pay less, Watch more!']");
 	public static By objKnowMoreCTAOnWidget = By.xpath("");
 	public static By objPosterOfMovieContent = By.xpath("//*[@id='posterImageView']");
-	public static By objComboOfferPlan = By.xpath("//*[@id='comboPlanTitleLabel' and @text='Radhe Combo']");
-	public static By objOnlyRentMoviePlan = By.xpath("//*[@id='onlyRentSectionTitleLabel' and @text='Only Rent Movie']");
 	public static By objDefaultComboOfferPlan = By.xpath("");
 	public static By objBuyComboOfferCTAOnComboOfferPage = By.xpath("");
 	public static By objRentMovieCTAonComboOfferPage = By.xpath("");
@@ -26,8 +24,6 @@ public class AMDTVODComboOffer {
 	public static By objCTABelowTheComboOfferPage = By.xpath("//*[@id='continueButton']");
 	public static By objUpgradeTextOnComboOfferPage = By.xpath("//*[@id='mainTitle']");
 	public static By objUpgradeSubTextOnComboOfferPage = By.xpath("//*[@id='mainSubtitle']");
-
-	public static By objBuyRadheComboCTA = By.xpath("//*[@text='Buy Radhe Combo']");
 	public static By objPaymentStep2 = By.xpath("//*[@id='steptwoofthree']");
 	public static By objAccountInfoLabel = By.xpath("//*[@id='heading' and @text='Account Info']");
 	public static By objBackIcon = By.xpath("//*[@id='backIcon']");
@@ -35,10 +31,6 @@ public class AMDTVODComboOffer {
 	public static By objContinueBtn = By.xpath("//*[@id='continueButton']");
 
 	public static By objAlreadyActive = By.xpath("//*[@text='You have it all']");
-	public static By objAlreadyRented = By.xpath("//*[@text='Movie already rented']");
-	public static By objWatchNowCTA = By.xpath("//*[@id='continueButton' and @text='Watch Now']");
-	public static By objBuyPremiumCTA = By.xpath("//*[@id='continueButton' and @text='Buy Premium']");
-	public static By objActivePlanMsg2 = By.xpath("//*[@text='You have already rented this ZEEPLEX movie']");
 
 	public static By objAdFreeTxt = By.xpath("//*[@id='label' and @text='Watch Ad-free']");
 	public static By objPlanName = By.xpath("//*[@id='planName']");
@@ -48,7 +40,6 @@ public class AMDTVODComboOffer {
 	public static By objPlanFooterlbl = By.xpath("///*[@id='planFooterLabel']");
 
 	// Radhe combo Plan Card
-	public static By objRecommendedTag = By.xpath("//*[@id='comboTagLabel' and @text='RECOMMENDED']");
 	public static By objPlanTitle = By.xpath("//*[@id='comboPlanTitleLabel']");
 	public static By objPlanCost = By.xpath("//*[@id='comboRadioButton']");
 	public static By objStrikeOutCost = By.xpath("//*[@id='comboPerceivedPriceLabel']");
@@ -119,4 +110,19 @@ public class AMDTVODComboOffer {
     public static By objZEEPLEXLogo = By.xpath("//*[@id='zee_plex_logo']");
     
     public static By objTermsOfUse_PrivacyPolicy = By.xpath("//*[@id='privacyPolicyAndTAC']");
+    
+    public static By objAlreadyRented = By.xpath("//*[@id='titleText'] | //*[@text='Movie already rented']");
+	public static By objWatchNowCTA = By.xpath("//*[@id='continueButton' and @text='Watch Now']");
+	public static By objBuyPremiumCTA = By.xpath("//*[@id='continueButton' and @text='Buy Premium']");
+	public static By objActivePlanMsg2 = By.xpath("//*[@id='subtitleText'] | //*[@text='You have already rented this ZEEPLEX movie']");
+	public static By objComboOfferPlan = By.xpath("//*[@id='comboPlanTitleLabel' or @text='Radhe Combo']");
+	public static By objOnlyRentMoviePlan = By.xpath("//*[@id='onlyRentSectionTitleLabel' or @text='Only Rent Movie']");
+	public static By objRecommendedTag = By.xpath("//*[@id='comboTagLabel' and @text='Recommended']");
+	public static By objBuyRadheComboCTA = By.xpath("//*[@text='Buy Radhe Combo'] | //*[@text='Buy Premium']");
+	
+	public static By objResumeCTAonPlayer = By.xpath("//*[@id='watchNow']");
+    public static By objCombopackbadge = By.xpath("//*[@id='comboPackBenefitsBadge']");
+    public static By objyearlyplanbadge = By.xpath("//*[@id='yearlyPlanBenefitsBadge']");
+    public static By objComboPlantext = By.xpath("//*[@id='comboPackAllSectionsLabel']");
+    public static By objAvailabilityTextOnPlayer = By.xpath("//*[@id='tvod_content_availability_info']");
 }

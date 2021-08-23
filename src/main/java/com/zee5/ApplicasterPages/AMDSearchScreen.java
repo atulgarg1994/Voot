@@ -279,7 +279,7 @@ public class AMDSearchScreen {
 
 	public static By objRoundoff = By.xpath("//*[@resource-id='com.graymatrix.did:id/tv_round_off'] | //*[@text='Round Off']");
 
-	public static By objTotalPayableAmount = By.xpath("//*[@resource-id='com.graymatrix.did:id/tv_total_amount'] | //*[@text='Payable ");
+	public static By objTotalPayableAmount = By.xpath("//*[@resource-id='com.graymatrix.did:id/tv_total_amount'] | //*[@text='Payable Amount']");
 
 	public static By objRevisedBillingInfo = By
 			.xpath("//*[@resource-id='com.graymatrix.did:id/revised_billing_cycle_decription'] | //*[@text='Revised billing cycle will be effective from date of payment']");
