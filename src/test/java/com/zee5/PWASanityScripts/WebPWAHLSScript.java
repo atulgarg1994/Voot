@@ -68,58 +68,58 @@ public class WebPWAHLSScript {
 
 	@Test(priority = 8)
 	@Parameters({ "userType" })
+	public void playPageValidationHLS(String userType) throws Exception {
+		Zee5WEBPWASanityBusinessLogic.navigateToHome();
+		Zee5WEBPWASanityBusinessLogic.PlayValidation("Play", userType);
+	}
+	
+	@Test(priority = 9)
+	@Parameters({ "userType" })
 	public void premiumPageValidationHLS(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
 		Zee5WEBPWASanityBusinessLogic.Premiumvalidation("Premium", userType);
 	}
 
-	@Test(priority = 9)
+	@Test(priority = 10)
 	@Parameters({ "userType" })
 	public void musicPageValidationHLS(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
 		Zee5WEBPWASanityBusinessLogic.Musicvalidation("Music", userType);
 	}
 
-	@Test(priority = 10)
+	@Test(priority = 11)
 	@Parameters({ "userType" })
 	public void livePageValidationHLS(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
 		Zee5WEBPWASanityBusinessLogic.LiveTVValidation(userType, "Live TV");
 	}
 
-	@Test(priority = 11)
+	@Test(priority = 12)
 	@Parameters({ "userType" })
 	public void storiesPageValidationHLS(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
 		Zee5WEBPWASanityBusinessLogic.storiesvalidation(userType, "Stories");
 	}
 
-	@Test(priority = 12)
+	@Test(priority = 13)
 	@Parameters({ "userType" })
 	public void videoPageValidationHLS(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
 		Zee5WEBPWASanityBusinessLogic.videoValidation(userType, "Videos");
 	}
 
-	@Test(priority = 13)
+	@Test(priority = 14)
 	@Parameters({ "userType" })
 	public void webSeriesPageValidationHLS(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
 		Zee5WEBPWASanityBusinessLogic.webSeriesValidation(userType, "Web Series");
 	}
 
-	@Test(priority = 14)
+	@Test(priority = 15)
 	@Parameters({ "userType" })
 	public void searchPageValidationHLS(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.navigateToHome();
 		Zee5WEBPWASanityBusinessLogic.Search("Paaru ");
-	}
-
-	@Test(priority = 15)
-	@Parameters({ "userType" })
-	public void playPageValidationHLS(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.navigateToHome();
-		Zee5WEBPWASanityBusinessLogic.PlayValidation("Play", userType);
 	}
 
 	@Test(priority = 16)

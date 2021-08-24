@@ -1048,4 +1048,7 @@ public class PWAHamburgerMenuPage {
 	public static By objSearchThroughTitle=By.xpath("(//*[contains(@class,'highLight')])[1]");
 	
 	public static By objAuthenticationOption = By.xpath("//*[@href='/device' and contains(text(),'Activate Device')]");
+	
+	public static By objupiarrowSupermoon = By.xpath("//*[@id='1000437']");
+	
 }

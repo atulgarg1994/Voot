@@ -16832,5 +16832,122 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		mixpanel.ValidateParameter("", "Ribbon CTAs");
 	}
 	
+	public void ScreenViewEvent(String userType, String tabName) throws Exception {
+		extent.HeaderChildNode("Screen view Event");
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
+		
+		String contentName = ResponseInstance.getCarouselContentFromAPI3(userType, tabName);
+		System.out.println(contentName);
+		waitForElementAndClickIfPresent(AMDHomePage.objContentTitle(contentName), 7, "carousal content");
+		waitTime(15000);
+		Back(1);
+		
+		String pManufacturer = DeviceDetails.OEM;
+		
+		setFEProperty(userType);
+		setUserType_SubscriptionProperties(userType);
+		SetAppsflyerProperty();
+		
+		if(userType.equalsIgnoreCase("Guest")) {
+			mixpanel.FEProp.setProperty("User Type", "Guest");
+		}
 	
+		MixpanelAndroid.FEProp.setProperty("Page Name", "ConsumptionPage");
+		mixpanel.FEProp.setProperty("Source", "Homepage");
+		mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+		mixpanel.FEProp.setProperty("brand", pManufacturer);
+		
+		mixpanel.ValidateParameter("", "Screen View");
+	}
+
+	public void PopUpLaunchEvent(String userType, String keyword) throws Exception {
+		extent.HeaderChildNode("PopUp Launch Event");
+		if(userType.equalsIgnoreCase("Guest")) {
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, keyword + "\n", "Search bar");
+			hideKeyboard();
+			waitTime(4000);
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			click(AMDSearchScreen.objSearchResultFirstContent, "Search result");
+			waitTime(5000);
+			verifyElementPresentAndClick(AMDTVODComboOffer.objRentNowCTABelowPlayer, "Rent Now CTA below the player");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDTVODComboOffer.objCTABelowTheComboOfferPage, "CTA on Combo offer page");
+			
+	        String pManufacturer = DeviceDetails.OEM;
+			
+			setFEProperty(userType);
+			setUserType_SubscriptionProperties(userType);
+			SetAppsflyerProperty();
+			
+			if(userType.equalsIgnoreCase("Guest")) {
+				mixpanel.FEProp.setProperty("User Type", "Guest");
+			}
+		
+			mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+			mixpanel.FEProp.setProperty("brand", pManufacturer);
+			mixpanel.FEProp.setProperty("Page Name", "Subscription");
+			mixpanel.FEProp.setProperty("Source", "Subscription");
+			mixpanel.FEProp.setProperty("Popup Name", "Account Info");
+			mixpanel.FEProp.setProperty("Popup Type", "native");
+			
+			mixpanel.ValidateParameter("", "Popup Launch");
+		}else {
+			logger.info("Not applicable for this UserType");
+			extentLogger("Not Applicable", "Not applicable for this UserType");
+		}
+		
+	}
+
+public void PopUpCTAsEvent(String userType, String keyword) throws Exception {
+		extent.HeaderChildNode("PopUp CTAs Event");
+		if(userType.equalsIgnoreCase("Guest")) {
+			click(AMDSearchScreen.objSearchIcon, "Search icon");
+			click(AMDSearchScreen.objSearchEditBox, "Search Box");
+			type(AMDSearchScreen.objSearchBoxBar, keyword + "\n", "Search bar");
+			hideKeyboard();
+			waitTime(4000);
+			waitForElementDisplayed(AMDSearchScreen.objAllTab, 10);
+			click(AMDSearchScreen.objSearchResultFirstContent, "Search result");
+			waitTime(5000);
+			verifyElementPresentAndClick(AMDTVODComboOffer.objRentNowCTABelowPlayer, "Rent Now CTA below the player");
+			waitTime(3000);
+			verifyElementPresentAndClick(AMDTVODComboOffer.objCTABelowTheComboOfferPage, "CTA on Combo offer page");
+			verifyElementPresent(AMDLoginScreen.objAccountInfoScreen, "Account Info screen");
+			click(AMDLoginScreen.objEmailIdField, "EmailId");
+			type(AMDLoginScreen.objEmailIdField, "ramkt@gmail.com", "Email-Id/Phone");
+			hideKeyboard();
+			click(AMDLoginScreen.objAccountInfoScreen, "HideKeyboard");
+			click(AMDGenericObjects.objContinueCTA, "Continue button");
+			
+			
+	        String pManufacturer = DeviceDetails.OEM;
+			
+			setFEProperty(userType);
+			setUserType_SubscriptionProperties(userType);
+			SetAppsflyerProperty();
+			
+			if(userType.equalsIgnoreCase("Guest")) {
+				mixpanel.FEProp.setProperty("User Type", "Guest");
+			}
+		
+			mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+			mixpanel.FEProp.setProperty("brand", pManufacturer);
+			mixpanel.FEProp.setProperty("Page Name", "ConsumptionPage");
+			mixpanel.FEProp.setProperty("Source", "SearchPage");
+			mixpanel.FEProp.setProperty("Popup Name", "RENTAL");
+			mixpanel.FEProp.setProperty("Popup Type", "Native");
+			mixpanel.FEProp.setProperty("Popup Group", "RENTAL");
+			mixpanel.FEProp.setProperty("Button Type", "Player");
+			
+			
+			mixpanel.ValidateParameter("", "Popup CTAs");
+		}else {
+			logger.info("Not applicable for this UserType");
+			extentLogger("Not Applicable", "Not applicable for this UserType");
+		}
+		
+	}
 }

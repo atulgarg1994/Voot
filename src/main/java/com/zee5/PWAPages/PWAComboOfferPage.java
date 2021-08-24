@@ -140,7 +140,6 @@ public class PWAComboOfferPage {
 
 	public static By objComboOfferPageHeader = By.xpath("//*[@class='titleSubTitleComp']");
 	public static By objExplorePremiumButton = By.xpath("//*[text()='Explore Premium']");
-	public static By objBuyCombobutton = By.xpath("//*[@class='buttonContainer']");
 	public static By objRentMoviebutton = By.xpath("//*[text()='Rent Movie']");
 	public static By objHaveitAllPopDialog = By.xpath("//*[text()='You have it all']");
 	public static By objYouHaveAlreadyRentedThisZEEPLEXMovieDialog = By
@@ -218,9 +217,7 @@ public class PWAComboOfferPage {
 	public static By objPoster=By.xpath("");
 	public static By objBuySuperMoonComboBtn = By.xpath(".//*[@class='buttonContainer']//child::*[text()='Buy Supermoon Combo']");
 	
-	public static By objMyRentalTitle=By.xpath("");
 	public static By objExpiredTxtInMyRental=By.xpath("");
-	public static By objHowItworksConsumption=By.xpath("");
 	
 	public static By objSharebelowPlayer=By.xpath("//div[@class=\"channelConsumptionMetaDiv\" ]/child::*/child::*//*[@title='Share']");
 	public static By objZeePlexLogo = By.xpath("(//img[@alt='plex_logo'])[1]");
@@ -273,5 +270,12 @@ public class PWAComboOfferPage {
 	public static By objTermsOfUseHeader = By.xpath("//div[@class='staticPageWrap']//div[@class='staticPageContainer']/h1[contains(text(),'Terms of Use')]");
 
 	public static By objRentContentBtn=By.xpath(".//*[@class='buttonContainer']//child::*[text()='Rent Content']");
+	
+	public static By objSupermoonImgInZeeplex=By.xpath("//div[@class='tvodGrid']//div[@class='content']//img");
+	
+	public static By objMyRentalTitle=By.xpath("//div[@class='plexRentalContent']//div[@class='plexItemWrap']//div[@class='contentDetails']//h3[@class='title']//a");
+	public static By objHowItworksConsumption=By.xpath("//div[@class='plexLearnMoreButton']//span");
+	public static By objBuyCombobutton = By.xpath("//*[@class='buttonContainer']//button");
+	public static By objupiproceedtopay=By.xpath("//*[@class='linearLayout sidebarItem_content sidebarItem_content_addupi']//following-sibling::*//article[text()='Verify']");
 
 }

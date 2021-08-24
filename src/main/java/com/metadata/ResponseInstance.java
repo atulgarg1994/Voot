@@ -4577,7 +4577,6 @@ public class ResponseInstance {
 		AppsFlyer.expectedData.setProperty("Country Code", resp.jsonPath().getString("country_code"));
 //	AppsFlyer.expectedData.setProperty("State", resp.jsonPath().getString("state_code"));
 		return pro;
-
 	}
 
 	public static Properties getDeviceDetails() throws IOException {

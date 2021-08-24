@@ -15,6 +15,7 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.json.simple.parser.ParseException;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -224,4 +225,82 @@ public class ParseCharlesLogs {
 		}
 	}
 
+	
+	@SuppressWarnings("unused")
+	public static void validateVMAXResponse(Document doc) throws ParseException {
+		extent.HeaderChildNode("Validation API Response");
+		ArrayList<String> eachOne = new ArrayList<String>();
+		NodeList node = doc.getElementsByTagName("transaction");
+		System.out.println(node.getLength());
+		System.out.println(node.toString());
+		
+
+		
+		for (int i = 0; i < node.getLength(); i++) {
+			 if(node.item(i).getTextContent().contains("/delivery/adapi.php")) {
+				 eachOne.add(node.item(i).getTextContent().trim());
+			 }
+		}
+		String event = "X-VSERV-BODY";
+		for (int j = 0; j < eachOne.size(); j++) {
+			if (eachOne.get(j).contains(event)) {
+				System.out.println("========================================================");
+				System.out.println(event + " is Present");
+				System.out.println("========================================================");
+				String trimString = eachOne.get(j);
+//				System.out.println(trimString);
+
+//				System.out.println(trimString.split("\n")[90]);
+				System.out.println(trimString.split("\n")[91]);
+				String resp = trimString.split("\n")[91];
+
+//				String[] delimiter = trimString.split("\n")[10].split("&");
+//				System.out.println(delimiter.length);
+				
+//				JSONParser parser = new JSONParser();
+//				JSONObject json = (JSONObject) parser.parse(resp);
+//				System.out.println(json.toString());
+				//System.out.println(json.get);
+//				System.out.println(json.get("adInfo"));
+//				String Ad = json.get("adInfo").toString();
+				
+
+			
+				break;
+				
+//				for (int i = 0; i < delimiter.length; i++) {
+//					System.out.println(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
+//					String Key = delimiter[i].split("=")[0];
+//					String Value = delimiter[i].split("=")[1];
+//					String KeyData = Key;
+//					String ValueData = Value.replace("%3D", "=").replace("%26", "&").replace("%2B", "+")
+//							.replace("%3A", ":").replace("%2F", "/");
+//					System.out.println(KeyData+"   "+ValueData);
+//				}
+			}
+		}
+	}
+	
+	@SuppressWarnings("unused")
+	public static void readVMAXDocumnet()
+			throws ParserConfigurationException, SAXException, IOException, InterruptedException, ParseException {
+		ArrayList<String> AllCalls = new ArrayList<String>();
+		File file = new File("C:\\Users\\IGS0026\\Desktop\\love u ganesha rgstg.chlsx");
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		dbf.setValidating(false);
+		dbf.setNamespaceAware(true);
+		dbf.setFeature("http://xml.org/sax/features/namespaces", false);
+		dbf.setFeature("http://xml.org/sax/features/validation", false);
+		dbf.setFeature("http://apache.org/xml/features/nonvalidating/load-dtd-grammar", false);
+		dbf.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+		DocumentBuilder db = dbf.newDocumentBuilder();
+		Document doc = db.parse(file);
+		doc.getDocumentElement().normalize();
+		validateVMAXResponse(doc);
+	}
+	
+	public static void main(String args[]) throws Exception {
+		System.out.println("VMAX");
+		readVMAXDocumnet();
+	}
 }
