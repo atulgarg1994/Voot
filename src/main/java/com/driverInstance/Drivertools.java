@@ -280,8 +280,6 @@ public class Drivertools {
 		setAppVersion(getHandler().getproperty(application + "Version"));
 		setAPKName(getHandler().getproperty(application + "apkfile"));
 		setDriverVersion(getHandler().getproperty("DriverVersion"));
-		setDeviceList(getListOfDevicesConnected().get(0).toString());
-		setTVDeviceList(getListOfDevicesConnected().get(1).toString());
 	}
 
 	{
@@ -291,6 +289,12 @@ public class Drivertools {
 		setURL(Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("url"));
 		setRunModule(Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("runModule"));
 		setRunMode(Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("runMode"));
+		if (getPlatform().equals("Android")) {
+			setDeviceList(getListOfDevicesConnected().get(0).toString());
+			if (getTestName().equals("Android_ChromeCast")) {
+				setTVDeviceList(getListOfDevicesConnected().get(1).toString());
+			}
+		}
 		
 		if(getTestName().equals("Android_UserSessionManagement")) {
 			setPlatfrom(Utilities.setPlatform);

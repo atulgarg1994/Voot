@@ -38,12 +38,15 @@ public class DriverInstance extends Drivertools {
 		try {
 			switch (getPlatform()) {
 			case "Android":
-				
-				tlDriver.set((AppiumDriver<WebElement>) new AndroidDriver<WebElement>(new URL(getremoteUrl()),this.generateAndroidCapabilities(Application)));
-				util.waitForElementDisplayed(AMDOnboardingScreen.objWaitForSplashScreenDisapear, 240);
-				Instant endTime  = Instant.now();
-				timeElapsed = Duration.between(startTime , endTime  );
-				logger.info("Time taken to launch the App (millisec)" + timeElapsed.toMillis());
+				if (getTestName().equals("Android_ChromeCast")) {
+					chromeCastInitDriver();
+				} else {
+					tlDriver.set((AppiumDriver<WebElement>) new AndroidDriver<WebElement>(new URL(getremoteUrl()),this.generateAndroidCapabilities(Application)));
+					util.waitForElementDisplayed(AMDOnboardingScreen.objWaitForSplashScreenDisapear, 240);
+					Instant endTime = Instant.now();
+					timeElapsed = Duration.between(startTime, endTime);
+					logger.info("Time taken to launch the App (millisec)" + timeElapsed.toMillis());
+				}
 //				extent.extentLogger("Timer","to the App (millisec): " + timeElapsed.toMillis());
 //				File file = new File(dir+apkName);
 //				file.delete();
