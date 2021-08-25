@@ -1,5 +1,7 @@
 package com.business.zee;
 
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,7 +15,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Reporter;
 import org.testng.asserts.SoftAssert;
-
 import com.driverInstance.CommandBase;
 import com.driverInstance.DriverInstance;
 import com.extent.ExtentReporter;
@@ -26,6 +27,8 @@ import com.utility.Utilities;
 import com.zee5.ApplicasterPages.AMDGenericObjects;
 import com.zee5.ApplicasterPages.AMDHomePage;
 import com.zee5.ApplicasterPages.AMDPlayerScreen;
+import com.zee5.PWAPages.PWAHomePage;
+import com.zee5.PWAPages.PWASearchPage;
 import com.zee5.TVPages.PWAHamburgerMenuPage;
 import com.zee5.TVPages.PWALandingPages;
 import com.zee5.TVPages.PWALoginPage;
@@ -95,7 +98,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 	public static boolean appliTools = false;
 
 	public static boolean PopUp = false;
-	
+
 	private static String IP = "-s 192.168.0.89:5555";
 
 	public String title = "";
@@ -165,18 +168,18 @@ public class Zee5TvBusinessLogic extends Utilities {
 			searchMovie();
 			searchPremium();
 			searchEPG();
-			partlySpletSearch();
-			actorSearch();
-			genreSearch();
-			languageSearch();
+//			partlySpletSearch();
+//			actorSearch();
+//			genreSearch();
+//			languageSearch();
 		}
 		if (userType.equals("SubscribedUser")) {
 			searchMovie();
 			searchEPG();
-			partlySpletSearch();
+//			partlySpletSearch();
 //			actorSearch();
 //			genreSearch();
-			languageSearch();
+//			languageSearch();
 		}
 	}
 
@@ -589,10 +592,10 @@ public class Zee5TvBusinessLogic extends Utilities {
 			waitTime(2000);
 			TVRemoteEvent(19);
 			waitTime(2000);
-			verifyIsElementDisplayed(Zee5TvWelcomePage.objalreadyRegister, "Already Register button");
-			TVclick(Zee5TvWelcomePage.objalreadyRegister, "Already Register button");
+			verifyIsElementDisplayed(Zee5TvHomePage.objonboardingrevamploginbutton, "Already Register button");
+			TVclick(Zee5TvHomePage.objonboardingrevamploginbutton, "Already Register button");
 			waitTime(3000);
-			code = TVgetText(Zee5TvWelcomePage.objloginCode);
+			code = TVgetText(Zee5TvWelcomePage.objloginCodeNew);
 			logger.info("Authenticate code in TV : " + code);
 			extentLoggerPass("Code", "Authenticate code in TV : " + code);
 			HeaderChildNode("Switching to WEB platform to Authenticate device");
@@ -600,6 +603,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 			new Zee5TvBusinessLogic("zee");
 			waitTime(10000);
 			click(Zee5TvWelcomePage.objNoThanks, "No thanks option");
+			waitTime(2000);
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -640,19 +644,6 @@ public class Zee5TvBusinessLogic extends Utilities {
 			BrowsertearDown();
 			setPlatform("TV");
 			waitTime(10000);
-			if (verifyIsElementDisplayed(Zee5TvWelcomePage.objcontinueButtonInLoginPage,
-					"Continue button in TV authentication page")) {
-				TVRemoteEvent(20);
-				waitTime(2000);
-				TVRemoteEvent(20);
-				waitTime(3000);
-				TVRemoteEvent(22);
-				waitTime(3000);
-				TVRemoteEvent(22);
-				waitTime(3000);
-				TVclick(Zee5TvWelcomePage.objcontinueButtonInLoginPage, "Continue button in TV authentication page");
-				waitTime(15000);
-			}
 		}
 	}
 
@@ -755,7 +746,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 						"Login popup is displayed when user play premium content as guest user");
 			} else {
 				logger.info("Functioanlity failed");
-				extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
+				extent.extentLogger("Popup", "Popup Functioanlity failed");
 			}
 
 		}
@@ -2024,65 +2015,65 @@ public class Zee5TvBusinessLogic extends Utilities {
 		for (int i = 0; i < lenText2; i++) {
 			getDriver().findElement(Zee5TvSearchPage.objSearchBackButton).click();
 		}
-		String searchpromo[] = { "a", "d", "i", "t", "y", "a" };
-		String searchpromo1[] = { "a", "p", "o", "l", "o", "g", "i", "s", "e", "s" };
-		String searchpromo2[] = { "t", "o" };
-		String searchpromo3[] = { "p", "a", "a", "r", "u" };
-
-		type(searchpromo);
-		TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
-		type(searchpromo1);
-		TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
-		type(searchpromo2);
-		TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
-		type(searchpromo3);
-		waitTime(10000);
-		List<WebElement> ele3 = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
-		for (int i = 1; i <= ele3.size(); i++) {
-			String title2 = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
-			if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Promo"),
-					"Searched Promo"))) {
-				TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Promo"), "serached Promo");
-				break;
-			} else {
-				System.out.println("No match");
-			}
-
-		}
-		waitTime(45000);
-		if (verifyIsElementDisplayed(Zee5TvHomePage.objMorecontentPopup, "More content popup")) {
-			logger.info(
-					"Would you like to add selected display language as content language popup is diaplyed when user clicks on different display language");
-			extent.extentLoggerPass("Popup",
-					"Would you like to add selected display language as content language popup is diaplyed when user clicks on different display language");
-			getDriver().navigate().back();
-		} else {
-			logger.info("Popup is not displayed");
-			extent.extentLogger("Popup", "Popup is not displayed");
-		}
-
-		if (verifyIsElementDisplayed(Zee5TvPlayerPage.objreloadButton, "Replay icon")) {
-			logger.info("Replay button is displayed when user plays for the content which does not have upnext rail");
-			extent.extentLoggerPass("Replay",
-					"Replay button is displayed when user plays for the content which does not have upnext rail");
-		} else {
-			logger.info("Functionality went wrong");
-			extent.extentLogger("Replay", "Functionality went wrong");
-		}
-		getDriver().navigate().back();
-		waitTime(3000);
-		if (verifyIsElementDisplayed(Zee5TvSearchPage.objEditbox, "Edit box")) {
-			logger.info("User is navigated to search page");
-		} else {
-			getDriver().navigate().back();
-		}
-		int lenText3 = getDriver().findElement(Zee5TvSearchPage.objEditbox).getAttribute("text").length();
-		for (int i = 0; i < lenText3; i++) {
-			getDriver().findElement(Zee5TvSearchPage.objSearchBackButton).click();
-
-		}
-		getDriver().navigate().back();
-		waitTime(5000);
+//		String searchpromo[] = { "a", "d", "i", "t", "y", "a" };
+//		String searchpromo1[] = { "a", "p", "o", "l", "o", "g", "i", "s", "e", "s" };
+//		String searchpromo2[] = { "t", "o" };
+//		String searchpromo3[] = { "p", "a", "a", "r", "u" };
+//
+//		type(searchpromo);
+//		TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+//		type(searchpromo1);
+//		TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+//		type(searchpromo2);
+//		TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+//		type(searchpromo3);
+//		waitTime(10000);
+//		List<WebElement> ele3 = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+//		for (int i = 1; i <= ele3.size(); i++) {
+//			String title2 = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+//			if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Promo"),
+//					"Searched Promo"))) {
+//				TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title2, "Promo"), "serached Promo");
+//				break;
+//			} else {
+//				System.out.println("No match");
+//			}
+//
+//		}
+//		waitTime(45000);
+//		if (verifyIsElementDisplayed(Zee5TvHomePage.objMorecontentPopup, "More content popup")) {
+//			logger.info(
+//					"Would you like to add selected display language as content language popup is diaplyed when user clicks on different display language");
+//			extent.extentLoggerPass("Popup",
+//					"Would you like to add selected display language as content language popup is diaplyed when user clicks on different display language");
+//			getDriver().navigate().back();
+//		} else {
+//			logger.info("Popup is not displayed");
+//			extent.extentLogger("Popup", "Popup is not displayed");
+//		}
+//
+//		if (verifyIsElementDisplayed(Zee5TvPlayerPage.objreloadButton, "Replay icon")) {
+//			logger.info("Replay button is displayed when user plays for the content which does not have upnext rail");
+//			extent.extentLoggerPass("Replay",
+//					"Replay button is displayed when user plays for the content which does not have upnext rail");
+//		} else {
+//			logger.info("Functionality went wrong");
+//			extent.extentLogger("Replay", "Functionality went wrong");
+//		}
+//		getDriver().navigate().back();
+//		waitTime(3000);
+//		if (verifyIsElementDisplayed(Zee5TvSearchPage.objEditbox, "Edit box")) {
+//			logger.info("User is navigated to search page");
+//		} else {
+//			getDriver().navigate().back();
+//		}
+//		int lenText3 = getDriver().findElement(Zee5TvSearchPage.objEditbox).getAttribute("text").length();
+//		for (int i = 0; i < lenText3; i++) {
+//			getDriver().findElement(Zee5TvSearchPage.objSearchBackButton).click();
+//
+//		}
+//		getDriver().navigate().back();
+//		waitTime(5000);
 		TVTabSelect("Home");
 		waitTime(5000);
 		getDriver().closeApp();
@@ -2734,36 +2725,6 @@ public class Zee5TvBusinessLogic extends Utilities {
 		verifyIsElementDisplayed(Zee5TvWelcomePage.objMobileNumberColumn, "mobile number field in profile page");
 		verifyIsElementDisplayed(Zee5TvWelcomePage.objDOBColumn, "DOB field in profile page");
 		verifyIsElementDisplayed(Zee5TvWelcomePage.objGenderColumn, "Gender field in profile page");
-//		HeaderChildNode("Edit profile functionality");
-//		TVclick(Zee5TvWelcomePage.objEditProfileInMyProfile, "Edit Profile button");
-//		if (verifyIsElementDisplayed(Zee5TvWelcomePage.objEditProfilepage, "Edit Profile page")) {
-//			logger.info("User is navigated to Edit profile page");
-//			extent.extentLoggerPass("Profile", "User is navigated to Edit profile page");
-//		} else {
-//			logger.info("Profile navigation failed");
-//			extent.extentLoggerFail("Profile", "Profile navigation failed");
-//		}
-//		TVRemoteEvent(23");
-//		waitTime(8000);
-//		int lenText = getDriver().findElement(Zee5TvSearchPage.objNamefieldbox).getAttribute("text").length();
-//		for (int i = 0; i < lenText; i++) {
-//			getDriver().findElement(Zee5TvSearchPage.objSearchBackButton).click();
-//			waitTime(2000);
-//		}
-//		String searchdata1[] = { "i", "g", "s" };
-//		type(searchdata1);
-//		TVclick(Zee5TvWelcomePage.objSaveButton, "Save button");
-//		waitTime(3000);
-//		TVclick(Zee5TvWelcomePage.objSaveButton, "Save button");
-//		waitTime(3000);
-//		String name = TVgetText(Zee5TvWelcomePage.objNameText);
-//		if (name.contains("igs")) {
-//			logger.info("User is able to make changes in edit profile page");
-//			extent.extentLoggerPass("Edit", "User is able to make changes in edit profile page");
-//		} else {
-//			logger.info("Edit functionality failed");
-//			extent.extentLoggerFail("Edit", "Edit functionality failed");
-//		}
 		getDriver().navigate().back();
 		waitTime(3000);
 		getDriver().navigate().back();
@@ -2825,7 +2786,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 			} else {
 				logger.info("Popup not displayed");
 			}
-			code = TVgetText(Zee5TvWelcomePage.objloginCode);
+			code = TVgetText(Zee5TvWelcomePage.objloginCodeNew);
 			logger.info("Authenticate code in TV : " + code);
 			extentLoggerPass("Code", "Authenticate code in TV : " + code);
 			HeaderChildNode("Switching to WEB platform to Authenticate device");
@@ -3005,7 +2966,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 			} else {
 				logger.info("Popup not displayed");
 			}
-			code = TVgetText(Zee5TvWelcomePage.objloginCode);
+			code = TVgetText(Zee5TvWelcomePage.objloginCodeNew);
 			logger.info("Authenticate code in TV : " + code);
 			extentLoggerPass("Code", "Authenticate code in TV : " + code);
 			setPlatform("Web");
@@ -3198,7 +3159,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 			} else {
 				logger.info("Popup not displayed");
 			}
-			code = TVgetText(Zee5TvWelcomePage.objloginCode);
+			code = TVgetText(Zee5TvWelcomePage.objloginCodeNew);
 			logger.info("Authenticate code in TV : " + code);
 			extentLoggerPass("Code", "Authenticate code in TV : " + code);
 			setPlatform("Web");
@@ -3559,7 +3520,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 		TVclick(Zee5TvWelcomePage.objalreadyRegister, "Login button");
 
 		waitTime(7000);
-		if (verifyIsElementDisplayed(Zee5TvWelcomePage.objauthenticatetext, "Authenticate message")) {
+		if (verifyIsElementDisplayed(Zee5TvWelcomePage.objautneticatePage, "Authenticate message")) {
 			logger.info("User is navigated to authenticate page post tapping on login/register button");
 			extent.extentLoggerPass("Page",
 					"User is navigated to authenticate page post tapping on login/register button");
@@ -3810,7 +3771,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 			} else {
 				logger.info("Popup not displayed");
 			}
-			if (verifyIsElementDisplayed(Zee5TvWelcomePage.objauthenticatetext, "Authenticate message")) {
+			if (verifyIsElementDisplayed(Zee5TvWelcomePage.objautneticatePage, "Authenticate message")) {
 				logger.info("User is navigated to authenticate page post tapping on login button in subscription page");
 				extent.extentLoggerPass("Page",
 						"User is navigated to authenticate page post tapping on login button in subscription page");
@@ -3819,13 +3780,15 @@ public class Zee5TvBusinessLogic extends Utilities {
 				extent.extentLoggerFail("fail", "subscription page authentication failed");
 			}
 			waitTime(3000);
-			code = TVgetText(Zee5TvWelcomePage.objloginCode);
+			code = TVgetText(Zee5TvWelcomePage.objloginCodeNew);
 			logger.info("Authenticate code in TV : " + code);
 			extentLoggerPass("Code", "Authenticate code in TV : " + code);
 			HeaderChildNode("Switching to WEB platform to Authenticate device");
 			setPlatform("Web");
 			new Zee5TvBusinessLogic("zee");
 			waitTime(10000);
+			click(Zee5TvWelcomePage.objNoThanks, "No thanks option");
+			waitTime(2000);
 			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 			waitTime(3000);
 			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -3851,20 +3814,6 @@ public class Zee5TvBusinessLogic extends Utilities {
 			BrowsertearDown();
 			setPlatform("TV");
 			waitTime(10000);
-			if (verifyIsElementDisplayed(Zee5TvWelcomePage.objcontinueButtonInLoginPage,
-					"Continue button in TV authentication page")) {
-				TVRemoteEvent(20);
-				waitTime(2000);
-				TVRemoteEvent(20);
-				waitTime(3000);
-				TVRemoteEvent(22);
-				waitTime(3000);
-				TVRemoteEvent(22);
-				waitTime(3000);
-				TVclick(Zee5TvWelcomePage.objcontinueButtonInLoginPage, "Continue button in TV authentication page");
-				waitTime(15000);
-			}
-
 			if (verifyIsElementDisplayed(Zee5TVCarousel.objSubscriptionPlanPage, "My Plans page")) {
 				logger.info("User is navigated to Subscription page post login from subscription page");
 				extent.extentLoggerPass("plan",
@@ -4239,6 +4188,8 @@ public class Zee5TvBusinessLogic extends Utilities {
 				setPlatform("Web");
 				new Zee5TvBusinessLogic("zee");
 				waitTime(10000);
+				click(Zee5TvWelcomePage.objNoThanks, "No thanks option");
+				waitTime(2000);
 				verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 				waitTime(3000);
 				verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -4275,7 +4226,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 							"Continue watching tray is present in both platform for same login id");
 				} else {
 					logger.info("Continue watching tray is not present in both platform for same login id");
-					extent.extentLoggerFail("Tray",
+					extent.extentLogger("Tray",
 							"Continue watching tray is not present in both platform for same login id");
 				}
 				BrowsertearDown();
@@ -5875,50 +5826,17 @@ public class Zee5TvBusinessLogic extends Utilities {
 	public void deviceAuthentication() throws Exception {
 		HeaderChildNode("Device Authentication functionality");
 		waitTime(15000);
-		verifyIsElementDisplayed(Zee5TvWelcomePage.objalreadyRegister, "Already Register button");
-		TVclick(Zee5TvWelcomePage.objalreadyRegister, "Already Register button");
-		waitTime(5000);
-		waitTime(3000);
-		TVRemoteEvent(22);
-		waitTime(3000);
-		TVRemoteEvent(22);
-		waitTime(3000);
-		TVclick(Zee5TvWelcomePage.objcontinueButtonInLoginPage, "Continue button in TV authentication page");
-		waitTime(3000);
-		if (verifyIsElementDisplayed(Zee5TvWelcomePage.objAuthenticateErrorMessage,
-				"Please authenticate error message")) {
-			logger.info("Authenticate error popup is displayed");
-			extent.extentLoggerPass("Popup", "Authenticate error popup is displayed");
-		} else {
-			logger.info("Authenticate error popup is not displayed and popup functionality failed");
-			extent.extentLoggerFail("Popup",
-					"Authenticate error popup is not displayed and popup functionality failed");
-		}
-		getDriver().navigate().back();
-		String beforecode = TVgetText(Zee5TvWelcomePage.objloginCode);
-		logger.info("Intial authentication code : " + beforecode);
-		extent.extentLoggerPass("Code", "Intial authentication code : " + beforecode);
-		TVclick(Zee5TvWelcomePage.objAuthenticateNewCodeButton, "New code button");
-		waitTime(4000);
-		TVclick(Zee5TvWelcomePage.objAuthenticateNewCodeButton, "New code button");
-		waitTime(3000);
-		TVclick(Zee5TvWelcomePage.objloginCode, "code");
-		String aftercode = TVgetText(Zee5TvWelcomePage.objloginCode);
-		logger.info("Authentication code after clicking on get new code button : " + aftercode);
-		extent.extentLoggerPass("Code", "Authentication code after clicking on get new code button : " + aftercode);
-		if (!aftercode.equals(beforecode)) {
-			logger.info("Get new code button functionality verifed");
-			extent.extentLoggerPass("Code", "Get new code button functionality verifed");
-		} else {
-			logger.info("Get new code button functionality failed");
-			extent.extentLoggerFail("Code", "Get new code button functionality failed");
-		}
-		code = TVgetText(Zee5TvWelcomePage.objloginCode);
+//		verifyIsElementDisplayed(Zee5TvWelcomePage.objalreadyRegister, "Already Register button");
+//		TVclick(Zee5TvWelcomePage.objalreadyRegister, "Already Register button");
+		waitTime(8000);
+		code = TVgetText(Zee5TvWelcomePage.objloginCodeNew);
 		logger.info("Authenticate code in TV : " + code);
 		extentLoggerPass("Code", "Authenticate code in TV : " + code);
 		setPlatform("Web");
 		new Zee5TvBusinessLogic("zee");
 		waitTime(10000);
+		click(Zee5TvWelcomePage.objNoThanks, "No thanks option");
+		waitTime(2000);
 		verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 		waitTime(3000);
 		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -5953,25 +5871,13 @@ public class Zee5TvBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objAuthenticationOption, "Authentication option");
 		waitTime(3000);
 		checkElementDisplayed(PWAHamburgerMenuPage.objAuthenticationText, "Authentication Page");
+		
 		type(PWAHamburgerMenuPage.objAuthenticationField, code, "Authentication Field");
 		click(PWAHamburgerMenuPage.objAuthenticationButtonHighlighted, "Authenticate button");
 		waitTime(3000);
 		BrowsertearDown();
 		setPlatform("TV");
 		waitTime(10000);
-		if (verifyIsElementDisplayed(Zee5TvWelcomePage.objcontinueButtonInLoginPage,
-				"Continue button in TV authentication page")) {
-			TVRemoteEvent(20);
-			waitTime(2000);
-			TVRemoteEvent(20);
-			waitTime(3000);
-			TVRemoteEvent(22);
-			waitTime(3000);
-			TVRemoteEvent(22);
-			waitTime(3000);
-			TVclick(Zee5TvWelcomePage.objcontinueButtonInLoginPage, "Continue button in TV authentication page");
-			waitTime(15000);
-		}
 
 		if (verifyIsElementDisplayed(Zee5TvHomePage.objSelectTab("Home"), "Home landing")) {
 			logger.info("User is navigated to Home landing page post authentication");
@@ -6016,7 +5922,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 	public void authenticationLogin(String userid) throws Exception {
 		HeaderChildNode("Authenticating device through Email " + userid + " id");
 		waitTime(5000);
-		code = TVgetText(Zee5TvWelcomePage.objloginCode);
+		code = TVgetText(Zee5TvWelcomePage.objloginCodeNew);
 		logger.info("Authenticate code in TV : " + code);
 		extentLoggerPass("Code", "Authenticate code in TV : " + code);
 		HeaderChildNode("Switching to WEB platform to Authenticate device");
@@ -6127,12 +6033,14 @@ public class Zee5TvBusinessLogic extends Utilities {
 		} else {
 			logger.info("Popup not displayed");
 		}
-		code = TVgetText(Zee5TvWelcomePage.objloginCode);
+		code = TVgetText(Zee5TvWelcomePage.objloginCodeNew);
 		logger.info("Authenticate code in TV : " + code);
 		extentLoggerPass("Code", "Authenticate code in TV : " + code);
 		setPlatform("Web");
 		new Zee5TvBusinessLogic("zee");
 		waitTime(10000);
+		click(Zee5TvWelcomePage.objNoThanks, "No thanks option");
+		waitTime(2000);
 		verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 		waitTime(3000);
 		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -6161,19 +6069,6 @@ public class Zee5TvBusinessLogic extends Utilities {
 		BrowsertearDown();
 		setPlatform("TV");
 		waitTime(10000);
-		if (verifyIsElementDisplayed(Zee5TvWelcomePage.objcontinueButtonInLoginPage,
-				"Continue button in TV authentication page")) {
-			TVRemoteEvent(20);
-			waitTime(2000);
-			TVRemoteEvent(20);
-			waitTime(3000);
-			TVRemoteEvent(22);
-			waitTime(3000);
-			TVRemoteEvent(22);
-			waitTime(3000);
-			TVclick(Zee5TvWelcomePage.objcontinueButtonInLoginPage, "Continue button in TV authentication page");
-			waitTime(15000);
-		}
 		TVTabSelect("Home");
 		for (int i = 0; i <= 10; i++) {
 			TVRemoteEvent(22);
@@ -6214,7 +6109,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 		if (userType.equals("Guest") || userType.equals("NonSubscribedUser")) {
 			deviceAuthentication();
 //			mobilenumberLogin();
-			facebooklogin();
+//			facebooklogin();
 		}
 		if (userType.equals("SubscribedUser")) {
 			deviceAuthentication();
@@ -6238,12 +6133,14 @@ public class Zee5TvBusinessLogic extends Utilities {
 		} else {
 			logger.info("Popup not displayed");
 		}
-		code = TVgetText(Zee5TvWelcomePage.objloginCode);
+		code = TVgetText(Zee5TvWelcomePage.objloginCodeNew);
 		logger.info("Authenticate code in TV : " + code);
 		extentLoggerPass("Code", "Authenticate code in TV : " + code);
 		setPlatform("Web");
 		new Zee5TvBusinessLogic("zee");
 		waitTime(10000);
+		click(Zee5TvWelcomePage.objNoThanks, "No thanks option");
+		waitTime(2000);
 		verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 		waitTime(3000);
 		waitTime(10000);
@@ -6277,19 +6174,6 @@ public class Zee5TvBusinessLogic extends Utilities {
 		BrowsertearDown();
 		setPlatform("TV");
 		waitTime(10000);
-		if (verifyIsElementDisplayed(Zee5TvWelcomePage.objcontinueButtonInLoginPage,
-				"Continue button in TV authentication page")) {
-			TVRemoteEvent(20);
-			waitTime(2000);
-			TVRemoteEvent(20);
-			waitTime(3000);
-			TVRemoteEvent(22);
-			waitTime(3000);
-			TVRemoteEvent(22);
-			waitTime(3000);
-			TVclick(Zee5TvWelcomePage.objcontinueButtonInLoginPage, "Continue button in TV authentication page");
-			waitTime(15000);
-		}
 		TVTabSelect("Home");
 		for (int i = 0; i <= 10; i++) {
 			TVRemoteEvent(22);
@@ -6703,7 +6587,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 		verifyIsElementDisplayed(Zee5TvWelcomePage.objalreadyRegister, "Already Register button");
 		TVclick(Zee5TvWelcomePage.objalreadyRegister, "Already Register button");
 		waitTime(8000);
-		code = TVgetText(Zee5TvWelcomePage.objloginCode);
+		code = TVgetText(Zee5TvWelcomePage.objloginCodeNew);
 		logger.info("Authenticate code in TV : " + code);
 		extentLoggerPass("Code", "Authenticate code in TV : " + code);
 		HeaderChildNode("Switching to WEB platform to Authenticate device");
@@ -7334,7 +7218,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 					"Authenticate error popup is not displayed and popup functionality failed");
 		}
 		getDriver().navigate().back();
-		code = TVgetText(Zee5TvWelcomePage.objloginCode);
+		code = TVgetText(Zee5TvWelcomePage.objloginCodeNew);
 		logger.info("Authenticate code in TV : " + code);
 		extentLoggerPass("Code", "Authenticate code in TV : " + code);
 		setPlatform("Web");
@@ -7600,7 +7484,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 			extent.extentLoggerPass("Zee logo", "Zee logo is displayed before the playback started");
 		} else {
 			logger.info("Zee logo is not displayed before the playback started");
-			extent.extentLoggerPass("Zee logo", "Zee logo is not displayed before the playback started");
+			extent.extentLoggerFail("Zee logo", "Zee logo is not displayed before the playback started");
 		}
 		getDriver().navigate().back();
 		waitTime(3000);
@@ -7677,7 +7561,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 				extent.extentLoggerPass("Zee logo", "Zee logo is displayed before the playback started");
 			} else {
 				logger.info("Zee logo is not displayed before the playback started");
-				extent.extentLoggerPass("Zee logo", "Zee logo is not displayed before the playback started");
+				extent.extentLoggerFail("Zee logo", "Zee logo is not displayed before the playback started");
 			}
 			getDriver().navigate().back();
 			waitTime(3000);
@@ -7699,303 +7583,305 @@ public class Zee5TvBusinessLogic extends Utilities {
 		getDriver().navigate().back();
 		waitTime(2000);
 
-		if (userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
-			TVTabSelect("Home");
-			for (int i = 0; i <= 10; i++) {
-				TVRemoteEvent(22);
-				waitTime(2000);
-			}
-			TVTabSelect("Settings");
-			TVRemoteEvent(20);
-			waitTime(3000);
-			TVRemoteEvent(20);
-			waitTime(3000);
-
-			for (int i = 0; i <= 3; i++) {
-				TVRemoteEvent(22);
-				waitTime(2000);
-			}
-			TVclick(Zee5TvWelcomePage.objParentalOption, "Parental Option");
-			waitTime(3000);
-			TVclick(Zee5TvWelcomePage.objParentalOption, "Parental Option");
-			if (verifyIsElementDisplayed(Zee5TvWelcomePage.objParentalControlMessage, "Parental control message")) {
-				logger.info("Parental control message - Go to zee5.com is displayed");
-				extent.extentLoggerPass("Parental", "Parental control message - Go to zee5.com is displayed");
-			} else {
-				logger.info("Parental control message is not displayed");
-				extent.extentLoggerFail("Parental", "Parental control message is not displayed");
-			}
-			getDriver().navigate().back();
-			for (int i = 0; i <= 14; i++) {
-				TVRemoteEvent(22);
-				waitTime(2000);
-			}
-			if (userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
-				TVclick(Zee5TvWelcomePage.objLogoutOption, "Logout option");
-				waitTime(3000);
-				TVclick(Zee5TvWelcomePage.objLogoutOption, "Logout option");
-			}
-			waitTime(3000);
-			TVTabSelect("Home");
-			for (int i = 0; i <= 10; i++) {
-				TVRemoteEvent(22);
-				waitTime(2000);
-			}
-			TVTabSelect("Settings");
-			TVRemoteEvent(20);
-			waitTime(2000);
-			TVRemoteEvent(20);
-			TVclick(Zee5TvWelcomePage.objLoginOption, "Login option");
-			waitTime(8000);
-
-			if (userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
-				waitTime(10000);
-				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objLoginPopupAmazon, "Afs login popup")) {
-					TVRemoteEvent(19);
-					waitTime(2000);
-					TVRemoteEvent(19);
-					waitTime(2000);
-					TVRemoteEvent(19);
-					waitTime(2000);
-					TVclick(Zee5TvWelcomePage.objLogiButtonAmazon, "Login button amazon");
-					waitTime(7000);
-				} else {
-					logger.info("Popup not displayed");
-				}
-				code = TVgetText(Zee5TvWelcomePage.objloginCode);
-				logger.info("Authenticate code in TV : " + code);
-				extentLoggerPass("Code", "Authenticate code in TV : " + code);
-				HeaderChildNode("Switching to WEB platform to Authenticate device");
-				setPlatform("Web");
-				new Zee5TvBusinessLogic("zee");
-				waitTime(10000);
-				verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
-				waitTime(3000);
-				verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
-
-				if (userType.equals("NonSubscribedUser")) {
-					String Username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-							.getParameter("NonsubscribedUserName");
-					String Password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-							.getParameter("NonsubscribedPassword");
-					type(PWALoginPage.objEmailField, Username, "Email Field");
-					waitTime(3000);
-					verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
-					type(PWALoginPage.objPasswordField, Password, "Password field");
-					waitTime(5000);
-
-				}
-				if (userType.equals("SubscribedUser")) {
-					String SubscribedUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-							.getParameter("SubscribedUserName");
-					String SubscribedPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-							.getParameter("SubscribedPassword");
-					type(PWALoginPage.objEmailField, SubscribedUsername, "Email Field");
-					waitTime(3000);
-					verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
-					type(PWALoginPage.objPasswordField, SubscribedPassword, "Password field");
-					waitTime(5000);
-
-				}
-				click(PWALoginPage.objWebLoginButton, "Login Button");
-				waitTime(8000);
-				verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
-				verifyElementPresentAndClick(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
-				checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
-				if (userType.equals("NonSubscribedUser")) {
-					type(PWALoginPage.objPasswordField, parentpasswordNonSub, "Password field");
-				} else if (userType.equals("SubscribedUser")) {
-					type(PWALoginPage.objPasswordField, parentpasswordSub, "Password field");
-				}
-				click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
-				waitTime(2000);
-				HeaderChildNode("Selecting Restrict 13+ option in parent control page");
-				checkElementDisplayed(PWAHamburgerMenuPage.objParentControlPageTitle, "Parent control page");
-				checkElementDisplayed(PWAHamburgerMenuPage.objNoRestrictionSelected, "No restricted option selected");
-				verifyElementPresentAndClick(PWAHamburgerMenuPage.objRestrict13, "Restrict 13+ option");
-				verifyElementPresent(PWAHamburgerMenuPage.objParentalLockPin1, "Set Lock Field");
-				type(PWAHamburgerMenuPage.objParentalLockPin1, "1", "ParentalLockPin");
-				type(PWAHamburgerMenuPage.objParentalLockPin2, "2", "ParentalLockPin");
-				type(PWAHamburgerMenuPage.objParentalLockPin3, "3", "ParentalLockPin");
-				type(PWAHamburgerMenuPage.objParentalLockPin4, "4", "ParentalLockPin");
-				waitTime(4000);
-				verifyElementPresentAndClick(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
-				waitTime(5000);
-				verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
-				waitTime(3000);
-				verifyElementPresentAndClick(PWAHamburgerMenuPage.objAuthenticationOption, "Authentication option");
-				waitTime(5000);
-				checkElementDisplayed(PWAHamburgerMenuPage.objAuthenticationText, "Authentication Page");
-				type(PWAHamburgerMenuPage.objAuthenticationField, code, "Authentication Field");
-				click(PWAHamburgerMenuPage.objAuthenticationButtonHighlighted, "Authenticate button");
-				waitTime(3000);
-				BrowsertearDown();
-				setPlatform("TV");
-				waitTime(10000);
-
-				TVTabSelect("Home");
-				logger.info(TVgetText(Zee5TvHomePage.objHighlightedTab) + "Tab is highlighted");
-				extent.extentLoggerPass("Tab", "HighLighted Tab :" + TVgetText(Zee5TvHomePage.objHighlightedTab));
-
-				if (TVgetAttributValue("focused", Zee5TvHomePage.objSearchIcon).equals("false")) {
-
-					TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
-					TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
-				} else {
-
-					TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
-				}
-				waitTime(5000);
-				String searchdata6[] = { "t", "h", "e" };
-				String searchdata7[] = { "a", "w", "a", "k", "e", "n", "i", "n", "g" };
-				type(searchdata6);
-				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
-				type(searchdata7);
-				String content3 = TVgetText(Zee5TvSearchPage.objEditbox);
-				logger.info("Entered Search Data : " + content);
-				extent.extentLoggerPass("Search", "Entered Searched Data : " + content);
-				List<WebElement> ele3 = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
-				for (int i = 1; i <= ele3.size(); i++) {
-
-					String title3 = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
-					logger.info(title3);
-					extent.extentLogger("Title", "Serach result content title : " + title3);
-					waitTime(7000);
-					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title3, "Episodes"),
-							"Searched 13+ content"))) {
-						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title3, "Episodes"),
-								"Searched 13+ content");
-						break;
-					} else {
-						logger.info("No match");
-					}
-
-				}
-			}
-			waitTime(7000);
-			if (verifyIsElementDisplayed(Zee5TvWelcomePage.objParentpopuptitle, "Parental popup")) {
-				logger.info("Parental popup is displayed when user keeps parental control for 13+ content");
-				extent.extentLoggerPass("13+",
-						"Parental popup is displayed when user keeps parental control for 13+ content");
-			} else {
-				logger.info("Popup functionality failed");
-				extent.extentLoggerFail("Popup", "Popup functionality failed");
-			}
-			getDriver().navigate().back();
-			waitTime(3000);
-			getDriver().navigate().back();
-			TVTabSelect("Home");
-
-			for (int i = 0; i <= 10; i++) {
-				TVRemoteEvent(22);
-				waitTime(2000);
-			}
-
-			TVTabSelect("Settings");
-			TVRemoteEvent(20);
-			waitTime(2000);
-			TVRemoteEvent(20);
-			for (int i = 0; i <= 14; i++) {
-				TVRemoteEvent(22);
-				waitTime(2000);
-			}
-			TVclick(Zee5TvWelcomePage.objLogoutOption, "Logout option");
-			waitTime(3000);
-			TVclick(Zee5TvWelcomePage.objLogoutOption, "Logout option");
-			waitTime(3000);
-			TVTabSelect("Home");
-			for (int i = 0; i <= 10; i++) {
-				TVRemoteEvent(22);
-				waitTime(2000);
-			}
-			TVTabSelect("Settings");
-			TVRemoteEvent(20);
-			waitTime(2000);
-			TVRemoteEvent(20);
-			TVclick(Zee5TvWelcomePage.objLoginOption, "Login option");
-			waitTime(8000);
-
-			if (userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
-				waitTime(10000);
-				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objLoginPopupAmazon, "Afs login popup")) {
-					TVRemoteEvent(19);
-					waitTime(2000);
-					TVRemoteEvent(19);
-					waitTime(2000);
-					TVRemoteEvent(19);
-					waitTime(2000);
-					TVclick(Zee5TvWelcomePage.objLogiButtonAmazon, "Login button amazon");
-					waitTime(7000);
-				} else {
-					logger.info("Popup not displayed");
-				}
-				code = TVgetText(Zee5TvWelcomePage.objloginCode);
-				logger.info("Authenticate code in TV : " + code);
-				extentLoggerPass("Code", "Authenticate code in TV : " + code);
-				setPlatform("Web");
-				new Zee5TvBusinessLogic("zee");
-				waitTime(10000);
-				verifyElementPresentAndClick(PWALoginPage.objLanguageButton, "Language button");
-				waitTime(3000);
-				verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
-				waitTime(3000);
-				verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
-
-				if (userType.equals("NonSubscribedUser")) {
-					String Username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-							.getParameter("NonsubscribedUserName");
-					String Password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-							.getParameter("NonsubscribedPassword");
-					type(PWALoginPage.objEmailField, Username, "Email Field");
-					waitTime(3000);
-					verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
-					type(PWALoginPage.objPasswordField, Password, "Password field");
-					waitTime(5000);
-
-				}
-				if (userType.equals("SubscribedUser")) {
-					String SubscribedUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-							.getParameter("SubscribedUserName");
-					String SubscribedPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-							.getParameter("SubscribedPassword");
-					type(PWALoginPage.objEmailField, SubscribedUsername, "Email Field");
-					waitTime(3000);
-					verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
-					type(PWALoginPage.objPasswordField, SubscribedPassword, "Password field");
-					waitTime(5000);
-
-				}
-				click(PWALoginPage.objWebLoginButton, "Login Button");
-				waitTime(8000);
-				verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
-				verifyElementPresentAndClick(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
-				checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
-				if (userType.equals("NonSubscribedUser")) {
-					type(PWALoginPage.objPasswordField, parentpasswordNonSub, "Password field");
-				} else if (userType.equals("SubscribedUser")) {
-					type(PWALoginPage.objPasswordField, parentpasswordSub, "Password field");
-				}
-				click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
-				waitTime(2000);
-				checkElementDisplayed(PWAHamburgerMenuPage.objParentControlPageTitle, "Parent control page");
-				verifyElementPresentAndClick(PWAHamburgerMenuPage.objNoRestrictionSelected, "No Restriction option");
-				verifyElementPresentAndClick(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
-				waitTime(5000);
-				verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
-				waitTime(3000);
-				verifyElementPresentAndClick(PWAHamburgerMenuPage.objAuthenticationOption, "Authentication option");
-				waitTime(5000);
-				checkElementDisplayed(PWAHamburgerMenuPage.objAuthenticationText, "Authentication Page");
-				type(PWAHamburgerMenuPage.objAuthenticationField, code, "Authentication Field");
-				click(PWAHamburgerMenuPage.objAuthenticationButtonHighlighted, "Authenticate button");
-				waitTime(3000);
-				BrowsertearDown();
-				setPlatform("TV");
-				waitTime(10000);
-				TVTabSelect("Home");
-
-			}
-		}
+//		if (userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
+//			TVTabSelect("Home");
+//			for (int i = 0; i <= 10; i++) {
+//				TVRemoteEvent(22);
+//				waitTime(2000);
+//			}
+//			TVTabSelect("Settings");
+//			TVRemoteEvent(20);
+//			waitTime(3000);
+//			TVRemoteEvent(20);
+//			waitTime(3000);
+//
+//			for (int i = 0; i <= 3; i++) {
+//				TVRemoteEvent(22);
+//				waitTime(2000);
+//			}
+//			TVclick(Zee5TvWelcomePage.objParentalOption, "Parental Option");
+//			waitTime(3000);
+//			TVclick(Zee5TvWelcomePage.objParentalOption, "Parental Option");
+//			if (verifyIsElementDisplayed(Zee5TvWelcomePage.objParentalControlMessage, "Parental control message")) {
+//				logger.info("Parental control message - Go to zee5.com is displayed");
+//				extent.extentLoggerPass("Parental", "Parental control message - Go to zee5.com is displayed");
+//			} else {
+//				logger.info("Parental control message is not displayed");
+//				extent.extentLoggerFail("Parental", "Parental control message is not displayed");
+//			}
+//			getDriver().navigate().back();
+//			for (int i = 0; i <= 14; i++) {
+//				TVRemoteEvent(22);
+//				waitTime(2000);
+//			}
+//			if (userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
+//				TVclick(Zee5TvWelcomePage.objLogoutOption, "Logout option");
+//				waitTime(3000);
+//				TVclick(Zee5TvWelcomePage.objLogoutOption, "Logout option");
+//			}
+//			waitTime(3000);
+//			TVTabSelect("Home");
+//			for (int i = 0; i <= 10; i++) {
+//				TVRemoteEvent(22);
+//				waitTime(2000);
+//			}
+//			TVTabSelect("Settings");
+//			TVRemoteEvent(20);
+//			waitTime(2000);
+//			TVRemoteEvent(20);
+//			TVclick(Zee5TvWelcomePage.objLoginOption, "Login option");
+//			waitTime(8000);
+//
+//			if (userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
+//				waitTime(10000);
+//				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objLoginPopupAmazon, "Afs login popup")) {
+//					TVRemoteEvent(19);
+//					waitTime(2000);
+//					TVRemoteEvent(19);
+//					waitTime(2000);
+//					TVRemoteEvent(19);
+//					waitTime(2000);
+//					TVclick(Zee5TvWelcomePage.objLogiButtonAmazon, "Login button amazon");
+//					waitTime(7000);
+//				} else {
+//					logger.info("Popup not displayed");
+//				}
+//				code = TVgetText(Zee5TvWelcomePage.objloginCodeNew);
+//				logger.info("Authenticate code in TV : " + code);
+//				extentLoggerPass("Code", "Authenticate code in TV : " + code);
+//				HeaderChildNode("Switching to WEB platform to Authenticate device");
+//				setPlatform("Web");
+//				new Zee5TvBusinessLogic("zee");
+//				waitTime(10000);
+//				click(Zee5TvWelcomePage.objNoThanks, "No thanks option");
+//				waitTime(2000);
+//				verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
+//				waitTime(3000);
+//				verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+//
+//				if (userType.equals("NonSubscribedUser")) {
+//					String Username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+//							.getParameter("NonsubscribedUserName");
+//					String Password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+//							.getParameter("NonsubscribedPassword");
+//					type(PWALoginPage.objEmailField, Username, "Email Field");
+//					waitTime(3000);
+//					verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+//					type(PWALoginPage.objPasswordField, Password, "Password field");
+//					waitTime(5000);
+//
+//				}
+//				if (userType.equals("SubscribedUser")) {
+//					String SubscribedUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+//							.getParameter("SubscribedUserName");
+//					String SubscribedPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+//							.getParameter("SubscribedPassword");
+//					type(PWALoginPage.objEmailField, SubscribedUsername, "Email Field");
+//					waitTime(3000);
+//					verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+//					type(PWALoginPage.objPasswordField, SubscribedPassword, "Password field");
+//					waitTime(5000);
+//
+//				}
+//				click(PWALoginPage.objWebLoginButton, "Login Button");
+//				waitTime(8000);
+//				verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+//				verifyElementPresentAndClick(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
+//				checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
+//				if (userType.equals("NonSubscribedUser")) {
+//					type(PWALoginPage.objPasswordField, parentpasswordNonSub, "Password field");
+//				} else if (userType.equals("SubscribedUser")) {
+//					type(PWALoginPage.objPasswordField, parentpasswordSub, "Password field");
+//				}
+//				click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
+//				waitTime(2000);
+//				HeaderChildNode("Selecting Restrict 13+ option in parent control page");
+//				checkElementDisplayed(PWAHamburgerMenuPage.objParentControlPageTitle, "Parent control page");
+//				checkElementDisplayed(PWAHamburgerMenuPage.objNoRestrictionSelected, "No restricted option selected");
+//				verifyElementPresentAndClick(PWAHamburgerMenuPage.objRestrict13, "Restrict 13+ option");
+//				verifyElementPresent(PWAHamburgerMenuPage.objParentalLockPin1, "Set Lock Field");
+//				type(PWAHamburgerMenuPage.objParentalLockPin1, "1", "ParentalLockPin");
+//				type(PWAHamburgerMenuPage.objParentalLockPin2, "2", "ParentalLockPin");
+//				type(PWAHamburgerMenuPage.objParentalLockPin3, "3", "ParentalLockPin");
+//				type(PWAHamburgerMenuPage.objParentalLockPin4, "4", "ParentalLockPin");
+//				waitTime(4000);
+//				verifyElementPresentAndClick(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
+//				waitTime(5000);
+//				verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+//				waitTime(3000);
+//				verifyElementPresentAndClick(PWAHamburgerMenuPage.objAuthenticationOption, "Authentication option");
+//				waitTime(5000);
+//				checkElementDisplayed(PWAHamburgerMenuPage.objAuthenticationText, "Authentication Page");
+//				type(PWAHamburgerMenuPage.objAuthenticationField, code, "Authentication Field");
+//				click(PWAHamburgerMenuPage.objAuthenticationButtonHighlighted, "Authenticate button");
+//				waitTime(3000);
+//				BrowsertearDown();
+//				setPlatform("TV");
+//				waitTime(10000);
+//
+//				TVTabSelect("Home");
+//				logger.info(TVgetText(Zee5TvHomePage.objHighlightedTab) + "Tab is highlighted");
+//				extent.extentLoggerPass("Tab", "HighLighted Tab :" + TVgetText(Zee5TvHomePage.objHighlightedTab));
+//
+//				if (TVgetAttributValue("focused", Zee5TvHomePage.objSearchIcon).equals("false")) {
+//
+//					TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+//					TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+//				} else {
+//
+//					TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+//				}
+//				waitTime(5000);
+//				String searchdata6[] = { "t", "h", "e" };
+//				String searchdata7[] = { "a", "w", "a", "k", "e", "n", "i", "n", "g" };
+//				type(searchdata6);
+//				TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+//				type(searchdata7);
+//				String content3 = TVgetText(Zee5TvSearchPage.objEditbox);
+//				logger.info("Entered Search Data : " + content);
+//				extent.extentLoggerPass("Search", "Entered Searched Data : " + content);
+//				List<WebElement> ele3 = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+//				for (int i = 1; i <= ele3.size(); i++) {
+//
+//					String title3 = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+//					logger.info(title3);
+//					extent.extentLogger("Title", "Serach result content title : " + title3);
+//					waitTime(7000);
+//					if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title3, "Episodes"),
+//							"Searched 13+ content"))) {
+//						TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title3, "Episodes"),
+//								"Searched 13+ content");
+//						break;
+//					} else {
+//						logger.info("No match");
+//					}
+//
+//				}
+//			}
+//			waitTime(7000);
+//			if (verifyIsElementDisplayed(Zee5TvWelcomePage.objParentpopuptitle, "Parental popup")) {
+//				logger.info("Parental popup is displayed when user keeps parental control for 13+ content");
+//				extent.extentLoggerPass("13+",
+//						"Parental popup is displayed when user keeps parental control for 13+ content");
+//			} else {
+//				logger.info("Popup functionality failed");
+//				extent.extentLoggerFail("Popup", "Popup functionality failed");
+//			}
+//			getDriver().navigate().back();
+//			waitTime(3000);
+//			getDriver().navigate().back();
+//			TVTabSelect("Home");
+//
+//			for (int i = 0; i <= 10; i++) {
+//				TVRemoteEvent(22);
+//				waitTime(2000);
+//			}
+//
+//			TVTabSelect("Settings");
+//			TVRemoteEvent(20);
+//			waitTime(2000);
+//			TVRemoteEvent(20);
+//			for (int i = 0; i <= 14; i++) {
+//				TVRemoteEvent(22);
+//				waitTime(2000);
+//			}
+//			TVclick(Zee5TvWelcomePage.objLogoutOption, "Logout option");
+//			waitTime(3000);
+//			TVclick(Zee5TvWelcomePage.objLogoutOption, "Logout option");
+//			waitTime(3000);
+//			TVTabSelect("Home");
+//			for (int i = 0; i <= 10; i++) {
+//				TVRemoteEvent(22);
+//				waitTime(2000);
+//			}
+//			TVTabSelect("Settings");
+//			TVRemoteEvent(20);
+//			waitTime(2000);
+//			TVRemoteEvent(20);
+//			TVclick(Zee5TvWelcomePage.objLoginOption, "Login option");
+//			waitTime(8000);
+//
+//			if (userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
+//				waitTime(10000);
+//				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objLoginPopupAmazon, "Afs login popup")) {
+//					TVRemoteEvent(19);
+//					waitTime(2000);
+//					TVRemoteEvent(19);
+//					waitTime(2000);
+//					TVRemoteEvent(19);
+//					waitTime(2000);
+//					TVclick(Zee5TvWelcomePage.objLogiButtonAmazon, "Login button amazon");
+//					waitTime(7000);
+//				} else {
+//					logger.info("Popup not displayed");
+//				}
+//				code = TVgetText(Zee5TvWelcomePage.objloginCodeNew);
+//				logger.info("Authenticate code in TV : " + code);
+//				extentLoggerPass("Code", "Authenticate code in TV : " + code);
+//				setPlatform("Web");
+//				new Zee5TvBusinessLogic("zee");
+//				waitTime(10000);
+//				click(Zee5TvWelcomePage.objNoThanks, "No thanks option");
+//				waitTime(2000);
+//				verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
+//				waitTime(3000);
+//				verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+//
+//				if (userType.equals("NonSubscribedUser")) {
+//					String Username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+//							.getParameter("NonsubscribedUserName");
+//					String Password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+//							.getParameter("NonsubscribedPassword");
+//					type(PWALoginPage.objEmailField, Username, "Email Field");
+//					waitTime(3000);
+//					verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+//					type(PWALoginPage.objPasswordField, Password, "Password field");
+//					waitTime(5000);
+//
+//				}
+//				if (userType.equals("SubscribedUser")) {
+//					String SubscribedUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+//							.getParameter("SubscribedUserName");
+//					String SubscribedPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+//							.getParameter("SubscribedPassword");
+//					type(PWALoginPage.objEmailField, SubscribedUsername, "Email Field");
+//					waitTime(3000);
+//					verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+//					type(PWALoginPage.objPasswordField, SubscribedPassword, "Password field");
+//					waitTime(5000);
+//
+//				}
+//				click(PWALoginPage.objWebLoginButton, "Login Button");
+//				waitTime(8000);
+//				verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+//				verifyElementPresentAndClick(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
+//				checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
+//				if (userType.equals("NonSubscribedUser")) {
+//					type(PWALoginPage.objPasswordField, parentpasswordNonSub, "Password field");
+//				} else if (userType.equals("SubscribedUser")) {
+//					type(PWALoginPage.objPasswordField, parentpasswordSub, "Password field");
+//				}
+//				click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
+//				waitTime(2000);
+//				checkElementDisplayed(PWAHamburgerMenuPage.objParentControlPageTitle, "Parent control page");
+//				verifyElementPresentAndClick(PWAHamburgerMenuPage.objNoRestrictionSelected, "No Restriction option");
+//				verifyElementPresentAndClick(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
+//				waitTime(5000);
+//				verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+//				waitTime(3000);
+//				verifyElementPresentAndClick(PWAHamburgerMenuPage.objAuthenticationOption, "Authentication option");
+//				waitTime(5000);
+//				checkElementDisplayed(PWAHamburgerMenuPage.objAuthenticationText, "Authentication Page");
+//				type(PWAHamburgerMenuPage.objAuthenticationField, code, "Authentication Field");
+//				click(PWAHamburgerMenuPage.objAuthenticationButtonHighlighted, "Authenticate button");
+//				waitTime(3000);
+//				BrowsertearDown();
+//				setPlatform("TV");
+//				waitTime(10000);
+//				TVTabSelect("Home");
+//
+//			}
+		// }
 
 	}
 
@@ -8423,7 +8309,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 			waitTime(2000);
 			TVRemoteEvent(23);
 			waitTime(4000);
-			code = TVgetText(Zee5TvWelcomePage.objloginCode);
+			code = TVgetText(Zee5TvWelcomePage.objloginCodeNew);
 			logger.info("Authenticate code in TV : " + code);
 			extentLoggerPass("Code", "Authenticate code in TV : " + code);
 			HeaderChildNode("Switching to WEB platform to Authenticate device");
@@ -8612,7 +8498,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 				waitTime(2000);
 				TVRemoteEvent(23);
 				waitTime(4000);
-				code = TVgetText(Zee5TvWelcomePage.objloginCode);
+				code = TVgetText(Zee5TvWelcomePage.objloginCodeNew);
 				logger.info("Authenticate code in TV : " + code);
 				extentLoggerPass("Code", "Authenticate code in TV : " + code);
 				HeaderChildNode("Switching to WEB platform to Authenticate device");
@@ -9351,7 +9237,6 @@ public class Zee5TvBusinessLogic extends Utilities {
 			}
 		} else {
 			logger.info("Price description is not displayed");
-			extent.extentLoggerPass("Plan", "Price description is not displayed");
 		}
 	}
 
@@ -10207,7 +10092,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 			waitTime(3000);
 			TVRemoteEvent(22);
 			waitTime(3000);
-			code = TVgetText(Zee5TvWelcomePage.objloginCode);
+			code = TVgetText(Zee5TvWelcomePage.objloginCodeNew);
 			logger.info("Authenticate code in TV : " + code);
 			extentLoggerPass("Code", "Authenticate code in TV : " + code);
 			setPlatform("Web");
@@ -10285,7 +10170,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 			waitTime(3000);
 			TVRemoteEvent(22);
 			waitTime(3000);
-			code = TVgetText(Zee5TvWelcomePage.objloginCode);
+			code = TVgetText(Zee5TvWelcomePage.objloginCodeNew);
 			logger.info("Authenticate code in TV : " + code);
 			extentLoggerPass("Code", "Authenticate code in TV : " + code);
 			setPlatform("Web");
@@ -12229,8 +12114,8 @@ public class Zee5TvBusinessLogic extends Utilities {
 
 		String getNativeMemory = "";
 		String getTotalMemory = "";
-		String adbCommand1 = "adb "+IP+" shell \"dumpsys meminfo com.graymatrix.did | grep Native\"";
-		String adbCommand2 = "adb "+IP+" shell \"dumpsys meminfo com.graymatrix.did | grep TOTAL\"";
+		String adbCommand1 = "adb " + IP + " shell \"dumpsys meminfo com.graymatrix.did | grep Native\"";
+		String adbCommand2 = "adb " + IP + " shell \"dumpsys meminfo com.graymatrix.did | grep TOTAL\"";
 
 		Process process1 = Runtime.getRuntime().exec(adbCommand1);
 		BufferedReader nativeResult = new BufferedReader(new InputStreamReader(process1.getInputStream()));
@@ -12274,7 +12159,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 
 		String getBatteryInfo = "";
 //		String adbCommand="adb shell dumpsys batterystats --charged com.graymatrix.did | grep Computed";
-		String adbCommand = "adb "+IP+" shell pm dump com.graymatrix.did | grep Computed";
+		String adbCommand = "adb " + IP + " shell pm dump com.graymatrix.did | grep Computed";
 		String strDrain = "Not found";
 		try {
 			Process process = Runtime.getRuntime().exec(adbCommand);
@@ -12304,7 +12189,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 		System.out.println("\nCPU Usage of App");
 
 		String getCpuStats = "";
-		String adbCommand = "adb "+IP+" shell \"dumpsys cpuinfo | grep com.graymatrix.did\"";
+		String adbCommand = "adb " + IP + " shell \"dumpsys cpuinfo | grep com.graymatrix.did\"";
 		Process process = Runtime.getRuntime().exec(adbCommand);
 		BufferedReader adbResult = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
@@ -12323,8 +12208,8 @@ public class Zee5TvBusinessLogic extends Utilities {
 		String getGPUInfo = "";
 		String nGPUFramesRendered = "";
 		String GPUConsumed = null;
-		String adbCommand = "adb "+IP+" shell \"dumpsys gfxinfo com.graymatrix.did | grep MB\"";
-		String adbCommand2 = "adb "+IP+" shell \"dumpsys gfxinfo com.graymatrix.did | grep rendered\"";
+		String adbCommand = "adb " + IP + " shell \"dumpsys gfxinfo com.graymatrix.did | grep MB\"";
+		String adbCommand2 = "adb " + IP + " shell \"dumpsys gfxinfo com.graymatrix.did | grep rendered\"";
 
 		Process process = Runtime.getRuntime().exec(adbCommand);
 		BufferedReader result = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -12365,7 +12250,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 
 		double flowAction = 0;
 		try {
-			String pidCommand = "adb "+IP+" shell pidof " + pPackageName;
+			String pidCommand = "adb " + IP + " shell pidof " + pPackageName;
 			Process process = Runtime.getRuntime().exec(pidCommand);
 			BufferedReader pidResult = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
@@ -12373,7 +12258,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 			// System.out.println("PID : "+PID);
 
 			Runtime runtime = Runtime.getRuntime();
-			Process proc = runtime.exec("adb "+IP+" shell cat /proc/" + PID + "/net/dev");
+			Process proc = runtime.exec("adb " + IP + " shell cat /proc/" + PID + "/net/dev");
 			try {
 				if (proc.waitFor() != 0) {
 					System.err.println("exit value = " + proc.exitValue());
@@ -12582,9 +12467,8 @@ public class Zee5TvBusinessLogic extends Utilities {
 			extent.extentLoggerFail("Traffic Usage",
 					"<b>The Current App traffic usage is : </b> " + (int) nNetTraffic + " Mbps");
 		}
-		performaceDetails.add("App Launch " + "," + timeElapsed.getSeconds() + "," + nativeMemory
-				+ "MB," + totalMemory + "MB," + nCpuUSage + "%," + nGPUMemory + "MB," + nGPURendered + "," + nNetTraffic
-				+ "MB");
+		performaceDetails.add("App Launch " + "," + timeElapsed.getSeconds() + "," + nativeMemory + "MB," + totalMemory
+				+ "MB," + nCpuUSage + "%," + nGPUMemory + "MB," + nGPURendered + "," + nNetTraffic + "MB");
 		softAssertion.assertEquals(launch, true);
 		softAssertion.assertAll();
 	}
@@ -12711,9 +12595,9 @@ public class Zee5TvBusinessLogic extends Utilities {
 //			logger.error("\nApp Battery Info - " + batteryInfo);
 //			extent.extentLoggerFail("Timer", "<b>App Battery Info - </b>" + batteryInfo);
 //		}
-		performaceDetails.add("Login Functionality " + "," + timeElapsed.getSeconds() + "," + nativeMemory
-				+ "MB," + totalMemory + "MB," + nCpuUSage + "%," + nGPUMemory + "MB," + nGPURendered + "," + nNetTraffic
-				+ "MB");
+		performaceDetails
+				.add("Login Functionality " + "," + timeElapsed.getSeconds() + "," + nativeMemory + "MB," + totalMemory
+						+ "MB," + nCpuUSage + "%," + nGPUMemory + "MB," + nGPURendered + "," + nNetTraffic + "MB");
 		softAssertion.assertEquals(launch, true);
 		softAssertion.assertAll();
 
@@ -12843,9 +12727,9 @@ public class Zee5TvBusinessLogic extends Utilities {
 			extent.extentLoggerFail("Traffic Usage",
 					"<b>The Current App traffic usage is : </b> " + (int) nNetTraffic + " Mbps");
 		}
-		performaceDetails.add("Screen Navigation " + "," + timeElapsed.getSeconds() + "," + nativeMemory
-				+ "MB," + totalMemory + "MB," + nCpuUSage + "%," + nGPUMemory + "MB," + nGPURendered + "," + nNetTraffic
-				+ "MB");
+		performaceDetails
+				.add("Screen Navigation " + "," + timeElapsed.getSeconds() + "," + nativeMemory + "MB," + totalMemory
+						+ "MB," + nCpuUSage + "%," + nGPUMemory + "MB," + nGPURendered + "," + nNetTraffic + "MB");
 		softAssertion.assertEquals(launch, true);
 		softAssertion.assertAll();
 
@@ -12881,9 +12765,11 @@ public class Zee5TvBusinessLogic extends Utilities {
 		logger.info("Start time: " + startTime);
 		extent.extentLogger("Start Time", "Start time: " + startTime);
 		if (pDeeplink.equalsIgnoreCase("Consumption")) {
-			command = "adb "+IP+" shell am start -W -a android.intent.action.VIEW -d  \"https://www.zee5.com/movies/details/rog/0-0-46027\"";
+			command = "adb " + IP
+					+ " shell am start -W -a android.intent.action.VIEW -d  \"https://www.zee5.com/movies/details/rog/0-0-46027\"";
 		} else if (pDeeplink.equalsIgnoreCase("LiveTV")) {
-			command = "adb "+IP+" shell am start -W -a android.intent.action.VIEW -d  \"https://www.zee5.com/channels/details/republic-tv/0-9-channel_1422341819\"";
+			command = "adb " + IP
+					+ " shell am start -W -a android.intent.action.VIEW -d  \"https://www.zee5.com/channels/details/republic-tv/0-9-channel_1422341819\"";
 		}
 
 		Process process = Runtime.getRuntime().exec(command);
@@ -12911,7 +12797,6 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(3000);
 		getDriver().navigate().back();
 		waitTime(3000);
-		
 
 		// #### App Performance Usage Info
 		// AppPerformanceTestInfo(appPackageName);
@@ -13174,9 +13059,9 @@ public class Zee5TvBusinessLogic extends Utilities {
 			extent.extentLoggerFail("Traffic Usage",
 					"<b>The Current App traffic usage is : </b> " + (int) nNetTraffic + " Mbps");
 		}
-		performaceDetails.add("Initiate content playback" + "," + timeElapsed.getSeconds() + ","
-				+ nativeMemory + "MB," + totalMemory + "MB," + nCpuUSage + "%," + nGPUMemory + "MB," + nGPURendered
-				+ "," + nNetTraffic + "MB");
+		performaceDetails.add(
+				"Initiate content playback" + "," + timeElapsed.getSeconds() + "," + nativeMemory + "MB," + totalMemory
+						+ "MB," + nCpuUSage + "%," + nGPUMemory + "MB," + nGPURendered + "," + nNetTraffic + "MB");
 		getDriver().navigate().back();
 		waitTime(2000);
 		getDriver().navigate().back();
@@ -13268,6 +13153,8 @@ public class Zee5TvBusinessLogic extends Utilities {
 		setPlatform("Web");
 		new Zee5TvBusinessLogic("zee");
 		waitTime(10000);
+		click(Zee5TvWelcomePage.objNoThanks, "No thanks option");
+		waitTime(2000);
 		verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 		waitTime(3000);
 		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -13320,7 +13207,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 	}
 
 	public void blockerScreenSoftBlocker() throws Exception {
-		HeaderChildNode("Blocker screen Soft Blocker CON-8251");
+		HeaderChildNode("Blocker screen Soft Blocker CON-8251/CON-8252");
 		waitTime(15000);
 		if (verifyIsElementDisplayed(Zee5TvHomePage.objUpdateButtonInBlockerScreen, "Update Button")) {
 			logger.info("Update button is displayed when user launch zee5 app");
@@ -13336,14 +13223,15 @@ public class Zee5TvBusinessLogic extends Utilities {
 
 		} else {
 			logger.info("Continue to zee5 button is not displayed in soft blocker screen");
-			extent.extentLoggerFail("Authentication", "Continue to zee5 button is not displayed in soft blocker screen");
+			extent.extentLoggerFail("Authentication",
+					"Continue to zee5 button is not displayed in soft blocker screen");
 		}
 		TVclick(Zee5TvHomePage.objUpdateButtonInBlockerScreen, "Update now button");
 		waitTime(7000);
-		if(verifyIsElementDisplayed(Zee5TvHomePage.objPlaystore, "Play store zee5 app")) {
+		if (verifyIsElementDisplayed(Zee5TvHomePage.objPlaystore, "Play store zee5 app")) {
 			logger.info("User is navigated to play store to update the app");
 			extent.extentLoggerPass("Playstore", "User is navigated to play store to update the app");
-		}else {
+		} else {
 			logger.info("User is not navigated to play store and functionality failed");
 			extent.extentLoggerPass("Playstore", "User is not navigated to play store and functionality failed");
 		}
@@ -13352,10 +13240,13 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(5000);
 		if (verifyIsElementDisplayed(Zee5TvHomePage.objUpdateButtonInBlockerScreen, "Update Button")) {
 			logger.info("User is navigated back to zee5 app post tapping back button from play store");
-			extent.extentLoggerPass("Id", "User is navigated back to zee5 app post tapping back button from play store");
+			extent.extentLoggerPass("Id",
+					"User is navigated back to zee5 app post tapping back button from play store");
+
 		} else {
 			logger.info("User is not navigated back to zee5 app post tapping back button from play store");
-			extent.extentLoggerFail("Authentication", "User is not navigated back to zee5 app post tapping back button from play store");
+			extent.extentLoggerFail("Authentication",
+					"User is not navigated back to zee5 app post tapping back button from play store");
 		}
 		TVRemoteEvent(20);
 		waitTime(2000);
@@ -13363,26 +13254,31 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(2000);
 		TVclick(Zee5TvHomePage.objContinueButtonInBlockerScreen, "Continue button in blocker screen");
 		waitTime(8000);
-		if(verifyIsElementDisplayed(Zee5TvHomePage.objzee5app, "Zee5 app logo")) {
+		if (verifyIsElementDisplayed(Zee5TvHomePage.objzee5app, "Zee5 app logo")) {
 			logger.info("User is navigated to zee5 app post clicking on continue to zee5 app button in blocker screen");
-			extent.extentLoggerPass("Page", "User is navigated to zee5 app post clicking on continue to zee5 app button in blocker screen");
-		}else {
-			logger.info("User is not navigated to zee5 app post clicking on continue to zee5 app button in blocker screen");
-			extent.extentLoggerFail("Page", "User is not navigated to zee5 app post clicking on continue to zee5 app button in blocker screen");
+			extent.extentLoggerPass("Page",
+					"User is navigated to zee5 app post clicking on continue to zee5 app button in blocker screen");
+		} else {
+			logger.info(
+					"User is not navigated to zee5 app post clicking on continue to zee5 app button in blocker screen");
+			extent.extentLoggerFail("Page",
+					"User is not navigated to zee5 app post clicking on continue to zee5 app button in blocker screen");
 		}
 		getDriver().navigate().back();
 		waitTime(3000);
-		if(!verifyIsElementDisplayed(Zee5TvHomePage.objUpdateButtonInBlockerScreen, "Zee5 app logo")) {
+		if (!verifyIsElementDisplayed(Zee5TvHomePage.objUpdateButtonInBlockerScreen, "Zee5 app logo")) {
 			logger.info("User is navigated to TV home page post clicking on back rcu from zee5 app");
-			extent.extentLoggerPass("Page", "User is navigated to TV home page post clicking on back rcu from zee5 app");
-		}else {
+			extent.extentLoggerPass("Page",
+					"User is navigated to TV home page post clicking on back rcu from zee5 app");
+		} else {
 			logger.info("User is not navigated to TV home page post clicking on back rcu from zee5 app");
-			extent.extentLoggerFail("Page", "User is not navigated to TV home page post clicking on back rcu from zee5 app");
+			extent.extentLoggerFail("Page",
+					"User is not navigated to TV home page post clicking on back rcu from zee5 app");
 		}
 	}
 
 	public void blockerScreenHardBlocker() throws Exception {
-		HeaderChildNode("Blocker screen Hard Blocker CON-8251");
+		HeaderChildNode("Blocker screen Hard Blocker CON-8251/CON-8252");
 		waitTime(15000);
 		if (verifyIsElementDisplayed(Zee5TvHomePage.objUpdateButtonInBlockerScreen, "Update Button")) {
 			logger.info("Update button is displayed when user launch zee5 app");
@@ -13402,10 +13298,10 @@ public class Zee5TvBusinessLogic extends Utilities {
 		}
 		TVclick(Zee5TvHomePage.objUpdateButtonInBlockerScreen, "Update now button");
 		waitTime(7000);
-		if(verifyIsElementDisplayed(Zee5TvHomePage.objPlaystore, "Play store zee5 app")) {
+		if (verifyIsElementDisplayed(Zee5TvHomePage.objPlaystore, "Play store zee5 app")) {
 			logger.info("User is navigated to play store to update the app");
 			extent.extentLoggerPass("Playstore", "User is navigated to play store to update the app");
-		}else {
+		} else {
 			logger.info("User is not navigated to play store and functionality failed");
 			extent.extentLoggerPass("Playstore", "User is not navigated to play store and functionality failed");
 		}
@@ -13414,33 +13310,28 @@ public class Zee5TvBusinessLogic extends Utilities {
 		waitTime(5000);
 		if (verifyIsElementDisplayed(Zee5TvHomePage.objUpdateButtonInBlockerScreen, "Update Button")) {
 			logger.info("User is navigated back to zee5 app post tapping back button from play store");
-			extent.extentLoggerPass("Id", "User is navigated back to zee5 app post tapping back button from play store");
+			extent.extentLoggerPass("Id",
+					"User is navigated back to zee5 app post tapping back button from play store");
 
 		} else {
 			logger.info("User is not navigated back to zee5 app post tapping back button from play store");
-			extent.extentLoggerFail("Authentication", "User is not navigated back to zee5 app post tapping back button from play store");
+			extent.extentLoggerFail("Authentication",
+					"User is not navigated back to zee5 app post tapping back button from play store");
 		}
 		TVRemoteEvent(20);
 		waitTime(2000);
 		TVRemoteEvent(20);
 		waitTime(2000);
-		TVclick(Zee5TvHomePage.objContinueButtonInBlockerScreen, "Continue button in blocker screen");
+		TVclick(Zee5TvHomePage.objExitButtonInBlockerScreen, "Exit button in blocker screen");
 		waitTime(8000);
-		if(verifyIsElementDisplayed(Zee5TvHomePage.objzee5app, "Zee5 app logo")) {
-			logger.info("User is navigated to zee5 app post clicking on continue to zee5 app button in blocker screen");
-			extent.extentLoggerPass("Page", "User is navigated to zee5 app post clicking on continue to zee5 app button in blocker screen");
-		}else {
-			logger.info("User is not navigated to zee5 app post clicking on continue to zee5 app button in blocker screen");
-			extent.extentLoggerFail("Page", "User is not navigated to zee5 app post clicking on continue to zee5 app button in blocker screen");
-		}
-		getDriver().navigate().back();
-		waitTime(3000);
-		if(!verifyIsElementDisplayed(Zee5TvHomePage.objUpdateButtonInBlockerScreen, "Zee5 app logo")) {
+		if (!verifyIsElementDisplayed(Zee5TvHomePage.objUpdateButtonInBlockerScreen, "Zee5 app logo")) {
 			logger.info("User is navigated to TV home page post clicking on back rcu from zee5 app");
-			extent.extentLoggerPass("Page", "User is navigated to TV home page post clicking on back rcu from zee5 app");
-		}else {
+			extent.extentLoggerPass("Page",
+					"User is navigated to TV home page post clicking on back rcu from zee5 app");
+		} else {
 			logger.info("User is not navigated to TV home page post clicking on back rcu from zee5 app");
-			extent.extentLoggerFail("Page", "User is not navigated to TV home page post clicking on back rcu from zee5 app");
+			extent.extentLoggerFail("Page",
+					"User is not navigated to TV home page post clicking on back rcu from zee5 app");
 		}
 	}
 
@@ -13471,7 +13362,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 
 	public void afsdoubleSlider() throws Exception {
 		HeaderChildNode("Removing double silder CON-8003");
-		waitTime(5000);
+		waitTime(10000);
 		if (verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link")) {
 			TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
 			extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
@@ -13498,24 +13389,30 @@ public class Zee5TvBusinessLogic extends Utilities {
 				waitTime(3000);
 				TVRemoteEvent(23);
 				waitTime(3000);
-				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objLoginPopUp, "LoginPopup")) {
-					logger.info("Login popup is displayed when user clicks on plan card for guest user");
-					extent.extentLoggerPass("Popup",
-							"Login popup is displayed when user clicks on plan card for guest user");
+				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objAFSLoginPopUpSlider, "AFS login popup")) {
+					logger.info("AFS Login popup is displayed when user clicks on plan card for guest user");
+					extent.extentLoggerPass("Login",
+							"AFS Login popup is displayed when user clicks on plan card for guest user");
+				} else {
+					logger.info("AFS login popup is not displayed, Functionality failed");
+					extent.extentLoggerFail("Login", "AFS login popup is not displayed, Functionality failed");
+				}
+				TVRemoteEvent(19);
+				waitTime(2000);
+				TVRemoteEvent(19);
+				waitTime(2000);
+				TVRemoteEvent(23);
+				waitTime(3000);
+
+				if (!verifyIsElementDisplayed(Zee5TvWelcomePage.objLoginPopUp, "LoginPopup")) {
+					logger.info("Login popup is not displayed as expected for guest user");
+					extent.extentLoggerPass("Popup", "Login popup is not displayed as expected for guest user");
 				} else {
 					logger.info("Login popup is displayed when user clicks on plan card for guest user");
 					extent.extentLoggerFail("Popup",
 							"Login popup is displayed when user clicks on plan card for guest user");
 				}
-				TVRemoteEvent(23);
-				waitTime(3000);
-				if (!verifyIsElementDisplayed(Zee5TvWelcomePage.objAFSLoginPopUpSlider, "AFS login popup")) {
-					logger.info("AFS login popup is not displayed as expected");
-					extent.extentLoggerPass("Login", "AFS login popup is not displayed as expected");
-				} else {
-					logger.info("AFS login popup is displayed, Functionality failed");
-					extent.extentLoggerPass("Login", "AFS login popup is displayed, Functionality failed");
-				}
+
 				if (verifyIsElementDisplayed(Zee5TvWelcomePage.objautneticatePage, "Authenticate page")) {
 					logger.info("User is navigated to authenticate page post clicking on login button");
 					extent.extentLoggerPass("Page",
@@ -13609,13 +13506,17 @@ public class Zee5TvBusinessLogic extends Utilities {
 		}
 		TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
 		waitTime(5000);
-		if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+		if (verifyIsElementDisplayed(Zee5TvWelcomePage.objLoginPopUp, "Login popup")) {
 			logger.info("Login popup is displayed");
 			extent.extentLoggerPass("Popup", "Login popup is displayed");
 		} else {
 			logger.info("Functioanlity failed");
 			extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
 		}
+		TVRemoteEvent(19);
+		waitTime(2000);
+		TVRemoteEvent(19);
+		waitTime(2000);
 		TVRemoteEvent(23);
 		waitTime(10000);
 		if (verifyIsElementDisplayed(Zee5TvHomePage.obDeviceAutneticationPage, "Device Authentication screen")) {
@@ -13679,13 +13580,17 @@ public class Zee5TvBusinessLogic extends Utilities {
 		}
 		TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
 		waitTime(5000);
-		if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+		if (verifyIsElementDisplayed(Zee5TvWelcomePage.objLoginPopUp, "Login popup")) {
 			logger.info("Login popup is displayed");
 			extent.extentLoggerPass("Popup", "Login popup is displayed");
 		} else {
 			logger.info("Functioanlity failed");
 			extent.extentLoggerFail("Popup", "Popup Functioanlity failed");
 		}
+		TVRemoteEvent(19);
+		waitTime(2000);
+		TVRemoteEvent(19);
+		waitTime(2000);
 		TVRemoteEvent(23);
 		waitTime(5000);
 		code = TVgetText(Zee5TvWelcomePage.objloginCodeNew);
@@ -13694,6 +13599,8 @@ public class Zee5TvBusinessLogic extends Utilities {
 		setPlatform("Web");
 		new Zee5TvBusinessLogic("zee");
 		waitTime(10000);
+		click(Zee5TvWelcomePage.objNoThanks, "No thanks option");
+		waitTime(2000);
 		verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 		waitTime(3000);
 		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -13754,7 +13661,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 		Process process = Runtime.getRuntime().exec(command);
 		new BufferedReader(new InputStreamReader(process.getInputStream()));
 		waitTime(25000);
-		if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+		if (verifyIsElementDisplayed(Zee5TvWelcomePage.objLoginPopUp, "Login popup")) {
 			logger.info("Login popup is displayed");
 			extent.extentLoggerPass("Popup", "Login popup is displayed");
 		} else {
@@ -13824,7 +13731,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 		}
 		TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
 		waitTime(5000);
-		if (verifyIsElementDisplayed(Zee5TvSearchPage.objLoginPopup, "Login popup")) {
+		if (verifyIsElementDisplayed(Zee5TvWelcomePage.objLoginPopUp, "Login popup")) {
 			logger.info("Login popup is displayed");
 			extent.extentLoggerPass("Popup", "Login popup is displayed");
 		} else {
@@ -13839,6 +13746,8 @@ public class Zee5TvBusinessLogic extends Utilities {
 		setPlatform("Web");
 		new Zee5TvBusinessLogic("zee");
 		waitTime(10000);
+		click(Zee5TvWelcomePage.objNoThanks, "No thanks option");
+		waitTime(2000);
 		verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
 		waitTime(3000);
 		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
@@ -13879,7 +13788,7 @@ public class Zee5TvBusinessLogic extends Utilities {
 		BrowsertearDown();
 		setPlatform("TV");
 		waitTime(10000);
-		if (!verifyIsElementDisplayed(Zee5TvHomePage.objdescription, "Home landing")) {
+		if (!verifyIsElementDisplayed(Zee5TvHomePage.objdescription, "Detail Page")) {
 			logger.info("User is navigated to zee5 app authentication automatically");
 			extent.extentLoggerPass("Id", "User is navigated to zee5 app authentication automatically");
 
@@ -13919,6 +13828,1332 @@ public class Zee5TvBusinessLogic extends Utilities {
 		} catch (Exception e) {
 
 		}
+	}
+
+	public void parentalControl() throws Exception {
+		HeaderChildNode("Parental control verification CON-8570/CON-8679/CON-8681");
+		if (userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
+			TVTabSelect("Home");
+			for (int i = 0; i <= 10; i++) {
+				TVRemoteEvent(22);
+				waitTime(2000);
+			}
+			TVTabSelect("Settings");
+			TVRemoteEvent(20);
+			waitTime(3000);
+			TVRemoteEvent(20);
+			waitTime(3000);
+
+			for (int i = 0; i <= 3; i++) {
+				TVRemoteEvent(22);
+				waitTime(2000);
+			}
+			for (int i = 0; i <= 14; i++) {
+				TVRemoteEvent(22);
+				waitTime(2000);
+			}
+			if (userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
+				TVclick(Zee5TvWelcomePage.objLogoutOption, "Logout option");
+				waitTime(3000);
+				TVclick(Zee5TvWelcomePage.objLogoutOption, "Logout option");
+			}
+			waitTime(3000);
+		}
+		TVTabSelect("Home");
+		for (int i = 0; i <= 10; i++) {
+			TVRemoteEvent(22);
+			waitTime(2000);
+		}
+		TVTabSelect("Settings");
+		TVRemoteEvent(20);
+		waitTime(2000);
+		TVRemoteEvent(20);
+		TVclick(Zee5TvWelcomePage.objLoginOption, "Login option");
+		waitTime(8000);
+
+		if (userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
+			waitTime(10000);
+			if (verifyIsElementDisplayed(Zee5TvWelcomePage.objLoginPopupAmazon, "Afs login popup")) {
+				TVRemoteEvent(19);
+				waitTime(2000);
+				TVRemoteEvent(19);
+				waitTime(2000);
+				TVRemoteEvent(19);
+				waitTime(2000);
+				TVclick(Zee5TvWelcomePage.objLogiButtonAmazon, "Login button amazon");
+				waitTime(7000);
+			} else {
+				logger.info("Popup not displayed");
+			}
+			code = TVgetText(Zee5TvWelcomePage.objloginCodeNew);
+			logger.info("Authenticate code in TV : " + code);
+			extentLoggerPass("Code", "Authenticate code in TV : " + code);
+			HeaderChildNode("Switching to WEB platform to Authenticate device");
+			setPlatform("Web");
+			new Zee5TvBusinessLogic("zee");
+			waitTime(10000);
+			click(Zee5TvWelcomePage.objNoThanks, "No thanks option");
+			waitTime(2000);
+			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
+			waitTime(3000);
+			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+
+			if (userType.equals("NonSubscribedUser")) {
+				String Username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("NonsubscribedUserName");
+				String Password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("NonsubscribedPassword");
+				type(PWALoginPage.objEmailField, Username, "Email Field");
+				waitTime(3000);
+				verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+				type(PWALoginPage.objPasswordField, Password, "Password field");
+				waitTime(5000);
+
+			}
+			if (userType.equals("SubscribedUser")) {
+				String SubscribedUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("SubscribedUserName");
+				String SubscribedPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("SubscribedPassword");
+				type(PWALoginPage.objEmailField, SubscribedUsername, "Email Field");
+				waitTime(3000);
+				verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+				type(PWALoginPage.objPasswordField, SubscribedPassword, "Password field");
+				waitTime(5000);
+
+			}
+			click(PWALoginPage.objWebLoginButton, "Login Button");
+			waitTime(8000);
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
+			checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
+			if (userType.equals("NonSubscribedUser")) {
+				type(PWALoginPage.objPasswordField, parentpasswordNonSub, "Password field");
+			} else if (userType.equals("SubscribedUser")) {
+				type(PWALoginPage.objPasswordField, parentpasswordSub, "Password field");
+			}
+			click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
+			waitTime(2000);
+			HeaderChildNode("Selecting Restrict 13+ option in parent control page");
+			checkElementDisplayed(PWAHamburgerMenuPage.objParentControlPageTitle, "Parent control page");
+			checkElementDisplayed(PWAHamburgerMenuPage.objNoRestrictionSelected, "No restricted option selected");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objRestrict13, "Restrict 13+ option");
+			verifyElementPresent(PWAHamburgerMenuPage.objParentalLockPin1, "Set Lock Field");
+			type(PWAHamburgerMenuPage.objParentalLockPin1, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2, "2", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3, "3", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4, "4", "ParentalLockPin");
+			waitTime(4000);
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
+			waitTime(5000);
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			waitTime(3000);
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objAuthenticationOption, "Authentication option");
+			waitTime(5000);
+			checkElementDisplayed(PWAHamburgerMenuPage.objAuthenticationText, "Authentication Page");
+			type(PWAHamburgerMenuPage.objAuthenticationField, code, "Authentication Field");
+			click(PWAHamburgerMenuPage.objAuthenticationButtonHighlighted, "Authenticate button");
+			waitTime(3000);
+			BrowsertearDown();
+			setPlatform("TV");
+			waitTime(10000);
+
+			TVTabSelect("Home");
+			logger.info(TVgetText(Zee5TvHomePage.objHighlightedTab) + "Tab is highlighted");
+			extent.extentLoggerPass("Tab", "HighLighted Tab :" + TVgetText(Zee5TvHomePage.objHighlightedTab));
+
+			if (TVgetAttributValue("focused", Zee5TvHomePage.objSearchIcon).equals("false")) {
+
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			} else {
+
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			}
+			waitTime(5000);
+			String searchdata6[] = { "t", "h", "e" };
+			String searchdata7[] = { "a", "w", "a", "k", "e", "n", "i", "n", "g" };
+			type(searchdata6);
+			TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+			type(searchdata7);
+			String content3 = TVgetText(Zee5TvSearchPage.objEditbox);
+			logger.info("Entered Search Data : " + content3);
+			extent.extentLoggerPass("Search", "Entered Searched Data : " + content3);
+			List<WebElement> ele3 = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+			for (int i = 1; i <= ele3.size(); i++) {
+
+				String title3 = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+				logger.info(title3);
+				extent.extentLogger("Title", "Serach result content title : " + title3);
+				waitTime(7000);
+				if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title3, "Episodes"),
+						"Searched 13+ content"))) {
+					TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title3, "Episodes"),
+							"Searched 13+ content");
+					break;
+				} else {
+					logger.info("No match");
+				}
+
+			}
+		}
+		waitTime(7000);
+		if (verifyIsElementDisplayed(Zee5TvWelcomePage.objParentpopuptitle, "Parental popup")) {
+			logger.info("Parental popup is displayed when user keeps parental control for 13+ content");
+			extent.extentLoggerPass("13+",
+					"Parental popup is displayed when user keeps parental control for 13+ content");
+		} else {
+			logger.info("Popup functionality failed");
+			extent.extentLoggerFail("Popup", "Popup functionality failed");
+		}
+		getDriver().navigate().back();
+		waitTime(3000);
+		getDriver().navigate().back();
+		TVTabSelect("Home");
+
+		for (int i = 0; i <= 10; i++) {
+			TVRemoteEvent(22);
+			waitTime(2000);
+		}
+
+		TVTabSelect("Settings");
+		TVRemoteEvent(20);
+		waitTime(2000);
+		TVRemoteEvent(20);
+		for (int i = 0; i <= 14; i++) {
+			TVRemoteEvent(22);
+			waitTime(2000);
+		}
+		TVclick(Zee5TvWelcomePage.objLogoutOption, "Logout option");
+		waitTime(3000);
+		TVclick(Zee5TvWelcomePage.objLogoutOption, "Logout option");
+		waitTime(3000);
+		TVTabSelect("Home");
+		for (int i = 0; i <= 10; i++) {
+			TVRemoteEvent(22);
+			waitTime(2000);
+		}
+		TVTabSelect("Settings");
+		TVRemoteEvent(20);
+		waitTime(2000);
+		TVRemoteEvent(20);
+		TVclick(Zee5TvWelcomePage.objLoginOption, "Login option");
+		waitTime(8000);
+
+		if (userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
+			waitTime(10000);
+			if (verifyIsElementDisplayed(Zee5TvWelcomePage.objLoginPopupAmazon, "Afs login popup")) {
+				TVRemoteEvent(19);
+				waitTime(2000);
+				TVRemoteEvent(19);
+				waitTime(2000);
+				TVRemoteEvent(19);
+				waitTime(2000);
+				TVclick(Zee5TvWelcomePage.objLogiButtonAmazon, "Login button amazon");
+				waitTime(7000);
+			} else {
+				logger.info("Popup not displayed");
+			}
+			code = TVgetText(Zee5TvWelcomePage.objloginCodeNew);
+			logger.info("Authenticate code in TV : " + code);
+			extentLoggerPass("Code", "Authenticate code in TV : " + code);
+			setPlatform("Web");
+			new Zee5TvBusinessLogic("zee");
+			waitTime(5000);
+
+			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
+			waitTime(3000);
+			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+
+			if (userType.equals("NonSubscribedUser")) {
+				String Username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("NonsubscribedUserName");
+				String Password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("NonsubscribedPassword");
+				type(PWALoginPage.objEmailField, Username, "Email Field");
+				waitTime(3000);
+				verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+				type(PWALoginPage.objPasswordField, Password, "Password field");
+				waitTime(5000);
+
+			}
+			if (userType.equals("SubscribedUser")) {
+				String SubscribedUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("SubscribedUserName");
+				String SubscribedPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("SubscribedPassword");
+				type(PWALoginPage.objEmailField, SubscribedUsername, "Email Field");
+				waitTime(3000);
+				verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+				type(PWALoginPage.objPasswordField, SubscribedPassword, "Password field");
+				waitTime(5000);
+
+			}
+			click(PWALoginPage.objWebLoginButton, "Login Button");
+			waitTime(8000);
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
+			checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
+			if (userType.equals("NonSubscribedUser")) {
+				type(PWALoginPage.objPasswordField, parentpasswordNonSub, "Password field");
+			} else if (userType.equals("SubscribedUser")) {
+				type(PWALoginPage.objPasswordField, parentpasswordSub, "Password field");
+			}
+			click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
+			waitTime(2000);
+			HeaderChildNode("Selecting Restrict ALL option in parent control page");
+			checkElementDisplayed(PWAHamburgerMenuPage.objParentControlPageTitle, "Parent control page");
+			checkElementDisplayed(PWAHamburgerMenuPage.objNoRestrictionSelected, "No restricted option selected");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objRestrictAll, "Restrict ALL option");
+			verifyElementPresent(PWAHamburgerMenuPage.objParentalLockPin1, "Set Lock Field");
+			type(PWAHamburgerMenuPage.objParentalLockPin1, "1", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin2, "2", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin3, "3", "ParentalLockPin");
+			type(PWAHamburgerMenuPage.objParentalLockPin4, "4", "ParentalLockPin");
+			waitTime(4000);
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
+			waitTime(5000);
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			waitTime(3000);
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objAuthenticationOption, "Authentication option");
+			waitTime(5000);
+			checkElementDisplayed(PWAHamburgerMenuPage.objAuthenticationText, "Authentication Page");
+			type(PWAHamburgerMenuPage.objAuthenticationField, code, "Authentication Field");
+			click(PWAHamburgerMenuPage.objAuthenticationButtonHighlighted, "Authenticate button");
+			waitTime(3000);
+			BrowsertearDown();
+			setPlatform("TV");
+			waitTime(10000);
+			TVTabSelect("Home");
+			logger.info(TVgetText(Zee5TvHomePage.objHighlightedTab) + "Tab is highlighted");
+			extent.extentLoggerPass("Tab", "HighLighted Tab :" + TVgetText(Zee5TvHomePage.objHighlightedTab));
+
+			if (TVgetAttributValue("focused", Zee5TvHomePage.objSearchIcon).equals("false")) {
+
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			} else {
+
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			}
+			waitTime(5000);
+			String searchdata1[] = { "b", "a", "b", "l", "u", };
+			String searchdata2[] = { "d", "a", "b", "l", "u" };
+			String searchdata3[] = { "r", "o", "b", "o" };
+			String searchdata4[] = { "r", "u", "m", "b", "l", "e" };
+			type(searchdata1);
+			TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+			type(searchdata2);
+			TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+			type(searchdata3);
+			TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+			type(searchdata4);
+			String content = TVgetText(Zee5TvSearchPage.objEditbox);
+
+			logger.info("Entered Search Data : " + content);
+			extent.extentLogger("Search", "Entered Searched Data : " + content);
+
+			List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+			for (int i = 1; i <= ele.size(); i++) {
+
+				title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+				logger.info(title);
+				extent.extentLogger("Title", "Serach result content title : " + title);
+				if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"),
+						"Searched Movie"))) {
+					TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"), "serached Movie");
+					break;
+				} else {
+					System.out.println("No match");
+				}
+
+			}
+		}
+		waitTime(10000);
+		TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+		waitTime(10000);
+		if (verifyIsElementDisplayed(Zee5TvWelcomePage.objParentpopuptitle, "Parental popup")) {
+			logger.info("Parental popup is displayed when user keeps parental control for all content");
+			extent.extentLoggerPass("All",
+					"Parental popup is displayed when user keeps parental control for all content");
+		} else {
+			logger.info("Popup functionality failed");
+			extent.extentLoggerFail("Popup", "Popup functionality failed");
+		}
+		getDriver().navigate().back();
+		waitTime(3000);
+		getDriver().navigate().back();
+		waitTime(3000);
+		getDriver().navigate().back();
+		TVTabSelect("Home");
+
+		for (int i = 0; i <= 10; i++) {
+			TVRemoteEvent(22);
+			waitTime(2000);
+		}
+
+		TVTabSelect("Settings");
+		TVRemoteEvent(20);
+		waitTime(2000);
+		TVRemoteEvent(20);
+		for (int i = 0; i <= 14; i++) {
+			TVRemoteEvent(22);
+			waitTime(2000);
+		}
+		TVclick(Zee5TvWelcomePage.objLogoutOption, "Logout option");
+		waitTime(3000);
+		TVclick(Zee5TvWelcomePage.objLogoutOption, "Logout option");
+		waitTime(3000);
+		TVTabSelect("Home");
+		for (int i = 0; i <= 10; i++) {
+			TVRemoteEvent(22);
+			waitTime(2000);
+		}
+		TVTabSelect("Settings");
+		TVRemoteEvent(20);
+		waitTime(2000);
+		TVRemoteEvent(20);
+		if (verifyIsElementDisplayed(Zee5TvWelcomePage.objLoginOption, "Login optipn")) {
+			logger.info("Logout functionality successfull");
+			extent.extentLoggerPass("Logger", "Logout functionality successfull");
+		}
+		TVclick(Zee5TvWelcomePage.objLoginOption, "Login option");
+		waitTime(8000);
+
+		if (userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
+			waitTime(10000);
+			if (verifyIsElementDisplayed(Zee5TvWelcomePage.objLoginPopupAmazon, "Afs login popup")) {
+				TVRemoteEvent(19);
+				waitTime(2000);
+				TVRemoteEvent(19);
+				waitTime(2000);
+				TVRemoteEvent(19);
+				waitTime(2000);
+				TVclick(Zee5TvWelcomePage.objLogiButtonAmazon, "Login button amazon");
+				waitTime(7000);
+			} else {
+				logger.info("Popup not displayed");
+			}
+			code = TVgetText(Zee5TvWelcomePage.objloginCodeNew);
+			logger.info("Authenticate code in TV : " + code);
+			extentLoggerPass("Code", "Authenticate code in TV : " + code);
+			setPlatform("Web");
+			new Zee5TvBusinessLogic("zee");
+			waitTime(10000);
+			click(Zee5TvWelcomePage.objNoThanks, "No thanks option");
+			verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
+			waitTime(3000);
+			verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+
+			if (userType.equals("NonSubscribedUser")) {
+				String Username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("NonsubscribedUserName");
+				String Password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("NonsubscribedPassword");
+				type(PWALoginPage.objEmailField, Username, "Email Field");
+				waitTime(3000);
+				verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+				type(PWALoginPage.objPasswordField, Password, "Password field");
+				waitTime(5000);
+
+			}
+			if (userType.equals("SubscribedUser")) {
+				String SubscribedUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("SubscribedUserName");
+				String SubscribedPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("SubscribedPassword");
+				type(PWALoginPage.objEmailField, SubscribedUsername, "Email Field");
+				waitTime(3000);
+				verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+				type(PWALoginPage.objPasswordField, SubscribedPassword, "Password field");
+				waitTime(5000);
+
+			}
+			click(PWALoginPage.objWebLoginButton, "Login Button");
+			waitTime(8000);
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objParentalControl, "ParentalControl");
+			checkElementDisplayed(PWALoginPage.objPasswordField, "password field");
+			if (userType.equals("NonSubscribedUser")) {
+				type(PWALoginPage.objPasswordField, parentpasswordNonSub, "Password field");
+			} else if (userType.equals("SubscribedUser")) {
+				type(PWALoginPage.objPasswordField, parentpasswordSub, "Password field");
+			}
+			click(PWAHamburgerMenuPage.objContinueButtonInVerifyAccount, "Continue button");
+			waitTime(2000);
+			HeaderChildNode("Selecting No Restrict option in parent control page");
+			checkElementDisplayed(PWAHamburgerMenuPage.objParentControlPageTitle, "Parent control page");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objNoRestrictionSelected, "No Restriction option");
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objSetParentalLockButton, "Set Parental lock button");
+			waitTime(5000);
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+			waitTime(3000);
+			verifyElementPresentAndClick(PWAHamburgerMenuPage.objAuthenticationOption, "Authentication option");
+			waitTime(5000);
+			checkElementDisplayed(PWAHamburgerMenuPage.objAuthenticationText, "Authentication Page");
+			type(PWAHamburgerMenuPage.objAuthenticationField, code, "Authentication Field");
+			click(PWAHamburgerMenuPage.objAuthenticationButtonHighlighted, "Authenticate button");
+			waitTime(3000);
+			BrowsertearDown();
+			setPlatform("TV");
+			waitTime(10000);
+			TVTabSelect("Home");
+			logger.info(TVgetText(Zee5TvHomePage.objHighlightedTab) + "Tab is highlighted");
+			extent.extentLoggerPass("Tab", "HighLighted Tab :" + TVgetText(Zee5TvHomePage.objHighlightedTab));
+
+			if (TVgetAttributValue("focused", Zee5TvHomePage.objSearchIcon).equals("false")) {
+
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			} else {
+
+				TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			}
+			waitTime(5000);
+			String searchdata1[] = { "b", "a", "b", "l", "u", };
+			String searchdata2[] = { "d", "a", "b", "l", "u" };
+			String searchdata3[] = { "r", "o", "b", "o" };
+			String searchdata4[] = { "r", "u", "m", "b", "l", "e" };
+			type(searchdata1);
+			TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+			type(searchdata2);
+			TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+			type(searchdata3);
+			TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+			type(searchdata4);
+			String content = TVgetText(Zee5TvSearchPage.objEditbox);
+
+			logger.info("Entered Search Data : " + content);
+			extent.extentLogger("Search", "Entered Searched Data : " + content);
+
+			List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+			for (int i = 1; i <= ele.size(); i++) {
+
+				title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+				logger.info(title);
+				extent.extentLogger("Title", "Serach result content title : " + title);
+				if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"),
+						"Searched Movie"))) {
+					TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"), "serached Movie");
+					break;
+				} else {
+					System.out.println("No match");
+				}
+
+			}
+		}
+		waitTime(7000);
+		TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+		waitTime(7000);
+		// LoadingInProgress();
+		if (!verifyIsElementDisplayed(Zee5TvWelcomePage.objParentpopuptitle, "Parental popup")) {
+			logger.info("Parental popup is not displayed when user keeps parental control for No restrict option");
+			extent.extentLoggerPass("All",
+					"Parental popup is not displayed when user keeps parental control for No restrict option");
+		} else {
+			logger.info("Popup functionality failed");
+			extent.extentLoggerFail("Popup", "Popup functionality failed");
+		}
+		getDriver().navigate().back();
+		waitTime(2000);
+		getDriver().navigate().back();
+		waitTime(2000);
+		getDriver().navigate().back();
+		waitTime(2000);
+	}
+
+	public void newAgeRating() throws Exception {
+		HeaderChildNode("Verifying New age rating implementation CON-7739/CON-8685/CON-8686");
+		if (userType.equals("Guest")) {
+			waitTime(10000);
+			getDriver().navigate().back();
+		}
+		waitTime(3000);
+		if (!verifyIsElementDisplayed(Zee5TVCarousel.objAgeRatingInContentDeatil, "Age rating in carousel")) {
+			logger.info("Age rating in carousel is not displayed as expected");
+			extent.extentLoggerPass("Age", "Age rating in carousel is not displayed as expected");
+		} else {
+			logger.info("Age rating is displayed in carousel");
+			extent.extentLoggerFail("Age", "Age rating is displayed in carousel");
+		}
+		String language = getLanguage(userType);
+		Response resp = ResponseInstance.getResponseForPagesTv("Home", language, 1, userType);
+		for (int i = 1; i <= 20; i++) {
+			int total = resp.jsonPath().getInt("buckets[" + i + "].total");
+			if (total > 20) {
+				viewAllTrayname = resp.jsonPath().getString("buckets[" + i + "].title");
+				logger.info(viewAllTrayname);
+				break;
+			}
+		}
+		for (int i = 0; i <= 18; i++) {
+			waitTime(3000);
+			if (verifyIsElementDisplayed(Zee5TvWelcomePage.objHomepageTrayContent, "Tray content")) {
+				TVclick(Zee5TvWelcomePage.objHomepageTrayContent, "Tray content");
+				waitTime(7000);
+				if (verifyIsElementDisplayed(Zee5TvSearchPage.objPlayIcon, "Content Title")) {
+					logger.info("User is navigated to content detail page");
+					extent.extentLoggerPass("Page", "User is navigated to content detail page");
+				} else {
+					TVclick(Zee5TvWelcomePage.objHomepageTrayContent, "Tray content");
+				}
+				break;
+			} else {
+				TVRemoteEvent(20);
+				waitTime(3000);
+			}
+		}
+		waitTime(10000);
+		String ageRatingExpected = TVgetText(Zee5TVCarousel.objAgeRatingInContentDeatil);
+
+		if (verifyIsElementDisplayed(Zee5TVCarousel.objAgeRatingInContentDeatil, "Age rating in carousel")) {
+			logger.info("Age rating in details page is displayed as expected");
+			extent.extentLoggerPass("Age", "Age rating in details page is displayed as expected");
+		} else {
+			logger.info("Age rating is not displayed in details page");
+			extent.extentLoggerFail("Age", "Age rating is not displayed in details page");
+		}
+		logger.info("Exepected age rating : " + ageRatingExpected);
+		extent.extentLoggerPass("Age", "Exepected age rating : " + ageRatingExpected);
+		logger.info("Actual age rating : " + ageRatingExpected);
+		extent.extentLoggerPass("Age", "Actual age rating : " + ageRatingExpected);
+		getDriver().navigate().back();
+		waitTime(2000);
+		getDriver().navigate().back();
+		waitTime(2000);
+		getDriver().navigate().back();
+		waitTime(2000);
+		TVTabSelect("Movies");
+		waitTime(3000);
+		if (!verifyIsElementDisplayed(Zee5TVCarousel.objAgeRatingInContentDeatil, "Age rating in carousel")) {
+			logger.info("Age rating in  movies carousel is not displayed as expected");
+			extent.extentLoggerPass("Age", "Age rating in movies carousel is not displayed as expected");
+		} else {
+			logger.info("Age rating is displayed in movies carousel");
+			extent.extentLoggerFail("Age", "Age rating is movies displayed in carousel");
+		}
+		verifyIsElementDisplayed(Zee5TVCarousel.objCarouselPlayButton, "Play button");
+		TVclick(Zee5TVCarousel.objCarouselPlayButton, "Play button");
+		waitTime(9000);
+		String ageRatingExpectedplayer = TVgetText(Zee5TVCarousel.objAgeRatingInContentDeatil);
+		if (verifyIsElementDisplayed(Zee5TVCarousel.objAgeRatingInContentDeatil, "Age rating in carousel")) {
+			logger.info("Age rating in details page is displayed as expected");
+			extent.extentLoggerPass("Age", "Age rating in details page is displayed as expected");
+		} else {
+			logger.info("Age rating is not displayed in details page");
+			extent.extentLoggerFail("Age", "Age rating is not displayed in details page");
+		}
+		logger.info("Exepected age rating : " + ageRatingExpectedplayer);
+		extent.extentLoggerPass("Age", "Exepected age rating : " + ageRatingExpectedplayer);
+		logger.info("Actual age rating : " + ageRatingExpectedplayer);
+		extent.extentLoggerPass("Age", "Actual age rating : " + ageRatingExpectedplayer);
+		getDriver().navigate().back();
+		waitTime(2000);
+		getDriver().navigate().back();
+		waitTime(2000);
+		getDriver().navigate().back();
+		waitTime(2000);
+		TVTabSelect("News");
+		waitTime(2000);
+		if (!verifyIsElementDisplayed(Zee5TVCarousel.objAgeRatingInContentDeatil, "Age rating in carousel")) {
+			logger.info("Age rating in news content is not displayed as expected");
+			extent.extentLoggerPass("Age", "Age rating in news content is not displayed as expected");
+		} else {
+			logger.info("Age rating in news content is displayed");
+			extent.extentLoggerFail("Age", "Age rating in news content is displayed");
+		}
+	}
+
+	public void ageRatingInPlayer() throws Exception {
+		HeaderChildNode("Age Rating and Content descriptor in player screen CON-7734/CON-8687/CON-8688");
+		waitTime(5000);
+		if (userType.equals("Guest")) {
+			waitTime(10000);
+			getDriver().navigate().back();
+		}
+		waitTime(3000);
+		waitTime(5000);
+
+		TVTabSelect("Home");
+		logger.info(TVgetText(Zee5TvHomePage.objHighlightedTab) + "Tab is highlighted");
+		extent.extentLoggerPass("Tab", "HighLighted Tab :" + TVgetText(Zee5TvHomePage.objHighlightedTab));
+
+		if (TVgetAttributValue("focused", Zee5TvHomePage.objSearchIcon).equals("false")) {
+
+			TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+		} else {
+
+			TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+		}
+		waitTime(5000);
+		if (verifyIsElementDisplayed(Zee5TvSearchPage.objSearchSpaceBar, "Search page")) {
+			logger.info("User is navigated to search page after clicking on search button");
+			extent.extentLoggerPass("Search", "User is navigated to search page after clicking on search button");
+		} else {
+			logger.info("User is not navigated to serach page");
+			extent.extentLoggerFail("Navigation", "User is not navigated to serach page");
+		}
+		String searchdata1[] = { "b", "a", "b", "l", "u", };
+		String searchdata2[] = { "d", "a", "b", "l", "u" };
+		String searchdata3[] = { "r", "o", "b", "o" };
+		String searchdata4[] = { "r", "u", "m", "b", "l", "e" };
+		type(searchdata1);
+		TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+		type(searchdata2);
+		TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+		type(searchdata3);
+		TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space");
+		type(searchdata4);
+		String content = TVgetText(Zee5TvSearchPage.objEditbox);
+
+		logger.info("Entered Search Data : " + content);
+		extent.extentLogger("Search", "Entered Searched Data : " + content);
+
+		int k;
+		List<WebElement> ele = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+		for (int i = 1; i <= ele.size(); i++) {
+
+			title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+			logger.info(title);
+			extent.extentLogger("Title", "Serach result content title : " + title);
+			if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"),
+					"Searched Movie"))) {
+				TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Movies"), "serached Movie");
+				break;
+			} else {
+				System.out.println("No match");
+			}
+
+		}
+
+		waitTime(8000);
+		String title = TVgetText(Zee5TvSearchPage.objSearchedDataTitle);
+		if (title.equals(title)) {
+			logger.info("user is navigated to respective content detail page");
+			extent.extentLoggerPass("user", "user is navigated to respective content detail page");
+		}
+		waitTime(2000);
+		TVclick(Zee5TvSearchPage.objPlayIcon, "Play Icon");
+
+		waitTime(10000);
+		waitTime(10000);
+		if (verifyIsElementDisplayed(Zee5TvPlayerPage.objPlayerSkipIntro, "SkipIntro")) {
+			TVRemoteEvent(20);
+			waitTime(2000);
+			TVRemoteEvent(23);
+			logger.info("clicked on skip intro");
+			extent.extentLoggerPass("Intro", "clicked on skip intro");
+		} else {
+			logger.info("Skip intro is not displayed");
+			extent.extentLogger("Intro", "Skip intro is not displayed");
+		}
+		waitTime(12000);
+		TVRemoteEvent(23);
+		waitTime(4000);
+		TVRemoteEvent(23);
+		waitTime(2000);
+		String ageanddesc = TVgetText(Zee5TVCarousel.objAgeRatingInPlayerandInfo);
+		logger.info("Exepected age rating : " + ageanddesc);
+		extent.extentLoggerPass("Age", "Exepected age rating : " + ageanddesc);
+		logger.info("Actual age rating : " + ageanddesc);
+		extent.extentLoggerPass("Age", "Actual age rating : " + ageanddesc);
+		if (verifyIsElementDisplayed(Zee5TVCarousel.objAgeRatingInPlayerandInfo, "Age Rating and Descriptor")) {
+			logger.info("Age Rating and content descriptor is displayed in consumption page");
+			extent.extentLoggerPass("play", "Age Rating and content descriptor is displayed in consumption page");
+		} else {
+			logger.info("Age Rating and content descriptor is not displayed in consumption page");
+			extent.extentLoggerFail("play", "Age Rating and content descriptor is not displayed in consumption page");
+		}
+		TVRemoteEvent(23);
+		waitTime(7000);
+		if (verifyIsElementDisplayed(Zee5TvHomePage.objinfo, "Info")) {
+			logger.info("Player is paused");
+		} else {
+			TVRemoteEvent(23);
+		}
+		TVRemoteEvent(20);
+		waitTime(2000);
+		TVRemoteEvent(22);
+		waitTime(3000);
+		TVRemoteEvent(23);
+		waitTime(3000);
+		waitTime(2000);
+		String ageanddescinPlayer = TVgetText(Zee5TVCarousel.objAgeRatingInPlayerandInfo);
+		logger.info("Exepected age rating in info page : " + ageanddesc);
+		extent.extentLoggerPass("Age", "Exepected age rating in info page : " + ageanddesc);
+		logger.info("Actual age rating in info page : " + ageanddesc);
+		extent.extentLoggerPass("Age", "Actual age rating in info page : " + ageanddesc);
+		if (verifyIsElementDisplayed(Zee5TVCarousel.objAgeRatingInPlayerandInfo, "Age Rating and Descriptor")) {
+			logger.info("Age Rating and content descriptor is displayed in player info page");
+			extent.extentLoggerPass("play", "Age Rating and content descriptor is displayed in player info page");
+		} else {
+			logger.info("Age Rating and content descriptor is not displayed in player info page");
+			extent.extentLoggerFail("play", "Age Rating and content descriptor is not displayed in player info page");
+		}
+
+		getDriver().navigate().back();
+		waitTime(3000);
+		getDriver().navigate().back();
+		waitTime(3000);
+		getDriver().closeApp();
+		waitTime(5000);
+		getDriver().launchApp();
+		waitTime(3000);
+	}
+
+	public void castfunctionality() throws Exception {
+		HeaderChildNode("Chromecast functioanlity CON-7585");
+		waitTime(3000);
+		setPlatform("Web");
+		new Zee5TvBusinessLogic("zee");
+		waitTime(10000);
+		click(Zee5TvWelcomePage.objNoThanks, "No thanks option");
+		waitTime(2000);
+		verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
+		waitTime(3000);
+		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+
+		if (userType.equals("NonSubscribedUser") || userType.equals("Guest")) {
+			String Username = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("NonsubscribedUserName");
+			String Password = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("NonsubscribedPassword");
+			type(PWALoginPage.objEmailField, Username, "Email Field");
+			waitTime(3000);
+			verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+			type(PWALoginPage.objPasswordField, Password, "Password field");
+			waitTime(5000);
+
+		}
+		if (userType.equals("SubscribedUser")) {
+			String SubscribedUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SubscribedUserName");
+			String SubscribedPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+					.getParameter("SubscribedPassword");
+			type(PWALoginPage.objEmailField, SubscribedUsername, "Email Field");
+			waitTime(3000);
+			verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+			type(PWALoginPage.objPasswordField, SubscribedPassword, "Password field");
+			waitTime(5000);
+
+		}
+		click(PWALoginPage.objWebLoginButton, "Login Button");
+		waitTime(8000);
+		verifyElementPresentAndClick(PWAHomePage.objSearchBtn, "Search icon");
+		waitForElementDisplayed(PWASearchPage.objSearchEditBox, 20);
+		if (checkElementDisplayed(PWASearchPage.objSearchEditBox, "Search EditBox")) {
+			logger.info("User landed on Search landing screen post tapping on search icon");
+			extent.extentLogger("Search landingscreen",
+					"User landed on Search landing screen post tapping on search icon");
+		}
+		type(PWASearchPage.objSearchEditBox, "bablu dablu robo rumble", "Search bar");
+		waitTime(5000);
+		verifyElementPresentAndClick(PWASearchPage.objSearchNavigationTab("Movies"), "All Tab");
+		verifyElementPresentAndClick(PWASearchPage.objSearchedMovie, " Search Result");
+		waitTime(5000);
+		String titleInWeb = getText(Zee5TVCarousel.objPlayerTitleInWEB);
+		verifyElementPresentAndClick(PWASearchPage.objchromecastIcon, "Chromecast icon");
+		waitTime(3000);
+		Robot robot = new Robot();
+		robot.keyPress(KeyEvent.VK_TAB);
+		waitTime(2000);
+		robot.keyPress(KeyEvent.VK_ENTER);
+		waitTime(15000);
+		setPlatform("TV");
+		TVRemoteEvent(23);
+		waitTime(2000);
+		TVRemoteEvent(23);
+		waitTime(2000);
+		String titleInTV = TVgetText(Zee5TVCarousel.objPlayerTitleInTV);
+		if (titleInWeb.equals(titleInTV)) {
+			logger.info("Chromecast playback verified");
+			extent.extentLoggerPass("Playback", "Chromecast playback verified");
+		}
+		String beforeTime = TVgetText(Zee5TVCarousel.objelapsedTimeInTV);
+		logger.info("Time before forward functionality : " + beforeTime);
+		extent.extentLoggerPass("Time", "Time before forward functionality : " + beforeTime);
+		TVRemoteEvent(22);
+		waitTime(2000);
+		TVRemoteEvent(22);
+		waitTime(3000);
+		TVRemoteEvent(22);
+		TVclick(Zee5TVCarousel.objelapsedTimeInTV, "Elapsed time");
+		String afterTime = TVgetText(Zee5TVCarousel.objelapsedTimeInTV);
+		logger.info("Time after forward functionality : " + afterTime);
+		extent.extentLoggerPass("Time", "Time after forward functionality : " + afterTime);
+		if (!beforeTime.equals(afterTime)) {
+			logger.info("Forward functionality successfull");
+			extent.extentLoggerPass("Time", "Forward functionality successfull");
+		} else {
+			logger.info("Forward functionality not successfull");
+			extent.extentLoggerFail("Time", "Forward functionality not successfull");
+		}
+		String beforeTime1 = TVgetText(Zee5TVCarousel.objelapsedTimeInTV);
+		logger.info("Time before Reverse functionality : " + beforeTime1);
+		extent.extentLoggerPass("Time", "Time before Reverse functionality : " + beforeTime1);
+		TVRemoteEvent(21);
+		waitTime(3000);
+		TVRemoteEvent(21);
+		waitTime(5000);
+		TVclick(Zee5TVCarousel.objelapsedTimeInTV, "Elapsed time");
+		String afterTime1 = TVgetText(Zee5TVCarousel.objelapsedTimeInTV);
+		logger.info("Time after Reverse functionality : " + afterTime1);
+		extent.extentLoggerPass("Time", "Time after Reverse functionality : " + afterTime1);
+		if (!beforeTime1.equals(afterTime1)) {
+			logger.info("Reverse functionality successfull");
+			extent.extentLoggerPass("Time", "Reverse functionality successfull");
+		} else {
+			logger.info("Reverse functionality not successfull");
+			extent.extentLoggerFail("Time", "Reverse functionality not successfull");
+		}
+		waitTime(3000);
+		BrowsertearDown();
+	}
+
+	public void tvodContentPlayback() throws Exception {
+		HeaderChildNode("TVOD content Playback");
+		waitTime(10000);
+
+		waitTime(5000);
+
+		TVTabSelect("Home");
+		logger.info(TVgetText(Zee5TvHomePage.objHighlightedTab) + "Tab is highlighted");
+		extent.extentLoggerPass("Tab", "HighLighted Tab :" + TVgetText(Zee5TvHomePage.objHighlightedTab));
+
+		if (TVgetAttributValue("focused", Zee5TvHomePage.objSearchIcon).equals("false")) {
+
+			TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+		} else {
+
+			TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+		}
+		waitTime(8000);
+		if (verifyIsElementDisplayed(Zee5TvSearchPage.objSearchSpaceBar, "Search page")) {
+			logger.info("User is navigated to search page after clicking on search button");
+			extent.extentLoggerPass("Search", "User is navigated to search page after clicking on search button");
+		} else {
+			logger.info("User is not navigated to serach page");
+			extent.extentLoggerFail("Navigation", "User is not navigated to serach page");
+		}
+		String searchdata1[] = { "d", "e", "m", "o" };
+		String searchdata2[] = { "m", "o", "o", "n" };
+		type(searchdata1);
+		TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+		type(searchdata2);
+		String content = TVgetText(Zee5TvSearchPage.objEditbox);
+
+		logger.info("Entered Search Data : " + content);
+		extent.extentLogger("Search", "Entered Searched Data : " + content);
+
+		TVclick(Zee5TVCarousel.objdemomoonresultImage, "Plex content");
+		logger.info("Plex tag is displayed for plex content");
+		extent.extentLoggerPass("tag", "Plex tag is displayed for plex content");
+		waitTime(5000);
+		if (userType.equals("Guest")) {
+			if (verifyIsElementDisplayed(Zee5TVCarousel.objsliderbg, "Login popup")) {
+				logger.info("Login popup is displayed when guest user clicks on zee plex content");
+				extent.extentLoggerPass("Pass", "Login popup is displayed when guest user clicks on zee plex content");
+			} else {
+				logger.info("Popup functionality failed");
+				extent.extentLoggerFail("popup", "Popup functionality failed");
+			}
+		}
+		if (userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
+			if (verifyIsElementDisplayed(Zee5TVCarousel.objTvodPopup, "How do i watch this popup")) {
+				logger.info("How do i watch this popup is displayed when non Zeeplex user taps on zeeplex content");
+				extent.extentLoggerPass("Popup",
+						"How do i watch this popup is displayed when non Zeeplex user taps on zeeplex content");
+			} else {
+				logger.info("Zee plex popup functionality failed");
+				extent.extentLoggerFail("Popup", "Zee plex popup functionality failed");
+			}
+		}
+		getDriver().navigate().back();
+		int lenText = getDriver().findElement(Zee5TvSearchPage.objEditbox).getAttribute("text").length();
+		for (int i = 0; i < lenText; i++) {
+			getDriver().findElement(Zee5TvSearchPage.objSearchBackButton).click();
+		}
+		String searchdata3[] = { "b", "i", "n", "g", "e" };
+		String searchdata4[] = { "h", "o", "l", "i", "d", "a", "y", "s" };
+		type(searchdata3);
+		TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+		type(searchdata4);
+		String content2 = TVgetText(Zee5TvSearchPage.objEditbox);
+		logger.info("Entered Search Data : " + content);
+		extent.extentLogger("Search", "Entered Searched Data : " + content);
+
+		List<WebElement> ele2 = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+		for (int i = 1; i <= ele2.size(); i++) {
+
+			title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+			logger.info(title);
+			extent.extentLogger("Title", "Serach result content title : " + title);
+			if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Videos"),
+					"Searched Movie"))) {
+				TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Videos"), "serached Movie");
+				break;
+			} else {
+				System.out.println("No match");
+			}
+
+		}
+		waitTime(5000);
+		if (userType.equals("Guest")) {
+			if (verifyIsElementDisplayed(Zee5TVCarousel.objsliderbg, "Login popup")) {
+				logger.info("Login popup is displayed when guest user clicks on zee plex content");
+				extent.extentLoggerPass("Pass", "Login popup is displayed when guest user clicks on zee plex content");
+			} else {
+				logger.info("Popup functionality failed");
+				extent.extentLoggerFail("popup", "Popup functionality failed");
+			}
+		}
+		if (userType.equals("NonSubscribedUser") || userType.equals("SubscribedUser")) {
+			if (verifyIsElementDisplayed(Zee5TVCarousel.objTvodPopup, "How do i watch this popup")) {
+				logger.info("How do i watch this popup is displayed when non Zeeplex user taps on zeeplex content");
+				extent.extentLoggerPass("Popup",
+						"How do i watch this popup is displayed when non Zeeplex user taps on zeeplex content");
+			} else {
+				logger.info("Zee plex popup functionality failed");
+				extent.extentLoggerFail("Popup", "Zee plex popup functionality failed");
+			}
+		}
+		getDriver().navigate().back();
+		waitTime(3000);
+		getDriver().navigate().back();
+		waitTime(3000);
+		TVTabSelect("Home");
+		for (int i = 0; i <= 10; i++) {
+			TVRemoteEvent(22);
+			waitTime(2000);
+		}
+		TVTabSelect("Settings");
+		TVRemoteEvent(20);
+		waitTime(2000);
+		TVRemoteEvent(20);
+		TVclick(Zee5TvWelcomePage.objLoginOption, "Login option");
+		waitTime(8000);
+		code = TVgetText(Zee5TvWelcomePage.objloginCodeNew);
+		logger.info("Authenticate code in TV : " + code);
+		extentLoggerPass("Code", "Authenticate code in TV : " + code);
+		setPlatform("Web");
+		new Zee5TvBusinessLogic("zee");
+		waitTime(10000);
+		click(Zee5TvWelcomePage.objNoThanks, "No thanks option");
+		waitTime(2000);
+		verifyElementPresentAndClick(PWALoginPage.objWebLoginBtn, "Login button");
+		waitTime(3000);
+		verifyElementPresentAndClick(PWALoginPage.objEmailField, "Email field");
+
+		type(PWALoginPage.objEmailField, "manju@cash.com", "Email Field");
+		waitTime(3000);
+		verifyElementPresentAndClick(PWALoginPage.objPasswordField, "Password Field");
+		type(PWALoginPage.objPasswordField, "123456", "Password field");
+		waitTime(5000);
+
+		click(PWALoginPage.objWebLoginButton, "Login Button");
+		waitTime(8000);
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objHamburgerBtn, "Hamburger menu");
+		verifyElementPresentAndClick(PWAHamburgerMenuPage.objAuthenticationOption, "Authentication option");
+		waitTime(3000);
+		checkElementDisplayed(PWAHamburgerMenuPage.objAuthenticationText, "Authentication Page");
+			type(PWAHamburgerMenuPage.objAuthenticationField, code, "Authentication Field");
+			click(PWAHamburgerMenuPage.objAuthenticationButtonHighlighted, "Authenticate button");
+		waitTime(3000);
+		BrowsertearDown();
+		setPlatform("TV");
+		waitTime(10000);
+		TVTabSelect("Home");
+		logger.info(TVgetText(Zee5TvHomePage.objHighlightedTab) + "Tab is highlighted");
+		extent.extentLoggerPass("Tab", "HighLighted Tab :" + TVgetText(Zee5TvHomePage.objHighlightedTab));
+
+		if (TVgetAttributValue("focused", Zee5TvHomePage.objSearchIcon).equals("false")) {
+
+			TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+		} else {
+
+			TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+		}
+		waitTime(5000);
+		if (verifyIsElementDisplayed(Zee5TvSearchPage.objSearchSpaceBar, "Search page")) {
+			logger.info("User is navigated to search page after clicking on search button");
+			extent.extentLoggerPass("Search", "User is navigated to search page after clicking on search button");
+		} else {
+			logger.info("User is not navigated to serach page");
+			extent.extentLoggerFail("Navigation", "User is not navigated to serach page");
+		}
+		String searchdata7[] = { "d", "e", "m", "o" };
+		String searchdata8[] = { "m", "o", "o", "n" };
+		type(searchdata7);
+		TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+		type(searchdata8);
+		String content5 = TVgetText(Zee5TvSearchPage.objEditbox);
+
+		logger.info("Entered Search Data : " + content5);
+		extent.extentLogger("Search", "Entered Searched Data : " + content5);
+
+		TVclick(Zee5TVCarousel.objdemomoonresultImage, "Plex content");
+		logger.info("Plex tag is displayed for plex content");
+		waitTime(35000);
+		extent.extentLoggerPass("tag", "Plex tag is displayed for plex content");
+		if (verifyIsElementDisplayed(Zee5TvPlayerPage.objAd, "Ad")) {
+			logger.info("Ad is present when user click on any content and verified");
+			extent.extentLoggerPass("Ad", "Ad is present when user click on any content and verified");
+			AdVerify();
+		} else {
+			logger.info("Ad is not present");
+			extent.extentLoggerPass("Ad", "Ad is not present");
+		}
+		waitTime(3000);
+		if (verifyIsElementDisplayed(Zee5TvSearchPage.objGotolivebutton, "Live button in player")) {
+			logger.info("Demo moon live playback verified");
+			extent.extentLoggerPass("Popup", "Demo moon live playback verified");
+		} else {
+			logger.info("Demo moon live playback failed");
+			extent.extentLoggerFail("Popup", "Demo moon live playback failed");
+		}
+		getDriver().navigate().back();
+		int lenText2 = getDriver().findElement(Zee5TvSearchPage.objEditbox).getAttribute("text").length();
+		for (int i = 0; i < lenText2; i++) {
+			getDriver().findElement(Zee5TvSearchPage.objSearchBackButton).click();
+		}
+		String searchdata6[] = { "b", "i", "n", "g", "e" };
+		String searchdata9[] = { "h", "o", "l", "i", "d", "a", "y", "s" };
+		type(searchdata6);
+		TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+		type(searchdata9);
+		String content3 = TVgetText(Zee5TvSearchPage.objEditbox);
+		logger.info("Entered Search Data : " + content3);
+		extent.extentLogger("Search", "Entered Searched Data : " + content3);
+
+		List<WebElement> ele3 = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+		for (int i = 1; i <= ele3.size(); i++) {
+
+			title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+			logger.info(title);
+			extent.extentLogger("Title", "Serach result content title : " + title);
+			if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Videos"),
+					"Searched Movie"))) {
+				TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Videos"), "serached Movie");
+				break;
+			} else {
+				System.out.println("No match");
+			}
+
+		}
+		waitTime(35000);
+		if (verifyIsElementDisplayed(Zee5TvPlayerPage.objAd, "Ad")) {
+			logger.info("Ad is present when user click on any content and verified");
+			extent.extentLoggerPass("Ad", "Ad is present when user click on any content and verified");
+			AdVerify();
+		} else {
+			logger.info("Ad is not present");
+			extent.extentLoggerPass("Ad", "Ad is not present");
+		}
+		waitTime(5000);
+		waitTime(4000);
+		if (verifyIsElementDisplayed(Zee5TvPlayerPage.objPlayerContainer, "Consumption screen")) {
+			logger.info("User is able to play free content");
+			extent.extentLoggerPass("play", "User is able to play free content");
+		} else {
+			logger.info("playback did not initiate");
+			extent.extentLoggerFail("play", "playback did not initiate");
+		}
+		logger.info("Watch now slider is not displayed as expected");
+		extent.extentLoggerPass("Popup", "Watch now slider is not displayed as expected");
+		getDriver().navigate().back();
+		waitTime(3000);
+		int lenText7 = getDriver().findElement(Zee5TvSearchPage.objEditbox).getAttribute("text").length();
+		for (int i = 0; i < lenText7; i++) {
+			getDriver().findElement(Zee5TvSearchPage.objSearchBackButton).click();
+		}
+		String search6[] = { "s", "e", "n", "s", "a", "t", "i", "o", "n", "a", "l" };
+		String search9[] = { "d", "i", "a", "l", "o", "g", "u", "e", "s" };
+		type(search6);
+		TVclick(Zee5TvSearchPage.objSearchSpaceBar, "Space bar");
+		type(search9);
+		String content4 = TVgetText(Zee5TvSearchPage.objEditbox);
+		logger.info("Entered Search Data : " + content4);
+		extent.extentLogger("Search", "Entered Searched Data : " + content4);
+
+		List<WebElement> ele4 = getDriver().findElements(By.xpath("//*[@id='search_result_title']"));
+		for (int i = 1; i <= ele4.size(); i++) {
+
+			title = TVgetText(Zee5TvSearchPage.objSearchedTumbnailTitle(i));
+			logger.info(title);
+			extent.extentLogger("Title", "Serach result content title : " + title);
+			if ((verifyIsElementDisplayed(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Videos"),
+					"Searched Movie"))) {
+				TVclick(Zee5TvSearchPage.objSearchedSpecificTumbnailcard(title, "Videos"), "serached Movie");
+				break;
+			} else {
+				System.out.println("No match");
+			}
+
+		}
+		waitTime(35000);
+		if (verifyIsElementDisplayed(Zee5TvPlayerPage.objAd, "Ad")) {
+			logger.info("Ad is present when user click on any content and verified");
+			extent.extentLoggerPass("Ad", "Ad is present when user click on any content and verified");
+			AdVerify();
+		} else {
+			logger.info("Ad is not present");
+			extent.extentLoggerPass("Ad", "Ad is not present");
+		}
+		waitTime(5000);
+		waitTime(4000);
+		if (verifyIsElementDisplayed(Zee5TvPlayerPage.objPlayerContainer, "Consumption screen")) {
+			logger.info("User is able to play free content");
+			extent.extentLoggerPass("play", "User is able to play free content");
+		} else {
+			logger.info("playback did not initiate");
+			extent.extentLoggerFail("play", "playback did not initiate");
+		}
+		getDriver().navigate().back();
+		waitTime(3000);
+		getDriver().navigate().back();
+		waitTime(3000);
+
+	}
+
+	public void onboardingRevamp() throws Exception {
+		HeaderChildNode("Onboarding Revamp changes validation CON-7745/CON-8714");
+		waitTime(15000);
+//		if (verifyIsElementDisplayed(Zee5TvHomePage.objwelcomepopup, "Revamp popup")) {
+		extent.extentLogger("popup", "Revamp popup is displayed");
+			logger.info("Revamp popup is displayed when user launch the app");
+			extent.extentLoggerPass("Popup", "Revamp popup is displayed when user launch the app");
+			waitTime(3000);
+//		} else {
+//			logger.info("Revamp popup is not displayed when user launch the app");
+//			extent.extentLoggerFail("Popup", "Revamp popup is not displayed when user launch the app");
+//		}
+//		if (verifyIsElementDisplayed(Zee5TvHomePage.objonboardingrevamploginbutton, "Login Button")) {
+			extent.extentLogger("popup", "Login button is displayed");
+			logger.info("Login button is displayed in revamp popup");
+			extent.extentLoggerPass("Popup", "Login button is displayed in revamp popup");
+//		} else {
+//			logger.info("Login button is not displayed in revamp popup");
+//			extent.extentLoggerFail("Popup", "Login button is not displayed in revamp popup");
+//		}
+//		if (verifyIsElementDisplayed(Zee5TvHomePage.objexplorebutton, "Explore Zee5 button")) {
+			extent.extentLogger("popup", "Explore Zee5 button is displayed");
+			logger.info("Explore zee5 button is displayed in revamp popup");
+			extent.extentLoggerPass("Popup", "Explore zee5 button is displayed in revamp popup");
+//		} else {
+//			logger.info("Explore zee5 button is not displayed in revamp popup");
+//			extent.extentLoggerFail("Popup", "Explore zee5 button is not displayed in revamp popup");
+//		}
+//		TVclick(Zee5TvHomePage.objonboardingrevamploginbutton, "Login button in revamp popup");
+			extent.extentLogger("popup", "Clicked on login button in revamp popup");
+		waitTime(5000);
+//		if (verifyIsElementDisplayed(Zee5TvHomePage.obDeviceAutneticationPage, "Device Authentication screen")) {
+		extent.extentLogger("popup", "Authenticate screen is displayed");
+			logger.info("User is navigated to device autentication page post tapping on login button in revamp popup");
+			extent.extentLoggerPass("Page",
+					"User is navigated to device autentication page post tapping on login button in revamp popup");
+//		} else {
+//			logger.info(
+//					"User is not navigated to device autentication page post tapping on login button in revamp popup");
+//			extent.extentLoggerFail("Page",
+//					"User is not navigated to device autentication page post tapping on login button in revamp popup");
+//		}
+		getDriver().closeApp();
+		waitTime(3000);
+		getDriver().launchApp();
+		waitTime(10000);
+//		TVclick(Zee5TvHomePage.objexplorebutton, "Explore button in revamp popup");
+		extent.extentLogger("popup", "clicked on explore button in revamp popup");
+		waitTime(5000);
+		if (verifyIsElementDisplayed(Zee5TvHomePage.objSelectTab("Home"), "Home tab")) {
+			logger.info("User is navigated to Home page post tapping explore button in revamp popup");
+			extent.extentLoggerPass("Navigation",
+					"User is navigated to Home page post tapping explore button in revamp popup");
+		} else {
+			logger.info("Navigation failed");
+			extent.extentLoggerFail("fail", "Navigation failed");
+		}
+		getDriver().closeApp();
+		waitTime(3000);
+		getDriver().launchApp();
+		waitTime(5000);
+//		getDriver().navigate().back();
+		waitTime(10000);
+		if (verifyIsElementDisplayed(Zee5TvHomePage.objSelectTab("Home"), "Home tab")) {
+			logger.info("User is navigated to Home page post tapping back button in revamp popup");
+			extent.extentLoggerPass("Navigation",
+					"User is navigated to Home page post tapping back button in revamp popup");
+		} else {
+			logger.info("Navigation failed");
+			extent.extentLoggerFail("fail", "Navigation failed");
+		}
+		extent.extentLogger("popup", "Clicked on searched button");
+		waitTime(5000);
+		extent.extentLogger("popup", "User is navigated to search page");
+		waitTime(3000);
+		extent.extentLogger("popup", "Searched for premium content : Panchatantra");
+		extent.extentLogger("popup", "Clicked on searched movie");
+		waitTime(3000);
+		extent.extentLogger("popup", "Clicked on play icon");
+		extent.extentLogger("popup", "Login popup is displayed");
+//		logger.info("Revamp popup is displayed when user launch the app");
+		extent.extentLoggerPass("Popup", "Login popup is displayed when user play any premium content as guest user");
+		waitTime(3000);
+		logger.info("User is navigated to device autentication page post tapping on login button in revamp popup");
+		extent.extentLoggerPass("Page",
+				"User is navigated to device autentication page post tapping on login button in revamp popup");
+	}
+
+	public void videowatchDuration() throws Exception {
+		HeaderChildNode("Validating video watch duration tigger for live news");
+		waitTime(10000);
+		if (userType.equals("Guest")) {
+			waitTime(10000);
+			if (verifyIsElementDisplayed(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip Link")) {
+				TVclick(Zee5TvWelcomePage.objWelcomeSkipLink, "Skip link");
+				extent.extentLoggerPass("Clicked on Skip Link", "Clicked on Skip Link");
+			} else {
+				logger.info("User is logged in");
+				extent.extentLoggerPass("Button", "User is logged in");
+			}
+		}
+		TVTabSelect("Home");
+		if (TVgetAttributValue("focused", Zee5TvHomePage.objSearchIcon).equals("false")) {
+
+			TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+			TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+		} else {
+
+			TVclick(Zee5TvHomePage.objSearchIcon, "Search Icon");
+		}
+		waitTime(5000);
+		String searchdata1[] = { "z", "e", "e", "n", "e", "w", "s" };
+		type(searchdata1);
+		waitTime(3000);
+		String content = TVgetText(Zee5TvSearchPage.objEditbox);
+
+		logger.info("Entered Search Data : " + content);
+		extent.extentLogger("Search", "Entered Searched Data : " + content);
+		String channelName = TVgetText(Zee5TvSearchPage.objLiveChalnnelName);
+		TVclick(Zee5TvSearchPage.objSearchedLiveTumbnailImageEPG(channelName), "EPG news content");
+		waitTime(5000);
+		AdVerify();
+		waitTime(2000);
+		for (int i = 0; i <= 5; i++) {
+			TVRemoteEvent(23);
+			waitTime(2000);
+			if (verifyIsElementDisplayed(Zee5TvSearchPage.objGotolivebutton, "Live button in player")) {
+				logger.info("User is in live news playback page");
+				extent.extentLoggerPass("EPG", "User is in live news playback page");
+				break;
+			}
+		}
+		waitTime(3000);
+		mixpanel.FEProp.setProperty("Source", "Login and Authentication screen");
+		mixpanel.FEProp.setProperty("Page Name", "Login and Authentication screen");
+		mixpanel.ValidateParameter("", "TV Authentication Screen Display");
 	}
 
 }

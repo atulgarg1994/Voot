@@ -270,7 +270,7 @@ public class Zee5TvWelcomePage {
 	
 	public static By objAFSLoginPopUpSlider = By.xpath("//*[@id='mainlayout_for_plex']");
 	
-	public static By objautneticatePage = By.xpath("//*[@id='authenticate_text']");
+	public static By objautneticatePage = By.xpath("//*[@id='device_activation_header']");
 	
 	
 }

@@ -75,7 +75,7 @@ public class Zee5TvSearchPage {
 	// ================================Content detail
 	// page=================================
 
-	public static By objLoginPopup = By.xpath("//*[@id='pop_up_realtive' or @id='pop_up_relative']");
+	public static By objLoginPopup = By.xpath("//*[@id='pop_up_realtive' or @id='pop_up_relative' or @id='slider_bg']");
 
 	public static By objShowsLoginPopup = By.xpath("//*[@id='pop_up_relative']");
 	public static By objSubscribePopup = By.xpath("//*[@id='tv_pop_up_un_subscribe_text']");

@@ -23,7 +23,11 @@ public class Zee5TvHomePage {
 	public static By objchannelInAllchannelTab(int i) {
 		return By.xpath("(//*[@id='channel_horizontal_view_channel_image'])[" + i + "]");
 	}
+	public static By objwelcomepopup = By.xpath("//*[@id='slider_bg']");
 	
+	public static By objonboardingrevamploginbutton = By.xpath("//*[@id='login_button']");
+	
+	public static By objexplorebutton = By.xpath("//*[@id='explore']");
 	
 	public static By objSeekbar = By.xpath("//*[@id='seekbar_layout']");
 	

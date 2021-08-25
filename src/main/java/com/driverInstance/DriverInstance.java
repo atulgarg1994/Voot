@@ -2,12 +2,15 @@ package com.driverInstance;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import org.json.simple.parser.ParseException;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -217,5 +220,43 @@ public class DriverInstance extends Drivertools {
 		}catch(Exception e) {
 			
 		}
+	}
+	
+	public void chromeCastInitDriver() throws MalformedURLException, ParseException {
+		 tlDriver.set((AppiumDriver<WebElement>) new AndroidDriver<WebElement>(new URL(getremoteUrl()),
+				 generateAndroidChromeCastCapabilities("Zee")));
+		
+		driverTV.set((AppiumDriver<WebElement>) new AndroidDriver<WebElement>(new URL(getremoteUrl()),
+				 generateAndroidTvChromeCastCapabilities("zeeTV")));
+	}
+	
+	public DesiredCapabilities generateAndroidChromeCastCapabilities(String application) {
+		System.out.println("Capability");
+		capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Android");
+		capabilities.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, 300);
+		capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "uiautomator2");
+		capabilities.setCapability("udid", getDeviceList());
+		capabilities.setCapability("platformVersion", "10");
+		capabilities.setCapability("fullReset", false);
+		capabilities.setCapability("autoAcceptAlerts", true);
+		capabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, getAppPackage());
+		capabilities.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, getappActivity());
+		return capabilities;
+	}
+	
+	public DesiredCapabilities generateAndroidTvChromeCastCapabilities(String application) {
+		System.out.println("Capability");
+	
+		capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Android");
+		capabilities.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, 300);
+//		capabilities.setCapability("compressXml", "true");
+		capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "uiautomator2");
+		capabilities.setCapability("udid", getTVDeviceList());
+		capabilities.setCapability("platformVersion", "10");
+		capabilities.setCapability("fullReset", false);
+		capabilities.setCapability("autoAcceptAlerts", true);
+		capabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, "com.graymatrix.did");
+		capabilities.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY,"com.zee5.player.activities.SplashActivity");
+		return capabilities;
 	}
 }

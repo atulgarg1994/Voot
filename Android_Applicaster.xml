@@ -403,4 +403,11 @@
 		</classes>
 	</test>
 	
+	
+	<!-- <test name="Android_ChromeCast">
+		<classes>
+			<class name="com.zee5.ApplicasterScripts.Android_ChromeCast" />
+		</classes>
+	</test> -->
+	
 </suite>

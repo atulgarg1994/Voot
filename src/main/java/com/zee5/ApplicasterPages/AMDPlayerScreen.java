@@ -236,5 +236,7 @@ public class AMDPlayerScreen {
 	public static By objAudioLanguageOption = By.xpath("(//*[@id='playerOptionTitle'])[1]");
 
 	public static By objcontentCard = By.xpath("(//*[@resource-id='com.graymatrix.did:id/item_image'])[4] |  (//*[@id='cell_center_container'])[4]");
+	
+    public static By objPlayerBackbutton =By.xpath("//*[@id='home_toolbar_brand_logo']");
 }
 

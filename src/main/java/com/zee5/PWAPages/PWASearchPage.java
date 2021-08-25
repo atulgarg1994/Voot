@@ -384,4 +384,8 @@ public class PWASearchPage {
 	public static By objSearchResultTxt(String title,String meta){
 		return By.xpath("(//*[\""+meta+"\"]//parent::div[contains(@class,'dateTime ')]//preceding-sibling::div[@class='metaData']//*[\""+title+"\"]//ancestor::div[@class='listingGrid']//a)[1]");
 	}
+	
+	public static By objSearchedMovie=By.xpath("//img[@title='Bablu Dablu - Robo Rumble']");
+	
+	public static By objchromecastIcon=By.xpath("//google-cast-launcher[@class='chromeCastIcon']");
 }

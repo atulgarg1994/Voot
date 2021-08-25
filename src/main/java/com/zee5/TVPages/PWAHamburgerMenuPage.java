@@ -224,7 +224,7 @@ public class PWAHamburgerMenuPage {
 	public static By objParentalLockNoRestrictionOption = By.xpath("//div[contains(text(),'No Restrictions')]");
 	public static By objAuthenticationButtonNotHighlighted = By
 			.xpath("//button[contains(@class,'noSelect buttonGradient null')]");
-	public static By objAuthenticationField = By.xpath("//input[contains(@name,'code')]");
+	public static By objAuthenticationField = By.xpath("//input[@name='otp1']");
 	public static By objCloseHamburgerMenu = By.xpath("//button[contains(text(),'Close Menu')]");
 	public static By objPlanInHamburger = By.xpath("//div[contains(@class,'menuTitle noSelect menuForPlans')]");
 
@@ -552,7 +552,7 @@ public class PWAHamburgerMenuPage {
 
 	public static By objParentalControl = By.xpath("//*[contains(text(),'Parental Control') and @class]");
 
-	public static By objAuthenticationOption = By.xpath("//*[contains(text(),'Authenticate Device')]");
+	public static By objAuthenticationOption = By.xpath("//a[contains(text(),'Activate Device')]");
 
 	public static By objAuthenticationButtonHighlighted = By
 			.xpath("//button[contains(@class,'noSelect buttonGradient')]");

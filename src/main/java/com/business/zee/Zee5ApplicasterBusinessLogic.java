@@ -7603,16 +7603,21 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.info("Content playback is not playing on Wifi network");
 			extent.extentLoggerFail("Play", "Content playback is not playing on Wifi network");
 		}
-		waitTime(2000);
+		waitTime(5000);
 //		Back(1);
+		if (verifyElementIsNotDisplayed(AMDPlayerScreen.objNextIcon)) {
+			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		}
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerBackbutton, "Back button in player");
 		navigateBackToHomeLandingScreen();
 		waitTime(2000);
 		verifyElementPresentAndClick(AMDHomePage.MoreMenuIcon, "More menu icon");
 		verifyElementPresentAndClick(AMDMoreMenu.objSettings, "Settings option");
 		click(AMDMoreMenu.objVideo_WifiOnly, "wifi toggle");
-		Back(1);
+//		Back(1);
+		navigateBackToHomeLandingScreen();
 		waitTime(3000);
-		Back(1);
+//		Back(1);
 		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
 			// closeInterstitialAd(AMDGenericObjects.objCloseInterstitialAd, 2000);
 		}
@@ -7668,8 +7673,12 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 			logger.error("Content playback is not playing on Wifi network");
 			extent.extentLoggerFail("Play", "Content playback is not playing on Wifi network");
 		}
-		waitTime(2000);
+		waitTime(5000);
 //		Back(1);
+		if (verifyElementIsNotDisplayed(AMDPlayerScreen.objNextIcon)) {
+			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		}
+		verifyElementPresentAndClick(AMDPlayerScreen.objPlayerBackbutton, "Back button in player");
 		navigateBackToHomeLandingScreen();
 		waitTime(2000);
 		verifyElementPresentAndClick(AMDHomePage.MoreMenuIcon, "More menu icon");
@@ -7706,7 +7715,6 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 				extentLoggerFail("Video Auto Play", "Default state of the 'Auto Play' option is not in ON state");
 			}
 		}
-
 	}
 
 	public static String getCarouselTitleFromAPI(String userType, String pagenameforApi, String pUsername,
@@ -8179,9 +8187,11 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		verifyElementExist(AMDSettingsScreen.objVideoQualityGood, "Good Quality Option");
 		verifyElementExist(AMDSettingsScreen.objVideoQualityDatasaver, "Data Saver Quality Option");
 		verifyElementExist(AMDSettingsScreen.objVideoQualityAskEachTime, "Ask Each Time Option");
-		verifyElementExist(AMDSettingsScreen.objTickMark, "Tick mark");
+// Tick mark has been removed so commenting this line of code		
+//		verifyElementExist(AMDSettingsScreen.objTickMark, "Tick mark");
 		verifyElementPresentAndClick(AMDSettingsScreen.objXButton, "X Button");
 	}
+
 
 	public void searchHistoryValidation(String userType) throws Exception {
 		extent.HeaderChildNode("Search History Validation");
@@ -8207,23 +8217,120 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 	}
 
 	public void authenticateDeviceValidation(String userType) throws Exception {
-		extent.HeaderChildNode("Authenticate Device Validation");
-		System.out.println("\nAuthenticate Device Validation");
-		if (!(userType.equalsIgnoreCase("Guest"))) {
-
-			verifyElementPresentAndClick(AMDSettingsScreen.objAuthenticateDevice, "Authenticate Device");
-
-			if (checkElementExist(AMDSettingsScreen.objAuthenticateScreen, "Authenticate Screen")) {
-				logger.info("Navigated to Authenticate Screen");
-				extent.extentLoggerPass("Authenticate Screen", "Navigated to Authenticate Screen");
+		extent.HeaderChildNode("ActivateDevice screen validation");
+		logger.info("ActivateDevice screen validation");
+		if (!userType.equalsIgnoreCase("Guest")) {
+			waitTime(3000);
+			click(AMDMoreMenu.objActivateDevice, "Activate Device");
+			waitForElementDisplayed(AMDActivateDevicePage.objActivateDeviceTitle, 40);
+			if (verifyElementDisplayed(AMDActivateDevicePage.objActivateDeviceTitle)) {
+				logger.info("User navigated to Activate ZEE5 on your TV screen post taping on Activate Device");
+				extent.extentLoggerPass("Activate Device",
+						"User navigated to Activate ZEE5 on your TV screen post taping on Activate Device");
 			} else {
-				logger.error("Not navigated to Authenticate Screen");
-				extent.extentLoggerFail("Authenticate Screen", "Not navigated to Authenticate Screen");
+				logger.error("User not navigated to Activate ZEE5 on your TV screen post taping on Activate Device");
+				extent.extentLoggerFail("Activate Device",
+						"User not navigated to Activate ZEE5 on your TV screen post taping on Activate Device");
 			}
-			verifyElementPresentAndClick(AMDSettingsScreen.objAuthenticateCloseBtn, "Close Button");
+			if (verifyElementDisplayed(AMDActivateDevicePage.objActivationDescription)) {
+				logger.info("Enter the Activation Code displayed on your TV scree message is displayed");
+				extent.extentLoggerPass("Activate Device screen Description",
+						"Enter the Activation Code displayed on your TV scree message is displayed");
+			} else {
+				logger.error("Enter the Activation Code displayed on your TV scree message is not displayed");
+				extent.extentLoggerFail("Activate Device screen Description",
+						"Enter the Activation Code displayed on your TV scree message is not displayed");
+			}
+			if (verifyElementDisplayed(AMDActivateDevicePage.objActivateScreencloseButton)) {
+				logger.info("Close Button is displayed on Activate Device Screen");
+				extent.extentLoggerPass("Activate Device Screen Close Button",
+						"Close Button is displayed on Activate Device Screen");
+			} else {
+				logger.error("Close Button is not displayed on Activate Device Screen");
+				extent.extentLoggerFail("Activate Device Screen Close Button",
+						"Close Button is not displayed on Activate Device Screen");
+			}
+			if (verifyElementDisplayed(AMDActivateDevicePage.objInputField1)) {
+				logger.info("Input Filed is displayed");
+				extent.extentLoggerPass("Activate Device Screen Input Field", "Input Filed is displayed");
+			} else {
+				logger.error("Input Filed is not displayed");
+				extent.extentLoggerFail("Activate Device Screen Input Field", "Input Filed is not displayed");
+			}
+			if (verifyElementDisplayed(AMDActivateDevicePage.objActivateCTA)) {
+				logger.info("Activate CTA is displayed in Activate Device Screen");
+				extent.extentLoggerPass("Activate CTA", "Activate CTA is displayed in Activate Device Screen");
+
+				if (verifyElementDisplayed(AMDActivateDevicePage.objActivateCTADisabled)) {
+					logger.info("Activate CTA is displayed in disabled state by default in Activate Device Screen");
+					extent.extentLoggerPass("Activate CTA Disabled state",
+							"Activate CTA is displayed in disabled state by default in Activate Device Screen");
+				} else {
+					logger.error("Close Button is not displayed on Activate Device Screen");
+					extent.extentLoggerFail("Activate CTA Disabled state",
+							"Activate CTA is displayed in enabled state by default in Activate Device Screen");
+				}
+
+			} else {
+				logger.error("Activate CTA is not displayed in Activate Device Screen");
+				extent.extentLoggerFail("Activate CTA", "Activate CTA is not displayed in Activate Device Screen");
+			}
+			if (verifyElementDisplayed(AMDActivateDevicePage.objInputField1)) {
+				logger.info("Input Field is displayed in Activate Device Screen");
+				extent.extentLoggerPass("Input Field", "Input Field is displayed in Activate Device Screen");
+				verifyElementPresentAndClick(AMDActivateDevicePage.objInputField1, "Input Field");
+				waitTime(2000);
+				type(AMDActivateDevicePage.objInputField1, "A", "Input Field");
+				hideKeyboard();
+				type(AMDActivateDevicePage.objInputField2, "3", "Input Field");
+				hideKeyboard();
+				type(AMDActivateDevicePage.objInputField3, "3", "Input Field");
+				hideKeyboard();
+				type(AMDActivateDevicePage.objInputField4, "5", "Input Field");
+				hideKeyboard();
+				type(AMDActivateDevicePage.objInputField5, "F", "Input Field");
+				hideKeyboard();
+				type(AMDActivateDevicePage.objInputField6, "T", "Input Field");
+				hideKeyboard();
+				waitTime(2000);
+
+				if (verifyElementDisplayed(AMDActivateDevicePage.objActivateCTAEnabled)) {
+					logger.info("Activate CTA is enabled on entering Device code");
+					extent.extentLoggerPass("Activate CTA Enabled state",
+							"Activate CTA is enabled on entering Device code");
+				} else {
+					logger.error("Activate CTA is not enabled on entering Device code");
+					extent.extentLoggerFail("Activate CTA Disabled state",
+							"Activate CTA is not enabled on entering Device code");
+				}
+				verifyElementPresentAndClick(AMDActivateDevicePage.objActivateCTAEnabled, "Activate CTA");
+				if (verifyElementDisplayed(AMDActivateDevicePage.objInvalidCode)) {
+					logger.info("Device with code Not Found error message is displayed");
+					extent.extentLoggerPass("Invalid Device code",
+							"Device with code Not Found error message is displayed");
+				} else {
+					logger.error("Device with code Not Found error message is not displayed");
+					extent.extentLoggerFail("Invalid Device code",
+							"Device with code Not Found error message is not displayed");
+				}
+				verifyElementPresentAndClick(AMDActivateDevicePage.objActivateScreencloseButton, "Close Button");
+				waitTime(2000);
+				if (verifyElementDisplayed(AMDMoreMenu.objvideoQualityOption)) {
+					logger.info("User is navigated to Settings screen on tapping Close button");
+					extent.extentLoggerPass("Close Button", "User is navigated to Settings screen on tapping Close button");
+				} else {
+					logger.error("User is not navigated to Settings screen on tapping Close button");
+					extent.extentLoggerFail("Close Button",
+							"User is not navigated to Settings screen on tapping Close button");
+				}
+			} else {
+				logger.error("Activate CTA is not displayed in Activate Device Screen");
+				extent.extentLoggerFail("Activate CTA", "Activate CTA is not displayed in Activate Device Screen");
+			}
+
 		} else {
-			logger.info("This Validation is NOT Applicable for " + userType);
-			extent.extentLoggerPass("Authenticate Screen", "This Validation is NOT Applicable for " + userType);
+			logger.info("Activate Device" + " Not applicable for " + userType + "user");
+			extent.extentLogger("Activate Device", " Not applicable for " + userType);
 		}
 	}
 
@@ -20226,6 +20333,9 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		System.out.println(videoOption);
 		click(AMDSettingsScreen.objoptionsInVideoQuality, "Option " + videoOption);
 		waitTime(3000);
+		if (verifyElementIsNotDisplayed(AMDPlayerScreen.objNextIcon)) {
+			click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+		}
 		click(AMDPlayerScreen.objPauseIcon, "Pause icon");
 		click(AMDPlayerScreen.objThreeDotsOnPlayer, "Three dots option");
 
@@ -31192,6 +31302,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		screencapture(webdriver);
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void verifyConvivaForwardOnProgressBar(String userType, WebDriver webdriver, ArrayList<String> contentData,
 			ArrayList<Integer> playerTapDetails) throws Exception {
 		ZEE5AppClearAndLogin(userType);
@@ -31693,6 +31804,7 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 
 	}
 
+	@SuppressWarnings("unused")
 	public void verifyConvivaOnEndOfSession(String userType, WebDriver webdriver, ArrayList<String> contentData,
 			ArrayList<Integer> playerTapDetails) throws Exception {
 		ZEE5AppClearAndLogin(userType);

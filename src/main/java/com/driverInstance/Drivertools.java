@@ -7,6 +7,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.stream.Stream;
 import org.openqa.selenium.WebDriver;
@@ -50,6 +51,7 @@ public class Drivertools {
 	public static Instant startTime ;
 	public static Duration timeElapsed ;
 	private static String DeviceList;
+	private static String TVDeviceList;
 	private static String apk;
 	public static String apkName = null;
 	public static String dir = System.getProperty("user.dir") + "\\APK\\";
@@ -83,6 +85,8 @@ public class Drivertools {
 
 	public static ThreadLocal<WebDriver> tlWebDriver = new ThreadLocal<>();
 
+	public static  ThreadLocal<AppiumDriver<WebElement>> driverTV = new ThreadLocal<>();
+	
 	public static Eyes eyes = new Eyes();
 
 	public static ExtentReporter extent = new ExtentReporter();
@@ -250,6 +254,15 @@ public class Drivertools {
 		this.driverVersion = driverVersion;
 	}
 	
+	public static String getTVDeviceList() {
+		return TVDeviceList;
+	}
+	
+	@SuppressWarnings("static-access")
+	public void setTVDeviceList(String TVDeviceList) {
+		this.TVDeviceList = TVDeviceList;
+	}
+	
 	public static String getENvironment() {
 		return "<h5> ENV : <a href=\""+getENV()+"\" onclick='return "+click+";'\">"+getENV()+"</a></h5>";
 	}
@@ -267,7 +280,8 @@ public class Drivertools {
 		setAppVersion(getHandler().getproperty(application + "Version"));
 		setAPKName(getHandler().getproperty(application + "apkfile"));
 		setDriverVersion(getHandler().getproperty("DriverVersion"));
-		setDeviceList(getListOfDevicesConnected());
+		setDeviceList(getListOfDevicesConnected().get(0).toString());
+		setTVDeviceList(getListOfDevicesConnected().get(1).toString());
 	}
 
 	{
@@ -336,8 +350,9 @@ public class Drivertools {
 		}
 	}
 	
-	public static String getListOfDevicesConnected() {
-		String deviceID = null;
+	
+	public static ArrayList<String> getListOfDevicesConnected() {
+		ArrayList<String> deviceID = new ArrayList<>();
 		try {
 			String cmd2 = "adb devices";
 			Process p1 = Runtime.getRuntime().exec(cmd2);
@@ -346,10 +361,7 @@ public class Drivertools {
 			Thread.sleep(1000);
 			while (!(s = br.readLine()).isEmpty()) {
 				if (!s.equals("List of devices attached")) {
-					if(!s.contains(".")) {
-						deviceID = s.replaceAll("device", "").trim();
-						System.out.println(deviceID);
-					}
+						deviceID.add(s.replaceAll("device", "").trim());
 				}
 			}
 			return deviceID;

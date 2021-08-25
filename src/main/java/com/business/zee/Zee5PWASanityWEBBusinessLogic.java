@@ -32217,6 +32217,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 	public void supermoonPrivacyPolicyAndTermsAndConditions(String userType, String tabname) throws Exception {
 		HeaderChildNode("Verify if the user can see disclaimer as 'By proceeding you agree to our Terms of service and Privacy policy' above the Buy CTA");
+		click(PWAHomePage.objZeeLogo, "Zee logo");
+		waitTime(2500);
 		navigateToAnyScreenOnWeb(tabname);
 		waitTime(3500);
 		ScrollToTheElementWEB(PWAComboOfferPage.objRentNow);
@@ -34500,7 +34502,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 		} else {
 			logger.error("Resume Now CTA is not Present in ZeePlex Page");
-			extent.extentLoggerFail("", "Resume Now CTA is not Present in  ZeePlex Page,expected behaviour");
+			extent.extentLoggerFail("", "Resume Now CTA is not Present in  ZeePlex Page");
 		}
 		click(PWAHomePage.objZeeLogo, "Zee logo");
 		waitTime(2500);
@@ -34643,15 +34645,15 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objzeeplex, "ZEEPLEX Rentals");
 		Thread.sleep(3000);
 		
-		if (verifyElementDisplayed(PWAComboOfferPage.objResumeCTA) || verifyElementDisplayed(PWAComboOfferPage.objWatchNowCTA)) {
+		if (checkElementDisplayed(PWAComboOfferPage.objResumeCTA,"Resume")) {
 
 			logger.info("Live TV TVOD is still active in My rentals Page");
 			extent.extentLoggerPass("", "Live TV TVOD is still active in My rentals Page,expected behaviour");
 
-		} else {
-			logger.info("Live TV TVOD is not active in My rentals Page");
-			extent.extentLoggerFail("", "Live TV TVOD is not active in My rentals Page,expected behaviour");
-
+		} 
+		if(checkElementDisplayed(PWAComboOfferPage.objWatchNowCTA,"Watch")){
+			logger.info("Live TV TVOD is still active in My rentals Page");
+			extent.extentLoggerPass("", "Live TV TVOD is still active in My rentals Page,expected behaviour");
 		}
 
 		if (!checkElementDisplayed(PWAComboOfferPage.objExpiredTxtInMyRental,"Expiry date")) {
@@ -34681,9 +34683,11 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 		verifyElementPresentAndClick(PWAHamburgerMenuPage.objzeeplex, "ZEEPLEX Rentals");
 		Thread.sleep(3000);
 		if (checkElementDisplayed(PWAComboOfferPage.objWatchNowCTA,"Watch Now")) {
-			JSClick(PWAComboOfferPage.objWatchNowCTA, "Watch Now CTA");
+			JSClick(PWAComboOfferPage.objZeerentalsWatch, "Watch Now CTA");
+			waitTime(2500);
 		} else {
-			JSClick(PWAComboOfferPage.objResumeCTA, "Resume CTA");
+			JSClick(PWAComboOfferPage.objZeerentalsResume, "Resume CTA");
+			waitTime(2500);
 		}
 		waitTime(4000);
 		if (checkElementDisplayed(PWAComboOfferPage.objTvodConsumptionPage, "Consumption Screen")) {
@@ -35669,6 +35673,8 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 
 	public void TermsAndPrivacyPolicGuest(String userType) throws Exception {
 		if (userType.equalsIgnoreCase("Guest")) {
+			Loginto299Pack();
+			waitTime(2500);
 			TermsAndPolicy(userType);
 			click(PWAHomePage.objZeeLogo, "Zee logo");
 			waitTime(2500);
@@ -35688,6 +35694,7 @@ public class Zee5PWASanityWEBBusinessLogic extends Utilities {
 			PrivacyPolicyPage(userType);
 			click(PWAHomePage.objZeeLogo, "Zee logo");
 			waitTime(2500);
+			logout();
 		}
 	}
 

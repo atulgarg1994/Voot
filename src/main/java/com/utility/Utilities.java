@@ -111,6 +111,10 @@ public class Utilities extends ExtentReporter {
 	public void setPlatform(String Platform) {
 		 DriverInstance.setPlatfrom(Platform);
 	 }
+	
+	public static AppiumDriver<WebElement> getTVDriver() {
+		return DriverInstance.driverTV.get();
+	}
 
 	static WebDriverWait wait;
 

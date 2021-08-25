@@ -278,4 +278,7 @@ public class PWAComboOfferPage {
 	public static By objBuyCombobutton = By.xpath("//*[@class='buttonContainer']//button");
 	public static By objupiproceedtopay=By.xpath("//*[@class='linearLayout sidebarItem_content sidebarItem_content_addupi']//following-sibling::*//article[text()='Verify']");
 
+	public static By objZeerentalsResume =By.xpath("(//div[@class='plexDetails'])[3]//span");
+	
+	public static By objZeerentalsWatch =By.xpath("(//div[@class='plexDetails'])[3]//span");
 }

@@ -763,7 +763,7 @@ public class ResponseInstance {
 
 //			:::::::::::::::Mixpanel:::::::::::::::::::::: 
 
-	public static void main(String[] args) throws Exception {
+//	public static void main(String[] args) throws Exception {
 //		getResponseForApplicasterPages("Guest", "3673").print();
 //		System.out.println(BeforeTV("Guest","Home"));
 //		getUserData();
@@ -816,9 +816,9 @@ public class ResponseInstance {
 //		getRespofCWTray("SubscribedUser");
 
 //		getUserData("autoclevertap@g.com","clevertap");
-		getUserSettingsDetails("autoclevertap@g.com", "clevertap");
+//		getUserSettingsDetails("autoclevertap@g.com", "clevertap");
 
-	}
+//	}
 
 	public static void fetchSubscriptionDetailsFromToken() {
 		String jwtToken = getBearerToken("zeein7@mailnesia.com", "123456");
@@ -7106,5 +7106,4 @@ public class ResponseInstance {
 		}
 		return pTrayName;
 	}
-	
 }
