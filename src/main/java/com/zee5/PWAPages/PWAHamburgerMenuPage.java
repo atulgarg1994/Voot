@@ -836,7 +836,7 @@ public class PWAHamburgerMenuPage {
 			"//*[@class='linearLayout sidebarItem_object']//following-sibling::*//article[contains(text(),'Netbanking')]");
 	public static By objdrmmessageonplayer=By.xpath("//p[@class='launch-text' and text()='There was a problem while playing this content. Please try again later.']");
 	public static By objenterupiid=By.xpath("//*[contains(@class,'editText') and contains(@placeholder,'e.g rakesh@upi ')]");
-	public static By objupiproceedtopay=By.xpath("//*[@class='linearLayout sidebarItem_content sidebarItem_content_addupi']//following-sibling::*//article[text()='Proceed to pay']");
+	
 	public static By objsomethingmess=By.xpath("//article[text()='Something went wrong. Please retry the payment.']");
 	public static By objcontentcardinmywatchlist=By.xpath("(//h3[contains(@class,'cardTitle overflowEllipsis')]//a)");
 
@@ -949,8 +949,6 @@ public class PWAHamburgerMenuPage {
 
 	public static By objrentnowinlandingpage=By.xpath("//span[contains(text(),'Rent Now')]");
 	public static By objHamburgerMenu = By.xpath("(//*[text()='Open Menu'])[2]");
-	
-	public static By objupiarrow = By.xpath("//*[@id='1000435']");
 
 	public static By objPaymentoption(String text) {
 		return By.xpath("//*[@class='linearLayout sidebarItem_object']//following-sibling::*//article[contains(text(),'"+text+"')]");
@@ -1051,4 +1049,7 @@ public class PWAHamburgerMenuPage {
 	
 	public static By objupiarrowSupermoon = By.xpath("//*[@id='1000437']");
 	
+	public static By objupiproceedtopay=By.xpath("//*[@class='linearLayout sidebarItem_content sidebarItem_content_addupi']//following-sibling::*//article[text()='Verify']");
+
+	public static By objupiarrow = By.xpath("//img[contains(@src,'round')]");
 }

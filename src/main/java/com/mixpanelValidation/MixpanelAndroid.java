@@ -125,36 +125,38 @@ public class MixpanelAndroid extends ExtentReporter {
 		LocalDateTime now = LocalDateTime.now();
 		String currentDate = dtf.format(now); // Get current date in formate yyyy-MM-dd
 		System.out.println("Current Date : " + currentDate);
-		
+
 		if (platform.equals("Android")) {
 			APIKey = "b2514b42878a7e7769945befa7857ef1";
 			UserID = "$model";
 			distinct_id = modelName();
-		} else if (platform.equalsIgnoreCase("Web") || platform.equalsIgnoreCase("MPWA")){
+		} else if (platform.equalsIgnoreCase("Web") || platform.equalsIgnoreCase("MPWA")) {
 			APIKey = "58baafb02e6e8ce03d9e8adb9d3534a6";
 			if (distinct_id.contains("-")) {
 				UserID = "Unique ID";
 				UserType = "Login";
 			}
-		}else if(platform.equals("TV")) {
+		} else if (platform.equals("TV")) {
 			APIKey = "e45c2466330383c493ba355fd0819bf4";
 			UserID = "$model";
 			distinct_id = modelName();
 		}
-	
-		Response request=null;
-		for(int trial=0;trial<5;trial++) {
+
+		Response request = null;
+		for (int trial = 0; trial < 5; trial++) {
 			request = RestAssured.given().auth().preemptive().basic(APIKey, "")
 					.config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig()))
 					.contentType("application/x-www-form-urlencoded; charset=UTF-8").formParam("from_date", currentDate)
 					.formParam("to_date", currentDate).formParam("event", "[\"" + eventName + "\"]")
 					.formParam("where", "properties[\"" + UserID + "\"]==\"" + distinct_id + "\"")
 					.post("https://data.mixpanel.com/api/2.0/export/");
-			if(request.equals(null) || request.equals("")) extent.extentLogger("", "Failed to fetch MP Response");
-			else break;
+			if (request.equals(null) || request.equals(""))
+				extent.extentLogger("", "Failed to fetch MP Response");
+			else
+				break;
 		}
-		
-		System.out.println("Response : "+request.asString());
+
+		System.out.println("Response : " + request.asString());
 		sheet = eventName.trim().replace(" ", "").replace("/", "");
 		if (request.toString() != null) {
 			if (platform.equals("Android")) {
@@ -164,7 +166,7 @@ public class MixpanelAndroid extends ExtentReporter {
 				String s[] = response.split("\n");
 //				String time = checkLatestEvent(s[s.length - 1]);
 //				if(time == null) {
-					parseResponse(s[s.length - 1]);
+				parseResponse(s[s.length - 1]);
 //				}else {
 //					System.out.println("Event not triggered");
 //					extentReportFail("Event not triggered", "Event not triggered");
@@ -172,7 +174,7 @@ public class MixpanelAndroid extends ExtentReporter {
 //				}
 			}
 			validation(eventName);
-		}else {
+		} else {
 			System.out.println("Event not triggered");
 			extentReportFail("Event not triggered", "Event not triggered");
 		}
@@ -191,8 +193,7 @@ public class MixpanelAndroid extends ExtentReporter {
 		}
 		return empty;
 	}
-	
-	
+
 	/**
 	 * Parse the response and split the response
 	 * 
@@ -272,35 +273,35 @@ public class MixpanelAndroid extends ExtentReporter {
 	public static void validation(String eventName) {
 		int NumberOfRows = getRowCount();
 		System.out.println(NumberOfRows);
-		extent.HeaderChildNode("Parameter Validation - "+eventName);
-		if(NumberOfRows != 0) {
-		for (rownumber = 1; rownumber < NumberOfRows; rownumber++) {
-			try {
-				XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlpath));
-				XSSFSheet myExcelSheet = myExcelBook.getSheet(sheet);
-				value = myExcelSheet.getRow(rownumber).getCell(1).toString();
-				key = myExcelSheet.getRow(rownumber).getCell(0).toString();
-				if (value.trim().isEmpty()) {
-					System.out.println("Paramter is empty :- Key:" + key + " - value" + value);
-					extentReportFail("Empty parameter",
-							"Paramter is empty :- <b>Key : " + key + " \n value : " + value + "</b>");
-					fillCellColor();
-				} else {
-					if (isContain(booleanParameters, key)) {
-						validateBoolean(value);
-					} else if (isContain(integerParameters, key)) {
-						validateInteger(value);
-					}else if (isContain(integerParameters, key)) {
-						validateFloat(value);
+		extent.HeaderChildNode("Parameter Validation - " + eventName);
+		if (NumberOfRows != 0) {
+			for (rownumber = 1; rownumber < NumberOfRows; rownumber++) {
+				try {
+					XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(xlpath));
+					XSSFSheet myExcelSheet = myExcelBook.getSheet(sheet);
+					value = myExcelSheet.getRow(rownumber).getCell(1).toString();
+					key = myExcelSheet.getRow(rownumber).getCell(0).toString();
+					if (value.trim().isEmpty()) {
+						System.out.println("Paramter is empty :- Key:" + key + " - value" + value);
+						extentReportFail("Empty parameter",
+								"Paramter is empty :- <b>Key : " + key + " \n value : " + value + "</b>");
+						fillCellColor();
+					} else {
+						if (isContain(booleanParameters, key)) {
+							validateBoolean(value);
+						} else if (isContain(integerParameters, key)) {
+							validateInteger(value);
+						} else if (isContain(integerParameters, key)) {
+							validateFloat(value);
+						}
+						validateParameterValue(key, value);
+						extentInfo();
 					}
-					validateParameterValue(key, value);
-					extentInfo();
+				} catch (Exception e) {
+					System.out.println(e);
 				}
-			} catch (Exception e) {
-				System.out.println(e);
 			}
-		}
-		}else {
+		} else {
 			System.out.println("Event not triggered");
 			extentReportFail("Event not triggered", "Event not triggered");
 		}
@@ -324,7 +325,8 @@ public class MixpanelAndroid extends ExtentReporter {
 			}
 			if (!propValue.replaceAll("\\s", "").equalsIgnoreCase(value.replaceAll("\\s", ""))) {
 				fillCellColor();
-				extentReportFail("Parameter", "Parameter : <b>Key : " + key + " <br/> value : " + value + "<br/>Expected Value : "+propValue+"</b>");
+				extentReportFail("Parameter", "Parameter : <b>Key : " + key + " <br/> value : " + value
+						+ "<br/>Expected Value : " + propValue + "</b>");
 			}
 		}
 	}
@@ -370,7 +372,7 @@ public class MixpanelAndroid extends ExtentReporter {
 //			}
 		}
 	}
-	
+
 	private static boolean isContain(String source, String subItem) {
 		String pattern = "\\b" + subItem + "\\b";
 		Pattern p = Pattern.compile(pattern);
@@ -417,21 +419,22 @@ public class MixpanelAndroid extends ExtentReporter {
 			FEProp.setProperty("Platform Name", platform);
 			FEProp.setProperty("os", "Android");
 			PropertyFileReader handler = new PropertyFileReader("properties/AppPackageActivity.properties");
-			String appVersion = DeviceDetails.getAppVersion(handler.getproperty("zeePackage")).trim().replace("versionName=", "");
+			String appVersion = DeviceDetails.getAppVersion(handler.getproperty("zeePackage")).trim()
+					.replace("versionName=", "");
 			FEProp.setProperty("App Version", appVersion);
 		} else if (platform.equals("Web")) {
 			FEProp.setProperty("Platform Name", platform);
 			FEProp.setProperty("os", System.getProperty("os.name").split(" ")[0]);
 		}
 		MixpanelAndroid.FEProp.setProperty("Landing Page Name", "home");
-		if(!platform.equals("Android")) {
-		MixpanelAndroid.FEProp.setProperty("Unique ID", UniqueID);
+		if (!platform.equals("Android")) {
+			MixpanelAndroid.FEProp.setProperty("Unique ID", UniqueID);
 		}
-		
+
 		userType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
-		
-		if(userType.equals("Guest")) {
-			if(SubcribedDetails == false) {
+
+		if (userType.equals("Guest")) {
+			if (SubcribedDetails == false) {
 				MixpanelAndroid.FEProp.setProperty("Gender", "N/A");
 				MixpanelAndroid.FEProp.setProperty("Age", "N/A");
 				MixpanelAndroid.FEProp.setProperty("Free Trial Expiry Date", "N/A");
@@ -440,35 +443,36 @@ public class MixpanelAndroid extends ExtentReporter {
 				MixpanelAndroid.FEProp.setProperty("Latest Subscription Pack Expiry", "N/A");
 				MixpanelAndroid.FEProp.setProperty("Next Expiring Pack", "N/A");
 				MixpanelAndroid.FEProp.setProperty("Next Pack Expiry Date", "N/A");
-			//	MixpanelAndroid.FEProp.setProperty("Pack Duration", "N/A");
+				// MixpanelAndroid.FEProp.setProperty("Pack Duration", "N/A");
 				MixpanelAndroid.FEProp.setProperty("Parent Control Setting", "N/A");
-		     // MixpanelAndroid.FEProp.setProperty("User Type", "Free");
+				// MixpanelAndroid.FEProp.setProperty("User Type", "Free");
 				MixpanelAndroid.FEProp.setProperty("Partner Name", "N/A");
 				MixpanelAndroid.FEProp.setProperty("HasRental", "false");
 				MixpanelAndroid.FEProp.setProperty("hasEduauraa", "false");
-			if(Language != false) {
-			//	MixpanelAndroid.FEProp.setProperty("New App Language", "en");
-			if(platform.equals("Android")) {
-				//MixpanelAndroid.FEProp.setProperty("New Content Language", "en,kn");
-			}else {
-				MixpanelAndroid.FEProp.setProperty("New Content Language", "[en-kn]");}
+				if (Language != false) {
+					// MixpanelAndroid.FEProp.setProperty("New App Language", "en");
+					if (platform.equals("Android")) {
+						// MixpanelAndroid.FEProp.setProperty("New Content Language", "en,kn");
+					} else {
+						MixpanelAndroid.FEProp.setProperty("New Content Language", "[en-kn]");
+					}
+				}
 			}
-			}
-		}else if(userType.equals("NonSubscribedUser"))
-		{
+		} else if (userType.equals("NonSubscribedUser")) {
 			NonSubcribedDetails();
-		}else if(userType.equals("SubscribedUser")) {
+		} else if (userType.equals("SubscribedUser")) {
 			SubcribedDetails();
 		}
 	}
 
-	
 	public static void NonSubcribedDetails() {
 		Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
 		MixpanelAndroid.FEProp.setProperty("Free Trial Expiry Date", Prop.getproperty("NonSub_Free_Trial_Expiry_Date"));
 		MixpanelAndroid.FEProp.setProperty("Free Trial Package", Prop.getproperty("NonSub_Free_Trial_Package"));
-		MixpanelAndroid.FEProp.setProperty("Latest Subscription Pack", Prop.getproperty("NonSub_Latest_Subscription_Pack"));
-		MixpanelAndroid.FEProp.setProperty("Latest Subscription Pack Expiry", Prop.getproperty("NonSub_Latest_Subscription_Pack_Expiry"));
+		MixpanelAndroid.FEProp.setProperty("Latest Subscription Pack",
+				Prop.getproperty("NonSub_Latest_Subscription_Pack"));
+		MixpanelAndroid.FEProp.setProperty("Latest Subscription Pack Expiry",
+				Prop.getproperty("NonSub_Latest_Subscription_Pack_Expiry"));
 		MixpanelAndroid.FEProp.setProperty("Next Expiring Pack", Prop.getproperty("NonSub_Next_Expiring_Pack"));
 		MixpanelAndroid.FEProp.setProperty("Next Pack Expiry Date", Prop.getproperty("NonSub_Next_Pack_Expiry_Date"));
 		MixpanelAndroid.FEProp.setProperty("Pack Duration", Prop.getproperty("NonSub_Pack_Duration"));
@@ -476,13 +480,753 @@ public class MixpanelAndroid extends ExtentReporter {
 		MixpanelAndroid.FEProp.setProperty("hasEduauraa", "false");
 		SubcribedDetails = true;
 	}
-	
-	public static void SubcribedDetails() throws ParseException {	
+
+	public static void SubcribedDetails() throws ParseException {
 
 		String username = getParameterFromXML("SubscribedUserName");
 		String password = getParameterFromXML("SubscribedPassword");
 //	String	username = "clubRK@g.com";
 //	String	password = "123456";
+
+		Response subscriptionResp = ResponseInstance.getSubscriptionDetails(username, password);
+		subscriptionResp.print();
+
+		int subscriptionItems = subscriptionResp.jsonPath().get("subscription_plan.size()");
+		int index = subscriptionItems - 1;
+
+		String SubscriptionStatus = subscriptionResp.jsonPath().get("[" + index + "].state");
+		String id = subscriptionResp.jsonPath().get("subscription_plan[" + index + "].id").toString();
+		String subscription_plan_type = subscriptionResp.jsonPath()
+				.get("subscription_plan[" + index + "].subscription_plan_type").toString();
+		String title = subscriptionResp.jsonPath().get("subscription_plan[" + index + "].title").toString();
+		String Latest_Subscription_Pack = id + "_" + title + "_" + subscription_plan_type;
+
+		String packExpiry = subscriptionResp.jsonPath().get("[" + index + "].subscription_end").toString().replace("Z",
+				"");
+
+		SimpleDateFormat requiredFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		java.text.DateFormat actualFormat = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		actualFormat.setTimeZone(java.util.TimeZone.getTimeZone("GMT"));
+		java.util.Date packExpiryDate = actualFormat.parse(packExpiry);
+		String Latest_Subscription_Pack_Expiry = requiredFormat.format(packExpiryDate).toString();
+
+		String Next_Expiring_Pack = Latest_Subscription_Pack;
+		String Next_Pack_Expiry_Date = Latest_Subscription_Pack_Expiry;
+
+		String billing_frequency = subscriptionResp.jsonPath().get("subscription_plan[" + index + "].billing_frequency")
+				.toString();
+		Response tvodResp = ResponseInstance.getTVODDetails(username, password);
+		int tvodItems = tvodResp.jsonPath().get("playback_state.size()");
+		String HasRental = "";
+		try {
+			if (tvodResp.jsonPath().get("playback_state[" + (tvodItems - 1) + "]").toString()
+					.equalsIgnoreCase("purchased"))
+				HasRental = "true";
+			else
+				HasRental = "false";
+		} catch (Exception e) {
+			HasRental = "false";
+		}
+
+		Response settingsResp = ResponseInstance.getSettingsDetails(username, password);
+		String hasEduauraa = "false", key = "";
+		int pairs = settingsResp.jsonPath().get("key.size()");
+		for (int i = 0; i < pairs; i++) {
+			key = settingsResp.jsonPath().get("key[" + i + "]").toString();
+			if (key.equals("eduauraaClaimed")) {
+				hasEduauraa = settingsResp.jsonPath().get("value[" + i + "]").toString();
+				if (hasEduauraa.equals(""))
+					hasEduauraa = "false";
+				break;
+			}
+		}
+		MixpanelAndroid.FEProp.setProperty("Free Trial Expiry Date", "N/A");
+		MixpanelAndroid.FEProp.setProperty("Free Trial Package", "N/A");
+		MixpanelAndroid.FEProp.setProperty("Latest Subscription Pack", Latest_Subscription_Pack);
+		MixpanelAndroid.FEProp.setProperty("Latest Subscription Pack Expiry", Latest_Subscription_Pack_Expiry);
+		MixpanelAndroid.FEProp.setProperty("Next Expiring Pack", Next_Expiring_Pack);
+		MixpanelAndroid.FEProp.setProperty("Next Pack Expiry Date", Next_Pack_Expiry_Date);
+		MixpanelAndroid.FEProp.setProperty("Pack Duration", billing_frequency);
+		MixpanelAndroid.FEProp.setProperty("hasRental", HasRental);
+		MixpanelAndroid.FEProp.setProperty("hasEduauraa", hasEduauraa);
+	}
+
+	@SuppressWarnings("static-access")
+	public static void extentReportFail(String info, String details) {
+		extent.childTest.get().log(Status.FAIL, details);
+	}
+
+	@SuppressWarnings("static-access")
+	public static void extentReportInfo(String info, String details) {
+		extent.childTest.get().log(Status.INFO, details);
+	}
+
+	public static void extentInfo() {
+		try {
+			if (propValue.equals("Empty")) {
+				extentReportInfo("Empty parameter", "Parameter :- <b>Key : " + key + " <br/> value : " + value);
+			} else {
+				extentReportInfo("Empty parameter", "Parameter :- <b>Key : " + key + " <br/> value : " + value
+						+ "<br/> Expected value : " + propValue + "</b>");
+			}
+		} catch (Exception e) {
+			extentReportInfo("Empty parameter", "Parameter :- <b>Key : " + key + " <br/> value : " + value);
+		}
+	}
+
+	public static String modelName() {
+		try {
+			String cmd3 = "adb shell getprop ro.product.model";
+			Process process = Runtime.getRuntime().exec(cmd3);
+			BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			Modelname = br.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return Modelname;
+	}
+
+	public static void getParameterValue() {
+		UserType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		String pUsername = null;
+		String pPassword = null;
+		if (!UserType.equals("Guest")) {
+			if (!fetchUserdata) {
+				if (UserType.equals("NonSubscribedUser")) {
+					pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+							.getParameter("NonsubscribedUserName");
+					pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+							.getParameter("NonsubscribedPassword");
+				} else if (UserType.equals("SubscribedUser")) {
+					pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+							.getParameter("SubscribedUserName");
+					pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+							.getParameter("SubscribedUserPassword");
+				}
+				ResponseInstance.getUserData(pUsername, pPassword);
+				ResponseInstance.getUserSettingsValues(pUsername, pPassword);
+			}
+		}
+		fetchUserdata = false;
+	}
+
+	public static void getAdID() {
+		try {
+			String cmd3 = "adb shell \"grep adid_key /data/data/com.google.android.gms/shared_prefs/adid_settings.xml\"";
+			Process process = Runtime.getRuntime().exec(cmd3);
+			BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			Modelname = br.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println(Modelname);
+	}
+
+	public static String getLatestEvent(Response responseEvent) {
+		try {
+			String response = responseEvent.asString();
+			String s[] = response.split("\n");
+			List<Integer> list = new ArrayList<Integer>();
+			for (int i = 0; i < s.length; i++) {
+				String commaSplit[] = s[i].replace("\"properties\":{", "").replace("}", "")
+						.replaceAll("[.,](?=[^\\[]*\\])", "-").split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+				String com[] = commaSplit[1].split(":(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+				list.add(Integer.valueOf(com[1].replace("\"", "").replace("$", "")));
+				System.out.println(Integer.valueOf(com[1].replace("\"", "").replace("$", "")));
+			}
+			System.out.println(String.valueOf(Collections.max(list)));
+			for (int i = 0; i < s.length; i++) {
+				if (s[i].contains(String.valueOf(Collections.max(list)))) {
+//				System.out.println(s[i]);
+					return s[i];
+				}
+			}
+		} catch (Exception e) {
+
+		}
+		return "";
+	}
+
+	// added by Kushal
+
+	public static String fetchContentId(String distinct_id, String eventName)
+			throws JsonParseException, JsonMappingException, IOException {
+		try {
+			Thread.sleep(180000);
+		} catch (InterruptedException e) {
+		}
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDateTime now = LocalDateTime.now();
+		String currentDate = dtf.format(now); // Get current date in formate yyyy-MM-dd
+		System.out.println("Current Date : " + currentDate);
+		if (platform.equals("Android")) {
+			APIKey = "b2514b42878a7e7769945befa7857ef1";
+			UserID = "$model";
+			distinct_id = modelName();
+		} else {
+			APIKey = "58baafb02e6e8ce03d9e8adb9d3534a6";
+			if (distinct_id.contains("-")) {
+				UserID = "Unique ID";
+				UserType = "Login";
+			}
+		}
+		Response request = RestAssured.given().auth().preemptive().basic(APIKey, "")
+				.config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig()))
+				.contentType("application/x-www-form-urlencoded; charset=UTF-8").formParam("from_date", currentDate)
+				.formParam("to_date", currentDate).formParam("event", "[\"" + eventName + "\"]")
+				.formParam("where", "properties[\"" + UserID + "\"]==\"" + distinct_id + "\"")
+				.post("https://data.mixpanel.com/api/2.0/export/");
+		request.print();
+		String getContentId = null, getDistinctId = null;
+		sheet = eventName.trim().replace(" ", "");
+		if (request.toString() != null) {
+			if (platform.equals("Web") || platform.equals("MPWA")) {
+				parseResponse(getLatestEvent(request));
+			} else {
+				String response = request.asString();
+				String s[] = response.split("\n");
+				parseResponse(s[s.length - 1]);
+				System.out.println("LATEST RESPONSE: \n" + s[s.length - 1]);
+				getContentId = parseContentId(s[s.length - 1]);
+				getDistinctId = parseDistinctId(s[s.length - 1]);
+				DistinctId = getDistinctId;
+			}
+		} else {
+			System.out.println("Event not triggered");
+			extentReportFail("Event not triggered", "Event not triggered");
+		}
+		return getContentId;
+	}
+
+	public static String parseContentId(String response) {
+		String strContentID = response.split("Content ID")[1].split(",")[0].replace("\":\"", "").replace("\"", "");
+		System.out.println("CONTENT ID : " + strContentID);
+		return strContentID;
+	}
+
+	public static String parseDistinctId(String response) {
+		String strDistinctID = response.split("distinct_id")[1].split(",")[0].replace("\":\"", "").replace("\"", "");
+		System.out.println("Distinct ID : " + strDistinctID);
+		return strDistinctID;
+	}
+
+	public static void parentalValidateParameter(String distinctID, String eventName)
+			throws JsonParseException, JsonMappingException, IOException, InterruptedException, ParseException {
+		System.out.println("Parameter Validation " + distinctID);
+		PropertyFileReader Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
+		booleanParameters = Prop.getproperty("Boolean");
+		integerParameters = Prop.getproperty("Integer");
+		fileName = ReportName;
+		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
+		StaticValues(distinctID);
+		getParentalParameterValue();
+		fetchEvent(distinctID, eventName);
+	}
+
+	public static void getParentalParameterValue() {
+		UserType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		if (!UserType.equals("Guest")) {
+			if (!fetchUserdata) {
+				String pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("SettingsNonsubscribedUserName");
+				String pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("SettingsNonSubscribedPassword");
+				ResponseInstance.getUserData(pUsername, pPassword);
+			}
+		}
+	}
+
+	public String languageShortform(String lang) {
+		PropertyFileReader handler = new PropertyFileReader("properties/MixpanelKeys.properties");
+		String lng = handler.getproperty(lang.toLowerCase());
+		return lng;
+	}
+
+	public static void ValidateParameterForCarouselClick(String distinctID, String eventName, String contentLang)
+			throws JsonParseException, JsonMappingException, IOException, InterruptedException, ParseException {
+		System.out.println("Parameter Validation " + distinctID);
+		Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
+		booleanParameters = Prop.getproperty("Boolean");
+		integerParameters = Prop.getproperty("Integer");
+		fileName = ReportName;
+		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
+		StaticValues(distinctID);
+		userType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		if (userType.equals("Guest")) {
+			MixpanelAndroid.FEProp.setProperty("New App Language", "en");
+			MixpanelAndroid.FEProp.setProperty("New Content Language", "[" + contentLang.replace(",", "-") + "]");
+		}
+		getParameterValue();
+		fetchEvent(distinctID, eventName);
+		SubcribedDetails = false;
+	}
+
+//===============================================================================================
+	public static void ValidateParameterForPlayer(String distinctID, String eventName, String contentLang)
+			throws JsonParseException, JsonMappingException, IOException, InterruptedException, ParseException {
+		System.out.println("Parameter Validation " + distinctID);
+		Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
+		booleanParameters = Prop.getproperty("Boolean");
+		integerParameters = Prop.getproperty("Integer");
+		fileName = ReportName;
+		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
+		StaticValues(distinctID);
+		userType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		if (userType.equals("Guest")) {
+			MixpanelAndroid.FEProp.setProperty("New App Language", "en");
+			MixpanelAndroid.FEProp.setProperty("New Content Language", "[" + contentLang.replace(",", "-") + "]");
+		}
+		getParameterValue();
+		try {// Wait before fetching MP
+			Thread.sleep(18000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		fetchEventWithNoWait(distinctID, eventName);// Idea for calling multiple events with just 1 wait time
+		// SubcribedDetails = false;
+	}
+
+	public static void fetchEventWithNoWait(String distinct_id, String eventName)
+			throws JsonParseException, JsonMappingException, IOException {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDateTime now = LocalDateTime.now();
+		String currentDate = dtf.format(now); // Get current date in formate yyyy-MM-dd
+		System.out.println("Current Date : " + currentDate);
+		if (platform.equalsIgnoreCase("Web") || platform.equalsIgnoreCase("MPWA")) {
+			APIKey = "58baafb02e6e8ce03d9e8adb9d3534a6";
+			if (distinct_id.contains("-")) {
+				UserID = "Unique ID";
+				UserType = "Login";
+			}
+		}
+		Response mpresponse = null;
+		for (int trial = 0; trial < 5; trial++) {
+			mpresponse = RestAssured.given().auth().preemptive().basic(APIKey, "")
+					.config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig()))
+					.contentType("application/x-www-form-urlencoded; charset=UTF-8").formParam("from_date", currentDate)
+					.formParam("to_date", currentDate).formParam("event", "[\"" + eventName + "\"]")
+					.formParam("where", "properties[\"" + UserID + "\"]==\"" + distinct_id + "\"")
+					.post("https://data.mixpanel.com/api/2.0/export/");
+			if (mpresponse.equals(null) || mpresponse.equals(""))
+				extent.extentLogger("", "Failed to fetch MP Response");
+			else
+				break;
+		}
+		mpresponse.prettyPrint();
+		sheet = eventName.trim().replace(" ", "").replace("/", "");
+		if (mpresponse.toString() != null) {
+			String response = mpresponse.asString();
+			String s[] = response.split("\n");
+			String str = s[s.length - 1];
+			JsonObject obj = new JsonParser().parse(str).getAsJsonObject();
+			String properties = obj.get("properties").toString();
+			JsonObject objprop = new JsonParser().parse(properties).getAsJsonObject();
+			ArrayList<String> mpparameters = new ArrayList<String>();
+			objprop.keySet().forEach(keyStr -> {
+				Object keyvalue = objprop.get(keyStr);
+				System.out.println("key: " + keyStr + " value: " + keyvalue);
+				mpparameters.add(keyStr.replace("\"", "").replace("$", "") + "keyvalue"
+						+ keyvalue.toString().replace("\"", "").replace("$", "").replace(",", "-"));
+			});
+			parseResponse(mpparameters);
+			validation(eventName);
+		} else {
+			System.out.println("Event not triggered");
+			extentReportFail("Event not triggered", "Event not triggered");
+		}
+	}
+
+	public static void parseResponse(ArrayList<String> response) {
+		creatExcel(); // Create an excel file
+		for (int i = 1; i < response.size(); i++) {
+			write(i, response.get(i).split("keyvalue")[0], response.get(i).split("keyvalue")[1]);
+		}
+	}
+
+	public static String getParameterFromXML(String param) {
+		return Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter(param);
+	}
+
+	public static void ValidateParameterInstantly(String distinctID, String eventName)
+			throws JsonParseException, JsonMappingException, IOException, InterruptedException, ParseException {
+		System.out.println("Parameter Validation - " + eventName);
+		Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
+		booleanParameters = Prop.getproperty("Boolean");
+		integerParameters = Prop.getproperty("Integer");
+		fileName = eventName;
+		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
+		StaticValues(distinctID);
+		getParameterValue();
+		fetchEventIstantly(distinctID, eventName);
+		SubcribedDetails = false;
+	}
+
+	public static void ValidateParameterInstantlyVersion2(String distinctID, String eventName)
+			throws JsonParseException, JsonMappingException, IOException, InterruptedException, ParseException {
+		System.out.println("Parameter Validation - " + eventName);
+		Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
+		booleanParameters = Prop.getproperty("Boolean");
+		integerParameters = Prop.getproperty("Integer");
+		fileName = eventName;
+		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
+		fetchEventIstantly(distinctID, eventName);
+		SubcribedDetails = false;
+	}
+
+	public static void fetchEventIstantly(String distinct_id, String eventName)
+			throws JsonParseException, JsonMappingException, IOException {
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDateTime now = LocalDateTime.now();
+		String currentDate = dtf.format(now); // Get current date in formate yyyy-MM-dd
+		System.out.println("Current Date : " + currentDate);
+
+		if (platform.equals("Android")) {
+			APIKey = "b2514b42878a7e7769945befa7857ef1";
+			UserID = "$model";
+			distinct_id = modelName();
+		} else if (platform.equalsIgnoreCase("Web") || platform.equalsIgnoreCase("MPWA")) {
+			APIKey = "58baafb02e6e8ce03d9e8adb9d3534a6";
+			if (distinct_id.contains("-")) {
+				UserID = "Unique ID";
+				UserType = "Login";
+			}
+		} else if (platform.equals("TV")) {
+			APIKey = "e45c2466330383c493ba355fd0819bf4";
+			UserID = "$model";
+			distinct_id = modelName();
+		}
+
+		Response request = null;
+		for (int trial = 0; trial < 5; trial++) {
+			request = RestAssured.given().auth().preemptive().basic(APIKey, "")
+					.config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig()))
+					.contentType("application/x-www-form-urlencoded; charset=UTF-8").formParam("from_date", currentDate)
+					.formParam("to_date", currentDate).formParam("event", "[\"" + eventName + "\"]")
+					.formParam("where", "properties[\"" + UserID + "\"]==\"" + distinct_id + "\"")
+					.post("https://data.mixpanel.com/api/2.0/export/");
+			if (request.equals(null) || request.equals(""))
+				extent.extentLogger("", "Failed to fetch MP Response");
+			else
+				break;
+		}
+
+		System.out.println("Response : " + request.asString());
+		sheet = eventName.trim().replace(" ", "").replace("/", "");
+		if (request.toString() != null) {
+			if (platform.equals("Android")) {
+				parseResponse(getLatestEvent(request));
+			} else {
+				String response = request.asString();
+				String s[] = response.split("\n");
+				parseResponse(s[s.length - 1]);
+			}
+			validation(eventName);
+		} else {
+			System.out.println("Event not triggered");
+			extentReportFail("Event not triggered", "Event not triggered");
+		}
+	}
+
+	public static void ValidateParameterAfterOneMinute(String distinctID, String eventName)
+			throws JsonParseException, JsonMappingException, IOException, InterruptedException, ParseException {
+		System.out.println("Parameter Validation - " + eventName);
+		Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
+		booleanParameters = Prop.getproperty("Boolean");
+		integerParameters = Prop.getproperty("Integer");
+		fileName = eventName;
+		xlpath = System.getProperty("user.dir") + "\\XLSX\\" + fileName + ".xlsx";
+		StaticValues(distinctID);
+		fetchEventAfterOneMinute(distinctID, eventName);
+		SubcribedDetails = false;
+	}
+
+	public static void fetchEventAfterOneMinute(String distinct_id, String eventName)
+			throws JsonParseException, JsonMappingException, IOException {
+		try {
+			Thread.sleep(45000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDateTime now = LocalDateTime.now();
+		String currentDate = dtf.format(now); // Get current date in formate yyyy-MM-dd
+		System.out.println("Current Date : " + currentDate);
+
+		if (platform.equals("Android")) {
+			APIKey = "b2514b42878a7e7769945befa7857ef1";
+			UserID = "$model";
+			distinct_id = modelName();
+		} else if (platform.equalsIgnoreCase("Web") || platform.equalsIgnoreCase("MPWA")) {
+			APIKey = "58baafb02e6e8ce03d9e8adb9d3534a6";
+			if (distinct_id.contains("-")) {
+				UserID = "Unique ID";
+				UserType = "Login";
+			}
+		} else if (platform.equals("TV")) {
+			APIKey = "e45c2466330383c493ba355fd0819bf4";
+			UserID = "$model";
+			distinct_id = modelName();
+		}
+
+		Response request = null;
+		for (int trial = 0; trial < 5; trial++) {
+			request = RestAssured.given().auth().preemptive().basic(APIKey, "")
+					.config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig()))
+					.contentType("application/x-www-form-urlencoded; charset=UTF-8").formParam("from_date", currentDate)
+					.formParam("to_date", currentDate).formParam("event", "[\"" + eventName + "\"]")
+					.formParam("where", "properties[\"" + UserID + "\"]==\"" + distinct_id + "\"")
+					.post("https://data.mixpanel.com/api/2.0/export/");
+			if (request.equals(null) || request.equals(""))
+				extent.extentLogger("", "Failed to fetch MP Response");
+			else
+				break;
+		}
+
+		System.out.println("Response : " + request.asString());
+		sheet = eventName.trim().replace(" ", "").replace("/", "");
+		if (request.toString() != null) {
+			if (platform.equals("Android")) {
+				parseResponse(getLatestEvent(request));
+			} else {
+				String response = request.asString();
+				String s[] = response.split("\n");
+				parseResponse(s[s.length - 1]);
+			}
+			validation(eventName);
+		} else {
+			System.out.println("Event not triggered");
+			extentReportFail("Event not triggered", "Event not triggered");
+		}
+	}
+
+	public static void parentalSettingsValidateParameter(String distinctID, String eventName)
+			throws JsonParseException, JsonMappingException, IOException, InterruptedException, ParseException {
+		System.out.println("Parameter Validation " + distinctID);
+		PropertyFileReader Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
+		booleanParameters = Prop.getproperty("Boolean");
+		integerParameters = Prop.getproperty("Integer");
+		fileName = ReportName;
+		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
+		parentalStaticValues(distinctID);
+		getParentalSettingsParameterValue();
+		fetchEvent(distinctID, eventName);
+	}
+
+	public static void getParentalSettingsParameterValue() {
+		UserType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+		if (!UserType.equals("Guest")) {
+			if (!fetchUserdata) {
+				String pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("ParentalNonsubscribedUserName");
+				String pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
+						.getParameter("ParentalNonsubscribedPassword");
+				ResponseInstance.getUserData(pUsername, pPassword);
+			}
+		}
+	}
+
+	public static void parentalSubcribedDetails() throws ParseException {
+
+		String username = getParameterFromXML("ParentalSubscribedUserName");
+		String password = getParameterFromXML("ParentalSubscribedPassword");
+
+		Response subscriptionResp = ResponseInstance.getSubscriptionDetails(username, password);
+		subscriptionResp.print();
+
+		int subscriptionItems = subscriptionResp.jsonPath().get("subscription_plan.size()");
+		System.out.println(subscriptionItems);
+		int index = subscriptionItems - 1;
+
+		// String
+		// SubscriptionStatus=subscriptionResp.jsonPath().get("["+index+"].state");
+		String id = subscriptionResp.jsonPath().get("subscription_plan[" + index + "].id").toString();
+		String subscription_plan_type = subscriptionResp.jsonPath()
+				.get("subscription_plan[" + index + "].subscription_plan_type").toString();
+		String title = subscriptionResp.jsonPath().get("subscription_plan[" + index + "].title").toString();
+		String Latest_Subscription_Pack = id + "_" + title + "_" + subscription_plan_type;
+
+		String packExpiry = subscriptionResp.jsonPath().get("[" + index + "].subscription_end").toString().replace("Z",
+				"");
+
+		SimpleDateFormat requiredFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		java.text.DateFormat actualFormat = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		actualFormat.setTimeZone(java.util.TimeZone.getTimeZone("GMT"));
+		java.util.Date packExpiryDate = actualFormat.parse(packExpiry);
+		String Latest_Subscription_Pack_Expiry = requiredFormat.format(packExpiryDate).toString();
+
+		String Next_Expiring_Pack = Latest_Subscription_Pack;
+		String Next_Pack_Expiry_Date = Latest_Subscription_Pack_Expiry;
+
+		String billing_frequency = subscriptionResp.jsonPath().get("subscription_plan[" + index + "].billing_frequency")
+				.toString();
+		Response tvodResp = ResponseInstance.getTVODDetails(username, password);
+		int tvodItems = tvodResp.jsonPath().get("playback_state.size()");
+		String HasRental = "";
+		try {
+			if (tvodResp.jsonPath().get("playback_state[" + (tvodItems - 1) + "]").toString()
+					.equalsIgnoreCase("purchased"))
+				HasRental = "true";
+			else
+				HasRental = "false";
+		} catch (Exception e) {
+			HasRental = "false";
+		}
+
+		Response settingsResp = ResponseInstance.getSettingsDetails(username, password);
+		String hasEduauraa = "false", key = "";
+		int pairs = settingsResp.jsonPath().get("key.size()");
+		for (int i = 0; i < pairs; i++) {
+			key = settingsResp.jsonPath().get("key[" + i + "]").toString();
+			if (key.equals("eduauraaClaimed")) {
+				hasEduauraa = settingsResp.jsonPath().get("value[" + i + "]").toString();
+				if (hasEduauraa.equals(""))
+					hasEduauraa = "false";
+				break;
+			}
+		}
+		MixpanelAndroid.FEProp.setProperty("Free Trial Expiry Date", "N/A");
+		MixpanelAndroid.FEProp.setProperty("Free Trial Package", "N/A");
+		MixpanelAndroid.FEProp.setProperty("Latest Subscription Pack", Latest_Subscription_Pack);
+		MixpanelAndroid.FEProp.setProperty("Latest Subscription Pack Expiry", Latest_Subscription_Pack_Expiry);
+		MixpanelAndroid.FEProp.setProperty("Next Expiring Pack", Next_Expiring_Pack);
+		MixpanelAndroid.FEProp.setProperty("Next Pack Expiry Date", Next_Pack_Expiry_Date);
+		MixpanelAndroid.FEProp.setProperty("Pack Duration", billing_frequency);
+		MixpanelAndroid.FEProp.setProperty("hasRental", HasRental);
+		MixpanelAndroid.FEProp.setProperty("hasEduauraa", hasEduauraa);
+	}
+
+	public static void parentalStaticValues(String UniqueID) throws ParseException {
+		platform = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getSuite().getName();
+		if (platform.equals("Mpwa")) {
+			FEProp.setProperty("Platform Name", "Web");
+			FEProp.setProperty("os", "Android");
+		} else if (platform.equals("Android")) {
+			FEProp.setProperty("Platform Name", platform);
+			FEProp.setProperty("os", "Android");
+			PropertyFileReader handler = new PropertyFileReader("properties/AppPackageActivity.properties");
+			String appVersion = DeviceDetails.getAppVersion(handler.getproperty("zeePackage")).trim()
+					.replace("versionName=", "");
+			FEProp.setProperty("App Version", appVersion);
+		} else if (platform.equals("Web")) {
+			FEProp.setProperty("Platform Name", platform);
+			FEProp.setProperty("os", System.getProperty("os.name").split(" ")[0]);
+		}
+		MixpanelAndroid.FEProp.setProperty("Landing Page Name", "home");
+		if (!platform.equals("Android")) {
+			MixpanelAndroid.FEProp.setProperty("Unique ID", UniqueID);
+		}
+
+		userType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+
+		if (userType.equals("Guest")) {
+			if (SubcribedDetails == false) {
+				MixpanelAndroid.FEProp.setProperty("Gender", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Age", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Free Trial Expiry Date", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Free Trial Package", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Latest Subscription Pack", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Latest Subscription Pack Expiry", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Next Expiring Pack", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Next Pack Expiry Date", "N/A");
+				// MixpanelAndroid.FEProp.setProperty("Pack Duration", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Parent Control Setting", "N/A");
+				// MixpanelAndroid.FEProp.setProperty("User Type", "Free");
+				MixpanelAndroid.FEProp.setProperty("Partner Name", "N/A");
+				MixpanelAndroid.FEProp.setProperty("HasRental", "false");
+				MixpanelAndroid.FEProp.setProperty("hasEduauraa", "false");
+				if (Language != false) {
+					// MixpanelAndroid.FEProp.setProperty("New App Language", "en");
+					if (platform.equals("Android")) {
+						// MixpanelAndroid.FEProp.setProperty("New Content Language", "en,kn");
+					} else {
+						MixpanelAndroid.FEProp.setProperty("New Content Language", "[en-kn]");
+					}
+				}
+			}
+		} else if (userType.equals("NonSubscribedUser")) {
+			NonSubcribedDetails();
+		} else if (userType.equals("SubscribedUser")) {
+			parentalSubcribedDetails();
+		}
+	}
+
+	public static void ValidateParameterForSpecificUser(String distinctID, String eventName, String emailID,
+			String password)
+			throws JsonParseException, JsonMappingException, IOException, InterruptedException, ParseException {
+		System.out.println("Parameter Validation - " + eventName);
+		Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
+		booleanParameters = Prop.getproperty("Boolean");
+		integerParameters = Prop.getproperty("Integer");
+		fileName = ReportName;
+		xlpath = System.getProperty("user.dir") + "\\XLSX\\" + fileName + ".xlsx";
+		StaticValuesForSpecificUser(distinctID, emailID, password);
+		getParameterValueForSpecificUser(emailID, password);
+		fetchEvent(distinctID, eventName);
+		SubcribedDetails = false;
+	}
+
+	public static void StaticValuesForSpecificUser(String UniqueID, String emailID, String password)
+			throws ParseException {
+		platform = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getSuite().getName();
+		if (platform.equals("Mpwa")) {
+			FEProp.setProperty("Platform Name", "Web");
+			FEProp.setProperty("os", "Android");
+		} else if (platform.equals("Android")) {
+			FEProp.setProperty("Platform Name", platform);
+			FEProp.setProperty("os", "Android");
+			PropertyFileReader handler = new PropertyFileReader("properties/AppPackageActivity.properties");
+			String appVersion = DeviceDetails.getAppVersion(handler.getproperty("zeePackage")).trim()
+					.replace("versionName=", "");
+			FEProp.setProperty("App Version", appVersion);
+		} else if (platform.equals("Web")) {
+			FEProp.setProperty("Platform Name", platform);
+			FEProp.setProperty("os", System.getProperty("os.name").split(" ")[0]);
+		}
+		MixpanelAndroid.FEProp.setProperty("Landing Page Name", "home");
+		if (!platform.equals("Android")) {
+			MixpanelAndroid.FEProp.setProperty("Unique ID", UniqueID);
+		}
+
+		userType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
+
+		if (userType.equals("Guest")) {
+			if (SubcribedDetails == false) {
+				MixpanelAndroid.FEProp.setProperty("Gender", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Age", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Free Trial Expiry Date", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Free Trial Package", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Latest Subscription Pack", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Latest Subscription Pack Expiry", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Next Expiring Pack", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Next Pack Expiry Date", "N/A");
+				// MixpanelAndroid.FEProp.setProperty("Pack Duration", "N/A");
+				MixpanelAndroid.FEProp.setProperty("Parent Control Setting", "N/A");
+				// MixpanelAndroid.FEProp.setProperty("User Type", "Free");
+				MixpanelAndroid.FEProp.setProperty("Partner Name", "N/A");
+				MixpanelAndroid.FEProp.setProperty("HasRental", "false");
+				MixpanelAndroid.FEProp.setProperty("hasEduauraa", "false");
+				if (Language != false) {
+					// MixpanelAndroid.FEProp.setProperty("New App Language", "en");
+					if (platform.equals("Android")) {
+						// MixpanelAndroid.FEProp.setProperty("New Content Language", "en,kn");
+					} else {
+						MixpanelAndroid.FEProp.setProperty("New Content Language", "[en-kn]");
+					}
+				}
+			}
+		} else if (userType.equals("NonSubscribedUser")) {
+			NonSubcribedDetails();
+		} else if (userType.equals("SubscribedUser")) {
+			SubcribedDetails(emailID, password);
+		}
+	}
+	
+public static void SubcribedDetails(String username, String password) throws ParseException {	
 		
 		Response subscriptionResp=ResponseInstance.getSubscriptionDetails(username, password);
 		subscriptionResp.print();
@@ -538,60 +1282,11 @@ public class MixpanelAndroid extends ExtentReporter {
 		MixpanelAndroid.FEProp.setProperty("hasEduauraa", hasEduauraa);
 	}
 
-	@SuppressWarnings("static-access")
-	public static void extentReportFail(String info, String details) {
-		extent.childTest.get().log(Status.FAIL, details);
-	}
-
-	@SuppressWarnings("static-access")
-	public static void extentReportInfo(String info, String details) {
-		extent.childTest.get().log(Status.INFO, details);
-	}
-
-	
-	
-	public static void extentInfo() {
-		try {
-			if (propValue.equals("Empty")) {
-				extentReportInfo("Empty parameter", "Parameter :- <b>Key : " + key + " <br/> value : " + value);
-			} else {
-				extentReportInfo("Empty parameter", "Parameter :- <b>Key : " + key + " <br/> value : " + value
-					+ "<br/> Expected value : " + propValue + "</b>");
-			}
-		}catch(Exception e) {
-			extentReportInfo("Empty parameter", "Parameter :- <b>Key : " + key + " <br/> value : " + value);
-		}
-	}
-
-	public static String modelName() {
-		try {
-			String cmd3 = "adb shell getprop ro.product.model";
-			Process process = Runtime.getRuntime().exec(cmd3);
-			BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
-			Modelname = br.readLine();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return Modelname;
-	}
-
-	public static void getParameterValue() {
+	public static void getParameterValueForSpecificUser(String pUsername, String pPassword) {
 		UserType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
-		String pUsername = null;
-		String pPassword = null;
+
 		if (!UserType.equals("Guest")) {
 			if (!fetchUserdata) {
-				if(UserType.equals("NonSubscribedUser")) {
-				 pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("NonsubscribedUserName");
-				pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("NonsubscribedPassword");
-				}else if(UserType.equals("SubscribedUser")) {
-					pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-							.getParameter("SubscribedUserName");
-					pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-							.getParameter("SubscribedUserPassword");
-				}
 				ResponseInstance.getUserData(pUsername, pPassword);
 				ResponseInstance.getUserSettingsValues(pUsername, pPassword);
 			}
@@ -599,533 +1294,87 @@ public class MixpanelAndroid extends ExtentReporter {
 		fetchUserdata = false;
 	}
 
-	public static void getAdID() {
-		try {
-			String cmd3 = "adb shell \"grep adid_key /data/data/com.google.android.gms/shared_prefs/adid_settings.xml\"";
-			Process process = Runtime.getRuntime().exec(cmd3);
-			BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
-			Modelname = br.readLine();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		System.out.println(Modelname);
-	}
-	
-	public static String getLatestEvent(Response responseEvent) {
-		try {
-		String response = responseEvent.asString();
-		String s[] = response.split("\n");
-		List<Integer> list = new ArrayList<Integer>();
-		for (int i = 0; i < s.length; i++) {
-			String commaSplit[] = s[i].replace("\"properties\":{", "").replace("}", "")
-					.replaceAll("[.,](?=[^\\[]*\\])", "-").split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-			String com[] = commaSplit[1].split(":(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-			list.add(Integer.valueOf(com[1].replace("\"", "").replace("$", "")));
-			System.out.println(Integer.valueOf(com[1].replace("\"", "").replace("$", "")));
-		}
-		System.out.println(String.valueOf(Collections.max(list)));
-		for(int i = 0; i < s.length; i++) {
-			if(s[i].contains(String.valueOf(Collections.max(list)))) {
-//				System.out.println(s[i]);
-				return s[i];
-			}
-		}
-		}catch(Exception e) {
-			
-		}
-		return "";
-	}
-	
-	// added by Kushal
-	
-	public static String fetchContentId(String distinct_id, String eventName)
+	public static void fetchEvent2(String distinct_id, String eventName, String contentTitle)
 			throws JsonParseException, JsonMappingException, IOException {
 		try {
 			Thread.sleep(180000);
 		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDateTime now = LocalDateTime.now();
 		String currentDate = dtf.format(now); // Get current date in formate yyyy-MM-dd
 		System.out.println("Current Date : " + currentDate);
+
 		if (platform.equals("Android")) {
 			APIKey = "b2514b42878a7e7769945befa7857ef1";
 			UserID = "$model";
 			distinct_id = modelName();
-		} else {
+		} else if (platform.equalsIgnoreCase("Web") || platform.equalsIgnoreCase("MPWA")) {
 			APIKey = "58baafb02e6e8ce03d9e8adb9d3534a6";
 			if (distinct_id.contains("-")) {
 				UserID = "Unique ID";
 				UserType = "Login";
 			}
+		} else if (platform.equals("TV")) {
+			APIKey = "e45c2466330383c493ba355fd0819bf4";
+			UserID = "$model";
+			distinct_id = modelName();
 		}
-		Response request = RestAssured.given().auth().preemptive().basic(APIKey, "")
-				.config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig()))
-				.contentType("application/x-www-form-urlencoded; charset=UTF-8").formParam("from_date", currentDate)
-				.formParam("to_date", currentDate).formParam("event", "[\"" + eventName + "\"]")
-				.formParam("where", "properties[\"" + UserID + "\"]==\"" + distinct_id + "\"")
-				.post("https://data.mixpanel.com/api/2.0/export/");
-		request.print();
-		String getContentId = null,getDistinctId=null;
-		sheet = eventName.trim().replace(" ", "");
+
+		Response request = null;
+		for (int trial = 0; trial < 5; trial++) {
+			request = RestAssured.given().auth().preemptive().basic(APIKey, "")
+					.config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig()))
+					.contentType("application/x-www-form-urlencoded; charset=UTF-8").formParam("from_date", currentDate)
+					.formParam("to_date", currentDate).formParam("event", "[\"" + eventName + "\"]")
+					.formParam("where", "properties[\"" + UserID + "\"]==\"" + distinct_id + "\"")
+					.post("https://data.mixpanel.com/api/2.0/export/");
+			if (request.equals(null) || request.equals(""))
+				extent.extentLogger("", "Failed to fetch MP Response");
+			else
+				break;
+		}
+
+		System.out.println("Response : " + request.asString());
+		sheet = eventName.trim().replace(" ", "").replace("/", "");
 		if (request.toString() != null) {
-			if (platform.equals("Web") || platform.equals("MPWA")) {
-				parseResponse(getLatestEvent(request));
+			if (platform.equals("Android")) {
+				parseResponse(getEvent(request, contentTitle));
 			} else {
 				String response = request.asString();
 				String s[] = response.split("\n");
+//			String time = checkLatestEvent(s[s.length - 1]);
+//			if(time == null) {
 				parseResponse(s[s.length - 1]);
-				System.out.println("LATEST RESPONSE: \n"+s[s.length - 1]);
-				getContentId = parseContentId(s[s.length-1]);
-				getDistinctId= parseDistinctId(s[s.length-1]);
-				DistinctId = getDistinctId;
+//			}else {
+//				System.out.println("Event not triggered");
+//				extentReportFail("Event not triggered", "Event not triggered");
+//				return;
+//			}
 			}
-		}else {
-			System.out.println("Event not triggered");
-			extentReportFail("Event not triggered", "Event not triggered");
-		}
-		return getContentId;
-	}
-	
-	public static String parseContentId(String response) {
-		String strContentID = response.split("Content ID")[1].split(",")[0].replace("\":\"", "").replace("\"", "");
-		System.out.println("CONTENT ID : "+strContentID);
-		return strContentID;
-	}
-
-
-	public static String parseDistinctId(String response) {
-		String strDistinctID = response.split("distinct_id")[1].split(",")[0].replace("\":\"", "").replace("\"", "");
-		System.out.println("Distinct ID : " + strDistinctID);
-		return strDistinctID;
-	}
-
-	public static void parentalValidateParameter(String distinctID, String eventName)
-			throws JsonParseException, JsonMappingException, IOException, InterruptedException, ParseException {
-		System.out.println("Parameter Validation " + distinctID);
-		PropertyFileReader Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
-		booleanParameters = Prop.getproperty("Boolean");
-		integerParameters = Prop.getproperty("Integer");
-		fileName = ReportName;
-		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
-		StaticValues(distinctID);
-		getParentalParameterValue();
-		fetchEvent(distinctID, eventName);
-	}
-
-	public static void getParentalParameterValue() {
-		UserType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
-		if (!UserType.equals("Guest")) {
-			if (!fetchUserdata) {
-				String pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("SettingsNonsubscribedUserName");
-				String pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("SettingsNonSubscribedPassword");
-				ResponseInstance.getUserData(pUsername, pPassword);
-			}
-		}
-	}
-	
-	public String languageShortform(String lang) {
-		PropertyFileReader handler = new PropertyFileReader("properties/MixpanelKeys.properties");
-		String lng = handler.getproperty(lang.toLowerCase());
-		return lng;
-	}
-
-	
-	public static void ValidateParameterForCarouselClick(String distinctID, String eventName, String contentLang) throws JsonParseException, JsonMappingException, IOException, InterruptedException, ParseException {
-		System.out.println("Parameter Validation " + distinctID);
-		Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
-		booleanParameters = Prop.getproperty("Boolean");
-		integerParameters = Prop.getproperty("Integer");
-		fileName = ReportName;
-		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
-		StaticValues(distinctID);
-		userType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");		
-		if(userType.equals("Guest")) {
-			MixpanelAndroid.FEProp.setProperty("New App Language", "en");
-			MixpanelAndroid.FEProp.setProperty("New Content Language", "["+contentLang.replace(",", "-")+"]");
-		}
-		getParameterValue();
-		fetchEvent(distinctID, eventName);
-		SubcribedDetails = false;
-	}
-	
-	
-//===============================================================================================
-	public static void ValidateParameterForPlayer(String distinctID, String eventName, String contentLang) throws JsonParseException, JsonMappingException, IOException, InterruptedException, ParseException {
-		System.out.println("Parameter Validation " + distinctID);
-		Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
-		booleanParameters = Prop.getproperty("Boolean");
-		integerParameters = Prop.getproperty("Integer");
-		fileName = ReportName;
-		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
-		StaticValues(distinctID);
-		userType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");		
-		if(userType.equals("Guest")) {
-			MixpanelAndroid.FEProp.setProperty("New App Language", "en");
-			MixpanelAndroid.FEProp.setProperty("New Content Language", "["+contentLang.replace(",", "-")+"]");
-		}
-		getParameterValue();
-		try {//Wait before fetching MP
-			Thread.sleep(18000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		fetchEventWithNoWait(distinctID, eventName);//Idea for calling multiple events with just 1 wait time
-		//SubcribedDetails = false;
-	}
-
-
-	public static void fetchEventWithNoWait(String distinct_id, String eventName) throws JsonParseException, JsonMappingException, IOException {
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDateTime now = LocalDateTime.now();
-		String currentDate = dtf.format(now); // Get current date in formate yyyy-MM-dd
-		System.out.println("Current Date : " + currentDate);		
-		if (platform.equalsIgnoreCase("Web") || platform.equalsIgnoreCase("MPWA")){
-			APIKey = "58baafb02e6e8ce03d9e8adb9d3534a6";
-			if (distinct_id.contains("-")) {
-				UserID = "Unique ID";
-				UserType = "Login";
-			}
-		}	
-		Response mpresponse=null;
-		for(int trial=0;trial<5;trial++) {
-			mpresponse = RestAssured.given().auth().preemptive().basic(APIKey, "")
-					.config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig()))
-					.contentType("application/x-www-form-urlencoded; charset=UTF-8").formParam("from_date", currentDate)
-					.formParam("to_date", currentDate).formParam("event", "[\"" + eventName + "\"]")
-					.formParam("where", "properties[\"" + UserID + "\"]==\"" + distinct_id + "\"")
-					.post("https://data.mixpanel.com/api/2.0/export/");
-			if(mpresponse.equals(null) || mpresponse.equals("")) extent.extentLogger("", "Failed to fetch MP Response");
-			else break;
-		}		
-		mpresponse.prettyPrint();
-		sheet = eventName.trim().replace(" ", "").replace("/", "");
-		if (mpresponse.toString() != null) {
-				String response = mpresponse.asString();
-				String s[] = response.split("\n");
-				String str =s[s.length-1];
-				JsonObject obj = new JsonParser().parse(str).getAsJsonObject();
-				String properties=obj.get("properties").toString();
-				JsonObject objprop = new JsonParser().parse(properties).getAsJsonObject();			
-				ArrayList<String> mpparameters=new ArrayList<String>();
-				objprop.keySet().forEach(keyStr ->{
-			        Object keyvalue = objprop.get(keyStr);
-			        System.out.println("key: "+ keyStr + " value: " + keyvalue);
-			        mpparameters.add(keyStr.replace("\"", "").replace("$", "")+"keyvalue"+keyvalue.toString().replace("\"", "").replace("$", "").replace(",", "-"));	        
-			    });
-				parseResponse(mpparameters);
-				validation(eventName);
-		}else {
+			// validation(eventName);
+		} else {
 			System.out.println("Event not triggered");
 			extentReportFail("Event not triggered", "Event not triggered");
 		}
 	}
-	
-	public static void parseResponse(ArrayList<String> response) {
-		creatExcel(); // Create an excel file
-		for (int i = 1; i < response.size(); i++) {
-			write(i, response.get(i).split("keyvalue")[0], response.get(i).split("keyvalue")[1]);
-		}
-	}
-	
-	public static String getParameterFromXML(String param) {
-		return Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter(param);
-	}
-	
-	public static void ValidateParameterInstantly(String distinctID, String eventName)
-			throws JsonParseException, JsonMappingException, IOException, InterruptedException, ParseException {
-		System.out.println("Parameter Validation - " + eventName);
-		Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
-		booleanParameters = Prop.getproperty("Boolean");
-		integerParameters = Prop.getproperty("Integer");
-		fileName = eventName;
-		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
-		StaticValues(distinctID);
-		getParameterValue();
-		fetchEventIstantly(distinctID, eventName);
-		SubcribedDetails = false;
-	}
-	
-	public static void ValidateParameterInstantlyVersion2(String distinctID, String eventName)
-			throws JsonParseException, JsonMappingException, IOException, InterruptedException, ParseException {
-		System.out.println("Parameter Validation - " + eventName);
-		Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
-		booleanParameters = Prop.getproperty("Boolean");
-		integerParameters = Prop.getproperty("Integer");
-		fileName = eventName;
-		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
-		fetchEventIstantly(distinctID, eventName);
-		SubcribedDetails = false;
-	}
-	
-	public static void fetchEventIstantly(String distinct_id, String eventName)
-			throws JsonParseException, JsonMappingException, IOException {
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDateTime now = LocalDateTime.now();
-		String currentDate = dtf.format(now); // Get current date in formate yyyy-MM-dd
-		System.out.println("Current Date : " + currentDate);
-		
-		if (platform.equals("Android")) {
-			APIKey = "b2514b42878a7e7769945befa7857ef1";
-			UserID = "$model";
-			distinct_id = modelName();
-		} else if (platform.equalsIgnoreCase("Web") || platform.equalsIgnoreCase("MPWA")){
-			APIKey = "58baafb02e6e8ce03d9e8adb9d3534a6";
-			if (distinct_id.contains("-")) {
-				UserID = "Unique ID";
-				UserType = "Login";
-			}
-		}else if(platform.equals("TV")) {
-			APIKey = "e45c2466330383c493ba355fd0819bf4";
-			UserID = "$model";
-			distinct_id = modelName();
-		}
-	
-		Response request=null;
-		for(int trial=0;trial<5;trial++) {
-			request = RestAssured.given().auth().preemptive().basic(APIKey, "")
-					.config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig()))
-					.contentType("application/x-www-form-urlencoded; charset=UTF-8").formParam("from_date", currentDate)
-					.formParam("to_date", currentDate).formParam("event", "[\"" + eventName + "\"]")
-					.formParam("where", "properties[\"" + UserID + "\"]==\"" + distinct_id + "\"")
-					.post("https://data.mixpanel.com/api/2.0/export/");
-			if(request.equals(null) || request.equals("")) extent.extentLogger("", "Failed to fetch MP Response");
-			else break;
-		}
-		
-		System.out.println("Response : "+request.asString());
-		sheet = eventName.trim().replace(" ", "").replace("/", "");
-		if (request.toString() != null) {
-			if (platform.equals("Android")) {
-				parseResponse(getLatestEvent(request));
-			} else {
-				String response = request.asString();
-				String s[] = response.split("\n");
-					parseResponse(s[s.length - 1]);
-			}
-			validation(eventName);
-		}else {
-			System.out.println("Event not triggered");
-			extentReportFail("Event not triggered", "Event not triggered");
-		}
-	}
-	
-	public static void ValidateParameterAfterOneMinute(String distinctID, String eventName)
-			throws JsonParseException, JsonMappingException, IOException, InterruptedException, ParseException {
-		System.out.println("Parameter Validation - " + eventName);
-		Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
-		booleanParameters = Prop.getproperty("Boolean");
-		integerParameters = Prop.getproperty("Integer");
-		fileName = eventName;
-		xlpath = System.getProperty("user.dir") + "\\XLSX\\" + fileName + ".xlsx";
-		StaticValues(distinctID);
-		fetchEventAfterOneMinute(distinctID, eventName);
-		SubcribedDetails = false;
-	}
-	
-	public static void fetchEventAfterOneMinute(String distinct_id, String eventName)
-			throws JsonParseException, JsonMappingException, IOException {
-		try {
-			Thread.sleep(45000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDateTime now = LocalDateTime.now();
-		String currentDate = dtf.format(now); // Get current date in formate yyyy-MM-dd
-		System.out.println("Current Date : " + currentDate);
-		
-		if (platform.equals("Android")) {
-			APIKey = "b2514b42878a7e7769945befa7857ef1";
-			UserID = "$model";
-			distinct_id = modelName();
-		} else if (platform.equalsIgnoreCase("Web") || platform.equalsIgnoreCase("MPWA")){
-			APIKey = "58baafb02e6e8ce03d9e8adb9d3534a6";
-			if (distinct_id.contains("-")) {
-				UserID = "Unique ID";
-				UserType = "Login";
-			}
-		}else if(platform.equals("TV")) {
-			APIKey = "e45c2466330383c493ba355fd0819bf4";
-			UserID = "$model";
-			distinct_id = modelName();
-		}
-	
-		Response request=null;
-		for(int trial=0;trial<5;trial++) {
-			request = RestAssured.given().auth().preemptive().basic(APIKey, "")
-					.config(RestAssured.config().encoderConfig(EncoderConfig.encoderConfig()))
-					.contentType("application/x-www-form-urlencoded; charset=UTF-8").formParam("from_date", currentDate)
-					.formParam("to_date", currentDate).formParam("event", "[\"" + eventName + "\"]")
-					.formParam("where", "properties[\"" + UserID + "\"]==\"" + distinct_id + "\"")
-					.post("https://data.mixpanel.com/api/2.0/export/");
-			if(request.equals(null) || request.equals("")) extent.extentLogger("", "Failed to fetch MP Response");
-			else break;
-		}
-		
-		System.out.println("Response : "+request.asString());
-		sheet = eventName.trim().replace(" ", "").replace("/", "");
-		if (request.toString() != null) {
-			if (platform.equals("Android")) {
-				parseResponse(getLatestEvent(request));
-			} else {
-				String response = request.asString();
-				String s[] = response.split("\n");
-					parseResponse(s[s.length - 1]);
-			}
-			validation(eventName);
-		}else {
-			System.out.println("Event not triggered");
-			extentReportFail("Event not triggered", "Event not triggered");
-		}
-	}
-	
-	public static void parentalSettingsValidateParameter(String distinctID, String eventName)
-			throws JsonParseException, JsonMappingException, IOException, InterruptedException, ParseException {
-		System.out.println("Parameter Validation " + distinctID);
-		PropertyFileReader Prop = new PropertyFileReader("properties/MixpanelKeys.properties");
-		booleanParameters = Prop.getproperty("Boolean");
-		integerParameters = Prop.getproperty("Integer");
-		fileName = ReportName;
-		xlpath = System.getProperty("user.dir") + "\\" + fileName + ".xlsx";
-		parentalStaticValues(distinctID);
-		getParentalSettingsParameterValue();
-		fetchEvent(distinctID, eventName);
-	}
 
-	public static void getParentalSettingsParameterValue() {
-		UserType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
-		if (!UserType.equals("Guest")) {
-			if (!fetchUserdata) {
-				String pUsername = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("ParentalNonsubscribedUserName");
-				String pPassword = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-						.getParameter("ParentalNonsubscribedPassword");
-				ResponseInstance.getUserData(pUsername, pPassword);
-			}
-		}
-	}
-	
-	public static void parentalSubcribedDetails() throws ParseException {	
-
-		String username = getParameterFromXML("ParentalSubscribedUserName");
-		String password = getParameterFromXML("ParentalSubscribedPassword");
-
-		Response subscriptionResp=ResponseInstance.getSubscriptionDetails(username, password);
-		subscriptionResp.print();
-		
-		int subscriptionItems=subscriptionResp.jsonPath().get("subscription_plan.size()");
-		System.out.println(subscriptionItems);
-		int index = subscriptionItems-1;
-
-	//	String SubscriptionStatus=subscriptionResp.jsonPath().get("["+index+"].state");
-		String id=subscriptionResp.jsonPath().get("subscription_plan["+index+"].id").toString();
-		String subscription_plan_type=subscriptionResp.jsonPath().get("subscription_plan["+index+"].subscription_plan_type").toString();
-		String title=subscriptionResp.jsonPath().get("subscription_plan["+index+"].title").toString();
-		String Latest_Subscription_Pack=id+"_"+title+"_"+subscription_plan_type;
-
-		String packExpiry=subscriptionResp.jsonPath().get("["+index+"].subscription_end").toString().replace("Z", "");
-		
-		SimpleDateFormat requiredFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-		java.text.DateFormat actualFormat = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-		actualFormat.setTimeZone(java.util.TimeZone.getTimeZone("GMT"));
-		java.util.Date packExpiryDate = actualFormat.parse(packExpiry);
-		String Latest_Subscription_Pack_Expiry=requiredFormat.format(packExpiryDate).toString();
-	
-		String Next_Expiring_Pack = Latest_Subscription_Pack;
-		String Next_Pack_Expiry_Date = Latest_Subscription_Pack_Expiry;
-		
-		String billing_frequency=subscriptionResp.jsonPath().get("subscription_plan["+index+"].billing_frequency").toString();	
-		Response tvodResp=ResponseInstance.getTVODDetails(username, password);
-		int tvodItems=tvodResp.jsonPath().get("playback_state.size()");
-		String HasRental="";
-		try {			
-			if(tvodResp.jsonPath().get("playback_state["+(tvodItems-1)+"]").toString().equalsIgnoreCase("purchased")) HasRental="true";
-			else HasRental="false";
-		}catch(Exception e) {HasRental="false";}
-		
-		Response settingsResp=ResponseInstance.getSettingsDetails(username, password);
-		String hasEduauraa="false",key="";
-		int pairs=settingsResp.jsonPath().get("key.size()");
-		for (int i=0;i<pairs;i++) {
-			key=settingsResp.jsonPath().get("key["+i+"]").toString();
-			if(key.equals("eduauraaClaimed")) { 			
-				hasEduauraa=settingsResp.jsonPath().get("value["+i+"]").toString();
-				if(hasEduauraa.equals("")) hasEduauraa="false";
+	public static String getEvent(Response responseEvent, String contentTitle) {
+		String response = responseEvent.asString();
+		String s[] = response.split("\n");
+		List<Integer> list = new ArrayList<Integer>();
+		boolean var = false;
+		System.out.println("Length of s: " + s.length);
+		for (int i = 0; i < s.length; i++) {
+			var = s[i].contains(contentTitle);
+			if (var == true) {
+				System.out.println("i :" + i);
+				System.out.println(contentTitle);
 				break;
 			}
 		}
-		MixpanelAndroid.FEProp.setProperty("Free Trial Expiry Date", "N/A");
-		MixpanelAndroid.FEProp.setProperty("Free Trial Package", "N/A");		
-		MixpanelAndroid.FEProp.setProperty("Latest Subscription Pack", Latest_Subscription_Pack);
-		MixpanelAndroid.FEProp.setProperty("Latest Subscription Pack Expiry", Latest_Subscription_Pack_Expiry);
-		MixpanelAndroid.FEProp.setProperty("Next Expiring Pack", Next_Expiring_Pack);
-		MixpanelAndroid.FEProp.setProperty("Next Pack Expiry Date", Next_Pack_Expiry_Date);
-		MixpanelAndroid.FEProp.setProperty("Pack Duration", billing_frequency);
-		MixpanelAndroid.FEProp.setProperty("hasRental", HasRental);
-		MixpanelAndroid.FEProp.setProperty("hasEduauraa", hasEduauraa);
+		return "";
 	}
 
-	public static void parentalStaticValues(String UniqueID) throws ParseException {
-		platform = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getSuite().getName();
-		if (platform.equals("Mpwa")) {
-			FEProp.setProperty("Platform Name", "Web");
-			FEProp.setProperty("os", "Android");
-		} else if (platform.equals("Android")) {
-			FEProp.setProperty("Platform Name", platform);
-			FEProp.setProperty("os", "Android");
-			PropertyFileReader handler = new PropertyFileReader("properties/AppPackageActivity.properties");
-			String appVersion = DeviceDetails.getAppVersion(handler.getproperty("zeePackage")).trim().replace("versionName=", "");
-			FEProp.setProperty("App Version", appVersion);
-		} else if (platform.equals("Web")) {
-			FEProp.setProperty("Platform Name", platform);
-			FEProp.setProperty("os", System.getProperty("os.name").split(" ")[0]);
-		}
-		MixpanelAndroid.FEProp.setProperty("Landing Page Name", "home");
-		if(!platform.equals("Android")) {
-		MixpanelAndroid.FEProp.setProperty("Unique ID", UniqueID);
-		}
-		
-		userType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
-		
-		if(userType.equals("Guest")) {
-			if(SubcribedDetails == false) {
-				MixpanelAndroid.FEProp.setProperty("Gender", "N/A");
-				MixpanelAndroid.FEProp.setProperty("Age", "N/A");
-				MixpanelAndroid.FEProp.setProperty("Free Trial Expiry Date", "N/A");
-				MixpanelAndroid.FEProp.setProperty("Free Trial Package", "N/A");
-				MixpanelAndroid.FEProp.setProperty("Latest Subscription Pack", "N/A");
-				MixpanelAndroid.FEProp.setProperty("Latest Subscription Pack Expiry", "N/A");
-				MixpanelAndroid.FEProp.setProperty("Next Expiring Pack", "N/A");
-				MixpanelAndroid.FEProp.setProperty("Next Pack Expiry Date", "N/A");
-			//	MixpanelAndroid.FEProp.setProperty("Pack Duration", "N/A");
-				MixpanelAndroid.FEProp.setProperty("Parent Control Setting", "N/A");
-		     // MixpanelAndroid.FEProp.setProperty("User Type", "Free");
-				MixpanelAndroid.FEProp.setProperty("Partner Name", "N/A");
-				MixpanelAndroid.FEProp.setProperty("HasRental", "false");
-				MixpanelAndroid.FEProp.setProperty("hasEduauraa", "false");
-			if(Language != false) {
-			//	MixpanelAndroid.FEProp.setProperty("New App Language", "en");
-			if(platform.equals("Android")) {
-				//MixpanelAndroid.FEProp.setProperty("New Content Language", "en,kn");
-			}else {
-				MixpanelAndroid.FEProp.setProperty("New Content Language", "[en-kn]");}
-			}
-			}
-		}else if(userType.equals("NonSubscribedUser"))
-		{
-			NonSubcribedDetails();
-		}else if(userType.equals("SubscribedUser")) {
-			parentalSubcribedDetails();
-		}
-	}
 }
-
-

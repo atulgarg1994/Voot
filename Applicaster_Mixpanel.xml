@@ -70,6 +70,9 @@
 	<parameter name="supermoonContentID" value="0-9-373" />
 	<parameter name="supermoonContentName" value="Demo Moon Live" />
 	
+	<parameter name="SuperMoonRentalUserName" value="juspayotp@mailnesia.com" />
+	<parameter name="SuperMoonRentalPassword" value="111222" />
+	
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />
 		<!--  <listener class-name="com.epam.reportportal.testng.ReportPortalTestNGListener"/> -->

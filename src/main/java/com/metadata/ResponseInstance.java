@@ -4181,6 +4181,7 @@ public class ResponseInstance {
 			pAudioLangguage = ContentResp.jsonPath().get("audio_languages[0]");
 		} else {
 			pAudioLangguage = "N/A";
+			pLanguages=pAudioLangguage;
 			System.out.println("Audio Language is Empty");
 		}
 
@@ -4256,7 +4257,6 @@ public class ResponseInstance {
 		MixpanelAndroid.FEProp.setProperty("Genre", pGenre);
 		MixpanelAndroid.FEProp.setProperty("Publishing Date", pPublishedDate);
 		MixpanelAndroid.FEProp.setProperty("Subtitle Language", pSubTitleLangguage);
-
 	}
 
 	public static Response updateWatchHistory(String contentID, int duration) {
@@ -7106,4 +7106,28 @@ public class ResponseInstance {
 		}
 		return pTrayName;
 	}
+	
+	public static void setSubscriptionDetails_NativeAndroid(String pUsername, String pPassword) {
+
+		String url = "https://subscriptionapi.zee5.com/v1/subscription?include_all=true";
+
+		String bearerToken = getBearerToken(pUsername, pPassword);
+		resp = RestAssured.given().headers("x-access-token", getXAccessTokenWithApiKey())
+				.header("authorization", bearerToken).when().get(url);
+		// resp.prettyPrint();
+		System.out.println("\nSubscrition related");
+		MixpanelAndroid.FEProp.setProperty("Pack Duration",
+				resp.jsonPath().getString("[0].subscription_plan.billing_frequency"));
+		String uri = "[0].subscription_plan.";
+		String id = resp.jsonPath().getString(uri + "id");
+		String original_title = resp.jsonPath().getString(uri + "original_title");
+		String subscription_plan_Type = resp.jsonPath().getString(uri + "subscription_plan_type");
+
+		MixpanelAndroid.FEProp.setProperty("Pack Selected", id + "_" + original_title + "_" + subscription_plan_Type);
+		MixpanelAndroid.FEProp.setProperty("Cost", resp.jsonPath().getString("[0].subscription_plan.price"));
+		MixpanelAndroid.FEProp.setProperty("Active Plan Name", resp.jsonPath().getString(uri + "original_title"));
+		MixpanelAndroid.FEProp.setProperty("Subscription Status", resp.jsonPath().getString("[0].state"));
+	}
+	
+	
 }

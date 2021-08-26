@@ -1013,37 +1013,37 @@ public class WebPWAInSprintScript {
 	@Test(priority=155, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void zeeplexLogoInVideoTVODConsumption(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.zeeplexLogoInVideoTVODConsumption(userType , "videoname");;
+		Zee5WEBPWASanityBusinessLogic.zeeplexLogoInVideoTVODConsumption(userType , "Binge Holidays!  - December Calendar Launch");;
 	}
 	
 	@Test(priority=156, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void metaInfoForVideoTVODConsumption(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.metaInfoForVideoTVODConsumption(userType , "videoname");;
+		Zee5WEBPWASanityBusinessLogic.metaInfoForVideoTVODConsumption(userType , "Binge Holidays!  - December Calendar Launch");;
 	}
 	
 	@Test(priority=157, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void clickOnWatchListForVideoTVODConsumption(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.clickOnWatchListForVideoTVODConsumption(userType, "videoname");
+		Zee5WEBPWASanityBusinessLogic.clickOnWatchListForVideoTVODConsumption(userType, "Sensational Dialogues | Sensational ZEE5");
 	}
 	
 	@Test(priority=158, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void VerifyInWatchListForVideoTVODConsumption(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.VerifyInWatchListForVideoTVODConsumption(userType ,"videoname");;
+		Zee5WEBPWASanityBusinessLogic.VerifyInWatchListForVideoTVODConsumption(userType ,"Binge Holidays!  - December Calendar Launch");;
 	}
 	
 	@Test(priority=159, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void VerifyPreRollAdForLiveTVODContent(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.VerifyPreRollAdForLiveTVODContent(userType, "LiveTvodcontent");;
+		Zee5WEBPWASanityBusinessLogic.VerifyPreRollAdForLiveTVODContent(userType, "Demo Moon Live");;
 	}
 	
 	@Test(priority=160, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void PreAndMidRollAdsForExclusiveVODContent(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.PreAndMidRollAdsForExclusiveVODContent(userType ,  "ExclusiveTvodcontent");
+		Zee5WEBPWASanityBusinessLogic.PreAndMidRollAdsForExclusiveVODContent(userType ,  "Binge Holidays!  - December Calendar Launch");
 	}
 	
 	@Test(priority=161, groups = {"sprint77"})

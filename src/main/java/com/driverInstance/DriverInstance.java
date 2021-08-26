@@ -109,6 +109,7 @@ public class DriverInstance extends Drivertools {
 		return capabilities;
 	}
 	
+	@SuppressWarnings("unused")
 	private void installAPK(String build) {
 		if(build.equals("Latest") || build.equals("BuildVersion")) {
 		DownloadApp(build);

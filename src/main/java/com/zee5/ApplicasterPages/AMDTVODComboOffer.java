@@ -125,4 +125,7 @@ public class AMDTVODComboOffer {
     public static By objyearlyplanbadge = By.xpath("//*[@id='yearlyPlanBenefitsBadge']");
     public static By objComboPlantext = By.xpath("//*[@id='comboPackAllSectionsLabel']");
     public static By objAvailabilityTextOnPlayer = By.xpath("//*[@id='tvod_content_availability_info']");
+    public static By objCTAInMyRentalsPage(String title) {
+    	return  By.xpath("//*[@text='"+title+"']/following-sibling::*/child::*[@id='button']");
+    }
 }

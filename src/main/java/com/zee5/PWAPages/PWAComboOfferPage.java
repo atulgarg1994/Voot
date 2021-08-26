@@ -218,20 +218,8 @@ public class PWAComboOfferPage {
 	public static By objBuySuperMoonComboBtn = By.xpath(".//*[@class='buttonContainer']//child::*[text()='Buy Supermoon Combo']");
 	
 	public static By objExpiredTxtInMyRental=By.xpath("");
-	
-	public static By objSharebelowPlayer=By.xpath("//div[@class=\"channelConsumptionMetaDiv\" ]/child::*/child::*//*[@title='Share']");
 	public static By objZeePlexLogo = By.xpath("(//img[@alt='plex_logo'])[1]");
-	//duration
-	public static By objcontentDuration=By.xpath("(//div[@class='consumptionMetaDiv']//span[@class='showMetaClass']//p[2])[1]");
-
-	//genre
-	public static By objcontentGenre=By.xpath("//div[@class='consumptionMetaDiv']//div[@class='metaInfo lineHeightClass']//span[@class='showMetaClass']//a");
-
 	public static By objDescBelowShareBtn=By.xpath("//p[@id='description']");
-
-	public static By objLiveTVTVODItem(String title) {
-		return By.xpath("//*[contains(@class,'cardTitle')]//*[text()=" + title + "]/parent::*/parent::*//a");
-	}
 	
 	public static By objLiveTVTvodAd=By.xpath("");
 	
@@ -281,4 +269,18 @@ public class PWAComboOfferPage {
 	public static By objZeerentalsResume =By.xpath("(//div[@class='plexDetails'])[3]//span");
 	
 	public static By objZeerentalsWatch =By.xpath("(//div[@class='plexDetails'])[3]//span");
+	
+	public static By objOnlyEventPass=By.xpath("//div[@class='bottomSection']//h3");
+	public static By objContentMetaDate = By.xpath("(//div[@class='consumptionMetaDiv']//div[@class='metaInfo ']//p[1])[1]");
+	public static By objSupermoonEventPass=By.xpath("//div[@class='packDescDetails']//h4");
+	public static By objpackprice199 = By.xpath("(//div[@class='priceAmout'])[1]");
+	public static By objContentMetaAgeRating = By.xpath("(//div[@class='consumptionMetaDiv']//div[@class='metaInfo ']//p[3])");
+	public static By objsharebtnForTvodContent=By.xpath("//div[@class='consumptionMetaDiv']//div[@title='Share']");
+	
+	public static By objcontentDuration=By.xpath("(//div[@class='consumptionMetaDiv']//span[@class='showMetaClass']//p[1])[1]");
+	public static By objcontentGenre=By.xpath("(//div[@class='consumptionMetaDiv']//span[@class='showMetaClass']//p[2])[1]");
+	public static By objSharebelowPlayer=By.xpath("//div[@class='channelConsumptionMetaDiv']/child::*/child::*//*[@title='Share']");
+	public static By objLiveTVTVODItem(String title) {
+			return By.xpath("//*[text()='" + title  + "']/parent::*/parent::*/following-sibling::*//button");
+		}
 }

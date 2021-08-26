@@ -307,7 +307,6 @@ public class Drivertools {
 			setPlatfrom("Web");
 		}
 		
-
 		try {
 			connectURL = new URL("https://www.google.com");
 			connection = connectURL.openConnection();

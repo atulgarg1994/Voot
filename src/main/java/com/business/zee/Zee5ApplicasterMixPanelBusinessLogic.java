@@ -2,6 +2,7 @@ package com.business.zee;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import org.openqa.selenium.By;
@@ -8952,7 +8953,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		SelectTopNavigationTab(tabName);
 		waitForElementDisplayed(AMDHomePage.objCarouselDots, 10);
 		waitTime(10000);
-		
+
 		String width = getAttributValue("width", AMDHomePage.objCarouselConetentCard);
 		String bounds = getAttributValue("bounds", AMDHomePage.objCarouselConetentCard);
 		String b = bounds.replaceAll(",", " ").replaceAll("]", " ");
@@ -8962,24 +8963,24 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		logger.info(Carouseltitle1);
 		extentLoggerPass("Carousel Title", Carouseltitle1);
 		carouselCardsSwipe("LEFT", 1, width, height);
-		
+
 		String pContentLang = ResponseInstance.getContentLanguageForAppMixpanel(userType);
 		Response pageResp = ResponseInstance.getResponseForAppPages(tabName, pContentLang, userType);
 		String carousalName = pageResp.jsonPath().get("buckets[0].title");
 		String carousalid = pageResp.jsonPath().get("buckets[0].id");
 		MixpanelAndroid.FEProp.setProperty("Carousal Name", carousalName);
 		MixpanelAndroid.FEProp.setProperty("Carousal ID", carousalid);
-		
+
 		setFEProperty(userType);
 		setUserType_SubscriptionProperties(userType);
 		SetAppsflyerProperty();
-		
-		if(userType.equalsIgnoreCase("Guest")) {
+
+		if (userType.equalsIgnoreCase("Guest")) {
 			mixpanel.FEProp.setProperty("User Type", "Guest");
 		}
 		mixpanel.FEProp.setProperty("Page Name", "Homepage");
 		mixpanel.FEProp.setProperty("Direction", "RIGHT");
-		
+
 		MixpanelAndroid.ValidateParameter("", "Carousal Banner Swipe");
 	}
 
@@ -11178,28 +11179,28 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		extent.HeaderChildNode("Carousal Banner Click Event for carousel content");
 		waitTime(10000);
 		SelectTopNavigationTab(tabName);
-		
+
 		String contentName = ResponseInstance.getCarouselContentFromAPI3(usertype, tabName);
 		System.out.println(contentName);
 		waitForElementAndClickIfPresent(AMDHomePage.objContentTitle(contentName), 7, "carousal content");
 		waitTime(15000);
 		Back(1);
-		
+
 		String pManufacturer = DeviceDetails.OEM;
-		
+
 		setFEProperty(usertype);
 		setUserType_SubscriptionProperties(usertype);
 		SetAppsflyerProperty();
-		
-		if(usertype.equalsIgnoreCase("Guest")) {
+
+		if (usertype.equalsIgnoreCase("Guest")) {
 			mixpanel.FEProp.setProperty("User Type", "Guest");
 		}
-		
+
 		mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
 		mixpanel.FEProp.setProperty("brand", pManufacturer);
-	
+
 		MixpanelAndroid.FEProp.setProperty("Page Name", "Homepage");
-		
+
 		if (tabName.equalsIgnoreCase("TV Shows") || tabName.equalsIgnoreCase("Web Series")) {
 			mixpanel.FEProp.setProperty("Series", contentName);
 		}
@@ -15950,7 +15951,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("App UTM Term", str);
 		mixpanel.FEProp.setProperty("App isRetargeting", str);
 	}
-	
+
 	public void ThumbnailClickEventValidationFromLandingPage(String usertype, String tabName) throws Exception {
 		extent.HeaderChildNode("Select first content card from " + tabName);
 		System.out.println("\nSelect the first content card from " + tabName);
@@ -15958,10 +15959,11 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		waitTime(10000);
 		SelectTopNavigationTab(tabName);
 		waitTime(10000);
-		
+
 		String contentLang = ResponseInstance.getContentLanguageForAppMixpanel(usertype);
 		System.out.println(contentLang);
-		String trayName = ResponseInstance.getRailNameFromPage_ForThumbnailClickEvent(tabName, usertype,"Thumbnail Click");
+		String trayName = ResponseInstance.getRailNameFromPage_ForThumbnailClickEvent(tabName, usertype,
+				"Thumbnail Click");
 
 		if (tabName.equalsIgnoreCase("Live TV") || tabName.equalsIgnoreCase("News")) {
 			waitTime(5000);
@@ -15969,24 +15971,24 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 		SwipeUntilFindElement(AMDHomePage.objRailName(trayName), "UP");
 		waitTime(3000);
-		if(!(verifyIsElementDisplayed(AMDGenericObjects.objSelectFirstCardFromRailName(trayName)))) {
+		if (!(verifyIsElementDisplayed(AMDGenericObjects.objSelectFirstCardFromRailName(trayName)))) {
 			PartialSwipe("Up", 1);
 		}
 		waitTime(3000);
 		click(AMDGenericObjects.objSelectFirstCardFromRailName(trayName), "Content Card");
 		waitTime(15000);
 		Back(1);
-		
+
 		String pManufacturer = DeviceDetails.OEM;
 
 		setFEProperty(usertype);
 		setUserType_SubscriptionProperties(usertype);
 		SetAppsflyerProperty();
-		
-		if(usertype.equalsIgnoreCase("Guest")) {
+
+		if (usertype.equalsIgnoreCase("Guest")) {
 			mixpanel.FEProp.setProperty("User Type", "Guest");
 		}
-		
+
 		mixpanel.FEProp.setProperty("Page Name", "Homepage");
 		mixpanel.FEProp.setProperty("Player Name", "Kaltura Android");
 		mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
@@ -15994,7 +15996,7 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 
 		mixpanel.ValidateParameter("", "Thumbnail Click");
 	}
-	
+
 	public void ThumbnailClickEventValidationFromConsumptionPage(String usertype, String keyword4, String clipID,
 			String clipContentID) throws Exception {
 		extent.HeaderChildNode("ThumbnailClick Event from consumption page rail");
@@ -16013,37 +16015,36 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		PartialSwipeInConsumptionScreen("UP", 1);
 		waitTime(3000);
 		if (verifyIsElementDisplayed(AMDPlayerScreen.objFirstContentCardTitleInUpNextRail)) {
-			verifyElementPresentAndClick(AMDPlayerScreen.objFirstContentCardTitleInUpNextRail,
-					"Upnext rail content");
+			verifyElementPresentAndClick(AMDPlayerScreen.objFirstContentCardTitleInUpNextRail, "Upnext rail content");
 		}
-		
+
 		waitTime(15000);
 		Back(1);
-		
+
 		Response upNextResp = ResponseInstance.getUpNextContentResponse(clipID, clipContentID);
 		String contentID = upNextResp.jsonPath().getString("items[0].id");
 
 		Response ContentResp = ResponseInstance.getResponseDetails(contentID);
 		ResponseInstance.setFEPropertyOfContentFromAPI2(contentID, ContentResp, "Home");
-		
+
 		String pManufacturer = DeviceDetails.OEM;
 
 		setFEProperty(usertype);
 		setUserType_SubscriptionProperties(usertype);
 		SetAppsflyerProperty();
-		
-		if(usertype.equalsIgnoreCase("Guest")) {
+
+		if (usertype.equalsIgnoreCase("Guest")) {
 			mixpanel.FEProp.setProperty("User Type", "Guest");
 		}
-		
+
 		mixpanel.FEProp.setProperty("Source", "SearchPage");
 		mixpanel.FEProp.setProperty("Page Name", "ConsumptionPage");
 		mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
 		mixpanel.FEProp.setProperty("brand", pManufacturer);
 
-		mixpanel.ValidateParameter("", "Thumbnail Click");	
+		mixpanel.ValidateParameter("", "Thumbnail Click");
 	}
-	
+
 	public void PopupLaunchEventForAccountInfoPopUp(String userType) throws Exception {
 		HeaderChildNode("Popup Launch Event");
 		System.out.println("\nPopup Launch Event");
@@ -16760,7 +16761,6 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		}
 	}
 
-
 	public void playerCTAsEvent(String userType, String keyword) throws Exception {
 		extent.HeaderChildNode("Player CTAs Event");
 		click(AMDSearchScreen.objSearchIcon, "Search icon");
@@ -16772,11 +16772,11 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		click(AMDSearchScreen.objSearchResultFirstContent, "Search result");
 		waitTime(5000);
 		verifyElementPresentAndClick(AMDTVODComboOffer.objRentNowCTAOnPlayer, "Rent Now CTA on Player");
-		
+
 		String contentID = getParameterFromXML("supermoonContentID");
 		Response ContentResp = ResponseInstance.getResponseDetails(contentID);
 		ResponseInstance.setFEPropertyOfContentFromAPI2(contentID, ContentResp, "Home");
-		
+
 		String pManufacturer = DeviceDetails.OEM;
 		setFEProperty(userType);
 		setUserType_SubscriptionProperties(userType);
@@ -16789,12 +16789,12 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Page Name", "ConsumptionPage");
 		mixpanel.FEProp.setProperty("Button Type", "Player");
 		mixpanel.FEProp.setProperty("Element", "SUBSCRIBE");
-		
+
 		mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
 		mixpanel.FEProp.setProperty("brand", pManufacturer);
 
 		mixpanel.ValidateParameter("", "Player CTAs");
-		
+
 	}
 
 	public void RibbonCTAsEvent(String userType, String keyword) throws Exception {
@@ -16808,11 +16808,11 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		click(AMDSearchScreen.objSearchResultFirstContent, "Search result");
 		waitTime(5000);
 		verifyElementPresentAndClick(AMDTVODComboOffer.objRentNowCTABelowPlayer, "Rent Now CTA below the player");
-		
+
 		String contentID = getParameterFromXML("supermoonContentID");
 		Response ContentResp = ResponseInstance.getResponseDetails(contentID);
 		ResponseInstance.setFEPropertyOfContentFromAPI2(contentID, ContentResp, "Home");
-		
+
 		String pManufacturer = DeviceDetails.OEM;
 		setFEProperty(userType);
 		setUserType_SubscriptionProperties(userType);
@@ -16825,45 +16825,45 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		mixpanel.FEProp.setProperty("Page Name", "ConsumptionPage");
 		mixpanel.FEProp.setProperty("Button Type", "Banner");
 		mixpanel.FEProp.setProperty("Element", "Rent Now");
-		
+
 		mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
 		mixpanel.FEProp.setProperty("brand", pManufacturer);
 
 		mixpanel.ValidateParameter("", "Ribbon CTAs");
 	}
-	
+
 	public void ScreenViewEvent(String userType, String tabName) throws Exception {
 		extent.HeaderChildNode("Screen view Event");
 		waitTime(10000);
 		SelectTopNavigationTab(tabName);
-		
+
 		String contentName = ResponseInstance.getCarouselContentFromAPI3(userType, tabName);
 		System.out.println(contentName);
 		waitForElementAndClickIfPresent(AMDHomePage.objContentTitle(contentName), 7, "carousal content");
 		waitTime(15000);
 		Back(1);
-		
+
 		String pManufacturer = DeviceDetails.OEM;
-		
+
 		setFEProperty(userType);
 		setUserType_SubscriptionProperties(userType);
 		SetAppsflyerProperty();
-		
-		if(userType.equalsIgnoreCase("Guest")) {
+
+		if (userType.equalsIgnoreCase("Guest")) {
 			mixpanel.FEProp.setProperty("User Type", "Guest");
 		}
-	
+
 		MixpanelAndroid.FEProp.setProperty("Page Name", "ConsumptionPage");
 		mixpanel.FEProp.setProperty("Source", "Homepage");
 		mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
 		mixpanel.FEProp.setProperty("brand", pManufacturer);
-		
+
 		mixpanel.ValidateParameter("", "Screen View");
 	}
 
 	public void PopUpLaunchEvent(String userType, String keyword) throws Exception {
 		extent.HeaderChildNode("PopUp Launch Event");
-		if(userType.equalsIgnoreCase("Guest")) {
+		if (userType.equalsIgnoreCase("Guest")) {
 			click(AMDSearchScreen.objSearchIcon, "Search icon");
 			click(AMDSearchScreen.objSearchEditBox, "Search Box");
 			type(AMDSearchScreen.objSearchBoxBar, keyword + "\n", "Search bar");
@@ -16875,35 +16875,35 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 			verifyElementPresentAndClick(AMDTVODComboOffer.objRentNowCTABelowPlayer, "Rent Now CTA below the player");
 			waitTime(3000);
 			verifyElementPresentAndClick(AMDTVODComboOffer.objCTABelowTheComboOfferPage, "CTA on Combo offer page");
-			
-	        String pManufacturer = DeviceDetails.OEM;
-			
+
+			String pManufacturer = DeviceDetails.OEM;
+
 			setFEProperty(userType);
 			setUserType_SubscriptionProperties(userType);
 			SetAppsflyerProperty();
-			
-			if(userType.equalsIgnoreCase("Guest")) {
+
+			if (userType.equalsIgnoreCase("Guest")) {
 				mixpanel.FEProp.setProperty("User Type", "Guest");
 			}
-		
+
 			mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
 			mixpanel.FEProp.setProperty("brand", pManufacturer);
 			mixpanel.FEProp.setProperty("Page Name", "Subscription");
 			mixpanel.FEProp.setProperty("Source", "Subscription");
 			mixpanel.FEProp.setProperty("Popup Name", "Account Info");
 			mixpanel.FEProp.setProperty("Popup Type", "native");
-			
+
 			mixpanel.ValidateParameter("", "Popup Launch");
-		}else {
+		} else {
 			logger.info("Not applicable for this UserType");
 			extentLogger("Not Applicable", "Not applicable for this UserType");
 		}
-		
+
 	}
 
-public void PopUpCTAsEvent(String userType, String keyword) throws Exception {
+	public void PopUpCTAsEvent(String userType, String keyword) throws Exception {
 		extent.HeaderChildNode("PopUp CTAs Event");
-		if(userType.equalsIgnoreCase("Guest")) {
+		if (userType.equalsIgnoreCase("Guest")) {
 			click(AMDSearchScreen.objSearchIcon, "Search icon");
 			click(AMDSearchScreen.objSearchEditBox, "Search Box");
 			type(AMDSearchScreen.objSearchBoxBar, keyword + "\n", "Search bar");
@@ -16921,18 +16921,17 @@ public void PopUpCTAsEvent(String userType, String keyword) throws Exception {
 			hideKeyboard();
 			click(AMDLoginScreen.objAccountInfoScreen, "HideKeyboard");
 			click(AMDGenericObjects.objContinueCTA, "Continue button");
-			
-			
-	        String pManufacturer = DeviceDetails.OEM;
-			
+
+			String pManufacturer = DeviceDetails.OEM;
+
 			setFEProperty(userType);
 			setUserType_SubscriptionProperties(userType);
 			SetAppsflyerProperty();
-			
-			if(userType.equalsIgnoreCase("Guest")) {
+
+			if (userType.equalsIgnoreCase("Guest")) {
 				mixpanel.FEProp.setProperty("User Type", "Guest");
 			}
-		
+
 			mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
 			mixpanel.FEProp.setProperty("brand", pManufacturer);
 			mixpanel.FEProp.setProperty("Page Name", "ConsumptionPage");
@@ -16941,13 +16940,120 @@ public void PopUpCTAsEvent(String userType, String keyword) throws Exception {
 			mixpanel.FEProp.setProperty("Popup Type", "Native");
 			mixpanel.FEProp.setProperty("Popup Group", "RENTAL");
 			mixpanel.FEProp.setProperty("Button Type", "Player");
-			
-			
+
 			mixpanel.ValidateParameter("", "Popup CTAs");
-		}else {
+		} else {
 			logger.info("Not applicable for this UserType");
 			extentLogger("Not Applicable", "Not applicable for this UserType");
 		}
-		
+	}
+
+	public void carousalBannerClickEvent(String userType, String tabName) throws Exception {
+		extent.HeaderChildNode("Carousal Banner Click Event");
+		waitTime(10000);
+		SelectTopNavigationTab(tabName);
+
+		String contentName = ResponseInstance.getCarouselContentFromAPI3(userType, tabName);
+		System.out.println(contentName);
+		waitForElementAndClickIfPresent(AMDHomePage.objContentTitle(contentName), 7, "carousal content");
+		waitTime(15000);
+		Back(1);
+
+		String pManufacturer = DeviceDetails.OEM;
+
+		setFEProperty(userType);
+		setUserType_SubscriptionProperties(userType);
+		SetAppsflyerProperty();
+
+		if (userType.equalsIgnoreCase("Guest")) {
+			mixpanel.FEProp.setProperty("User Type", "Guest");
+		}
+
+		String pContentLang = ResponseInstance.getContentLanguageForAppMixpanel(userType);
+		Response pageResp = ResponseInstance.getResponseForAppPages(tabName, pContentLang, userType);
+		String carousalName = pageResp.jsonPath().get("buckets[0].title");
+		String carousalid = pageResp.jsonPath().get("buckets[0].id");
+		MixpanelAndroid.FEProp.setProperty("Carousal Name", carousalName);
+		MixpanelAndroid.FEProp.setProperty("Carousal ID", carousalid);
+
+		mixpanel.FEProp.setProperty("manufacturer", pManufacturer);
+		mixpanel.FEProp.setProperty("brand", pManufacturer);
+		mixpanel.FEProp.setProperty("Page Name", "Homepage");
+		mixpanel.FEProp.setProperty("Source", "Homepage");
+
+		mixpanel.ValidateParameter("", "Carousal Banner Click");
+	}
+
+	public void LoginWithEmailID(String pEmailId, String pPassword) throws Exception {
+		extent.HeaderChildNode("Log into ZEE5 with registered Email account");
+
+		click(AMDHomePage.MoreMenuIcon, "More Menu");
+		click(AMDLoginScreen.objProfileIcon, "Profile icon");
+		verifyElementPresent(AMDLoginScreen.objEmailIdLabel, "Login/Register screen");
+		type(AMDLoginScreen.objEmailIdField, pEmailId, "Email-Id/Phone");
+		hideKeyboard();
+		click(AMDLoginScreen.objProceedBtn, "Proceed button");
+		verifyElementPresent(AMDLoginScreen.objPasswordField, "Password field");
+		type(AMDLoginScreen.objPasswordField, pPassword, "Password");
+		hideKeyboard();
+		click(AMDLoginScreen.objLoginBtn, "Login Button");
+	}
+
+	public void RentalPageCTAEvent(String userType, String keyword, String emailID, String password) throws Exception {
+		extent.HeaderChildNode("Rental Page CTAs Event");
+		if (userType.equalsIgnoreCase("SubscribedUser")) {
+			verifyElementPresentAndClick(AMDHomePage.objMoreMenu, "More Menu");
+			waitTime(5000);
+			verifyElementPresentAndClick(AMDTVODComboOffer.objMyRentalsOption, "My Rental option");
+			verifyElementPresentAndClick(AMDTVODComboOffer.objCTAInMyRentalsPage(keyword), "CTA");
+
+			String contentID = getParameterFromXML("supermoonContentID");
+			Response ContentResp = ResponseInstance.getResponseDetails(contentID);
+			ResponseInstance.setFEPropertyOfContentFromAPI2(contentID, ContentResp, "Home");
+
+			String pManufacturer = DeviceDetails.OEM;
+
+			setFEProperty(emailID, password);
+			SetAppsflyerProperty();
+			ResponseInstance.getRegionDetails();
+			ResponseInstance.getUniqueAndUserID(emailID, password);
+			ResponseInstance.setSubscriptionDetails_NativeAndroid(emailID, password);
+			mixpanel.FEProp.setProperty("User Type", "Premium");
+
+			mixpanel.FEProp.setProperty("Page Name", "MyRentalsPage");
+			mixpanel.FEProp.setProperty("Element", "Rent now");
+			mixpanel.FEProp.setProperty("Button Type", "CTA");
+
+			mixpanel.ValidateParameterForSpecificUser("", "Rental Page CTAs", emailID, password);
+
+		} else {
+			logger.info("Not applicable for this UserType");
+			extentLogger("Not Applicable", "Not applicable for this UserType");
+		}
+	}
+
+	public void CarousalBannerImpression(String userType, String tabName) throws Exception {
+		extent.HeaderChildNode("Carousal Banner Impression Event");
+		SelectTopNavigationTab(tabName);
+		verifyElementExist(AMDHomePage.objCarouselConetentCard, "Carousal Content card");
+		HashSet<String> listOfCarousalContents = new HashSet<String>();
+
+		for (int i = 0; i < 20; i++) {
+			getDriver()
+					.findElement(By.xpath(
+							"(//*[@class='androidx.appcompat.widget.LinearLayoutCompat' and @enabled='true'])[2]"))
+					.click();
+			String contentTitle = getDriver().findElement(By.xpath(
+					"(//*[@resource-id='com.graymatrix.did:id/cell_center_container']/child::*//*[@id='cell_center_container']/child::*)[1]"))
+					.getText();
+			System.out.println(contentTitle);
+			listOfCarousalContents.add(contentTitle);
+			waitTime(3000);
+		}
+		System.out.println(listOfCarousalContents);
+		ArrayList<String> title = new ArrayList<>();
+		title.addAll(listOfCarousalContents);
+
+		mixpanel.fetchEvent2("", "Carousal Banner Impression", title.get(1));
 	}
 }
