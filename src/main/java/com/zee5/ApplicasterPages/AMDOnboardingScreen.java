@@ -192,5 +192,8 @@ public class AMDOnboardingScreen {
 	
 	public static By objZeeLoginRegisterLink = By.xpath("//*[@text='Login/Register for best experience']");
 	
+	public static By AcceptVmaxAppAlert = By.xpath("//*[@id='continue_button']");
 	
+	public static By zeeSkip = By.xpath("//*[@id='skip_link']");
 }
+

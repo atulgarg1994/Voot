@@ -15,6 +15,8 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -26,11 +28,18 @@ public class ParseCharlesLogs {
 	static int colNumber = 0;
 	static ExtentReporter extent = new ExtentReporter();
 
+	public static ArrayList<String> VMAXAdResponseCampaignName = new ArrayList<String>();
+	public static ArrayList<String> VMAXAdResponseCampaignID = new ArrayList<String>();
+	public static ArrayList<String> VMAXAdResponseAdName = new ArrayList<String>();
+	public static ArrayList<String> VMAXAdResponseAdTime = new ArrayList<String>();
+
+	public static int VMAXAdNameIndex = 0;
+
 	@SuppressWarnings("unused")
 	public static void readDocumnet()
 			throws ParserConfigurationException, SAXException, IOException, InterruptedException {
 		ArrayList<String> AllCalls = new ArrayList<String>();
-		File file = new File(System.getProperty("user.dir") +"//"+ CharlesConfigure.charlesName);
+		File file = new File(System.getProperty("user.dir") + "//" + CharlesConfigure.charlesName);
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		dbf.setValidating(false);
 		dbf.setNamespaceAware(true);
@@ -225,67 +234,26 @@ public class ParseCharlesLogs {
 		}
 	}
 
-	
-	@SuppressWarnings("unused")
-	public static void validateVMAXResponse(Document doc) throws ParseException {
-		extent.HeaderChildNode("Validation API Response");
-		ArrayList<String> eachOne = new ArrayList<String>();
-		NodeList node = doc.getElementsByTagName("transaction");
-		System.out.println(node.getLength());
-		System.out.println(node.toString());
-		
+	// VMAX
 
-		
-		for (int i = 0; i < node.getLength(); i++) {
-			 if(node.item(i).getTextContent().contains("/delivery/adapi.php")) {
-				 eachOne.add(node.item(i).getTextContent().trim());
-			 }
-		}
-		String event = "X-VSERV-BODY";
-		for (int j = 0; j < eachOne.size(); j++) {
-			if (eachOne.get(j).contains(event)) {
-				System.out.println("========================================================");
-				System.out.println(event + " is Present");
-				System.out.println("========================================================");
-				String trimString = eachOne.get(j);
-//				System.out.println(trimString);
-
-//				System.out.println(trimString.split("\n")[90]);
-				System.out.println(trimString.split("\n")[91]);
-				String resp = trimString.split("\n")[91];
-
-//				String[] delimiter = trimString.split("\n")[10].split("&");
-//				System.out.println(delimiter.length);
-				
-//				JSONParser parser = new JSONParser();
-//				JSONObject json = (JSONObject) parser.parse(resp);
-//				System.out.println(json.toString());
-				//System.out.println(json.get);
-//				System.out.println(json.get("adInfo"));
-//				String Ad = json.get("adInfo").toString();
-				
-
-			
-				break;
-				
-//				for (int i = 0; i < delimiter.length; i++) {
-//					System.out.println(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
-//					String Key = delimiter[i].split("=")[0];
-//					String Value = delimiter[i].split("=")[1];
-//					String KeyData = Key;
-//					String ValueData = Value.replace("%3D", "=").replace("%26", "&").replace("%2B", "+")
-//							.replace("%3A", ":").replace("%2F", "/");
-//					System.out.println(KeyData+"   "+ValueData);
-//				}
-			}
-		}
+	public static void main(String args[]) throws Exception {
+		System.out.println("VMAX");
+		readVMAXDocumnet();
 	}
-	
+
 	@SuppressWarnings("unused")
 	public static void readVMAXDocumnet()
 			throws ParserConfigurationException, SAXException, IOException, InterruptedException, ParseException {
 		ArrayList<String> AllCalls = new ArrayList<String>();
-		File file = new File("C:\\Users\\IGS0026\\Desktop\\love u ganesha rgstg.chlsx");
+
+		File file = new File(System.getProperty("user.dir") + "//" + CharlesConfigure.charlesName);
+
+		// File file = new File("C:\\Users\\IGS
+		// Admin\\Desktop\\Vmax\\VMAXContentLog_260221150818.chlsx");
+
+		// File file = new File(System.getProperty("user.dir") +"//"+
+		// "VMAXContentLog_2423211808441.chlsx");
+
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		dbf.setValidating(false);
 		dbf.setNamespaceAware(true);
@@ -298,9 +266,186 @@ public class ParseCharlesLogs {
 		doc.getDocumentElement().normalize();
 		validateVMAXResponse(doc);
 	}
-	
-	public static void main(String args[]) throws Exception {
-		System.out.println("VMAX");
-		readVMAXDocumnet();
+
+	@SuppressWarnings("unused")
+	public static void validateVMAXResponse(Document doc) throws ParseException {
+		extent.HeaderChildNode("Validation VMAX Response");
+
+		ArrayList<String> eachOne = new ArrayList<String>();
+		NodeList node = doc.getElementsByTagName("transaction");
+//		System.out.println(node.getLength());
+//		System.out.println(node.toString());
+
+		for (int i = 0; i < node.getLength(); i++) {
+			if (node.item(i).getTextContent().contains("/delivery/adapi.php")) {
+				eachOne.add(node.item(i).getTextContent().trim());
+			}
+		}
+
+		String event = "X-VSERV-BODY";
+		for (int j = 0; j < eachOne.size(); j++) {
+			if (eachOne.get(j).contains(event)) {
+				// System.out.println("========================================================");
+				// System.out.println(event + " is Present");
+				// System.out.println("========================================================");
+				String trimString = eachOne.get(j);
+				// System.out.println(trimString);
+
+				// System.out.println(trimString.split("\n")[90]);
+				// System.out.println(trimString.split("\n")[91]);
+				String resp = null;
+				for (int i = 1; i <= 150; i++) {
+					String data = trimString.split("\n")[i];
+					if (data.equalsIgnoreCase(event)) {
+						int k = i;
+						resp = trimString.split("\n")[k + 1];
+						break;
+					}
+				}
+				try {
+					String resp1 = JSONParseJSONObjectResponse(resp, "adInfo").toString();
+					System.out.println(resp1);
+					// CAMPAIGN
+					String campaignData = JSONParseJSONObjectResponse(resp1, "campaign").toString();
+					String campaignName = JSONParseJSONObjectResponse(campaignData, "name").toString();
+					String campaignID = JSONParseJSONObjectResponse(campaignData, "id").toString();
+
+					// Ad
+					String AdData = JSONParseJSONObjectResponse(resp1, "ad").toString();
+					String AdName = JSONParseJSONObjectResponse(AdData, "name").toString();
+					String AdTime = JSONParseJSONObjectResponse(AdData, "playback-duration").toString();
+
+					extent.extentLogger("", "campaignName : " + campaignName);
+					VMAXAdResponseCampaignName.add(campaignName);
+					extent.extentLogger("", "campaignID : " + campaignID);
+					VMAXAdResponseCampaignID.add(campaignID);
+					extent.extentLogger("", "AdName : " + AdName);
+					VMAXAdResponseAdName.add(AdName);
+					extent.extentLogger("", "AdTime : " + AdTime);
+					VMAXAdResponseAdTime.add(AdTime);
+					extent.extentLogger("",
+							"-------------------------------------------------------------------------");
+				} catch (Exception e) {
+
+				}
+
+				// break;
+
+			}
+		}
+
+		System.out.println(VMAXAdResponseCampaignName);
+		System.out.println(VMAXAdResponseCampaignID);
+		System.out.println(VMAXAdResponseAdName);
+		System.out.println(VMAXAdResponseAdTime);
+
+//		ParseCharlesLogs.VMAXValidation("Baarish","32","Stage Companion Preroll","77237");
+//		ParseCharlesLogs.VMAXValidation("SOS","30","Stage Companion Bumper","77238");		
+//		ParseCharlesLogs.VMAXValidation("Maafia","15","Stage Video MidrollA","77240");
+//		ParseCharlesLogs.VMAXValidation("Yaara","15","Stage Companion MidrollB","77243");
+
 	}
+
+	public static void VMAXValidation(String AdName, String AdTime, String CampaignName, String CampaignID) {
+		boolean flag = false;
+		System.out.println(VMAXAdResponseAdName.size());
+
+		for (int i = 0; i < VMAXAdResponseAdName.size(); i++) {
+			if (VMAXAdResponseAdName.get(i).contains(AdName)) {
+				System.out.println(AdName + " is present");
+				VMAXAdNameIndex = i;
+				flag = true;
+				break;
+			} else {
+				if (i == VMAXAdResponseAdName.size() - 1) {
+					System.out.println("Video FallBack Has Triggered in place of Ad: " + AdName);
+					flag = false;
+				}
+			}
+		}
+
+		// System.out.println(VMAXAdNameIndex);
+
+		extent.extentLogger("", "----------------------------------------------------------------------------------");
+
+		if (flag == true) {
+			if (VMAXAdResponseCampaignName.get(VMAXAdNameIndex).contains(CampaignName)) {
+				System.out.println(CampaignName + " is Present");
+				extent.extentLoggerPass("", CampaignName + " is Present");
+			} else {
+				System.out.println(CampaignName + " is not Present");
+				extent.extentLoggerFail("", CampaignName + " is not Present");
+			}
+
+			if (VMAXAdResponseCampaignID.get(VMAXAdNameIndex).contains(CampaignID)) {
+				System.out.println(CampaignID + " is Present");
+				extent.extentLoggerPass("", CampaignID + " is Present");
+			} else {
+				System.out.println(CampaignID + " is not Present");
+				extent.extentLoggerFail("", CampaignID + " is not Present");
+			}
+
+			if (VMAXAdResponseAdName.get(VMAXAdNameIndex).contains(AdName)) {
+				System.out.println(AdName + " is Present");
+				extent.extentLoggerPass("", AdName + " is Present");
+			} else {
+				System.out.println(AdName + " is not Present");
+				extent.extentLoggerFail("", AdName + " is not Present");
+			}
+
+			if (VMAXAdResponseAdTime.get(VMAXAdNameIndex).contains(AdTime)) {
+				System.out.println(AdTime + " is Present");
+				extent.extentLoggerPass("", AdTime + " is Present");
+			} else {
+				System.out.println(AdTime + " is not Present");
+				extent.extentLoggerFail("", AdTime + " is not Present");
+			}
+		}
+
+		if (flag == false) {
+			if (VMAXAdResponseCampaignName.contains("Video Fallback")) {
+				System.out.println("Video Fallback is Present");
+				extent.extentLoggerPass("", "Video Fallback is Present");
+			} else {
+				System.out.println("Video Fallback is not Present");
+				extent.extentLoggerFail("", "Video Fallback is not Present");
+			}
+
+			if (VMAXAdResponseCampaignID.contains("77239")) {
+				System.out.println("77239 is Present");
+				extent.extentLoggerPass("", "77239 is Present");
+			} else {
+				System.out.println("77239 is not Present");
+				extent.extentLoggerFail("", "77239 is not Present");
+			}
+
+			if (VMAXAdResponseAdName.contains("Mafia_Teaser_14secs")) {
+				System.out.println("Mafia_Teaser is Present");
+				extent.extentLoggerPass("", "Mafia_Teaser is Present");
+			} else {
+				System.out.println("Mafia_Teaser is not Present");
+				extent.extentLoggerFail("", "Mafia_Teaser is not Present");
+			}
+
+			if (VMAXAdResponseAdTime.contains("15")) {
+				System.out.println("15 is Present");
+				extent.extentLoggerPass("", "15 is Present");
+			} else {
+				System.out.println("15 is not Present");
+				extent.extentLoggerFail("", "15 is not Present");
+			}
+
+		}
+
+	}
+
+	public static Object JSONParseJSONObjectResponse(String sourceData, String responseData) throws ParseException {
+
+		JSONParser parser = new JSONParser();
+		JSONObject json = (JSONObject) parser.parse(sourceData);
+		// System.out.println(json.get(responseData));
+		return json.get(responseData);
+
+	}
+
 }

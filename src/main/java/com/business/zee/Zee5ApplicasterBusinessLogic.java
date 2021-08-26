@@ -39877,4 +39877,728 @@ public class Zee5ApplicasterBusinessLogic extends Utilities {
 		}
 	}
 
+	// -------------------------------------------------------VMAX--------------------------------------------------------------
+
+	/**
+	 * Function to Relaunch the driver
+	 */
+	public void relaunchVmax(boolean clearData) throws Exception {
+		HeaderChildNode("Relaunch the app");
+		logger.info("Relaunching the application");
+		extent.extentLogger("Relaunch", "Relaunching the application");
+		waitTime(10000);
+		getDriver().quit();
+		relaunch = clearData;
+		new Zee5ApplicasterBusinessLogic("zeeVmax");
+		if (userType != "Guest" & clearData == false) {
+			System.out.println("Navigates to Landing Sccreen..");
+		}
+	}
+
+	public void AcceptAlertVmax() throws Exception {
+		extent.HeaderChildNode("Access App Alert");
+
+		waitForElementDisplayed(AMDOnboardingScreen.AcceptVmaxAppAlert, 60);
+
+		if (verifyIsElementDisplayed(AMDOnboardingScreen.AcceptVmaxAppAlert, "App Alert")) {
+			verifyElementPresentAndClick(AMDOnboardingScreen.AcceptVmaxAppAlert, "App Alert");
+			waitTime(10000);
+		} else {
+			System.out.println("App Alert Not displayed");
+		}
+	}
+
+	public void ZeeSkip() throws Exception {
+		extent.HeaderChildNode("Skip");
+		if (verifyIsElementDisplayed(AMDOnboardingScreen.zeeSkip, "Zee Skip")) {
+			verifyElementPresentAndClick(AMDOnboardingScreen.zeeSkip, "Zee Skip");
+			waitTime(10000);
+		} else {
+			System.out.println("zeeSkip Not displayed");
+		}
+		waitTime(10000);
+	}
+
+	public void Zee5AppLoginVMAX(String LoginMethod) throws Exception {
+		extent.HeaderChildNode("Login Functionality");
+		waitTime(8000);
+		String UserType = getParameterFromXML("userType");
+		if (UserType.equals("Guest")) {
+			extent.extentLogger("userType", "UserType : Guest");
+		}
+
+//		verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Login link");
+//		waitTime(3000);
+
+		switch (LoginMethod) {
+		case "Guest":
+			extent.HeaderChildNode("Guest User");
+			extent.extentLogger("Accessing the application as Guest user", "Accessing the application as Guest user");
+			waitTime(5000);
+//			hideKeyboard();
+//			verifyElementPresentAndClick(AMDLoginScreen.objLoginLnk, "Skip link");
+
+			waitTime(8000);
+			break;
+
+		case "NonSubscribedUser":
+			extent.HeaderChildNode("Login as NonSubscribed User");
+
+			String Username = getParameterFromXML("NonsubscribedUserName");
+			String Password = getParameterFromXML("NonsubscribedPassword");
+
+			verifyElementPresentAndClick(AMDVMAXAPP.objZeeMoreButton, "More button");
+
+			verifyElementPresentAndClick(AMDVMAXAPP.objZeeLoginRegisterLink, "Login/Register Link");
+
+			verifyElementPresentAndClick(AMDVMAXAPP.objEmailIdField, "Email field");
+			type(AMDVMAXAPP.objEmailIdField, Username, "Email Field");
+			verifyElementPresentAndClick(AMDVMAXAPP.objProceedBtn, "Proceed Button");
+			verifyElementPresentAndClick(AMDVMAXAPP.objPasswordField, "Password Field");
+			type(AMDVMAXAPP.objPasswordField, Password, "Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDVMAXAPP.objLoginBtn, "Login Button");
+			waitTime(10000);
+			break;
+
+		case "SubscribedUser":
+			extent.HeaderChildNode("Login as Subscribed User");
+
+			String SubscribedUsername = getParameterFromXML("SubscribedUserName");
+			String SubscribedPassword = getParameterFromXML("SubscribedPassword");
+
+			verifyElementPresentAndClick(AMDVMAXAPP.objZeeMoreButton, "More button");
+
+			verifyElementPresentAndClick(AMDVMAXAPP.objZeeLoginRegisterLink, "Login/Register Link");
+
+			verifyElementPresentAndClick(AMDVMAXAPP.objEmailIdField, "Email field");
+			type(AMDVMAXAPP.objEmailIdField, SubscribedUsername, "Email Field");
+			verifyElementPresentAndClick(AMDVMAXAPP.objProceedBtn, "Proceed Button");
+			verifyElementPresentAndClick(AMDVMAXAPP.objPasswordField, "Password Field");
+			type(AMDVMAXAPP.objPasswordField, SubscribedPassword, "Password field");
+			hideKeyboard();
+			verifyElementPresentAndClick(AMDVMAXAPP.objLoginBtn, "Login Button");
+			waitTime(10000);
+			break;
+		}
+	}
+
+	public void ValidatePlaybackVMAXAds(String userType, String SearchContent) throws Exception {
+		extent.HeaderChildNode("Validation of Vmax : Ad Pod Video Ads");
+		verifyElementPresent(AMDVMAXAPP.objHomeBottomBtn, "Home Button");
+		waitTime(10000);
+
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+
+			waitTime(10000);
+			waitTime(10000);
+			waitTime(10000);
+
+			click(AMDVMAXAPP.objSearchIcon, "Search icon");
+			waitTime(10000);
+			click(AMDVMAXAPP.objSearchEditBox, "Search Box");
+			waitTime(10000);
+			type(AMDVMAXAPP.objSearchBoxBar, SearchContent + "\n", "Search bar");
+			waitTime(10000);
+			hideKeyboard();
+			waitTime(4000);
+			waitForElementDisplayed(AMDVMAXAPP.objAllTab, 10);
+			waitTime(4000);
+			click(AMDVMAXAPP.objShowsTab, "Shows tab");
+			waitTime(10000);
+			click(AMDVMAXAPP.objSearchResultContainsText(SearchContent), "Search Result");
+
+			// PRE-ROLL
+			waitForElementDisplayed(AMDVMAXAPP.objAd, 20);
+			boolean adPreroll = verifyIsElementDisplayed(AMDVMAXAPP.objAd);
+			if (adPreroll == true) {
+				logger.info("PreRoll Vmax Ad play in progress");
+				extentLoggerPass("Ad", "PreRoll Vmax Ad play in progress");
+				// waitForAdToFinishInAmdVMAX1(AMDVMAXAPP.objAd,"Vmax PreRoll");
+			} else {
+				logger.info("PreRoll Vmax Ad is not available for the content");
+				extent.extentLogger("Ad", "PreRoll Vmax Ad is not available for the content");
+			}
+
+			if (verifyIsElementDisplayed(AMDVMAXAPP.objSubscribeLink)) {
+				extent.extentLoggerPass("", "Subscribe Deeplink is displayed");
+			} else {
+				extent.extentLogger("", "Subscribe Deeplink is not displayed");
+			}
+
+			if (verifyIsElementDisplayed(AMDVMAXAPP.objSkipCTA)) {
+				extent.extentLoggerPass("", "SkipCTA is displayed");
+			} else {
+				extent.extentLogger("", "SkipCTA is not displayed");
+			}
+
+			String AdTime = getAttributValue("text", AMDVMAXAPP.objAdProgressTime);
+			waitForElementDisplayed(AMDVMAXAPP.objAd1, timeToSec(AdTime));
+
+			boolean adPreroll1 = verifyIsElementDisplayed(AMDVMAXAPP.objAd1);
+			if (adPreroll1 == true) {
+				logger.info("PreRoll Bumper Ad play in progress");
+				extentLoggerPass("Ad", "PreRoll Bumper Ad play in progress");
+				waitForAdToFinishInAmdVMAX2(AMDVMAXAPP.objAd1, "Vmax PreRoll Bumper");
+			} else {
+				logger.info("PreRoll Bumper Ad is not available for the content");
+				extent.extentLogger("Ad", "PreRoll Bumper Ad is not available for the content");
+			}
+
+			waitTime(10000);
+			waitTime(10000);
+			System.out.println(userType);
+			if (userType.equalsIgnoreCase("Guest")) {
+				registerPopUpClose();
+			} else {
+
+			}
+
+			if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+				completeProfilePopUpClose();
+			} else {
+
+			}
+
+			waitTime(10000);
+			waitTime(10000);
+
+			if (verifyIsElementDisplayed(AMDVMAXAPP.objPause, "pause icon")) {
+				scrubProgressBarToMid1VMAX(AMDVMAXAPP.objProgressBar);
+			} else {
+				click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+				click(AMDVMAXAPP.objPause, "Pause Icon");
+				scrubProgressBarToMid1VMAX(AMDVMAXAPP.objProgressBar);
+			}
+
+			waitTime(5000);
+			click(AMDVMAXAPP.objPlay, "Play Icon");
+			waitTime(4000);
+
+			// MID-ROLL1
+			boolean adMidRoll = verifyIsElementDisplayed(AMDVMAXAPP.objAd);
+			if (adMidRoll) {
+				logger.info("Mid roll1 Ad play in progress");
+				extent.extentLoggerPass("Ad", "Mid roll1 Ad played in Midroll");
+				waitForAdToFinishInAmdVMAX1(AMDVMAXAPP.objAd, "Vmax midRoll1");
+			} else {
+				logger.info("Mid roll1 Ad is not available for the content");
+				extent.extentLogger("Ad", "Mid roll1 Ad is not available for the content");
+			}
+//			boolean adMidRoll1 = verifyIsElementDisplayed(AMDVMAXAPP.objAd1);
+//			if (adMidRoll1) {
+//				logger.info("Mid roll Ad play in progress");
+//				extent.extentLoggerPass("Ad", "Mid roll Ad played in Midroll");
+//				waitForAdToFinishInAmdVMAX2(AMDVMAXAPP.objAd,"Vmax MidRoll");
+//			} else {
+//				logger.info("Mid roll Ad is not available for the content");
+//				extent.extentLogger("Ad", "Mid roll Ad is not available for the content");
+//			}
+
+			waitTime(10000);
+			if (verifyIsElementDisplayed(AMDVMAXAPP.objPause, "pause icon")) {
+				scrubProgressBarToMid2VMAX(AMDVMAXAPP.objProgressBar);
+			} else {
+				click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+				click(AMDVMAXAPP.objPause, "Pause Icon");
+				scrubProgressBarToMid2VMAX(AMDVMAXAPP.objProgressBar);
+			}
+
+			waitTime(5000);
+			click(AMDVMAXAPP.objPlay, "Play Icon");
+			waitTime(4000);
+
+			// MID-ROLL2
+			boolean adMidRoll2 = verifyIsElementDisplayed(AMDVMAXAPP.objAd);
+			if (adMidRoll2) {
+				logger.info("Mid roll2 Ad play in progress");
+				extent.extentLoggerPass("Ad", "Mid roll2 Ad played in Midroll");
+				waitForAdToFinishInAmdVMAX1(AMDVMAXAPP.objAd, "Vmax midRoll2");
+			} else {
+				logger.info("Mid roll2 Ad is not available for the content");
+				extent.extentLogger("Ad", "Mid roll2 Ad is not available for the content");
+			}
+
+			waitTime(15000);
+			if (verifyIsElementDisplayed(AMDVMAXAPP.objPause, "pause icon")) {
+				scrubProgressBarToMid3VMAX(AMDVMAXAPP.objProgressBar);
+			} else {
+				click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+				click(AMDVMAXAPP.objPause, "Pause Icon");
+				scrubProgressBarToMid3VMAX(AMDVMAXAPP.objProgressBar);
+			}
+
+			waitTime(5000);
+			click(AMDVMAXAPP.objPlay, "Play Icon");
+			waitTime(4000);
+
+			// MID-ROLL3
+			boolean adMidRoll3 = verifyIsElementDisplayed(AMDVMAXAPP.objAd);
+			if (adMidRoll3) {
+				logger.info("Mid roll3 Ad play in progress");
+				extent.extentLoggerPass("Ad", "Mid roll3 Ad played in Midroll");
+				waitForAdToFinishInAmdVMAX1(AMDVMAXAPP.objAd, "Vmax midRoll3");
+			} else {
+				logger.info("Mid roll3 Ad is not available for the content");
+				extent.extentLogger("Ad", "Mid roll3 Ad is not available for the content");
+			}
+
+		} else {
+
+			extent.extentLogger("", "No Ads for Subscribed user");
+
+		}
+	}
+
+	public void ValidatePlaybackVMAXAds2(String userType, String SearchContent) throws Exception {
+		extent.HeaderChildNode("Validation of Vmax : Back to Back Video Ads");
+		verifyElementPresent(AMDVMAXAPP.objHomeBottomBtn, "Home Button");
+		waitTime(10000);
+
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+
+			waitTime(10000);
+			waitTime(10000);
+			waitTime(10000);
+
+			click(AMDVMAXAPP.objSearchIcon, "Search icon");
+			waitTime(10000);
+			click(AMDVMAXAPP.objSearchEditBox, "Search Box");
+			waitTime(10000);
+			type(AMDVMAXAPP.objSearchBoxBar, SearchContent + "\n", "Search bar");
+			waitTime(10000);
+			hideKeyboard();
+			waitTime(4000);
+			waitForElementDisplayed(AMDVMAXAPP.objAllTab, 10);
+			waitTime(4000);
+			waitTime(10000);
+			click(AMDVMAXAPP.objSearchResultContainsText(SearchContent), "Search Result");
+
+			// PRE-ROLL
+			waitForElementDisplayed(AMDVMAXAPP.objAd, 20);
+			boolean adPreroll = verifyIsElementDisplayed(AMDVMAXAPP.objAd);
+			if (adPreroll == true) {
+				logger.info("PreRoll Vmax Ad play in progress");
+				extentLoggerPass("Ad", "PreRoll Vmax Ad play in progress");
+				waitForAdToFinishInAmdVMAX1(AMDVMAXAPP.objAd, "Vmax PreRoll");
+			} else {
+				logger.info("PreRoll Vmax Ad is not available for the content");
+				extent.extentLogger("Ad", "PreRoll Vmax Ad is not available for the content");
+			}
+			boolean adPreroll1 = verifyIsElementDisplayed(AMDVMAXAPP.objAd1);
+			if (adPreroll1 == true) {
+				logger.info("PreRoll Bumper Ad play in progress");
+				extentLoggerPass("Ad", "PreRoll Bumper Ad play in progress");
+				waitForAdToFinishInAmdVMAX2(AMDVMAXAPP.objAd1, "Vmax PreRoll Bumper");
+			} else {
+				logger.info("PreRoll Bumper Ad is not available for the content");
+				extent.extentLogger("Ad", "PreRoll Bumper Ad is not available for the content");
+			}
+
+			waitTime(10000);
+			waitTime(10000);
+			System.out.println(userType);
+			if (userType.equalsIgnoreCase("Guest")) {
+				registerPopUpClose();
+			} else {
+
+			}
+
+			if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+				completeProfilePopUpClose();
+			} else {
+
+			}
+
+			waitTime(10000);
+			waitTime(10000);
+
+			if (verifyIsElementDisplayed(AMDVMAXAPP.objPause, "pause icon")) {
+				scrubProgressBarToMidRollVMAX(AMDVMAXAPP.objProgressBar);
+			} else {
+				click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+				click(AMDVMAXAPP.objPause, "Pause Icon");
+				scrubProgressBarToMidRollVMAX(AMDVMAXAPP.objProgressBar);
+			}
+
+			waitTime(5000);
+			click(AMDVMAXAPP.objPlay, "Play Icon");
+			waitTime(4000);
+
+			// MID-ROLL
+			boolean adMidRoll = verifyIsElementDisplayed(AMDVMAXAPP.objAd);
+			if (adMidRoll) {
+				logger.info("Mid roll Ad play in progress");
+				extent.extentLoggerPass("Ad", "Mid roll Ad played in Midroll");
+				// waitForAdToFinishInAmdVMAX1(AMDVMAXAPP.objAd,"Vmax midRoll");
+			} else {
+				logger.info("Mid roll Ad is not available for the content");
+				extent.extentLogger("Ad", "Mid roll Ad is not available for the content");
+			}
+
+			if (verifyIsElementDisplayed(AMDVMAXAPP.objKnowMoreLink)) {
+				extent.extentLoggerPass("", "Know More Link is displayed");
+			} else {
+				extent.extentLogger("", "Know More Link is not displayed");
+			}
+
+			if (verifyIsElementDisplayed(AMDVMAXAPP.objSkipCTA)) {
+				extent.extentLoggerPass("", "Skip CTA is displayed");
+			} else {
+				extent.extentLogger("", "Skip CTA is not displayed");
+			}
+
+			String AdTime = getAttributValue("text", AMDVMAXAPP.objAdProgressTime);
+			waitForElementDisplayed(AMDVMAXAPP.objAd1, timeToSec(AdTime));
+
+			boolean adMidRoll1 = verifyIsElementDisplayed(AMDVMAXAPP.objAd1);
+			if (adMidRoll1) {
+				logger.info("Mid roll Ad play in progress");
+				extent.extentLoggerPass("Ad", "Mid roll Ad played in Midroll");
+				// waitForAdToFinishInAmdVMAX2(AMDVMAXAPP.objAd,"Vmax MidRoll");
+			} else {
+				logger.info("Mid roll Ad is not available for the content");
+				extent.extentLogger("Ad", "Mid roll Ad is not available for the content");
+			}
+
+			if (verifyIsElementDisplayed(AMDVMAXAPP.objKnowMoreLink)) {
+				extent.extentLoggerPass("", "Know More Link is displayed");
+			} else {
+				extent.extentLogger("", "Know More Link is not displayed");
+			}
+
+			if (verifyIsElementDisplayed(AMDVMAXAPP.objSkipCTA)) {
+				extent.extentLoggerPass("", "Skip CTA is displayed");
+			} else {
+				extent.extentLogger("", "Skip CTA is not displayed");
+			}
+
+		} else {
+
+			extent.extentLogger("", "No Ads for Subscribed user");
+
+		}
+	}
+
+	public void ValidatePlaybackVMAXAds3(String userType, String SearchContent) throws Exception {
+		extent.HeaderChildNode("Validation of Vmax : Back to Back Companion + Video - Companion");
+		verifyElementPresent(AMDVMAXAPP.objHomeBottomBtn, "Home Button");
+		waitTime(10000);
+
+		if (!(userType.equalsIgnoreCase("SubscribedUser"))) {
+
+			waitTime(10000);
+			waitTime(10000);
+			waitTime(10000);
+
+			click(AMDVMAXAPP.objSearchIcon, "Search icon");
+			waitTime(10000);
+			click(AMDVMAXAPP.objSearchEditBox, "Search Box");
+			waitTime(10000);
+			type(AMDVMAXAPP.objSearchBoxBar, SearchContent + "\n", "Search bar");
+			waitTime(10000);
+			hideKeyboard();
+			waitTime(4000);
+			waitForElementDisplayed(AMDVMAXAPP.objAllTab, 10);
+			waitTime(4000);
+			click(AMDVMAXAPP.objShowsTab, "Shows tab");
+			waitTime(10000);
+			click(AMDVMAXAPP.objSearchResultContainsText(SearchContent), "Search Result");
+
+			// PRE-ROLL
+			waitForElementDisplayed(AMDVMAXAPP.objAd, 20);
+			boolean adPreroll = verifyIsElementDisplayed(AMDVMAXAPP.objAd);
+			if (adPreroll == true) {
+				logger.info("PreRoll Vmax Ad play in progress");
+				extentLoggerPass("Ad", "PreRoll Vmax Ad play in progress");
+				// waitForAdToFinishInAmdVMAX1(AMDVMAXAPP.objAd,"Vmax PreRoll");
+			} else {
+				logger.info("PreRoll Vmax Ad is not available for the content");
+				extent.extentLogger("Ad", "PreRoll Vmax Ad is not available for the content");
+			}
+
+			if (verifyIsElementDisplayed(AMDVMAXAPP.objVisitAdvertiserLink)) {
+				extent.extentLoggerPass("", "VisitAdvertiser Deeplink is displayed");
+			} else {
+				extent.extentLogger("", "VisitAdvertiser Deeplink is not displayed");
+			}
+
+			if (verifyIsElementDisplayed(AMDVMAXAPP.objCompanionAdTitle)) {
+				extent.extentLoggerPass("", "Companion Ad Displayed");
+				extent.extentLogger("", "Companion Ad : " + getAttributValue("text", AMDVMAXAPP.objCompanionAdTitle));
+			} else {
+				extent.extentLogger("", "Companion Ad is not displayed");
+			}
+
+			String AdTime = getAttributValue("text", AMDVMAXAPP.objAdProgressTime);
+			waitForElementDisplayed(AMDVMAXAPP.objAd1, timeToSec(AdTime));
+
+			boolean adPreroll1 = verifyIsElementDisplayed(AMDVMAXAPP.objAd1);
+			if (adPreroll1 == true) {
+				logger.info("PreRoll Bumper Ad play in progress");
+				extentLoggerPass("Ad", "PreRoll Bumper Ad play in progress");
+				// waitForAdToFinishInAmdVMAX2(AMDVMAXAPP.objAd1,"Vmax PreRoll Bumper");
+			} else {
+				logger.info("PreRoll Bumper Ad is not available for the content");
+				extent.extentLogger("Ad", "PreRoll Bumper Ad is not available for the content");
+			}
+
+			if (verifyIsElementDisplayed(AMDVMAXAPP.objVisitAdvertiserLink)) {
+				extent.extentLoggerPass("", "VisitAdvertiser Deeplink is displayed");
+			} else {
+				extent.extentLogger("", "VisitAdvertiser Deeplink is not displayed");
+			}
+
+			if (verifyIsElementDisplayed(AMDVMAXAPP.objCompanionAdTitle)) {
+				extent.extentLoggerPass("", "Companion Ad Displayed");
+				extent.extentLogger("", "Companion Ad : " + getAttributValue("text", AMDVMAXAPP.objCompanionAdTitle));
+			} else {
+				extent.extentLogger("", "Companion Ad is not displayed");
+			}
+
+			waitForAdToFinishInAmdVMAX2(AMDVMAXAPP.objAd1, "Vmax PreRoll Bumper");
+
+			waitTime(10000);
+			waitTime(10000);
+			System.out.println(userType);
+			if (userType.equalsIgnoreCase("Guest")) {
+				registerPopUpClose();
+			} else {
+
+			}
+
+			if (userType.equalsIgnoreCase("NonSubscribedUser")) {
+				completeProfilePopUpClose();
+			} else {
+
+			}
+
+			waitTime(10000);
+			waitTime(10000);
+
+			if (verifyIsElementDisplayed(AMDVMAXAPP.objPause, "pause icon")) {
+				scrubProgressBarToMidRollVMAX(AMDVMAXAPP.objProgressBar);
+			} else {
+				click(AMDPlayerScreen.objPlayerScreen, "Player screen");
+				click(AMDVMAXAPP.objPause, "Pause Icon");
+				scrubProgressBarToMidRollVMAX(AMDVMAXAPP.objProgressBar);
+			}
+
+			waitTime(5000);
+			click(AMDVMAXAPP.objPlay, "Play Icon");
+			waitTime(4000);
+
+			// MID-ROLL
+			boolean adMidRoll = verifyIsElementDisplayed(AMDVMAXAPP.objAd);
+			if (adMidRoll) {
+				logger.info("Mid roll Ad play in progress");
+				extent.extentLoggerPass("Ad", "Mid roll Ad played in Midroll");
+				// waitForAdToFinishInAmdVMAX1(AMDVMAXAPP.objAd,"Vmax midRoll");
+			} else {
+				logger.info("Mid roll Ad is not available for the content");
+				extent.extentLogger("Ad", "Mid roll Ad is not available for the content");
+			}
+
+			if (verifyIsElementDisplayed(AMDVMAXAPP.objVisitAdvertiserLink)) {
+				extent.extentLoggerPass("", "VisitAdvertiser Deeplink is displayed");
+			} else {
+				extent.extentLogger("", "VisitAdvertiser Deeplink is not displayed");
+			}
+
+			if (verifyIsElementDisplayed(AMDVMAXAPP.objCompanionAdTitle)) {
+				extent.extentLoggerPass("", "Companion Ad Displayed");
+				extent.extentLogger("", "Companion Ad : " + getAttributValue("text", AMDVMAXAPP.objCompanionAdTitle));
+			} else {
+				extent.extentLogger("", "Companion Ad is not displayed");
+			}
+
+			String AdTime1 = getAttributValue("text", AMDVMAXAPP.objAdProgressTime);
+			waitForElementDisplayed(AMDVMAXAPP.objAd1, timeToSec(AdTime1));
+
+			boolean adMidRoll1 = verifyIsElementDisplayed(AMDVMAXAPP.objAd1);
+			if (adMidRoll1) {
+				logger.info("Mid roll Ad play in progress");
+				extent.extentLoggerPass("Ad", "Mid roll Ad played in Midroll");
+				// waitForAdToFinishInAmdVMAX2(AMDVMAXAPP.objAd,"Vmax MidRoll");
+			} else {
+				logger.info("Mid roll Ad is not available for the content");
+				extent.extentLogger("Ad", "Mid roll Ad is not available for the content");
+			}
+
+			if (verifyIsElementDisplayed(AMDVMAXAPP.objVisitAdvertiserLink)) {
+				extent.extentLoggerPass("", "VisitAdvertiser Deeplink is displayed");
+			} else {
+				extent.extentLogger("", "VisitAdvertiser Deeplink is not displayed");
+			}
+
+			if (verifyIsElementDisplayed(AMDVMAXAPP.objCompanionAdTitle)) {
+				extent.extentLoggerPass("", "Companion Ad Displayed");
+				extent.extentLogger("", "Companion Ad : " + getAttributValue("text", AMDVMAXAPP.objCompanionAdTitle));
+			} else {
+				extent.extentLogger("", "Companion Ad is not displayed");
+			}
+
+			waitForAdToFinishInAmdVMAX2(AMDVMAXAPP.objAd1, "Vmax Mid roll");
+
+			waitTime(10000);
+
+		} else {
+
+			extent.extentLogger("", "No Ads for Subscribed user");
+
+		}
+	}
+
+	public void waitForAdToFinishInAmdVMAX1(By locator, String str) {
+		// waitTime(20000);
+
+		for (int i = 0; i <= 50; i++) {
+			if (verifyIsElementDisplayed(locator)) {
+				System.out.println(str + " Ad is Playing");
+			} else {
+				System.out.println("Ad completed");
+				break;
+			}
+		}
+
+	}
+
+	public void waitForAdToFinishInAmdVMAX2(By locator, String str) {
+		// waitTime(20000);
+
+		for (int i = 0; i <= 50; i++) {
+			if (verifyIsElementDisplayed(locator)) {
+				System.out.println(str + " Ad is Playing");
+			} else {
+				System.out.println("Ad completed");
+				break;
+			}
+		}
+
+	}
+
+	public void scrubProgressBarToMidRollVMAX(By byLocator1) throws Exception {
+
+		// click(AMDPlayerScreen.objPauseIcon, "Pause");
+		WebElement element = getDriver().findElement(byLocator1);
+		Dimension size = element.getSize();
+		Point point = element.getLocation();
+
+		int getX = point.getX();
+		int getY = point.getY();
+		int height = (int) (size.getHeight());
+		int width = (int) (size.getWidth());
+
+		// System.out.println(getX);
+		// System.out.println(getY);
+		// System.out.println(height);
+		// System.out.println(width);
+
+		float midOfWidth = (float) (width * 0.5);
+		int pointX = (int) (getX + midOfWidth);
+		// System.out.println(pointX);
+		float midOfHeight = (float) (height / 2);
+		int pointY = (int) (getY + midOfHeight);
+		// System.out.println(pointY);
+
+		AndroidTouchAction touch = new AndroidTouchAction(getDriver());
+		touch.longPress(LongPressOptions.longPressOptions().withElement(ElementOption.element(element)))
+				.waitAction(WaitOptions.waitOptions(Duration.ofMillis(3000))).moveTo(PointOption.point(pointX, pointY))
+				.release().perform();
+
+	}
+
+	public void scrubProgressBarToMid1VMAX(By byLocator1) throws Exception {
+
+		// click(AMDPlayerScreen.objPauseIcon, "Pause");
+		WebElement element = getDriver().findElement(byLocator1);
+		Dimension size = element.getSize();
+		Point point = element.getLocation();
+
+		int getX = point.getX();
+		int getY = point.getY();
+		int height = (int) (size.getHeight());
+		int width = (int) (size.getWidth());
+
+		// System.out.println(getX);
+		// System.out.println(getY);
+		// System.out.println(height);
+		// System.out.println(width);
+
+		float midOfWidth = (float) (width * 0.3);
+		int pointX = (int) (getX + midOfWidth);
+		// System.out.println(pointX);
+		float midOfHeight = (float) (height / 2);
+		int pointY = (int) (getY + midOfHeight);
+		// System.out.println(pointY);
+
+		AndroidTouchAction touch = new AndroidTouchAction(getDriver());
+		touch.longPress(LongPressOptions.longPressOptions().withElement(ElementOption.element(element)))
+				.waitAction(WaitOptions.waitOptions(Duration.ofMillis(3000))).moveTo(PointOption.point(pointX, pointY))
+				.release().perform();
+
+	}
+
+	public void scrubProgressBarToMid2VMAX(By byLocator1) throws Exception {
+
+		// click(AMDPlayerScreen.objPauseIcon, "Pause");
+		WebElement element = getDriver().findElement(byLocator1);
+		Dimension size = element.getSize();
+		Point point = element.getLocation();
+
+		int getX = point.getX();
+		int getY = point.getY();
+		int height = (int) (size.getHeight());
+		int width = (int) (size.getWidth());
+
+		// System.out.println(getX);
+		// System.out.println(getY);
+		// System.out.println(height);
+		// System.out.println(width);
+
+		float midOfWidth = (float) (width * 0.6);
+		int pointX = (int) (getX + midOfWidth);
+		// System.out.println(pointX);
+		float midOfHeight = (float) (height / 2);
+		int pointY = (int) (getY + midOfHeight);
+		// System.out.println(pointY);
+
+		AndroidTouchAction touch = new AndroidTouchAction(getDriver());
+		touch.longPress(LongPressOptions.longPressOptions().withElement(ElementOption.element(element)))
+				.waitAction(WaitOptions.waitOptions(Duration.ofMillis(3000))).moveTo(PointOption.point(pointX, pointY))
+				.release().perform();
+
+	}
+
+	public void scrubProgressBarToMid3VMAX(By byLocator1) throws Exception {
+
+		// click(AMDPlayerScreen.objPauseIcon, "Pause");
+		WebElement element = getDriver().findElement(byLocator1);
+		Dimension size = element.getSize();
+		Point point = element.getLocation();
+
+		int getX = point.getX();
+		int getY = point.getY();
+		int height = (int) (size.getHeight());
+		int width = (int) (size.getWidth());
+
+		// System.out.println(getX);
+		// System.out.println(getY);
+		// System.out.println(height);
+		// System.out.println(width);
+
+		float midOfWidth = (float) (width * 0.8);
+		int pointX = (int) (getX + midOfWidth);
+		// System.out.println(pointX);
+		float midOfHeight = (float) (height / 2);
+		int pointY = (int) (getY + midOfHeight);
+		// System.out.println(pointY);
+
+		AndroidTouchAction touch = new AndroidTouchAction(getDriver());
+		touch.longPress(LongPressOptions.longPressOptions().withElement(ElementOption.element(element)))
+				.waitAction(WaitOptions.waitOptions(Duration.ofMillis(3000))).moveTo(PointOption.point(pointX, pointY))
+				.release().perform();
+
+	}
+
 }
