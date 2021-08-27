@@ -46,7 +46,7 @@ public class AMDVmaxTestScripts {
 
 	@Test(priority = 2)
 	@Parameters({ "userType", "VmaxData2" })
-	public void BackToBackVideoAdsANDVideoCompanionValidation(String userType, String SearchData) throws Exception {
+	public void BackToBackVideoAdsValidation(String userType, String SearchData) throws Exception {
 		System.out.println("Vmax : Back to Back Video Ads");
 		zee5ApplicasterBusinessLogic.relaunchVmax(true);
 		CharlesConfigure.clearCharlesLog();
@@ -70,7 +70,7 @@ public class AMDVmaxTestScripts {
 
 	@Test(priority = 3)
 	@Parameters({ "userType", "VmaxData3" })
-	public void BackToBackCompanionValidation(String userType, String SearchData) throws Exception {
+	public void BackToBackCompanionANDVideoCompanionValidation(String userType, String SearchData) throws Exception {
 		System.out.println("Vmax : Back to Back Companion + Video - Companion");
 		zee5ApplicasterBusinessLogic.relaunchVmax(true);
 		CharlesConfigure.clearCharlesLog();

@@ -302,6 +302,7 @@ public class ParseCharlesLogs {
 						break;
 					}
 				}
+				
 				try {
 					String resp1 = JSONParseJSONObjectResponse(resp, "adInfo").toString();
 					System.out.println(resp1);
