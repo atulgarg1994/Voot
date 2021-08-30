@@ -159,6 +159,9 @@ public class ParameterInjector implements IAlterSuiteListener {
 			params.put("SubscribedUserName599", suite.getParameter("SubscribedUserName599"));
 			params.put("SubscribedPassword599", suite.getParameter("SubscribedPassword599"));
 			
+			params.put("SubscribedUserName999", suite.getParameter("SubscribedUserName999"));
+			params.put("SubscribedPassword999", suite.getParameter("SubscribedPassword999"));
+			
 		}
 		if (region.equals("MH")) {
 			params.put("searchModuleSearchKey", "Kundali Bhagya");
@@ -257,6 +260,8 @@ public class ParameterInjector implements IAlterSuiteListener {
 			//599
 			params.put("SubscribedUserName599", suite.getParameter("SubscribedUserName599"));
 			params.put("SubscribedPassword599", suite.getParameter("SubscribedPassword599"));
+			params.put("SubscribedUserName999", suite.getParameter("SubscribedUserName999"));
+			params.put("SubscribedPassword999", suite.getParameter("SubscribedPassword999"));
 		}
 		suite.setParameters(params);
 	}

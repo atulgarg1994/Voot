@@ -282,5 +282,34 @@ public class PWAComboOfferPage {
 	public static By objSharebelowPlayer=By.xpath("//div[@class='channelConsumptionMetaDiv']/child::*/child::*//*[@title='Share']");
 	public static By objLiveTVTVODItem(String title) {
 			return By.xpath("//*[text()='" + title  + "']/parent::*/parent::*/following-sibling::*//button");
-		}
+	}
+	
+	public static By objplexlogoOnInSearchResultCard(String contentTitle) {
+		return By.xpath("//*[@class='cardZeeFlexIconContainerSearch']/ancestor::*[@class='metaData']//*[contains(text(),'"+contentTitle+"')]");
+	}
+	
+	public static By objUpgradeComboText=By.xpath("//div[@class='titleAndSubtitle']//span[@class='title']");
+	
+	public static By objYouHaveAlreadyRentedTxt =By.xpath("(//div[@class='titleAndSubtitle']//ul//li)[2]");
+	
+	public static By objFirstContentCardNameAfterSearch = By
+				.xpath("(//h3[contains(@class,'cardTitle')]//parent::div//preceding-sibling::figure//a)[1]");
+	
+	public static By objWactchOrResumeCTAInRentals(String ContentTitle) {
+		return By.xpath("//div[@class='plexItemWrap']//*[text()='"+ContentTitle+"']/parent::*/parent::*/following-sibling::*//button//span");
+	}
+
+	public static By objWactchOrResumeCTAInZeeplex(String ContentTitle) {
+		return By.xpath("//div[@class='tvodCardContainer']//*[text()='"+ContentTitle+"']/parent::*/parent::*/following-sibling::*//span[text()='Resume' or 'Watch Now']");
+	}
+	
+	public static By objYouCurrentlyText = By.xpath("");
+	
+	public static By objSearchedFirstContentName = By.xpath("");
+	
+	public static By objZeeplexTitle(String s) {
+		return By.xpath("");
+	}
+	
+	
 }

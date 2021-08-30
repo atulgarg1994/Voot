@@ -637,5 +637,9 @@ public class PWASubscriptionPages {
 
 	public static By objProceedBtnHighlighted = By.xpath("//*[contains(@class, 'noSelect buttonGradient')]/span");
 
-	public static By objUISymbol = By.xpath("(//*[@class='circle'])[4]");
+	public static By objUISymbol = By.xpath("(//*[@class='circle'])[4]");public static By objProceedBtnGuestCheckOut = By.xpath("//*[contains(@class,'buttonContainer')]//button//span");
+	
+	public static By objZeeplexTitle(String contentTitle) {
+			return By.xpath("//div[@class='tvodCardContainer']//*[text()='"+contentTitle+"']");
+	}
 }

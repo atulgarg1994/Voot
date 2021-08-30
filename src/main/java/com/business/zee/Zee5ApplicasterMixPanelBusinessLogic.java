@@ -17053,7 +17053,9 @@ public class Zee5ApplicasterMixPanelBusinessLogic extends Utilities {
 		System.out.println(listOfCarousalContents);
 		ArrayList<String> title = new ArrayList<>();
 		title.addAll(listOfCarousalContents);
-
-		mixpanel.fetchEvent2("", "Carousal Banner Impression", title.get(1));
+		
+		mixpanel.fetchEvent2("", "Carousal Banner Impression", title);
 	}
+	
+	
 }

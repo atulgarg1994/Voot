@@ -112,6 +112,10 @@
 	<!--   Premium user with 1 year(>499 plan price ) and 6 months Plan + Supermoon Active User Plan--> 
 	<parameter name="1yearPremium6MSupermoonUser" value="1yearsupermoonactive@mailnesia.com"/>
 	<parameter name="1yearPremium6MSupermoonPassword" value="123456"/>
+	
+	<!--  Subscribed User 999 Plan--> 
+	<parameter name="SubscribedUserName999" value="zeetest239@gmail.com"/>
+	<parameter name="SubscribedPassword999" value="123456"/>
 
 	<listeners>
 		<listener class-name="com.extent.ExtentReporter" />

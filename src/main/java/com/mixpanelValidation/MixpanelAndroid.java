@@ -1294,7 +1294,7 @@ public static void SubcribedDetails(String username, String password) throws Par
 		fetchUserdata = false;
 	}
 
-	public static void fetchEvent2(String distinct_id, String eventName, String contentTitle)
+	public static void fetchEvent2(String distinct_id, String eventName, ArrayList<String> title)
 			throws JsonParseException, JsonMappingException, IOException {
 		try {
 			Thread.sleep(180000);
@@ -1340,7 +1340,14 @@ public static void SubcribedDetails(String username, String password) throws Par
 		sheet = eventName.trim().replace(" ", "").replace("/", "");
 		if (request.toString() != null) {
 			if (platform.equals("Android")) {
-				parseResponse(getEvent(request, contentTitle));
+				
+				parseResponse(getEvent(request, title.get(0)));
+				parseResponse(getEvent(request, title.get(1)));
+				parseResponse(getEvent(request, title.get(2)));
+				parseResponse(getEvent(request, title.get(3)));
+				parseResponse(getEvent(request, title.get(4)));
+				parseResponse(getEvent(request, title.get(5)));
+				parseResponse(getEvent(request, title.get(6)));
 			} else {
 				String response = request.asString();
 				String s[] = response.split("\n");
@@ -1353,6 +1360,7 @@ public static void SubcribedDetails(String username, String password) throws Par
 //				return;
 //			}
 			}
+			
 			// validation(eventName);
 		} else {
 			System.out.println("Event not triggered");
@@ -1370,11 +1378,17 @@ public static void SubcribedDetails(String username, String password) throws Par
 			var = s[i].contains(contentTitle);
 			if (var == true) {
 				System.out.println("i :" + i);
-				System.out.println(contentTitle);
+				System.out.println("Event is triggered for Content title: "+contentTitle);
+				extent.extentLoggerPass("","Event is triggered for Content title: "+contentTitle);
 				break;
 			}
 		}
+		if(var = false) {
+			System.out.println("Event is not triggered for Content title: "+contentTitle);
+			extent.extentLoggerFail("","Event is not triggered for Content title: "+contentTitle);
+		  }
 		return "";
 	}
+
 
 }

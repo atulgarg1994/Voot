@@ -1146,7 +1146,8 @@ public class WebPWAInSprintScript {
 		Zee5WEBPWASanityBusinessLogic.componentsInRentalAndWatchTimeForAnypacklessThan499withSupermoonActiveUser(userType);
 	}
 	
-	@Test(priority=178, groups = {"sprint77"})
+//	@Test(priority=178, groups = {"sprint77"})
+	//There is no expired tvod content currently (dated 27 aug)
 	@Parameters({ "userType" })
 	public void activeAndExpiryInRentalAndWatchTimeForAnypacklessThan499withSupermoonActiveUser(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.activeAndExpiryInRentalAndWatchTimeForAnypacklessThan499withSupermoonActiveUser(userType);
@@ -1156,19 +1157,19 @@ public class WebPWAInSprintScript {
 	@Test(priority=179, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void VideoTVODContentInContinueWatchingTrayForAnypacklessThan499withSupermoonActiveUser(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.VideoTVODContentInContinueWatchingTrayForAnypacklessThan499withSupermoonActiveUser(userType , "Videocontent");
+		Zee5WEBPWASanityBusinessLogic.VideoTVODContentInContinueWatchingTrayForAnypacklessThan499withSupermoonActiveUser(userType , "Binge Holidays!  - December Calendar Launch");
 	}
 	
 	@Test(priority=180, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void shareFunctionalitySupermoonForAnypacklessThan499withSupermoonActiveUser(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.shareFunctionalitySupermoonForAnypacklessThan499withSupermoonActiveUser(userType, "Livecontent");;
+		Zee5WEBPWASanityBusinessLogic.shareFunctionalitySupermoonForAnypacklessThan499withSupermoonActiveUser(userType, "Demo Moon Live");;
 	}
 	
 	@Test(priority=181, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void watchlistFunctionalityForAnypacklessThan499withSupermoonActiveUser(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.watchlistFunctionalityForAnypacklessThan499withSupermoonActiveUser(userType , "Livecontent");;
+		Zee5WEBPWASanityBusinessLogic.watchlistFunctionalityForAnypacklessThan499withSupermoonActiveUser(userType , "Demo Moon Live");;
 	}
 	
 	
@@ -1178,7 +1179,8 @@ public class WebPWAInSprintScript {
 		Zee5WEBPWASanityBusinessLogic.VeerifyEPGSectionForAnypacklessThan499withSupermoonActiveUser(userType);
 	}
 	
-	@Test(priority=183, groups = {"sprint77"})
+//@Test(priority=183, groups = {"sprint77"})
+	//no  data
 	@Parameters({ "userType" })
 	public void VeerifyEPGSectionForoneYearPremium6MSupermoonUser(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.VeerifyEPGSectionForoneYearPremium6MSupermoonUser(userType);;
@@ -1199,26 +1201,27 @@ public class WebPWAInSprintScript {
 	@Test(priority=186, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void metaInfoForVideoTVODConsumptionForAnypacklessThan499withSupermoonActive(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.metaInfoForVideoTVODConsumptionForAnypacklessThan499withSupermoonActive(userType , "Videoname");
+		Zee5WEBPWASanityBusinessLogic.metaInfoForVideoTVODConsumptionForAnypacklessThan499withSupermoonActive(userType , "Binge Holidays!  - December Calendar Launch");
 	}
 	
 	
 	@Test(priority=187, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void clickOnWatchListForVideoTVODConsumptionForAnypacklessThan499withSupermoonActive(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.clickOnWatchListForVideoTVODConsumptionForAnypacklessThan499withSupermoonActive(userType , "Videoname");
+		Zee5WEBPWASanityBusinessLogic.clickOnWatchListForVideoTVODConsumptionForAnypacklessThan499withSupermoonActive(userType , "Binge Holidays!  - December Calendar Launch");
 	}
 	
 	@Test(priority=189, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void VerifyInWatchListForVideoTVODConsumptionAnypacklessThan499withSupermoonActive(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.VerifyInWatchListForVideoTVODConsumptionAnypacklessThan499withSupermoonActive(userType , "Videoname");;
+		Zee5WEBPWASanityBusinessLogic.VerifyInWatchListForVideoTVODConsumptionAnypacklessThan499withSupermoonActive(userType , "Binge Holidays!  - December Calendar Launch");;
 	}
 	
 	@Test(priority=190, groups = {"sprint77"})
 	@Parameters({ "userType" })
+	
 	public void VerifyPreRollAdForLiveTVODContentAnypacklessThan499withSupermoonActive(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.VerifyPreRollAdForLiveTVODContentAnypacklessThan499withSupermoonActive(userType , "LiveTvod");
+		Zee5WEBPWASanityBusinessLogic.VerifyPreRollAdForLiveTVODContentAnypacklessThan499withSupermoonActive(userType , "Demo Moon Live");
 	}
 	
 	@Test(priority=191, groups = {"sprint77"})
@@ -1230,51 +1233,55 @@ public class WebPWAInSprintScript {
 	@Test(priority=192, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void PreAndMidRollAdsForExclusiveVODContentAnypacklessThan499withSupermoonActive(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.PreAndMidRollAdsForExclusiveVODContentAnypacklessThan499withSupermoonActive(userType , "Videoname");
+		Zee5WEBPWASanityBusinessLogic.PreAndMidRollAdsForExclusiveVODContentAnypacklessThan499withSupermoonActive(userType , "Binge Holidays!  - December Calendar Launch");
 	}
 	
 	
 	@Test(priority=193, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void PostRollAdsForExclusiveVODContentAnypacklessThan499withSupermoonActive(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.PostRollAdsForExclusiveVODContentAnypacklessThan499withSupermoonActive(userType , "Videoname");
+		Zee5WEBPWASanityBusinessLogic.PostRollAdsForExclusiveVODContentAnypacklessThan499withSupermoonActive(userType , "Binge Holidays!  - December Calendar Launch");
 	}
 	
 	@Test(priority=194, groups = {"sprint77"})
 	@Parameters({ "userType" })
+	
 	public void noAdsForSVODContentExceptLiveTVODContent(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.noAdsForSVODContentExceptLiveTVODContent(userType , "SVodContent" , "LivevodContent");
+		Zee5WEBPWASanityBusinessLogic.noAdsForSVODContentExceptLiveTVODContent(userType , "Tanu Tries to Manipulate Abhi" , "Demo Moon Live");
 	}
 	
 	@Test(priority=195, groups = {"sprint77"})
 	@Parameters({ "userType" })
+	
 	public void noAdsForSVODContentExceptVideoTVODContent(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.noAdsForSVODContentExceptVideoTVODContent(userType , "SVodContent" , "LivevodContent");
+		Zee5WEBPWASanityBusinessLogic.noAdsForSVODContentExceptVideoTVODContent(userType , "Tanu Tries to Manipulate Abhi" , "Demo Moon Live");
 	}
 	
 	@Test(priority=196, groups = {"sprint77"})
 	@Parameters({ "userType" })
+	
 	public void playAndPauseForLiveTvTVODContentAnypacklessThan499withSupermoonActive(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.playAndPauseForLiveTvTVODContentAnypacklessThan499withSupermoonActive(userType , "LivevodContent");
+		Zee5WEBPWASanityBusinessLogic.playAndPauseForLiveTvTVODContentAnypacklessThan499withSupermoonActive(userType);
 	}
 	
 	@Test(priority=197, groups = {"sprint77"})
 	@Parameters({ "userType" })
+	
 	public void noPlayerFunctionalityForLiveTVContentAnypacklessThan499withSupermoonActive(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.noPlayerFunctionalityForLiveTVContentAnypacklessThan499withSupermoonActive(userType , "LivevodContent");
+		Zee5WEBPWASanityBusinessLogic.noPlayerFunctionalityForLiveTVContentAnypacklessThan499withSupermoonActive(userType , "Demo Moon Live");
 	}
 	
 	
 	@Test(priority=198, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void verifyLiveTvTagForLiveTVContentAnypacklessThan499withSupermoonActive(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.verifyLiveTvTagForLiveTVContentAnypacklessThan499withSupermoonActive(userType , "LivevodContent");
+		Zee5WEBPWASanityBusinessLogic.verifyLiveTvTagForLiveTVContentAnypacklessThan499withSupermoonActive(userType , "Demo Moon Live");
 	}
-	
+
 	@Test(priority=199, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void VerifyPlayerControlsForVideoTVODConsumptionAnypacklessThan499withSupermoonActive(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.VerifyPlayerControlsForVideoTVODConsumptionAnypacklessThan499withSupermoonActive(userType , "Videoname");;
+		Zee5WEBPWASanityBusinessLogic.VerifyPlayerControlsForVideoTVODConsumptionAnypacklessThan499withSupermoonActive(userType , "Binge Holidays!  - December Calendar Launch");;
 	}
 	
 	@Test(priority=200, groups = {"sprint77"})
@@ -1341,19 +1348,19 @@ public class WebPWAInSprintScript {
 	@Test(priority=210, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void SuperMoonContentInSearchResult(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.SuperMoonContentInSearchResult(userType);;
+		Zee5WEBPWASanityBusinessLogic.SuperMoonContentInSearchResult(userType,"Demo Moon Live");;
 	}
 	
 	@Test(priority=211, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void SuperMoonContentInZeeplex(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.SuperMoonContentInZeeplex(userType);
+		Zee5WEBPWASanityBusinessLogic.SuperMoonContentInZeeplex(userType,"Demo Moon Live");
 	}
 	
 	@Test(priority=212, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void SuperMoonExclusiveContentInSearchResult(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.SuperMoonExclusiveContentInSearchResult(userType );
+		Zee5WEBPWASanityBusinessLogic.SuperMoonExclusiveContentInSearchResult(userType,"Binge Holidays! - December Calendar Launch");
 	}
 	
 	
@@ -1369,7 +1376,8 @@ public class WebPWAInSprintScript {
 		Zee5WEBPWASanityBusinessLogic.UpgradeToSupermoonPack(userType);;
 	}
 	
-	@Test(priority=215, groups = {"sprint77"})
+	//@Test(priority=215, groups = {"sprint77"})
+		//no locator for loading
 	@Parameters({ "userType" })
 	public void LoadingInSubscription(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.LoadingInSubscription(userType);;
@@ -1378,7 +1386,7 @@ public class WebPWAInSprintScript {
 	@Test(priority=216, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void ComboOfferPageThroughSearchResult(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.ComboOfferPageThroughSearchResult(userType);
+		Zee5WEBPWASanityBusinessLogic.ComboOfferPageThroughSearchResult(userType,"Demo Moon Live");
 	}
 	
 	@Test(priority=217, groups = {"sprint77"})
@@ -1527,7 +1535,7 @@ public class WebPWAInSprintScript {
 	@Test(priority=240, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void paymentModeScreeWithin3seconds(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.paymentModeScreeWithin3seconds(userType , "LiveTvodContent");
+		Zee5WEBPWASanityBusinessLogic.paymentModeScreeWithin3seconds(userType);
 	}
 	
 	@Test(priority=241, groups = {"sprint77"})
@@ -1559,19 +1567,19 @@ public class WebPWAInSprintScript {
 	@Test(priority=245, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void PaymentPageWithin15seconds(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.PaymentPageWithin15seconds(userType , "LiveTvodContent");
+		Zee5WEBPWASanityBusinessLogic.PaymentPageWithin15seconds(userType);
 	}
-	
-	@Test(priority=246, groups = {"sprint77"})
+
+//	@Test(priority=246, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void VerifyExclusiveVodContentInRail(String userType) throws Exception {
 		Zee5WEBPWASanityBusinessLogic.VerifyExclusiveVodContentInRail(userType);
 	}
-	
+
 	@Test(priority=247, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void EventNameInSearchResult(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.EventNameInSearchResult(userType);
+		Zee5WEBPWASanityBusinessLogic.EventNameInSearchResult(userType,"Demo moon Live");
 	}
 	
 	@Test(priority=248, groups = {"sprint77"})
