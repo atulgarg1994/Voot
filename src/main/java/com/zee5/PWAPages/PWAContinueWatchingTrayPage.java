@@ -17,5 +17,5 @@ public class PWAContinueWatchingTrayPage {
 	}
 	public static By objCloseContent = By.xpath("(//div[@class='removeBtn iconInitialLoad-ic_close'])[1]");
 	
-	public static By objContinueTrayItems = By.xpath("");
+	public static By objContinueTrayItems=By.xpath("//div[@class='continueOverlay']//h3[@class='cardTitle']");
 }

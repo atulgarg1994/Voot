@@ -1056,26 +1056,25 @@ public class WebPWAInSprintScript {
 	@Test(priority=162, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void playAndPauseForLiveTvTVODContent(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.playAndPauseForLiveTvTVODContent(userType,  "LiveTvodcontent");
+		Zee5WEBPWASanityBusinessLogic.playAndPauseForLiveTvTVODContent(userType,  "Demo Moon Live");
 	}
-	
+
 	@Test(priority=163, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void noPlayerFunctionalityForLiveTVContent(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.noPlayerFunctionalityForLiveTVContent(userType ,"LiveTvodcontent" );;
+		Zee5WEBPWASanityBusinessLogic.noPlayerFunctionalityForLiveTVContent(userType ,"Demo Moon Live" );;
 	}
-	
+
 	@Test(priority=164, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void verifyLiveTvTagForLiveTVContent(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.verifyLiveTvTagForLiveTVContent(userType , "LiveTvodcontent");;
+		Zee5WEBPWASanityBusinessLogic.verifyLiveTvTagForLiveTVContent(userType , "Demo Moon Live");;
 	}
-	
 	
 	@Test(priority=165, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void VerifyPlayerControlsForVideoTVODConsumption(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.VerifyPlayerControlsForVideoTVODConsumption(userType , "videoname");
+		Zee5WEBPWASanityBusinessLogic.VerifyPlayerControlsForVideoTVODConsumption(userType , "Binge Holidays!  - December Calendar Launch");
 	}
 	
 	@Test(priority=166, groups = {"sprint77"})
@@ -1287,13 +1286,13 @@ public class WebPWAInSprintScript {
 	@Test(priority=200, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void noAdsForSubscribedUsersForPremiumContents(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.noAdsForSubscribedUsersForPremiumContents(userType , "Premiumcontent");;
+		Zee5WEBPWASanityBusinessLogic.noAdsForSubscribedUsersForPremiumContents(userType , "Hero");;
 	}
 	
 	@Test(priority=201, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void VerifyChromeCastForVideoTVODorLiveTv(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.VerifyChromeCastForVideoTVODorLiveTv(userType , "TVODContent");
+		Zee5WEBPWASanityBusinessLogic.VerifyChromeCastForVideoTVODorLiveTv(userType , "Binge Holidays!  - December Calendar Launch");
 	}
 	
 	@Test(priority=202, groups = {"sprint77"})
@@ -1329,14 +1328,15 @@ public class WebPWAInSprintScript {
 	@Test(priority=207, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void noPlexLogoForSearchedLiveTVTvodResult(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.noPlexLogoForSearchedLiveTVTvodResult(userType , "LiveTvodContent");
+		Zee5WEBPWASanityBusinessLogic.navigateHome();
+		Zee5WEBPWASanityBusinessLogic.noPlexLogoForSearchedLiveTVTvodResult(userType , "Demo Moon Live");
 	}
-	
 	
 	@Test(priority=208, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void streamedLiveContentOnAug21(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.streamedLiveContentOnAug21(userType , "LiveTvodContent");
+		Zee5WEBPWASanityBusinessLogic.navigateHome();
+		Zee5WEBPWASanityBusinessLogic.streamedLiveContentOnAug21(userType , "Demo Moon Live");
 	}
 	
 	@Test(priority=209, groups = {"sprint77"})
@@ -1529,7 +1529,7 @@ public class WebPWAInSprintScript {
 	@Test(priority=239, groups = {"sprint77"})
 	@Parameters({ "userType" })
 	public void consumptionPageclickingOnWatchCTAFor749users(String userType) throws Exception {
-		Zee5WEBPWASanityBusinessLogic.consumptionPageclickingOnWatchCTAFor749users(userType , "LiveTvodContent");
+		Zee5WEBPWASanityBusinessLogic.consumptionPageclickingOnWatchCTAFor749users(userType , "Demo Moon Live");
 	}
 	
 	@Test(priority=240, groups = {"sprint77"})

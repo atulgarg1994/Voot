@@ -225,7 +225,6 @@ public class PWAHamburgerMenuPage {
 	}
 
 	public static By objWEBMyAccount = By.xpath("(//h5[.='My Account'])[2]");
-	public static By objMyTransactionAutoRenewalStatus = By.xpath("(//div[@class='billRow']//p[2])[5]");
 
 	public static By objMyProfileOptionsWEB(String OptionName) {
 		return By.xpath("//*[contains(@class,'noSelect menuItem')][contains(text(),'" + OptionName + "')]");
@@ -1021,15 +1020,7 @@ public class PWAHamburgerMenuPage {
 	
 	public static By objupcomingTrailer=By.xpath("");
 	
-	public static By objWatchFilmsBeforeTheatre=By.xpath("//*[@class='plexBannerDescription']");
-	public static By objZeeplexSubscriptionText=By.xpath("//*[@class='plexZee5SubscriptionText']");
-	
 	public static By objNowShowingTray=By.xpath("//h2[text()='Now Showing']");
-	
-	public static By objSubscriptionCardTitle=By.xpath("//div[@class='subscriptionItem']//h2[@class='packName']");
-
-	public static By objZeeplexlogo=By.xpath("//img[@class='plexLandingPageLogo']");
-	public static By objRentAndWatch=By.xpath("//*[@class='planLandingPageHeader']");
 	
 	public static By objActivateNowButtonEnabled=By.xpath("//button[contains(@class,'noSelect buttonGradient')]//span");
 	public static By objActivateNowButtonDisabled=By.xpath("//button[@disabled]//span");
@@ -1052,4 +1043,12 @@ public class PWAHamburgerMenuPage {
 	public static By objupiproceedtopay=By.xpath("//*[@class='linearLayout sidebarItem_content sidebarItem_content_addupi']//following-sibling::*//article[text()='Verify']");
 
 	public static By objupiarrow = By.xpath("//img[contains(@src,'round')]");
+	
+	public static By objSubscriptionCardTitle=By.xpath("//div[@class='subscriptionItem']//h2[@class='packName']");
+	public static By objZeeplexlogo=By.xpath("//img[@class='plexLandingPageLogo']");
+		public static By objRentAndWatch=By.xpath("//*[@class='planLandingPageHeader']");
+	public static By objHowItWorksInKannada=By.xpath("//*[@class='buttonContainer ']//span[text()='ಇದು ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ?']");
+	public static By objWatchFilmsBeforeTheatre=By.xpath("//*[@class='plexBannerDescription']");
+		public static By objZeeplexSubscriptionText=By.xpath("//*[@class='plexZee5SubscriptionText']");
+	public static By objMyTransactionAutoRenewalStatus = By.xpath("(//div[@class='billRow']//p[2])[5]");
 }
